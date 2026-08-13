@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dq4h6uwraybej"]
+
+[ext_resource type="ArrayMesh" uid="uid://bxgxsei6nl1ty" path="res://3dModelos/SM_Prop_Sunflower_02.fbx" id="1_3vnp0"]
+[ext_resource type="Script" uid="uid://b36kfx8jaehrg" path="res://scripts/sunflowers_patch.gd" id="1_eg1uo"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_eg1uo"]
+[ext_resource type="ArrayMesh" uid="uid://dmfhf0evtxy7b" path="res://3dModelos/SM_Prop_Sunflower_01.fbx" id="2_we8r4"]
+
+[node name="Root" type="Node3D" unique_id=1488482363]
+script = ExtResource("1_eg1uo")
+
+[node name="SmPropSunflower04" type="MeshInstance3D" parent="." unique_id=56520223]
+transform = Transform3D(0.5902137, 0, -0.80724704, 0, 1, 0, 0.80724704, 0, 0.5902137, 0.5560322, 0, -0.81259465)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower05" type="MeshInstance3D" parent="." unique_id=279914900]
+transform = Transform3D(0.9917434, 0, -0.12823848, 0, 1, 0, 0.12823848, 0, 0.9917434, 0.55798227, 0, 0.79540443)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower06" type="MeshInstance3D" parent="." unique_id=1746829290]
+transform = Transform3D(0.93364197, 0, -0.35820758, 0, 1, 0, 0.35820758, 0, 0.93364197, 0.5373598, 0, -0.42039776)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower07" type="MeshInstance3D" parent="." unique_id=1834331112]
+transform = Transform3D(0.99474967, 0, 0.10233706, 0, 1, 0, -0.10233706, 0, 0.99474967, 0.55288136, 0, 0.024396062)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower09" type="MeshInstance3D" parent="." unique_id=645892859]
+transform = Transform3D(0.99995106, 0, -0.009883039, 0, 1, 0, 0.009883039, 0, 0.99995106, -0.5556489, 0, -0.39405572)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower11" type="MeshInstance3D" parent="." unique_id=1465851311]
+transform = Transform3D(0.84591955, 0, -0.5333103, 0, 1, 0, 0.5333103, 0, 0.84591955, -0.0013837814, 0, -0.39405572)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower16" type="MeshInstance3D" parent="." unique_id=1012144069]
+transform = Transform3D(0.9614339, 0, -0.27503577, 0, 1, 0, 0.27503577, 0, 0.9614339, -0.005054474, 0, -0.0012982488)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower08" type="MeshInstance3D" parent="." unique_id=851860646]
+transform = Transform3D(0.51478714, 0, -0.85731804, 0, 1, 0, 0.85731804, 0, 0.51478714, 0.5651849, 0, 0.41141033)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower10" type="MeshInstance3D" parent="." unique_id=1035308441]
+transform = Transform3D(0.9851814, 0, 0.17151551, 0, 1, 0, -0.17151551, 0, 0.9851814, 0.014241755, 0, 0.79540443)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower12" type="MeshInstance3D" parent="." unique_id=95770110]
+transform = Transform3D(0.93768996, 0, 0.34747273, 0, 1, 0, -0.34747273, 0, 0.93768996, -0.016553521, 0, -0.8308607)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower13" type="MeshInstance3D" parent="." unique_id=1405436073]
+transform = Transform3D(0.8256974, 0, -0.5641134, 0, 1, 0, 0.5641134, 0, 0.8256974, 0.02144438, 0, 0.41141033)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower14" type="MeshInstance3D" parent="." unique_id=2027017591]
+transform = Transform3D(0.9759747, 0, 0.2178838, 0, 1, 0, -0.2178838, 0, 0.9759747, -0.5485747, 0, -0.008726686)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower15" type="MeshInstance3D" parent="." unique_id=1467688786]
+transform = Transform3D(0.79639006, 0, -0.6047833, 0, 1, 0, 0.6047833, 0, 0.79639006, -0.5466246, 0, 0.79540443)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower17" type="MeshInstance3D" parent="." unique_id=442601419]
+transform = Transform3D(0.94371766, 0, -0.3307518, 0, 1, 0, 0.3307518, 0, 0.94371766, -0.5774199, 0, -0.8308607)
+mesh = ExtResource("2_we8r4")
+surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="SmPropSunflower18" type="MeshInstance3D" parent="." unique_id=945022706]
+transform = Transform3D(0.51478714, 0, -0.85731804, 0, 1, 0, 0.85731804, 0, 0.51478714, -0.539422, 0, 0.41141033)
+mesh = ExtResource("1_3vnp0")
+surface_material_override/0 = ExtResource("2_eg1uo")

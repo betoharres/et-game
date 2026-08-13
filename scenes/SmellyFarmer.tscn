@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://bkp3s55pwy4em"]
+
+[ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
+[ext_resource type="PackedScene" uid="uid://ctdl6rrscgvj1" path="res://3dModelos/Characters.fbx" id="1_k8vwc"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
+[ext_resource type="ArrayMesh" uid="uid://d3irt6sfulsdc" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
+radius = 0.18603516
+height = 1.8
+
+[node name="Smelly" type="CharacterBody3D" unique_id=584213395]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_c8nde")
+
+[node name="Characters" parent="." unique_id=558979311 instance=ExtResource("1_k8vwc")]
+
+[node name="SM_Chr_FarmBoy_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="0" unique_id=77698278]
+visible = false
+
+[node name="SM_Chr_Farmer_Female_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="1" unique_id=838994784]
+visible = false
+
+[node name="SM_Chr_Farmer_Male_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="2" unique_id=553393692]
+visible = false
+
+[node name="SM_Chr_Farmer_Male_Old_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="3" unique_id=538424273]
+surface_material_override/0 = ExtResource("2_88yto")
+
+[node name="SM_Chr_FarmGirl_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="4" unique_id=1424397013]
+visible = false
+
+[node name="SM_Chr_Scarecrow_01" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="5" unique_id=1592908409]
+visible = false
+
+[node name="HandR" type="TwoBoneIK3D" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="6" unique_id=1303654083]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKcontainer/HandR")
+settings/0/pole_node = NodePath("../../../../IKcontainer/ElbowR")
+settings/0/root_bone_name = "Shoulder_R"
+settings/0/root_bone = 21
+settings/0/middle_bone_name = "Elbow_R"
+settings/0/middle_bone = 22
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Hand_R"
+settings/0/end_bone = 23
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="FootR" type="TwoBoneIK3D" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="7" unique_id=1381833618]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKcontainer/FootR")
+settings/0/pole_node = NodePath("../../../../IKcontainer/KneeR")
+settings/0/root_bone_name = "UpperLeg_R"
+settings/0/root_bone = 44
+settings/0/middle_bone_name = "LowerLeg_R"
+settings/0/middle_bone = 45
+settings/0/pole_direction = 4
+settings/0/end_bone_name = "Ankle_R"
+settings/0/end_bone = 46
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="FootL" type="TwoBoneIK3D" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="8" unique_id=1073337]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKcontainer/FootL")
+settings/0/pole_node = NodePath("../../../../IKcontainer/KneeL")
+settings/0/root_bone_name = "UpperLeg_L"
+settings/0/root_bone = 39
+settings/0/middle_bone_name = "LowerLeg_L"
+settings/0/middle_bone = 40
+settings/0/pole_direction = 3
+settings/0/end_bone_name = "Ankle_L"
+settings/0/end_bone = 41
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="HandL" type="TwoBoneIK3D" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="9" unique_id=2124072261]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKcontainer/HandR/Shotgun/HandL")
+settings/0/pole_node = NodePath("../../../../IKcontainer/HandR/Shotgun/ElbowL")
+settings/0/root_bone_name = "Shoulder_L"
+settings/0/root_bone = 6
+settings/0/middle_bone_name = "Elbow_L"
+settings/0/middle_bone = 7
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Hand_L"
+settings/0/end_bone = 8
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Characters/Characters/Skeleton3D" parent_id_path=PackedInt32Array(558979311, 1431915287) index="10" unique_id=1712986502]
+target_node = NodePath("../../../../IKcontainer/HeadTarget")
+bone_name = "Neck"
+bone = 35
+forward_axis = 3
+primary_rotation_axis = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1190533804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_ec6vt")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=746269821]
+path_height_offset = 0.5
+debug_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="IKcontainer" type="Node3D" parent="." unique_id=808096475]
+
+[node name="ElbowR" type="Marker3D" parent="IKcontainer" unique_id=1307138661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3927444, 1.1762562, -0.43399447)
+
+[node name="HandR" type="Marker3D" parent="IKcontainer" unique_id=705074117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24059471, 1.1306759, 0.023785949)
+
+[node name="Shotgun" type="MeshInstance3D" parent="IKcontainer/HandR" unique_id=112335132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059454203, -0.0016053915, 0.036583483)
+mesh = ExtResource("3_88yto")
+surface_material_override/0 = ExtResource("2_88yto")
+
+[node name="ElbowL" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=1227882864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5539022, -0.050064087, 0.19556722)
+
+[node name="HandL" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=1250634967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12149116, 0.009710908, 0.23479956)
+
+[node name="KneeR" type="Marker3D" parent="IKcontainer" unique_id=1273151338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.49982852, 0.57760084)
+
+[node name="KneeL" type="Marker3D" parent="IKcontainer" unique_id=1518692596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.49982852, 0.57741046)
+
+[node name="StepR" type="Marker3D" parent="IKcontainer" unique_id=1686277510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0, 0.46469712)
+
+[node name="StepL" type="Marker3D" parent="IKcontainer" unique_id=1496301053]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0, 0.46450675)
+
+[node name="FootR" type="Marker3D" parent="IKcontainer" unique_id=116722117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13282847, 0.21493492, -0.4381113)
+
+[node name="FootL" type="Marker3D" parent="IKcontainer" unique_id=1409332700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.18994248, 0.35282123)
+
+[node name="HeadTarget" type="Marker3D" parent="IKcontainer" unique_id=404352808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32273638, 0.62142396, 6.492136)
+
+[editable path="Characters"]

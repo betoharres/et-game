@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://d3glv86ha2vrr"]
+
+[ext_resource type="PackedScene" uid="uid://bkp3s55pwy4em" path="res://scenes/SmellyFarmer.tscn" id="1_bl13t"]
+[ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_iyx0m"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
+vertices = PackedVector3Array(-7.5, 0.5, -7.5, -7.5, 0.5, 7.5, 7.5, 0.5, 7.5, 7.5, 0.5, -7.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="QuadMesh" id="QuadMesh_c8nde"]
+size = Vector2(16, 16)
+orientation = 1
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iyx0m"]
+points = PackedVector3Array(-8, 0, -8, -8, 0, 8, 8, 0, -8, 8, 0, 8)
+
+[node name="Node3D" type="Node3D" unique_id=1204374720]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1058742937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61646247, 0)
+navigation_mesh = SubResource("NavigationMesh_ec6vt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=294152472]
+mesh = SubResource("QuadMesh_c8nde")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=925749935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61646247, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=565287042]
+visible = false
+shape = SubResource("ConvexPolygonShape3D_iyx0m")
+
+[node name="Smelly" parent="." unique_id=584213395 instance=ExtResource("1_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6607318, -0.30579352, -0.34302425)
+
+[node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_iyx0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.841321, -0.30579364, 0.9561789)

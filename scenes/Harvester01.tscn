@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://1dpav48qe8yh"]
+
+[ext_resource type="ArrayMesh" uid="uid://djm7k6eb8m1eo" path="res://3dModelos/SM_Veh_Harvester_01.fbx" id="1_h6a0k"]
+[ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_icei6"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_cwemq"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="4_jfp7x"]
+[ext_resource type="Material" uid="uid://t1b1o10ghl6i" path="res://Materiais/text4A.tres" id="5_xkx8i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dd4cl"]
+size = Vector3(5.018508, 1.6081885, 2.5468836)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
+size = Vector3(2.878479, 2.7911987, 5.9977417)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15tgd"]
+size = Vector3(2.878, 1.321, 2.5704885)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mfrgv"]
+size = Vector3(1.0189209, 1.1350708, 1.5223389)
+
+[node name="Root" type="Node3D" unique_id=526029516]
+
+[node name="SmVehHarvester01" type="MeshInstance3D" parent="." unique_id=1376510335]
+mesh = ExtResource("1_h6a0k")
+surface_material_override/0 = ExtResource("2_icei6")
+surface_material_override/1 = ExtResource("2_icei6")
+surface_material_override/2 = ExtResource("3_cwemq")
+surface_material_override/3 = ExtResource("4_jfp7x")
+surface_material_override/4 = ExtResource("5_xkx8i")
+surface_material_override/5 = ExtResource("3_cwemq")
+surface_material_override/6 = ExtResource("4_jfp7x")
+surface_material_override/7 = ExtResource("4_jfp7x")
+surface_material_override/8 = ExtResource("4_jfp7x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmVehHarvester01" unique_id=700116520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044034243, 1.8959316, 0.1361041)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmVehHarvester01/StaticBody3D" unique_id=276138901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1283131, 2.952999)
+shape = SubResource("BoxShape3D_dd4cl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SmVehHarvester01/StaticBody3D" unique_id=1888307635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0042419434, -0.49404907, -1.1910706)
+shape = SubResource("BoxShape3D_ec6vt")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SmVehHarvester01/StaticBody3D" unique_id=1139194144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.202, 0.52374417)
+shape = SubResource("BoxShape3D_15tgd")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="SmVehHarvester01/StaticBody3D" unique_id=2111770629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20587158, 1.2927552, -1.4699097)
+shape = SubResource("BoxShape3D_mfrgv")

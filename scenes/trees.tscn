@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ds1xfexgmtn7b"]
+
+[ext_resource type="Material" uid="uid://bya6psk15nwiv" path="res://Materiais/text1AlowLight.tres" id="2_hldw5"]
+[ext_resource type="ArrayMesh" uid="uid://dv2nhkqqoj8sa" path="res://3dModelos/SM_Generic_Tree_Patch_01.fbx" id="2_v4a6f"]
+[ext_resource type="ArrayMesh" uid="uid://d1p003mmywvep" path="res://3dModelos/SM_Generic_Tree_Patch_02.fbx" id="3_cy38b"]
+
+[node name="Trees" type="Node3D" unique_id=320854639]
+
+[node name="SmGenericTreePatch01" type="MeshInstance3D" parent="." unique_id=1751050109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9505546, 0, 0.8610363)
+mesh = ExtResource("2_v4a6f")
+surface_material_override/0 = ExtResource("2_hldw5")
+
+[node name="SmGenericTreePatch02" type="MeshInstance3D" parent="." unique_id=858800550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.287819, 0, 0.43665123)
+mesh = ExtResource("3_cy38b")
+surface_material_override/0 = ExtResource("2_hldw5")
+
+[node name="SmGenericTreePatch03" type="MeshInstance3D" parent="." unique_id=1045453083]
+transform = Transform3D(-0.628577, 0, 0.77774733, 0, 1, 0, -0.77774733, 0, -0.628577, 25.941345, 0, -6.551853)
+mesh = ExtResource("2_v4a6f")
+surface_material_override/0 = ExtResource("2_hldw5")
+
+[node name="SmGenericTreePatch04" type="MeshInstance3D" parent="." unique_id=1357048783]
+transform = Transform3D(-0.96586293, 0, -0.25905356, 0, 1, 0, 0.25905356, 0, -0.96586293, 6.5851097, 0, -11.673607)
+mesh = ExtResource("3_cy38b")
+surface_material_override/0 = ExtResource("2_hldw5")

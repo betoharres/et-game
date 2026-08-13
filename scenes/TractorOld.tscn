@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ccemyj5fbmvdc"]
+
+[ext_resource type="ArrayMesh" uid="uid://vafjo1wjumxr" path="res://3dModelos/SM_Veh_TractorOld_01.fbx" id="1_ada6i"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_obwk5"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_gt71q"]
+[ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="4_hqdwh"]
+[ext_resource type="Material" uid="uid://t1b1o10ghl6i" path="res://Materiais/text4A.tres" id="5_q08jp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cpkvi"]
+size = Vector3(2.147, 2.209, 3.346)
+
+[node name="Root" type="Node3D" unique_id=1402539885]
+
+[node name="SmVehTractorOld01" type="MeshInstance3D" parent="." unique_id=750506850]
+mesh = ExtResource("1_ada6i")
+surface_material_override/0 = ExtResource("2_obwk5")
+surface_material_override/1 = ExtResource("3_gt71q")
+surface_material_override/2 = ExtResource("4_hqdwh")
+surface_material_override/3 = ExtResource("5_q08jp")
+surface_material_override/4 = ExtResource("5_q08jp")
+surface_material_override/5 = ExtResource("5_q08jp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmVehTractorOld01" unique_id=2060513723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3841858e-07, 1.0685426, -0.038560033)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmVehTractorOld01/StaticBody3D" unique_id=1737057108]
+shape = SubResource("BoxShape3D_cpkvi")
