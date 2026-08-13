@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cut8qchy5b2rx"]
+
+[ext_resource type="ArrayMesh" uid="uid://ct7jiaiue2e26" path="res://3dModelos/SM_Veh_Pickup_01.fbx" id="1_6oqar"]
+[ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_6oqar"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
+size = Vector3(2.12, 1.8755733, 1.4270625)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15tgd"]
+size = Vector3(2.12, 1.363, 1.444)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mfrgv"]
+size = Vector3(2.12, 0.9470508, 2.627)
+
+[node name="Root" type="Node3D" unique_id=1926938492]
+
+[node name="SmVehPickup01" type="MeshInstance3D" parent="." unique_id=1517345361]
+mesh = ExtResource("1_6oqar")
+surface_material_override/0 = ExtResource("2_6oqar")
+surface_material_override/1 = ExtResource("2_6oqar")
+surface_material_override/2 = ExtResource("2_6oqar")
+surface_material_override/3 = ExtResource("2_6oqar")
+surface_material_override/4 = ExtResource("2_6oqar")
+surface_material_override/5 = ExtResource("2_6oqar")
+surface_material_override/6 = ExtResource("2_6oqar")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmVehPickup01" unique_id=280529963]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmVehPickup01/StaticBody3D" unique_id=1678691297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9249692, 0.6875918)
+shape = SubResource("BoxShape3D_ec6vt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SmVehPickup01/StaticBody3D" unique_id=896624037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67025757, 2.082367)
+shape = SubResource("BoxShape3D_15tgd")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SmVehPickup01/StaticBody3D" unique_id=313162354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46662843, -1.3244019)
+shape = SubResource("BoxShape3D_mfrgv")

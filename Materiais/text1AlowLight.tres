@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bya6psk15nwiv"]
+
+[ext_resource type="Texture2D" uid="uid://5ae3tes4uysi" path="res://Texturas/PolygonFarm_Texture_01_A.png" id="1_ns8sd"]
+
+[resource]
+albedo_color = Color(0.072842635, 0.072842635, 0.072842635, 1)
+albedo_texture = ExtResource("1_ns8sd")

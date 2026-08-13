@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dx1ao3wlr47dc"]
+
+[ext_resource type="ArrayMesh" uid="uid://dctpd77fdd1ft" path="res://3dModelos/SM_Bld_Silo_02.fbx" id="1_seu31"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_x6dlb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x6dlb"]
+height = 18.59276
+radius = 2.5559335
+
+[node name="Root" type="Node3D" unique_id=1125547060]
+
+[node name="SmBldSilo02" type="MeshInstance3D" parent="." unique_id=851513820]
+mesh = ExtResource("1_seu31")
+surface_material_override/0 = ExtResource("2_x6dlb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldSilo02" unique_id=1880585851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.29638, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldSilo02/StaticBody3D" unique_id=144092142]
+shape = SubResource("CylinderShape3D_x6dlb")

@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://ct8axay17kyjg"]
+
+[ext_resource type="Script" uid="uid://biy7wkqgtlxmb" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="2_3li8b"]
+[ext_resource type="Script" uid="uid://dbwjogvkof04y" path="res://scripts/ik_target_container.gd" id="3_3li8b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
+radius = 0.1
+height = 1.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters"]]
+script = ExtResource("1_p0vlq")
+
+[node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
+
+[node name="LegR" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="0" unique_id=511071823]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.033597767, 0, 0.03857422)
+rotation_edit_mode = 1
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKtargetContainer/TargetLegR")
+settings/0/pole_node = NodePath("../../../../IKtargetContainer/PoleR")
+settings/0/root_bone_name = "Femur.R"
+settings/0/root_bone = 28
+settings/0/middle_bone_name = "Shin.R"
+settings/0/middle_bone = 29
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Foot.R"
+settings/0/end_bone = 31
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="LegL" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="1" unique_id=1438643627]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+rotation_edit_mode = 1
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKtargetContainer/TargetLegL")
+settings/0/pole_node = NodePath("../../../../IKtargetContainer/PoleL")
+settings/0/root_bone_name = "Femur.L"
+settings/0/root_bone = 23
+settings/0/middle_bone_name = "Shin.L"
+settings/0/middle_bone = 24
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Foot.L"
+settings/0/end_bone = 26
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="Head" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="3" unique_id=1917786700]
+influence = 0.242
+target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
+bone_name = "Head"
+bone = 5
+duration = 0.5
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.5707964
+primary_damp_threshold = 1.0
+secondary_limit_angle = 1.5707964
+secondary_damp_threshold = 1.0
+
+[node name="Torso" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="4" unique_id=1057221420]
+target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
+bone_name = "Chest"
+bone = 3
+duration = 0.5
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.3089969
+primary_damp_threshold = 1.0
+secondary_limit_angle = 1.3089969
+secondary_damp_threshold = 1.0
+
+[node name="Hips" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="5" unique_id=203524647]
+target_node = NodePath("../../../../IKtargetContainer/Hips")
+bone_name = "HipsRoot"
+bone = 0
+use_secondary_rotation = false
+duration = 0.5
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 0.34906584
+primary_damp_threshold = 1.0
+
+[node name="HandR" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="6" unique_id=2139516878]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
+settings/0/pole_node = NodePath("../../../../IKtargetContainer/ElbowR")
+settings/0/root_bone_name = "Arm.R"
+settings/0/root_bone = 15
+settings/0/middle_bone_name = "Forearm.R"
+settings/0/middle_bone = 16
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Hand.R"
+settings/0/end_bone = 17
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="HandL" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="7" unique_id=912824023]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKtargetContainer/HandL")
+settings/0/pole_node = NodePath("../../../../IKtargetContainer/ElbowL")
+settings/0/root_bone_name = "Arm.L"
+settings/0/root_bone = 7
+settings/0/middle_bone_name = "Forearm.L"
+settings/0/middle_bone = 8
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "Hand.L"
+settings/0/end_bone = 9
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="IKtargetContainer" type="Node3D" parent="." unique_id=1353782455]
+script = ExtResource("3_3li8b")
+
+[node name="TargetLegR" type="Marker3D" parent="IKtargetContainer" unique_id=1172848748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043884277, 0.06503368, 0.11838886)
+
+[node name="TargetLegL" type="Marker3D" parent="IKtargetContainer" unique_id=998866677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044, 0.23666672, -0.26643685)
+
+[node name="PoleR" type="Marker3D" parent="IKtargetContainer" unique_id=354409181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.044, 0.43, 0.513)
+
+[node name="PoleL" type="Marker3D" parent="IKtargetContainer" unique_id=723523628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044, 0.43, 0.513)
+
+[node name="HandR" type="Marker3D" parent="IKtargetContainer" unique_id=1162400189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14912415, 0.47468626, -0.10402681)
+
+[node name="HandL" type="Marker3D" parent="IKtargetContainer" unique_id=161511938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149, 0.55720675, 0.103934616)
+
+[node name="ElbowR" type="Marker3D" parent="IKtargetContainer" unique_id=1830083975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.149, 0.781, -0.442)
+
+[node name="ElbowL" type="Marker3D" parent="IKtargetContainer" unique_id=2027736850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149, 0.781, -0.442)
+
+[node name="Hips" type="Marker3D" parent="IKtargetContainer" unique_id=45537913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 1.944)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1887678891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_ec6vt")
+
+[node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=1582696248]
+transform = Transform3D(-1, 1.6081538e-08, -8.593094e-08, 0, 0.98293537, 0.18395135, 8.742278e-08, 0.18395135, -0.98293537, 0, 1.1784546, -1.4856567)
+far = 100.0
+
+[node name="HeadTarget" type="Marker3D" parent="CameraHolder/Camera3D" unique_id=46629359]
+transform = Transform3D(-1, 1.7763568e-15, 8.742278e-08, 1.6081533e-08, 0.9829352, 0.18395132, -8.593093e-08, 0.18395132, -0.9829352, 5.215464e-07, 0.70969266, -5.9365506)
+rotation_edit_mode = 1
+
+[editable path="ET"]
