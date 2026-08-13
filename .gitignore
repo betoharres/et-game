@@ -1,3 +1,17 @@
-# Godot 4+ specific ignores
-.godot/
+# Godot-generated files
+/.godot/
+/.import/
+/.mono/
 /android/
+/data_*/
+
+# Export credentials and legacy export configuration
+/export.cfg
+/export_credentials.cfg
+
+# Generated translations and crash reports
+*.translation
+mono_crash.*.json
+
+# macOS
+.DS_Store
