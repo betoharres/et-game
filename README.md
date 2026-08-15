@@ -29,7 +29,7 @@ scenes/
   PlayerHUD.tscn       HUD de vida e stamina do ET
   PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
   DriveableTruck.tscn  Caminhonete controlável
-  VisionDebugMap.tscn  Mini mapa de debug da visão dos inimigos
+  VisionDebugMap.tscn  Radar circular opcional de objetivos e ameaças
   SmellyFarmer.tscn    Fazendeiro, navegação e IK
   Photographer.tscn    NPC fotógrafo e câmera provisória
   spaceship_scraps.tscn Item coletável e entregável
@@ -43,7 +43,7 @@ scripts/
   player.gd            Movimento, vida, stamina, coleta e entrega
   player_ragdoll.gd    Morte física articulada do ET
   driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
-  vision_debug_map.gd  Overlay de debug com posições e cones de visão
+  vision_debug_map.gd  Radar circular com ícones e cones de visão discretos
   smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
   photographer.gd      Visão, perseguição e captura de fotos do ET
   photo_alert_system.gd Contador global e redução das estrelas
@@ -99,8 +99,14 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
   névoa baixa e iluminação ambiente azulada configurável por qualidade.
 - Destroços próximos podem ser carregados e largados.
-- Um item carregado ou solto dentro da área de entrega é removido e soma seu
-  `score_value` ao autoload `GlobalScore`.
+- Para entregar um destroço, o jogador deve largá-lo na plataforma. Um aviso
+  piscante aparece na HUD; próximo ao item, segure `F` por 3 segundos para
+  completar o sinal de intervenção alienígena.
+- Enquanto o sinal carrega, o ET leva a mão direita à cabeça e a nave se
+  posiciona sobre a plataforma. Soltar `F` antes do fim cancela a chamada. Ao
+  completar o sinal, um feixe ciano com o mesmo material dos fachos da nave
+  suga o item por 10 segundos; somente ao
+  chegar à nave ele desaparece e soma seu `score_value` ao `GlobalScore`.
 - A pontuação atual é exibida apenas no console de depuração.
 - A caminhonete pode ser usada para atravessar o mapa e possui câmeras externa
   e interna.
@@ -113,10 +119,13 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - O ET possui 100 pontos de vida e 100 pontos de stamina. Correr consome
   stamina; ao esgotá-la por completo, a recuperação fica bloqueada por 3
   segundos antes de voltar gradualmente.
-- A HUD no canto inferior esquerdo mostra vida e stamina em tempo real.
+- A HUD compacta no canto inferior esquerdo mantém a vida visível; a stamina
+  aparece somente durante uso ou recuperação. Dano pulsa a barra e produz uma
+  vinheta vermelha breve.
 - Um fotógrafo patrulha a fazenda, aproxima-se do ET quando o enxerga e tira
-  fotos após focar a câmera. A HUD no canto superior direito mostra de zero a
-  três estrelas de exposição fotográfica.
+  fotos após focar a câmera. O rastreador compacto no canto superior direito
+  mostra de zero a três registros, emite um som breve ao atualizar e reduz a
+  opacidade depois de alguns segundos sem mudança.
 - Cada estrela representa uma foto. Sem ser visto por nenhum fotógrafo, uma
   estrela é removida após 30 segundos contínuos; ser visto reinicia o tempo.
 - Uma, duas e três estrelas solicitam, respectivamente, respostas futuras da
@@ -143,10 +152,12 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - Agachar: segure `C`.
 - Câmera: mouse.
 - Coletar ou largar item: `E`.
+- Solicitar a abdução de um item solto na área de entrega: segure `F` por 3
+  segundos.
 - Entrar ou sair da caminhonete: `E`.
 - Alternar câmera externa/interna da caminhonete: `G`.
 - Abrir ou fechar o menu de pausa: `Esc`.
-- Mostrar ou ocultar o mini mapa de debug: `F3`.
+- Mostrar ou ocultar o radar circular: `F3`.
 
 As interações usam uma ação própria para que `Espaço` possa ser reservado ao
 pulo. No menu de opções, as quatro teclas de movimento podem ser remapeadas.
@@ -160,7 +171,7 @@ a fazenda, a nave, vegetação, objetos, jogador, inimigo, veículo, destroços 
 área de entrega.
 
 ```text
-Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> GlobalScore
+Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
 SmellyFarmer -> visão/linha de visão -> perseguição/disparo -> vida do Player
 Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
 Player -> grupo characters -> vegetação e detecção do inimigo
@@ -173,7 +184,11 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   contagem de tempo oculto e sinais para respostas futuras.
 - Grupos do Godot conectam sistemas sem referências diretas: `characters`,
   `vehicles` e `pickup_items`.
-- O jogador procura o item coletável mais próximo dentro de dois metros.
+- Os HUDs reutilizam o tema `Materiais/hud_theme.tres`, com tipografia Oxanium,
+  margens seguras e painéis responsivos ancorados à tela.
+- O jogador procura o item coletável mais próximo dentro de dois metros. Um
+  item em abdução deixa temporariamente o grupo `pickup_items` para não poder
+  ser recolhido antes da conclusão da entrega.
 - O veículo desativa temporariamente o processamento e a câmera do jogador,
   exibe o ET no banco do motorista e restaura o personagem na saída.
 - O fazendeiro usa os estados `WANDERING`, `CHASING` e `SHOOTING`, mantém a

@@ -3,9 +3,73 @@
 [ext_resource type="Script" uid="uid://deeub3siqrmmb" path="res://scripts/delivery_area.gd" id="1_trv2r"]
 [ext_resource type="ArrayMesh" uid="uid://boct5jnx8ug3" path="res://3dModelos/SM_Bld_ConcreteBase_01.fbx" id="2_yf2p4"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_52udj"]
+[ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
+[ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
 size = Vector3(4, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="SignalMaterial"]
+shading_mode = 0
+albedo_color = Color(0.35, 0.95, 1, 1)
+emission_enabled = true
+emission = Color(0.18, 0.88, 1, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="TorusMesh" id="SignalRingMesh"]
+material = SubResource("SignalMaterial")
+inner_radius = 1.25
+outer_radius = 1.38
+rings = 24
+ring_segments = 48
+
+[sub_resource type="ShaderMaterial" id="BeamMaterial"]
+shader = ExtResource("4_beam_shader")
+shader_parameter/beam_color = Color(0.02, 0.5, 0.72, 0.018)
+shader_parameter/emission_strength = 0.38
+
+[sub_resource type="CylinderMesh" id="BeamMesh"]
+material = SubResource("BeamMaterial")
+top_radius = 0.18
+bottom_radius = 4.2
+height = 1.0
+radial_segments = 32
+rings = 4
+
+[sub_resource type="StyleBoxFlat" id="PromptPanelStyle"]
+bg_color = Color(0.01, 0.025, 0.05, 0.72)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="KeyIconStyle"]
+bg_color = Color(0.08, 0.2, 0.3, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.55, 0.96, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ProgressBackgroundStyle"]
+bg_color = Color(0.02, 0.08, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ProgressFillStyle"]
+bg_color = Color(0.25, 0.9, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="DeliveryArea" type="Area3D" unique_id=741650013]
 collision_mask = 9
@@ -18,3 +82,109 @@ shape = SubResource("BoxShape3D_trv2r")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=559970791]
 mesh = ExtResource("2_yf2p4")
 surface_material_override/0 = ExtResource("3_52udj")
+
+[node name="AbductionOrigin" type="Marker3D" parent="."]
+position = Vector3(0, 1.2, 0)
+
+[node name="SignalMarker" type="Node3D" parent="."]
+visible = false
+position = Vector3(0, 1.35, 0)
+
+[node name="SignalRing" type="MeshInstance3D" parent="SignalMarker"]
+mesh = SubResource("SignalRingMesh")
+
+[node name="SignalLight" type="OmniLight3D" parent="SignalMarker"]
+position = Vector3(0, 0.5, 0)
+light_color = Color(0.32, 0.9, 1, 1)
+light_energy = 5.0
+light_volumetric_fog_energy = 0.8
+omni_range = 8.0
+
+[node name="AbductionBeam" type="Node3D" parent="."]
+visible = false
+
+[node name="BeamVolume" type="MeshInstance3D" parent="AbductionBeam"]
+mesh = SubResource("BeamMesh")
+
+[node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam"]
+light_color = Color(0.16, 0.68, 0.86, 1)
+light_energy = 8.0
+light_volumetric_fog_energy = 1.2
+shadow_enabled = true
+spot_range = 40.0
+spot_attenuation = 0.45
+spot_angle = 13.0
+
+[node name="BeamGroundLight" type="OmniLight3D" parent="AbductionBeam"]
+light_color = Color(0.16, 0.68, 0.86, 1)
+light_energy = 2.6
+light_volumetric_fog_energy = 0.12
+omni_range = 10.0
+omni_attenuation = 1.15
+
+[node name="InteractionPrompt" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="PromptRoot" type="Control" parent="InteractionPrompt"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_hud_theme")
+
+[node name="PromptPanel" type="PanelContainer" parent="InteractionPrompt/PromptRoot"]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -245.0
+offset_right = 220.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("PromptPanelStyle")
+
+[node name="PromptMargin" type="MarginContainer" parent="InteractionPrompt/PromptRoot/PromptPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="PromptContent" type="VBoxContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="KeyIcon" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+custom_minimum_size = Vector2(64, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.99, 1, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("KeyIconStyle")
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "SEGURE F PARA CHAMAR A LUZ"
+horizontal_alignment = 1
+
+[node name="HoldProgress" type="ProgressBar" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("ProgressBackgroundStyle")
+theme_override_styles/fill = SubResource("ProgressFillStyle")
+max_value = 3.0
+step = 0.01
+show_percentage = false
