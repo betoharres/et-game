@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
@@ -25,6 +25,8 @@ var rebinding_button : Button = null
 
 
 func _ready() -> void:
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
 	menu_button_3.pressed.connect(_on_exit_pressed)
@@ -53,6 +55,7 @@ func _ready() -> void:
 # Main Menu
 
 func _on_play_pressed() -> void:
+	PhotoAlertSystem.reset()
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func _on_options_pressed() -> void:

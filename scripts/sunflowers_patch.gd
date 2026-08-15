@@ -14,7 +14,7 @@ var original_rotations : Dictionary = {}
 
 func _ready() -> void:
 	for child in get_children():
-		if child is Node3D:
+		if child is MeshInstance3D:
 			sunflowers.append(child)
 			original_rotations[child] = child.rotation
 

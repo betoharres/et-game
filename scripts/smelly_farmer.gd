@@ -17,15 +17,51 @@ var has_wander_target : bool = false
 
 @export var sight_distance : float = 12.0
 @export var sight_angle : float = 60.0
+@export var detection_time : float = 0.55
+@export var lose_sight_after : float = 1.4
+@export var eye_height : float = 1.55
+@export var player_target_height : float = 0.5
 
 var player : CharacterBody3D = null
+var has_detected_player : bool = false
+var has_visual_contact : bool = false
+var detection_progress : float = 0.0
+var time_without_visual_contact : float = 0.0
+var last_known_player_position : Vector3
 
 # Shooting
 
 @export var shoot_distance : float = 8.0
-@export var shoot_cooldown : float = 2.0
+@export var shoot_damage : float = 15.0
+@export var seconds_between_shots : float = 2.0
+@export var shot_knockback_distance : float = 0.5
+@export var muzzle_flash_duration : float = 0.08
+@export var aim_stabilization_time : float = 0.45
+@export_range(0.0, 1.0, 0.01) var maximum_shot_accuracy : float = 0.7
+@export_range(0.0, 1.0, 0.01) var minimum_shot_accuracy : float = 0.25
+@export var close_spread_degrees : float = 2.0
+@export var far_spread_degrees : float = 9.0
+@export var movement_spread_bonus_degrees : float = 4.0
+@export var concealment_spread_bonus_degrees : float = 6.0
+@export var consecutive_hit_mercy_threshold : int = 2
+@export var mercy_accuracy_penalty : float = 0.3
+@export var mercy_spread_bonus_degrees : float = 7.0
+@export var miss_target_radius : float = 0.55
 
 var shoot_timer : float = 0.0
+var aim_progress : float = 0.0
+var consecutive_hits : int = 0
+
+@onready var gunshot_audio : Node = (
+	$IKcontainer/HandR/Shotgun/Muzzle/GunshotAudio
+)
+@onready var muzzle_flash : Node3D = (
+	$IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash
+)
+@onready var muzzle_flash_timer : Timer = (
+	$IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlashTimer
+)
+@onready var muzzle : Node3D = $IKcontainer/HandR/Shotgun/Muzzle
 
 # IK anims
 @onready var target_marker : Marker3D = $IKcontainer/HeadTarget
@@ -61,15 +97,20 @@ func _ready() -> void:
 
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.8
+	muzzle_flash_timer.wait_time = muzzle_flash_duration
+	muzzle_flash_timer.timeout.connect(_hide_muzzle_flash)
+
+	if player != null:
+		last_known_player_position = player.global_position
 	
 func _physics_process(delta : float) -> void:
 
 	if player == null:
 		return
 
-	shoot_timer -= delta
+	shoot_timer = maxf(shoot_timer - delta, 0.0)
 
-	check_sight()
+	update_vision(delta)
 
 	match current_state:
 
@@ -80,7 +121,7 @@ func _physics_process(delta : float) -> void:
 			close_distance()
 
 		State.SHOOTING:
-			shoot()
+			shoot(delta)
 
 	update_head_look(delta)
 
@@ -89,6 +130,7 @@ func _physics_process(delta : float) -> void:
 # --------------------------------------------------
 
 func random_walk(delta : float) -> void:
+	aim_progress = 0.0
 
 	if wander_wait_timer > 0.0:
 		velocity = Vector3.ZERO
@@ -188,13 +230,65 @@ func random_walk(delta : float) -> void:
 	face_direction(direction)
 		
 # --------------------------------------------------
-# CHECK SIGHT
+# VISION
 # --------------------------------------------------
 
-func check_sight() -> void:
+func update_vision(delta : float) -> void:
 
 	if player == null:
 		return
+
+	if not _is_player_alive():
+		has_visual_contact = false
+		has_detected_player = false
+		detection_progress = 0.0
+		velocity = Vector3.ZERO
+		current_state = State.WANDERING
+		return
+
+	has_visual_contact = _can_see_player()
+	var visibility_multiplier : float = _get_player_visibility_multiplier()
+
+	if has_visual_contact:
+		last_known_player_position = player.global_position
+		time_without_visual_contact = 0.0
+
+		if not has_detected_player:
+			detection_progress = minf(
+				detection_progress + delta * visibility_multiplier,
+				detection_time
+			)
+
+			if detection_progress >= detection_time:
+				has_detected_player = true
+	else:
+		detection_progress = maxf(detection_progress - delta, 0.0)
+		time_without_visual_contact += delta
+
+		if (
+			has_detected_player
+			and time_without_visual_contact >= lose_sight_after
+		):
+			has_detected_player = false
+			current_state = State.WANDERING
+			velocity = Vector3.ZERO
+
+	if not has_detected_player:
+		return
+
+	var player_distance : float = global_position.distance_to(
+		player.global_position
+	)
+
+	if has_visual_contact and player_distance <= shoot_distance:
+		current_state = State.SHOOTING
+	else:
+		current_state = State.CHASING
+
+
+func _can_see_player() -> bool:
+	if player == null:
+		return false
 
 	var direction : Vector3 = (
 		player.global_position
@@ -204,17 +298,16 @@ func check_sight() -> void:
 	direction.y = 0.0
 
 	var distance : float = direction.length()
+	var effective_sight_distance : float = (
+		sight_distance * _get_player_visibility_multiplier()
+	)
 
-	if distance > sight_distance:
-
-		if current_state != State.WANDERING:
-			current_state = State.WANDERING
-
-		return
+	if distance > effective_sight_distance:
+		return false
 
 
 	if distance < 0.01:
-		return
+		return true
 
 
 	direction = direction.normalized()
@@ -234,18 +327,62 @@ func check_sight() -> void:
 		acos(dot_product)
 	)
 
-	if angle <= sight_angle:
+	if angle > sight_angle:
+		return false
 
-		if distance <= shoot_distance:
-			current_state = State.SHOOTING
-		else:
-			current_state = State.CHASING
+	return _has_clear_line_of_sight()
+
+
+func _has_clear_line_of_sight() -> bool:
+	if player == null or get_world_3d() == null:
+		return false
+
+	var query := PhysicsRayQueryParameters3D.create(
+		global_position + Vector3.UP * eye_height,
+		player.global_position + Vector3.UP * player_target_height
+	)
+	query.exclude = [get_rid()]
+	query.collide_with_areas = false
+
+	var hit : Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
+
+	if hit.is_empty():
+		return true
+
+	var collider : Object = hit.get("collider") as Object
+
+	if collider == player:
+		return true
+
+	return collider is Node and player.is_ancestor_of(collider as Node)
+
+
+func _get_player_visibility_multiplier() -> float:
+	if player != null and player.has_method("get_visibility_multiplier"):
+		return clampf(
+			float(player.call("get_visibility_multiplier")),
+			0.1,
+			1.0
+		)
+
+	return 1.0
+
+
+func _is_player_alive() -> bool:
+	if player == null:
+		return false
+
+	if player.has_method("is_alive"):
+		return bool(player.call("is_alive"))
+
+	return true
 
 # --------------------------------------------------
 # CLOSE DISTANCE
 # --------------------------------------------------
 
 func close_distance() -> void:
+	aim_progress = 0.0
 
 	if player == null:
 		return
@@ -254,7 +391,7 @@ func close_distance() -> void:
 		global_position.distance_to(player.global_position)
 	)
 
-	if distance <= shoot_distance:
+	if distance <= shoot_distance and has_visual_contact:
 
 		velocity = Vector3.ZERO
 
@@ -263,7 +400,7 @@ func close_distance() -> void:
 		return
 
 
-	navigation_agent.target_position = player.global_position
+	navigation_agent.target_position = last_known_player_position
 
 
 	if navigation_agent.is_navigation_finished():
@@ -302,7 +439,7 @@ func close_distance() -> void:
 # SHOOT
 # --------------------------------------------------
 
-func shoot() -> void:
+func shoot(delta : float) -> void:
 
 	if player == null:
 		return
@@ -316,8 +453,9 @@ func shoot() -> void:
 
 	var distance : float = direction.length()
 
-	if distance > shoot_distance:
+	if distance > shoot_distance or not has_visual_contact:
 
+		aim_progress = 0.0
 		current_state = State.CHASING
 
 		return
@@ -332,14 +470,213 @@ func shoot() -> void:
 			direction.normalized()
 		)
 
+	aim_progress = minf(
+		aim_progress + delta,
+		maxf(aim_stabilization_time, 0.0)
+	)
+
+	if aim_progress < aim_stabilization_time:
+		return
 
 	if shoot_timer > 0.0:
 		return
 
 
-	shoot_timer = shoot_cooldown
+	_perform_shot()
 
-	print("SMELLY FARMER SHOOTS PLAYER")
+
+func _perform_shot() -> void:
+	if player == null or not _is_player_alive():
+		return
+
+	shoot_timer = maxf(seconds_between_shots, 0.1)
+	aim_progress = 0.0
+	gunshot_audio.call("play_shot")
+	muzzle_flash.visible = true
+	muzzle_flash_timer.start(maxf(muzzle_flash_duration, 0.01))
+
+	var shot_origin : Vector3 = muzzle.global_position
+	var target_position : Vector3 = (
+		player.global_position + Vector3.UP * player_target_height
+	)
+	var distance : float = shot_origin.distance_to(target_position)
+	var accuracy : float = _calculate_shot_accuracy(distance)
+	var spread_degrees : float = _calculate_shot_spread(distance)
+	var intends_to_hit : bool = randf() <= accuracy
+	var shot_direction : Vector3 = _get_shot_direction(
+		shot_origin,
+		target_position,
+		spread_degrees,
+		intends_to_hit
+	)
+	var shot_end : Vector3 = (
+		shot_origin + shot_direction * maxf(shoot_distance, sight_distance)
+	)
+	var query := PhysicsRayQueryParameters3D.create(shot_origin, shot_end)
+	query.exclude = [get_rid()]
+	query.collide_with_areas = false
+
+	var hit : Dictionary = (
+		get_world_3d().direct_space_state.intersect_ray(query)
+	)
+	var collider : Object = hit.get("collider") as Object
+	var hit_player : bool = _is_player_collider(collider)
+
+	if hit_player and player.has_method("take_damage"):
+		consecutive_hits += 1
+		player.call(
+			"take_damage",
+			shoot_damage,
+			shot_direction,
+			shot_knockback_distance
+		)
+	else:
+		consecutive_hits = 0
+
+
+func _calculate_shot_accuracy(distance : float) -> float:
+	var distance_ratio : float = clampf(
+		distance / maxf(shoot_distance, 0.01),
+		0.0,
+		1.0
+	)
+	var accuracy : float = lerpf(
+		maximum_shot_accuracy,
+		minimum_shot_accuracy,
+		distance_ratio
+	)
+	var motion_ratio : float = clampf(
+		Vector2(player.velocity.x, player.velocity.z).length() / 6.0,
+		0.0,
+		1.0
+	)
+	var visibility_multiplier : float = _get_player_visibility_multiplier()
+	accuracy -= motion_ratio * 0.18
+	accuracy -= (1.0 - visibility_multiplier) * 0.3
+
+	if (
+		consecutive_hit_mercy_threshold > 0
+		and consecutive_hits >= consecutive_hit_mercy_threshold
+	):
+		accuracy -= mercy_accuracy_penalty
+
+	return clampf(accuracy, 0.05, maximum_shot_accuracy)
+
+
+func _calculate_shot_spread(distance : float) -> float:
+	var distance_ratio : float = clampf(
+		distance / maxf(shoot_distance, 0.01),
+		0.0,
+		1.0
+	)
+	var motion_ratio : float = clampf(
+		Vector2(player.velocity.x, player.velocity.z).length() / 6.0,
+		0.0,
+		1.0
+	)
+	var visibility_multiplier : float = _get_player_visibility_multiplier()
+	var spread : float = lerpf(
+		close_spread_degrees,
+		far_spread_degrees,
+		distance_ratio
+	)
+	spread += motion_ratio * movement_spread_bonus_degrees
+	spread += (
+		(1.0 - visibility_multiplier)
+		* concealment_spread_bonus_degrees
+	)
+
+	if (
+		consecutive_hit_mercy_threshold > 0
+		and consecutive_hits >= consecutive_hit_mercy_threshold
+	):
+		spread += mercy_spread_bonus_degrees
+
+	return maxf(spread, 0.0)
+
+
+func _get_shot_direction(
+	shot_origin : Vector3,
+	target_position : Vector3,
+	spread_degrees : float,
+	intends_to_hit : bool
+) -> Vector3:
+	var aim_direction : Vector3 = (
+		target_position - shot_origin
+	).normalized()
+
+	if intends_to_hit:
+		return _random_direction_in_cone(
+			aim_direction,
+			spread_degrees * 0.35
+		)
+
+	var distance : float = shot_origin.distance_to(target_position)
+	var clearance_degrees : float = minf(
+		rad_to_deg(atan2(miss_target_radius, maxf(distance, 0.01))),
+		10.0
+	)
+	var miss_angle_degrees : float = (
+		clearance_degrees
+		+ randf_range(spread_degrees * 0.35, spread_degrees)
+	)
+	var miss_side : float = -1.0 if randf() < 0.5 else 1.0
+	var missed_direction : Vector3 = aim_direction.rotated(
+		Vector3.UP,
+		deg_to_rad(miss_angle_degrees * miss_side)
+	)
+	var pitch_axis : Vector3 = missed_direction.cross(Vector3.UP)
+
+	if pitch_axis.length_squared() > 0.001:
+		missed_direction = missed_direction.rotated(
+			pitch_axis.normalized(),
+			deg_to_rad(randf_range(-spread_degrees, spread_degrees) * 0.2)
+		)
+
+	return missed_direction.normalized()
+
+
+func _random_direction_in_cone(
+	direction : Vector3,
+	max_angle_degrees : float
+) -> Vector3:
+	if max_angle_degrees <= 0.0:
+		return direction
+
+	var right : Vector3 = direction.cross(Vector3.UP)
+
+	if right.length_squared() < 0.001:
+		right = Vector3.RIGHT
+	else:
+		right = right.normalized()
+
+	var up : Vector3 = right.cross(direction).normalized()
+	var disk_angle : float = randf_range(0.0, TAU)
+	var disk_radius : float = (
+		tan(deg_to_rad(max_angle_degrees)) * sqrt(randf())
+	)
+	return (
+		direction
+		+ right * cos(disk_angle) * disk_radius
+		+ up * sin(disk_angle) * disk_radius
+	).normalized()
+
+
+func _is_player_collider(collider : Object) -> bool:
+	if collider == null or player == null:
+		return false
+
+	if collider == player:
+		return true
+
+	return (
+		collider is Node
+		and player.is_ancestor_of(collider as Node)
+	)
+
+
+func _hide_muzzle_flash() -> void:
+	muzzle_flash.visible = false
 
 
 # --------------------------------------------------
@@ -369,9 +706,13 @@ func update_head_look(delta : float) -> void:
 		return
 
 	if current_state == State.CHASING or current_state == State.SHOOTING:
+		var look_position : Vector3 = player.global_position
+
+		if current_state == State.CHASING and not has_visual_contact:
+			look_position = last_known_player_position
 
 		target_marker.global_position = target_marker.global_position.lerp(
-			player.global_position,
+			look_position,
 			delta * look_speed
 		)
 

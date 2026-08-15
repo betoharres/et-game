@@ -1,0 +1,142 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/player_hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxPanel"]
+bg_color = Color(0.025, 0.04, 0.055, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.78, 0.8, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxBarBackground"]
+bg_color = Color(0.04, 0.055, 0.065, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxHealth"]
+bg_color = Color(0.85, 0.16, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxStamina"]
+bg_color = Color(0.2, 0.82, 0.52, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PlayerHUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StatusPanel" type="PanelContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -154.0
+offset_right = 354.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxPanel")
+
+[node name="Status" type="VBoxContainer" parent="Interface/StatusPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="Interface/StatusPanel/Status"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 17
+text = "STATUS DO ET"
+
+[node name="HealthLabel" type="Label" parent="Interface/StatusPanel/Status"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "VIDA  100 / 100"
+
+[node name="HealthBar" type="ProgressBar" parent="Interface/StatusPanel/Status"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+theme_override_styles/background = SubResource("StyleBoxBarBackground")
+theme_override_styles/fill = SubResource("StyleBoxHealth")
+
+[node name="StaminaLabel" type="Label" parent="Interface/StatusPanel/Status"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "STAMINA  100 / 100"
+
+[node name="StaminaBar" type="ProgressBar" parent="Interface/StatusPanel/Status"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+theme_override_styles/background = SubResource("StyleBoxBarBackground")
+theme_override_styles/fill = SubResource("StyleBoxStamina")
+
+[node name="DefeatMenu" type="PanelContainer" parent="Interface"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -86.0
+offset_right = 160.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBoxPanel")
+
+[node name="Content" type="VBoxContainer" parent="Interface/DefeatMenu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="DefeatedLabel" type="Label" parent="Interface/DefeatMenu/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.16, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "ET ABATIDO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Interface/DefeatMenu/Content"]
+custom_minimum_size = Vector2(240, 46)
+layout_mode = 2
+focus_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "RECOMEÇAR"

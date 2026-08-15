@@ -19,6 +19,8 @@ extends VehicleBody3D
 @onready var camera_arm : Node3D = $CameraArm
 @onready var camera : Camera3D = $CameraArm/Camera3D
 
+@export var interior_camera_offset : Vector3 = Vector3(0.43, 1.55, 0.95)
+
 @export var sensitivity : float = 0.003
 @export var camera_pitch_min : float = -80.0
 @export var camera_pitch_max : float = 80.0
@@ -29,6 +31,9 @@ var camera_pitch : float = 0.0
 var vehicle_controlled : bool = false
 var current_player : CharacterBody3D = null
 var player_camera : Camera3D = null
+var exterior_camera_position : Vector3
+var exterior_camera_rotation : Vector3
+var first_person_camera : bool = false
 
 # Driver ET reference
 @onready var ET_driver : Node3D = $ET2
@@ -39,12 +44,20 @@ func _ready() -> void:
 	camera_yaw = global_rotation.y
 	camera_pitch = camera_arm.rotation.x
 
+	exterior_camera_position = camera.position
+	exterior_camera_rotation = camera.rotation
 	camera.current = false
 
 
 func _input(event : InputEvent) -> void:
 
-	if event.is_action_pressed("ui_accept"):
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_G or event.physical_keycode == KEY_G:
+			if vehicle_controlled:
+				set_first_person_camera(!first_person_camera)
+			return
+
+	if event.is_action_pressed("interact"):
 		if vehicle_controlled:
 			exit_vehicle()
 		else:
@@ -69,16 +82,16 @@ func _input(event : InputEvent) -> void:
 				maximum_pitch
 			)
 
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-
 func _physics_process(delta : float) -> void:
 
 	# Camera follows vehicle position,
 	# but not vehicle rotation.
 
-	camera_arm.global_position = global_position
+	var camera_position : Vector3 = global_position
+	if vehicle_controlled and first_person_camera:
+		camera_position += global_transform.basis * interior_camera_offset
+
+	camera_arm.global_position = camera_position
 
 	camera_arm.global_rotation = Vector3(
 		camera_pitch,
@@ -182,6 +195,7 @@ func exit_vehicle() -> void:
 		return
 
 	vehicle_controlled = false
+	first_person_camera = false
 
 	engine_force = 0.0
 	brake = brake_force
@@ -200,10 +214,24 @@ func exit_vehicle() -> void:
 	if player_camera != null:
 		player_camera.current = true
 
+	set_first_person_camera(false)
 	camera.current = false
 
 	current_player = null
 	player_camera = null
+
+
+func set_first_person_camera(enabled : bool) -> void:
+	first_person_camera = enabled
+
+	if first_person_camera:
+		# Keep the camera node at the driver's head and look through the windshield.
+		camera.position = Vector3.ZERO
+		camera.rotation = Vector3(0.0, PI, 0.0)
+	else:
+		# Restore the original third-person camera reference.
+		camera.position = exterior_camera_position
+		camera.rotation = exterior_camera_rotation
 
 
 func find_player_camera(player : Node) -> Camera3D:

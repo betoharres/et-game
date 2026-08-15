@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://biy7wkqgtlxmb" path="res://scripts/player.gd" id="1_p0vlq"]
 [ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="2_3li8b"]
 [ext_resource type="Script" uid="uid://dbwjogvkof04y" path="res://scripts/ik_target_container.gd" id="3_3li8b"]
+[ext_resource type="Script" path="res://scripts/audio/footstep_audio.gd" id="4_footsteps"]
+[ext_resource type="PackedScene" path="res://scenes/PlayerHUD.tscn" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/player_ragdoll.gd" id="6_ragdoll"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -11,7 +14,15 @@ height = 1.0
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters"]]
 script = ExtResource("1_p0vlq")
 
+[node name="FootstepAudio" type="Node" parent="."]
+script = ExtResource("4_footsteps")
+
+[node name="PlayerHUD" parent="." instance=ExtResource("5_hud")]
+
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
+
+[node name="PlayerRagdoll" type="Node" parent="."]
+script = ExtResource("6_ragdoll")
 
 [node name="LegR" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1117121680) index="0" unique_id=511071823]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.033597767, 0, 0.03857422)

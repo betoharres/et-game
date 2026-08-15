@@ -1,14 +1,30 @@
-[gd_scene format=3 uid="uid://bkp3s55pwy4em"]
+[gd_scene load_steps=10 format=3 uid="uid://bkp3s55pwy4em"]
 
 [ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
 [ext_resource type="ArrayMesh" uid="uid://d3irt6sfulsdc" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
 [ext_resource type="Script" uid="uid://c7b1g0wjyngyp" path="res://scripts/IKsmelly.gd" id="4_vfalg"]
+[ext_resource type="Script" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.18603516
 height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterialMuzzleFlash"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.45, 0.05, 0.9)
+emission_enabled = true
+emission = Color(1, 0.12, 0.01, 1)
+emission_energy_multiplier = 6.0
+
+[sub_resource type="SphereMesh" id="SphereMeshMuzzleFlash"]
+material = SubResource("StandardMaterialMuzzleFlash")
+radius = 0.07
+height = 0.18
+radial_segments = 8
+rings = 4
 
 [node name="Smelly" type="CharacterBody3D" unique_id=584213395]
 script = ExtResource("1_c8nde")
@@ -116,6 +132,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05236326, 0.053773046, 0.09
 mesh = ExtResource("3_88yto")
 surface_material_override/0 = ExtResource("2_88yto")
 
+[node name="Muzzle" type="Marker3D" parent="IKcontainer/HandR/Shotgun"]
+position = Vector3(0, 0, 0.92)
+
+[node name="MuzzleFlash" type="Node3D" parent="IKcontainer/HandR/Shotgun/Muzzle"]
+visible = false
+
+[node name="FlashMesh" type="MeshInstance3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash"]
+scale = Vector3(0.65, 0.65, 1.4)
+mesh = SubResource("SphereMeshMuzzleFlash")
+
+[node name="FlashLight" type="OmniLight3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash"]
+light_color = Color(1, 0.35, 0.08, 1)
+light_energy = 4.0
+omni_range = 3.0
+shadow_enabled = true
+
+[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="IKcontainer/HandR/Shotgun/Muzzle"]
+max_distance = 45.0
+unit_size = 4.0
+max_polyphony = 3
+script = ExtResource("5_gunshot")
+
+[node name="MuzzleFlashTimer" type="Timer" parent="IKcontainer/HandR/Shotgun/Muzzle"]
+wait_time = 0.08
+one_shot = true
+
 [node name="ElbowL" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=1227882864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5539022, -0.050064087, 0.19556722)
 
@@ -129,16 +171,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.49982852, 0.5776008
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.49982852, 0.57741046)
 
 [node name="StepR" type="Marker3D" parent="IKcontainer" unique_id=1686277510]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13300003, 0, 0.15714242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.02, 0.14)
 
 [node name="StepL" type="Marker3D" parent="IKcontainer" unique_id=1496301053]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13299997, 0, 0.15695201)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.02, 0.14)
 
 [node name="FootR" type="Marker3D" parent="IKcontainer" unique_id=116722117]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1328284, 0.35777617, 0.27900976)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.02, 0.14)
 
 [node name="FootL" type="Marker3D" parent="IKcontainer" unique_id=1409332700]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13299994, 0.12872483, -0.27684605)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.02, 0.14)
 
 [node name="HeadTarget" type="Marker3D" parent="IKcontainer" unique_id=404352808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493148, 6.7135515)

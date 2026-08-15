@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/photographer.gd" id="1_photographer"]
+[ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_farmer_model"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_farmer_material"]
+
+[sub_resource type="CapsuleShape3D" id="CapsulePhotographer"]
+radius = 0.22
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="CameraBodyMaterial"]
+albedo_color = Color(0.025, 0.03, 0.04, 1)
+metallic = 0.65
+roughness = 0.28
+
+[sub_resource type="BoxMesh" id="CameraBodyMesh"]
+material = SubResource("CameraBodyMaterial")
+size = Vector3(0.34, 0.22, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="CameraLensMaterial"]
+albedo_color = Color(0.05, 0.2, 0.32, 1)
+metallic = 0.8
+roughness = 0.12
+emission_enabled = true
+emission = Color(0.02, 0.12, 0.22, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="CylinderMesh" id="CameraLensMesh"]
+material = SubResource("CameraLensMaterial")
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.11
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="FlashMaterial"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.85, 0.94, 1, 0.95)
+emission_enabled = true
+emission = Color(0.7, 0.88, 1, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="SphereMesh" id="FlashMesh"]
+material = SubResource("FlashMaterial")
+radius = 0.11
+height = 0.22
+radial_segments = 12
+rings = 6
+
+[node name="Photographer" type="CharacterBody3D" groups=["photographers"]]
+script = ExtResource("1_photographer")
+
+[node name="FarmerOld2" parent="." instance=ExtResource("2_farmer_model")]
+
+[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_farmer_material")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.9, 0)
+shape = SubResource("CapsulePhotographer")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.5
+path_desired_distance = 0.5
+target_desired_distance = 1.0
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1.25, 0.34)
+
+[node name="CameraBody" type="MeshInstance3D" parent="CameraRig"]
+mesh = SubResource("CameraBodyMesh")
+
+[node name="CameraLens" type="MeshInstance3D" parent="CameraRig"]
+position = Vector3(0, 0, 0.13)
+rotation = Vector3(1.5707964, 0, 0)
+mesh = SubResource("CameraLensMesh")
+
+[node name="CameraFlash" type="Node3D" parent="CameraRig"]
+visible = false
+position = Vector3(0.12, 0.1, 0.14)
+
+[node name="FlashMesh" type="MeshInstance3D" parent="CameraRig/CameraFlash"]
+mesh = SubResource("FlashMesh")
+
+[node name="FlashLight" type="OmniLight3D" parent="CameraRig/CameraFlash"]
+light_color = Color(0.72, 0.88, 1, 1)
+light_energy = 3.0
+omni_range = 3.0
+shadow_enabled = true
+
+[node name="FlashTimer" type="Timer" parent="CameraRig"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RoleLabel" type="Label3D" parent="."]
+position = Vector3(0, 2.05, 0)
+billboard = 1
+text = "FOTÓGRAFO"
+font_size = 32
+outline_size = 8
+modulate = Color(0.75, 0.9, 1, 1)
+
+[editable path="FarmerOld2"]

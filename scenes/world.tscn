@@ -79,13 +79,19 @@
 [ext_resource type="ArrayMesh" uid="uid://bu2mr1puyrxlu" path="res://3dModelos/SM_Bld_Barn_01.fbx" id="77_1v02h"]
 [ext_resource type="ArrayMesh" uid="uid://b70x4xpyi61aa" path="res://3dModelos/SM_Bld_Barn_02.fbx" id="78_l137e"]
 [ext_resource type="ArrayMesh" uid="uid://jnkrjpkd7sgg" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="79_ygn2i"]
+[ext_resource type="Script" uid="uid://c6qrkcglgvt7l" path="res://scripts/audio/farm_environment_audio.gd" id="80_audio"]
+[ext_resource type="Texture2D" uid="uid://da705coscgj8s" path="res://assets/sky/night_full_moon_panorama.png" id="81_night_sky"]
+[ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="82_pause_menu"]
+[ext_resource type="PackedScene" path="res://scenes/Photographer.tscn" id="83_photographer"]
+[ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
 vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfrgv"]
-albedo_color = Color(0, 0.4117647, 0, 1)
+albedo_color = Color(1.2747128e-07, 0.07813413, 0, 1)
+emission_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ec6vt"]
 material = SubResource("StandardMaterial3D_mfrgv")
@@ -94,23 +100,29 @@ size = Vector2(256, 256)
 [sub_resource type="BoxShape3D" id="BoxShape3D_15tgd"]
 size = Vector3(128, 8, 128)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(0.38039216, 0, 0.7254902, 1)
-ground_bottom_color = Color(0.15686275, 0.44313726, 0.15686275, 1)
-ground_horizon_color = Color(0.38039216, 0, 0.7254902, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_night"]
+panorama = ExtResource("81_night_sky")
 
 [sub_resource type="Sky" id="Sky_nnsk1"]
-sky_material = SubResource("ProceduralSkyMaterial_rwgxs")
+sky_material = SubResource("PanoramaSkyMaterial_night")
 
 [sub_resource type="Environment" id="Environment_nnsk1"]
 background_mode = 2
 background_color = Color(0.40831587, 0.91825694, 0.9999998, 1)
 sky = SubResource("Sky_nnsk1")
+ambient_light_source = 2
+ambient_light_color = Color(0.16, 0.22, 0.38, 1)
+ambient_light_energy = 1.35
+reflected_light_source = 2
 ssao_enabled = true
-ssao_power = 21.629986
+ssao_radius = 0.95
+ssao_intensity = 8.6
+ssao_power = 192.00093
 
 [node name="World" type="Node3D" unique_id=1407078805]
+
+[node name="FarmEnvironmentAudio" type="Node" parent="." unique_id=704676073]
+script = ExtResource("80_audio")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1651559839]
 navigation_mesh = SubResource("NavigationMesh_yf2p4")
@@ -127,10 +139,14 @@ shape = SubResource("BoxShape3D_15tgd")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=161618458]
 environment = SubResource("Environment_nnsk1")
 
+[node name="PauseMenu" parent="." unique_id=1267712706 instance=ExtResource("82_pause_menu")]
+
+[node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=883284234]
 transform = Transform3D(1, 0, 0, 0, 0.4648458, 0.88539165, 0, -0.88539165, 0.4648458, 0, 58.62938, 0)
-light_color = Color(0.16206557, 0.1620656, 0.16206557, 1)
-light_energy = 0.475
+light_color = Color(0.42, 0.52, 0.78, 1)
+light_energy = 0.65
 light_indirect_energy = 2.574
 light_volumetric_fog_energy = 0.0
 light_bake_mode = 1
@@ -1578,6 +1594,7 @@ surface_material_override/0 = ExtResource("12_munwf")
 [node name="SmPropToolAxe01" type="MeshInstance3D" parent="PropsHolder" unique_id=877480949]
 transform = Transform3D(-0.6992371, -0.6339727, 0.3303726, 0, -0.46213078, -0.8868118, 0.7148898, -0.62009174, 0.32313898, -23.145594, 0.7402144, -12.037118)
 mesh = ExtResource("66_1v02h")
+surface_material_override/0 = ExtResource("12_munwf")
 
 [node name="SmPropTable01" type="MeshInstance3D" parent="PropsHolder" unique_id=191594881]
 transform = Transform3D(0.6809092, 0, 0.7323679, 0, 1, 0, -0.7323679, 0, 0.6809092, -5.223734, 0.8505566, -17.91707)
@@ -1627,10 +1644,16 @@ transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.821626
 [node name="Smelly" parent="." unique_id=584213395 instance=ExtResource("26_munwf")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 9.207358, 0.0016009558, -14.615081)
 
+[node name="Photographer" parent="." unique_id=109059724 instance=ExtResource("83_photographer")]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -8, 0, 8)
+
 [node name="SpaceshipScraps" parent="." unique_id=626107039 instance=ExtResource("27_ts3gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3174243, -4.7683716e-07, -12.069503)
 
 [node name="DeliveryArea" parent="." unique_id=741650013 instance=ExtResource("28_0nbtd")]
 transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.6160665, -49.656147, 0.017127872, -33.3789)
+
+[node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.15616, 0, -8.643308)
 
 [editable path="PropsHolder/Root3"]

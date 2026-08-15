@@ -4,6 +4,7 @@
 /.mono/
 /android/
 /data_*/
+/build/
 
 # Export credentials and legacy export configuration
 /export.cfg
