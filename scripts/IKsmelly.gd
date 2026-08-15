@@ -7,24 +7,22 @@ extends Node3D
 @onready var step_L : Marker3D = $StepL
 @onready var step_R : Marker3D = $StepR
 
+@export var stride_length : float = 0.62
+@export var step_height : float = 0.18
+@export var minimum_walk_speed : float = 0.08
+@export var target_follow_speed : float = 16.0
+@export var idle_return_speed : float = 9.0
 
-@export var step_distance : float = 0.5
-@export var step_height : float = 0.2
-@export var step_speed : float = 5.0
-@export var minimum_walk_speed : float = 0.01
+var _phase : float = 0.0
+var _left_rest_position : Vector3
+var _right_rest_position : Vector3
 
 
-var stepping_L : bool = false
-var stepping_R : bool = false
-
-var step_start_L : Vector3
-var step_start_R : Vector3
-
-var step_target_L : Vector3
-var step_target_R : Vector3
-
-var step_progress_L : float = 0.0
-var step_progress_R : float = 0.0
+func _ready() -> void:
+	_left_rest_position = step_L.position
+	_right_rest_position = step_R.position
+	target_legL.position = _left_rest_position
+	target_legR.position = _right_rest_position
 
 
 func _physics_process(delta : float) -> void:
@@ -48,104 +46,49 @@ func update_feet_IK(character_velocity : Vector3, delta : float) -> void:
 	var movement_speed : float = horizontal_velocity.length()
 
 	if movement_speed < minimum_walk_speed:
+		_return_feet_to_rest(delta)
 		return
 
+	var safe_stride_length : float = maxf(stride_length, 0.1)
+	var phase_speed : float = PI * movement_speed / safe_stride_length
+	_phase = fmod(_phase + phase_speed * delta, TAU)
 
-	var distance_L : float = (
-		target_legL.global_position.distance_to(step_L.global_position)
+	var stride_scale : float = clampf(movement_speed / 2.0, 0.75, 1.3)
+	var left_target : Vector3 = _get_step_position(
+		_left_rest_position,
+		_phase,
+		stride_scale
 	)
-
-	var distance_R : float = (
-		target_legR.global_position.distance_to(step_R.global_position)
+	var right_target : Vector3 = _get_step_position(
+		_right_rest_position,
+		fmod(_phase + PI, TAU),
+		stride_scale
 	)
+	var follow_weight : float = clampf(delta * target_follow_speed, 0.0, 1.0)
+
+	target_legL.position = target_legL.position.lerp(left_target, follow_weight)
+	target_legR.position = target_legR.position.lerp(right_target, follow_weight)
 
 
-	# Start a step only when both feet are planted.
+func _get_step_position(
+	rest_position : Vector3,
+	foot_phase : float,
+	stride_scale : float
+) -> Vector3:
+	var half_stride : float = stride_length * 0.5 * stride_scale
+	var forward_offset : float = -cos(foot_phase) * half_stride
+	var lift : float = maxf(sin(foot_phase), 0.0) * step_height * stride_scale
 
-	if not stepping_L and not stepping_R:
-
-		if distance_L > step_distance:
-
-			stepping_L = true
-
-			step_start_L = target_legL.position
-			step_target_L = step_L.position
-
-			step_progress_L = 0.0
-
-		elif distance_R > step_distance:
-
-			stepping_R = true
-
-			step_start_R = target_legR.position
-			step_target_R = step_R.position
-
-			step_progress_R = 0.0
+	return rest_position + Vector3(0.0, lift, forward_offset)
 
 
-	# Left foot
-
-	if stepping_L:
-
-		step_progress_L += delta * step_speed
-
-		step_progress_L = minf(
-			step_progress_L,
-			1.0
-		)
-
-		var t : float = step_progress_L
-
-		var new_position : Vector3 = (
-			step_start_L.lerp(
-				step_target_L,
-				t
-			)
-		)
-
-		new_position.y += (
-			sin(t * PI)
-			* step_height
-		)
-
-		target_legL.position = new_position
-
-		if step_progress_L >= 1.0:
-
-			target_legL.position = step_target_L
-
-			stepping_L = false
-
-
-	# Right foot
-
-	elif stepping_R:
-
-		step_progress_R += delta * step_speed
-
-		step_progress_R = minf(
-			step_progress_R,
-			1.0
-		)
-
-		var t : float = step_progress_R
-
-		var new_position : Vector3 = (
-			step_start_R.lerp(
-				step_target_R,
-				t
-			)
-		)
-
-		new_position.y += (
-			sin(t * PI)
-			* step_height
-		)
-
-		target_legR.position = new_position
-
-		if step_progress_R >= 1.0:
-
-			target_legR.position = step_target_R
-
-			stepping_R = false
+func _return_feet_to_rest(delta : float) -> void:
+	var return_weight : float = clampf(delta * idle_return_speed, 0.0, 1.0)
+	target_legL.position = target_legL.position.lerp(
+		_left_rest_position,
+		return_weight
+	)
+	target_legR.position = target_legR.position.lerp(
+		_right_rest_position,
+		return_weight
+	)
