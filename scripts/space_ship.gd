@@ -1,10 +1,15 @@
 extends StaticBody3D
 
-@export var var_speed : float = 1.0
+@export_range(0.0, 1.0, 0.01) var var_speed : float = 0.18
 
 @export_group("UFO Lighting")
-@export_color_no_alpha var beam_color : Color = Color(0.03, 0.58, 0.78)
-@export_range(0.0, 40.0, 0.1) var beam_energy : float = 3.5
+@export_color_no_alpha var beam_color : Color = Color(0.16, 0.68, 0.86)
+@export_range(0.0, 40.0, 0.1) var beam_energy : float = 8.0
+@export_range(20.0, 120.0, 1.0) var beam_range : float = 72.0
+@export_range(1.0, 45.0, 0.5) var beam_angle_degrees : float = 13.0
+@export_range(0.0, 2.0, 0.05) var beam_attenuation : float = 0.45
+@export_range(0.0, 10.0, 0.1) var ground_light_energy : float = 2.6
+@export_range(2.0, 20.0, 0.5) var ground_light_range : float = 10.0
 @export_range(0.0, 0.4, 0.01) var beam_pulse_amount : float = 0.12
 @export_range(0.0, 2.0, 0.01) var beam_pulse_speed : float = 0.34
 @export_range(0.0, 15.0, 0.1) var beam_sweep_degrees : float = 6.5
@@ -17,6 +22,7 @@ extends StaticBody3D
 
 var _spot_lights : Array[SpotLight3D] = []
 var _hull_lights : Array[OmniLight3D] = []
+var _ground_lights : Array[OmniLight3D] = []
 var _beam_dust : Array[GPUParticles3D] = []
 var _beam_volumes : Array[MeshInstance3D] = []
 var _base_spot_rotations : Array[Vector3] = []
@@ -31,12 +37,13 @@ func _ready() -> void:
 		spot.light_color = beam_color
 		spot.light_energy = beam_energy
 		spot.light_volumetric_fog_energy = 1.2
-		spot.spot_range = 68.0
-		spot.spot_angle = 11.5
+		spot.spot_range = beam_range
+		spot.spot_angle = beam_angle_degrees
+		spot.spot_attenuation = beam_attenuation
 		_spot_lights.append(spot)
 		_base_spot_rotations.append(spot.rotation)
 
-	for child : Node in find_children("*", "OmniLight3D", true, false):
+	for child : Node in find_children("HullLight*", "OmniLight3D", true, false):
 		var hull_light := child as OmniLight3D
 		if hull_light == null:
 			continue
@@ -45,6 +52,21 @@ func _ready() -> void:
 		hull_light.shadow_enabled = false
 		hull_light.light_volumetric_fog_energy = 0.55
 		_hull_lights.append(hull_light)
+
+	for child : Node in find_children(
+		"BeamGroundLight*",
+		"OmniLight3D",
+		true,
+		false
+	):
+		var ground_light := child as OmniLight3D
+		if ground_light == null:
+			continue
+		ground_light.light_color = beam_color
+		ground_light.light_energy = ground_light_energy
+		ground_light.omni_range = ground_light_range
+		ground_light.shadow_enabled = false
+		_ground_lights.append(ground_light)
 
 	for child : Node in find_children("BeamDust*", "GPUParticles3D", true, false):
 		var dust := child as GPUParticles3D
@@ -62,6 +84,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	self.rotation.y += var_speed * delta
+	_update_ground_lights()
 
 
 func _process(delta : float) -> void:
@@ -87,6 +110,35 @@ func _process(delta : float) -> void:
 		_hull_lights[index].light_energy = hull_light_energy * (
 			1.0 + pulse * beam_pulse_amount * 0.7
 		)
+
+func _update_ground_lights() -> void:
+	if get_world_3d() == null:
+		return
+
+	var light_count := mini(_spot_lights.size(), _ground_lights.size())
+	var space_state := get_world_3d().direct_space_state
+	for index : int in range(light_count):
+		var spot := _spot_lights[index]
+		var direction := -spot.global_transform.basis.z.normalized()
+		var query := PhysicsRayQueryParameters3D.create(
+			spot.global_position,
+			spot.global_position + direction * beam_range
+		)
+		query.exclude = [get_rid()]
+		query.collide_with_areas = false
+		var hit := space_state.intersect_ray(query)
+		var ground_light := _ground_lights[index]
+		ground_light.visible = not hit.is_empty()
+		if hit.is_empty():
+			continue
+
+		var hit_position : Vector3 = hit.get("position", Vector3.ZERO)
+		var hit_normal : Vector3 = hit.get("normal", Vector3.UP)
+		ground_light.global_position = hit_position + hit_normal * 2.0
+		var pulse := sin(
+			_elapsed * beam_pulse_speed + float(index) * 2.17
+		) * beam_pulse_amount
+		ground_light.light_energy = ground_light_energy * (1.0 + pulse * 0.5)
 
 
 func set_atmosphere_quality(quality_level : int, particles_allowed : bool) -> void:

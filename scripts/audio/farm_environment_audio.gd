@@ -21,12 +21,12 @@ var _random := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_random.randomize()
-	_add_loop("FarmWind", WIND_STREAM, -22.0)
+	_add_loop("FarmWind", WIND_STREAM, -19.0)
 	_add_loop("FarmCrickets", CRICKETS_STREAM, -25.0)
 
 	_dog_player = AudioStreamPlayer3D.new()
 	_dog_player.name = "FarmDogs"
-	_dog_player.volume_db = -13.0
+	_dog_player.volume_db = -10.0
 	_dog_player.unit_size = 4.0
 	_dog_player.max_distance = 90.0
 	_dog_player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE

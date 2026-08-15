@@ -113,7 +113,15 @@ func _draw_vision_actor(actor : Node, area : Rect2, player : Node3D) -> void:
 	if actor.has_method("get_vision_origin"):
 		actor_position = Vector3(actor.call("get_vision_origin"))
 	var distance : float = float(actor.get("sight_distance"))
-	var angle : float = float(actor.get("sight_angle"))
+	if actor.has_method("get_effective_sight_distance"):
+		distance = float(actor.call("get_effective_sight_distance"))
+	var half_angle_degrees : float = float(
+		actor.get("sight_half_angle_degrees")
+	)
+	if actor.has_method("get_effective_sight_half_angle_degrees"):
+		half_angle_degrees = float(
+			actor.call("get_effective_sight_half_angle_degrees")
+		)
 	var forward : Vector3 = actor_3d.global_transform.basis.z
 	if actor.has_method("get_vision_forward"):
 		forward = Vector3(actor.call("get_vision_forward"))
@@ -142,7 +150,10 @@ func _draw_vision_actor(actor : Node, area : Rect2, player : Node3D) -> void:
 	var points := PackedVector2Array([center])
 	var segments : int = 18
 	for index : int in range(segments + 1):
-		var angle_offset : float = deg_to_rad(-angle + (angle * 2.0) * index / segments)
+		var angle_offset : float = deg_to_rad(
+			-half_angle_degrees
+			+ (half_angle_degrees * 2.0) * index / segments
+		)
 		var direction : Vector2 = Vector2(sin(forward_angle + angle_offset), cos(forward_angle + angle_offset))
 		points.append(_clamp_map_point(center + direction * radius, area))
 
