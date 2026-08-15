@@ -43,6 +43,7 @@ const CROUCHING_COLLISION_HEIGHT : float = 0.62
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
 @onready var character_visual : Node3D = $ET
 @onready var ragdoll : Node = $PlayerRagdoll
+@onready var ik_target_container : Node = $IKtargetContainer
 
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
@@ -271,6 +272,11 @@ func is_alive() -> bool:
 	return health > 0.0
 
 
+func set_intervention_signal_pose(active : bool) -> void:
+	if ik_target_container.has_method("set_intervention_pose"):
+		ik_target_container.call("set_intervention_pose", active)
+
+
 func set_vision_contact(source : Node, is_visible : bool) -> void:
 	if source == null:
 		return
@@ -329,6 +335,7 @@ func get_stealth_visibility() -> float:
 
 
 func _die(impact_direction : Vector3 = Vector3.ZERO) -> void:
+	set_intervention_signal_pose(false)
 	velocity = Vector3.ZERO
 	_is_sprinting = false
 	_knockback_remaining_distance = 0.0
@@ -441,13 +448,3 @@ func try_pickup() -> void:
 	if closest_item != null:
 		carried_item = closest_item
 		closest_item.pickup(self)
-
-func deliver_item(_delivery_area : Area3D) -> void:
-	if carried_item == null:
-		return
-
-	var score : int = carried_item.score_value
-
-	GlobalScore.add_score(score)
-	carried_item.queue_free()
-	carried_item = null

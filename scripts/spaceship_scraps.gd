@@ -6,10 +6,11 @@ extends RigidBody3D
 
 var carried : bool = false
 var carrier : Node3D = null
+var being_abducted : bool = false
 
 func pickup(player : Node3D) -> void:
 
-	if carried:
+	if carried or being_abducted:
 		return
 
 	carried = true
@@ -29,7 +30,7 @@ func pickup(player : Node3D) -> void:
 	
 func drop() -> void:
 
-	if not carried:
+	if not carried or being_abducted:
 		return
 
 	carried = false
@@ -43,3 +44,17 @@ func drop() -> void:
 	freeze = false
 
 	carrier = null
+
+
+func is_available_for_abduction() -> bool:
+	return not carried and not being_abducted
+
+
+func begin_abduction() -> bool:
+	if not is_available_for_abduction():
+		return false
+
+	being_abducted = true
+	freeze = true
+	remove_from_group("pickup_items")
+	return true

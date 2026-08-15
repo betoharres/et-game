@@ -18,20 +18,41 @@ var step_offset : float = 0.1 + step_distance/2.0
 #Arms stuff
 @onready var target_handR : Marker3D = $HandR
 @onready var target_handL : Marker3D = $HandL
+@onready var target_elbowR : Marker3D = $ElbowR
 
 @export var arm_distance : float = 0.3
 @export var arm_height : float = 0.15
+@export var intervention_hand_position : Vector3 = Vector3(-0.13, 0.72, 0.01)
+@export var intervention_elbow_position : Vector3 = Vector3(-0.38, 0.62, -0.1)
+@export var intervention_pose_speed : float = 7.0
 
 var armR_progress : float = 0.5
 var armL_progress : float = 0.0
 var hand_x_offset : float = 0.149
 var hand_rest_y : float = 0.35
+var intervention_pose_requested : bool = false
+var intervention_pose_weight : float = 0.0
+var elbowR_rest_position : Vector3
 
 #Hips slight shake
 @onready var hips_target : Marker3D = $Hips
 @export var hips_rotation_amount : float = 3.0
 
+
+func _ready() -> void:
+	elbowR_rest_position = target_elbowR.position
+
+
+func set_intervention_pose(active : bool) -> void:
+	intervention_pose_requested = active
+
 func _physics_process(delta : float) -> void:
+	var target_pose_weight := 1.0 if intervention_pose_requested else 0.0
+	intervention_pose_weight = move_toward(
+		intervention_pose_weight,
+		target_pose_weight,
+		delta * intervention_pose_speed
+	)
 	
 	# Legs
 	var parent_character : CharacterBody3D = get_parent() as CharacterBody3D
@@ -64,6 +85,8 @@ func _physics_process(delta : float) -> void:
 			Vector3(0.0, 0.44, 1.944),
 			delta * rest_speed)
 
+		_apply_intervention_pose()
+
 		return
 
 	var speed_ratio : float = movement_speed / walk_speed
@@ -88,6 +111,18 @@ func _physics_process(delta : float) -> void:
 	update_arm(target_handL, armL_progress)
 	
 	rotate_torso()
+	_apply_intervention_pose()
+
+
+func _apply_intervention_pose() -> void:
+	target_handR.position = target_handR.position.lerp(
+		intervention_hand_position,
+		intervention_pose_weight
+	)
+	target_elbowR.position = elbowR_rest_position.lerp(
+		intervention_elbow_position,
+		intervention_pose_weight
+	)
 
 func update_leg(target : Marker3D, progress : float) -> void:
 	if progress < 0.5:

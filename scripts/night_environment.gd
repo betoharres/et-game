@@ -22,7 +22,7 @@ enum QualityLevel {
 @export_group("Moon")
 @export var moon_direction : Vector3 = Vector3(0.48, 0.34, 0.81)
 @export_color_no_alpha var moon_color : Color = Color(0.72, 0.82, 1.0)
-@export_range(0.0, 2.0, 0.01) var moon_light_energy : float = 0.68
+@export_range(0.0, 2.0, 0.01) var moon_light_energy : float = 0.82
 @export_range(0.01, 0.12, 0.001) var moon_angular_size : float = 0.028
 @export_range(0.0, 0.5, 0.01) var cloud_shadow_strength : float = 0.12
 @export_range(0.0, 0.1, 0.001) var cloud_speed : float = 0.008
@@ -32,8 +32,8 @@ enum QualityLevel {
 @export_range(5.0, 240.0, 1.0) var shooting_star_interval_max : float = 85.0
 
 @export_group("Fog and Atmosphere")
-@export_color_no_alpha var fog_color : Color = Color(0.08, 0.14, 0.26)
-@export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.012
+@export_color_no_alpha var fog_color : Color = Color(0.1, 0.18, 0.32)
+@export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.009
 @export_range(0.0, 2.0, 0.01) var fog_drift_speed : float = 0.18
 @export_range(0, 256, 1) var atmospheric_particle_amount : int = 96
 

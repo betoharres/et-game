@@ -149,3 +149,28 @@ func set_atmosphere_quality(quality_level : int, particles_allowed : bool) -> vo
 		dust.visible = dust.emitting
 	for volume : MeshInstance3D in _beam_volumes:
 		volume.visible = quality_level > 0
+
+
+func configure_external_beam(
+	spotlight : SpotLight3D,
+	ground_light : OmniLight3D,
+	volume : MeshInstance3D
+) -> void:
+	spotlight.light_color = beam_color
+	spotlight.light_energy = beam_energy
+	spotlight.light_volumetric_fog_energy = 1.2
+	spotlight.spot_angle = beam_angle_degrees
+	spotlight.spot_attenuation = beam_attenuation
+
+	ground_light.light_color = beam_color
+	ground_light.light_energy = ground_light_energy
+	ground_light.omni_range = ground_light_range
+	ground_light.light_volumetric_fog_energy = 0.12
+	ground_light.shadow_enabled = false
+
+	if _beam_volumes.is_empty():
+		return
+
+	var source_material := _beam_volumes[0].get_active_material(0)
+	if source_material != null:
+		volume.material_override = source_material
