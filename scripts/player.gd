@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal health_changed(current_health : float, maximum_health : float)
 signal stamina_changed(current_stamina : float, maximum_stamina : float)
+signal stealth_alert_changed(alert_level : float)
 signal died
 
 const STANDING_COLLISION_HEIGHT : float = 1.0
@@ -26,6 +27,9 @@ const CROUCHING_COLLISION_HEIGHT : float = 0.62
 @export var stamina_recovery_delay : float = 0.8
 @export var sprint_recovery_threshold : float = 20.0
 @export var stamina_exhaustion_cooldown : float = 3.0
+
+@export_category("Stealth")
+@export_range(0.1, 1.0, 0.05) var stealth : float = 1.0
 
 @export_category("Damage Response")
 @export var knockback_speed : float = 3.5
@@ -54,6 +58,7 @@ var _stamina_exhaustion_timer : float = 0.0
 var _knockback_direction : Vector3 = Vector3.ZERO
 var _knockback_remaining_distance : float = 0.0
 var _concealment_sources : Dictionary = {}
+var _vision_contacts : Dictionary = {}
 
 # Items
 var carried_item : RigidBody3D = null
@@ -266,6 +271,26 @@ func is_alive() -> bool:
 	return health > 0.0
 
 
+func set_vision_contact(source : Node, is_visible : bool) -> void:
+	if source == null:
+		return
+
+	var source_id : int = source.get_instance_id()
+	var was_alerted : bool = not _vision_contacts.is_empty()
+	if is_visible:
+		_vision_contacts[source_id] = true
+	else:
+		_vision_contacts.erase(source_id)
+
+	var is_alerted : bool = not _vision_contacts.is_empty()
+	if was_alerted != is_alerted:
+		stealth_alert_changed.emit(1.0 if is_alerted else 0.0)
+
+
+func get_stealth_alert() -> float:
+	return 1.0 if not _vision_contacts.is_empty() else 0.0
+
+
 func enter_concealment(source : Node, visibility_multiplier : float) -> void:
 	if source == null:
 		return
@@ -285,7 +310,11 @@ func exit_concealment(source : Node) -> void:
 
 
 func get_visibility_multiplier() -> float:
-	var visibility_multiplier : float = 1.0
+	return get_stealth_visibility()
+
+
+func get_stealth_visibility() -> float:
+	var visibility_multiplier : float = clampf(stealth, 0.1, 1.0)
 
 	for source_multiplier : Variant in _concealment_sources.values():
 		visibility_multiplier = minf(

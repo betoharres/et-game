@@ -3,6 +3,14 @@ extends Control
 @onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
 @onready var menu_button_3 : Button = $ColorRect/MenuBar/VSeparator/MenuButton3
+@onready var main_menu_container : Control = $ColorRect/MenuBar/VSeparator
+@onready var menu_bar : Control = $ColorRect/MenuBar
+@onready var game_title : Label = $ColorRect/Header/Title
+@onready var menu_hint : Label = $ColorRect/MenuBar/VSeparator/Hint
+@onready var star_field : Control = $ColorRect/StarField
+@onready var menu_music : AudioStreamPlayer = $MenuMusic
+@onready var menu_click : AudioStreamPlayer = $MenuClick
+@onready var menu_atmosphere : Node = $ColorRect/MenuAtmosphere
 
 @onready var options_panel : Control = $ColorRect/MenuBar/OptionsPanel
 
@@ -22,10 +30,24 @@ extends Control
 
 var rebinding_action : String = ""
 var rebinding_button : Button = null
+var transition_started : bool = false
+var star_positions : Array[Vector2] = [
+	Vector2(0.08, 0.18), Vector2(0.18, 0.31), Vector2(0.28, 0.12),
+	Vector2(0.71, 0.18), Vector2(0.88, 0.28), Vector2(0.93, 0.62),
+	Vector2(0.12, 0.75), Vector2(0.27, 0.88), Vector2(0.76, 0.82),
+	Vector2(0.59, 0.08), Vector2(0.43, 0.77), Vector2(0.05, 0.48)
+]
+var star_nodes : Array[ColorRect] = []
+var button_base_positions : Dictionary = {}
 
 
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	game_title.text = str(ProjectSettings.get_setting("application/config/name", "ETs"))
+	menu_atmosphere.set_menu_state("play")
+	_update_navigation_hint()
+	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	_start_menu_music()
 
 	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
@@ -45,39 +67,172 @@ func _ready() -> void:
 
 	options_panel.visible = false
 	keybinds_panel.visible = false
+	menu_button_1.grab_focus.call_deferred()
+	_setup_menu_motion()
 
 	setup_resolutions()
 	update_vsync_check_box()
 	update_window_mode_button()
 	update_keybind_buttons()
+	_play_menu_intro()
 
 
 # Main Menu
 
 func _on_play_pressed() -> void:
-	PhotoAlertSystem.reset()
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	if transition_started:
+		return
+	transition_started = true
+	menu_atmosphere.begin_launch()
+	_play_click()
+	var photo_alert_system : Node = get_node_or_null("/root/PhotoAlertSystem")
+	if photo_alert_system != null:
+		photo_alert_system.reset()
+	_fade_out_and_call(func() -> void: get_tree().change_scene_to_file("res://scenes/world.tscn"))
 
 func _on_options_pressed() -> void:
+	_play_click()
+	menu_atmosphere.set_menu_state("options")
+	main_menu_container.visible = false
 	options_panel.visible = true
+	resolution_button.grab_focus.call_deferred()
 
 func _on_exit_pressed() -> void:
-	get_tree().quit()
+	if transition_started:
+		return
+	transition_started = true
+	menu_atmosphere.set_menu_state("exit")
+	_play_click()
+	_fade_out_and_call(func() -> void: get_tree().quit())
 
 # Options Menu
 
 func _on_options_back_pressed() -> void:
+	_play_click()
 	options_panel.visible = false
+	main_menu_container.visible = true
+	menu_button_2.grab_focus.call_deferred()
 
 func _on_keybinds_pressed() -> void:
+	_play_click()
 	options_panel.visible = false
 	keybinds_panel.visible = true
+	forward_button.grab_focus.call_deferred()
 
 # Keybinds Menu
 
 func _on_keybinds_back_pressed() -> void:
+	_play_click()
 	keybinds_panel.visible = false
 	options_panel.visible = true
+	keybinds_button.grab_focus.call_deferred()
+
+
+func _setup_menu_motion() -> void:
+	var buttons : Array[Button] = [menu_button_1, menu_button_2, menu_button_3]
+	for button : Button in buttons:
+		button_base_positions[button] = button.position.x
+		button.mouse_entered.connect(_on_menu_button_hover.bind(button, true))
+		button.mouse_exited.connect(_on_menu_button_hover.bind(button, false))
+		button.focus_entered.connect(_on_menu_button_hover.bind(button, true))
+		button.focus_exited.connect(_on_menu_button_hover.bind(button, false))
+
+
+func _on_menu_button_hover(button : Button, hovered : bool) -> void:
+	if hovered:
+		_set_atmosphere_state(button)
+	var base_x : float = button_base_positions.get(button, button.position.x)
+	var target_x : float = base_x + 4.0 if hovered else base_x
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(button, "position:x", target_x, 0.15)
+
+
+func _set_atmosphere_state(button : Button) -> void:
+	if button == menu_button_1:
+		menu_atmosphere.set_menu_state("play")
+	elif button == menu_button_2:
+		menu_atmosphere.set_menu_state("options")
+	elif button == menu_button_3:
+		menu_atmosphere.set_menu_state("exit")
+
+
+func _play_menu_intro() -> void:
+	var header : Control = $ColorRect/Header
+	header.modulate.a = 0.0
+	header.position.y += 10.0
+	menu_bar.modulate.a = 0.0
+	menu_bar.position.y += 10.0
+	for button : Button in [menu_button_1, menu_button_2, menu_button_3]:
+		button.modulate.a = 0.0
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(header, "modulate:a", 1.0, 0.28)
+	tween.parallel().tween_property(header, "position:y", header.position.y - 10.0, 0.28)
+	tween.tween_interval(0.08)
+	tween.tween_property(menu_bar, "modulate:a", 1.0, 0.24)
+	tween.parallel().tween_property(menu_bar, "position:y", menu_bar.position.y - 10.0, 0.24)
+	for index : int in range(3):
+		tween.tween_interval(0.035)
+		tween.tween_property([menu_button_1, menu_button_2, menu_button_3][index], "modulate:a", 1.0, 0.16)
+
+
+func _create_starfield() -> void:
+	for index : int in range(star_positions.size()):
+		var star : ColorRect = ColorRect.new()
+		star.name = "Star_%02d" % index
+		star.custom_minimum_size = Vector2(2.0, 2.0 if index % 3 else 3.0)
+		star.color = Color(0.48, 0.82, 1.0, 0.38 + (index % 3) * 0.08)
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		star_field.add_child(star)
+		star_nodes.append(star)
+		var twinkle : Tween = create_tween().set_loops()
+		twinkle.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		twinkle.tween_property(star, "modulate:a", 0.35, 1.8 + index * 0.07)
+		twinkle.tween_property(star, "modulate:a", 1.0, 1.8 + index * 0.07)
+	_position_stars()
+
+
+func _position_stars() -> void:
+	for index : int in range(star_nodes.size()):
+		star_nodes[index].position = star_positions[index] * star_field.size
+
+
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_RESIZED and is_instance_valid(star_field):
+		_position_stars()
+
+
+func _update_navigation_hint() -> void:
+	if Input.get_connected_joypads().is_empty():
+		menu_hint.text = "↑ ↓  NAVEGAR     ENTER  CONFIRMAR"
+	else:
+		menu_hint.text = "LSTICK  NAVEGAR     A  CONFIRMAR"
+
+
+func _on_joy_connection_changed(_device : int, _connected : bool) -> void:
+	_update_navigation_hint()
+
+
+func _start_menu_music() -> void:
+	var music_stream : AudioStreamMP3 = menu_music.stream as AudioStreamMP3
+	if music_stream != null:
+		music_stream.loop = true
+	menu_music.volume_db = -32.0
+	menu_music.play()
+	var tween : Tween = create_tween()
+	tween.tween_property(menu_music, "volume_db", -24.0, 0.8)
+
+
+func _play_click() -> void:
+	menu_click.stop()
+	menu_click.play()
+
+
+func _fade_out_and_call(callback : Callable) -> void:
+	var tween : Tween = create_tween()
+	tween.tween_property(menu_music, "volume_db", -60.0, 0.18)
+	tween.tween_callback(callback)
 
 func _on_forward_pressed() -> void:
 	start_rebinding("ui_up", forward_button)

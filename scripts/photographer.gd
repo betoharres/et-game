@@ -8,12 +8,17 @@ signal photo_taken(current_photo_count : int)
 @export var rotation_speed : float = 4.0
 @export var wander_distance : float = 10.0
 @export var wander_wait_time : float = 2.0
+@export var wander_zone_center : Vector3 = Vector3.ZERO
+@export var wander_zone_radius : float = 14.0
 
 @export_category("Vision")
-@export var sight_distance : float = 18.0
-@export var sight_angle : float = 65.0
+@export var sight_distance : float = 17.0
+@export_range(10.0, 120.0, 1.0) var sight_angle : float = 70.0
+@export var detection_time : float = 0.55
+@export var lose_sight_after : float = 3.5
 @export var eye_height : float = 1.55
 @export var player_target_height : float = 0.5
+@export var close_perception_radius : float = 1.8
 
 @export_category("Photography")
 @export var photo_distance : float = 9.0
@@ -27,23 +32,34 @@ signal photo_taken(current_photo_count : int)
 
 var player : CharacterBody3D = null
 var has_visual_contact : bool = false
+var has_detected_player : bool = false
+var detection_progress : float = 0.0
 var focus_progress : float = 0.0
 var photo_cooldown : float = 0.0
 var has_wander_target : bool = false
 var wander_wait_timer : float = 0.0
+var time_without_visual_contact : float = 0.0
+var last_known_player_position : Vector3
+var has_last_known_position : bool = false
+var photo_alert_system : Node = null
 
 
 func _ready() -> void:
 	_find_player()
+	photo_alert_system = get_node_or_null("/root/PhotoAlertSystem")
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 1.0
 	flash_timer.wait_time = flash_duration
 	flash_timer.timeout.connect(_hide_camera_flash)
-	PhotoAlertSystem.set_photographer_observing(get_instance_id(), false)
+	if photo_alert_system != null:
+		photo_alert_system.set_photographer_observing(get_instance_id(), false)
 
 
 func _exit_tree() -> void:
-	PhotoAlertSystem.unregister_photographer(get_instance_id())
+	if photo_alert_system != null:
+		photo_alert_system.unregister_photographer(get_instance_id())
+	if player != null and player.has_method("set_vision_contact"):
+		player.call("set_vision_contact", self, false)
 
 
 func _physics_process(delta : float) -> void:
@@ -54,22 +70,51 @@ func _physics_process(delta : float) -> void:
 
 	if player == null or not _is_player_alive():
 		has_visual_contact = false
+		has_detected_player = false
+		detection_progress = 0.0
+		if player != null and player.has_method("set_vision_contact"):
+			player.call("set_vision_contact", self, false)
 		focus_progress = 0.0
+		time_without_visual_contact = 0.0
 		velocity = Vector3.ZERO
-		PhotoAlertSystem.set_photographer_observing(
-			get_instance_id(),
-			false
-		)
+		if photo_alert_system != null:
+			photo_alert_system.set_photographer_observing(
+				get_instance_id(),
+				false
+			)
 		return
 
 	has_visual_contact = _can_see_player()
-	PhotoAlertSystem.set_photographer_observing(
-		get_instance_id(),
-		has_visual_contact
-	)
-
+	if player.has_method("set_vision_contact"):
+		player.call("set_vision_contact", self, has_visual_contact)
+	var visibility_multiplier : float = _get_player_visibility_multiplier()
 	if has_visual_contact:
+		last_known_player_position = player.global_position
+		has_last_known_position = true
+		time_without_visual_contact = 0.0
+		if not has_detected_player:
+			detection_progress = minf(
+				detection_progress + delta * visibility_multiplier,
+				maxf(detection_time, 0.0)
+			)
+			if detection_progress >= detection_time:
+				has_detected_player = true
+	else:
+		detection_progress = maxf(detection_progress - delta, 0.0)
+		time_without_visual_contact += delta
+		if has_detected_player and time_without_visual_contact >= lose_sight_after:
+			has_detected_player = false
+	if photo_alert_system != null:
+		photo_alert_system.set_photographer_observing(
+			get_instance_id(),
+			has_visual_contact
+		)
+
+	if has_visual_contact and has_detected_player:
 		_follow_or_photograph(delta)
+	elif has_detected_player and has_last_known_position and time_without_visual_contact < lose_sight_after:
+		focus_progress = 0.0
+		_move_toward_position(last_known_player_position, chase_speed, delta)
 	else:
 		focus_progress = 0.0
 		_wander(delta)
@@ -108,7 +153,7 @@ func _follow_or_photograph(delta : float) -> void:
 
 
 func _take_photo() -> void:
-	if player == null or not has_visual_contact or not _is_player_alive():
+	if player == null or not has_visual_contact or not has_detected_player or not _is_player_alive():
 		return
 
 	photo_cooldown = maxf(seconds_between_photos, 0.1)
@@ -116,9 +161,11 @@ func _take_photo() -> void:
 	camera_flash.visible = true
 	flash_timer.start(maxf(flash_duration, 0.01))
 
-	var current_photo_count : int = PhotoAlertSystem.register_photo(
-		get_instance_id()
-	)
+	var current_photo_count : int = 0
+	if photo_alert_system != null:
+		current_photo_count = photo_alert_system.register_photo(
+			get_instance_id()
+		)
 	photo_taken.emit(current_photo_count)
 
 
@@ -152,9 +199,9 @@ func _wander(delta : float) -> void:
 			return
 
 		var requested_position : Vector3 = (
-			global_position
+			wander_zone_center
 			+ random_direction.normalized()
-			* randf_range(2.0, wander_distance)
+			* randf_range(2.0, wander_zone_radius)
 		)
 		navigation_agent.target_position = (
 			NavigationServer3D.map_get_closest_point(
@@ -230,6 +277,9 @@ func _can_see_player() -> bool:
 	var direction : Vector3 = player.global_position - global_position
 	direction.y = 0.0
 	var distance : float = direction.length()
+	if distance <= close_perception_radius:
+		return _has_clear_line_of_sight()
+
 	var effective_sight_distance : float = (
 		sight_distance * _get_player_visibility_multiplier()
 	)
@@ -239,9 +289,7 @@ func _can_see_player() -> bool:
 
 	if distance >= 0.01:
 		direction = direction.normalized()
-		var forward : Vector3 = global_transform.basis.z
-		forward.y = 0.0
-		forward = forward.normalized()
+		var forward : Vector3 = get_vision_forward()
 		var view_angle : float = rad_to_deg(
 			acos(clampf(forward.dot(direction), -1.0, 1.0))
 		)
@@ -254,7 +302,7 @@ func _can_see_player() -> bool:
 
 func _has_clear_line_of_sight() -> bool:
 	var query := PhysicsRayQueryParameters3D.create(
-		global_position + Vector3.UP * eye_height,
+		get_vision_origin(),
 		player.global_position + Vector3.UP * player_target_height
 	)
 	query.exclude = [get_rid()]
@@ -273,6 +321,13 @@ func _has_clear_line_of_sight() -> bool:
 
 
 func _get_player_visibility_multiplier() -> float:
+	if player != null and player.has_method("get_stealth_visibility"):
+		return clampf(
+			float(player.call("get_stealth_visibility")),
+			0.1,
+			1.0
+		)
+
 	if player != null and player.has_method("get_visibility_multiplier"):
 		return clampf(
 			float(player.call("get_visibility_multiplier")),
@@ -281,6 +336,18 @@ func _get_player_visibility_multiplier() -> float:
 		)
 
 	return 1.0
+
+
+func get_vision_origin() -> Vector3:
+	return global_position + Vector3.UP * eye_height
+
+
+func get_vision_forward() -> Vector3:
+	var forward : Vector3 = global_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() < 0.001:
+		return Vector3.FORWARD
+	return forward.normalized()
 
 
 func _is_player_alive() -> bool:
