@@ -7,6 +7,16 @@
 [ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-SemiBold.ttf" id="5_font_semibold"]
 [ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-Bold.ttf" id="6_font_bold"]
 [ext_resource type="PackedScene" path="res://scenes/MenuAtmosphere.tscn" id="7_atmosphere"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/arrow.png" id="8_play_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/gauge.png" id="9_options_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/power.png" id="10_exit_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/tick.png" id="11_tick_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/home.png" id="12_window_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/controller.png" id="13_controls_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/arrow_long.png" id="14_back_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/selection_ring.png" id="15_selection_ring"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/glow_ring.png" id="16_glow_ring"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/audio.png" id="17_audio_icon"]
 
 [sub_resource type="Gradient" id="GradientBackground"]
 offsets = PackedFloat32Array(0, 0.42, 1)
@@ -282,6 +292,55 @@ color = Color(0.004, 0.006, 0.02, 0.38)
 
 [node name="MenuAtmosphere" parent="ColorRect" instance=ExtResource("7_atmosphere")]
 
+[node name="SignalEmblem" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 150.0
+offset_bottom = 326.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="GlowRing" type="TextureRect" parent="ColorRect/SignalEmblem"]
+modulate = Color(0.2, 0.72, 1, 0.1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -88.0
+offset_right = 88.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("16_glow_ring")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SelectionRing" type="TextureRect" parent="ColorRect/SignalEmblem"]
+modulate = Color(0.42, 0.88, 1, 0.16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -66.0
+offset_right = 66.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("15_selection_ring")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="PurpleGlow" type="ColorRect" parent="ColorRect"]
 visible = false
 layout_mode = 1
@@ -371,8 +430,14 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../MenuButton2")
-text = "▶   JOGAR"
+text = "JOGAR"
+icon = ExtResource("8_play_icon")
+expand_icon = true
+icon_max_width = 26
 alignment = 0
+theme_override_colors/icon_normal_color = Color(0.4, 0.92, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.72, 0.97, 1, 1)
 theme_override_colors/font_color = Color(0.96, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -390,8 +455,14 @@ custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton1")
 focus_neighbor_bottom = NodePath("../MenuButton3")
-text = "◈   OPÇÕES"
+text = "OPÇÕES"
+icon = ExtResource("9_options_icon")
+expand_icon = true
+icon_max_width = 24
 alignment = 0
+theme_override_colors/icon_normal_color = Color(0.42, 0.78, 1, 0.9)
+theme_override_colors/icon_hover_color = Color(0.78, 0.97, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.78, 0.97, 1, 1)
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
 theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -408,8 +479,14 @@ theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton2")
-text = "×   SAIR"
+text = "SAIR"
+icon = ExtResource("10_exit_icon")
+expand_icon = true
+icon_max_width = 24
 alignment = 0
+theme_override_colors/icon_normal_color = Color(0.65, 0.72, 0.9, 0.9)
+theme_override_colors/icon_hover_color = Color(1, 0.56, 0.48, 1)
+theme_override_colors/icon_focus_color = Color(1, 0.56, 0.48, 1)
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
 theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -443,26 +520,39 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "RESOLUÇÃO"
+icon = ExtResource("9_options_icon")
+expand_icon = true
+icon_max_width = 22
 
 [node name="VSyncButton" type="CheckBox" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=732321687]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 text = "V-Sync"
+icon = ExtResource("11_tick_icon")
 
 [node name="WindowModeButton" type="Button" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=102237426]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 text = "MODO DE JANELA"
+icon = ExtResource("12_window_icon")
+expand_icon = true
+icon_max_width = 22
 
 [node name="KeybindsButton" type="Button" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=2130534527]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 text = "CONTROLES"
+icon = ExtResource("13_controls_icon")
+expand_icon = true
+icon_max_width = 22
 
 [node name="BackButton" type="Button" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=1242803595]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-text = "←  VOLTAR"
+text = "VOLTAR"
+icon = ExtResource("14_back_icon")
+expand_icon = true
+icon_max_width = 23
 
 [node name="KeybindsPanel" type="PanelContainer" parent="ColorRect/MenuBar" unique_id=1625043727]
 visible = false
@@ -500,7 +590,10 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="ColorRect/MenuBar/KeybindsPanel/VBoxContainer" unique_id=255615114]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-text = "←  VOLTAR"
+text = "VOLTAR"
+icon = ExtResource("14_back_icon")
+expand_icon = true
+icon_max_width = 23
 
 [node name="Footer" type="Label" parent="ColorRect"]
 layout_mode = 1
@@ -519,6 +612,25 @@ theme_override_colors/font_color = Color(0.31, 0.39, 0.55, 1)
 theme_override_font_sizes/font_size = 11
 text = "A BIKE CAVERA PRODUCTIONS"
 horizontal_alignment = 1
+
+[node name="AudioToggle" type="TextureButton" parent="ColorRect"]
+modulate = Color(0.42, 0.72, 0.9, 0.72)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 3
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -72.0
+offset_right = 80.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture_filter = 2
+tooltip_text = "Ativar ou silenciar música"
+toggle_mode = true
+texture_normal = ExtResource("17_audio_icon")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_music")

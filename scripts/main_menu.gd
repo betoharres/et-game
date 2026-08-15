@@ -9,6 +9,11 @@ extends Control
 @onready var menu_music : AudioStreamPlayer = $MenuMusic
 @onready var menu_click : AudioStreamPlayer = $MenuClick
 @onready var menu_atmosphere : Node = $ColorRect/MenuAtmosphere
+@onready var audio_toggle : TextureButton = $ColorRect/AudioToggle
+@onready var glow_ring : TextureRect = $ColorRect/SignalEmblem/GlowRing
+@onready var selection_ring : TextureRect = (
+	$ColorRect/SignalEmblem/SelectionRing
+)
 
 @onready var options_panel : Control = $ColorRect/MenuBar/OptionsPanel
 
@@ -32,6 +37,13 @@ var transition_started : bool = false
 var button_base_positions : Dictionary = {}
 
 
+func _process(delta : float) -> void:
+	glow_ring.pivot_offset = glow_ring.size * 0.5
+	selection_ring.pivot_offset = selection_ring.size * 0.5
+	glow_ring.rotation += delta * 0.035
+	selection_ring.rotation -= delta * 0.075
+
+
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	game_title.text = str(ProjectSettings.get_setting("application/config/name", "ETs"))
@@ -41,6 +53,9 @@ func _ready() -> void:
 	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
 	menu_button_3.pressed.connect(_on_exit_pressed)
+	audio_toggle.toggled.connect(_on_audio_toggled)
+	audio_toggle.mouse_entered.connect(_on_audio_hover.bind(true))
+	audio_toggle.mouse_exited.connect(_on_audio_hover.bind(false))
 
 	resolution_button.item_selected.connect(_on_resolution_selected)
 	vsync_check_box.toggled.connect(_on_vsync_toggled)
@@ -173,6 +188,25 @@ func _start_menu_music() -> void:
 	menu_music.play()
 	var tween : Tween = create_tween()
 	tween.tween_property(menu_music, "volume_db", -24.0, 0.8)
+
+
+func _on_audio_toggled(muted : bool) -> void:
+	menu_music.stream_paused = muted
+	audio_toggle.modulate = (
+		Color(0.55, 0.62, 0.72, 0.46)
+		if muted
+		else Color(0.42, 0.82, 1.0, 0.9)
+	)
+
+
+func _on_audio_hover(hovered : bool) -> void:
+	if audio_toggle.button_pressed:
+		return
+	audio_toggle.modulate = (
+		Color(0.7, 0.96, 1.0, 1.0)
+		if hovered
+		else Color(0.42, 0.72, 0.9, 0.72)
+	)
 
 
 func _play_click() -> void:

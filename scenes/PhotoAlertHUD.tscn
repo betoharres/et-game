@@ -3,6 +3,11 @@
 [ext_resource type="Script" path="res://scripts/photo_alert_hud.gd" id="1_hud"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
 [ext_resource type="AudioStream" path="res://assets/menu/blip_click_menu.mp3" id="3_photo_blip"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/camera.png" id="4_camera_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/star_filled.png" id="5_star_filled"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/star_empty.png" id="6_star_empty"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/watch.png" id="7_watch_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/warning.png" id="8_warning_icon"]
 
 [sub_resource type="StyleBoxFlat" id="PhotoPanelStyle"]
 bg_color = Color(0.012, 0.025, 0.055, 0.48)
@@ -55,13 +60,15 @@ theme_override_constants/separation = 6
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CameraIcon" type="Label" parent="Interface/AlertPanel/MarginContainer/Content/Header"]
-custom_minimum_size = Vector2(20, 0)
+[node name="CameraIcon" type="TextureRect" parent="Interface/AlertPanel/MarginContainer/Content/Header"]
+self_modulate = Color(0.35, 0.88, 1, 0.95)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.88, 1, 0.95)
-theme_override_font_sizes/font_size = 18
-text = "◉"
-horizontal_alignment = 1
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("4_camera_icon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Title" type="Label" parent="Interface/AlertPanel/MarginContainer/Content/Header"]
 layout_mode = 2
@@ -73,12 +80,40 @@ text = "REGISTRO FOTOGRÁFICO"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StarsLabel" type="Label" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow"]
+[node name="Stars" type="HBoxContainer" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.76, 0.22, 1)
-theme_override_font_sizes/font_size = 20
-text = "◇  ◇  ◇"
+theme_override_constants/separation = 5
+
+[node name="Star1" type="TextureRect" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars"]
+self_modulate = Color(0.42, 0.56, 0.7, 0.76)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("6_star_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars"]
+self_modulate = Color(0.42, 0.56, 0.7, 0.76)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("6_star_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars"]
+self_modulate = Color(0.42, 0.56, 0.7, 0.76)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("6_star_empty")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="CountLabel" type="Label" parent="Interface/AlertPanel/MarginContainer/Content/ObjectiveRow"]
 custom_minimum_size = Vector2(50, 0)
@@ -88,7 +123,21 @@ theme_override_font_sizes/font_size = 18
 text = "0 / 3"
 horizontal_alignment = 2
 
-[node name="StatusLabel" type="Label" parent="Interface/AlertPanel/MarginContainer/Content"]
+[node name="StatusRow" type="HBoxContainer" parent="Interface/AlertPanel/MarginContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatusIcon" type="TextureRect" parent="Interface/AlertPanel/MarginContainer/Content/StatusRow"]
+self_modulate = Color(0.55, 0.65, 0.76, 0.9)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("7_watch_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StatusLabel" type="Label" parent="Interface/AlertPanel/MarginContainer/Content/StatusRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.65, 0.76, 0.9)
 theme_override_font_sizes/font_size = 12

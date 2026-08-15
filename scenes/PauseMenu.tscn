@@ -1,6 +1,11 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_pause"]
+[ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/arrow.png" id="3_resume_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/controller.png" id="4_controls_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/power.png" id="5_exit_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/arrow_long.png" id="6_back_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxPausePanel"]
 bg_color = Color(0.035, 0.045, 0.09, 0.96)
@@ -27,6 +32,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
+texture_filter = 2
 
 [node name="Backdrop" type="ColorRect" parent="Overlay"]
 layout_mode = 1
@@ -71,16 +78,28 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Voltar ao jogo"
+icon = ExtResource("3_resume_icon")
+expand_icon = true
+icon_max_width = 25
+theme_override_colors/icon_normal_color = Color(0.38, 0.92, 1, 1)
 
 [node name="ControlsButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Controles"
+icon = ExtResource("4_controls_icon")
+expand_icon = true
+icon_max_width = 25
+theme_override_colors/icon_normal_color = Color(0.48, 0.78, 1, 1)
 
 [node name="ExitButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Sair do jogo"
+icon = ExtResource("5_exit_icon")
+expand_icon = true
+icon_max_width = 25
+theme_override_colors/icon_normal_color = Color(1, 0.48, 0.42, 1)
 
 [node name="Hint" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons"]
 layout_mode = 2
@@ -140,6 +159,10 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
+[node name="EyeLightButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
 [node name="DebugMapButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -148,3 +171,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 text = "Voltar"
+icon = ExtResource("6_back_icon")
+expand_icon = true
+icon_max_width = 23

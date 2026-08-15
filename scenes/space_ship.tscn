@@ -81,8 +81,8 @@ mesh = ExtResource("1_dp8cb")
 [node name="HullLight1" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(0, 0, -7.5)
 light_color = Color(0.03, 0.58, 0.78, 1)
-light_energy = 1.8
-light_volumetric_fog_energy = 0.55
+light_energy = 1.0
+light_volumetric_fog_energy = 0.12
 omni_range = 10.0
 
 [node name="Glow" type="MeshInstance3D" parent="UFOLights/HullLight1"]
@@ -91,8 +91,8 @@ mesh = SubResource("SphereMesh_hull_glow")
 [node name="HullLight2" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(7.2, 0, 3.5)
 light_color = Color(0.03, 0.58, 0.78, 1)
-light_energy = 1.8
-light_volumetric_fog_energy = 0.55
+light_energy = 1.0
+light_volumetric_fog_energy = 0.12
 omni_range = 10.0
 
 [node name="Glow" type="MeshInstance3D" parent="UFOLights/HullLight2"]
@@ -101,8 +101,8 @@ mesh = SubResource("SphereMesh_hull_glow")
 [node name="HullLight3" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(-7.2, 0, 3.5)
 light_color = Color(0.03, 0.58, 0.78, 1)
-light_energy = 1.8
-light_volumetric_fog_energy = 0.55
+light_energy = 1.0
+light_volumetric_fog_energy = 0.12
 omni_range = 10.0
 
 [node name="Glow" type="MeshInstance3D" parent="UFOLights/HullLight3"]
@@ -110,23 +110,23 @@ mesh = SubResource("SphereMesh_hull_glow")
 
 [node name="BeamGroundLight1" type="OmniLight3D" parent="UFOLights"]
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 2.6
-light_volumetric_fog_energy = 0.12
-omni_range = 10.0
+light_energy = 1.6
+light_volumetric_fog_energy = 0.08
+omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamGroundLight2" type="OmniLight3D" parent="UFOLights"]
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 2.6
-light_volumetric_fog_energy = 0.12
-omni_range = 10.0
+light_energy = 1.6
+light_volumetric_fog_energy = 0.08
+omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamGroundLight3" type="OmniLight3D" parent="UFOLights"]
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 2.6
-light_volumetric_fog_energy = 0.12
-omni_range = 10.0
+light_energy = 1.6
+light_volumetric_fog_energy = 0.08
+omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="LightArm1" type="Node3D" parent="." unique_id=1516044063]
@@ -135,10 +135,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7294254, 0)
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm1" unique_id=1485045908]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 8.0
-light_volumetric_fog_energy = 1.2
+light_energy = 5.2
+light_volumetric_fog_energy = 1.0
 shadow_enabled = true
-spot_range = 72.0
+spot_range = 52.0
 spot_attenuation = 0.45
 spot_angle = 13.0
 
@@ -164,9 +164,10 @@ transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm2" unique_id=881389874]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 8.0
-light_volumetric_fog_energy = 1.2
-spot_range = 72.0
+light_energy = 5.2
+light_volumetric_fog_energy = 1.0
+shadow_enabled = true
+spot_range = 52.0
 spot_attenuation = 0.45
 spot_angle = 13.0
 
@@ -192,9 +193,10 @@ transform = Transform3D(-0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, -0.
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm3" unique_id=1858242947]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 8.0
-light_volumetric_fog_energy = 1.2
-spot_range = 72.0
+light_energy = 5.2
+light_volumetric_fog_energy = 1.0
+shadow_enabled = true
+spot_range = 52.0
 spot_attenuation = 0.45
 spot_angle = 13.0
 

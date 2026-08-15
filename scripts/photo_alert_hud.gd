@@ -3,16 +3,33 @@ extends CanvasLayer
 const ATTENTION_HOLD_SECONDS : float = 3.0
 const ACTIVE_OPACITY : float = 1.0
 const IDLE_OPACITY : float = 0.42
+const STAR_FILLED : Texture2D = preload(
+	"res://assets/ui/prototype_icons/star_filled.png"
+)
+const STAR_EMPTY : Texture2D = preload(
+	"res://assets/ui/prototype_icons/star_empty.png"
+)
+const WATCH_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/watch.png"
+)
+const WARNING_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/warning.png"
+)
 
 @onready var alert_panel : PanelContainer = $Interface/AlertPanel
-@onready var stars_label : Label = (
-	$Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/StarsLabel
-)
+@onready var star_icons : Array[TextureRect] = [
+	$Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars/Star1,
+	$Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars/Star2,
+	$Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/Stars/Star3,
+]
 @onready var count_label : Label = (
 	$Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/CountLabel
 )
 @onready var status_label : Label = (
-	$Interface/AlertPanel/MarginContainer/Content/StatusLabel
+	$Interface/AlertPanel/MarginContainer/Content/StatusRow/StatusLabel
+)
+@onready var status_icon : TextureRect = (
+	$Interface/AlertPanel/MarginContainer/Content/StatusRow/StatusIcon
 )
 @onready var photo_feedback : AudioStreamPlayer = $PhotoFeedback
 
@@ -45,13 +62,16 @@ func _process(delta : float) -> void:
 
 
 func _on_photo_count_changed(current_count : int, maximum_count : int) -> void:
-	var stars_text : String = ""
-	for star_index : int in range(maximum_count):
-		stars_text += "★" if star_index < current_count else "◇"
-		if star_index < maximum_count - 1:
-			stars_text += "  "
-
-	stars_label.text = stars_text
+	for star_index : int in range(star_icons.size()):
+		var is_available := star_index < maximum_count
+		var is_filled := star_index < current_count
+		star_icons[star_index].visible = is_available
+		star_icons[star_index].texture = STAR_FILLED if is_filled else STAR_EMPTY
+		star_icons[star_index].self_modulate = (
+			Color(1.0, 0.76, 0.22, 1.0)
+			if is_filled
+			else Color(0.42, 0.56, 0.7, 0.76)
+		)
 	count_label.text = "%d / %d" % [current_count, maximum_count]
 
 	if _previous_count >= 0 and current_count > _previous_count:
@@ -68,11 +88,17 @@ func _update_status() -> void:
 	if current_count <= 0:
 		new_mode = &"empty"
 		status_label.text = "SEM REGISTRO"
+		status_icon.texture = WATCH_ICON
+		status_icon.self_modulate = Color(0.55, 0.65, 0.76, 0.9)
 	elif PhotoAlertSystem.is_observed_by_photographer():
 		new_mode = &"observed"
 		status_label.text = "OBSERVADO"
+		status_icon.texture = WARNING_ICON
+		status_icon.self_modulate = Color(1.0, 0.46, 0.24, 1.0)
 	else:
 		new_mode = &"hidden"
+		status_icon.texture = WATCH_ICON
+		status_icon.self_modulate = Color(0.35, 0.82, 1.0, 0.95)
 		var seconds := ceili(PhotoAlertSystem.get_seconds_until_photo_decay())
 		if seconds != _last_seconds:
 			status_label.text = "OCULTO — %ds" % seconds

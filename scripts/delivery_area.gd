@@ -21,13 +21,18 @@ enum DeliveryState {
 @onready var abduction_origin : Marker3D = $AbductionOrigin
 @onready var abduction_beam : Node3D = $AbductionBeam
 @onready var beam_volume : MeshInstance3D = $AbductionBeam/BeamVolume
+@onready var beam_core : MeshInstance3D = $AbductionBeam/BeamCore
 @onready var beam_spotlight : SpotLight3D = $AbductionBeam/BeamSpotLight
 @onready var beam_ground_light : OmniLight3D = (
 	$AbductionBeam/BeamGroundLight
 )
+@onready var beam_core_light : OmniLight3D = $AbductionBeam/BeamCoreLight
 @onready var prompt_root : Control = $InteractionPrompt/PromptRoot
-@onready var key_icon : Label = (
-	$InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyIcon
+@onready var key_button : Control = (
+	$InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton
+)
+@onready var key_label : Label = (
+	$InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton/KeyLabel
 )
 @onready var prompt_label : Label = (
 	$InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/PromptLabel
@@ -47,8 +52,9 @@ var _target_start_position : Vector3
 var _ufo : Node3D = null
 var _ufo_start_position : Vector3
 var _ufo_target_position : Vector3
-var _beam_base_energy : float = 8.0
-var _beam_ground_base_energy : float = 2.6
+var _beam_base_energy : float = 5.2
+var _beam_ground_base_energy : float = 1.6
+var _beam_core_base_energy : float = 1.5
 
 
 func _ready() -> void:
@@ -58,6 +64,7 @@ func _ready() -> void:
 	abduction_beam.visible = false
 	prompt_root.visible = false
 	hold_progress.max_value = signal_hold_duration
+	_beam_core_base_energy = beam_core_light.light_energy
 
 
 func _process(delta : float) -> void:
@@ -228,6 +235,17 @@ func _find_available_character() -> CharacterBody3D:
 	return null
 
 
+func reserves_interaction_for(character : CharacterBody3D) -> bool:
+	if _state == DeliveryState.ABDUCTING:
+		return false
+
+	_cleanup_tracked_bodies()
+	return (
+		_nearby_characters.has(character)
+		and _find_available_item() != null
+	)
+
+
 func _set_character_signal_pose(active : bool) -> void:
 	if _signaling_character == null:
 		return
@@ -240,15 +258,15 @@ func _set_character_signal_pose(active : bool) -> void:
 
 
 func _update_key_icon() -> void:
-	key_icon.text = _get_action_key("request_abduction")
+	key_label.text = _get_action_key("request_abduction")
 	if _state == DeliveryState.CHARGING:
-		key_icon.modulate.a = 1.0
+		key_button.modulate.a = 1.0
 	else:
-		key_icon.modulate.a = 0.6 + sin(_prompt_elapsed * 5.0) * 0.4
+		key_button.modulate.a = 0.6 + sin(_prompt_elapsed * 5.0) * 0.4
 
 
 func _update_waiting_prompt() -> void:
-	prompt_label.text = "SEGURE %s PARA CHAMAR A LUZ" % key_icon.text
+	prompt_label.text = "SEGURE %s PARA CHAMAR A LUZ" % key_label.text
 	hold_progress.value = 0.0
 
 
@@ -267,7 +285,7 @@ func _get_action_key(action : StringName) -> String:
 				keycode = key_event.keycode
 			return OS.get_keycode_string(keycode)
 
-	return "F"
+	return "E"
 
 
 func _prepare_ufo_approach() -> void:
@@ -295,7 +313,7 @@ func _prepare_ufo_approach() -> void:
 func _update_signal_effect() -> void:
 	var pulse := 1.0 + sin(_state_elapsed * TAU * 2.0) * 0.14
 	signal_marker.scale = Vector3.ONE * pulse
-	signal_light.light_energy = 3.0 + pulse * 2.0
+	signal_light.light_energy = 2.4 + pulse * 0.8
 
 
 func _update_ufo_approach() -> void:
@@ -332,11 +350,19 @@ func _configure_beam() -> void:
 	beam_volume.global_position = origin + Vector3.UP * beam_height * 0.5
 	beam_volume.global_rotation = Vector3.ZERO
 	beam_volume.scale = Vector3(1.0, beam_height, 1.0)
+	beam_core.global_position = origin + Vector3.UP * beam_height * 0.5
+	beam_core.global_rotation = Vector3.ZERO
+	beam_core.scale = Vector3(1.0, beam_height, 1.0)
 
 	beam_spotlight.global_position = capture_position
 	beam_spotlight.global_rotation = Vector3(-PI * 0.5, 0.0, 0.0)
 	beam_spotlight.spot_range = beam_height + 4.0
 	beam_ground_light.global_position = origin + Vector3.UP * 0.5
+	beam_core_light.global_position = origin + Vector3.UP * clampf(
+		beam_height * 0.16,
+		1.2,
+		4.5
+	)
 
 
 func _update_abduction(delta : float) -> void:
@@ -361,8 +387,12 @@ func _update_abduction(delta : float) -> void:
 	var beam_pulse := 1.0 + sin(_state_elapsed * 7.0) * 0.05
 	beam_volume.scale.x = beam_pulse
 	beam_volume.scale.z = beam_pulse
+	var core_pulse := 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
+	beam_core.scale.x = core_pulse
+	beam_core.scale.z = core_pulse
 	beam_spotlight.light_energy = _beam_base_energy * beam_pulse
 	beam_ground_light.light_energy = _beam_ground_base_energy * beam_pulse
+	beam_core_light.light_energy = _beam_core_base_energy * core_pulse
 
 	if progress >= 1.0:
 		_finish_delivery()

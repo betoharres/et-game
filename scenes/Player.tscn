@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ct8axay17kyjg"]
+[gd_scene load_steps=8 format=3 uid="uid://ct8axay17kyjg"]
 
 [ext_resource type="Script" uid="uid://biy7wkqgtlxmb" path="res://scripts/player.gd" id="1_p0vlq"]
 [ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="2_3li8b"]
@@ -120,6 +120,21 @@ settings/0/end_bone = 9
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/Armature/Skeleton3D"]
+bone_name = "Head"
+bone_idx = 5
+
+[node name="EyeAreaLight" type="OmniLight3D" parent="ET/Armature/Skeleton3D/EyeLightAttachment"]
+position = Vector3(0, 0.055, 0.18)
+light_color = Color(0.52, 0.76, 0.88, 1)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.03
+light_cull_mask = 1
+shadow_enabled = true
+omni_range = 4.0
+omni_attenuation = 1.25
+
 [node name="IKtargetContainer" type="Node3D" parent="." unique_id=1353782455]
 script = ExtResource("3_3li8b")
 
@@ -153,15 +168,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 1.944)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1887678891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ec6vt")
-
-[node name="ETRimLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 0.72, 0.18)
-light_color = Color(0.2, 0.58, 0.82, 1)
-light_energy = 0.42
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.08
-omni_range = 3.8
-shadow_enabled = false
 
 [node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
 top_level = true

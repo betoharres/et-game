@@ -21,8 +21,8 @@ enum QualityLevel {
 
 @export_group("Moon")
 @export var moon_direction : Vector3 = Vector3(0.48, 0.34, 0.81)
-@export_color_no_alpha var moon_color : Color = Color(0.72, 0.82, 1.0)
-@export_range(0.0, 2.0, 0.01) var moon_light_energy : float = 0.82
+@export_color_no_alpha var moon_color : Color = Color(0.68, 0.76, 0.9)
+@export_range(0.0, 2.0, 0.01) var moon_light_energy : float = 0.75
 @export_range(0.01, 0.12, 0.001) var moon_angular_size : float = 0.028
 @export_range(0.0, 0.5, 0.01) var cloud_shadow_strength : float = 0.12
 @export_range(0.0, 0.1, 0.001) var cloud_speed : float = 0.008

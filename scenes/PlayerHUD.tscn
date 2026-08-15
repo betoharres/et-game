@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://scripts/player_hud.gd" id="1_hud"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
 [ext_resource type="Shader" path="res://shaders/damage_vignette.gdshader" id="3_vignette"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/heart.png" id="4_heart_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/gauge.png" id="5_stamina_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/warning.png" id="6_warning_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StatusPanelStyle"]
 bg_color = Color(0.012, 0.025, 0.04, 0.46)
@@ -95,13 +98,15 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="HealthIcon" type="Label" parent="Interface/StatusPanel/StatusMargin/StatusRows/HealthRow"]
-custom_minimum_size = Vector2(18, 0)
+[node name="HealthIcon" type="TextureRect" parent="Interface/StatusPanel/StatusMargin/StatusRows/HealthRow"]
+self_modulate = Color(1, 0.28, 0.3, 1)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.3, 0.32, 1)
-theme_override_font_sizes/font_size = 17
-text = "♥"
-horizontal_alignment = 1
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("4_heart_icon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HealthBar" type="ProgressBar" parent="Interface/StatusPanel/StatusMargin/StatusRows/HealthRow"]
 custom_minimum_size = Vector2(205, 10)
@@ -125,13 +130,15 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="StaminaIcon" type="Label" parent="Interface/StatusPanel/StatusMargin/StatusRows/StaminaRow"]
-custom_minimum_size = Vector2(18, 0)
+[node name="StaminaIcon" type="TextureRect" parent="Interface/StatusPanel/StatusMargin/StatusRows/StaminaRow"]
+self_modulate = Color(0.3, 0.9, 0.56, 1)
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.9, 0.58, 1)
-theme_override_font_sizes/font_size = 13
-text = "◆"
-horizontal_alignment = 1
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("5_stamina_icon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="StaminaBar" type="ProgressBar" parent="Interface/StatusPanel/StatusMargin/StatusRows/StaminaRow"]
 custom_minimum_size = Vector2(205, 7)
@@ -182,6 +189,16 @@ theme_override_font_sizes/font_size = 32
 text = "ET ABATIDO"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WarningIcon" type="TextureRect" parent="Interface/DefeatMenu/Content"]
+self_modulate = Color(1, 0.24, 0.18, 1)
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("6_warning_icon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="RestartButton" type="Button" parent="Interface/DefeatMenu/Content"]
 custom_minimum_size = Vector2(240, 46)

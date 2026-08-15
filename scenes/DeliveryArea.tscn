@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_52udj"]
 [ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/switch_button.png" id="6_switch_icon"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
 size = Vector3(4, 4, 4)
@@ -35,6 +36,19 @@ bottom_radius = 4.2
 height = 1.0
 radial_segments = 32
 rings = 4
+
+[sub_resource type="ShaderMaterial" id="BeamCoreMaterial"]
+shader = ExtResource("4_beam_shader")
+shader_parameter/beam_color = Color(0.12, 0.86, 1, 0.24)
+shader_parameter/emission_strength = 2.4
+
+[sub_resource type="CylinderMesh" id="BeamCoreMesh"]
+material = SubResource("BeamCoreMaterial")
+top_radius = 0.62
+bottom_radius = 0.62
+height = 1.0
+radial_segments = 32
+rings = 2
 
 [sub_resource type="StyleBoxFlat" id="PromptPanelStyle"]
 bg_color = Color(0.01, 0.025, 0.05, 0.72)
@@ -71,7 +85,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="DeliveryArea" type="Area3D" unique_id=741650013]
+[node name="DeliveryArea" type="Area3D" unique_id=741650013 groups=["delivery_areas"]]
 collision_mask = 9
 script = ExtResource("1_trv2r")
 
@@ -96,9 +110,9 @@ mesh = SubResource("SignalRingMesh")
 [node name="SignalLight" type="OmniLight3D" parent="SignalMarker"]
 position = Vector3(0, 0.5, 0)
 light_color = Color(0.32, 0.9, 1, 1)
-light_energy = 5.0
-light_volumetric_fog_energy = 0.8
-omni_range = 8.0
+light_energy = 3.2
+light_volumetric_fog_energy = 0.25
+omni_range = 7.0
 
 [node name="AbductionBeam" type="Node3D" parent="."]
 visible = false
@@ -106,10 +120,13 @@ visible = false
 [node name="BeamVolume" type="MeshInstance3D" parent="AbductionBeam"]
 mesh = SubResource("BeamMesh")
 
+[node name="BeamCore" type="MeshInstance3D" parent="AbductionBeam"]
+mesh = SubResource("BeamCoreMesh")
+
 [node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam"]
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 8.0
-light_volumetric_fog_energy = 1.2
+light_energy = 5.2
+light_volumetric_fog_energy = 1.0
 shadow_enabled = true
 spot_range = 40.0
 spot_attenuation = 0.45
@@ -117,10 +134,19 @@ spot_angle = 13.0
 
 [node name="BeamGroundLight" type="OmniLight3D" parent="AbductionBeam"]
 light_color = Color(0.16, 0.68, 0.86, 1)
-light_energy = 2.6
-light_volumetric_fog_energy = 0.12
-omni_range = 10.0
+light_energy = 1.6
+light_volumetric_fog_energy = 0.08
+omni_range = 8.5
 omni_attenuation = 1.15
+
+[node name="BeamCoreLight" type="OmniLight3D" parent="AbductionBeam"]
+light_color = Color(0.3, 0.9, 1, 1)
+light_energy = 1.5
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.1
+shadow_enabled = false
+omni_range = 4.5
+omni_attenuation = 1.35
 
 [node name="InteractionPrompt" type="CanvasLayer" parent="."]
 layer = 30
@@ -162,12 +188,36 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="KeyIcon" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
-custom_minimum_size = Vector2(64, 58)
+[node name="KeyButton" type="PanelContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+custom_minimum_size = Vector2(68, 62)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.99, 1, 1)
-theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = SubResource("KeyIconStyle")
+theme_override_styles/panel = SubResource("KeyIconStyle")
+size_flags_horizontal = 4
+
+[node name="MeshIcon" type="TextureRect" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton"]
+self_modulate = Color(0.25, 0.9, 1, 0.72)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("6_switch_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="KeyLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.015, 0.07, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0.68, 0.98, 1, 0.9)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 29
 text = "F"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -6,7 +6,6 @@ uniform vec3 soil_color : source_color = vec3(0.19, 0.085, 0.028);
 uniform float patch_scale : hint_range(2.0, 24.0, 0.5) = 8.0;
 uniform float soil_amount : hint_range(0.0, 1.0, 0.01) = 0.36;
 uniform float color_variation : hint_range(0.0, 0.4, 0.01) = 0.12;
-uniform float minimum_night_visibility : hint_range(0.0, 0.5, 0.01) = 0.11;
 
 
 float hash21(vec2 point) {
@@ -55,7 +54,6 @@ void fragment() {
 	float soil_variation = value_noise(UV * 82.0 + vec2(1.0, 17.0));
 	vec3 soil = soil_color * mix(0.86, 1.12, soil_variation);
 	ALBEDO = mix(grass, soil, soil_mask);
-	EMISSION = ALBEDO * minimum_night_visibility;
 	ROUGHNESS = 0.96;
 	SPECULAR = 0.18;
 }

@@ -100,7 +100,6 @@ shader_parameter/soil_color = Color(0.19, 0.085, 0.028, 1)
 shader_parameter/patch_scale = 8.0
 shader_parameter/soil_amount = 0.36
 shader_parameter/color_variation = 0.12
-shader_parameter/minimum_night_visibility = 0.11
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ec6vt"]
 material = SubResource("ShaderMaterial_ground_variation")
