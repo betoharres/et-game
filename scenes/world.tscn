@@ -87,6 +87,7 @@
 [ext_resource type="PackedScene" path="res://scenes/Photographer.tscn" id="83_photographer"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 [ext_resource type="Shader" path="res://shaders/ground_variation.gdshader" id="85_ground_shader"]
+[ext_resource type="PackedScene" path="res://scenes/DebugMenu.tscn" id="86_debug_menu"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
 vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
@@ -128,6 +129,8 @@ shape = SubResource("BoxShape3D_15tgd")
 [node name="NightEnvironment" parent="." instance=ExtResource("81_night_environment")]
 
 [node name="PauseMenu" parent="." unique_id=1267712706 instance=ExtResource("82_pause_menu")]
+
+[node name="DebugMenu" parent="." instance=ExtResource("86_debug_menu")]
 
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
 

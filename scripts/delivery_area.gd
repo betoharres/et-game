@@ -55,6 +55,8 @@ var _ufo_target_position : Vector3
 var _beam_base_energy : float = 5.2
 var _beam_ground_base_energy : float = 1.6
 var _beam_core_base_energy : float = 1.5
+var _debug_lighting_enabled : bool = true
+var _debug_lighting_intensity : float = 1.0
 
 
 func _ready() -> void:
@@ -65,6 +67,51 @@ func _ready() -> void:
 	prompt_root.visible = false
 	hold_progress.max_value = signal_hold_duration
 	_beam_core_base_energy = beam_core_light.light_energy
+	_apply_debug_lighting_visibility()
+
+
+func set_debug_lighting_enabled(enabled : bool) -> void:
+	_debug_lighting_enabled = enabled
+	_apply_debug_lighting_visibility()
+
+
+func is_debug_lighting_enabled() -> bool:
+	return _debug_lighting_enabled
+
+
+func set_debug_lighting_intensity(intensity : float) -> void:
+	_debug_lighting_intensity = clampf(intensity, 0.0, 2.0)
+	if _state == DeliveryState.CHARGING:
+		_update_signal_effect()
+	elif _state == DeliveryState.ABDUCTING:
+		var beam_pulse := 1.0 + sin(_state_elapsed * 7.0) * 0.05
+		var core_pulse := 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
+		_update_abduction_light_energy(beam_pulse, core_pulse)
+	else:
+		signal_light.light_energy = 3.2 * _debug_lighting_intensity
+		beam_spotlight.light_energy = (
+			_beam_base_energy * _debug_lighting_intensity
+		)
+		beam_ground_light.light_energy = (
+			_beam_ground_base_energy * _debug_lighting_intensity
+		)
+		beam_core_light.light_energy = (
+			_beam_core_base_energy * _debug_lighting_intensity
+		)
+
+
+func get_debug_lighting_intensity() -> float:
+	return _debug_lighting_intensity
+
+
+func _apply_debug_lighting_visibility() -> void:
+	for light : Light3D in [
+		signal_light,
+		beam_spotlight,
+		beam_ground_light,
+		beam_core_light,
+	]:
+		light.visible = _debug_lighting_enabled
 
 
 func _process(delta : float) -> void:
@@ -313,7 +360,9 @@ func _prepare_ufo_approach() -> void:
 func _update_signal_effect() -> void:
 	var pulse := 1.0 + sin(_state_elapsed * TAU * 2.0) * 0.14
 	signal_marker.scale = Vector3.ONE * pulse
-	signal_light.light_energy = 2.4 + pulse * 0.8
+	signal_light.light_energy = (
+		(2.4 + pulse * 0.8) * _debug_lighting_intensity
+	)
 
 
 func _update_ufo_approach() -> void:
@@ -390,12 +439,25 @@ func _update_abduction(delta : float) -> void:
 	var core_pulse := 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
 	beam_core.scale.x = core_pulse
 	beam_core.scale.z = core_pulse
-	beam_spotlight.light_energy = _beam_base_energy * beam_pulse
-	beam_ground_light.light_energy = _beam_ground_base_energy * beam_pulse
-	beam_core_light.light_energy = _beam_core_base_energy * core_pulse
+	_update_abduction_light_energy(beam_pulse, core_pulse)
 
 	if progress >= 1.0:
 		_finish_delivery()
+
+
+func _update_abduction_light_energy(
+	beam_pulse : float,
+	core_pulse : float
+) -> void:
+	beam_spotlight.light_energy = (
+		_beam_base_energy * _debug_lighting_intensity * beam_pulse
+	)
+	beam_ground_light.light_energy = (
+		_beam_ground_base_energy * _debug_lighting_intensity * beam_pulse
+	)
+	beam_core_light.light_energy = (
+		_beam_core_base_energy * _debug_lighting_intensity * core_pulse
+	)
 
 
 func _get_capture_position() -> Vector3:

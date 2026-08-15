@@ -5,9 +5,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_sky_shader")
-shader_parameter/zenith_color = Color(0.025, 0.05, 0.14, 1)
-shader_parameter/horizon_color = Color(0.04, 0.08, 0.18, 1)
-shader_parameter/lower_sky_color = Color(0.012, 0.02, 0.05, 1)
+shader_parameter/zenith_color = Color(0.012, 0.025, 0.075, 1)
+shader_parameter/horizon_color = Color(0.018, 0.038, 0.09, 1)
+shader_parameter/lower_sky_color = Color(0.005, 0.008, 0.022, 1)
 shader_parameter/star_density = 0.56
 shader_parameter/star_brightness = 1.15
 shader_parameter/twinkle_speed = 0.42
@@ -126,7 +126,7 @@ billboard_mode = 1
 material = SubResource("StandardMaterial_atmosphere")
 size = Vector2(0.035, 0.035)
 
-[node name="NightEnvironment" type="Node3D"]
+[node name="NightEnvironment" type="Node3D" groups=["debug_environment_lighting"]]
 script = ExtResource("1_controller")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

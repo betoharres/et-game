@@ -47,6 +47,17 @@ enum QualityLevel {
 var _rng := RandomNumberGenerator.new()
 var _sky_material : ShaderMaterial
 var _base_moon_energy : float = 0.0
+var _base_background_energy : float = 1.0
+var _base_ambient_energy : float = 0.0
+var _base_volumetric_fog_density : float = 0.0
+var _moon_debug_enabled : bool = true
+var _sky_debug_enabled : bool = true
+var _ambient_debug_enabled : bool = true
+var _fog_debug_enabled : bool = true
+var _moon_debug_intensity : float = 1.0
+var _sky_debug_intensity : float = 1.0
+var _ambient_debug_intensity : float = 1.0
+var _fog_debug_intensity : float = 1.0
 var _shooting_star_timer : float = 0.0
 var _elapsed : float = 0.0
 
@@ -58,8 +69,12 @@ func _ready() -> void:
 		_rng.seed = random_seed
 
 	var environment : Environment = world_environment.environment
-	if environment != null and environment.sky != null:
-		_sky_material = environment.sky.sky_material as ShaderMaterial
+	if environment != null:
+		_base_background_energy = environment.background_energy_multiplier
+		_base_ambient_energy = environment.ambient_light_energy
+		_base_volumetric_fog_density = environment.volumetric_fog_density
+		if environment.sky != null:
+			_sky_material = environment.sky.sky_material as ShaderMaterial
 
 	_apply_inspector_settings()
 	_apply_quality_level()
@@ -92,18 +107,27 @@ func _apply_inspector_settings() -> void:
 	moon_visual.basis = Basis.looking_at(normalized_moon_direction, Vector3.UP)
 	moon_light.basis = Basis.looking_at(-normalized_moon_direction, Vector3.UP)
 	moon_light.light_color = moon_color
-	moon_light.light_energy = moon_light_energy
 	_base_moon_energy = moon_light_energy
+	moon_light.light_energy = _base_moon_energy * _moon_debug_intensity
 
 	var fog_material := ground_fog.material as FogMaterial
 	if fog_material != null:
 		fog_material.albedo = fog_color
-		fog_material.density = ground_fog_density
+		fog_material.density = ground_fog_density * _fog_debug_intensity
+	var environment := world_environment.environment
+	if environment != null:
+		environment.volumetric_fog_density = (
+			_base_volumetric_fog_density * _fog_debug_intensity
+		)
 
 
 func _apply_quality_level() -> void:
 	var use_particles := particles_enabled and quality_level != QualityLevel.LOW
-	var use_fog := ground_fog_enabled and quality_level != QualityLevel.LOW
+	var use_fog := (
+		ground_fog_enabled
+		and quality_level != QualityLevel.LOW
+		and _fog_debug_enabled
+	)
 	shooting_stars.visible = use_particles
 	atmospheric_particles.visible = use_particles
 	atmospheric_particles.emitting = use_particles
@@ -115,6 +139,93 @@ func _apply_quality_level() -> void:
 	ground_fog.visible = use_fog
 	world_environment.environment.volumetric_fog_enabled = use_fog
 	_notify_ufo_quality.call_deferred(use_particles)
+
+
+func set_debug_moon_enabled(enabled : bool) -> void:
+	_moon_debug_enabled = enabled
+	moon_light.visible = enabled
+
+
+func is_debug_moon_enabled() -> bool:
+	return _moon_debug_enabled
+
+
+func set_debug_moon_intensity(intensity : float) -> void:
+	_moon_debug_intensity = clampf(intensity, 0.0, 2.0)
+	_update_cloud_shadow()
+
+
+func get_debug_moon_intensity() -> float:
+	return _moon_debug_intensity
+
+
+func set_debug_sky_enabled(enabled : bool) -> void:
+	_sky_debug_enabled = enabled
+	var environment := world_environment.environment
+	if environment != null:
+		environment.background_energy_multiplier = (
+			_base_background_energy * _sky_debug_intensity if enabled else 0.0
+		)
+
+
+func is_debug_sky_enabled() -> bool:
+	return _sky_debug_enabled
+
+
+func set_debug_sky_intensity(intensity : float) -> void:
+	_sky_debug_intensity = clampf(intensity, 0.0, 2.0)
+	set_debug_sky_enabled(_sky_debug_enabled)
+
+
+func get_debug_sky_intensity() -> float:
+	return _sky_debug_intensity
+
+
+func set_debug_ambient_enabled(enabled : bool) -> void:
+	_ambient_debug_enabled = enabled
+	var environment := world_environment.environment
+	if environment != null:
+		environment.ambient_light_energy = (
+			_base_ambient_energy * _ambient_debug_intensity if enabled else 0.0
+		)
+
+
+func is_debug_ambient_enabled() -> bool:
+	return _ambient_debug_enabled
+
+
+func set_debug_ambient_intensity(intensity : float) -> void:
+	_ambient_debug_intensity = clampf(intensity, 0.0, 2.0)
+	set_debug_ambient_enabled(_ambient_debug_enabled)
+
+
+func get_debug_ambient_intensity() -> float:
+	return _ambient_debug_intensity
+
+
+func set_debug_fog_enabled(enabled : bool) -> void:
+	_fog_debug_enabled = enabled
+	_apply_quality_level()
+
+
+func is_debug_fog_enabled() -> bool:
+	return _fog_debug_enabled
+
+
+func set_debug_fog_intensity(intensity : float) -> void:
+	_fog_debug_intensity = clampf(intensity, 0.0, 2.0)
+	var fog_material := ground_fog.material as FogMaterial
+	if fog_material != null:
+		fog_material.density = ground_fog_density * _fog_debug_intensity
+	var environment := world_environment.environment
+	if environment != null:
+		environment.volumetric_fog_density = (
+			_base_volumetric_fog_density * _fog_debug_intensity
+		)
+
+
+func get_debug_fog_intensity() -> float:
+	return _fog_debug_intensity
 
 
 func _notify_ufo_quality(particles_allowed : bool) -> void:
@@ -130,7 +241,7 @@ func _update_cloud_shadow() -> void:
 	var slow_cloud := sin(_elapsed * cloud_speed * 2.1 + 0.8) * 0.55
 	var broad_cloud := sin(_elapsed * cloud_speed * 0.73 + 2.4) * 0.45
 	var cloud_cover := smoothstep(0.35, 0.92, slow_cloud + broad_cloud)
-	moon_light.light_energy = _base_moon_energy * (
+	moon_light.light_energy = _base_moon_energy * _moon_debug_intensity * (
 		1.0 - cloud_cover * cloud_shadow_strength
 	)
 

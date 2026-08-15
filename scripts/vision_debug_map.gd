@@ -5,6 +5,11 @@ const MAX_MAP_DIAMETER : float = 220.0
 const MAP_HEIGHT_RATIO : float = 0.2
 const MAP_MARGIN : float = 48.0
 const WORLD_RADIUS : float = 35.0
+const SHORTCUT_TEXT : String = "F3"
+const SHORTCUT_FONT_SIZE : int = 14
+const SHORTCUT_FONT : Font = preload(
+	"res://assets/menu/fonts/Oxanium-Regular.ttf"
+)
 const PLAYER_ICON : Texture2D = preload(
 	"res://assets/ui/prototype_icons/player.png"
 )
@@ -21,7 +26,7 @@ const GLOW_RING_ICON : Texture2D = preload(
 	"res://assets/ui/prototype_icons/glow_ring.png"
 )
 
-var map_visible : bool = false
+var map_visible : bool = true
 var map_center : Vector2
 var map_radius : float = 100.0
 var _elapsed : float = 0.0
@@ -92,6 +97,7 @@ func _draw() -> void:
 		1.5,
 		true
 	)
+	_draw_shortcut_hint()
 
 	var player := _find_player()
 	if player == null:
@@ -104,6 +110,37 @@ func _draw() -> void:
 		_draw_vision_actor(actor, player)
 
 	_draw_player_marker()
+
+
+func _draw_shortcut_hint() -> void:
+	var text_size := SHORTCUT_FONT.get_string_size(
+		SHORTCUT_TEXT,
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1.0,
+		SHORTCUT_FONT_SIZE
+	)
+	var text_position := Vector2(
+		map_center.x - text_size.x * 0.5,
+		map_center.y + map_radius + 25.0
+	)
+	draw_string(
+		SHORTCUT_FONT,
+		text_position + Vector2(1.0, 1.0),
+		SHORTCUT_TEXT,
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1.0,
+		SHORTCUT_FONT_SIZE,
+		Color(0.0, 0.0, 0.0, 0.72)
+	)
+	draw_string(
+		SHORTCUT_FONT,
+		text_position,
+		SHORTCUT_TEXT,
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1.0,
+		SHORTCUT_FONT_SIZE,
+		Color(0.65, 0.92, 1.0, 0.78)
+	)
 
 
 func _draw_north_tick(player : Node3D) -> void:

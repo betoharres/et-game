@@ -28,6 +28,7 @@ scenes/
   Player.tscn          Jogador ET, câmera, vida, stamina e alvos de IK
   PlayerHUD.tscn       HUD de vida e stamina do ET
   PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
+  DebugMenu.tscn       Menu F4 com ferramentas de inspeção da iluminação
   DriveableTruck.tscn  Caminhonete controlável
   VisionDebugMap.tscn  Radar circular opcional de objetivos e ameaças
   SmellyFarmer.tscn    Fazendeiro, navegação e IK
@@ -44,6 +45,7 @@ scripts/
   player_ragdoll.gd    Morte física articulada do ET
   driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
   vision_debug_map.gd  Radar circular com ícones e cones de visão discretos
+  debug_menu.gd        Alterna fontes de luz e atmosfera durante a partida
   smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
   photographer.gd      Visão, perseguição e captura de fotos do ET
   photo_alert_system.gd Contador global e redução das estrelas
@@ -131,6 +133,8 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   opacidade depois de alguns segundos sem mudança.
 - Cada estrela representa uma foto. Sem ser visto por nenhum fotógrafo, uma
   estrela é removida após 30 segundos contínuos; ser visto reinicia o tempo.
+- O radar circular começa visível no canto inferior direito, mostra a indicação
+  `F3` abaixo do círculo e pode ser ocultado ou exibido novamente pela tecla.
 - Uma, duas e três estrelas solicitam, respectivamente, respostas futuras da
   polícia, imprensa e MIB. Essas respostas existem somente como métodos e
   sinais: nenhum veículo, agente ou fotógrafo adicional é criado atualmente.
@@ -163,6 +167,9 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - Alternar câmera externa/interna da caminhonete: `G`.
 - Abrir ou fechar o menu de pausa: `Esc`.
 - Mostrar ou ocultar o radar circular: `F3`.
+- Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
+  alternar Lua, céu, luz ambiente, neblina, casa e nave/feixes, além de regular
+  cada intensidade entre 0% e 200%.
 - No menu inicial, o botão de áudio no canto inferior esquerdo silencia ou
   reativa a música do menu.
 
