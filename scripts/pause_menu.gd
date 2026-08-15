@@ -10,6 +10,7 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"crouch",
 	&"interact",
 	&"request_abduction",
+	&"toggle_eye_light",
 	&"debug_vision_map"
 ]
 
@@ -23,6 +24,7 @@ const REBIND_LABELS : Array[String] = [
 	"Agachar",
 	"Interagir",
 	"Chamar nave",
+	"Luz dos olhos",
 	"Mini mapa"
 ]
 
@@ -55,6 +57,7 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/CrouchButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/InteractButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/AbductionButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/EyeLightButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMapButton
 ]
 

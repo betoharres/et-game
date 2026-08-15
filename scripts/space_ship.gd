@@ -4,17 +4,20 @@ extends StaticBody3D
 
 @export_group("UFO Lighting")
 @export_color_no_alpha var beam_color : Color = Color(0.16, 0.68, 0.86)
-@export_range(0.0, 40.0, 0.1) var beam_energy : float = 8.0
-@export_range(20.0, 120.0, 1.0) var beam_range : float = 72.0
+@export_range(0.0, 40.0, 0.1) var beam_energy : float = 5.2
+@export_range(20.0, 120.0, 1.0) var beam_range : float = 52.0
 @export_range(1.0, 45.0, 0.5) var beam_angle_degrees : float = 13.0
 @export_range(0.0, 2.0, 0.05) var beam_attenuation : float = 0.45
-@export_range(0.0, 10.0, 0.1) var ground_light_energy : float = 2.6
-@export_range(2.0, 20.0, 0.5) var ground_light_range : float = 10.0
+@export_range(0.0, 10.0, 0.1) var ground_light_energy : float = 1.6
+@export_range(2.0, 20.0, 0.5) var ground_light_range : float = 8.5
 @export_range(0.0, 0.4, 0.01) var beam_pulse_amount : float = 0.12
 @export_range(0.0, 2.0, 0.01) var beam_pulse_speed : float = 0.34
 @export_range(0.0, 15.0, 0.1) var beam_sweep_degrees : float = 6.5
 @export_range(0.0, 2.0, 0.01) var beam_sweep_speed : float = 0.28
-@export_range(0.0, 10.0, 0.1) var hull_light_energy : float = 1.8
+@export_range(0.0, 10.0, 0.1) var hull_light_energy : float = 1.0
+@export_range(0.0, 2.0, 0.05) var beam_fog_energy : float = 1.0
+@export_range(0.0, 2.0, 0.05) var hull_fog_energy : float = 0.12
+@export_range(0.0, 2.0, 0.05) var ground_fog_energy : float = 0.08
 
 @export_group("Beam Particles")
 @export var beam_particles_enabled : bool = true
@@ -36,7 +39,8 @@ func _ready() -> void:
 			continue
 		spot.light_color = beam_color
 		spot.light_energy = beam_energy
-		spot.light_volumetric_fog_energy = 1.2
+		spot.light_volumetric_fog_energy = beam_fog_energy
+		spot.shadow_enabled = true
 		spot.spot_range = beam_range
 		spot.spot_angle = beam_angle_degrees
 		spot.spot_attenuation = beam_attenuation
@@ -50,7 +54,7 @@ func _ready() -> void:
 		hull_light.light_color = beam_color
 		hull_light.light_energy = hull_light_energy
 		hull_light.shadow_enabled = false
-		hull_light.light_volumetric_fog_energy = 0.55
+		hull_light.light_volumetric_fog_energy = hull_fog_energy
 		_hull_lights.append(hull_light)
 
 	for child : Node in find_children(
@@ -66,6 +70,7 @@ func _ready() -> void:
 		ground_light.light_energy = ground_light_energy
 		ground_light.omni_range = ground_light_range
 		ground_light.shadow_enabled = false
+		ground_light.light_volumetric_fog_energy = ground_fog_energy
 		_ground_lights.append(ground_light)
 
 	for child : Node in find_children("BeamDust*", "GPUParticles3D", true, false):
@@ -158,14 +163,15 @@ func configure_external_beam(
 ) -> void:
 	spotlight.light_color = beam_color
 	spotlight.light_energy = beam_energy
-	spotlight.light_volumetric_fog_energy = 1.2
+	spotlight.light_volumetric_fog_energy = beam_fog_energy
+	spotlight.shadow_enabled = true
 	spotlight.spot_angle = beam_angle_degrees
 	spotlight.spot_attenuation = beam_attenuation
 
 	ground_light.light_color = beam_color
 	ground_light.light_energy = ground_light_energy
 	ground_light.omni_range = ground_light_range
-	ground_light.light_volumetric_fog_energy = 0.12
+	ground_light.light_volumetric_fog_energy = ground_fog_energy
 	ground_light.shadow_enabled = false
 
 	if _beam_volumes.is_empty():

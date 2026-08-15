@@ -8,11 +8,19 @@ signal died
 const STANDING_COLLISION_HEIGHT : float = 1.0
 const CROUCHING_COLLISION_HEIGHT : float = 0.62
 
+enum JumpState {
+	READY,
+	PREPARING,
+	AIRBORNE,
+}
+
 
 @export var speed: float = 5.0
 @export var sprint_speed : float = 8.0
 @export var crouch_speed : float = 2.5
 @export var jump_velocity : float = 5.5
+@export_range(0.05, 0.35, 0.01) var jump_prepare_duration : float = 0.16
+@export_range(0.3, 1.0, 0.05) var jump_prepare_crouch : float = 0.8
 @export var crouch_transition_speed : float = 8.0
 @export var crouch_camera_drop : float = 0.3
 @export var crouch_visual_drop : float = 0.24
@@ -38,17 +46,30 @@ const CROUCHING_COLLISION_HEIGHT : float = 0.62
 @export var camera_pitch_min: float = -80.0
 @export var camera_pitch_max: float = 80.0
 
+@export_category("Eye Light")
+@export_range(0.0, 2.0, 0.05) var eye_light_energy : float = 0.55
+@export_range(0.5, 8.0, 0.1) var eye_light_range : float = 4.0
+@export_range(0.1, 3.0, 0.1) var eye_light_turn_on_duration : float = 1.2
+@export_range(0.1, 3.0, 0.1) var eye_light_turn_off_duration : float = 1.6
+@export_color_no_alpha var active_eye_color : Color = Color(0.12, 0.72, 0.88)
+
 @onready var camera_pivot: Node3D = $CameraHolder
 @onready var footstep_audio : Node = $FootstepAudio
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
 @onready var character_visual : Node3D = $ET
+@onready var character_mesh : MeshInstance3D = $ET/Armature/Skeleton3D/ET
 @onready var ragdoll : Node = $PlayerRagdoll
 @onready var ik_target_container : Node = $IKtargetContainer
+@onready var eye_area_light : OmniLight3D = (
+	$ET/Armature/Skeleton3D/EyeLightAttachment/EyeAreaLight
+)
 
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
 var is_crouching : bool = false
 var _crouch_amount : float = 0.0
+var _jump_state : int = JumpState.READY
+var _jump_prepare_elapsed : float = 0.0
 var _standing_visual_position : Vector3
 var health : float = 100.0
 var stamina : float = 100.0
@@ -60,6 +81,9 @@ var _knockback_direction : Vector3 = Vector3.ZERO
 var _knockback_remaining_distance : float = 0.0
 var _concealment_sources : Dictionary = {}
 var _vision_contacts : Dictionary = {}
+var _eye_light_enabled : bool = false
+var _eye_light_tween : Tween
+var _eye_material : StandardMaterial3D
 
 # Items
 var carried_item : RigidBody3D = null
@@ -72,6 +96,7 @@ func _ready() -> void:
 	camera_yaw = global_rotation.y
 	camera_pitch = camera_pivot.rotation.x
 	_standing_visual_position = character_visual.position
+	_setup_eye_light()
 
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
@@ -91,25 +116,28 @@ func _input(event: InputEvent) -> void:
 			var maximum_pitch: float = deg_to_rad(camera_pitch_max)
 
 			camera_pitch = clampf(camera_pitch,minimum_pitch,maximum_pitch)
+	if event.is_action_pressed("toggle_eye_light") and not event.is_echo():
+		set_eye_light_enabled(not _eye_light_enabled)
+		return
 
-# Items
+	# Items
 	if event.is_action_pressed("interact"):
 		if carried_item == null:
+			if _is_delivery_interaction_reserved():
+				return
 			try_pickup()
 		else:
 			carried_item.drop()
 			carried_item = null
 
 func _physics_process(delta: float) -> void:
+	_update_jump_state(delta)
 	_update_crouch_state(delta)
 
-	if is_on_floor():
-		if Input.is_action_just_pressed("jump") and not is_crouching:
-			velocity.y = jump_velocity
-		else:
-			velocity.y = -0.1
-	else:
+	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
+	elif velocity.y <= 0.0:
+		velocity.y = -0.1
 	
 	camera_pivot.global_position = (
 		global_position
@@ -137,6 +165,7 @@ func _physics_process(delta: float) -> void:
 		and Input.is_action_pressed("sprint")
 		and not is_crouching
 		and is_on_floor()
+		and _jump_state == JumpState.READY
 	)
 	_update_stamina(delta, wants_to_sprint)
 
@@ -172,6 +201,37 @@ func _get_movement_speed() -> float:
 		return sprint_speed
 
 	return speed
+
+
+func _update_jump_state(delta : float) -> void:
+	if _jump_state == JumpState.AIRBORNE and is_on_floor():
+		_jump_state = JumpState.READY
+		_jump_prepare_elapsed = 0.0
+
+	if (
+		_jump_state == JumpState.READY
+		and is_on_floor()
+		and Input.is_action_just_pressed("jump")
+	):
+		_jump_state = JumpState.PREPARING
+		_jump_prepare_elapsed = 0.0
+
+	if _jump_state != JumpState.PREPARING:
+		return
+
+	if not is_on_floor():
+		_jump_state = JumpState.AIRBORNE
+		return
+
+	_jump_prepare_elapsed = minf(
+		_jump_prepare_elapsed + delta,
+		jump_prepare_duration
+	)
+	if _jump_prepare_elapsed < jump_prepare_duration:
+		return
+
+	velocity.y = jump_velocity
+	_jump_state = JumpState.AIRBORNE
 
 
 func _update_stamina(delta : float, wants_to_sprint : bool) -> void:
@@ -277,6 +337,77 @@ func set_intervention_signal_pose(active : bool) -> void:
 		ik_target_container.call("set_intervention_pose", active)
 
 
+func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
+	_eye_light_enabled = enabled
+	if _eye_light_tween != null:
+		_eye_light_tween.kill()
+
+	var target_energy := eye_light_energy if enabled else 0.0
+	var target_albedo := active_eye_color * 0.42 if enabled else Color.BLACK
+	target_albedo.a = 1.0
+	var target_emission := active_eye_color if enabled else Color.BLACK
+	var target_emission_energy := 1.35 if enabled else 0.0
+	var duration := (
+		eye_light_turn_on_duration
+		if enabled
+		else eye_light_turn_off_duration
+	)
+
+	if immediate:
+		eye_area_light.light_energy = target_energy
+		if _eye_material != null:
+			_eye_material.albedo_color = target_albedo
+			_eye_material.emission = target_emission
+			_eye_material.emission_energy_multiplier = target_emission_energy
+		return
+
+	_eye_light_tween = create_tween()
+	_eye_light_tween.set_parallel(true)
+	_eye_light_tween.set_trans(Tween.TRANS_QUAD)
+	_eye_light_tween.set_ease(Tween.EASE_IN_OUT)
+	_eye_light_tween.tween_property(
+		eye_area_light,
+		"light_energy",
+		target_energy,
+		duration
+	)
+	if _eye_material != null:
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"albedo_color",
+			target_albedo,
+			duration
+		)
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"emission",
+			target_emission,
+			duration
+		)
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"emission_energy_multiplier",
+			target_emission_energy,
+			duration
+		)
+
+
+func is_eye_light_enabled() -> bool:
+	return _eye_light_enabled
+
+
+func _setup_eye_light() -> void:
+	eye_area_light.omni_range = eye_light_range
+	character_mesh.layers = 2
+	var source_material := character_mesh.get_active_material(1)
+	if source_material is StandardMaterial3D:
+		_eye_material = source_material.duplicate() as StandardMaterial3D
+		_eye_material.resource_local_to_scene = true
+		_eye_material.emission_enabled = true
+		character_mesh.set_surface_override_material(1, _eye_material)
+	set_eye_light_enabled(false, true)
+
+
 func set_vision_contact(source : Node, is_visible : bool) -> void:
 	if source == null:
 		return
@@ -336,8 +467,11 @@ func get_stealth_visibility() -> float:
 
 func _die(impact_direction : Vector3 = Vector3.ZERO) -> void:
 	set_intervention_signal_pose(false)
+	set_eye_light_enabled(false)
 	velocity = Vector3.ZERO
 	_is_sprinting = false
+	_jump_state = JumpState.READY
+	_jump_prepare_elapsed = 0.0
 	_knockback_remaining_distance = 0.0
 	footstep_audio.set_motion(0.0, false)
 
@@ -370,14 +504,22 @@ func _apply_knockback(delta : float) -> void:
 
 
 func _update_crouch_state(delta : float) -> void:
-	var wants_crouch : bool = Input.is_action_pressed("crouch")
+	var is_preparing_jump : bool = _jump_state == JumpState.PREPARING
+	var wants_crouch : bool = (
+		Input.is_action_pressed("crouch")
+		or is_preparing_jump
+	)
 
 	if not wants_crouch and is_crouching and not _can_stand():
 		wants_crouch = true
 
 	is_crouching = wants_crouch
 
-	var target_amount : float = 1.0 if is_crouching else 0.0
+	var target_amount : float = 0.0
+	if is_preparing_jump:
+		target_amount = jump_prepare_crouch
+	elif is_crouching:
+		target_amount = 1.0
 	_crouch_amount = move_toward(
 		_crouch_amount,
 		target_amount,
@@ -448,3 +590,14 @@ func try_pickup() -> void:
 	if closest_item != null:
 		carried_item = closest_item
 		closest_item.pickup(self)
+
+
+func _is_delivery_interaction_reserved() -> bool:
+	for area : Node in get_tree().get_nodes_in_group("delivery_areas"):
+		if not area.has_method("reserves_interaction_for"):
+			continue
+
+		if bool(area.call("reserves_interaction_for", self)):
+			return true
+
+	return false

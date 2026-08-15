@@ -51,7 +51,9 @@ scripts/
   audio/               Passos, ambiente rural e som sintetizado da espingarda
   *_field.gd           Comportamento da vegetação
 assets/audio/          Vento, grilos, cães, passos e registro de origem
+assets/ui/             Ícones leves derivados dos meshes low-poly do pacote visual
 shaders/night_sky.gdshader Céu procedural estrelado e Lua
+tools/render_prototype_icons.py Utilitário para regenerar os ícones do HUD
 3dModelos/             Modelos 3D importados
 Texturas/              Texturas do cenário e dos modelos
 Materiais/             Materiais reutilizáveis do Godot
@@ -100,12 +102,13 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   névoa baixa e iluminação ambiente azulada configurável por qualidade.
 - Destroços próximos podem ser carregados e largados.
 - Para entregar um destroço, o jogador deve largá-lo na plataforma. Um aviso
-  piscante aparece na HUD; próximo ao item, segure `F` por 3 segundos para
+  piscante aparece na HUD; próximo ao item, segure `E` por 3 segundos para
   completar o sinal de intervenção alienígena.
 - Enquanto o sinal carrega, o ET leva a mão direita à cabeça e a nave se
-  posiciona sobre a plataforma. Soltar `F` antes do fim cancela a chamada. Ao
-  completar o sinal, um feixe ciano com o mesmo material dos fachos da nave
-  suga o item por 10 segundos; somente ao
+  posiciona sobre a plataforma. Soltar `E` antes do fim cancela a chamada. Ao
+  completar o sinal, um feixe ciano com o mesmo material dos fachos da nave,
+  reforçado por um núcleo cilíndrico emissivo, suga o item por 10 segundos;
+  somente ao
   chegar à nave ele desaparece e soma seu `score_value` ao `GlobalScore`.
 - A pontuação atual é exibida apenas no console de depuração.
 - A caminhonete pode ser usada para atravessar o mapa e possui câmeras externa
@@ -147,17 +150,21 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 ## Controles
 
 - Movimento do jogador e direção da caminhonete: `WASD`.
-- Correr: segure `Shift` enquanto se movimenta; a corrida consome stamina.
-- Pular: `Espaço`.
+- Correr: segure `Shift` enquanto se movimenta; a corrida consome stamina e é
+  bloqueada durante a preparação do salto e enquanto o ET estiver no ar.
+- Pular: `Espaço`. O ET flexiona rapidamente os joelhos antes do impulso.
 - Agachar: segure `C`.
 - Câmera: mouse.
 - Coletar ou largar item: `E`.
-- Solicitar a abdução de um item solto na área de entrega: segure `F` por 3
+- Solicitar a abdução de um item solto na área de entrega: segure `E` por 3
   segundos.
+- Acender ou apagar gradualmente a luz local dos olhos do ET: `F`.
 - Entrar ou sair da caminhonete: `E`.
 - Alternar câmera externa/interna da caminhonete: `G`.
 - Abrir ou fechar o menu de pausa: `Esc`.
 - Mostrar ou ocultar o radar circular: `F3`.
+- No menu inicial, o botão de áudio no canto inferior esquerdo silencia ou
+  reativa a música do menu.
 
 As interações usam uma ação própria para que `Espaço` possa ser reservado ao
 pulo. No menu de opções, as quatro teclas de movimento podem ser remapeadas.
@@ -186,6 +193,10 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   `vehicles` e `pickup_items`.
 - Os HUDs reutilizam o tema `Materiais/hud_theme.tres`, com tipografia Oxanium,
   margens seguras e painéis responsivos ancorados à tela.
+- Menu, vida, stamina, fotografias, intervenção e radar usam uma família única
+  de ícones 2D gerada dos meshes low-poly `Polygon Prototype`. A origem e o
+  processo de geração estão registrados em
+  `assets/ui/prototype_icons/SOURCE.md`.
 - O jogador procura o item coletável mais próximo dentro de dois metros. Um
   item em abdução deixa temporariamente o grupo `pickup_items` para não poder
   ser recolhido antes da conclusão da entrega.
@@ -214,6 +225,9 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
 - Não há testes automatizados versionados neste momento.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/` não estão
   documentadas no repositório; confirme-as antes de redistribuir o projeto.
+- A biblioteca usada para gerar os ícones da interface não continha uma licença
+  específica ao lado de `_SourceFiles`; confirme a licença original do pacote
+  `Polygon Prototype` antes de redistribuir os PNGs derivados.
 - Os áudios foram fornecidos pelo usuário sem licença anexada. A procedência e
   o uso de cada arquivo estão registrados em `assets/audio/SOURCE.md`.
 

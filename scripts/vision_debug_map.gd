@@ -5,6 +5,21 @@ const MAX_MAP_DIAMETER : float = 220.0
 const MAP_HEIGHT_RATIO : float = 0.2
 const MAP_MARGIN : float = 48.0
 const WORLD_RADIUS : float = 35.0
+const PLAYER_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/player.png"
+)
+const CAMERA_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/camera.png"
+)
+const WARNING_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/warning.png"
+)
+const CIRCLE_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/circle.png"
+)
+const GLOW_RING_ICON : Texture2D = preload(
+	"res://assets/ui/prototype_icons/glow_ring.png"
+)
 
 var map_visible : bool = false
 var map_center : Vector2
@@ -18,7 +33,10 @@ func _ready() -> void:
 
 
 func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("debug_vision_map"):
+	if (
+		event.is_action_pressed("debug_vision_map")
+		and not event.is_echo()
+	):
 		map_visible = not map_visible
 		queue_redraw()
 		get_viewport().set_input_as_handled()
@@ -112,38 +130,27 @@ func _draw_delivery_objective(player : Node3D) -> void:
 		_world_to_map(delivery_area.global_position, player),
 		8.0
 	)
-	var pulse := 6.0 + sin(_elapsed * 3.2) * 1.5
-	draw_circle(point, 3.0, Color(0.25, 0.9, 1.0, 0.95))
-	draw_arc(
-		point,
-		pulse,
-		0.0,
-		TAU,
-		20,
-		Color(0.25, 0.9, 1.0, 0.42),
-		1.3,
-		true
+	var pulse := 17.0 + sin(_elapsed * 3.2) * 2.5
+	draw_texture_rect(
+		GLOW_RING_ICON,
+		Rect2(point - Vector2.ONE * pulse * 0.5, Vector2.ONE * pulse),
+		false,
+		Color(0.25, 0.9, 1.0, 0.34)
+	)
+	draw_texture_rect(
+		CIRCLE_ICON,
+		Rect2(point - Vector2(5.0, 5.0), Vector2(10.0, 10.0)),
+		false,
+		Color(0.35, 0.96, 1.0, 1.0)
 	)
 
 
 func _draw_player_marker() -> void:
-	var player_points := PackedVector2Array([
-		map_center + Vector2(0.0, -9.0),
-		map_center + Vector2(6.5, 7.0),
-		map_center,
-		map_center + Vector2(-6.5, 7.0),
-	])
-	draw_colored_polygon(player_points, Color(0.25, 0.95, 1.0, 1.0))
-	draw_polyline(
-		PackedVector2Array([
-			player_points[0],
-			player_points[1],
-			player_points[3],
-			player_points[0],
-		]),
-		Color(0.8, 1.0, 1.0, 0.9),
-		1.0,
-		true
+	draw_texture_rect(
+		PLAYER_ICON,
+		Rect2(map_center - Vector2(6.0, 11.0), Vector2(12.0, 22.0)),
+		false,
+		Color(0.28, 0.96, 1.0, 1.0)
 	)
 
 
@@ -232,19 +239,20 @@ func _draw_actor_marker(
 	is_photographer : bool
 ) -> void:
 	if is_photographer:
-		var camera_rect := Rect2(point - Vector2(4.5, 3.5), Vector2(9.0, 7.0))
-		draw_rect(camera_rect, Color(0.01, 0.02, 0.04, 0.9), true)
-		draw_rect(camera_rect, color, false, 1.4)
-		draw_circle(point, 1.8, color)
+		draw_texture_rect(
+			CAMERA_ICON,
+			Rect2(point - Vector2(6.5, 6.5), Vector2(13.0, 13.0)),
+			false,
+			color
+		)
 		return
 
-	var diamond := PackedVector2Array([
-		point + Vector2(0.0, -5.5),
-		point + Vector2(5.5, 0.0),
-		point + Vector2(0.0, 5.5),
-		point + Vector2(-5.5, 0.0),
-	])
-	draw_colored_polygon(diamond, color)
+	draw_texture_rect(
+		WARNING_ICON,
+		Rect2(point - Vector2(6.5, 6.5), Vector2(13.0, 13.0)),
+		false,
+		color
+	)
 
 
 func _clamp_to_radar(point : Vector2, padding : float) -> Vector2:
