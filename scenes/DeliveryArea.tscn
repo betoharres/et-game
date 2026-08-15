@@ -85,7 +85,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="DeliveryArea" type="Area3D" unique_id=741650013 groups=["delivery_areas"]]
+[node name="DeliveryArea" type="Area3D" unique_id=741650013 groups=["debug_delivery_lighting", "delivery_areas"]]
 collision_mask = 9
 script = ExtResource("1_trv2r")
 

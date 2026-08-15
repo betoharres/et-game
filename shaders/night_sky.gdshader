@@ -1,8 +1,8 @@
 shader_type sky;
 
-uniform vec3 zenith_color : source_color = vec3(0.025, 0.05, 0.14);
-uniform vec3 horizon_color : source_color = vec3(0.04, 0.08, 0.18);
-uniform vec3 lower_sky_color : source_color = vec3(0.012, 0.02, 0.05);
+uniform vec3 zenith_color : source_color = vec3(0.012, 0.025, 0.075);
+uniform vec3 horizon_color : source_color = vec3(0.018, 0.038, 0.09);
+uniform vec3 lower_sky_color : source_color = vec3(0.005, 0.008, 0.022);
 uniform float star_density : hint_range(0.0, 1.0, 0.01) = 0.56;
 uniform float star_brightness : hint_range(0.0, 3.0, 0.01) = 1.15;
 uniform float twinkle_speed : hint_range(0.0, 3.0, 0.01) = 0.42;

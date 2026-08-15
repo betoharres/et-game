@@ -30,6 +30,8 @@ var _beam_dust : Array[GPUParticles3D] = []
 var _beam_volumes : Array[MeshInstance3D] = []
 var _base_spot_rotations : Array[Vector3] = []
 var _elapsed : float = 0.0
+var _debug_lighting_enabled : bool = true
+var _debug_lighting_intensity : float = 1.0
 
 
 func _ready() -> void:
@@ -38,12 +40,13 @@ func _ready() -> void:
 		if spot == null:
 			continue
 		spot.light_color = beam_color
-		spot.light_energy = beam_energy
+		spot.light_energy = beam_energy * _debug_lighting_intensity
 		spot.light_volumetric_fog_energy = beam_fog_energy
 		spot.shadow_enabled = true
 		spot.spot_range = beam_range
 		spot.spot_angle = beam_angle_degrees
 		spot.spot_attenuation = beam_attenuation
+		spot.visible = _debug_lighting_enabled
 		_spot_lights.append(spot)
 		_base_spot_rotations.append(spot.rotation)
 
@@ -52,9 +55,10 @@ func _ready() -> void:
 		if hull_light == null:
 			continue
 		hull_light.light_color = beam_color
-		hull_light.light_energy = hull_light_energy
+		hull_light.light_energy = hull_light_energy * _debug_lighting_intensity
 		hull_light.shadow_enabled = false
 		hull_light.light_volumetric_fog_energy = hull_fog_energy
+		hull_light.visible = _debug_lighting_enabled
 		_hull_lights.append(hull_light)
 
 	for child : Node in find_children(
@@ -67,10 +71,13 @@ func _ready() -> void:
 		if ground_light == null:
 			continue
 		ground_light.light_color = beam_color
-		ground_light.light_energy = ground_light_energy
+		ground_light.light_energy = (
+			ground_light_energy * _debug_lighting_intensity
+		)
 		ground_light.omni_range = ground_light_range
 		ground_light.shadow_enabled = false
 		ground_light.light_volumetric_fog_energy = ground_fog_energy
+		ground_light.visible = _debug_lighting_enabled
 		_ground_lights.append(ground_light)
 
 	for child : Node in find_children("BeamDust*", "GPUParticles3D", true, false):
@@ -107,13 +114,17 @@ func _process(delta : float) -> void:
 			0.0
 		)
 		var pulse := sin(_elapsed * beam_pulse_speed + phase) * beam_pulse_amount
-		_spot_lights[index].light_energy = beam_energy * (1.0 + pulse)
+		_spot_lights[index].light_energy = (
+			beam_energy * _debug_lighting_intensity * (1.0 + pulse)
+		)
 
 	for index : int in range(_hull_lights.size()):
 		var phase := float(index) * 1.73
 		var pulse := sin(_elapsed * beam_pulse_speed * 0.8 + phase)
-		_hull_lights[index].light_energy = hull_light_energy * (
-			1.0 + pulse * beam_pulse_amount * 0.7
+		_hull_lights[index].light_energy = (
+			hull_light_energy
+			* _debug_lighting_intensity
+			* (1.0 + pulse * beam_pulse_amount * 0.7)
 		)
 
 func _update_ground_lights() -> void:
@@ -133,7 +144,7 @@ func _update_ground_lights() -> void:
 		query.collide_with_areas = false
 		var hit := space_state.intersect_ray(query)
 		var ground_light := _ground_lights[index]
-		ground_light.visible = not hit.is_empty()
+		ground_light.visible = _debug_lighting_enabled and not hit.is_empty()
 		if hit.is_empty():
 			continue
 
@@ -143,7 +154,39 @@ func _update_ground_lights() -> void:
 		var pulse := sin(
 			_elapsed * beam_pulse_speed + float(index) * 2.17
 		) * beam_pulse_amount
-		ground_light.light_energy = ground_light_energy * (1.0 + pulse * 0.5)
+		ground_light.light_energy = (
+			ground_light_energy
+			* _debug_lighting_intensity
+			* (1.0 + pulse * 0.5)
+		)
+
+
+func set_debug_lighting_enabled(enabled : bool) -> void:
+	_debug_lighting_enabled = enabled
+	for light : SpotLight3D in _spot_lights:
+		light.visible = enabled
+	for light : OmniLight3D in _hull_lights:
+		light.visible = enabled
+	for light : OmniLight3D in _ground_lights:
+		light.visible = enabled
+
+
+func is_debug_lighting_enabled() -> bool:
+	return _debug_lighting_enabled
+
+
+func set_debug_lighting_intensity(intensity : float) -> void:
+	_debug_lighting_intensity = clampf(intensity, 0.0, 2.0)
+	for light : SpotLight3D in _spot_lights:
+		light.light_energy = beam_energy * _debug_lighting_intensity
+	for light : OmniLight3D in _hull_lights:
+		light.light_energy = hull_light_energy * _debug_lighting_intensity
+	for light : OmniLight3D in _ground_lights:
+		light.light_energy = ground_light_energy * _debug_lighting_intensity
+
+
+func get_debug_lighting_intensity() -> float:
+	return _debug_lighting_intensity
 
 
 func set_atmosphere_quality(quality_level : int, particles_allowed : bool) -> void:

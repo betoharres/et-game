@@ -9,6 +9,8 @@ extends Node3D
 
 var _window_lights : Array[OmniLight3D] = []
 var _elapsed : float = 0.0
+var _debug_lighting_enabled : bool = true
+var _debug_lighting_intensity : float = 1.0
 
 
 func _ready() -> void:
@@ -17,10 +19,11 @@ func _ready() -> void:
 		if light == null:
 			continue
 		light.light_color = window_light_color
-		light.light_energy = window_light_energy
+		light.light_energy = window_light_energy * _debug_lighting_intensity
 		light.omni_range = light_range
 		light.shadow_enabled = shadow_light_indices.has(_window_lights.size())
 		light.light_volumetric_fog_energy = 0.08
+		light.visible = _debug_lighting_enabled
 		_window_lights.append(light)
 
 
@@ -31,4 +34,28 @@ func _process(delta : float) -> void:
 		var slow_wave := sin(_elapsed * flicker_speed + phase)
 		var secondary_wave := sin(_elapsed * flicker_speed * 0.37 + phase * 0.6)
 		var variation := (slow_wave * 0.65 + secondary_wave * 0.35) * flicker_amount
-		_window_lights[index].light_energy = window_light_energy * (1.0 + variation)
+		_window_lights[index].light_energy = (
+			window_light_energy
+			* _debug_lighting_intensity
+			* (1.0 + variation)
+		)
+
+
+func set_debug_lighting_enabled(enabled : bool) -> void:
+	_debug_lighting_enabled = enabled
+	for light : OmniLight3D in _window_lights:
+		light.visible = enabled
+
+
+func is_debug_lighting_enabled() -> bool:
+	return _debug_lighting_enabled
+
+
+func set_debug_lighting_intensity(intensity : float) -> void:
+	_debug_lighting_intensity = clampf(intensity, 0.0, 2.0)
+	for light : OmniLight3D in _window_lights:
+		light.light_energy = window_light_energy * _debug_lighting_intensity
+
+
+func get_debug_lighting_intensity() -> float:
+	return _debug_lighting_intensity

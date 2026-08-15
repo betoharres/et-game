@@ -91,7 +91,7 @@ size = Vector3(7.7463975, 3.1620789, 0.24705505)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d303m"]
 size = Vector3(7.655211, 3.1620789, 0.25634003)
 
-[node name="Root" type="Node3D" unique_id=926826937]
+[node name="Root" type="Node3D" unique_id=926826937 groups=["debug_house_lighting"]]
 script = ExtResource("5_house_lights")
 
 [node name="SmBldFarmhouse01" type="MeshInstance3D" parent="." unique_id=2109646978]
