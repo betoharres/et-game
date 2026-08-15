@@ -36,7 +36,7 @@ func _ready() -> void:
 	_random.randomize()
 	_audio_player = AudioStreamPlayer.new()
 	_audio_player.name = "StepPlayer"
-	_audio_player.volume_db = -10.0
+	_audio_player.volume_db = -20.0
 	_audio_player.max_polyphony = 2
 	add_child(_audio_player)
 

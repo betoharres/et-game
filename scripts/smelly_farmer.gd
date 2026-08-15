@@ -17,13 +17,14 @@ var has_wander_target : bool = false
 
 @export_category("Vision")
 
-@export var sight_distance : float = 12.0
-@export_range(10.0, 120.0, 1.0) var sight_angle : float = 70.0
+@export_range(1.0, 50.0, 0.5) var sight_distance : float = 12.0
+@export_range(5.0, 90.0, 1.0) var sight_half_angle_degrees : float = 40.0
+@export_range(5.0, 90.0, 1.0) var alerted_sight_half_angle_degrees : float = 60.0
 @export var detection_time : float = 0.55
 @export var lose_sight_after : float = 4.0
 @export var eye_height : float = 1.55
 @export var player_target_height : float = 0.5
-@export var close_perception_radius : float = 1.8
+@export_range(1.0, 1.5, 0.05) var close_perception_radius : float = 1.25
 
 var player : CharacterBody3D = null
 var has_detected_player : bool = false
@@ -314,9 +315,7 @@ func _can_see_player() -> bool:
 	if distance <= close_perception_radius:
 		return _has_clear_line_of_sight()
 
-	var effective_sight_distance : float = (
-		sight_distance * _get_player_visibility_multiplier()
-	)
+	var effective_sight_distance : float = get_effective_sight_distance()
 
 	if distance > effective_sight_distance:
 		return false
@@ -340,7 +339,7 @@ func _can_see_player() -> bool:
 		acos(dot_product)
 	)
 
-	if angle > sight_angle:
+	if angle > get_effective_sight_half_angle_degrees():
 		return false
 
 	return _has_clear_line_of_sight()
@@ -398,6 +397,18 @@ func get_vision_forward() -> Vector3:
 	if forward.length_squared() < 0.001:
 		return Vector3.FORWARD
 	return forward.normalized()
+
+
+func get_effective_sight_half_angle_degrees() -> float:
+	return (
+		alerted_sight_half_angle_degrees
+		if has_detected_player
+		else sight_half_angle_degrees
+	)
+
+
+func get_effective_sight_distance() -> float:
+	return sight_distance * _get_player_visibility_multiplier()
 
 
 func _is_player_alive() -> bool:
