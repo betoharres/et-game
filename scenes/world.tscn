@@ -82,7 +82,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b70x4xpyi61aa" path="res://3dModelos/SM_Bld_Barn_02.fbx" id="78_l137e"]
 [ext_resource type="ArrayMesh" uid="uid://jnkrjpkd7sgg" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="79_ygn2i"]
 [ext_resource type="Script" uid="uid://c6qrkcglgvt7l" path="res://scripts/audio/farm_environment_audio.gd" id="80_audio"]
-[ext_resource type="Texture2D" uid="uid://da705coscgj8s" path="res://assets/sky/night_full_moon_panorama.png" id="81_night_sky"]
+[ext_resource type="PackedScene" path="res://scenes/NightEnvironment.tscn" id="81_night_environment"]
 [ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="82_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/Photographer.tscn" id="83_photographer"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
@@ -102,25 +102,6 @@ size = Vector2(256, 256)
 [sub_resource type="BoxShape3D" id="BoxShape3D_15tgd"]
 size = Vector3(128, 8, 128)
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_night"]
-panorama = ExtResource("81_night_sky")
-
-[sub_resource type="Sky" id="Sky_nnsk1"]
-sky_material = SubResource("PanoramaSkyMaterial_night")
-
-[sub_resource type="Environment" id="Environment_nnsk1"]
-background_mode = 2
-background_color = Color(0.40831587, 0.91825694, 0.9999998, 1)
-sky = SubResource("Sky_nnsk1")
-ambient_light_source = 2
-ambient_light_color = Color(0.16, 0.22, 0.38, 1)
-ambient_light_energy = 1.35
-reflected_light_source = 2
-ssao_enabled = true
-ssao_radius = 0.95
-ssao_intensity = 8.6
-ssao_power = 192.00093
-
 [node name="World" type="Node3D" unique_id=1407078805]
 
 [node name="FarmEnvironmentAudio" type="Node" parent="." unique_id=704676073]
@@ -138,21 +119,11 @@ mesh = SubResource("PlaneMesh_ec6vt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 shape = SubResource("BoxShape3D_15tgd")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=161618458]
-environment = SubResource("Environment_nnsk1")
+[node name="NightEnvironment" parent="." instance=ExtResource("81_night_environment")]
 
 [node name="PauseMenu" parent="." unique_id=1267712706 instance=ExtResource("82_pause_menu")]
 
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=883284234]
-transform = Transform3D(1, 0, 0, 0, 0.4648458, 0.88539165, 0, -0.88539165, 0.4648458, 0, 58.62938, 0)
-light_color = Color(0.42, 0.52, 0.78, 1)
-light_energy = 0.65
-light_indirect_energy = 2.574
-light_volumetric_fog_energy = 0.0
-light_bake_mode = 1
-sky_mode = 2
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 32.947754, -8.647179)

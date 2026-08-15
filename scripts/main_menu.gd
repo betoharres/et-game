@@ -6,8 +6,6 @@ extends Control
 @onready var main_menu_container : Control = $ColorRect/MenuBar/VSeparator
 @onready var menu_bar : Control = $ColorRect/MenuBar
 @onready var game_title : Label = $ColorRect/Header/Title
-@onready var menu_hint : Label = $ColorRect/MenuBar/VSeparator/Hint
-@onready var star_field : Control = $ColorRect/StarField
 @onready var menu_music : AudioStreamPlayer = $MenuMusic
 @onready var menu_click : AudioStreamPlayer = $MenuClick
 @onready var menu_atmosphere : Node = $ColorRect/MenuAtmosphere
@@ -31,13 +29,6 @@ extends Control
 var rebinding_action : String = ""
 var rebinding_button : Button = null
 var transition_started : bool = false
-var star_positions : Array[Vector2] = [
-	Vector2(0.08, 0.18), Vector2(0.18, 0.31), Vector2(0.28, 0.12),
-	Vector2(0.71, 0.18), Vector2(0.88, 0.28), Vector2(0.93, 0.62),
-	Vector2(0.12, 0.75), Vector2(0.27, 0.88), Vector2(0.76, 0.82),
-	Vector2(0.59, 0.08), Vector2(0.43, 0.77), Vector2(0.05, 0.48)
-]
-var star_nodes : Array[ColorRect] = []
 var button_base_positions : Dictionary = {}
 
 
@@ -45,8 +36,6 @@ func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	game_title.text = str(ProjectSettings.get_setting("application/config/name", "ETs"))
 	menu_atmosphere.set_menu_state("play")
-	_update_navigation_hint()
-	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	_start_menu_music()
 
 	menu_button_1.pressed.connect(_on_play_pressed)
@@ -175,44 +164,6 @@ func _play_menu_intro() -> void:
 	for index : int in range(3):
 		tween.tween_interval(0.035)
 		tween.tween_property([menu_button_1, menu_button_2, menu_button_3][index], "modulate:a", 1.0, 0.16)
-
-
-func _create_starfield() -> void:
-	for index : int in range(star_positions.size()):
-		var star : ColorRect = ColorRect.new()
-		star.name = "Star_%02d" % index
-		star.custom_minimum_size = Vector2(2.0, 2.0 if index % 3 else 3.0)
-		star.color = Color(0.48, 0.82, 1.0, 0.38 + (index % 3) * 0.08)
-		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		star_field.add_child(star)
-		star_nodes.append(star)
-		var twinkle : Tween = create_tween().set_loops()
-		twinkle.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		twinkle.tween_property(star, "modulate:a", 0.35, 1.8 + index * 0.07)
-		twinkle.tween_property(star, "modulate:a", 1.0, 1.8 + index * 0.07)
-	_position_stars()
-
-
-func _position_stars() -> void:
-	for index : int in range(star_nodes.size()):
-		star_nodes[index].position = star_positions[index] * star_field.size
-
-
-func _notification(what : int) -> void:
-	if what == NOTIFICATION_RESIZED and is_instance_valid(star_field):
-		_position_stars()
-
-
-func _update_navigation_hint() -> void:
-	if Input.get_connected_joypads().is_empty():
-		menu_hint.text = "↑ ↓  NAVEGAR     ENTER  CONFIRMAR"
-	else:
-		menu_hint.text = "LSTICK  NAVEGAR     A  CONFIRMAR"
-
-
-func _on_joy_connection_changed(_device : int, _connected : bool) -> void:
-	_update_navigation_hint()
-
 
 func _start_menu_music() -> void:
 	var music_stream : AudioStreamMP3 = menu_music.stream as AudioStreamMP3
