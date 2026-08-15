@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dqsd1teh3jxjx"]
+
+[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Candle_Flame_01.tres" id="1_6lwe7"]
+
+[sub_resource type="Gradient" id="Gradient_s17gj"]
+offsets = PackedFloat32Array(0, 0.32867134, 0.34965035, 0.986014)
+colors = PackedColorArray(1, 1, 1, 0.36078432, 1, 1, 1, 0.36078432, 0.9019608, 0.65882355, 0.011764706, 0.7137255, 0.9019608, 0.65882355, 0.011764706, 0.7137255)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_elbak"]
+gradient = SubResource("Gradient_s17gj")
+
+[sub_resource type="Curve" id="Curve_6lwe7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_s17gj"]
+curve = SubResource("Curve_6lwe7")
+
+[sub_resource type="Curve" id="Curve_7ptvm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.50961536, 0.9329033), 0.0, 0.0, 0, 0, Vector2(0.9647436, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_stto1"]
+curve = SubResource("Curve_7ptvm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xj5tl"]
+particle_flag_rotate_y = true
+angle_min = -179.99998
+angle_max = 180.00002
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_stto1")
+color_ramp = SubResource("GradientTexture1D_elbak")
+emission_curve = SubResource("CurveTexture_s17gj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7y6u1"]
+material = ExtResource("1_6lwe7")
+size = Vector2(0.5, 1)
+center_offset = Vector3(0, 0.455, 0)
+
+[node name="FX_Candle_Flame_01" type="GPUParticles3D"]
+amount = 6
+speed_scale = 0.5
+fixed_fps = 0
+visibility_aabb = AABB(-0.1, 0, -0.1, 0.2, 0.3, 0.2)
+process_material = SubResource("ParticleProcessMaterial_xj5tl")
+draw_pass_1 = SubResource("QuadMesh_7y6u1")

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://fr02ae4bpuwf"]
+
+[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Smoke_01.tres" id="1_y2vah"]
+
+[sub_resource type="Gradient" id="Gradient_y2vah"]
+offsets = PackedFloat32Array(0, 0.23776224, 0.3216783, 0.3986014, 1)
+colors = PackedColorArray(0.27450982, 0.27450982, 0.27450982, 0, 0.34117648, 0.34117648, 0.34117648, 0.95686275, 0.34033936, 0.34033933, 0.34033903, 0.95686275, 0.28485042, 0.28485024, 0.2848502, 0.90588236, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cpxi2"]
+gradient = SubResource("Gradient_y2vah")
+
+[sub_resource type="Curve" id="Curve_lbn1i"]
+_data = [Vector2(0.003205128, 0.5722581), 0.0, 1.1630104, 0, 0, Vector2(0.2724359, 0.9329033), 0.15628856, 0.15628856, 0, 0, Vector2(0.46153843, 0.6233045), -0.5137567, -0.5137567, 0, 0, Vector2(0.75, 0.5806452), 0.0, 0.0, 0, 0, Vector2(0.9871795, 0.32064515), -0.48257512, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_y2vah"]
+curve = SubResource("Curve_lbn1i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ca3r8"]
+angle_min = -119.99999
+angle_max = 120.000015
+direction = Vector3(0, 0, 0)
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 7, 0)
+scale_min = 2.0
+scale_max = 2.2
+scale_curve = SubResource("CurveTexture_y2vah")
+color = Color(0.6666667, 0.6313726, 0.6039216, 0.6901961)
+color_ramp = SubResource("GradientTexture1D_cpxi2")
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+turbulence_noise_speed_random = 0.16
+turbulence_influence_min = 0.007
+turbulence_influence_max = 0.009000001
+turbulence_initial_displacement_min = 28.700003
+turbulence_initial_displacement_max = 55.100002
+
+[sub_resource type="QuadMesh" id="QuadMesh_fsx80"]
+material = ExtResource("1_y2vah")
+
+[node name="FX_Smoke_01" type="GPUParticles3D"]
+transform = Transform3D(0.99992836, 0.011972666, 0, -0.011972666, 0.99992836, 0, 0, 0, 1, 0, 0, 0)
+amount = 15
+lifetime = 3.1999999999999997
+speed_scale = 0.4
+explosiveness = 0.11
+randomness = 0.26
+fixed_fps = 0
+visibility_aabb = AABB(-1, 0, -1, 1.5, 5, 1.5)
+process_material = SubResource("ParticleProcessMaterial_ca3r8")
+draw_pass_1 = SubResource("QuadMesh_fsx80")

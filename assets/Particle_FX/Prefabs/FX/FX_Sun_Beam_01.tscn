@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dv3hf3urlj7mf"]
+
+[ext_resource type="Texture2D" path="res://Assets/Particle_FX/Textures/FX/Generic_Sun_Beam_01.png" id="1_h6m3o"]
+
+[sub_resource type="Curve" id="Curve_81ewy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2179487, 1), 0.0, 0.0, 0, 0, Vector2(0.7948718, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_uqoho"]
+curve = SubResource("Curve_81ewy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_81ewy"]
+particle_flag_rotate_y = true
+emission_shape_scale = Vector3(0.2, 0.2, 0.2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5999999
+color = Color(1, 0.8901961, 0.68235296, 0.58431375)
+alpha_curve = SubResource("CurveTexture_uqoho")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqoho"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.65012807, 0.65012836, 0.6501282, 0.61960787)
+albedo_texture = ExtResource("1_h6m3o")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qaq2y"]
+material = SubResource("StandardMaterial3D_uqoho")
+size = Vector2(1.5, 8)
+
+[node name="FX_SunBeam_01" type="GPUParticles3D"]
+lifetime = 12.0
+preprocess = 6.0
+randomness = 0.2
+fixed_fps = 0
+visibility_aabb = AABB(-1, -4, -1, 2, 8, 2)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_81ewy")
+draw_pass_1 = SubResource("QuadMesh_qaq2y")
