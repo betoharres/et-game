@@ -154,6 +154,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 1.944)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ec6vt")
 
+[node name="ETRimLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 0.72, 0.18)
+light_color = Color(0.2, 0.58, 0.82, 1)
+light_energy = 0.22
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.08
+omni_range = 3.2
+shadow_enabled = false
+
 [node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
 top_level = true
 

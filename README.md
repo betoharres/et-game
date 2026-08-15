@@ -22,6 +22,7 @@ project.godot          Configuração, Input Map, cena principal e autoload
 export_presets.cfg     Exportação para Windows Desktop
 scenes/
   MenuAtmosphere.tscn   Fundo noturno extraterrestre animado do menu
+  NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
   main_menu.tscn       Menu principal, opções e remapeamento de movimento
   world.tscn           Mapa jogável e composição do cenário
   Player.tscn          Jogador ET, câmera, vida, stamina e alvos de IK
@@ -37,6 +38,8 @@ scenes/
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
+  night_environment.gd Controla qualidade e animações atmosféricas do mundo
+  house_lights.gd      Oscilação discreta das luzes quentes da casa
   player.gd            Movimento, vida, stamina, coleta e entrega
   player_ragdoll.gd    Morte física articulada do ET
   driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
@@ -48,7 +51,7 @@ scripts/
   audio/               Passos, ambiente rural e som sintetizado da espingarda
   *_field.gd           Comportamento da vegetação
 assets/audio/          Vento, grilos, cães, passos e registro de origem
-assets/sky/            Panorama do céu noturno e registro de origem
+shaders/night_sky.gdshader Céu procedural estrelado e Lua
 3dModelos/             Modelos 3D importados
 Texturas/              Texturas do cenário e dos modelos
 Materiais/             Materiais reutilizáveis do Godot
@@ -93,8 +96,8 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 ```
 
 - O jogador começa no mapa rural com câmera em terceira pessoa.
-- A fazenda possui um domo de céu noturno estrelado, com lua cheia e
-  iluminação ambiente azulada.
+- A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
+  névoa baixa e iluminação ambiente azulada configurável por qualidade.
 - Destroços próximos podem ser carregados e largados.
 - Um item carregado ou solto dentro da área de entrega é removido e soma seu
   `score_value` ao autoload `GlobalScore`.

@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_mvcib"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_y2oka"]
 [ext_resource type="Material" uid="uid://t1b1o10ghl6i" path="res://Materiais/text4A.tres" id="4_3otxm"]
+[ext_resource type="Script" path="res://scripts/house_lights.gd" id="5_house_lights"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(12.977631, 1.3562317, 6.640167)
@@ -91,6 +92,7 @@ size = Vector3(7.7463975, 3.1620789, 0.24705505)
 size = Vector3(7.655211, 3.1620789, 0.25634003)
 
 [node name="Root" type="Node3D" unique_id=926826937]
+script = ExtResource("5_house_lights")
 
 [node name="SmBldFarmhouse01" type="MeshInstance3D" parent="." unique_id=2109646978]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.218536, -0.0056750774, -1.1798294)
