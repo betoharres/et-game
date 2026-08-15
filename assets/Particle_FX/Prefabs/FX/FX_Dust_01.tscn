@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://3xw0gm70vi4p"]
+
+[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Dust_01.tres" id="1_53mc2"]
+
+[sub_resource type="Gradient" id="Gradient_0nfyd"]
+offsets = PackedFloat32Array(0, 0.5104895, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aihk2"]
+gradient = SubResource("Gradient_0nfyd")
+
+[sub_resource type="Curve" id="Curve_ysm38"]
+_data = [Vector2(0.003205128, 0), 0.0, 0.0, 0, 0, Vector2(0.2628205, 1), 0.0, 0.0, 0, 0, Vector2(0.7467949, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8di3t"]
+curve = SubResource("Curve_ysm38")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3t738"]
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 4, 10)
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 0, 0)
+scale_min = 0.049999997
+scale_max = 0.19999999
+scale_curve = SubResource("CurveTexture_8di3t")
+color_ramp = SubResource("GradientTexture1D_aihk2")
+turbulence_enabled = true
+turbulence_noise_strength = 0.32
+turbulence_noise_scale = 1.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_4gs6t"]
+material = ExtResource("1_53mc2")
+
+[node name="FX_Dust_01" type="GPUParticles3D"]
+amount = 80
+lifetime = 8.0
+preprocess = 1.0
+fixed_fps = 0
+visibility_aabb = AABB(-10, -4, -10, 20, 8, 20)
+process_material = SubResource("ParticleProcessMaterial_3t738")
+draw_pass_1 = SubResource("QuadMesh_4gs6t")
