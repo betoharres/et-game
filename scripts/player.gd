@@ -13,6 +13,9 @@ extends CharacterBody3D
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
 
+# Items
+var carried_item : RigidBody3D = null
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -34,6 +37,14 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+# Items
+	if event.is_action_pressed("ui_accept"):
+		if carried_item == null:
+			try_pickup()
+		else:
+			carried_item.drop()
+			carried_item = null
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -70,3 +81,42 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z,0.0,speed)
 
 	move_and_slide()
+	
+func try_pickup() -> void:
+
+	if carried_item != null:
+		return
+
+	var items : Array[Node] = get_tree().get_nodes_in_group("pickup_items")
+
+	var closest_item : RigidBody3D = null
+	var closest_distance : float = 2.0
+
+	for item in items:
+		if not item is RigidBody3D:
+			continue
+
+		var distance : float = (
+			global_position.distance_to(
+				item.global_position
+			)
+		)
+
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_item = item
+
+
+	if closest_item != null:
+		carried_item = closest_item
+		closest_item.pickup(self)
+
+func deliver_item(_delivery_area : Area3D) -> void:
+	if carried_item == null:
+		return
+
+	var score : int = carried_item.score_value
+
+	GlobalScore.add_score(score)
+	carried_item.queue_free()
+	carried_item = null

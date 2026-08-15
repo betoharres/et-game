@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://coiorvs17f4oe"]
+
+[ext_resource type="Script" uid="uid://deeub3siqrmmb" path="res://scripts/delivery_area.gd" id="1_trv2r"]
+[ext_resource type="ArrayMesh" uid="uid://boct5jnx8ug3" path="res://3dModelos/SM_Bld_ConcreteBase_01.fbx" id="2_yf2p4"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_52udj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
+size = Vector3(4, 4, 4)
+
+[node name="DeliveryArea" type="Area3D" unique_id=741650013]
+collision_mask = 9
+script = ExtResource("1_trv2r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1533504320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2337084, 0)
+shape = SubResource("BoxShape3D_trv2r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=559970791]
+mesh = ExtResource("2_yf2p4")
+surface_material_override/0 = ExtResource("3_52udj")
