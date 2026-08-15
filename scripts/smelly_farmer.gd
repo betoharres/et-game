@@ -53,7 +53,7 @@ var wander_wait_timer : float = 0.0
 
 func _ready() -> void:
 	var characters : Array[Node] = get_tree().get_nodes_in_group("characters")
-
+	
 	for character in characters:
 		if character is CharacterBody3D:
 			player = character
@@ -74,7 +74,7 @@ func _physics_process(delta : float) -> void:
 	match current_state:
 
 		State.WANDERING:
-			random_walk()
+			random_walk(delta)
 
 		State.CHASING:
 			close_distance()
@@ -83,14 +83,12 @@ func _physics_process(delta : float) -> void:
 			shoot()
 
 	update_head_look(delta)
-	
+
 # --------------------------------------------------
 # RANDOM WALK
 # --------------------------------------------------
 
-func random_walk() -> void:
-
-	var delta : float = get_physics_process_delta_time()
+func random_walk(delta : float) -> void:
 
 	if wander_wait_timer > 0.0:
 		velocity = Vector3.ZERO
@@ -188,7 +186,7 @@ func random_walk() -> void:
 	move_and_slide()
 
 	face_direction(direction)
-
+		
 # --------------------------------------------------
 # CHECK SIGHT
 # --------------------------------------------------
@@ -253,9 +251,7 @@ func close_distance() -> void:
 		return
 
 	var distance : float = (
-		global_position.distance_to(
-			player.global_position
-		)
+		global_position.distance_to(player.global_position)
 	)
 
 	if distance <= shoot_distance:
@@ -302,8 +298,6 @@ func close_distance() -> void:
 	move_and_slide()
 
 	face_direction(direction)
-
-
 # --------------------------------------------------
 # SHOOT
 # --------------------------------------------------

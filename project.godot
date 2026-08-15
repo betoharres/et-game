@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=75
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalScore="*uid://cwlo1k62mtyku"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -40,6 +44,7 @@ folder_colors={
 
 characters="holds player characters"
 vehicles="holds player driven vehicles"
+pickup_items="pickables by the player"
 
 [input]
 
@@ -88,6 +93,8 @@ ui_down={
 [layer_names]
 
 3d_render/layer_1="Terrain"
+3d_physics/layer_1="Common Collision (ground, obstacles, players, etc.)"
+3d_physics/layer_4="Pickup Items"
 
 [physics]
 
