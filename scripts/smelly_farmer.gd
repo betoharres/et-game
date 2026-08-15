@@ -10,17 +10,20 @@ extends CharacterBody3D
 
 @export var wander_distance : float = 8.0
 @export var wander_wait_time : float = 2.0
+@export var wander_zone_center : Vector3 = Vector3.ZERO
+@export var wander_zone_radius : float = 14.0
 
 var has_wander_target : bool = false
 
-# Vision
+@export_category("Vision")
 
 @export var sight_distance : float = 12.0
-@export var sight_angle : float = 60.0
+@export_range(10.0, 120.0, 1.0) var sight_angle : float = 70.0
 @export var detection_time : float = 0.55
-@export var lose_sight_after : float = 1.4
+@export var lose_sight_after : float = 4.0
 @export var eye_height : float = 1.55
 @export var player_target_height : float = 0.5
+@export var close_perception_radius : float = 1.8
 
 var player : CharacterBody3D = null
 var has_detected_player : bool = false
@@ -31,18 +34,22 @@ var last_known_player_position : Vector3
 
 # Shooting
 
-@export var shoot_distance : float = 8.0
+@export var shoot_distance : float = 10.5
 @export var shoot_damage : float = 15.0
 @export var seconds_between_shots : float = 2.0
 @export var shot_knockback_distance : float = 0.5
 @export var muzzle_flash_duration : float = 0.08
 @export var aim_stabilization_time : float = 0.45
-@export_range(0.0, 1.0, 0.01) var maximum_shot_accuracy : float = 0.7
-@export_range(0.0, 1.0, 0.01) var minimum_shot_accuracy : float = 0.25
-@export var close_spread_degrees : float = 2.0
-@export var far_spread_degrees : float = 9.0
-@export var movement_spread_bonus_degrees : float = 4.0
-@export var concealment_spread_bonus_degrees : float = 6.0
+@export_range(0.0, 1.0, 0.01) var maximum_shot_accuracy : float = 0.8
+@export_range(0.0, 1.0, 0.01) var minimum_shot_accuracy : float = 0.45
+@export_range(0.0, 1.0, 0.01) var movement_accuracy_penalty : float = 0.1
+@export_range(0.0, 1.0, 0.01) var concealment_accuracy_penalty : float = 0.18
+@export var close_spread_degrees : float = 1.5
+@export var far_spread_degrees : float = 5.0
+@export var movement_spread_bonus_degrees : float = 2.5
+@export var concealment_spread_bonus_degrees : float = 4.0
+@export var confirmed_hit_radius : float = 0.035
+@export var confirmed_hit_height_variation : float = 0.18
 @export var consecutive_hit_mercy_threshold : int = 2
 @export var mercy_accuracy_penalty : float = 0.3
 @export var mercy_spread_bonus_degrees : float = 7.0
@@ -102,6 +109,11 @@ func _ready() -> void:
 
 	if player != null:
 		last_known_player_position = player.global_position
+
+
+func _exit_tree() -> void:
+	if player != null and player.has_method("set_vision_contact"):
+		player.call("set_vision_contact", self, false)
 	
 func _physics_process(delta : float) -> void:
 
@@ -165,13 +177,10 @@ func random_walk(delta : float) -> void:
 
 		random_direction = random_direction.normalized()
 
-		var random_distance : float = randf_range(
-			2.0,
-			wander_distance
-		)
+		var random_distance : float = randf_range(2.0, wander_zone_radius)
 
 		var random_position : Vector3 = (
-			global_position
+			wander_zone_center
 			+ random_direction * random_distance
 		)
 
@@ -240,6 +249,8 @@ func update_vision(delta : float) -> void:
 
 	if not _is_player_alive():
 		has_visual_contact = false
+		if player.has_method("set_vision_contact"):
+			player.call("set_vision_contact", self, false)
 		has_detected_player = false
 		detection_progress = 0.0
 		velocity = Vector3.ZERO
@@ -247,6 +258,8 @@ func update_vision(delta : float) -> void:
 		return
 
 	has_visual_contact = _can_see_player()
+	if player.has_method("set_vision_contact"):
+		player.call("set_vision_contact", self, has_visual_contact)
 	var visibility_multiplier : float = _get_player_visibility_multiplier()
 
 	if has_visual_contact:
@@ -298,6 +311,9 @@ func _can_see_player() -> bool:
 	direction.y = 0.0
 
 	var distance : float = direction.length()
+	if distance <= close_perception_radius:
+		return _has_clear_line_of_sight()
+
 	var effective_sight_distance : float = (
 		sight_distance * _get_player_visibility_multiplier()
 	)
@@ -312,10 +328,7 @@ func _can_see_player() -> bool:
 
 	direction = direction.normalized()
 
-	var forward : Vector3 = global_transform.basis.z
-
-	forward.y = 0.0
-	forward = forward.normalized()
+	var forward : Vector3 = get_vision_forward()
 
 	var dot_product : float = clampf(
 		forward.dot(direction),
@@ -338,7 +351,7 @@ func _has_clear_line_of_sight() -> bool:
 		return false
 
 	var query := PhysicsRayQueryParameters3D.create(
-		global_position + Vector3.UP * eye_height,
+		get_vision_origin(),
 		player.global_position + Vector3.UP * player_target_height
 	)
 	query.exclude = [get_rid()]
@@ -358,6 +371,13 @@ func _has_clear_line_of_sight() -> bool:
 
 
 func _get_player_visibility_multiplier() -> float:
+	if player != null and player.has_method("get_stealth_visibility"):
+		return clampf(
+			float(player.call("get_stealth_visibility")),
+			0.1,
+			1.0
+		)
+
 	if player != null and player.has_method("get_visibility_multiplier"):
 		return clampf(
 			float(player.call("get_visibility_multiplier")),
@@ -366,6 +386,18 @@ func _get_player_visibility_multiplier() -> float:
 		)
 
 	return 1.0
+
+
+func get_vision_origin() -> Vector3:
+	return global_position + Vector3.UP * eye_height
+
+
+func get_vision_forward() -> Vector3:
+	var forward : Vector3 = global_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() < 0.001:
+		return Vector3.FORWARD
+	return forward.normalized()
 
 
 func _is_player_alive() -> bool:
@@ -551,8 +583,11 @@ func _calculate_shot_accuracy(distance : float) -> float:
 		1.0
 	)
 	var visibility_multiplier : float = _get_player_visibility_multiplier()
-	accuracy -= motion_ratio * 0.18
-	accuracy -= (1.0 - visibility_multiplier) * 0.3
+	accuracy -= motion_ratio * movement_accuracy_penalty
+	accuracy -= (
+		(1.0 - visibility_multiplier)
+		* concealment_accuracy_penalty
+	)
 
 	if (
 		consecutive_hit_mercy_threshold > 0
@@ -606,10 +641,7 @@ func _get_shot_direction(
 	).normalized()
 
 	if intends_to_hit:
-		return _random_direction_in_cone(
-			aim_direction,
-			spread_degrees * 0.35
-		)
+		return _get_confirmed_hit_direction(shot_origin, target_position)
 
 	var distance : float = shot_origin.distance_to(target_position)
 	var clearance_degrees : float = minf(
@@ -636,30 +668,21 @@ func _get_shot_direction(
 	return missed_direction.normalized()
 
 
-func _random_direction_in_cone(
-	direction : Vector3,
-	max_angle_degrees : float
+func _get_confirmed_hit_direction(
+	shot_origin : Vector3,
+	target_position : Vector3
 ) -> Vector3:
-	if max_angle_degrees <= 0.0:
-		return direction
-
-	var right : Vector3 = direction.cross(Vector3.UP)
-
-	if right.length_squared() < 0.001:
-		right = Vector3.RIGHT
-	else:
-		right = right.normalized()
-
-	var up : Vector3 = right.cross(direction).normalized()
 	var disk_angle : float = randf_range(0.0, TAU)
-	var disk_radius : float = (
-		tan(deg_to_rad(max_angle_degrees)) * sqrt(randf())
+	var disk_radius : float = sqrt(randf()) * maxf(confirmed_hit_radius, 0.0)
+	var aim_point : Vector3 = target_position + Vector3(
+		cos(disk_angle) * disk_radius,
+		randf_range(
+			-maxf(confirmed_hit_height_variation, 0.0),
+			maxf(confirmed_hit_height_variation, 0.0)
+		),
+		sin(disk_angle) * disk_radius
 	)
-	return (
-		direction
-		+ right * cos(disk_angle) * disk_radius
-		+ up * sin(disk_angle) * disk_radius
-	).normalized()
+	return (aim_point - shot_origin).normalized()
 
 
 func _is_player_collider(collider : Object) -> bool:

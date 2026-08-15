@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cet0j5k6ljep3"]
 
+[ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="99_vision_debug"]
+
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
@@ -1641,11 +1643,17 @@ transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.821626
 
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
 
+[node name="VisionDebugMap" parent="." instance=ExtResource("99_vision_debug")]
+
 [node name="Smelly" parent="." unique_id=584213395 instance=ExtResource("26_munwf")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 9.207358, 0.0016009558, -14.615081)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24.0, 0.0016009558, -20.0)
+wander_zone_center = Vector3(24, 0, -20)
+wander_zone_radius = 14.0
 
 [node name="Photographer" parent="." unique_id=109059724 instance=ExtResource("83_photographer")]
-transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -8, 0, 8)
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -20.0, 0, 18.0)
+wander_zone_center = Vector3(-20, 0, 18)
+wander_zone_radius = 14.0
 
 [node name="SpaceshipScraps" parent="." unique_id=626107039 instance=ExtResource("27_ts3gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3174243, -4.7683716e-07, -12.069503)
@@ -1654,6 +1662,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3174243, -4.7683716e-07, -
 transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.6160665, -49.656147, 0.017127872, -33.3789)
 
 [node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.15616, 0, -8.643308)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.0, 0, 22.0)
+wander_zone_center = Vector3(25, 0, 22)
+wander_zone_radius = 14.0
 
 [editable path="PropsHolder/Root3"]

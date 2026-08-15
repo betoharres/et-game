@@ -8,7 +8,8 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"sprint",
 	&"jump",
 	&"crouch",
-	&"interact"
+	&"interact",
+	&"debug_vision_map"
 ]
 
 const REBIND_LABELS : Array[String] = [
@@ -19,7 +20,8 @@ const REBIND_LABELS : Array[String] = [
 	"Correr",
 	"Pular",
 	"Agachar",
-	"Interagir"
+	"Interagir",
+	"Mini mapa"
 ]
 
 @onready var overlay : Control = $Overlay
@@ -49,7 +51,8 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/SprintButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/JumpButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/CrouchButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/InteractButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/InteractButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMapButton
 ]
 
 var rebinding_action : StringName = &""

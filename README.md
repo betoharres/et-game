@@ -21,12 +21,14 @@ patrulha o mapa, persegue o jogador e causa dano com a espingarda.
 project.godot          Configuração, Input Map, cena principal e autoload
 export_presets.cfg     Exportação para Windows Desktop
 scenes/
+  MenuAtmosphere.tscn   Fundo noturno extraterrestre animado do menu
   main_menu.tscn       Menu principal, opções e remapeamento de movimento
   world.tscn           Mapa jogável e composição do cenário
   Player.tscn          Jogador ET, câmera, vida, stamina e alvos de IK
   PlayerHUD.tscn       HUD de vida e stamina do ET
   PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
   DriveableTruck.tscn  Caminhonete controlável
+  VisionDebugMap.tscn  Mini mapa de debug da visão dos inimigos
   SmellyFarmer.tscn    Fazendeiro, navegação e IK
   Photographer.tscn    NPC fotógrafo e câmera provisória
   spaceship_scraps.tscn Item coletável e entregável
@@ -34,9 +36,11 @@ scenes/
   WheatField.tscn      Trigo com vento e reação a personagens e veículos
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
 scripts/
+  menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   player.gd            Movimento, vida, stamina, coleta e entrega
   player_ragdoll.gd    Morte física articulada do ET
   driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
+  vision_debug_map.gd  Overlay de debug com posições e cones de visão
   smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
   photographer.gd      Visão, perseguição e captura de fotos do ET
   photo_alert_system.gd Contador global e redução das estrelas
@@ -72,6 +76,8 @@ godot --editor --path "C:\dev\etnovo\et-game"
 
 Também é possível executar com a instalação portátil disponível nesta máquina,
 sem configurar variáveis de ambiente:
+
+Comando recomendado para iniciar o jogo diretamente pelo PowerShell:
 
 ```powershell
 & "C:\Godot_v4.7.1\Godot_v4.7.1-stable_win64.exe" --path "C:\dev\etnovo\et-game"
@@ -137,6 +143,7 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - Entrar ou sair da caminhonete: `E`.
 - Alternar câmera externa/interna da caminhonete: `G`.
 - Abrir ou fechar o menu de pausa: `Esc`.
+- Mostrar ou ocultar o mini mapa de debug: `F3`.
 
 As interações usam uma ação própria para que `Espaço` possa ser reservado ao
 pulo. No menu de opções, as quatro teclas de movimento podem ser remapeadas.
