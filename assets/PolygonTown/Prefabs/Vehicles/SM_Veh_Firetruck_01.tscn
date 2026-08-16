@@ -1,133 +1,99 @@
-[gd_scene load_steps=19 format=3 uid="uid://g7lcjecwr8gl"]
+[gd_scene format=3 uid="uid://g7lcjecwr8gl"]
 
-[ext_resource type="ArrayMesh" uid="uid://maihyjmf86ph" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_01.res" id="1_ni80o"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_74p1m"]
-[ext_resource type="ArrayMesh" uid="uid://fv4gqiqnxdgw" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Glass.res" id="3_lkbxl"]
-[ext_resource type="ArrayMesh" uid="uid://pxokv7ag346" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Hose_Nozzle.res" id="4_74p1m"]
-[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://Assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_lkbxl"]
-[ext_resource type="ArrayMesh" uid="uid://o1ub5ubjov7g" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_01.res" id="5_1gjf8"]
-[ext_resource type="ArrayMesh" uid="uid://ts4ssogsac5n" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_02.res" id="6_d3uui"]
-[ext_resource type="ArrayMesh" uid="uid://bgib1qnkttl6s" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_Base.res" id="7_d6u21"]
-[ext_resource type="ArrayMesh" uid="uid://cdd5wu21qh3mr" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_SteeringW.res" id="8_s4j73"]
-[ext_resource type="ArrayMesh" uid="uid://dl2k1mrl7svo4" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_fl.res" id="9_betsj"]
-[ext_resource type="ArrayMesh" uid="uid://c7d1w45ota82v" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_fr.res" id="10_djwx2"]
-[ext_resource type="ArrayMesh" uid="uid://b0rrha81ysygm" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_rl.res" id="11_x8ioc"]
-[ext_resource type="ArrayMesh" uid="uid://bqv16mfexobou" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_rr.res" id="12_hit3w"]
+[ext_resource type="ArrayMesh" uid="uid://maihyjmf86ph" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_01.res" id="1_ni80o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_74p1m"]
+[ext_resource type="ArrayMesh" uid="uid://fv4gqiqnxdgw" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Glass.res" id="3_lkbxl"]
+[ext_resource type="ArrayMesh" uid="uid://pxokv7ag346" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Hose_Nozzle.res" id="4_74p1m"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_lkbxl"]
+[ext_resource type="ArrayMesh" uid="uid://o1ub5ubjov7g" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_01.res" id="5_1gjf8"]
+[ext_resource type="ArrayMesh" uid="uid://ts4ssogsac5n" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_02.res" id="6_d3uui"]
+[ext_resource type="ArrayMesh" uid="uid://bgib1qnkttl6s" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Ladder_Base.res" id="7_d6u21"]
+[ext_resource type="ArrayMesh" uid="uid://cdd5wu21qh3mr" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_SteeringW.res" id="8_s4j73"]
+[ext_resource type="ArrayMesh" uid="uid://dl2k1mrl7svo4" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_fl.res" id="9_betsj"]
+[ext_resource type="ArrayMesh" uid="uid://c7d1w45ota82v" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_fr.res" id="10_djwx2"]
+[ext_resource type="ArrayMesh" uid="uid://b0rrha81ysygm" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_rl.res" id="11_x8ioc"]
+[ext_resource type="ArrayMesh" uid="uid://bqv16mfexobou" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Firetruck_Wheel_rr.res" id="12_hit3w"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ni80o"]
-points = PackedVector3Array(1.6250898, 1.6385618, 4.0086236, 0.50390565, 0.23860358, 4.289265, 1.3444785, 0.09882701, 1.6287804, 1.3447937, 0.79880613, -4.2526097, 1.2048033, 2.6186423, -4.2526097, 1.3447937, 2.8984694, 0.5079398, 1.0641824, 2.7584188, 3.448203, -1.5294224, 2.0384326, 3.8350568, -1.5959493, 1.6385618, 4.0086236, -1.315338, 0.09882701, 1.4888911, -0.47508073, 0.09855294, -4.532388, 1.0644978, 0.23860358, -4.532388, -1.0987314, 2.4196663, -4.251746, -0.895367, 2.758693, -3.8329422, -1.035042, 2.8984694, 3.3083138, -1.2491264, 0.4381278, -4.049684)
+[sub_resource type="BoxShape3D" id="BoxShape3D_dykkd"]
+size = Vector3(1.4605777, 0.971897, 8.247283)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_lkbxl"]
-radius = 0.5558704
+[sub_resource type="BoxShape3D" id="BoxShape3D_2npe6"]
+size = Vector3(2.576789, 3.0075536, 8.822845)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_74p1m"]
-radius = 0.5558704
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_1gjf8"]
-radius = 0.5558691
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_d3uui"]
-radius = 0.5558691
-
-[node name="SM_Veh_Firetruck_01" type="MeshInstance3D"]
+[node name="SM_Veh_Firetruck_01" type="MeshInstance3D" unique_id=631042235]
 gi_mode = 2
 mesh = ExtResource("1_ni80o")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
-shape = SubResource("ConvexPolygonShape3D_ni80o")
-
-[node name="SM_Veh_Firetruck_Glass" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Glass" type="MeshInstance3D" parent="." unique_id=1083004959]
 gi_mode = 2
 mesh = ExtResource("3_lkbxl")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_lkbxl")
 
-[node name="SM_Veh_Firetruck_Hose_Nozzle" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Hose_Nozzle" type="MeshInstance3D" parent="." unique_id=1860350625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11111505, 2.835529, 3.9157813)
 gi_mode = 2
 mesh = ExtResource("4_74p1m")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SM_Veh_Firetruck_Ladder_01" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Ladder_01" type="MeshInstance3D" parent="." unique_id=1914623256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8615716, -3.0736935)
 gi_mode = 2
 mesh = ExtResource("5_1gjf8")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SM_Veh_Firetruck_Ladder_02" type="MeshInstance3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Firetruck_Ladder_01" unique_id=1454810751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3338876, 3.3342009)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Firetruck_Ladder_01/StaticBody3D" unique_id=1575858471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.073)
+shape = SubResource("BoxShape3D_dykkd")
+
+[node name="SM_Veh_Firetruck_Ladder_02" type="MeshInstance3D" parent="." unique_id=1867602173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2981973, 1.325057)
 gi_mode = 2
 mesh = ExtResource("6_d3uui")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SM_Veh_Firetruck_Ladder_Base" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Ladder_Base" type="MeshInstance3D" parent="." unique_id=584710647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4881423, -3.018445)
 gi_mode = 2
 mesh = ExtResource("7_d6u21")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SM_Veh_Firetruck_SteeringW" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_SteeringW" type="MeshInstance3D" parent="." unique_id=537041460]
 transform = Transform3D(1, 0, 0, 0, 0.8393351, -0.5436144, 0, 0.5436144, 0.8393351, 0.65749586, 1.7470782, 3.2054272)
 gi_mode = 2
 mesh = ExtResource("8_s4j73")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SM_Veh_Firetruck_Wheel_fl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Wheel_fl" type="MeshInstance3D" parent="." unique_id=1240755329]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9019006, 0.5558693, 2.1506045)
 gi_mode = 2
 mesh = ExtResource("9_betsj")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Firetruck_Wheel_fl"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Firetruck_Wheel_fl/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15229069, -1.7881393e-07, 1.1324883e-06)
-shape = SubResource("SphereShape3D_lkbxl")
-
-[node name="SM_Veh_Firetruck_Wheel_fr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1672302355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91488904, 0.5558693, 2.1506045)
 gi_mode = 2
 mesh = ExtResource("10_djwx2")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Firetruck_Wheel_fr"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Firetruck_Wheel_fr/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13930228, -1.7881393e-07, 1.1324883e-06)
-shape = SubResource("SphereShape3D_74p1m")
-
-[node name="SM_Veh_Firetruck_Wheel_rl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Wheel_rl" type="MeshInstance3D" parent="." unique_id=1027531734]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9739195, 0.5558693, -2.3083627)
 gi_mode = 2
 mesh = ExtResource("11_x8ioc")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Firetruck_Wheel_rl"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Firetruck_Wheel_rl/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5646219e-07, -1.7881393e-07, 5.066395e-07)
-shape = SubResource("SphereShape3D_1gjf8")
-
-[node name="SM_Veh_Firetruck_Wheel_rr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Firetruck_Wheel_rr" type="MeshInstance3D" parent="." unique_id=1069061477]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9739195, 0.5558693, -2.3083627)
 gi_mode = 2
 mesh = ExtResource("12_hit3w")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_74p1m")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Firetruck_Wheel_rr"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=64742903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5879508, -0.19174194)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Firetruck_Wheel_rr/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5646219e-07, -1.7881393e-07, 5.066395e-07)
-shape = SubResource("SphereShape3D_d3uui")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=357185297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.084, 0)
+shape = SubResource("BoxShape3D_2npe6")

@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://bu2mr1puyrxlu"
-path="res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.res"
+path="res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.scn"
 
 [deps]
 
 source_file="res://3dModelos/SM_Bld_Barn_01.fbx"
-dest_files=["res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.res"]
+dest_files=["res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.scn"]
 
 [params]
 

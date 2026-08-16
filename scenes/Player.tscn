@@ -11,6 +11,9 @@
 radius = 0.1
 height = 1.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
+size = Vector3(1, 1.1122437, 0.9169922)
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters"]]
 script = ExtResource("1_p0vlq")
 
@@ -181,5 +184,11 @@ far = 100.0
 [node name="HeadTarget" type="Marker3D" parent="CameraHolder/Camera3D" unique_id=46629359]
 transform = Transform3D(-1, 1.7763568e-15, 8.742278e-08, 1.6081533e-08, 0.9829352, 0.18395132, -8.593093e-08, 0.18395132, -0.9829352, 5.215464e-07, 0.70969266, -5.9365506)
 rotation_edit_mode = 1
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=410694173]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=830682375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52871704, 0.46142578)
+shape = SubResource("BoxShape3D_ec6vt")
 
 [editable path="ET"]
