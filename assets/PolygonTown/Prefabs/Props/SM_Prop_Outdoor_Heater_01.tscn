@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c16joa6ljpugb"]
+
+[ext_resource type="ArrayMesh" uid="uid://bvi4rxf6brgtw" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Outdoor_Heater_01.res" id="1_f5jcl"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ait8e"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_25k7d"]
+points = PackedVector3Array(-0.38857037, 1.9992812, 0.06340027, -0.2911033, 1.9992812, 0.29102707, -0.18576863, 2.0232377, 0.029485404, -0.2911033, 1.9992812, -0.2943099, -0.22602344, -0.016257286, -0.0016032457, -0.22602344, -0.016257286, 0.09586382, 0.29423368, 1.9992812, 0.29102707, -0.1934071, -0.016257286, 0.16079092, 0.06660688, 1.9669399, 0.3885705, 0.29423368, 1.9669399, -0.2943099, -0.0634765, 1.9343991, -0.39177698, -0.09594005, -0.016257286, -0.16422655, 0.3917771, 1.9343991, -0.06668311, 0.09907043, -0.016257286, 0.16079092, 0.19669026, -0.016257286, -0.034066796, 0.033990562, -0.016257286, -0.19669011)
+
+[node name="SM_Prop_Outdoor_Heater_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_f5jcl")
+surface_material_override/0 = ExtResource("2_ait8e")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_25k7d")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dh83i0vdcsirr"]
+
+[ext_resource type="ArrayMesh" uid="uid://b471re8xjd8x0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Computer_Mouse_01.res" id="1_0w7lx"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_f2g6r"]
+
+[node name="SM_Prop_Computer_Mouse_01" type="MeshInstance3D" unique_id=1089512663]
+gi_mode = 2
+mesh = ExtResource("1_0w7lx")
+surface_material_override/0 = ExtResource("2_f2g6r")

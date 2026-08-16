@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c207qqg0u7x2f"]
+
+[ext_resource type="ArrayMesh" uid="uid://dp358gvhbe422" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Mouthwash_01.res" id="1_doyr6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_lcugh"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2dwyv"]
+points = PackedVector3Array(-0.030778565, 0.2487179, 0.07852419, -0.02161946, 0.36192355, 0.032606475, -0.050771467, 0.25221947, 0.014233254, -0.052415144, 0.013412574, 0.009294875, -0.031760637, 0.009350756, 0.07538019, 0.032394458, 0.24710718, 0.07674514, 0.029665332, 0.36192355, 0.009800985, -0.02161946, 0.36192355, -0.030074116, -0.034934275, 0.25172925, -0.06835421, -0.031677935, 0.009770945, -0.07815428, -0.020740762, 0.0042034523, -0.072679125, 0.046753373, 0.008580411, -0.05286427, 0.0333145, 0.013377558, 0.073616475, 0.052511413, 0.025527997, 0.008957475, 0.053193692, 0.25232452, -0.0065171346, 0.032487493, 0.25260463, -0.07445817)
+
+[node name="SM_Item_Mouthwash_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_doyr6")
+surface_material_override/0 = ExtResource("2_lcugh")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_2dwyv")

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://6sg646j2pn4c"]
+
+[ext_resource type="ArrayMesh" uid="uid://byxltjf8ltc4c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ToiletBrush_01.res" id="1_2uu40"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sccwc"]
+[ext_resource type="ArrayMesh" uid="uid://cswdxri24nnqb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ToiletBrush_Stick_01.res" id="3_sccwc"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jk5ga"]
+points = PackedVector3Array(0.005205944, -0.009454208, -0.08362242, 0.04999665, 0.13475804, -0.049996648, 0.06261859, 0.0010129279, -0.06263496, 0.018237159, -0.009307815, -0.0782364, 0.08360606, -0.009454208, 0.0052223057, -0.08362242, -0.009454208, -0.005222313, -0.06263496, 0.0010129279, -0.06263496, -0.0077761635, 0.13385041, -0.06752985, -0.05795289, 0.1401014, 0.0026029646, 0.007776171, 0.13385041, 0.06751347, 0.069805406, 0.13093717, 0.0025702193, 0.06261859, 0.0010129279, 0.062618576, -0.0052223057, -0.009454208, 0.0836224, -0.06263496, 0.0010129279, 0.062618576, -0.050013013, 0.13475804, 0.04998026, -0.050013013, 0.1347434, -0.049996648)
+
+[node name="SM_Prop_ToiletBrush_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_2uu40")
+surface_material_override/0 = ExtResource("2_sccwc")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_jk5ga")
+
+[node name="SM_Prop_ToiletBrush_Stick_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1051152e-09, 0.29596266, -4.2102344e-09)
+gi_mode = 2
+mesh = ExtResource("3_sccwc")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_sccwc")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://kkwrj6i6ynln"]
+
+[ext_resource type="ArrayMesh" uid="uid://c73py15y0oh0k" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Cake_02.res" id="1_j0n0m"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gspts"]
+
+[node name="SM_Prop_Cake_02" type="MeshInstance3D" unique_id=1556627037]
+gi_mode = 2
+mesh = ExtResource("1_j0n0m")
+surface_material_override/0 = ExtResource("2_gspts")

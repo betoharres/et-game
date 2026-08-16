@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dfitd1fwne5l7"]
+
+[ext_resource type="ArrayMesh" uid="uid://cnd2lbbfyi71u" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_SolarPanel_01.res" id="1_0s3gf"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yedg4"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_frw10"]
+points = PackedVector3Array(-1.2112765, 0.24598289, -0.57175446, -1.093653, 0.34116843, -0.5166266, 1.0935292, 0.34120366, -0.5166266, 1.21139, 0.24598289, -0.57175446, -0.9461492, -0.018816859, -0.306785, -1.2112765, 0.24598289, 0.563702, -1.093653, 0.34116843, 0.508463, 1.0935292, 0.34116843, 0.508463, 1.21139, 0.24598289, 0.563702, 0.9462626, -0.018816859, -0.306785, -0.9461492, -0.018816859, 0.29873252, -0.9084432, -0.018816859, 0.3365218, 0.9083195, -0.018816859, 0.3365218, 0.9462626, -0.018816859, 0.29873252)
+
+[node name="SM_Prop_SolarPanel_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_0s3gf")
+surface_material_override/0 = ExtResource("2_yedg4")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_frw10")

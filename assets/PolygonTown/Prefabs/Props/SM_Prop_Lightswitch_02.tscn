@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://s68tdp5qvfhb"]
+
+[ext_resource type="ArrayMesh" uid="uid://dbxs0vh5bj40w" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Lightswitch_02.res" id="1_05y0v"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_kxkg4"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jlkrs"]
+points = PackedVector3Array(-0.05928718, 0.17466599, 0.005082184, 0.058745805, 0.17515653, 0.007690283, 0.05761354, 0.17351575, 1.2207031e-06, -0.058501527, 0.17351575, 1.2207031e-06, -0.058501527, 0.004615731, 1.2207031e-06, -0.05697643, 0.007085376, 0.029687183, -0.05697643, 0.17104611, 0.029687183, 0.0561, 0.17104611, 0.029687183, 0.058745805, 0.0029749395, 0.007690283, 0.05761354, 0.004615731, 1.2207031e-06, -0.05734615, 0.0023490707, 0.0076014143, 0.0561, 0.007085376, 0.029687183, 0.01530375, 0.047073323, 0.03947432, -0.015694927, 0.04835889, 0.03887542, -0.015798911, 0.11720447, 0.038999066, 0.015061121, 0.1174582, 0.039169073)
+
+[node name="SM_Prop_Lightswitch_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_05y0v")
+surface_material_override/0 = ExtResource("2_kxkg4")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_jlkrs")

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://ojqyxogh0twi"]
+
+[ext_resource type="ArrayMesh" uid="uid://bpesd4w0n8jpx" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Cabinet_01.res" id="1_dp8x6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yfsox"]
+[ext_resource type="ArrayMesh" uid="uid://vfmetx0t2tcd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Cabinet_01_Door_01.res" id="3_yfsox"]
+[ext_resource type="ArrayMesh" uid="uid://b1hhcf6hpvunk" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Cabinet_01_Door_02.res" id="4_7u7oc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dp8x6"]
+size = Vector3(0.9281006, 2.1091309, 0.44030762)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yfsox"]
+size = Vector3(0.4578247, 1.9352417, 0.041506834)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u7oc"]
+size = Vector3(0.4633789, 1.9408569, 0.039916992)
+
+[node name="SM_Prop_Cabinet_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_dp8x6")
+surface_material_override/0 = ExtResource("2_yfsox")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0017700195, 1.057251, -0.00592041)
+shape = SubResource("BoxShape3D_dp8x6")
+
+[node name="SM_Prop_Cabinet_01_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43721464, 0.18041465, 0.24098007)
+gi_mode = 2
+mesh = ExtResource("3_yfsox")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_yfsox")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Prop_Cabinet_01_Door_01"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Prop_Cabinet_01_Door_01/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2026062, 0.969635, -0.020268053)
+shape = SubResource("BoxShape3D_yfsox")
+
+[node name="SM_Prop_Cabinet_01_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43780658, 0.18041465, 0.22203824)
+gi_mode = 2
+mesh = ExtResource("4_7u7oc")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_yfsox")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Prop_Cabinet_01_Door_02"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Prop_Cabinet_01_Door_02/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21166992, 0.96694946, 0.0004272461)
+shape = SubResource("BoxShape3D_7u7oc")

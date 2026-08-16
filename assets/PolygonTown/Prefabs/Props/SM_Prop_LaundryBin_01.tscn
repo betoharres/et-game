@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://8xe8yggeo2ry"]
+
+[ext_resource type="ArrayMesh" uid="uid://djax7sp55f4p0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LaundryBin_01.res" id="1_v11e8"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sei1k"]
+[ext_resource type="ArrayMesh" uid="uid://c6rtqxq2nsbrh" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LaundryBin_01_Clothes.res" id="3_sei1k"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yqswm"]
+points = PackedVector3Array(0.43393365, 0.44178265, -0.32435292, 0.4763752, 0.46329585, -0.26667255, 0.49609062, 0.44178265, -0.27776247, 0.32166252, 0.049754605, -0.2328929, -0.32185674, 0.049754605, -0.2328929, -0.42363885, 0.4670471, -0.31664097, 0.48463044, 0.46731827, 0.25863302, 0.35361513, 0.03357452, 0.19285828, 0.32205102, 0.0055983434, -0.18923429, -0.35487765, 0.032986976, -0.19108261, -0.49609062, 0.44178265, -0.27776247, -0.49609062, 0.44178265, 0.26468784, -0.420531, 0.46532965, 0.31656832, 0.43403074, 0.44178265, 0.32676595, -0.3210798, 0.0647596, 0.23466855, -0.3209827, 0.006457063, 0.1908825)
+
+[node name="SM_Prop_LaundryBin_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_v11e8")
+surface_material_override/0 = ExtResource("2_sei1k")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_yqswm")
+
+[node name="SM_Prop_LaundryBin_01_Clothes" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.036340483, 0, 0.031531982)
+gi_mode = 2
+mesh = ExtResource("3_sei1k")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_sei1k")

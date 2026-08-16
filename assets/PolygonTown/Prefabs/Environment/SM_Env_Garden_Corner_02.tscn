@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwa8nwhjafo74"]
+
+[ext_resource type="ArrayMesh" uid="uid://k342q2xu47g2" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Garden_Corner_02.res" id="1_2a8kq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_uh3ce"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2a8kq"]
+size = Vector3(2.4243774, 0.22827148, 1.2266846)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uh3ce"]
+size = Vector3(1.1369629, 0.23095703, 1.2208252)
+
+[node name="SM_Env_Garden_Corner_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_2a8kq")
+surface_material_override/0 = ExtResource("2_uh3ce")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2498474, 0.10681152, -0.6605835)
+shape = SubResource("BoxShape3D_2a8kq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8980713, 0.111572266, -1.8845825)
+shape = SubResource("BoxShape3D_uh3ce")

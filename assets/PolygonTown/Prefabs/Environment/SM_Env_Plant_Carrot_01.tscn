@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhp8k5dvkkmqo"]
+
+[ext_resource type="ArrayMesh" uid="uid://sknfim22yegi" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Plant_Carrot_01.res" id="1_xp4yh"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mwkbc"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pglp6"]
+points = PackedVector3Array(-0.22147606, 0.3798182, -0.05586627, -0.1810813, 0.43967593, -0.122073814, -0.19173932, 0.36499107, -0.1597324, -0.013685003, -0.22864358, 0.033115357, -0.11753985, 0.513354, 0.19627544, -0.08792515, 0.5875812, 0.16666913, 0.14952128, 0.48369974, -0.20430455, 0.14952128, 0.69155425, 0.062803, 0.01597038, -0.24347071, -0.026219293, 0.030818418, -0.22864358, 0.01827152, -0.013685003, 0.52818114, 0.21115994, -0.07303645, 0.52818114, 0.21115994, 0.19410606, 0.5875812, 0.033074677, 0.17921735, 0.45404541, -0.13004474, 0.19410606, 0.5875812, 0.0479185, 0.17921735, 0.5875812, 0.122096986)
+
+[node name="SM_Env_Plant_Carrot_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_xp4yh")
+surface_material_override/0 = ExtResource("2_mwkbc")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_pglp6")

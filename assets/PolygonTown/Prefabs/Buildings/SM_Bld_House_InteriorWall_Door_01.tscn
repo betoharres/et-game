@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlec5xue4p5an"]
+
+[ext_resource type="ArrayMesh" uid="uid://b0ib5escbkev0" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_InteriorWall_Door_01.res" id="1_gfhf4"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ijgxq"]
+[ext_resource type="ArrayMesh" uid="uid://dlk76soafe1kn" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_InteriorWall_Door_02.res" id="3_ijgxq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kdrsn"]
+size = Vector3(0.71660376, 2.8999999, 0.24001281)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rdigr"]
+size = Vector3(0.75691485, 2.8999999, 0.24001281)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vuh6c"]
+size = Vector3(2.5, 0.6490016, 0.24001281)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6kqwr"]
+size = Vector3(1.0500414, 2.2724009, 0.237546)
+
+[node name="SM_Bld_House_InteriorWall_Door_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_gfhf4")
+surface_material_override/0 = ExtResource("2_ijgxq")
+
+[node name="BoxCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1416981, 1.4499999, 0.10000027)
+shape = SubResource("BoxShape3D_kdrsn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37845743, 1.4499999, 0.10000027)
+shape = SubResource("BoxShape3D_rdigr")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 2.5754993, 0.10000027)
+shape = SubResource("BoxShape3D_vuh6c")
+
+[node name="SM_Bld_House_InteriorWall_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7439499, 0.01190729, 0.07011461)
+gi_mode = 2
+mesh = ExtResource("3_ijgxq")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_ijgxq")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_House_InteriorWall_Door_02"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_House_InteriorWall_Door_02/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5250206, 1.1362004, 0.06464121)
+shape = SubResource("BoxShape3D_6kqwr")

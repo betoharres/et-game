@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c5uabioqo4sio"]
+
+[ext_resource type="ArrayMesh" uid="uid://dxu6vlyucqlo8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03.res" id="1_oxg55"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_i61ba"]
+[ext_resource type="ArrayMesh" uid="uid://b1w5wk5l4qjhc" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_01.res" id="3_i61ba"]
+[ext_resource type="ArrayMesh" uid="uid://cwsx3spkvj13n" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_02.res" id="4_ytbr3"]
+[ext_resource type="ArrayMesh" uid="uid://8su4ni65ffo3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_03.res" id="5_sad4t"]
+[ext_resource type="ArrayMesh" uid="uid://cwxb43mg57ast" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_04.res" id="6_fbdys"]
+[ext_resource type="ArrayMesh" uid="uid://420t5i31sk2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_05.res" id="7_tirt2"]
+[ext_resource type="ArrayMesh" uid="uid://d3iqim6d85lsp" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_06.res" id="8_tyfdd"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t1ed8"]
+points = PackedVector3Array(0.9151906, 0.97703695, -0.3735266, 0.8877529, 0.9624044, 0.35891888, 0.92205, 0.015015152, -0.3586124, -0.9153711, 0.97703695, -0.3735266, 0.8778248, 0.16172372, 0.3549035, -0.88793343, 0.9624044, 0.35891888, 0.87710273, 0.0097550675, 0.3094438, 0.8949734, 0, -0.3193909, -0.92205, 0.015015152, -0.3586124, -0.8780053, 0.16172372, 0.3549035, -0.8772833, 0.0097550675, 0.3094438, -0.8951539, 0, -0.3193909)
+
+[node name="SM_Prop_Dresser_03" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_oxg55")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_t1ed8")
+
+[node name="SM_Prop_Dresser_03_Drawer_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4684978, 0.74478054, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("3_i61ba")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="SM_Prop_Dresser_03_Drawer_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4684978, 0.48733512, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("4_ytbr3")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="SM_Prop_Dresser_03_Drawer_03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4684978, 0.24005157, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("5_sad4t")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="SM_Prop_Dresser_03_Drawer_04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46849638, 0.74478054, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("6_fbdys")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="SM_Prop_Dresser_03_Drawer_05" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46849638, 0.48733512, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("7_tirt2")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")
+
+[node name="SM_Prop_Dresser_03_Drawer_06" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46849638, 0.24005157, 0.3015035)
+gi_mode = 2
+mesh = ExtResource("8_tyfdd")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_i61ba")

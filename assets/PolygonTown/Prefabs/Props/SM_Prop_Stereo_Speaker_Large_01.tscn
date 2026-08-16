@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://pugu4c6o5j8u"]
+
+[ext_resource type="ArrayMesh" uid="uid://cpehwxq8a7olo" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Stereo_Speaker_Large_01.res" id="1_my5ae"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_otics"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ln0r8"]
+points = PackedVector3Array(-0.11397685, 0.44125664, 0.15239622, 0.11691132, 0.43695062, 0.14929827, 0.1255539, 0.45390826, 0.13729365, -0.12725502, 0.45390826, 0.13729365, -0.11397685, 0.01709407, 0.15239622, 0.1332275, 0.45501804, 0.13091902, 0.11691132, 0.021400064, 0.14929827, 0.13377747, 0.4559503, -0.15191875, -0.13377625, 0.4531092, -0.1500421, -0.13377625, 0.4531092, 0.12981685, -0.12725502, 0.004442439, 0.13729365, 0.1255539, 0.004442439, 0.13729365, 0.1332275, 0.0033326468, 0.13091902, 0.13377747, 0.002444813, -0.15191875, -0.13377625, 0.005241489, -0.1500421, -0.13377625, 0.005241489, 0.12981685)
+
+[node name="SM_Prop_Stereo_Speaker_Large_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_my5ae")
+surface_material_override/0 = ExtResource("2_otics")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_ln0r8")
