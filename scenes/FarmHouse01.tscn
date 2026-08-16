@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_mvcib"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_y2oka"]
 [ext_resource type="Material" uid="uid://t1b1o10ghl6i" path="res://Materiais/text4A.tres" id="4_3otxm"]
-[ext_resource type="Script" path="res://scripts/house_lights.gd" id="5_house_lights"]
+[ext_resource type="Script" uid="uid://c7x61dn7urny7" path="res://scripts/house_lights.gd" id="5_house_lights"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(12.977631, 1.3562317, 6.640167)
@@ -220,37 +220,3 @@ shape = SubResource("BoxShape3D_d303m")
 [node name="CollisionShape3D25" type="CollisionShape3D" parent="SmBldFarmhouse01/StaticBody3D" unique_id=721288826]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.463903, 5.387601, -4.8615885)
 shape = SubResource("BoxShape3D_odc35")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="SmBldFarmhouse01" unique_id=2131214237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0668044, 4.2469277)
-light_color = Color(1, 0.61, 0.28, 1)
-light_energy = 0.55
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.08
-shadow_enabled = true
-omni_range = 6.5
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="SmBldFarmhouse01" unique_id=419756224]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1599512, 2.9313772, -1.2557645)
-light_color = Color(1, 0.61, 0.28, 1)
-light_energy = 0.55
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.08
-omni_range = 6.5
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="SmBldFarmhouse01" unique_id=333135636]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6195211, 6.3672123, -1.2557645)
-light_color = Color(1, 0.61, 0.28, 1)
-light_energy = 0.55
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.08
-omni_range = 6.5
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="SmBldFarmhouse01" unique_id=1815269064]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6485772, 3.3086507, -2.2622669)
-light_color = Color(1, 0.61, 0.28, 1)
-light_energy = 0.55
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.08
-shadow_enabled = true
-omni_range = 6.5

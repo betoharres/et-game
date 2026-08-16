@@ -7,3 +7,8 @@
 gi_mode = 2
 mesh = ExtResource("1_rsyk1")
 surface_material_override/0 = ExtResource("2_ua8gr")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1580911083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5415207, 0)
+light_color = Color(0.9843137, 0.7921569, 0.6392157, 1)
+light_bake_mode = 1

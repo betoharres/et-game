@@ -1,101 +1,75 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbi6bge60iaov"]
+[gd_scene format=3 uid="uid://dbi6bge60iaov"]
 
-[ext_resource type="ArrayMesh" uid="uid://d0u4ay5gxcvm0" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_01.res" id="1_wda2o"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0k2ry"]
-[ext_resource type="ArrayMesh" uid="uid://rqbcfx5r648m" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Glass.res" id="3_or03s"]
-[ext_resource type="ArrayMesh" uid="uid://w4gpgq40jx52" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_SteeringW.res" id="4_0k2ry"]
-[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://Assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_or03s"]
-[ext_resource type="ArrayMesh" uid="uid://g3suilhcmxsu" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fl.res" id="5_wya7a"]
-[ext_resource type="ArrayMesh" uid="uid://bgspkcui0ukow" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fr.res" id="6_d3gv8"]
-[ext_resource type="ArrayMesh" uid="uid://h5og23tuo5pc" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rl.res" id="7_10jv2"]
-[ext_resource type="ArrayMesh" uid="uid://bauvapt6d50pk" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rr.res" id="8_auqax"]
+[ext_resource type="ArrayMesh" uid="uid://d0u4ay5gxcvm0" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_01.res" id="1_wda2o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0k2ry"]
+[ext_resource type="ArrayMesh" uid="uid://rqbcfx5r648m" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Glass.res" id="3_or03s"]
+[ext_resource type="ArrayMesh" uid="uid://w4gpgq40jx52" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_SteeringW.res" id="4_0k2ry"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_or03s"]
+[ext_resource type="ArrayMesh" uid="uid://g3suilhcmxsu" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fl.res" id="5_wya7a"]
+[ext_resource type="ArrayMesh" uid="uid://bgspkcui0ukow" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fr.res" id="6_d3gv8"]
+[ext_resource type="ArrayMesh" uid="uid://h5og23tuo5pc" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rl.res" id="7_10jv2"]
+[ext_resource type="ArrayMesh" uid="uid://bauvapt6d50pk" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rr.res" id="8_auqax"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wda2o"]
-points = PackedVector3Array(1.2119453, 1.5699589, 0.6036892, 0.6938735, 1.4840361, 2.4151855, 1.1255245, 0.5350849, 2.4151855, 0.98390317, 0.8196647, -2.6144593, 1.0388777, 1.4840361, -2.6742072, 0.52125835, 2.3468533, 0.43062615, -0.68591666, 1.4840361, 2.4151855, -0.5133015, 0.3626059, 2.5877333, 0.6938735, 0.1901269, 1.4664292, 0.6454599, 0.2654941, -1.5245742, -0.9836383, 0.65119684, -2.634547, -1.031147, 1.4840361, -2.6742072, -0.51352775, 2.3468533, 0.43062615, -1.0992429, 1.5437809, 0.70876336, -1.0528653, 0.5775185, 2.3564677, -0.6449686, 0.2538829, -1.5426015)
+[sub_resource type="BoxShape3D" id="BoxShape3D_h71mm"]
+size = Vector3(2.1816936, 1.4257896, 1.6582375)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_or03s"]
-radius = 0.43986893
+[sub_resource type="BoxShape3D" id="BoxShape3D_o23ll"]
+size = Vector3(2.1816936, 2.0996115, 1.2734547)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_0k2ry"]
-radius = 0.43986893
+[sub_resource type="BoxShape3D" id="BoxShape3D_bgbrh"]
+size = Vector3(2.1816936, 0.8624899, 2.2828455)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wya7a"]
-radius = 0.43986845
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_d3gv8"]
-radius = 0.43986845
-
-[node name="SM_Veh_Pickup_01" type="MeshInstance3D"]
+[node name="SM_Veh_Pickup_01" type="MeshInstance3D" unique_id=398390714]
 gi_mode = 2
 mesh = ExtResource("1_wda2o")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
-shape = SubResource("ConvexPolygonShape3D_wda2o")
-
-[node name="SM_Veh_Pickup_Glass" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_Glass" type="MeshInstance3D" parent="." unique_id=995580192]
 gi_mode = 2
 mesh = ExtResource("3_or03s")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_or03s")
 
-[node name="SM_Veh_Pickup_SteeringW" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_SteeringW" type="MeshInstance3D" parent="." unique_id=1498228148]
 transform = Transform3D(1, 0, 0, 0, 0.9060948, -0.42307478, 0, 0.42307478, 0.9060948, 0.4473868, 1.336505, 0.62557507)
 gi_mode = 2
 mesh = ExtResource("4_0k2ry")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SM_Veh_Pickup_Wheel_fl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_Wheel_fl" type="MeshInstance3D" parent="." unique_id=1015314445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7838671, 0.43986803, 1.6946212)
 gi_mode = 2
 mesh = ExtResource("5_wya7a")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fl"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fl/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12328341, 1.4901161e-07, 8.046627e-07)
-shape = SubResource("SphereShape3D_or03s")
-
-[node name="SM_Veh_Pickup_Wheel_fr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1016205313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7838671, 0.43986803, 1.6946212)
 gi_mode = 2
 mesh = ExtResource("6_d3gv8")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fr"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fr/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12328341, 1.4901161e-07, 8.046627e-07)
-shape = SubResource("SphereShape3D_0k2ry")
-
-[node name="SM_Veh_Pickup_Wheel_rl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_Wheel_rl" type="MeshInstance3D" parent="." unique_id=1086756019]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9071506, 0.43986803, -1.3831422)
 gi_mode = 2
 mesh = ExtResource("7_10jv2")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rl"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rl/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3411045e-07, 1.4901161e-07, -7.301569e-07)
-shape = SubResource("SphereShape3D_wya7a")
-
-[node name="SM_Veh_Pickup_Wheel_rr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_Pickup_Wheel_rr" type="MeshInstance3D" parent="." unique_id=369258574]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9071506, 0.43986803, -1.3831422)
 gi_mode = 2
 mesh = ExtResource("8_auqax")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rr"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1698052094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2516423, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rr/SphereCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3411045e-07, 1.4901161e-07, -7.301569e-07)
-shape = SubResource("SphereShape3D_d3gv8")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=141826472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6464462e-05, -0.5408256, 1.7003002)
+shape = SubResource("BoxShape3D_h71mm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=209836831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6464462e-05, -0.19903398, 0.23667419)
+shape = SubResource("BoxShape3D_o23ll")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1612095929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6464462e-05, -0.81954575, -1.5437646)
+shape = SubResource("BoxShape3D_bgbrh")

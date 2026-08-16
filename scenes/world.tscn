@@ -59,7 +59,6 @@
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="55_iexy4"]
 [ext_resource type="ArrayMesh" uid="uid://bh2aqil3bw572" path="res://3dModelos/SM_Prop_Scarecrow_01.fbx" id="55_pf35h"]
 [ext_resource type="ArrayMesh" uid="uid://bm11mxmevfpu4" path="res://3dModelos/SM_Prop_Well_01.fbx" id="57_npbic"]
-[ext_resource type="ArrayMesh" uid="uid://bapi4pmu2r0bn" path="res://3dModelos/SM_Prop_Windmill_01.fbx" id="59_q57r8"]
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="60_4kmvx"]
 [ext_resource type="ArrayMesh" uid="uid://bd2b635an5d25" path="res://3dModelos/SM_Prop_ChainSaw_01.fbx" id="60_dyafi"]
 [ext_resource type="ArrayMesh" uid="uid://whby1yalpr5b" path="res://3dModelos/SM_Prop_Wood_Stack_01.fbx" id="61_myjip"]
@@ -112,6 +111,27 @@
 [ext_resource type="PackedScene" uid="uid://c1f0j8mgmggom" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Computer_Screen_01.tscn" id="110_l4n3p"]
 [ext_resource type="PackedScene" uid="uid://bkmtv8h8y2ixw" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_DeskChair_01.tscn" id="111_fmmry"]
 [ext_resource type="PackedScene" uid="uid://clej1dd3nahvw" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CeilingLight_05.tscn" id="112_ld7xo"]
+[ext_resource type="PackedScene" uid="uid://dbi6bge60iaov" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Pickup_01.tscn" id="113_bbgx3"]
+[ext_resource type="PackedScene" uid="uid://clw6bq678ajug" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CoffeeMachine_01.tscn" id="113_nbuqd"]
+[ext_resource type="PackedScene" uid="uid://b1fm5onclbxex" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Drawers_01.tscn" id="114_3t06w"]
+[ext_resource type="PackedScene" uid="uid://cuqrjbbawxhts" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_WorkShelf_01.tscn" id="114_o7bbu"]
+[ext_resource type="PackedScene" uid="uid://1phdd8anpycs" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_WorkShelf_01_Combined.tscn" id="115_ic2vq"]
+[ext_resource type="PackedScene" uid="uid://d2if34c50eqnf" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_DVDStack_01.tscn" id="115_tp6af"]
+[ext_resource type="PackedScene" uid="uid://dk8p67bpd6a3u" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CeilingLight_04.tscn" id="116_cmoy1"]
+[ext_resource type="PackedScene" uid="uid://dw5l2w55rpfyq" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Flag_Wall_01.tscn" id="116_kegyo"]
+[ext_resource type="PackedScene" uid="uid://g7lcjecwr8gl" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Firetruck_01.tscn" id="117_8bem1"]
+[ext_resource type="PackedScene" uid="uid://b4jp2cub7nhmb" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_FloorMat_01.tscn" id="117_hi2pd"]
+[ext_resource type="PackedScene" uid="uid://bv03xyxqppa8p" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Doghouse_01.tscn" id="117_ic2vq"]
+[ext_resource type="PackedScene" uid="uid://co5c2mj1daafm" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Bus_01.tscn" id="118_6od3t"]
+[ext_resource type="PackedScene" uid="uid://n2ahxyqb0hv" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Flowers_01.tscn" id="118_hi2pd"]
+[ext_resource type="PackedScene" uid="uid://di8tol2e7thnq" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Flowers_02.tscn" id="119_gyxkx"]
+[ext_resource type="PackedScene" uid="uid://ceowor0c8oace" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Heater_01.tscn" id="120_vaid7"]
+[ext_resource type="PackedScene" uid="uid://b5hfqrpgkige1" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Wardrobe_01.tscn" id="121_fnm1x"]
+[ext_resource type="PackedScene" uid="uid://dywbetky8hvxx" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Convertable_01.tscn" id="126_o7bbu"]
+[ext_resource type="PackedScene" uid="uid://cvt6cslof6kw4" path="res://scenes/windmill.tscn" id="127_ic2vq"]
+[ext_resource type="PackedScene" uid="uid://dw22qthj6mycg" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_Delivery_01.tscn" id="130_qn65p"]
+[ext_resource type="PackedScene" uid="uid://cff3asicknkww" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_Garbage_01.tscn" id="131_ou5tn"]
+[ext_resource type="PackedScene" uid="uid://dc8tgbh2pmvfq" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_01.tscn" id="132_k2fqw"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
 vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
@@ -239,7 +259,7 @@ size = Vector3(0.51995397, 0.0721249, 0.53332484)
 size = Vector3(0.50432897, 0.08420986, 0.53332484)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gyxkx"]
-size = Vector3(2.2320533, 2.4815257, 3.8954191)
+size = Vector3(2.2320533, 2.4815257, 2.0688033)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8xaka"]
 radius = 0.09814453
@@ -270,9 +290,6 @@ radius = 0.71875
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5p8eo"]
 size = Vector3(0.7051776, 0.84617925, 2.0889096)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ic2vq"]
-size = Vector3(2.2146034, 11.480517, 2.3310883)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gny1c"]
 size = Vector3(1.9145129, 0.71745163, 1.094795)
@@ -1878,7 +1895,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03292656, -0.09172642, 0)
 shape = SubResource("BoxShape3D_qn65p")
 
 [node name="SmPropChairRocking01" type="MeshInstance3D" parent="PropsHolder" unique_id=500024636]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6240458, 0.68723875, -15.476326)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5971942, 0.68723863, -15.80469)
 mesh = ExtResource("42_5hglh")
 surface_material_override/0 = ExtResource("12_munwf")
 
@@ -1906,6 +1923,7 @@ surface_material_override/0 = ExtResource("12_munwf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0546867, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropChickenCoop01/StaticBody3D" unique_id=750350446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9073486e-06, 0, -0.9133072)
 shape = SubResource("BoxShape3D_gyxkx")
 
 [node name="SmPropClothesLine01" type="MeshInstance3D" parent="PropsHolder" unique_id=101884984]
@@ -2028,18 +2046,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17473857, -0.7965635)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropWheelbarrow01/StaticBody3D" unique_id=1074394387]
 shape = SubResource("BoxShape3D_5p8eo")
-
-[node name="SmPropWindmill01" type="MeshInstance3D" parent="PropsHolder" unique_id=2141770611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.579235, 0.050007626, -32.96158)
-mesh = ExtResource("59_q57r8")
-surface_material_override/0 = ExtResource("60_4kmvx")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropWindmill01" unique_id=1405985445]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019638062, 5.6902585, -1.1376066)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropWindmill01/StaticBody3D" unique_id=1761826294]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022342682, 0, 1.1601753)
-shape = SubResource("BoxShape3D_ic2vq")
 
 [node name="SmPropWoodStack01" type="MeshInstance3D" parent="PropsHolder" unique_id=1792016008]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.574398, 0, -12.100098)
@@ -2254,6 +2260,111 @@ transform = Transform3D(0.7039468, 0, 0.7102527, 0, 1, 0, -0.7102527, 0, 0.70394
 [node name="SM_Prop_Bed_Double_02" parent="PropsHolder" unique_id=106947212 instance=ExtResource("85_n6seq")]
 transform = Transform3D(-0.6965454, 0, 0.71751267, 0, 1, 0, -0.71751267, 0, -0.6965454, -6.32264, 3.8804648, -17.797712)
 
+[node name="SM_Prop_Bookshelf_01" parent="PropsHolder" unique_id=1334968477 instance=ExtResource("95_ce70q")]
+transform = Transform3D(0.70050555, 0, -0.71364695, 0, 1, 0, 0.71364695, 0, 0.70050555, -3.8369317, 3.865567, -20.032818)
+
+[node name="SM_Prop_Book_01" parent="PropsHolder" unique_id=392873090 instance=ExtResource("96_odf6h")]
+transform = Transform3D(0.72933257, 0, -0.68415934, 0, 1, 0, 0.68415934, 0, 0.72933257, -4.122139, 5.628254, -20.266298)
+
+[node name="SM_Prop_Book_02" parent="PropsHolder" unique_id=1290966627 instance=ExtResource("97_mu18u")]
+transform = Transform3D(0.7296253, 0, -0.6838471, 0, 1, 0, 0.6838471, 0, 0.7296253, -4.004504, 5.629451, -20.18522)
+
+[node name="SM_Prop_Book_03" parent="PropsHolder" unique_id=140158828 instance=ExtResource("98_7b7y8")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -4.343224, 3.8941975, -19.8364)
+
+[node name="SM_Prop_Book_Group_01" parent="PropsHolder" unique_id=1181306778 instance=ExtResource("99_wui3h")]
+transform = Transform3D(0.717508, 0, -0.69655025, 0, 1, 0, 0.69655025, 0, 0.717508, -4.026558, 3.9077067, -20.19859)
+
+[node name="SM_Prop_Book_Group_04" parent="PropsHolder" unique_id=1419272700 instance=ExtResource("100_qetcs")]
+transform = Transform3D(0.7777691, 0, -0.6285501, 0, 1, 0, 0.6285501, 0, 0.7777691, -3.7105262, 4.3436294, -19.82004)
+
+[node name="SM_Prop_Book_Group_07" parent="PropsHolder" unique_id=1486755993 instance=ExtResource("101_odf6h")]
+transform = Transform3D(0.6773673, 0, -0.73564494, 0, 1, 0, 0.73564494, 0, 0.6773673, -4.082199, 5.2007008, -20.214943)
+
+[node name="SM_Prop_Cake_02" parent="PropsHolder" unique_id=1927038900 instance=ExtResource("102_wui3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4034243, 1.7292558, -18.090326)
+
+[node name="SM_Prop_Cake_Slice_02" parent="PropsHolder" unique_id=424355589 instance=ExtResource("103_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.760333, 1.7294518, -17.953796)
+
+[node name="SM_Prop_CardboardBox_05" parent="PropsHolder" unique_id=472107062 instance=ExtResource("104_gw1vw")]
+transform = Transform3D(0.5255709, 0, -0.8507498, 0, 1, 0, 0.8507498, 0, 0.5255709, -6.846362, 0.8505564, -22.746084)
+
+[node name="SM_Prop_CeilingLight_06" parent="PropsHolder" unique_id=278977932 instance=ExtResource("105_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6361904, 3.8493562, -18.968943)
+
+[node name="SM_Prop_CeilingLight_03" parent="PropsHolder" unique_id=634895737 instance=ExtResource("106_gw1vw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.229313, 0.69773793, -19.986345)
+
+[node name="SM_Prop_CeilingLight_07" parent="PropsHolder" unique_id=1899549944 instance=ExtResource("105_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0766435, 6.8519564, -18.978737)
+
+[node name="SM_Prop_Computer_Keyboard_01" parent="PropsHolder" unique_id=931456168 instance=ExtResource("108_0fl76")]
+transform = Transform3D(-0.68264776, 0, 0.7307476, 0, 1, 0, -0.7307476, 0, -0.68264776, -12.127464, 1.7324817, -16.280945)
+
+[node name="SM_Prop_Computer_Mouse_01" parent="PropsHolder" unique_id=957233287 instance=ExtResource("109_ld7xo")]
+transform = Transform3D(-0.9424436, 0, 0.3343652, 0, 1, 0, -0.3343652, 0, -0.9424436, -12.491954, 1.7324817, -16.613194)
+
+[node name="SM_Prop_Computer_Screen_01" parent="PropsHolder" unique_id=1593947237 instance=ExtResource("110_l4n3p")]
+transform = Transform3D(-0.7627156, 0, 0.64673406, 0, 1, 0, -0.64673406, 0, -0.7627156, -12.482976, 1.7324817, -15.926107)
+
+[node name="SM_Prop_DeskChair_01" parent="PropsHolder" unique_id=226985028 instance=ExtResource("111_fmmry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.804336, 0.8505566, -16.786715)
+
+[node name="SM_Prop_CeilingLight_05" parent="PropsHolder" unique_id=2069891370 instance=ExtResource("112_ld7xo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.80924, 3.862188, -16.272621)
+
+[node name="SM_Prop_CoffeeMachine_01" parent="PropsHolder" unique_id=1578477352 instance=ExtResource("113_nbuqd")]
+transform = Transform3D(-0.67649394, 0, 0.7364482, 0, 1, 0, -0.7364482, 0, -0.67649394, -12.165892, 1.7308466, -15.168019)
+
+[node name="SM_Prop_Drawers_01" parent="PropsHolder" unique_id=681368050 instance=ExtResource("114_3t06w")]
+transform = Transform3D(0.6920338, 0, -0.72186506, 0, 1, 0, 0.72186506, 0, 0.6920338, -10.573415, 0.9115308, -19.166708)
+
+[node name="SM_Prop_DVDStack_01" parent="PropsHolder" unique_id=128674285 instance=ExtResource("115_tp6af")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.548631, 1.667512, -19.245705)
+
+[node name="SM_Prop_Flag_Wall_01" parent="PropsHolder" unique_id=688847712 instance=ExtResource("116_kegyo")]
+transform = Transform3D(0.71893024, 0, 0.69508225, 0, 1, 0, -0.69508225, 0, 0.71893024, -3.2987926, 5.25359, -16.17603)
+
+[node name="SM_Prop_FloorMat_01" parent="PropsHolder" unique_id=1572700342 instance=ExtResource("117_hi2pd")]
+transform = Transform3D(0.7081227, 0, -0.70608944, 0, 1, 0, 0.70608944, 0, 0.7081227, -10.1107855, 0.85055685, -16.73479)
+
+[node name="SM_Prop_Flowers_01" parent="PropsHolder" unique_id=795049482 instance=ExtResource("118_hi2pd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.099738, 1.7370462, -16.175766)
+
+[node name="SM_Prop_Flowers_02" parent="PropsHolder" unique_id=1427302825 instance=ExtResource("119_gyxkx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6286182, 5.024874, -16.190048)
+
+[node name="SM_Prop_Heater_01" parent="PropsHolder" unique_id=1943045976 instance=ExtResource("120_vaid7")]
+transform = Transform3D(-0.6928261, 0, 0.72110474, 0, 1, 0, -0.72110474, 0, -0.6928261, -5.544123, 3.8337522, -14.806052)
+
+[node name="SM_Prop_Wardrobe_01" parent="PropsHolder" unique_id=404136038 instance=ExtResource("121_fnm1x")]
+transform = Transform3D(-0.71094805, 0, -0.70324457, 0, 1, 0, 0.70324457, 0, -0.71094805, -3.6531775, 3.9941905, -16.579424)
+
+[node name="SM_Veh_Pickup_01" parent="PropsHolder" unique_id=1156033494 instance=ExtResource("113_bbgx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.611904, 0.002077967, -50.623016)
+
+[node name="SM_Prop_WorkShelf_01" parent="PropsHolder" unique_id=987326914 instance=ExtResource("114_o7bbu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.772528, -0.02581317, -54.27594)
+
+[node name="SM_Prop_WorkShelf_01_Combined" parent="PropsHolder" unique_id=248909870 instance=ExtResource("115_ic2vq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.656826, 0.018106163, -54.405754)
+
+[node name="SM_Prop_CeilingLight_04" parent="PropsHolder" unique_id=153243839 instance=ExtResource("116_cmoy1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 11.226743, 3.776733, -52.25599)
+
+[node name="SM_Prop_CeilingLight_08" parent="PropsHolder" unique_id=1256419236 instance=ExtResource("116_cmoy1")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.64938, 3.7797647, -52.31807)
+
+[node name="SM_Prop_Doghouse_01" parent="PropsHolder" unique_id=1105556527 instance=ExtResource("117_ic2vq")]
+transform = Transform3D(-0.9948232, 0, -0.101620585, 0, 1, 0, 0.101620585, 0, -0.9948232, -9.605398, 0.0010001193, -5.050351)
+
+[node name="SM_Veh_Firetruck_01" parent="PropsHolder" unique_id=2093258129 instance=ExtResource("117_8bem1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 296.2582, 0, 19.736143)
+
+[node name="SM_Veh_Bus_01" parent="PropsHolder" unique_id=232559344 instance=ExtResource("118_6od3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 290.14917, 0, 19.369108)
+
 [node name="PickupTruckDriveable" parent="." unique_id=1630439248 instance=ExtResource("13_jhx03")]
 transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.82162666, 7.7456913, 0.022559673, -1.100656)
 
@@ -2288,58 +2399,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.083374, 0, 26.910889)
 [node name="Plane" parent="." unique_id=1875345564 instance=ExtResource("89_5p8eo")]
 transform = Transform3D(-0.3521549, -0.12967026, -0.9269157, 0, 0.9903562, -0.13854523, 0.93594176, -0.048789382, -0.3487588, 79.15387, 0.9034736, -59.668915)
 
-[node name="SM_Prop_Bookshelf_01" parent="." unique_id=1334968477 instance=ExtResource("95_ce70q")]
-transform = Transform3D(0.70050555, 0, -0.71364695, 0, 1, 0, 0.71364695, 0, 0.70050555, -3.8369317, 3.865567, -20.032818)
+[node name="SM_Veh_Convertable_01" parent="." unique_id=1088463136 instance=ExtResource("126_o7bbu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7496395, 0.021169215, -52.067326)
 
-[node name="SM_Prop_Book_01" parent="." unique_id=392873090 instance=ExtResource("96_odf6h")]
-transform = Transform3D(0.72933257, 0, -0.68415934, 0, 1, 0, 0.68415934, 0, 0.72933257, -4.122139, 5.628254, -20.266298)
+[node name="Windmill" parent="." unique_id=413465030 instance=ExtResource("127_ic2vq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.935005, 0.049999997, -33.66057)
 
-[node name="SM_Prop_Book_02" parent="." unique_id=1290966627 instance=ExtResource("97_mu18u")]
-transform = Transform3D(0.7296253, 0, -0.6838471, 0, 1, 0, 0.6838471, 0, 0.7296253, -4.004504, 5.629451, -20.18522)
+[node name="SM_Veh_Truck_Delivery_01" parent="." unique_id=270921565 instance=ExtResource("130_qn65p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 302.13617, 0.03471902, 18.721735)
 
-[node name="SM_Prop_Book_03" parent="." unique_id=140158828 instance=ExtResource("98_7b7y8")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -4.343224, 3.8941975, -19.8364)
+[node name="SM_Veh_Truck_Garbage_01" parent="." unique_id=820307552 instance=ExtResource("131_ou5tn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 307.63724, 0.034717113, 17.779438)
 
-[node name="SM_Prop_Book_Group_01" parent="." unique_id=1181306778 instance=ExtResource("99_wui3h")]
-transform = Transform3D(0.717508, 0, -0.69655025, 0, 1, 0, 0.69655025, 0, 0.717508, -4.026558, 3.9077067, -20.19859)
-
-[node name="SM_Prop_Book_Group_04" parent="." unique_id=1419272700 instance=ExtResource("100_qetcs")]
-transform = Transform3D(0.7777691, 0, -0.6285501, 0, 1, 0, 0.6285501, 0, 0.7777691, -3.7105262, 4.3436294, -19.82004)
-
-[node name="SM_Prop_Book_Group_07" parent="." unique_id=1486755993 instance=ExtResource("101_odf6h")]
-transform = Transform3D(0.6773673, 0, -0.73564494, 0, 1, 0, 0.73564494, 0, 0.6773673, -4.082199, 5.2007008, -20.214943)
-
-[node name="SM_Prop_Cake_02" parent="." unique_id=1927038900 instance=ExtResource("102_wui3h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4034243, 1.7292558, -18.090326)
-
-[node name="SM_Prop_Cake_Slice_02" parent="." unique_id=424355589 instance=ExtResource("103_qetcs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.760333, 1.7294518, -17.953796)
-
-[node name="SM_Prop_CardboardBox_05" parent="." unique_id=472107062 instance=ExtResource("104_gw1vw")]
-transform = Transform3D(0.5255709, 0, -0.8507498, 0, 1, 0, 0.8507498, 0, 0.5255709, -6.846362, 0.8505564, -22.746084)
-
-[node name="SM_Prop_CeilingLight_06" parent="." unique_id=278977932 instance=ExtResource("105_qetcs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6361904, 3.8493562, -18.968943)
-
-[node name="SM_Prop_CeilingLight_03" parent="." unique_id=634895737 instance=ExtResource("106_gw1vw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.229313, 0.69773793, -19.986345)
-
-[node name="SM_Prop_CeilingLight_07" parent="." unique_id=1899549944 instance=ExtResource("105_qetcs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0766435, 6.8519564, -18.978737)
-
-[node name="SM_Prop_Computer_Keyboard_01" parent="." unique_id=931456168 instance=ExtResource("108_0fl76")]
-transform = Transform3D(-0.68264776, 0, 0.7307476, 0, 1, 0, -0.7307476, 0, -0.68264776, -12.127464, 1.7324817, -16.280945)
-
-[node name="SM_Prop_Computer_Mouse_01" parent="." unique_id=957233287 instance=ExtResource("109_ld7xo")]
-transform = Transform3D(-0.9424436, 0, 0.3343652, 0, 1, 0, -0.3343652, 0, -0.9424436, -12.491954, 1.7324817, -16.613194)
-
-[node name="SM_Prop_Computer_Screen_01" parent="." unique_id=1593947237 instance=ExtResource("110_l4n3p")]
-transform = Transform3D(-0.7627156, 0, 0.64673406, 0, 1, 0, -0.64673406, 0, -0.7627156, -12.482976, 1.7324817, -15.926107)
-
-[node name="SM_Prop_DeskChair_01" parent="." unique_id=226985028 instance=ExtResource("111_fmmry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.804336, 0.8505566, -16.786715)
-
-[node name="SM_Prop_CeilingLight_05" parent="." unique_id=2069891370 instance=ExtResource("112_ld7xo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.80924, 3.862188, -16.272621)
+[node name="SM_Veh_Truck_01" parent="." unique_id=394566792 instance=ExtResource("132_k2fqw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 312.916, 0.034717113, 18.16047)
 
 [editable path="PropsHolder/Root3"]
