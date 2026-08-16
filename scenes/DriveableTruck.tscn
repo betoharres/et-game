@@ -145,13 +145,14 @@ top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=751591385]
 transform = Transform3D(-1, 3.1886466e-15, 8.742278e-08, 4.6735952e-08, 0.8451072, 0.53459704, -7.38816e-08, 0.53459704, -0.8451072, 0, 3.5803342, -4.141616)
+cull_mask = 1047551
 far = 100.0
 
 [node name="ET2" parent="." unique_id=306698158 instance=ExtResource("3_oub4l")]
 transform = Transform3D(1, 0, 0, 0, 0.99353033, 0.11356681, 0, -0.11356681, 0.99353033, 0.4512354, 0.49217248, 0.67538583)
 visible = false
 
-[node name="Skeleton3D" parent="ET2/Armature" parent_id_path=PackedInt32Array(306698158, 1659056410) index="0" unique_id=1117121680]
+[node name="Skeleton3D" parent="ET2/Armature" parent_id_path=PackedInt32Array(306698158, 2000038218) index="0" unique_id=2120497707]
 bones/7/rotation = Quaternion(0.012007, 0, 0.099219, 0.994993)
 bones/23/rotation = Quaternion(-0.677082, -0.595, -0.44, 0.566991)
 bones/24/rotation = Quaternion(0.058856, 0.124827, 0.199967, 0.998981)
@@ -186,7 +187,7 @@ settings/0/end_bone = 9
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="ET" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1382478583]
+[node name="ET" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1618770810]
 mesh = SubResource("ArrayMesh_oub4l")
 
 [node name="IKContainer" type="Node3D" parent="." unique_id=654266772]

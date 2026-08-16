@@ -42,12 +42,16 @@ radius = 0.13476563
 
 [sub_resource type="TorusMesh" id="TorusMesh_ry867"]
 
-[node name="Plane" type="RigidBody3D" unique_id=1875345564]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c41vj"]
+albedo_color = Color(0.96048695, 0.0007564229, 0.9604804, 1)
+
+[node name="Plane" type="RigidBody3D" unique_id=1875345564 groups=["vehicles"]]
 mass = 500.0
+freeze = true
 script = ExtResource("1_ry867")
 
 [node name="SM_Veh_Plane_Stunt_01" parent="." unique_id=733070751 instance=ExtResource("1_p12p3")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.0204499e-07, 0, -15.584085)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.0204499e-07, -0.6051767, -10.402577)
 
 [node name="SM_Veh_Plane_Stunt_01" parent="SM_Veh_Plane_Stunt_01" index="0" unique_id=1871541467]
 surface_material_override/0 = SubResource("StandardMaterial3D_giik3")
@@ -89,47 +93,54 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
 [node name="Fuselage" type="CollisionShape3D" parent="." unique_id=604548956]
-transform = Transform3D(-1, 8.742278e-08, -3.821371e-15, 0, -4.4703484e-08, -1, -8.7422784e-08, -1, 4.4703484e-08, 1.16248174e-07, -0.13667524, -15.746551)
+transform = Transform3D(-1, 8.742278e-08, -3.821371e-15, 0, -4.371139e-08, -1, -8.742278e-08, -1, 4.371139e-08, 1.1624818e-07, -0.6276354, -10.581357)
 shape = SubResource("CapsuleShape3D_vddhd")
 
 [node name="Wings" type="CollisionShape3D" parent="." unique_id=1910149623]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.7422784e-08, 0, -1, 2.1501648e-07, -0.67602015, -16.876328)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.1501648e-07, -0.7742623, -11.767104)
 shape = SubResource("BoxShape3D_4qb2n")
 
 [node name="Elevator" type="CollisionShape3D" parent="." unique_id=134691222]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.7422784e-08, 0, -1, -2.0227355e-07, -0.099149466, -12.103085)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.0227355e-07, -0.18435395, -6.9966145)
 shape = SubResource("BoxShape3D_oovqr")
 
 [node name="Rudder" type="CollisionShape3D" parent="." unique_id=1631467993]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.7422784e-08, 0, -1, -2.310357e-07, 0.60088164, -11.774085)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.310357e-07, -0.13221681, -6.5749893)
 shape = SubResource("BoxShape3D_giik3")
 
 [node name="FrontGear" type="CollisionShape3D" parent="." unique_id=1204885918]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.3711392e-08, 0, 0, -3.1086245e-15, 1, 1.1368684e-13, -1.8394339, -18.107117)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.1368684e-13, -2.4393077, -12.926209)
 shape = SubResource("CylinderShape3D_ec6vt")
 
 [node name="RearGear" type="CollisionShape3D" parent="." unique_id=497089923]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.3711392e-08, 0, 0, -3.1086245e-15, 1, 5.684342e-14, -1.0668718, -11.623117)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 5.684342e-14, -1.6756095, -6.4368114)
 shape = SubResource("CylinderShape3D_giik3")
+
+[node name="EntryPoint" type="Marker3D" parent="." unique_id=1704811642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111694336, -1.415913, -9.738111)
+
+[node name="ExitPoint" type="Marker3D" parent="." unique_id=1295665266]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4734192, -1.4038225, -9.691992)
 
 [node name="AimTargetArm" type="Node3D" parent="." unique_id=415291270]
 top_level = true
 script = ExtResource("4_rwfsk")
 
 [node name="AimTarget" type="Marker3D" parent="AimTargetArm" unique_id=2132291317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35.809)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52.754753)
 gizmo_extents = 12.5
 
 [node name="AimMesh" type="MeshInstance3D" parent="AimTargetArm/AimTarget" unique_id=1385463101]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+layers = 1024
 mesh = SubResource("TorusMesh_ry867")
+surface_material_override/0 = SubResource("StandardMaterial3D_c41vj")
 
 [node name="CameraArm" type="Node3D" parent="." unique_id=121431301]
 top_level = true
 script = ExtResource("5_06hpb")
 
 [node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=706269107]
-transform = Transform3D(1, 0, 0, 0, 0.99416506, 0.107869744, 0, -0.107869744, 0.99416506, 0, 0, 0)
-current = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.278174, 1.129673)
 
 [editable path="SM_Veh_Plane_Stunt_01"]

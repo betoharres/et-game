@@ -8,6 +8,7 @@ extends Node3D
 
 var yaw : float = 0.0
 var pitch : float = 0.0
+var control_enabled : bool = false
 
 
 func _ready() -> void:
@@ -16,13 +17,8 @@ func _ready() -> void:
 		push_error("TargetArm: Plane not found.")
 		return
 
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 	# Start the arm aligned with the plane's current heading.
-	yaw = plane.global_rotation.y
-	pitch = 0.0
-
-	update_rotation()
+	align_with_plane()
 
 
 func _process(_delta : float) -> void:
@@ -35,6 +31,8 @@ func _process(_delta : float) -> void:
 
 
 func _input(event : InputEvent) -> void:
+	if not control_enabled:
+		return
 
 	if event is InputEventMouseMotion:
 
@@ -61,6 +59,26 @@ func _input(event : InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func set_control_enabled(enabled : bool, should_align_with_plane : bool = false) -> void:
+	control_enabled = enabled
+
+	if should_align_with_plane:
+		align_with_plane()
+
+	if control_enabled:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func align_with_plane() -> void:
+	if plane == null:
+		return
+
+	var plane_forward : Vector3 = -plane.global_basis.z.normalized()
+	pitch = asin(clampf(plane_forward.y, -1.0, 1.0))
+	yaw = atan2(-plane_forward.x, -plane_forward.z)
+	update_rotation()
 
 
 func update_rotation() -> void:

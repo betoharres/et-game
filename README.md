@@ -30,6 +30,7 @@ scenes/
   PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
   DebugMenu.tscn       Menu F4 com ferramentas de inspeção da iluminação
   DriveableTruck.tscn  Caminhonete controlável
+  FlyablePlane.tscn    Protótipo separado de avião controlável
   VisionDebugMap.tscn  Radar circular opcional de objetivos e ameaças
   SmellyFarmer.tscn    Fazendeiro, navegação e IK
   Photographer.tscn    NPC fotógrafo e câmera provisória
@@ -165,6 +166,9 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - Acender ou apagar gradualmente a luz local dos olhos do ET: `F`.
 - Entrar ou sair da caminhonete: `E`.
 - Alternar câmera externa/interna da caminhonete: `G`.
+- Avião: o mouse move o alvo que orienta o voo. Ao compor o avião com o
+  jogador, `E` assume ou devolve o controle perto da cabine. Ao executar
+  `FlyablePlane.tscn` isoladamente, o controle é ativado automaticamente.
 - Abrir ou fechar o menu de pausa: `Esc`.
 - Mostrar ou ocultar o radar circular: `F3`.
 - Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
