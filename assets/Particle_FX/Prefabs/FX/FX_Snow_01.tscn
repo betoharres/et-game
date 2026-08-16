@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmrltdlw4uj43"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Snow_01.tres" id="1_1fad5"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Snow_01.tres" id="1_1fad5"]
 
 [sub_resource type="Curve" id="Curve_168uw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.33974358, 1), 0.0, 0.0, 0, 0, Vector2(0.67628205, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

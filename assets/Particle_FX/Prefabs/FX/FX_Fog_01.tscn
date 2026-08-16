@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2u4qnqo7lx0i"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Fog_01.tres" id="1_tscxs"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Fog_01.tres" id="1_tscxs"]
 
 [sub_resource type="Curve" id="Curve_tscxs"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16346154, 0.9916129), 0.0, 0.0, 0, 0, Vector2(0.8589744, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://c0pjh58c2iyk5"]
 
-[ext_resource type="Texture2D" path="res://Assets/Particle_FX/Textures/FX/Generic_Circle_Soft_01.png" id="1_nd00f"]
+[ext_resource type="Texture2D" path="res://assets/Particle_FX/Textures/FX/Generic_Circle_Soft_01.png" id="1_nd00f"]
 
 [resource]
 transparency = 1

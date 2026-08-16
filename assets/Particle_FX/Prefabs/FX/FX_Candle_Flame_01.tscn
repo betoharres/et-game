@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dqsd1teh3jxjx"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Candle_Flame_01.tres" id="1_6lwe7"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Candle_Flame_01.tres" id="1_6lwe7"]
 
 [sub_resource type="Gradient" id="Gradient_s17gj"]
 offsets = PackedFloat32Array(0, 0.32867134, 0.34965035, 0.986014)

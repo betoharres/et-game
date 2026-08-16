@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://btuuo6cu6f48x"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Rain_01.tres" id="1_2uk51"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Rain_01.tres" id="1_2uk51"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fdpgf"]
 lifetime_randomness = 0.1

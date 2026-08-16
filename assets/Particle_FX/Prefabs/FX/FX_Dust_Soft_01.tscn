@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1ertbs7l71a"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Dust_Soft_01.tres" id="1_ua075"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Dust_Soft_01.tres" id="1_ua075"]
 
 [sub_resource type="Gradient" id="Gradient_0nfyd"]
 offsets = PackedFloat32Array(0, 0.5104895, 1)

@@ -1,6 +1,6 @@
 [gd_resource type="QuadMesh" format=3 uid="uid://bi0v5ihdm16hn"]
 
-[ext_resource type="Texture2D" path="res://Assets/Particle_FX/Textures/FX/Generic_Circle_01.png" id="1_aygek"]
+[ext_resource type="Texture2D" path="res://assets/Particle_FX/Textures/FX/Generic_Circle_01.png" id="1_aygek"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qylfq"]
 transparency = 1

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck55oo0egd20"]
 
-[ext_resource type="QuadMesh" path="res://Assets/Particle_FX/Materials/FX/FX_Flies_01.tres" id="1_74iup"]
+[ext_resource type="QuadMesh" path="res://assets/Particle_FX/Materials/FX/FX_Flies_01.tres" id="1_74iup"]
 
 [sub_resource type="Curve" id="Curve_uwbgn"]
 _data = [Vector2(0, 0), 0.0, 14.774712, 0, 0, Vector2(0.07692307, 1), 0.0, 0.0, 0, 0, Vector2(0.5673077, 1), 0.0, 0.0, 0, 0, Vector2(0.90384614, 0.96645164), -0.65419316, -0.65419316, 0, 0, Vector2(1, 0), -3.1642845, 0.0, 0, 0]
