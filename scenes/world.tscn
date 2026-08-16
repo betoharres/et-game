@@ -86,7 +86,6 @@
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 [ext_resource type="Shader" uid="uid://dwa8qm6usabx1" path="res://shaders/ground_variation.gdshader" id="85_ground_shader"]
 [ext_resource type="PackedScene" path="res://scenes/DebugMenu.tscn" id="86_debug_menu"]
-[ext_resource type="PackedScene" uid="uid://bo7i75ihupee6" path="res://scenes/FlyablePlane.tscn" id="88_kvmu4"]
 [ext_resource type="PackedScene" uid="uid://di6oo1kuyml3m" path="res://assets/Particle_FX/Prefabs/FX/FX_Fire_Large_01.tscn" id="89_gny1c"]
 [ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="99_vision_debug"]
 
@@ -1658,9 +1657,6 @@ transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.616
 [node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 22)
 wander_zone_center = Vector3(25, 0, 22)
-
-[node name="Plane" parent="." unique_id=1875345564 instance=ExtResource("88_kvmu4")]
-transform = Transform3D(-0.8251453, 0, -0.56492054, 0, 1, 0, 0.56492054, 0, -0.8251453, 95.582794, 0, 17.558949)
 
 [node name="FX_Fire_Large_01" parent="." unique_id=179961357 instance=ExtResource("89_gny1c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.671844, -6.1035156e-05, 5.1636734)
