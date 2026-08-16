@@ -1,13 +1,23 @@
 extends RigidBody3D
 
 @onready var target: Marker3D = $AimTargetArm/AimTarget
+@onready var target_arm: Node3D = $AimTargetArm
+@onready var camera: Camera3D = $CameraArm/Camera3D
+@onready var entry_point: Marker3D = $EntryPoint
+@onready var exit_point: Marker3D = $ExitPoint
 @onready var propeller: MeshInstance3D = (
 	$SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01_Prop
 )
 
+@export_category("Interaction")
+@export_range(0.5, 10.0, 0.1, "or_greater") var enter_distance: float = 4.0
+## Keeps Run Current Scene useful while making an integrated plane wait for a player.
+@export var standalone_control_if_no_player: bool = true
+@export var freeze_when_unoccupied: bool = true
+
 @export_category("Engine")
 @export_range(0.0, 50000.0, 100.0, "or_greater") var engine_force: float = 12000.0
-@export_range(1.0, 200.0, 1.0, "or_greater") var top_speed: float = 55.0
+@export_range(1.0, 200.0, 1.0, "or_greater") var top_speed: float = 35.0
 @export_range(0.0, 200.0, 1.0, "or_greater") var propeller_speed: float = 55.0
 
 @export_category("Aerodynamics")
@@ -36,17 +46,44 @@ extends RigidBody3D
 @export_range(0.0, 20000.0, 100.0, "or_greater") var roll_damping: float = 6000.0
 
 var _weight: float = 0.0
+var plane_controlled: bool = false
+var current_player: CharacterBody3D = null
+var player_camera: Camera3D = null
+var _player_was_visible: bool = true
+var _player_was_physics_processing: bool = true
+var _player_was_input_processing: bool = true
+var _player_camera_was_current: bool = false
+var _player_collision_layer: int = 0
+var _player_collision_mask: int = 0
 
 
 func _ready() -> void:
 	var gravity: float = float(ProjectSettings.get_setting("physics/3d/default_gravity", 9.8))
 	_weight = mass * gravity
+	camera.current = false
+	freeze = freeze_when_unoccupied
+	_set_aim_control_enabled(false, false)
 
 	if target == null:
 		push_error("FlyablePlane: AimTarget not found.")
 
+	call_deferred("_enable_standalone_control_if_needed")
+
+
+func _input(event: InputEvent) -> void:
+	if not event.is_action_pressed("interact") or event.is_echo():
+		return
+
+	if current_player != null:
+		leave_plane()
+	elif not plane_controlled:
+		try_take_control()
+
 
 func _physics_process(delta: float) -> void:
+	if not plane_controlled:
+		return
+
 	_apply_engine_and_drag()
 	_apply_lift()
 
@@ -55,6 +92,115 @@ func _physics_process(delta: float) -> void:
 
 	if propeller != null:
 		propeller.rotate_z(propeller_speed * delta)
+
+
+func try_take_control() -> void:
+	if plane_controlled:
+		return
+
+	var closest_player: CharacterBody3D = null
+	var closest_distance: float = enter_distance
+
+	for character: Node in get_tree().get_nodes_in_group("characters"):
+		if not character is CharacterBody3D:
+			continue
+
+		var player: CharacterBody3D = character as CharacterBody3D
+		if not player.visible or not player.is_physics_processing():
+			continue
+		var distance: float = entry_point.global_position.distance_to(
+			player.global_position
+		)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_player = player
+
+	if closest_player != null:
+		take_control(closest_player)
+
+
+func take_control(player: CharacterBody3D) -> void:
+	if player == null or plane_controlled:
+		return
+
+	current_player = player
+	plane_controlled = true
+	_player_was_visible = player.visible
+	_player_was_physics_processing = player.is_physics_processing()
+	_player_was_input_processing = player.is_processing_input()
+	_player_collision_layer = player.collision_layer
+	_player_collision_mask = player.collision_mask
+
+	player_camera = _find_player_camera(player)
+	if player_camera != null:
+		_player_camera_was_current = player_camera.current
+		player_camera.current = false
+
+	player.set_physics_process(false)
+	player.set_process_input(false)
+	player.visible = false
+	player.collision_layer = 0
+	player.collision_mask = 0
+	player.velocity = Vector3.ZERO
+
+	freeze = false
+	camera.current = true
+	_set_aim_control_enabled(true, true)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func leave_plane() -> void:
+	if current_player == null:
+		return
+
+	var departing_player: CharacterBody3D = current_player
+	plane_controlled = false
+	_set_aim_control_enabled(false, false)
+	camera.current = false
+	freeze = freeze_when_unoccupied
+
+	departing_player.global_position = exit_point.global_position
+	departing_player.velocity = Vector3.ZERO
+	departing_player.collision_layer = _player_collision_layer
+	departing_player.collision_mask = _player_collision_mask
+	departing_player.visible = _player_was_visible
+	departing_player.set_physics_process(_player_was_physics_processing)
+	departing_player.set_process_input(_player_was_input_processing)
+
+	if player_camera != null:
+		player_camera.current = _player_camera_was_current
+
+	current_player = null
+	player_camera = null
+
+
+func _find_player_camera(player: Node) -> Camera3D:
+	var cameras: Array[Node] = player.find_children(
+		"*",
+		"Camera3D",
+		true,
+		false
+	)
+	if cameras.is_empty():
+		return null
+	return cameras[0] as Camera3D
+
+
+func _set_aim_control_enabled(enabled: bool, align_with_plane: bool) -> void:
+	if target_arm.has_method("set_control_enabled"):
+		target_arm.call("set_control_enabled", enabled, align_with_plane)
+
+
+func _enable_standalone_control_if_needed() -> void:
+	if plane_controlled or not standalone_control_if_no_player:
+		return
+	if not get_tree().get_nodes_in_group("characters").is_empty():
+		return
+
+	plane_controlled = true
+	freeze = false
+	camera.current = true
+	_set_aim_control_enabled(true, true)
 
 
 func _apply_engine_and_drag() -> void:
