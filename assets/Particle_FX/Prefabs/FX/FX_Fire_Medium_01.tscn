@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c55qe5snf1y51"]
 
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Fire_Flames_01.tres" id="1_ff6ah"]
-[ext_resource type="Material" path="res://Assets/Particle_FX/Materials/FX/Ember_01.tres" id="2_4ueu2"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Fire_Flames_01.tres" id="1_ff6ah"]
+[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Ember_01.tres" id="2_4ueu2"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ff6ah"]
 spread = 0.0

@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://2ai8gf15g0hi"]
 
-[ext_resource type="Texture2D" path="res://Assets/Particle_FX/Textures/FX/Fire_Sheet_01.png" id="1_g6h10"]
+[ext_resource type="Texture2D" path="res://assets/Particle_FX/Textures/FX/Fire_Sheet_01.png" id="1_g6h10"]
 
 [resource]
 transparency = 1
