@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://mfwxo8w8pfmu"]
+
+[ext_resource type="ArrayMesh" uid="uid://dp0kjue3dvnwl" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Bath_01.res" id="1_jj50t"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c1qul"]
+[ext_resource type="ArrayMesh" uid="uid://tb42wpibyvir" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Bath_01_Water.res" id="3_c1qul"]
+[ext_resource type="Material" uid="uid://c1o8ew6ymaaqt" path="res://Assets/PolygonTown/Materials/Misc/Water_mat.tres" id="4_ycuff"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3bt3m"]
+points = PackedVector3Array(0.03717923, 0.017802473, -0.62776244, -0.8980963, 0.017330669, 0.41952896, -0.9369655, 0.054013412, -0.32901704, -0.90751183, 0.7298723, -0.48318812, -0.039834857, 1.2150046, -0.5496175, 0.78728294, 0.7288107, -0.51658976, 0.7428609, 0.021576902, -0.40068105, 1.0605745, 0.010135661, -0.02989775, -1.2331924, 0.7323493, 0.1619125, 0.78366137, 0.018628128, 0.49343634, -0.5972823, 0.05625448, 0.56796694, -0.67502075, 0.7288107, 0.64536405, 0.03959346, 1.2150046, -0.31057137, 1.1025822, 0.73058003, -0.33387774, 1.2331924, 0.7323493, 0.1619125, 0.8628485, 0.7288107, 0.60809875)
+
+[node name="SM_Prop_Bath_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_jj50t")
+surface_material_override/0 = ExtResource("2_c1qul")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_3bt3m")
+
+[node name="SM_Prop_Bath_01_Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5631062, 0.053313598)
+gi_mode = 2
+mesh = ExtResource("3_c1qul")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_ycuff")

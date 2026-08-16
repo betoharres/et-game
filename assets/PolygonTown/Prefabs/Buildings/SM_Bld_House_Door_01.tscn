@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://b28mqn1a70ch1"]
+
+[ext_resource type="ArrayMesh" uid="uid://c55nbwl7w4wpr" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Door_01.res" id="1_hdv2o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_oq3vn"]
+[ext_resource type="ArrayMesh" uid="uid://bbd13s5r83gdq" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Door.res" id="3_oq3vn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hdv2o"]
+size = Vector3(1.286377, 0.1508789, 0.35180664)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oq3vn"]
+size = Vector3(0.1083374, 2.2298584, 0.30969238)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lmukl"]
+size = Vector3(1.2426147, 0.08531952, 0.30786133)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xijg4"]
+size = Vector3(0.11968994, 2.2456055, 0.30218506)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iknbr"]
+size = Vector3(1.0447855, 2.2243478, 0.23754603)
+
+[node name="SM_Bld_House_Door_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_hdv2o")
+surface_material_override/0 = ExtResource("2_oq3vn")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2713623, -0.0690918, 0.15490723)
+shape = SubResource("BoxShape3D_hdv2o")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.832428, 1.116394, 0.13140869)
+shape = SubResource("BoxShape3D_oq3vn")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2711487, 2.2683601, 0.13098145)
+shape = SubResource("BoxShape3D_lmukl")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6980896, 1.119873, 0.13394165)
+shape = SubResource("BoxShape3D_xijg4")
+
+[node name="SM_Bld_House_Door" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74945384, 0.01190729, 0.08475586)
+gi_mode = 2
+mesh = ExtResource("3_oq3vn")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_oq3vn")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_House_Door"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_House_Door/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52239263, 1.1121739, 0.04999995)
+shape = SubResource("BoxShape3D_iknbr")

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://caq22r1o8gp3s"]
+
+[ext_resource type="ArrayMesh" uid="uid://pfi0fofildg8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_01.res" id="1_daynf"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_b6vbr"]
+[ext_resource type="ArrayMesh" uid="uid://bojfg7olmdy1c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_Door_01.res" id="3_b6vbr"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_ed24s"]
+[ext_resource type="ArrayMesh" uid="uid://b0drtqe6pmulo" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_Door_02.res" id="5_2itge"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_smq5j"]
+points = PackedVector3Array(-0.7465304, 0.81727356, -0.37940773, -0.7230004, 0.09423926, -0.35600904, -0.7121854, 0.0759994, 0.36147693, -0.727531, 0.7158344, 0.35776284, -0.71744674, 0.73407423, 0.26320234, 0.71729934, 0.73407423, 0.26320234, 0.74638295, 0.81719357, -0.37940773, -0.6779865, -5.551115e-17, -0.33342743, 0.7229991, 0.09423926, -0.35600904, -0.6692175, 0.0052799587, 0.3400838, 0.7120379, 0.0759994, 0.36147693, -0.7253388, 0.6922346, 0.3794531, -0.6572333, 0.7148744, 0.3794531, 0.72519135, 0.7148744, 0.3794531, 0.67783904, -5.551115e-17, -0.33342743, 0.6690701, 0.0052799587, 0.34000954)
+
+[node name="SM_Prop_Icecream_Freezer_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_daynf")
+surface_material_override/0 = ExtResource("2_b6vbr")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_smq5j")
+
+[node name="SM_Prop_Icecream_Freezer_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0020474663, 0.7253359, 0.32320338)
+gi_mode = 2
+mesh = ExtResource("3_b6vbr")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_ed24s")
+surface_material_override/1 = ExtResource("2_b6vbr")
+
+[node name="SM_Prop_Icecream_Freezer_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0020474663, 0.7207764, 0.31974173)
+gi_mode = 2
+mesh = ExtResource("5_2itge")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_ed24s")
+surface_material_override/1 = ExtResource("2_b6vbr")

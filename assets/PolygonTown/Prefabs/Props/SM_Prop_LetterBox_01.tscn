@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://gskxxd5jroai"]
+
+[ext_resource type="ArrayMesh" uid="uid://by4u0c6gkbsme" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01.res" id="1_yxsw6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ybcdh"]
+[ext_resource type="ArrayMesh" uid="uid://bbgji1vtkiycw" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Door_01.res" id="3_ybcdh"]
+[ext_resource type="ArrayMesh" uid="uid://bekgb3p7xkpm6" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Flag.res" id="4_4e44g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxsw6"]
+size = Vector3(0.1159668, 0.95022583, 0.10961914)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybcdh"]
+size = Vector3(0.23803711, 0.26956177, 0.4539795)
+
+[node name="SM_Prop_LetterBox_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_yxsw6")
+surface_material_override/0 = ExtResource("2_ybcdh")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00012207031, 0.47810364, 0.0015869141)
+shape = SubResource("BoxShape3D_yxsw6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0032958984, 1.0721283, 0.010681152)
+shape = SubResource("BoxShape3D_ybcdh")
+
+[node name="SM_Prop_LetterBox_01_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6293944e-08, 0.9381715, 0.21279125)
+gi_mode = 2
+mesh = ExtResource("3_ybcdh")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_ybcdh")
+
+[node name="SM_Prop_LetterBox_01_Flag" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11589801, 1.0733078, 0.015331396)
+gi_mode = 2
+mesh = ExtResource("4_4e44g")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_ybcdh")

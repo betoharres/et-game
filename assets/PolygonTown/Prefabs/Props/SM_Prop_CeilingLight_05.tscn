@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://clej1dd3nahvw"]
+
+[ext_resource type="ArrayMesh" uid="uid://bx4hrpn2np0k4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CeilingLight_05.res" id="1_rsyk1"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ua8gr"]
+
+[node name="SM_Prop_CeilingLight_05" type="MeshInstance3D" unique_id=2069891370]
+gi_mode = 2
+mesh = ExtResource("1_rsyk1")
+surface_material_override/0 = ExtResource("2_ua8gr")

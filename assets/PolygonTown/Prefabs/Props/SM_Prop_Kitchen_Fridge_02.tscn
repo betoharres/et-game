@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bixr6duucgu5n"]
+
+[ext_resource type="ArrayMesh" uid="uid://4pnvx7yiu23v" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02.res" id="1_7hmhw"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_47hjj"]
+[ext_resource type="ArrayMesh" uid="uid://crq0iqi328nxr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_01.res" id="3_47hjj"]
+[ext_resource type="ArrayMesh" uid="uid://d3gvidkxvqax1" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_02.res" id="4_f7ov0"]
+[ext_resource type="ArrayMesh" uid="uid://deb4xhxqg38mb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_03.res" id="5_4cb8m"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8t8uu"]
+points = PackedVector3Array(-0.49144968, 0.027597537, -0.375, 0.49509755, 0.027597537, -0.375, -0.47367927, 0.064284824, 0.37500244, -0.49144968, 2.0645394, -0.375, 0.49509755, 2.0645394, -0.375, 0.47732714, 0.064284824, 0.37500244, -0.47367927, 2.0276527, 0.37500244, 0.47732714, 2.0276527, 0.37500244)
+
+[node name="SM_Prop_Kitchen_Fridge_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_7hmhw")
+surface_material_override/0 = ExtResource("2_47hjj")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_8t8uu")
+
+[node name="SM_Prop_Kitchen_Fridge_02_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49999878, 0.6898516, 0.37500122)
+gi_mode = 2
+mesh = ExtResource("3_47hjj")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_47hjj")
+
+[node name="SM_Prop_Kitchen_Fridge_02_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5000012, 0.6898516, 0.37500122)
+gi_mode = 2
+mesh = ExtResource("4_f7ov0")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_47hjj")
+
+[node name="SM_Prop_Kitchen_Fridge_02_Door_03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2207031e-06, -2.03347e-15, 0.105889134)
+gi_mode = 2
+mesh = ExtResource("5_4cb8m")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_47hjj")

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ch8i21ate3e5r"]
+
+[ext_resource type="ArrayMesh" uid="uid://cpuntlwmfevl2" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LaundryBox_01.res" id="1_v40sl"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_8udg4"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dji8m"]
+points = PackedVector3Array(-0.15690124, 0.002620097, 0.061017916, -0.15484534, 0.004935862, -0.061743163, 0.1565764, 0.0006448855, 0.06174317, -0.15690124, 0.34654528, 0.061017916, 0.15267941, 0.004935862, -0.061743163, -0.15484534, 0.34422952, -0.061743163, 0.1565764, 0.34855455, 0.06174317, 0.15267941, 0.34422952, -0.061743163)
+
+[node name="SM_Prop_LaundryBox_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_v40sl")
+surface_material_override/0 = ExtResource("2_8udg4")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_dji8m")

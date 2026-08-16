@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bvf1ls7sav8dc"]
+
+[ext_resource type="ArrayMesh" uid="uid://mi2twd5r03ea" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Gaspump_01.res" id="1_cdqvg"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_uygc6"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xjomj"]
+points = PackedVector3Array(-0.7525056, 1.7160131, -0.06495613, -0.48037723, 2.0215125, 0.319968, -0.4890139, 2.0390253, -0.31999746, -0.51448476, 1.2065878, -0.33696473, -0.50892216, 0.06242413, -0.28073984, -0.7183981, 0.32316893, 0.036847472, -0.58240706, 0.051138163, 0.27478844, -0.51448476, 1.2065878, 0.3427906, 0.5018613, 2.0215125, 0.319968, 0.5050817, 2.0273502, -0.31613824, 0.53845733, 1.2065878, -0.33696473, 0.50376433, 0.053278606, -0.2832683, 0.49966556, 0.061451204, 0.28676534, 0.53845733, 1.2065878, 0.3427906, 0.7429562, 1.3083562, -0.030955076, 0.74280983, 0.3910793, -0.031021595)
+
+[node name="SM_Prop_Gaspump_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_cdqvg")
+surface_material_override/0 = ExtResource("2_uygc6")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_xjomj")

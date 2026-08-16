@@ -49,6 +49,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bfq3tm8wyfcjl" path="res://3dModelos/SM_Prop_Box_Potato_01.fbx" id="45_1jxku"]
 [ext_resource type="ArrayMesh" uid="uid://nd8ag8gf602l" path="res://3dModelos/SM_Prop_Chicken_Coop_01.fbx" id="48_qg546"]
 [ext_resource type="ArrayMesh" uid="uid://bbdp13eqqg1w0" path="res://3dModelos/SM_Prop_ClothesLine_01.fbx" id="49_pf35h"]
+[ext_resource type="PackedScene" uid="uid://dlyahtscy8ekl" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Clock_02.tscn" id="49_xiw03"]
 [ext_resource type="ArrayMesh" uid="uid://fl32shgk1qvi" path="res://3dModelos/SM_Prop_ClothesLine_02.fbx" id="50_iexy4"]
 [ext_resource type="ArrayMesh" uid="uid://ckdjwj1khpbi0" path="res://3dModelos/SM_Prop_ClothesLine_03.fbx" id="51_npbic"]
 [ext_resource type="ArrayMesh" uid="uid://37iy2lixgmmq" path="res://3dModelos/SM_Prop_LetterBox_01.fbx" id="52_e6ckp"]
@@ -80,15 +81,37 @@
 [ext_resource type="ArrayMesh" uid="uid://b70x4xpyi61aa" path="res://3dModelos/SM_Bld_Barn_02.fbx" id="78_l137e"]
 [ext_resource type="ArrayMesh" uid="uid://jnkrjpkd7sgg" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="79_ygn2i"]
 [ext_resource type="Script" uid="uid://c6qrkcglgvt7l" path="res://scripts/audio/farm_environment_audio.gd" id="80_audio"]
+[ext_resource type="PackedScene" uid="uid://ds12y6akdbe8y" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Art_Standing_02.tscn" id="81_mlb8o"]
 [ext_resource type="PackedScene" path="res://scenes/NightEnvironment.tscn" id="81_night_environment"]
 [ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="82_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/Photographer.tscn" id="83_photographer"]
+[ext_resource type="PackedScene" uid="uid://cdfkl3n51qfkf" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_BedsideTable_01.tscn" id="84_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 [ext_resource type="Shader" uid="uid://dwa8qm6usabx1" path="res://shaders/ground_variation.gdshader" id="85_ground_shader"]
+[ext_resource type="PackedScene" uid="uid://br05hptvyc4vo" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Bed_Double_02.tscn" id="85_n6seq"]
 [ext_resource type="PackedScene" path="res://scenes/DebugMenu.tscn" id="86_debug_menu"]
 [ext_resource type="PackedScene" uid="uid://bo7i75ihupee6" path="res://scenes/FlyablePlane.tscn" id="89_5p8eo"]
 [ext_resource type="PackedScene" uid="uid://di6oo1kuyml3m" path="res://assets/Particle_FX/Prefabs/FX/FX_Fire_Large_01.tscn" id="89_gny1c"]
+[ext_resource type="PackedScene" uid="uid://caxfubawl5yb3" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Art_03.tscn" id="90_frq1x"]
+[ext_resource type="PackedScene" uid="uid://ckiy24ab3ekb5" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Art_01.tscn" id="91_mlb8o"]
+[ext_resource type="PackedScene" uid="uid://btk2wvo7iqfov" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Bookshelf_01.tscn" id="95_ce70q"]
+[ext_resource type="PackedScene" uid="uid://ctcaujmeh55gq" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_01.tscn" id="96_odf6h"]
+[ext_resource type="PackedScene" uid="uid://d3wvic3geuqwa" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_02.tscn" id="97_mu18u"]
+[ext_resource type="PackedScene" uid="uid://b14b4unmog13y" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_03.tscn" id="98_7b7y8"]
 [ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="99_vision_debug"]
+[ext_resource type="PackedScene" uid="uid://bvqbwg1e381tx" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_Group_01.tscn" id="99_wui3h"]
+[ext_resource type="PackedScene" uid="uid://74xhe577xg1p" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_Group_04.tscn" id="100_qetcs"]
+[ext_resource type="PackedScene" uid="uid://bxmow7cc0b5u3" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Book_Group_07.tscn" id="101_odf6h"]
+[ext_resource type="PackedScene" uid="uid://kkwrj6i6ynln" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Cake_02.tscn" id="102_wui3h"]
+[ext_resource type="PackedScene" uid="uid://5tk0nxd5oytu" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Cake_Slice_02.tscn" id="103_qetcs"]
+[ext_resource type="PackedScene" uid="uid://c5cfbjem5b0h3" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CardboardBox_05.tscn" id="104_gw1vw"]
+[ext_resource type="PackedScene" uid="uid://cadgaprd4qfk3" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CeilingLight_06.tscn" id="105_qetcs"]
+[ext_resource type="PackedScene" uid="uid://c2tufh57bd4wm" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CeilingLight_03.tscn" id="106_gw1vw"]
+[ext_resource type="PackedScene" uid="uid://jos04d6taow7" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Computer_Keyboard_01.tscn" id="108_0fl76"]
+[ext_resource type="PackedScene" uid="uid://dh83i0vdcsirr" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Computer_Mouse_01.tscn" id="109_ld7xo"]
+[ext_resource type="PackedScene" uid="uid://c1f0j8mgmggom" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_Computer_Screen_01.tscn" id="110_l4n3p"]
+[ext_resource type="PackedScene" uid="uid://bkmtv8h8y2ixw" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_DeskChair_01.tscn" id="111_fmmry"]
+[ext_resource type="PackedScene" uid="uid://clej1dd3nahvw" path="res://assets/PolygonTown/Prefabs/Props/SM_Prop_CeilingLight_05.tscn" id="112_ld7xo"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
 vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
@@ -209,6 +232,12 @@ size = Vector3(0.75573605, 0.45161596, 0.45261505)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3t06w"]
 size = Vector3(0.75573605, 0.38513404, 0.45261443)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qn65p"]
+size = Vector3(0.51995397, 0.0721249, 0.53332484)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ou5tn"]
+size = Vector3(0.50432897, 0.08420986, 0.53332484)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_gyxkx"]
 size = Vector3(2.2320533, 2.4815257, 3.8954191)
 
@@ -251,8 +280,23 @@ size = Vector3(1.9145129, 0.71745163, 1.094795)
 [sub_resource type="BoxShape3D" id="BoxShape3D_frq1x"]
 size = Vector3(0.6770874, 0.51259357, 1.094795)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_58by1"]
+points = PackedVector3Array(-3.545, 0, 0.015, 0, 0, 0, 0, 0, 0.86, -0.41, 0, -0.105, -1.685, 0, 2, -3.535, 0, 0.8, -3.545, -1, 0.015, 0, -1, 0, 0, -1, 0.86, -0.41, -1, -0.105, -1.685, -1, 2, -3.535, -1, 0.8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ec6vt"]
+points = PackedVector3Array(1.165, 0, 1.265, -1.295, 0, 1.375, 0.18, 0, -1.38, 1.165, -1, 1.265, -1.295, -1, 1.375, 0.18, -1, -1.38)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_15tgd"]
+points = PackedVector3Array(0.91, 0, 0.915, -0.8, 0, 1.245, -0.665, 0, 1.585, -0.52, 0, -1.54, -0.27, 0, -1.54, 0.885, 0, 0.175, 0.885, -1, 0.175, -0.27, -1, -1.54, -0.52, -1, -1.54, -0.665, -1, 1.585, -0.8, -1, 1.245, 0.91, -1, 0.915)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_cmoy1"]
 size = Vector3(2.3515775, 2.056897, 5.458471)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6od3t"]
+size = Vector3(1.2091669, 0.0648838, 2.446003)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mlb8o"]
+size = Vector3(1.2091669, 0.08400667, 2.4085903)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mgrvy"]
 size = Vector3(2.6819458, 8.42104, 2.849289)
@@ -1826,8 +1870,15 @@ transform = Transform3D(-0.6975339, 0, -0.7165518, 0, 1, 0, 0.7165518, 0, -0.697
 mesh = ExtResource("41_e68xj")
 surface_material_override/0 = ExtResource("12_munwf")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropChair01" unique_id=925974494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9604645e-08, 0.60421073, 5.9604645e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropChair01/StaticBody3D" unique_id=1055802921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03292656, -0.09172642, 0)
+shape = SubResource("BoxShape3D_qn65p")
+
 [node name="SmPropChairRocking01" type="MeshInstance3D" parent="PropsHolder" unique_id=500024636]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6240458, 0.8496248, -15.476326)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6240458, 0.68723875, -15.476326)
 mesh = ExtResource("42_5hglh")
 surface_material_override/0 = ExtResource("12_munwf")
 
@@ -1835,6 +1886,16 @@ surface_material_override/0 = ExtResource("12_munwf")
 transform = Transform3D(0.7436591, 0, 0.668559, 0, 1, 0, -0.668559, 0, 0.7436591, -5.518883, 0.8505566, -17.11639)
 mesh = ExtResource("41_e68xj")
 surface_material_override/0 = ExtResource("12_munwf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropChair02" unique_id=1408596011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9604645e-08, 0.60421073, 5.9604645e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropChair02/StaticBody3D" unique_id=83645311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040738583, -0.07579625, -1.9073486e-06)
+shape = SubResource("BoxShape3D_ou5tn")
+
+[node name="SM_Prop_Clock_02" parent="PropsHolder" unique_id=1687795870 instance=ExtResource("49_xiw03")]
+transform = Transform3D(-0.7046388, 0, 0.70956624, 0, 1, 0, -0.70956624, 0, -0.7046388, -12.378571, 2.796815, -14.753312)
 
 [node name="SmPropChickenCoop01" type="MeshInstance3D" parent="PropsHolder" unique_id=578132782]
 transform = Transform3D(0.72171074, 0, 0.69219476, 0, 1, 0, -0.69219476, 0, 0.72171074, -20.79108, 0.18607618, -14.2536125)
@@ -2007,6 +2068,21 @@ transform = Transform3D(-0.4708936, 0, -0.88219, 0, 1, 0, 0.88219, 0, -0.4708936
 mesh = ExtResource("63_40xph")
 surface_material_override/0 = ExtResource("60_4kmvx")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmVehAttachPlough01" unique_id=1503406155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.028814077, 0.47013322, -3.9704194)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmVehAttachPlough01/StaticBody3D" unique_id=2047128397]
+transform = Transform3D(1.0000019, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1.0000019, 1.667, 0.5, 1.374)
+shape = SubResource("ConvexPolygonShape3D_58by1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PropsHolder/SmVehAttachPlough01/StaticBody3D" unique_id=172107848]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0.5, 0)
+shape = SubResource("ConvexPolygonShape3D_ec6vt")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PropsHolder/SmVehAttachPlough01/StaticBody3D" unique_id=9323178]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0.972, 0.5, -2.615)
+shape = SubResource("ConvexPolygonShape3D_15tgd")
+
 [node name="SmVehAttachTrailerCylinder01" type="MeshInstance3D" parent="PropsHolder" unique_id=1394796056]
 transform = Transform3D(1, 0, 0, 0, 0.9926259, -0.121218435, 0, 0.121218435, 0.9926259, -16.318813, -0.50805736, -23.680975)
 mesh = ExtResource("64_8lgfd")
@@ -2058,10 +2134,24 @@ transform = Transform3D(0.6809092, 0, 0.7323679, 0, 1, 0, -0.7323679, 0, 0.68090
 mesh = ExtResource("72_ntuqo")
 surface_material_override/0 = ExtResource("12_munwf")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropTable01" unique_id=2097848466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44098243, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropTable01/StaticBody3D" unique_id=1503895036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4085406, 0)
+shape = SubResource("BoxShape3D_6od3t")
+
 [node name="SmPropTable02" type="MeshInstance3D" parent="PropsHolder" unique_id=2100046198]
-transform = Transform3D(0.73468935, 0, 0.6784037, 0, 1, 0, -0.6784037, 0, 0.73468935, -12.084948, 0.8505565, -15.755361)
+transform = Transform3D(0.73468935, 0, 0.6784037, 0, 1, 0, -0.6784037, 0, 0.73468935, -12.557876, 0.8505565, -16.11803)
 mesh = ExtResource("73_ca4ee")
 surface_material_override/0 = ExtResource("12_munwf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropTable02" unique_id=1870455502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44096255, -0.014074206)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropTable02/StaticBody3D" unique_id=1069282787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39895928, 0)
+shape = SubResource("BoxShape3D_mlb8o")
 
 [node name="SmBldWaterTower01" type="MeshInstance3D" parent="PropsHolder" unique_id=247805246]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.225182, 1.9073486e-06, -16.055347)
@@ -2149,6 +2239,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 4.5526824, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmBldBarn03/StaticBody3D" unique_id=893774157]
 shape = SubResource("BoxShape3D_o7bbu")
 
+[node name="SM_Prop_Art_Standing_02" parent="PropsHolder" unique_id=42869381 instance=ExtResource("81_mlb8o")]
+transform = Transform3D(-0.17217699, 0, 0.98506606, 0, 1, 0, -0.98506606, 0, -0.17217699, -13.269671, 1.7500951, -16.509123)
+
+[node name="SM_Prop_Art_03" parent="PropsHolder" unique_id=1027884893 instance=ExtResource("90_frq1x")]
+transform = Transform3D(0.7193398, 0, -0.6946584, 0, 1, 0, 0.6946584, 0, 0.7193398, -4.723, 5.48626, -21.188)
+
+[node name="SM_Prop_Art_01" parent="PropsHolder" unique_id=1763509965 instance=ExtResource("91_mlb8o")]
+transform = Transform3D(0.7193398, 0, -0.6946584, 0, 1, 0, 0.6946584, 0, 0.7193398, -3.902, 2.364, -20.349)
+
+[node name="SM_Prop_BedsideTable_01" parent="PropsHolder" unique_id=336284916 instance=ExtResource("84_8xaka")]
+transform = Transform3D(0.7039468, 0, 0.7102527, 0, 1, 0, -0.7102527, 0, 0.7039468, -8.377444, 0.85055685, -18.219019)
+
+[node name="SM_Prop_Bed_Double_02" parent="PropsHolder" unique_id=106947212 instance=ExtResource("85_n6seq")]
+transform = Transform3D(-0.6965454, 0, 0.71751267, 0, 1, 0, -0.71751267, 0, -0.6965454, -6.32264, 3.8804648, -17.797712)
+
 [node name="PickupTruckDriveable" parent="." unique_id=1630439248 instance=ExtResource("13_jhx03")]
 transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.82162666, 7.7456913, 0.022559673, -1.100656)
 
@@ -2182,5 +2287,59 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.083374, 0, 26.910889)
 
 [node name="Plane" parent="." unique_id=1875345564 instance=ExtResource("89_5p8eo")]
 transform = Transform3D(-0.3521549, -0.12967026, -0.9269157, 0, 0.9903562, -0.13854523, 0.93594176, -0.048789382, -0.3487588, 79.15387, 0.9034736, -59.668915)
+
+[node name="SM_Prop_Bookshelf_01" parent="." unique_id=1334968477 instance=ExtResource("95_ce70q")]
+transform = Transform3D(0.70050555, 0, -0.71364695, 0, 1, 0, 0.71364695, 0, 0.70050555, -3.8369317, 3.865567, -20.032818)
+
+[node name="SM_Prop_Book_01" parent="." unique_id=392873090 instance=ExtResource("96_odf6h")]
+transform = Transform3D(0.72933257, 0, -0.68415934, 0, 1, 0, 0.68415934, 0, 0.72933257, -4.122139, 5.628254, -20.266298)
+
+[node name="SM_Prop_Book_02" parent="." unique_id=1290966627 instance=ExtResource("97_mu18u")]
+transform = Transform3D(0.7296253, 0, -0.6838471, 0, 1, 0, 0.6838471, 0, 0.7296253, -4.004504, 5.629451, -20.18522)
+
+[node name="SM_Prop_Book_03" parent="." unique_id=140158828 instance=ExtResource("98_7b7y8")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -4.343224, 3.8941975, -19.8364)
+
+[node name="SM_Prop_Book_Group_01" parent="." unique_id=1181306778 instance=ExtResource("99_wui3h")]
+transform = Transform3D(0.717508, 0, -0.69655025, 0, 1, 0, 0.69655025, 0, 0.717508, -4.026558, 3.9077067, -20.19859)
+
+[node name="SM_Prop_Book_Group_04" parent="." unique_id=1419272700 instance=ExtResource("100_qetcs")]
+transform = Transform3D(0.7777691, 0, -0.6285501, 0, 1, 0, 0.6285501, 0, 0.7777691, -3.7105262, 4.3436294, -19.82004)
+
+[node name="SM_Prop_Book_Group_07" parent="." unique_id=1486755993 instance=ExtResource("101_odf6h")]
+transform = Transform3D(0.6773673, 0, -0.73564494, 0, 1, 0, 0.73564494, 0, 0.6773673, -4.082199, 5.2007008, -20.214943)
+
+[node name="SM_Prop_Cake_02" parent="." unique_id=1927038900 instance=ExtResource("102_wui3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4034243, 1.7292558, -18.090326)
+
+[node name="SM_Prop_Cake_Slice_02" parent="." unique_id=424355589 instance=ExtResource("103_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.760333, 1.7294518, -17.953796)
+
+[node name="SM_Prop_CardboardBox_05" parent="." unique_id=472107062 instance=ExtResource("104_gw1vw")]
+transform = Transform3D(0.5255709, 0, -0.8507498, 0, 1, 0, 0.8507498, 0, 0.5255709, -6.846362, 0.8505564, -22.746084)
+
+[node name="SM_Prop_CeilingLight_06" parent="." unique_id=278977932 instance=ExtResource("105_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6361904, 3.8493562, -18.968943)
+
+[node name="SM_Prop_CeilingLight_03" parent="." unique_id=634895737 instance=ExtResource("106_gw1vw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.229313, 0.69773793, -19.986345)
+
+[node name="SM_Prop_CeilingLight_07" parent="." unique_id=1899549944 instance=ExtResource("105_qetcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0766435, 6.8519564, -18.978737)
+
+[node name="SM_Prop_Computer_Keyboard_01" parent="." unique_id=931456168 instance=ExtResource("108_0fl76")]
+transform = Transform3D(-0.68264776, 0, 0.7307476, 0, 1, 0, -0.7307476, 0, -0.68264776, -12.127464, 1.7324817, -16.280945)
+
+[node name="SM_Prop_Computer_Mouse_01" parent="." unique_id=957233287 instance=ExtResource("109_ld7xo")]
+transform = Transform3D(-0.9424436, 0, 0.3343652, 0, 1, 0, -0.3343652, 0, -0.9424436, -12.491954, 1.7324817, -16.613194)
+
+[node name="SM_Prop_Computer_Screen_01" parent="." unique_id=1593947237 instance=ExtResource("110_l4n3p")]
+transform = Transform3D(-0.7627156, 0, 0.64673406, 0, 1, 0, -0.64673406, 0, -0.7627156, -12.482976, 1.7324817, -15.926107)
+
+[node name="SM_Prop_DeskChair_01" parent="." unique_id=226985028 instance=ExtResource("111_fmmry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.804336, 0.8505566, -16.786715)
+
+[node name="SM_Prop_CeilingLight_05" parent="." unique_id=2069891370 instance=ExtResource("112_ld7xo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.80924, 3.862188, -16.272621)
 
 [editable path="PropsHolder/Root3"]

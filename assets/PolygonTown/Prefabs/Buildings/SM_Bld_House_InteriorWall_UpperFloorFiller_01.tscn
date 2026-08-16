@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://daofb3pdmcgnk"]
+
+[ext_resource type="ArrayMesh" uid="uid://dfkkvlhm1yghy" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_InteriorWall_UpperFloorFiller_01.res" id="1_rqma3"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_b81v5"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pejwn"]
+points = PackedVector3Array(0.0058407784, 0.010981284, 0.0058411025, 0.0058407784, -0.105841145, 0.0058411025, -2.5058408, 0.010981284, 0.0058411025, -2.5058408, -0.105841145, 0.0058411025)
+
+[node name="SM_Bld_House_InteriorWall_UpperFloorFiller_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_rqma3")
+surface_material_override/0 = ExtResource("2_b81v5")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_pejwn")

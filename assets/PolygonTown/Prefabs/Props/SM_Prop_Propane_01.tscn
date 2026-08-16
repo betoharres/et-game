@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cjcu83ksppqjg"]
+
+[ext_resource type="ArrayMesh" uid="uid://dgbs00cf8crhi" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Propane_01.res" id="1_ypn0l"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_vjes2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oryl7"]
+points = PackedVector3Array(0.13951623, 1.410461, 0.27624297, 1.3565496, 0.8508879, 0.46456116, 1.6250924, 1.1797562, -0.055722088, -0.13920832, 1.4064571, -0.28153393, -0.27984333, 1.4101849, 0.13637376, -1.3568782, 0.8508879, 0.46456116, 1.5528659, 0.20806232, -0.20371336, 1.0625526, 0, 0.4520948, 1.341277, 0.8496453, -0.46597996, -1.4411955, 0.41115433, -0.50026256, -1.6254209, 1.1796181, -0.055722088, -0.27857065, 1.4064571, -0.14242023, -1.447559, 0.110175006, -0.2028634, -1.062881, 0, 0.4520948, 1.0612799, 0.0009664474, -0.45833012, -1.0616083, 0.0009664474, -0.45833012)
+
+[node name="SM_Prop_Propane_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_ypn0l")
+surface_material_override/0 = ExtResource("2_vjes2")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_oryl7")

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c2gt4m4qi2r6c"]
+
+[ext_resource type="ArrayMesh" uid="uid://ba8mxdxb51kix" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ForSaleSign_01.res" id="1_aek3a"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_58vkv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aek3a"]
+size = Vector3(1.2631836, 0.6547241, 0.16796875)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_58vkv"]
+size = Vector3(0.11578369, 1.5874023, 0.14477539)
+
+[node name="SM_Prop_ForSaleSign_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_aek3a")
+surface_material_override/0 = ExtResource("2_58vkv")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40551758, 1.0719299, 0.0029296875)
+shape = SubResource("BoxShape3D_aek3a")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005706787, 0.76782227, 0.008422852)
+shape = SubResource("BoxShape3D_58vkv")

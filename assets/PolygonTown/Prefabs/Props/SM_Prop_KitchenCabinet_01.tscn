@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cd174o7m0r6cg"]
+
+[ext_resource type="ArrayMesh" uid="uid://ogpsbil37vai" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_KitchenCabinet_01.res" id="1_mce2l"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_o3hdb"]
+[ext_resource type="ArrayMesh" uid="uid://5tcqccsct8sv" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_KitchenCabinet_01_Door_01.res" id="3_o3hdb"]
+[ext_resource type="ArrayMesh" uid="uid://dx42po6nxvd1a" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_KitchenCabinet_01_Door_02.res" id="4_xjv3n"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ngcsh"]
+points = PackedVector3Array(-1.0023959, 0.9857474, 0.6875938, -0.9894359, 1.0383453, 0.6785749, -0.9904252, 1.0393606, -5.551115e-17, -0.9904252, 0.0042589456, -5.551115e-17, -0.99250275, 0.0021265994, 0.64822006, 0.008284211, 0.9857474, 0.6875938, -0.0047746897, 1.0383453, 0.6785749, -0.0037854314, 1.0393606, -5.551115e-17, -0.003983259, 0.0042589456, -5.551115e-17, -0.0019056797, 0.0021265994, 0.64822006, -0.0037854314, 0.90999836, -5.551115e-17)
+
+[node name="SM_Prop_KitchenCabinet_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_mce2l")
+surface_material_override/0 = ExtResource("2_o3hdb")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_ngcsh")
+
+[node name="SM_Prop_KitchenCabinet_01_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026171874, 0.022395339, 0.64823973)
+gi_mode = 2
+mesh = ExtResource("3_o3hdb")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_o3hdb")
+
+[node name="SM_Prop_KitchenCabinet_01_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9738281, 0.022395339, 0.64823973)
+gi_mode = 2
+mesh = ExtResource("4_xjv3n")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_o3hdb")

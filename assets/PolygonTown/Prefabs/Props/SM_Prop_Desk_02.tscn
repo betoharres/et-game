@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://5dw6q0ay0ih2"]
+
+[ext_resource type="ArrayMesh" uid="uid://c7hj0fj11tcgk" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Desk_02.res" id="1_wfgqv"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qxoaf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wfgqv"]
+size = Vector3(2.1916504, 0.8730469, 0.84436035)
+
+[node name="SM_Prop_Desk_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_wfgqv")
+surface_material_override/0 = ExtResource("2_qxoaf")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015869141, 0.4453125, -0.022155762)
+shape = SubResource("BoxShape3D_wfgqv")

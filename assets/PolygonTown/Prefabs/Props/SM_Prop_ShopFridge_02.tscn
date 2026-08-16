@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cpofagegjjej0"]
+
+[ext_resource type="ArrayMesh" uid="uid://0xvxarh70u2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02.res" id="1_0ko2e"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_86xby"]
+[ext_resource type="ArrayMesh" uid="uid://cuiwcynbwiffd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_01.res" id="3_86xby"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://Assets/PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_yyrxf"]
+[ext_resource type="ArrayMesh" uid="uid://crbh2ajwrx1lu" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_02.res" id="5_lv5xo"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fl3yv"]
+points = PackedVector3Array(0.68585455, 2.2793236, -0.527605, 0.68920267, 2.24069, 0.45767993, 0.68585455, 0.02401076, -0.527605, -1.9387941, 2.2793236, -0.527605, 0.6704017, 2.1846163, 0.49176568, 0.6585547, 2.0548077, 0.52750415, 0.6585547, 0.16794811, 0.52750415, -1.9418846, 2.24069, 0.45767993, 0.65417635, 0.051164586, 0.44559497, -1.9387941, 0.02401076, -0.527605, -1.9233414, 2.1846163, 0.49176568, 0.61837757, 2.0949867, 0.52750415, -1.8713171, 0.16794811, 0.52750415, -1.9114943, 0.20790619, 0.52750415, -1.9114943, 2.0949867, 0.52750415, -1.9071159, 0.051164586, 0.44559497)
+
+[node name="SM_Prop_ShopFridge_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_0ko2e")
+surface_material_override/0 = ExtResource("2_86xby")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_fl3yv")
+
+[node name="SM_Prop_ShopFridge_02_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8304675, 0.30799076, 0.5014392)
+gi_mode = 2
+mesh = ExtResource("3_86xby")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_yyrxf")
+surface_material_override/1 = ExtResource("2_86xby")
+
+[node name="SM_Prop_ShopFridge_02_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.583385, 0.30799076, 0.5014392)
+gi_mode = 2
+mesh = ExtResource("5_lv5xo")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_yyrxf")
+surface_material_override/1 = ExtResource("2_86xby")

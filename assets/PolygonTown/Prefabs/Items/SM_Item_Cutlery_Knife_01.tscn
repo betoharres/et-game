@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://co1euxw04c4ma"]
+
+[ext_resource type="ArrayMesh" uid="uid://cobew7n18a7l2" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Cutlery_Knife_01.res" id="1_e0apf"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_71mgy"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sfq2y"]
+points = PackedVector3Array(0.018547267, 0.014279351, 0.15811594, -0.01780017, 0.014279351, 0.15811594, 0.013354775, 0.014279351, 0.16592704, 0.018547267, -0.001298123, 0.15811594, 0.015948988, 0.0038953847, -0.17160931, 0.015948988, 0.0116810715, -0.15342948, -0.012607681, 0.014279351, 0.16592704, -0.022992663, 0.0116810715, -0.15342948, -0.022992663, 0.0116810715, -0.10151677, -0.01780017, -0.001298123, 0.15811594, 0.013354775, -0.001298123, 0.16330032, -0.0048169103, 0.0038953847, -0.18716238, 0.010756496, 0.009085842, -0.18716238, -0.022992663, 0.0038953847, -0.15342948, -0.0048169103, 0.009085842, -0.18716238, -0.01780017, 0.0038953847, -0.17160931)
+
+[node name="SM_Item_Cutlery_Knife_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_e0apf")
+surface_material_override/0 = ExtResource("2_71mgy")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_sfq2y")
