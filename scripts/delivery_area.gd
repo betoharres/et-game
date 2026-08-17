@@ -324,9 +324,9 @@ func _update_charge_prompt() -> void:
 
 
 func _get_action_key(action : StringName) -> String:
-	for input_event : InputEvent in InputMap.action_get_events(action):
-		if input_event is InputEventKey:
-			var key_event := input_event as InputEventKey
+	for input_event2 : InputEvent in InputMap.action_get_events(action):
+		if input_event2 is InputEventKey:
+			var key_event : InputEventKey = input_event2 as InputEventKey
 			var keycode : Key = key_event.physical_keycode
 			if keycode == KEY_NONE:
 				keycode = key_event.keycode

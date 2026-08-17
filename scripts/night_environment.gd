@@ -136,8 +136,7 @@ func _apply_quality_level() -> void:
 	atmospheric_particles.amount = (
 		atmospheric_particle_amount
 		if quality_level == QualityLevel.HIGH
-		else maxi(1, atmospheric_particle_amount / 2)
-	)
+		else maxi(1, atmospheric_particle_amount / 2) )
 	ground_fog.visible = use_fog
 	world_environment.environment.volumetric_fog_enabled = use_fog
 	_notify_ufo_quality.call_deferred(use_particles)

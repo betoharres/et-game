@@ -3,15 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c2qw766ojt2np" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Flowers_02.res" id="1_43l2a"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_340ju"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3dk6b"]
-points = PackedVector3Array(0.06504089, 0.25693288, 0.1768867, 0.18372405, 0.28070712, 0.03457211, 0.09671089, 0.4783123, 0.010870054, 0.0018913001, 0.39139682, 0.1215478, -0.01848159, 0.2564035, 0.17218713, -0.04897745, 0.010431733, 0.033005595, 0.05472751, 0.015725588, 0.03242667, 0.05460058, 0.016639981, -0.032992393, 0.1758224, 0.2885998, -0.05236952, 0.049269363, 0.5020865, -0.028565288, 0.09671089, 0.462527, -0.07607158, -0.093023494, 0.37556338, 0.089876935, -0.011373296, 0.0125492755, -0.05587715, -0.14046502, 0.32021853, -0.107708395, -0.045581967, 0.32806307, -0.17098202, -0.10171846, 0.30890894, -0.15405683)
-
-[node name="SM_Prop_Flowers_02" type="MeshInstance3D"]
+[node name="SM_Prop_Flowers_02" type="MeshInstance3D" unique_id=1628770570]
 gi_mode = 2
 mesh = ExtResource("1_43l2a")
 surface_material_override/0 = ExtResource("2_340ju")
-
-[node name="MeshCollider" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
-shape = SubResource("ConvexPolygonShape3D_3dk6b")

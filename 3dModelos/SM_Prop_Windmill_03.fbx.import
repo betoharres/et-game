@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
-uid="uid://bu2mr1puyrxlu"
-path="res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.scn"
+type="ArrayMesh"
+uid="uid://d2frslrhemnu6"
+path="res://.godot/imported/SM_Prop_Windmill_03.fbx-cd27d3b1d8879cb900cb912f81f015b2.res"
 
 [deps]
 
-source_file="res://3dModelos/SM_Bld_Barn_01.fbx"
-dest_files=["res://.godot/imported/SM_Bld_Barn_01.fbx-dc52bb293d452bebe815708000d33234.scn"]
+source_file="res://3dModelos/SM_Prop_Windmill_03.fbx"
+dest_files=["res://.godot/imported/SM_Prop_Windmill_03.fbx-cd27d3b1d8879cb900cb912f81f015b2.res"]
 
 [params]
 
@@ -42,5 +42,5 @@ materials/extract_path=""
 _subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=0
+fbx/embedded_image_handling=1
 fbx/naming_version=2

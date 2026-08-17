@@ -3,15 +3,16 @@
 [ext_resource type="ArrayMesh" uid="uid://dopnjks2ptvt4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Heater_01.res" id="1_hu73a"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gmat0"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e13pa"]
-points = PackedVector3Array(-0.32206953, 0.12309994, 0.227711, -0.31039742, 0.12167466, 0.0017741844, -0.19493827, 0.031814877, 0.08615514, -0.19487518, 0.031814877, 0.34612828, -0.19190983, 0.069279075, 0.38653445, -0.19165747, 0.69829756, 0.37555996, -0.21291962, 0.69822973, 0.10929371, -0.32206953, 0.1563562, -0.0054782033, 0.19503605, 0.032154225, 0.08627026, 0.31364983, 0.13009053, -2.9319432e-05, 0.19225997, 0.069279075, 0.38653445, 0.1921969, 0.6880492, 0.3864961, 0.19503605, 0.72517407, 0.08623189, -0.19222529, 0.6779366, 0.044904787, 0.19251233, 0.6779366, 0.044904787, 0.32248276, 0.12309994, 0.227711)
+[sub_resource type="BoxShape3D" id="BoxShape3D_w844e"]
+size = Vector3(0.63385254, 0.7001171, 0.39052734)
 
-[node name="SM_Prop_Heater_01" type="MeshInstance3D"]
+[node name="SM_Prop_Heater_01" type="MeshInstance3D" unique_id=1130013365]
 gi_mode = 2
 mesh = ExtResource("1_hu73a")
 surface_material_override/0 = ExtResource("2_gmat0")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=413234033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378683, 0.19526367)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
-shape = SubResource("ConvexPolygonShape3D_e13pa")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1097419936]
+shape = SubResource("BoxShape3D_w844e")

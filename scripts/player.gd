@@ -145,6 +145,7 @@ func _input(event: InputEvent) -> void:
 
 	# Items
 	if event.is_action_pressed("interact"):
+		
 		if carried_item == null:
 			if _is_delivery_interaction_reserved():
 				return
@@ -300,11 +301,9 @@ func _update_stamina(delta : float, wants_to_sprint : bool) -> void:
 		stamina_changed.emit(stamina, max_stamina)
 
 
-func take_damage(
-	amount : float,
-	hit_direction : Vector3 = Vector3.ZERO,
-	push_distance : float = 0.0
-) -> void:
+func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
+	push_distance : float = 0.0) -> void:
+		
 	if amount <= 0.0 or health <= 0.0:
 		return
 
@@ -366,12 +365,12 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 	if _eye_light_tween != null:
 		_eye_light_tween.kill()
 
-	var target_energy := eye_light_energy if enabled else 0.0
+	var target_energy : float = eye_light_energy if enabled else 0.0
 	var target_albedo := active_eye_color * 0.42 if enabled else Color.BLACK
 	target_albedo.a = 1.0
 	var target_emission := active_eye_color if enabled else Color.BLACK
-	var target_emission_energy := 1.35 if enabled else 0.0
-	var duration := (
+	var target_emission_energy : float = 1.35 if enabled else 0.0
+	var duration : float = (
 		eye_light_turn_on_duration
 		if enabled
 		else eye_light_turn_off_duration
@@ -432,13 +431,13 @@ func _setup_eye_light() -> void:
 	set_eye_light_enabled(false, true)
 
 
-func set_vision_contact(source : Node, is_visible : bool) -> void:
+func set_vision_contact(source : Node, is_visible2 : bool) -> void:
 	if source == null:
 		return
 
 	var source_id : int = source.get_instance_id()
 	var was_alerted : bool = not _vision_contacts.is_empty()
-	if is_visible:
+	if is_visible2:
 		_vision_contacts[source_id] = true
 	else:
 		_vision_contacts.erase(source_id)
@@ -625,3 +624,4 @@ func _is_delivery_interaction_reserved() -> bool:
 			return true
 
 	return false
+	
