@@ -1,7 +1,7 @@
 [gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c34v7epm3njh5"]
 
-[ext_resource type="Texture2D" uid="uid://defns7sy7te2t" path="res://Assets/PolygonTown/Textures/Misc/PolygonTown_Road_01.png" id="1_tlgxt"]
-[ext_resource type="Texture2D" uid="uid://c2ewcgvpspex0" path="res://Assets/PolygonTown/Textures/Misc/PolygonTown_Road_Normal.png" id="2_e1u6j"]
+[ext_resource type="Texture2D" uid="uid://defns7sy7te2t" path="res://assets/PolygonTown/Textures/Misc/PolygonTown_Road_01.png" id="1_tlgxt"]
+[ext_resource type="Texture2D" uid="uid://c2ewcgvpspex0" path="res://assets/PolygonTown/Textures/Misc/PolygonTown_Road_Normal.png" id="2_e1u6j"]
 
 [resource]
 resource_name = "PolygonTown_Road_mat"

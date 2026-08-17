@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0v5ybp07imke"]
 
 [ext_resource type="ArrayMesh" uid="uid://dujjdxqkkidma" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ToyTrain_01.res" id="1_6k2vr"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_g0tsk"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_g0tsk"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mcx8g"]
 points = PackedVector3Array(-0.10265952, 0.0018519548, 0.13825475, 0.10202797, 0.0018519548, 0.13825475, -0.072107285, 0.054601647, 0.18388487, -0.10661383, 0.083307974, 0.14361681, -0.10290927, 0.023758136, -0.116460815, 0.10127872, 0.0027262592, -0.104334846, 0.10600309, 0.083307974, 0.14361681, 0.06718843, 0.22071949, 0.17277522, 0.10227771, 0.023758136, -0.116460815, -0.06761186, 0.22040376, 0.17224954, -0.0721281, 0.22693676, -0.005714923, -0.031898215, 0.23266831, -0.11488374, -0.00848455, 0.112645745, -0.17414682, 0.07151735, 0.22693676, -0.005714923, -0.0031566396, 0.24996011, -0.06319064, 0.031287476, 0.23266831, -0.11488374)

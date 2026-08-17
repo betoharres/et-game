@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bt6ng2ncsw8od"]
 
 [ext_resource type="ArrayMesh" uid="uid://eq5yhle186dr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_01.res" id="1_nsl76"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_24eds"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_24eds"]
 [ext_resource type="ArrayMesh" uid="uid://o3dfthhutavm" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_Lid_01.res" id="3_24eds"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cniwn"]

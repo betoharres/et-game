@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cb1fqgwbw2jxr"]
 
 [ext_resource type="ArrayMesh" uid="uid://7mxssthfbnnt" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Deck_Rail_End_01.res" id="1_nyfjt"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ujw5o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ujw5o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nyfjt"]
 size = Vector3(0.13839722, 0.8173828, 2.2748413)

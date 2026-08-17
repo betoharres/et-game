@@ -41,6 +41,9 @@ const REBIND_LABELS : Array[String] = [
 @onready var controls_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons/ControlsButton
 )
+@onready var main_menu_button : Button = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons/MainMenuButton
+)
 @onready var exit_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons/ExitButton
 )
@@ -63,6 +66,7 @@ const REBIND_LABELS : Array[String] = [
 
 var rebinding_action : StringName = &""
 var rebinding_button : Button = null
+var returning_to_menu : bool = false
 
 
 func _ready() -> void:
@@ -73,6 +77,7 @@ func _ready() -> void:
 
 	resume_button.pressed.connect(_resume_game)
 	controls_button.pressed.connect(_show_controls)
+	main_menu_button.pressed.connect(_back_to_main_menu)
 	exit_button.pressed.connect(_exit_game)
 	controls_back_button.pressed.connect(_show_pause_buttons)
 
@@ -88,6 +93,9 @@ func _ready() -> void:
 
 
 func _input(event : InputEvent) -> void:
+	if returning_to_menu:
+		return
+
 	if rebinding_action != &"":
 		_handle_rebinding_input(event)
 		return
@@ -151,6 +159,16 @@ func _show_pause_buttons() -> void:
 	pause_buttons.visible = true
 	_update_control_buttons()
 	resume_button.grab_focus()
+
+
+func _back_to_main_menu() -> void:
+	if returning_to_menu:
+		return
+	returning_to_menu = true
+	get_tree().paused = false
+	overlay.visible = false
+	var scene_transition : Node = get_node("/root/SceneTransition")
+	scene_transition.warp_to("res://scenes/main_menu.tscn")
 
 
 func _exit_game() -> void:

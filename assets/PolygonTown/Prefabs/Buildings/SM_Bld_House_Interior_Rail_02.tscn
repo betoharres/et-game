@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh46n26clgdu8"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctklgnfj3rlqk" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Rail_02.res" id="1_buk07"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sbpl5"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sbpl5"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_obyj1"]
 points = PackedVector3Array(0.15852888, 1.2475991, 0.018143117, -0.018308833, 1.2475991, 0.018143117, 0.17816105, 0.36350235, 0.018143117, 0.15852888, 1.2475991, -0.25694972, -0.03796217, 1.2475991, -0.06045869, -0.03796217, 0.30455437, -0.080142796, 0.001344502, 0.30455437, 0.018143117, 0.17816105, 0.36350235, -0.25694972, 0.07989438, -0.009629786, -0.060485616, 0.15852888, -0.009629786, -0.1194033, 0.021018993, -0.009629786, -0.25694972, -0.02973273, 1.1996038, -0.24647486, -0.018329987, -0.009629786, -0.1194033, -0.025967076, 0.33950475, -0.24168175, 0.15852888, -0.009629786, -0.178321, 0.119179904, -0.009629786, -0.25694972)

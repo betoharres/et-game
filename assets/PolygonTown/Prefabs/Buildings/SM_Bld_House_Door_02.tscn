@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c1aasajohgodt"]
 
 [ext_resource type="ArrayMesh" uid="uid://cfcasu813qfel" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Door_02.res" id="1_jrsdg"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_xtnhj"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_xtnhj"]
 [ext_resource type="ArrayMesh" uid="uid://bbd13s5r83gdq" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Door.res" id="3_xtnhj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jrsdg"]

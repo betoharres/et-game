@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cet0j5k6ljep3"]
 
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/FarmHouse01.tscn" id="1_i7141"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="0_world"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cqub6i2xmuro5" path="res://scenes/space_ship.tscn" id="3_4wyf3"]
@@ -329,6 +330,7 @@ size = Vector3(13.4948435, 9.105388, 7.435112)
 size = Vector3(9.769199, 9.105388, 7.435112)
 
 [node name="World" type="Node3D" unique_id=1407078805]
+script = ExtResource("0_world")
 
 [node name="FarmEnvironmentAudio" type="Node" parent="." unique_id=704676073]
 script = ExtResource("80_audio")

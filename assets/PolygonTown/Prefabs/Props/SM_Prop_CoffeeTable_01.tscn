@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b16so8m43bvde"]
 
 [ext_resource type="ArrayMesh" uid="uid://b4u1xlqlofc0v" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CoffeeTable_01.res" id="1_v2q53"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4o33t"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4o33t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v2q53"]
 size = Vector3(1.1838074, 0.4315796, 0.697876)

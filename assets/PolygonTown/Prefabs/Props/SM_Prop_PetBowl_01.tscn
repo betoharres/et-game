@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crqhgd1eq7a5p"]
 
 [ext_resource type="ArrayMesh" uid="uid://bvjwjmyj60pen" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_PetBowl_01.res" id="1_amdgq"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_orxay"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_orxay"]
 [ext_resource type="ArrayMesh" uid="uid://bnx53vc1ws5on" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_PetBowl_01_Food.res" id="3_orxay"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cta4a"]

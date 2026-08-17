@@ -1,14 +1,14 @@
 [gd_scene load_steps=15 format=3 uid="uid://dbi6bge60iaov"]
 
-[ext_resource type="ArrayMesh" uid="uid://d0u4ay5gxcvm0" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_01.res" id="1_wda2o"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0k2ry"]
-[ext_resource type="ArrayMesh" uid="uid://rqbcfx5r648m" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Glass.res" id="3_or03s"]
-[ext_resource type="ArrayMesh" uid="uid://w4gpgq40jx52" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_SteeringW.res" id="4_0k2ry"]
-[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://Assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_or03s"]
-[ext_resource type="ArrayMesh" uid="uid://g3suilhcmxsu" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fl.res" id="5_wya7a"]
-[ext_resource type="ArrayMesh" uid="uid://bgspkcui0ukow" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fr.res" id="6_d3gv8"]
-[ext_resource type="ArrayMesh" uid="uid://h5og23tuo5pc" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rl.res" id="7_10jv2"]
-[ext_resource type="ArrayMesh" uid="uid://bauvapt6d50pk" path="res://Assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rr.res" id="8_auqax"]
+[ext_resource type="ArrayMesh" uid="uid://d0u4ay5gxcvm0" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_01.res" id="1_wda2o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0k2ry"]
+[ext_resource type="ArrayMesh" uid="uid://rqbcfx5r648m" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Glass.res" id="3_or03s"]
+[ext_resource type="ArrayMesh" uid="uid://w4gpgq40jx52" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_SteeringW.res" id="4_0k2ry"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="4_or03s"]
+[ext_resource type="ArrayMesh" uid="uid://g3suilhcmxsu" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fl.res" id="5_wya7a"]
+[ext_resource type="ArrayMesh" uid="uid://bgspkcui0ukow" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_fr.res" id="6_d3gv8"]
+[ext_resource type="ArrayMesh" uid="uid://h5og23tuo5pc" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rl.res" id="7_10jv2"]
+[ext_resource type="ArrayMesh" uid="uid://bauvapt6d50pk" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Pickup_Wheel_rr.res" id="8_auqax"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wda2o"]
 points = PackedVector3Array(1.2119453, 1.5699589, 0.6036892, 0.6938735, 1.4840361, 2.4151855, 1.1255245, 0.5350849, 2.4151855, 0.98390317, 0.8196647, -2.6144593, 1.0388777, 1.4840361, -2.6742072, 0.52125835, 2.3468533, 0.43062615, -0.68591666, 1.4840361, 2.4151855, -0.5133015, 0.3626059, 2.5877333, 0.6938735, 0.1901269, 1.4664292, 0.6454599, 0.2654941, -1.5245742, -0.9836383, 0.65119684, -2.634547, -1.031147, 1.4840361, -2.6742072, -0.51352775, 2.3468533, 0.43062615, -1.0992429, 1.5437809, 0.70876336, -1.0528653, 0.5775185, 2.3564677, -0.6449686, 0.2538829, -1.5426015)

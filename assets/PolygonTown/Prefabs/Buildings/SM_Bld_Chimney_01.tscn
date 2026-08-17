@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsulcqoqjjlr0"]
 
 [ext_resource type="ArrayMesh" uid="uid://c7fo15kv6krbg" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Chimney_01.res" id="1_pk84a"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yk58l"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yk58l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3jbef"]
 points = PackedVector3Array(-0.43139923, 1.4701674, 0.5369892, -0.43139923, 1.4701674, -0.5240481, -0.34538803, 0.05240956, 0.44351488, 0.34531295, 0.015319749, 0.4614827, 0.39492851, 1.5862585, 0.50884306, -0.2393837, 1.8852024, 0.42793584, -0.402348, 1.5758734, 0.5005342, -0.32237554, 1.8724064, 0.16392285, 0.40227294, 1.5977564, -0.5051455, 0.33805013, 0.03460645, -0.46806735, -0.34538803, 0.05240956, -0.4588238, -0.32237554, 1.8724064, -0.40938628, -0.35501736, 1.5931201, -0.5015104, 0.3210764, 1.909867, -0.42621166, 0.31267112, 1.8852024, 0.42793584, -0.29952627, 1.8911368, 0.372059)

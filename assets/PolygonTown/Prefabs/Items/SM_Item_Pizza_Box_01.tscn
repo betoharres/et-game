@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dlp4tsqmskolk"]
 
 [ext_resource type="ArrayMesh" uid="uid://br0c25j7tymo8" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Box_01.res" id="1_eicr0"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_5dvty"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_5dvty"]
 [ext_resource type="ArrayMesh" uid="uid://ql4hgoa413gn" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_01.res" id="3_5dvty"]
 [ext_resource type="ArrayMesh" uid="uid://2kl5vcncds2v" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Lid_e01.res" id="4_tskqq"]
 [ext_resource type="ArrayMesh" uid="uid://no6523kb7c8q" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Slice_01.res" id="5_p0shd"]

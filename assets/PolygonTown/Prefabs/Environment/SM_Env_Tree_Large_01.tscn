@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://c1x5qmgypy00v"]
 
 [ext_resource type="ArrayMesh" uid="uid://jjwhu2owdsgv" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Large_01.res" id="1_d62if"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ositd"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ositd"]
 [ext_resource type="ArrayMesh" uid="uid://m0ktm54bt1wl" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_House_01.res" id="3_ositd"]
 [ext_resource type="ArrayMesh" uid="uid://dxjw12xmdaa03" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Leaves_01.res" id="4_i463e"]
 [ext_resource type="ArrayMesh" uid="uid://b112aqc3ud8fo" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Swing_01.res" id="5_6xquj"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5uabioqo4sio"]
 
 [ext_resource type="ArrayMesh" uid="uid://dxu6vlyucqlo8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03.res" id="1_oxg55"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_i61ba"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_i61ba"]
 [ext_resource type="ArrayMesh" uid="uid://b1w5wk5l4qjhc" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_01.res" id="3_i61ba"]
 [ext_resource type="ArrayMesh" uid="uid://cwsx3spkvj13n" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_02.res" id="4_ytbr3"]
 [ext_resource type="ArrayMesh" uid="uid://8su4ni65ffo3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Dresser_03_Drawer_03.res" id="5_sad4t"]

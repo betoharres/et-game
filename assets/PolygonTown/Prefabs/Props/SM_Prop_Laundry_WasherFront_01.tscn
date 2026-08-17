@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bgdrrwydcx6k2"]
 
 [ext_resource type="ArrayMesh" uid="uid://otv3u81jpu7n" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherFront_01.res" id="1_xjaxd"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_dmdn1"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_dmdn1"]
 [ext_resource type="ArrayMesh" uid="uid://ckt5e2bk87v05" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherFront_Clothes_01.res" id="3_dmdn1"]
 [ext_resource type="ArrayMesh" uid="uid://vmegp4556d3w" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherFront_Door_01.res" id="4_0nkv6"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="5_ef8au"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="5_ef8au"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c7hca"]
 points = PackedVector3Array(0.022532493, 1.158768, 0.5064203, -0.49588344, 0, 0.4803663, -0.03449422, 0, 0.4802661, 0.49993607, 0.0043340935, 0.47685903, 0.493296, 1.1795958, 0.4892848, 0.5016937, 1.2275116, 0.47846234, -0.03449422, 1.2299194, 0.4803663, -0.49578577, 1.2299194, 0.4803663, -0.4889504, 1.1834483, 0.4926918, -0.49432105, 1.2279931, -0.5173016, -0.49285632, 0.003732136, -0.5156983, -0.034298927, 0.0036117446, -0.5156983, 0.49993607, 0.0043340935, -0.515097, 0.5016937, 1.2275116, -0.5168006, -0.03439659, 1.2279931, -0.5173016)

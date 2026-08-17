@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://1adfuj53va5h"]
 
 [ext_resource type="ArrayMesh" uid="uid://ddxf5aevi2mr" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_FlatLip_01.res" id="1_dbf7c"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_jvdbl"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_jvdbl"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qrfxe"]
 points = PackedVector3Array(2.5210054, 3.131024, 0.36756516, -0.041539192, 3.131024, 0.36756516, 2.5210054, 2.8790448, 0.36756516, 2.5210054, 3.131024, 0.07333803, -0.041539192, 2.8790448, 0.36756516, -0.041539192, 3.131024, 0.07333803, 2.5210054, 2.8790448, 0.15729022, 2.5210054, 3.0050097, -2.3210063, -0.041539192, 2.8790448, 0.15729022, -0.041539192, 3.0050097, -2.3210063, 2.5210054, 2.9630048, -2.3210063, -0.041539192, 2.9630048, -2.3210063)

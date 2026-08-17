@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cty1q5ahnhe52"]
 
 [ext_resource type="ArrayMesh" uid="uid://vup1a34clckn" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BirdBath_01.res" id="1_f8dmv"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0it1p"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0it1p"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ei0yv"]
 points = PackedVector3Array(-0.27383846, 0.7323501, -0.06256762, -0.18603566, -0.011964898, -0.15367989, -0.19968031, -0.015293473, 0.10783401, -0.23723085, 0.75269985, 0.120741576, -0.20250908, 0.75512064, -0.18144745, -0.084921, 0.7323501, -0.27668145, 0.015361667, -0.01589867, -0.25108325, 0.039156616, -0.014007432, 0.23859099, -0.147875, 0.7323501, 0.23956719, 0.21864483, -0.015369123, 0.13175097, -0.034557804, 0.7323501, 0.27736792, 0.16157025, 0.7569362, 0.23164907, 0.12901166, 0.7323501, -0.26404506, 0.21520594, -0.009090219, -0.11718075, 0.292803, 0.7323501, -0.06256762, 0.292803, 0.7323501, 0.012925386)

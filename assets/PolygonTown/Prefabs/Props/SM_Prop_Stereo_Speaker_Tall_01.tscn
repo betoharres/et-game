@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bnaxjc2rsf7kn"]
 
 [ext_resource type="ArrayMesh" uid="uid://dikjdlj2lpiip" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Stereo_Speaker_Tall_01.res" id="1_0lfoc"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_2ko6e"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_2ko6e"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nullc"]
 points = PackedVector3Array(-0.10791432, -0.010685205, -0.080634564, -0.10791432, -0.010685205, 0.06892513, -0.10791432, 1.3570237, -0.080634564, 0.105790205, -0.010685205, -0.080634564, -0.08655642, -0.010685205, 0.09032905, -0.10791432, 1.3570237, 0.06892513, 0.105790205, 1.3570237, -0.080634564, 0.105790205, -0.010685205, 0.06892513, 0.08441139, -0.010685205, 0.09032905, -0.08655642, 1.3570237, 0.09032905, 0.105790205, 1.3570237, 0.06892513, 0.08441139, 1.3570237, 0.09032905)

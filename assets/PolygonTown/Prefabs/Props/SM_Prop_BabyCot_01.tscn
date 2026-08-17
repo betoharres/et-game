@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3jl443j22shs"]
 
 [ext_resource type="ArrayMesh" uid="uid://bj02lmqg8of2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BabyCot_01.res" id="1_wpbov"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_pbvaa"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_pbvaa"]
 [ext_resource type="ArrayMesh" uid="uid://by65i3omaxkgt" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BabyCot_Door_01.res" id="3_pbvaa"]
 [ext_resource type="ArrayMesh" uid="uid://dvfj631snc4op" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BabyCot_Mobile_01.res" id="4_xkgia"]
 

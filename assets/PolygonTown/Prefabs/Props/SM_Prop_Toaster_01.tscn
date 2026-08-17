@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b5fduq61imy0q"]
 
 [ext_resource type="ArrayMesh" uid="uid://44vsqipob3ae" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toaster_01.res" id="1_smbot"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rok1i"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rok1i"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_irp4s"]
 points = PackedVector3Array(-0.1454722, 0.24090974, -0.03452842, -0.19832021, 0.17584293, 0.03254786, -0.14295745, 0.23883666, 0.0844989, 0.16498601, 0.23883666, 0.0844989, 0.1616711, 0.23648086, -0.085578464, -0.14017597, 0.23648086, -0.085578464, -0.17408709, 0.048677593, 0.09717035, -0.16322792, 0.19572577, -0.097118884, -0.16398996, 0.032917384, -0.097559795, 0.1902479, 0.13819747, 0.09715119, 0.18719968, 0.13791478, -0.09834577, -0.15526453, 0.00153831, -0.081552744, -0.1532832, 0.0030460132, 0.083636254, 0.19093373, 0.04245832, 0.097496256, 0.17325422, 0.00024262743, -0.082434565, 0.16917726, 0.0030224554, 0.083636254)

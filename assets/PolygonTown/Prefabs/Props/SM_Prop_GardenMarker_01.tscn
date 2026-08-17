@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ct3myk8ighl5q"]
 
 [ext_resource type="ArrayMesh" uid="uid://0wmywfwxh2nu" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_GardenMarker_01.res" id="1_h1tgr"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ijxer"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ijxer"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6fapk"]
 points = PackedVector3Array(-0.11668738, 0.339233, 0.00013991073, -0.02873163, -0.012586866, -0.023848234, -0.11668738, 0.339233, 0.024132753, -0.11668738, 0.43517932, 0.00013991073, 0.027242266, -0.012586866, -0.023848234, -0.011821434, -0.025563417, -0.014623108, 0.003227517, -0.052568674, 0.008134393, -0.02873163, -0.012586866, 0.008134393, -0.028686233, 0.4512121, -0.023852931, 0.11519802, 0.34724942, 0.024132753, -0.11668738, 0.43517932, 0.024132753, -0.01270666, 0.45927864, -0.023852931, 0.027219571, 0.45927864, -0.023852931, 0.11519802, 0.43517932, 0.00013991073, 0.11519802, 0.34724942, 0.00013991073, 0.11519802, 0.43517932, 0.024132753)

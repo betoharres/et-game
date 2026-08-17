@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://doblhati7ghg5"]
 
 [ext_resource type="ArrayMesh" uid="uid://bskubnjn35plb" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_GardenShed_01.res" id="1_m0ejp"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qfjyj"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qfjyj"]
 [ext_resource type="ArrayMesh" uid="uid://g5xg5uj72eoy" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_GardenShed_Door_01.res" id="3_qfjyj"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cijpn"]

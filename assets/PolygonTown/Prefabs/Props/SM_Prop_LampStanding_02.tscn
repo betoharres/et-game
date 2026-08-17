@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dworjopntlvnx"]
 
 [ext_resource type="ArrayMesh" uid="uid://c02412qwlouac" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LampStanding_02.res" id="1_m62fy"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_g3dj2"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_g3dj2"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gvr0t"]
 points = PackedVector3Array(0.06283599, 1.9826045, 0.27559868, 0.2501872, 1.9826045, 0.15060008, -0.06206478, 1.9826045, 0.27559868, 0.062787086, -0.015401781, 0.21309939, 0.18768787, -0.015401781, 0.15060008, 0.2501872, 1.9826045, -0.1615113, -0.24941596, 1.9826045, 0.15060008, -0.18691666, -0.015401781, 0.15060008, -0.062015876, -0.015401781, 0.21309939, 0.18768787, -0.015401781, -0.13031667, 0.062787086, -0.015401781, -0.22395559, 0.03158635, 1.9200201, -0.2864549, -0.03081514, 1.9826045, -0.2864549, -0.24941596, 1.9826045, -0.1615113, -0.18691666, -0.015401781, -0.13031667, -0.062015876, -0.015401781, -0.22395559)

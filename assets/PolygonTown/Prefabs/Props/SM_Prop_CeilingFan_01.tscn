@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://do4owx7cj04tn"]
 
 [ext_resource type="ArrayMesh" uid="uid://ciivkvir3ikae" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CeilingFan_01.res" id="1_agb3j"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_visky"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_visky"]
 [ext_resource type="ArrayMesh" uid="uid://rr788b3blk6r" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CeilingFan_Blade_01.res" id="3_visky"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iet5r"]

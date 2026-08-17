@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dugrrw2ntsn81"]
 
 [ext_resource type="ArrayMesh" uid="uid://cn5wl625ehwt0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterWashing_01.res" id="1_ovnur"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4b1nh"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4b1nh"]
 [ext_resource type="ArrayMesh" uid="uid://bv64tml7prug3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterWashing_Machine_01.res" id="3_4b1nh"]
 [ext_resource type="ArrayMesh" uid="uid://1pkdfrn3iqgt" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterWashing_Machine_01_Door.res" id="4_mrpfa"]
 

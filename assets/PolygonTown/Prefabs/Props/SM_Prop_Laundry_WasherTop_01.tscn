@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ghl224mg74ye"]
 
 [ext_resource type="ArrayMesh" uid="uid://dfy8626uigur" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherTop_01.res" id="1_tkl7y"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fv2fy"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fv2fy"]
 [ext_resource type="ArrayMesh" uid="uid://d2gpwqr4l0m6c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherTop_Clothes_01.res" id="3_fv2fy"]
 [ext_resource type="ArrayMesh" uid="uid://dpp416stwbc0c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_WasherTop_Lid_01.res" id="4_ypnie"]
 

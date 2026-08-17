@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://b516rjm0amr2r"]
 
 [ext_resource type="ArrayMesh" uid="uid://7c8njh20p06x" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_RanchSlider_01.res" id="1_6fv4g"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_lkgeb"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_lkgeb"]
 [ext_resource type="ArrayMesh" uid="uid://bkft7gromh0u2" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_RanchSlider_Door.res" id="3_lkgeb"]
 [ext_resource type="ArrayMesh" uid="uid://b1tgwcbw8ikp6" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_RanchSlider_Door_Glass.res" id="4_bbwx5"]
-[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Assets/PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="5_50f5y"]
+[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://assets/PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="5_50f5y"]
 [ext_resource type="ArrayMesh" uid="uid://b5rtj1ipyv83d" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_RanchSlider_Glass.res" id="6_fvmlo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6fv4g"]

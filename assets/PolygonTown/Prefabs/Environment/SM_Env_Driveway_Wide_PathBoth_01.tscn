@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://byluixlkvcjdk"]
 
 [ext_resource type="ArrayMesh" uid="uid://cbeud06km5bgf" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Driveway_Wide_PathBoth_01.res" id="1_ws44v"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_7hitt"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_7hitt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nm1v7"]
 size = Vector3(5.0000143, 0.02982971, 5.000016)

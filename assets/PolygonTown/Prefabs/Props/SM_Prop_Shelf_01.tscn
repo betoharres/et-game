@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://d148p7kq1l2te"]
 
 [ext_resource type="ArrayMesh" uid="uid://cenl0rjwf8o1i" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01.res" id="1_gppyt"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_r3usg"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_r3usg"]
 [ext_resource type="ArrayMesh" uid="uid://cttl4pf4s4q3r" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Door_01.res" id="3_r3usg"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_jdvx6"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_jdvx6"]
 [ext_resource type="ArrayMesh" uid="uid://bbwipgidldie4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_01.res" id="5_i5gk6"]
 [ext_resource type="ArrayMesh" uid="uid://dmp27fdtjwdqb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_02.res" id="6_jdvx6"]
 [ext_resource type="ArrayMesh" uid="uid://xeb38xgh7n65" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_03.res" id="7_2glf6"]

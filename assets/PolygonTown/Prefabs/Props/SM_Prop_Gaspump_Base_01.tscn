@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bic8sregfw1xc"]
 
 [ext_resource type="ArrayMesh" uid="uid://jitsu2nlffh3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Gaspump_Base_01.res" id="1_fwp63"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rusv6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rusv6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwp63"]
 size = Vector3(4.704712, 0.17382813, 1.9707031)

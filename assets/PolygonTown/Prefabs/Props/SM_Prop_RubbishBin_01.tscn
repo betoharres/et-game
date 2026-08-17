@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cpgq2jsagujea"]
 
 [ext_resource type="ArrayMesh" uid="uid://d2nb7p3do2wve" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_RubbishBin_01.res" id="1_2q6eo"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fmnu2"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fmnu2"]
 [ext_resource type="ArrayMesh" uid="uid://cgq3ndw8xl04" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_RubbishBin_01_Lid.res" id="3_fmnu2"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_02j0y"]

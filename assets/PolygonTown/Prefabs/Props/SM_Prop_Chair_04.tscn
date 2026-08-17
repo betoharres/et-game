@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwp4vkyhnomg"]
 
 [ext_resource type="ArrayMesh" uid="uid://xjrffotg535y" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Chair_04.res" id="1_2yugy"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_eqmx6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_eqmx6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2yugy"]
 size = Vector3(0.62060547, 0.51390076, 0.078201294)
