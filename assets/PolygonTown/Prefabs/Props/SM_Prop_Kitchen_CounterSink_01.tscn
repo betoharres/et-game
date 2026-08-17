@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqdrwn4l8ou03"]
 
 [ext_resource type="ArrayMesh" uid="uid://mg1pnvtds2kb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterSink_01.res" id="1_hemi7"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ceupe"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ceupe"]
 [ext_resource type="ArrayMesh" uid="uid://dxjlcmv44vw85" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterSink_01_Door_01.res" id="3_ceupe"]
 [ext_resource type="ArrayMesh" uid="uid://duvkj56d84b2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_CounterSink_01_Door_02.res" id="4_jet2s"]
 

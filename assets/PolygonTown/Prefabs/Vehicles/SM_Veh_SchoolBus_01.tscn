@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=4 uid="uid://dkmrtm8xjx3fq"]
 
-[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://Assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="2_53t64"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yud60"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="2_53t64"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yud60"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_baq1e"]
 resource_name = "Default-Line"

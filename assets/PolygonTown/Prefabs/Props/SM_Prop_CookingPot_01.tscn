@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bstgsxmkd2jhf"]
 
 [ext_resource type="ArrayMesh" uid="uid://bm68oytf41le2" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CookingPot_01.res" id="1_1p4am"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_w1epj"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_w1epj"]
 [ext_resource type="ArrayMesh" uid="uid://c6buq8sh8xy2y" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CookingPot_Lid_01.res" id="3_w1epj"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rvhhk"]

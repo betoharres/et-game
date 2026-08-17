@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqoyp6gukrtna"]
 
 [ext_resource type="ArrayMesh" uid="uid://costgc5tv5dki" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Road_Parking_01.res" id="1_n2pac"]
-[ext_resource type="Material" uid="uid://c34v7epm3njh5" path="res://Assets/PolygonTown/Materials/Misc/PolygonTown_Road_mat.tres" id="2_xqg1m"]
+[ext_resource type="Material" uid="uid://c34v7epm3njh5" path="res://assets/PolygonTown/Materials/Misc/PolygonTown_Road_mat.tres" id="2_xqg1m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7i7db"]
 size = Vector3(10, 0, 4.9999924)

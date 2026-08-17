@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://5gperre03t3t"]
 
 [ext_resource type="ArrayMesh" uid="uid://clvcc0md43syg" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Window_02.res" id="1_fny0t"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_de8uw"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_de8uw"]
 [ext_resource type="ArrayMesh" uid="uid://c6w0ujorgabwt" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Window_Glass_02.res" id="3_de8uw"]
-[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Assets/PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="4_yo87l"]
+[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://assets/PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="4_yo87l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vx318"]
 points = PackedVector3Array(0.63654184, 0.3893665, 0.12056999, 1.8757627, 0.3893665, 0.12056999, 1.8499254, 0.42961428, 0.35166728, 0.66225785, 0.4584677, 0.35166728, 0.63654184, 0.57057333, 0.3624069, 0.6665034, 2.1038475, -0.11018557, 0.67293245, 0.64518785, -0.1363024, 0.7013171, 0.61651826, -0.1363024, 1.8266354, 0.5953836, -0.11399326, 1.8105023, 2.2664928, -0.13625358, 1.8757627, 0.57057333, 0.3624069, 0.7172077, 2.2407637, 0.28513038, 0.6896721, 2.0744429, 0.28513038, 0.7013171, 2.2668602, -0.1363024, 1.8037094, 0.6541931, -0.13327578, 1.7948543, 2.2407637, 0.28513038)

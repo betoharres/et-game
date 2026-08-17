@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bixr6duucgu5n"]
 
 [ext_resource type="ArrayMesh" uid="uid://4pnvx7yiu23v" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02.res" id="1_7hmhw"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_47hjj"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_47hjj"]
 [ext_resource type="ArrayMesh" uid="uid://crq0iqi328nxr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_01.res" id="3_47hjj"]
 [ext_resource type="ArrayMesh" uid="uid://d3gvidkxvqax1" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_02.res" id="4_f7ov0"]
 [ext_resource type="ArrayMesh" uid="uid://deb4xhxqg38mb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Fridge_02_Door_03.res" id="5_4cb8m"]

@@ -92,7 +92,10 @@ func _on_play_pressed() -> void:
 	var photo_alert_system : Node = get_node_or_null("/root/PhotoAlertSystem")
 	if photo_alert_system != null:
 		photo_alert_system.reset()
-	_fade_out_and_call(func() -> void: get_tree().change_scene_to_file("res://scenes/world.tscn"))
+	var music_tween : Tween = create_tween()
+	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.7)
+	var scene_transition : Node = get_node("/root/SceneTransition")
+	scene_transition.warp_to("res://scenes/world.tscn")
 
 func _on_options_pressed() -> void:
 	_play_click()

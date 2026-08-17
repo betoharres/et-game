@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4wurix6hwjwr"]
 
 [ext_resource type="ArrayMesh" uid="uid://du1cn8317gck5" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Grass_Patch_04.res" id="1_6lu60"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ulkin"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ulkin"]
 
 [node name="SM_Env_Grass_Patch_04" type="MeshInstance3D"]
 gi_mode = 2

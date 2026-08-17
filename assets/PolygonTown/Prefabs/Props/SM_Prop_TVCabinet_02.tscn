@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bnqjoifiqqhi"]
 
 [ext_resource type="ArrayMesh" uid="uid://beokphgupnjhs" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02.res" id="1_ms2nk"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vi3"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vi3"]
 [ext_resource type="ArrayMesh" uid="uid://pknakib1wkn6" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_01.res" id="3_c6vi3"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_c5j12"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_c5j12"]
 [ext_resource type="ArrayMesh" uid="uid://by0tc7ffe02np" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_02.res" id="5_c0l3l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j76ee"]

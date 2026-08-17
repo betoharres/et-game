@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bv2bv7eiary4o"]
 
 [ext_resource type="ArrayMesh" uid="uid://c22nesicssniw" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Plant_Pumpkin_01.res" id="1_p04yt"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mcudg"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mcudg"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1u0e0"]
 points = PackedVector3Array(0.07220417, 0.10854253, -0.36904752, 0.042917192, 0.07365249, -0.29195175, -0.5313048, 0.01788295, -0.19888689, -0.62130463, 0.18857157, -0.1821775, 0.01873082, 0.42865866, -0.315641, 0.68607885, 0.055280715, -0.07547018, 0.0024420023, -0.074848235, 0.19113952, -0.99479574, 0.028568022, 0.48450536, -0.83454007, 0.34868413, 0.29774106, 0.4723497, 0.4552623, 0.4577492, 0.62454325, 0.367274, 0.114572495, -0.08772242, 0.48208404, 0.24444032, 0.63244087, 0.34862962, 0.51105, 0.10428828, -0.056858055, 0.46102762, 0.0073780417, 0.015320711, 0.612258, -0.6609572, 0.31248572, 0.7112452)

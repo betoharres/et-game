@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbpa2r2a4adb3"]
 
 [ext_resource type="ArrayMesh" uid="uid://b2rpuqdoh8scg" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Drink_01.res" id="1_3yj42"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6vpn5"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6vpn5"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_33njg"]
 points = PackedVector3Array(0.0009085387, 0.22794174, 0.05505053, 0.008751143, 0.24940383, 0.05417978, -0.0027726851, 0.22690944, 0.054495424, -0.0027915165, 0.012480555, 0.05482196, -0.04229641, 0.24940383, 0.03454434, 0.04948939, 0.015337367, 0.029091261, 0.048039492, 0.24940383, 0.030615076, -0.046693165, 0.010223914, 0.028492622, 0.045742262, 0.004150189, 0.025347032, -0.04622242, 0.24940383, -0.032220505, 0.048208963, 0.01817017, -0.029913016, 0.048208963, 0.22194004, -0.029913016, 0.004825134, 0.24940383, -0.05578521, -0.046693165, 0.013872951, -0.030087166, 0.0009085387, 0.005062448, -0.052704927, -0.0027726851, 0.016705755, -0.056144394)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bjb3rw78dsoq7"]
 
 [ext_resource type="ArrayMesh" uid="uid://btx4iyspaa35l" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Pool_Ladder_02.res" id="1_1j1wc"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fd1y3"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fd1y3"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wk824"]
 points = PackedVector3Array(-0.3821825, 0.31507134, -0.2425389, -0.36835507, -0.79916847, -0.27473488, -0.38202888, -0.7758142, 0.24238825, -0.3821825, 0.3152324, 0.2425018, -0.36405322, 0.36999404, -0.27149826, -0.30943486, -0.84378314, -0.2900663, -0.30943486, -0.84378314, 0.29002923, -0.16647457, 0.6160997, 0.2711205, 0.05614707, 0.7993903, -0.27479166, 0.4026011, 0.10536617, -0.2900663, -0.07214075, -0.5535461, -0.2900663, 0.4026011, 0.10536617, 0.29002923, 0.05614707, 0.79955137, 0.27475458, 0.3068845, 0.8016453, -0.25054532, 0.37986264, 0.67231095, -0.2739967, 0.37986264, 0.67231095, 0.27390283)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://oguft8artbhr"]
 
 [ext_resource type="ArrayMesh" uid="uid://d2cjluisixve6" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopCounter_01.res" id="1_cwkfj"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_2og23"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_2og23"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cwkfj"]
 size = Vector3(2.9262085, 0.9463501, 0.6218262)

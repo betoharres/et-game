@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dyaxdd2qhi5go"]
 
 [ext_resource type="ArrayMesh" uid="uid://ddhqsyw3up3oy" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Manhole_01.res" id="1_p6gck"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_26now"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_26now"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hcdlu"]
 points = PackedVector3Array(0.50006247, -0.008069374, 0.07538748, 0.467821, 0.04032806, 0.23671645, 0.32253534, -0.008069374, 0.4141683, -0.14526466, -0.008069374, 0.49488252, -0.14526466, -0.008062944, -0.50563556, 0.14520717, -0.008062944, -0.50563556, 0.38721728, -0.008062944, -0.34410757, 0.467821, 0.04032806, -0.24736992, 0.12908643, 0.04032806, 0.511105, -0.02027917, 0.05761791, -0.0529989, -0.43573648, 0.04034092, 0.28488618, -0.46797794, -0.008062944, 0.23671645, -0.4518572, -0.008062944, -0.26339334, -0.30667105, 0.04034092, -0.4248218, 0.14520717, 0.04032806, -0.50563556, -0.5164397, 0.04034092, -0.037572622)

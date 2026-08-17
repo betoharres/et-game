@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cpofagegjjej0"]
 
 [ext_resource type="ArrayMesh" uid="uid://0xvxarh70u2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02.res" id="1_0ko2e"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_86xby"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_86xby"]
 [ext_resource type="ArrayMesh" uid="uid://cuiwcynbwiffd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_01.res" id="3_86xby"]
-[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://Assets/PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_yyrxf"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://assets/PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_yyrxf"]
 [ext_resource type="ArrayMesh" uid="uid://crbh2ajwrx1lu" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_02.res" id="5_lv5xo"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fl3yv"]

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "node",
+      "args": ["C:\\tools\\godot-mcp\\build\\index.js"],
+      "env": {
+        "GODOT_PATH": "C:\\Godot_v4.7.1\\Godot_v4.7.1-stable_win64.exe"
+      }
+    }
+  }
+}

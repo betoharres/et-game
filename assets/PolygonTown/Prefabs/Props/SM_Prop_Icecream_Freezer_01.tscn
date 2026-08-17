@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://caq22r1o8gp3s"]
 
 [ext_resource type="ArrayMesh" uid="uid://pfi0fofildg8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_01.res" id="1_daynf"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_b6vbr"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_b6vbr"]
 [ext_resource type="ArrayMesh" uid="uid://bojfg7olmdy1c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_Door_01.res" id="3_b6vbr"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_ed24s"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_ed24s"]
 [ext_resource type="ArrayMesh" uid="uid://b0drtqe6pmulo" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Icecream_Freezer_Door_02.res" id="5_2itge"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_smq5j"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c7dfp8pkrs43i"]
 
 [ext_resource type="ArrayMesh" uid="uid://3kbjmt0nghur" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_WashingLine_01.res" id="1_vssi3"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_q4566"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_q4566"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_82n0f"]
 points = PackedVector3Array(2.7871335, 2.3086815, 0.11637092, 2.700363, 2.2214165, 0.5519293, 2.7871335, -0.043560028, 0.11637092, 2.7871335, -0.043560028, -0.14469802, 2.700363, 2.2214165, -0.5802564, -2.613372, 2.3086815, -0.14480889, -2.7874587, 2.3086815, 0.11637092, -2.7006881, 2.2214165, 0.55204016, 0.2604215, 0.827939, 0.55204016, -2.7874587, -0.043560028, 0.11637092, 0.43396258, 0.91566455, -0.4932334, 1.742068, 1.4374127, -0.5802564, -2.7874587, -0.043560028, -0.14480889, -1.9164798, 0.8274785, -0.4932334, -2.7001424, 2.2214165, -0.58036727, -0.26238394, 0.827939, 0.55204016)

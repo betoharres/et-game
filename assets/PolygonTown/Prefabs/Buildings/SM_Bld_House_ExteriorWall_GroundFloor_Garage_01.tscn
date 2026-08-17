@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0ltyff7h8npn"]
 
 [ext_resource type="ArrayMesh" uid="uid://c6rk8utjevuq5" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_ExteriorWall_GroundFloor_Garage_01.res" id="1_oannt"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_806wa"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_806wa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ah08w"]
 size = Vector3(2.5, 3.9427848, 0.20066652)

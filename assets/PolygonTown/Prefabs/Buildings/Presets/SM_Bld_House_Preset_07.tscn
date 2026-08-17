@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bocja1n6lcixv"]
 
-[ext_resource type="ArrayMesh" uid="uid://bn02mliketmud" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_07.res" id="1_cnup6"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_h7u2p"]
-[ext_resource type="Material" uid="uid://d3l5ij48pohbn" path="res://Assets/PolygonTown/Materials/Misc/Window_Glass_Opaque_mat.tres" id="3_fny8v"]
-[ext_resource type="Shape3D" uid="uid://cjckci7ume8qh" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Preset_07_COLLISION.res" id="4_h7u2p"]
+[ext_resource type="ArrayMesh" uid="uid://bn02mliketmud" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_07.res" id="1_cnup6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_h7u2p"]
+[ext_resource type="Material" uid="uid://d3l5ij48pohbn" path="res://assets/PolygonTown/Materials/Misc/Window_Glass_Opaque_mat.tres" id="3_fny8v"]
+[ext_resource type="Shape3D" uid="uid://cjckci7ume8qh" path="res://assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Preset_07_COLLISION.res" id="4_h7u2p"]
 
 [node name="SM_Bld_House_Preset_07" type="MeshInstance3D"]
 gi_mode = 2

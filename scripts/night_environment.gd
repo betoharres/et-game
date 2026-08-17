@@ -33,7 +33,7 @@ enum QualityLevel {
 
 @export_group("Fog and Atmosphere")
 @export_color_no_alpha var fog_color : Color = Color(0.1, 0.18, 0.32)
-@export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.009
+@export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.018
 @export_range(0.0, 2.0, 0.01) var fog_drift_speed : float = 0.18
 @export_range(0, 256, 1) var atmospheric_particle_amount : int = 96
 
@@ -105,7 +105,9 @@ func _apply_inspector_settings() -> void:
 		_sky_material.set_shader_parameter("cloud_speed", cloud_speed * motion_scale)
 
 	moon_visual.basis = Basis.looking_at(normalized_moon_direction, Vector3.UP)
-	moon_light.basis = Basis.looking_at(-normalized_moon_direction, Vector3.UP)
+	# MoonLight is a child of the already rotated MoonVisual. Set its global basis
+	# so the parent's rotation is not applied to the light direction a second time.
+	moon_light.global_basis = Basis.looking_at(-normalized_moon_direction, Vector3.UP)
 	moon_light.light_color = moon_color
 	_base_moon_energy = moon_light_energy
 	moon_light.light_energy = _base_moon_energy * _moon_debug_intensity

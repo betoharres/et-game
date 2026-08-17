@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlkibnwym7vp8"]
 
 [ext_resource type="ArrayMesh" uid="uid://cfknjwnemsk5y" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LaundryBin_02.res" id="1_abbkd"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_dfdaq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_dfdaq"]
 [ext_resource type="ArrayMesh" uid="uid://dkhw0loia0kb2" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LaundryBin_02_Clothes.res" id="3_dfdaq"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ihqbl"]

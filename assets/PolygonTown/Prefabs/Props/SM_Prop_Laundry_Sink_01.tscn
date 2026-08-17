@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d1se83b1xeba3"]
 
 [ext_resource type="ArrayMesh" uid="uid://dkm88wy54vpkg" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_Sink_01.res" id="1_4yxv3"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_h3ogn"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_h3ogn"]
 [ext_resource type="ArrayMesh" uid="uid://wjwt3sm5nhfv" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_Sink_CabinetDoor_01.res" id="3_h3ogn"]
 [ext_resource type="ArrayMesh" uid="uid://cqisfgjb3o7y" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Laundry_Sink_CabinetDoor_02.res" id="4_jsktg"]
 

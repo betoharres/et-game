@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://33japgdhljok"]
 
 [ext_resource type="ArrayMesh" uid="uid://cj1hxrgbn6kmm" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Window_Shutters_Closed_01.res" id="1_nhwlo"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6t1wr"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6t1wr"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_84pp6"]
 points = PackedVector3Array(0.7103996, 0.55992335, 0.27152723, 0.7103996, 0.55992335, 0.35323614, 0.7103996, 2.3030474, 0.27152723, 1.7997453, 0.55992335, 0.27152723, 1.7997453, 0.55992335, 0.35323614, 0.7103996, 2.3030474, 0.35323614, 1.7997453, 2.3030474, 0.27152723, 1.7997453, 2.3030474, 0.35323614)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpxm80seqifg5"]
 
 [ext_resource type="ArrayMesh" uid="uid://b1v2f3b1tt1my" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Garden_Trowel_01.res" id="1_esol2"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_7t0sf"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_7t0sf"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c3x1a"]
 points = PackedVector3Array(0.083452165, -0.008902846, -0.14012714, 0.018434227, 0.01998239, 0.09102261, 0.083452165, -0.030571014, -0.14012714, 0.0689947, -0.008902846, -0.3495557, 0.061741576, -0.0016970895, -0.32787973, 0.011197366, 0.01998239, -0.27728745, -0.01768504, 0.01998239, 0.09102261, 0.018434227, -0.02334829, 0.09102261, 0.054553494, -0.037799392, -0.36408174, -0.068245515, -0.008902846, -0.3495557, -0.04656745, -0.037799392, -0.3712769, -0.01044818, 0.01998239, -0.27728745, -0.01768504, -0.02334829, 0.09102261, -0.061008655, 0.0055256337, -0.13293199, -0.08268672, -0.008902846, -0.14012714, -0.08268672, -0.030571014, -0.14012714)

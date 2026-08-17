@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://6ff2o081od06"]
 
 [ext_resource type="ArrayMesh" uid="uid://br7ryrr7o4xu1" path="res://assets/PolygonTown/Models/Generic/extracted/SM_Generic_Ground_Tile_01.res" id="1_6hxw3"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_pwkb0"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_pwkb0"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nnbod"]
 data = PackedVector3Array(5, 0, 0, 5, 0, 5, 0, 0, 5, 0, 0, 5, 0, 0, 0, 5, 0, 0)

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GlobalScore="*uid://cwlo1k62mtyku"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
+SceneTransition="*res://scripts/scene_transition.gd"
 
 [display]
 

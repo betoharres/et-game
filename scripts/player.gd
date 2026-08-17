@@ -84,6 +84,9 @@ var _vision_contacts : Dictionary = {}
 var _eye_light_enabled : bool = false
 var _eye_light_tween : Tween
 var _eye_material : StandardMaterial3D
+var _movement_locked : bool = false
+var _look_yaw_limit : float = 0.0
+var _look_center_yaw : float = 0.0
 
 # Items
 var carried_item : RigidBody3D = null
@@ -104,6 +107,15 @@ func _ready() -> void:
 	health_changed.emit(health, max_health)
 	stamina_changed.emit(stamina, max_stamina)
 
+func set_movement_locked(locked : bool, yaw_limit_degrees : float = 0.0) -> void:
+	_movement_locked = locked
+	if locked:
+		_look_center_yaw = camera_yaw
+		_look_yaw_limit = deg_to_rad(yaw_limit_degrees)
+	else:
+		_look_yaw_limit = 0.0
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -116,6 +128,17 @@ func _input(event: InputEvent) -> void:
 			var maximum_pitch: float = deg_to_rad(camera_pitch_max)
 
 			camera_pitch = clampf(camera_pitch,minimum_pitch,maximum_pitch)
+
+			if _movement_locked and _look_yaw_limit > 0.0:
+				camera_yaw = clampf(
+					camera_yaw,
+					_look_center_yaw - _look_yaw_limit,
+					_look_center_yaw + _look_yaw_limit
+				)
+
+	if _movement_locked:
+		return
+
 	if event.is_action_pressed("toggle_eye_light") and not event.is_echo():
 		set_eye_light_enabled(not _eye_light_enabled)
 		return
@@ -131,6 +154,15 @@ func _input(event: InputEvent) -> void:
 			carried_item = null
 
 func _physics_process(delta: float) -> void:
+	camera_pivot.global_position = (
+		global_position
+		+ Vector3.DOWN * crouch_camera_drop * _crouch_amount
+	)
+	camera_pivot.global_rotation = Vector3(camera_pitch, camera_yaw, 0.0)
+
+	if _movement_locked:
+		return
+
 	_update_jump_state(delta)
 	_update_crouch_state(delta)
 
@@ -138,14 +170,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y += get_gravity().y * delta
 	elif velocity.y <= 0.0:
 		velocity.y = -0.1
-	
-	camera_pivot.global_position = (
-		global_position
-		+ Vector3.DOWN * crouch_camera_drop * _crouch_amount
-	)
-	var camera_rotation : Vector3 = Vector3(camera_pitch,camera_yaw,0.0)
-
-	camera_pivot.global_rotation = camera_rotation
 
 	var input_direction: Vector2 = Input.get_vector("ui_right","ui_left","ui_up","ui_down")
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjji4xc860cf6"]
 
 [ext_resource type="ArrayMesh" uid="uid://b6c8gwn6a3jdn" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_ToiletRoll_03.res" id="1_p371g"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ma3cq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ma3cq"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1asin"]
 points = PackedVector3Array(-0.10458316, 0.040028956, 0.01571028, -0.045682434, 0.43876725, 0.05359292, -0.06711796, 0.4334797, -0.017413557, -0.07790877, -0.0044422746, -0.08201233, -0.06905905, -0.0044422746, 0.08680023, 0.019772097, 0.5641661, -0.01979296, 0.017872743, 0.43837765, 0.06928864, -0.051359612, 0.43236652, -0.05542143, -0.015731141, -0.0044422746, -0.10864498, 0.02866356, -0.0044422746, 0.10458316, 0.058990538, 0.4426077, -0.05901141, 0.06592004, 0.43960214, 0.037897184, 0.081991464, 0.022162542, 0.07790877, 0.081991464, 0.013368482, -0.08201233, 0.099753514, -0.0044422746, -0.037555017, 0.10864498, -0.0044422746, -0.010901496)

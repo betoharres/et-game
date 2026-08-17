@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cf8g2qkau66e3"]
 
 [ext_resource type="ArrayMesh" uid="uid://bgipw2f3ofwgp" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_StairsWall_02.res" id="1_ivcle"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gimk3"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gimk3"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y48oj"]
 points = PackedVector3Array(0.03230673, 2.876534, 0.053479195, 0.03230673, 3.7173572, -0.91635585, -0.032351047, 2.876534, 0.053479195, 0.03230673, -0.032325745, 0.053479195, -0.032351047, 3.7173572, -0.91635585, 0.03230673, 4.105367, -1.3683718, -0.16162863, 2.8121357, 0.053479195, -0.16162863, -0.032325745, 0.053479195, 0.03230673, -0.032325745, -0.011311531, -0.032351047, 4.105367, -1.3683718, 0.03230673, 4.105367, -2.5320725, -0.16162863, 2.8121357, -2.5320725, -0.16162863, -0.032325745, -2.5320725, -0.09695187, -0.032325745, -2.5320725, 0.03230673, 1.3257091, -2.5320725, -0.032351047, 4.105367, -2.5320725)

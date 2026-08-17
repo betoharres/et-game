@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dbstjdfphdmh4"]
 
 [ext_resource type="ArrayMesh" uid="uid://ogs3h8fl2xw7" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Television_DVD_01.res" id="1_b85tn"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_e3kho"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_e3kho"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_da5ft"]
 points = PackedVector3Array(-0.28614008, 0.1028314, -0.20843506, -0.28614008, 0.1028314, 0.2118324, 0.286139, 0.1028314, -0.20843506, -0.26233247, 0, -0.19095135, -0.26233247, 0, 0.19430757, 0.286139, 0.1028314, 0.2118324, 0.26227534, 0, -0.19095135, 0.26227534, 0, 0.19430757)

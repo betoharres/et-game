@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxaclhftsfx8p"]
 
 [ext_resource type="ArrayMesh" uid="uid://cn85tex3w0u2t" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Church_Stand_01.res" id="1_eju5f"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6h1md"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6h1md"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eju5f"]
 size = Vector3(5.393982, 0.41705322, 2.7232056)

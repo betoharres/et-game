@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://6sg646j2pn4c"]
 
 [ext_resource type="ArrayMesh" uid="uid://byxltjf8ltc4c" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ToiletBrush_01.res" id="1_2uu40"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sccwc"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_sccwc"]
 [ext_resource type="ArrayMesh" uid="uid://cswdxri24nnqb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ToiletBrush_Stick_01.res" id="3_sccwc"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jk5ga"]
