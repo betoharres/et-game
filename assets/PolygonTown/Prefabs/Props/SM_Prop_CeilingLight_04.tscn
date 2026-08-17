@@ -3,15 +3,11 @@
 [ext_resource type="ArrayMesh" uid="uid://dmxnp1ga8ufc7" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_CeilingLight_04.res" id="1_5snkm"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_pqabf"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8p4s3"]
-points = PackedVector3Array(-0.91307795, -0.15375638, -0.20250416, -0.8558764, -0.18228576, -0.14541434, -0.91307795, -0.15375638, 0.1969682, -0.84264857, -0.099999994, -0.18709773, 0.9130815, -0.15375638, -0.20250416, -0.8558764, -0.18228576, 0.1684233, 0.8558799, -0.18228576, -0.14541434, 0.9130815, -0.15375638, 0.1969682, -0.84264857, -0.099999994, 0.18152267, 0.84247327, -0.099999994, -0.18709773, 0.8558799, -0.18228576, 0.1684233, 0.84247327, -0.099999994, 0.18152267)
-
-[node name="SM_Prop_CeilingLight_04" type="MeshInstance3D"]
+[node name="SM_Prop_CeilingLight_04" type="MeshInstance3D" unique_id=624081926]
 gi_mode = 2
 mesh = ExtResource("1_5snkm")
 surface_material_override/0 = ExtResource("2_pqabf")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
-shape = SubResource("ConvexPolygonShape3D_8p4s3")
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1084915783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61219454, 0)
+light_bake_mode = 1

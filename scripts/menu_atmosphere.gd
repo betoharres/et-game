@@ -258,9 +258,9 @@ func _draw_stars(viewport_size : Vector2) -> void:
 		var layer : int = int(star["layer"])
 		var base_position : Vector2 = star["position"] * viewport_size
 		var drift : float = fmod(elapsed * parallax_speed[layer] * (layer + 1), viewport_size.x + 40.0) - 20.0
-		var position : Vector2 = base_position + Vector2(drift, 0.0)
-		if position.x > viewport_size.x + 4.0:
-			position.x -= viewport_size.x + 40.0
+		var position2 : Vector2 = base_position + Vector2(drift, 0.0)
+		if position2.x > viewport_size.x + 4.0:
+			position2.x -= viewport_size.x + 40.0
 		var pulse : float = 0.78 + 0.22 * sin(elapsed * TAU / float(star["period"]) + float(star["phase"]))
 		var star_color : Color = Color(0.48, 0.76, 1.0, float(star["alpha"]) * pulse)
 		if float(star["hue"]) > 0.82:

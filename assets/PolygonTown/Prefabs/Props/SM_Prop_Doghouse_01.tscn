@@ -4,14 +4,14 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0smp7"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_52er1"]
-points = PackedVector3Array(-0.6849187, 0.6691469, -0.5822678, -0.61418986, -0.0008049774, -0.45362592, -0.61418986, -0.0008049774, 0.45160598, -0.6648322, 0.68920755, 0.5408347, -0.66495395, 1.1918243, 0.05689621, -0.65071076, 1.2354928, -0.039498508, -0.60457265, 0.76945007, -0.6223745, 0.48302037, 0.0048217867, -0.44981176, 0.48302037, 0.0046994654, 0.4474451, 0.5158892, 0.7641903, 0.5584031, -0.6413371, 0.76394564, 0.55747837, 0.53731483, 1.2488259, -0.0012410879, 0.5244108, 1.2354928, -0.039498508, 0.4987244, 0.74535286, -0.6020322, 0.55874044, 1.1102362, -0.0005476475, 0.5386539, 0.6691469, 0.5408347)
+points = PackedVector3Array(-0.684, -0.001, -0.45, -0.684, -0.001, 0.447, -0.684, 1.235, 0, -0.684, 0.764, -0.602, 0.534, 0.005, -0.45, 0.534, 0.005, 0.447, 0.534, 0.764, 0.558, -0.684, 0.764, 0.558, 0.534, 1.235, 0, 0.534, 0.764, -0.602)
 
-[node name="SM_Prop_Doghouse_01" type="MeshInstance3D"]
+[node name="SM_Prop_Doghouse_01" type="MeshInstance3D" unique_id=1105556527]
 gi_mode = 2
 mesh = ExtResource("1_qpnix")
 surface_material_override/0 = ExtResource("2_0smp7")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
+[node name="MeshCollider" type="StaticBody3D" parent="." unique_id=914632048]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider" unique_id=286674645]
 shape = SubResource("ConvexPolygonShape3D_52er1")
