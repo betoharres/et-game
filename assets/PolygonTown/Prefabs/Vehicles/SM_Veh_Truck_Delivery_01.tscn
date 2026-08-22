@@ -5,13 +5,10 @@
 [ext_resource type="ArrayMesh" uid="uid://5bvvdv6n3pr2" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Delivery_01.res" id="3_thics"]
 [ext_resource type="ArrayMesh" uid="uid://bkeu54w61kov4" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Delivery_Door_L.res" id="4_33nbd"]
 [ext_resource type="ArrayMesh" uid="uid://bpd4lqck5h3fm" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Delivery_Door_R.res" id="5_vpxbi"]
-<<<<<<< HEAD
 [ext_resource type="ArrayMesh" uid="uid://2ultghlo2op5" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Flatbed_01.res" id="6_pqnig"]
 [ext_resource type="ArrayMesh" uid="uid://bkspi8u613af0" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Garbage_01.res" id="7_mqvms"]
 [ext_resource type="ArrayMesh" uid="uid://b57dqiitiobfp" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Garbage_Lid.res" id="8_7cd56"]
 [ext_resource type="ArrayMesh" uid="uid://c82vhj5kunsj2" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Attachment_Garbage_Pile.res" id="9_ujooi"]
-=======
->>>>>>> bf7edf5b3797aef0e0f6f83b05da199d9e16518b
 [ext_resource type="ArrayMesh" uid="uid://nb82vgj2e2sf" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_Glass.res" id="10_077jl"]
 [ext_resource type="ArrayMesh" uid="uid://dij4glsyv56c5" path="res://assets/PolygonTown/Models/Vehicles/extracted/SM_Veh_Truck_SteeringW.res" id="11_38i3e"]
 [ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="11_thics"]

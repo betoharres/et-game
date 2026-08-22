@@ -133,6 +133,8 @@
 [ext_resource type="PackedScene" uid="uid://cff3asicknkww" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_Garbage_01.tscn" id="131_ou5tn"]
 [ext_resource type="PackedScene" uid="uid://karjnsnc4cje" path="res://scenes/Barn01.tscn" id="132_8bem1"]
 [ext_resource type="PackedScene" uid="uid://dc8tgbh2pmvfq" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_01.tscn" id="132_k2fqw"]
+[ext_resource type="PackedScene" path="res://scenes/Dungeon.tscn" id="133_dungeon"]
+[ext_resource type="PackedScene" path="res://scenes/DungeonDoor.tscn" id="134_dungeon_door"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
 vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
@@ -2404,5 +2406,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 312.916, 0.034717113, 18.1604
 
 [node name="Barn01" parent="." unique_id=934191364 instance=ExtResource("132_8bem1")]
 transform = Transform3D(-0.31217417, 0, 0.9500249, 0, 1, 0, -0.9500249, 0, -0.31217417, 42.672985, 9.994506e-06, 24.489218)
+
+[node name="Dungeon" parent="." instance=ExtResource("133_dungeon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2000, 0, 2000)
+
+[node name="DungeonDoor" parent="." instance=ExtResource("134_dungeon_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
+dungeon_path = NodePath("../Dungeon")
 
 [editable path="PropsHolder/Root3"]

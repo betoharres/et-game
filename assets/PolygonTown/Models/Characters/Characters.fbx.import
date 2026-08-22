@@ -43,7 +43,7 @@ _subresources={
 "animations": {
 &"Take 001": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/animation.tres",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/animation.tres",
 "save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://wnjnpfnohjpx",
 "settings/loop_mode": 0,
@@ -2106,7 +2106,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Daughter_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Daughter_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://djhiov5vwloh4"
 },
@@ -2116,7 +2116,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Father_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Father_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://dlpvghc4027cv"
 },
@@ -2126,7 +2126,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Father_02.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Father_02.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://beaf8syry2vxf"
 },
@@ -2136,7 +2136,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Mother_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Mother_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://bysgjbgvh5c6o"
 },
@@ -2146,7 +2146,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Mother_02.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Mother_02.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://ccwyab7wy2b8b"
 },
@@ -2156,7 +2156,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_SchoolBoy_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_SchoolBoy_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://dsa4vqr44d7q5"
 },
@@ -2166,7 +2166,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_SchoolGirl_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_SchoolGirl_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://bxfc2s7bgstmg"
 },
@@ -2176,7 +2176,7 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_ShopKeeper_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_ShopKeeper_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://c3wkmfe2bai4u"
 },
@@ -2186,61 +2186,61 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Son_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Son_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://b8nq71r64q0c"
 },
 "Root Scene_Character_Daughter_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Daughter_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Daughter_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://djhiov5vwloh4"
 },
 "Root Scene_Character_Father_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Father_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Father_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://dlpvghc4027cv"
 },
 "Root Scene_Character_Father_02": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Father_02.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Father_02.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://beaf8syry2vxf"
 },
 "Root Scene_Character_Mother_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Mother_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Mother_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://bysgjbgvh5c6o"
 },
 "Root Scene_Character_Mother_02": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Mother_02.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Mother_02.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://ccwyab7wy2b8b"
 },
 "Root Scene_Character_SchoolBoy_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_SchoolBoy_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_SchoolBoy_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://dsa4vqr44d7q5"
 },
 "Root Scene_Character_SchoolGirl_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_SchoolGirl_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_SchoolGirl_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://bxfc2s7bgstmg"
 },
 "Root Scene_Character_ShopKeeper_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_ShopKeeper_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_ShopKeeper_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://c3wkmfe2bai4u"
 },
 "Root Scene_Character_Son_01": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/PolygonTown/Models/Characters/extracted/Character_Son_01.mesh",
+"save_to_file/fallback_path": "res://assets/PolygonTown/Models/Characters/extracted/Character_Son_01.mesh",
 "save_to_file/make_streamable": "",
 "save_to_file/path": "uid://b8nq71r64q0c"
 }

@@ -38,6 +38,8 @@ scenes/
   DeliveryArea.tscn    Área que converte itens entregues em pontos
   WheatField.tscn      Trigo com vento e reação a personagens e veículos
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
+  DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
+  Dungeon.tscn          Masmorra procedural (GridMap) e portal de retorno
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Controla qualidade e animações atmosféricas do mundo
@@ -49,6 +51,8 @@ scripts/
   debug_menu.gd        Alterna fontes de luz e atmosfera durante a partida
   smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
   photographer.gd      Visão, perseguição e captura de fotos do ET
+  dungeon_door.gd       Porta da masmorra: gera o layout uma vez e teleporta
+  dungeon.gd             Geração procedural da masmorra e portal de retorno
   photo_alert_system.gd Contador global e redução das estrelas
   GlobalScore.gd       Pontuação e inventário globais
   audio/               Passos, ambiente rural e som sintetizado da espingarda
@@ -151,6 +155,16 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   em posições e intervalos variados ao redor da fazenda.
 - Os passos acompanham o movimento do ET, variam amostra e afinação e tentam
   distinguir terra, pedra e madeira pelo objeto sob o personagem.
+- Uma porta (`DungeonDoor.tscn`) na fazenda dá acesso a uma masmorra gerada
+  proceduralmente num `GridMap`: salas retangulares sem sobreposição,
+  conectadas em sequência por corredores, com paredes automáticas nas bordas
+  de cada célula de chão. A masmorra é construída apenas uma vez por sessão,
+  na primeira vez que a porta é tocada; os toques seguintes só teleportam
+  para o layout já existente. Dentro da masmorra, destroços coletáveis
+  (`spaceship_scraps.tscn`) aparecem em algumas das salas geradas e seguem o
+  mesmo fluxo de coleta e entrega do restante do jogo. Um portal de retorno
+  aparece na sala de entrada e teleporta o jogador de volta à posição da
+  porta na fazenda.
 
 ## Controles
 
@@ -220,6 +234,12 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   e perda de visão são parâmetros exportados no fazendeiro.
 - IK procedural movimenta membros do ET e do fazendeiro sem concentrar esse
   comportamento nos scripts principais de gameplay.
+- A masmorra fica isolada, longe das duas `NavigationRegion3D` da fazenda, e
+  não possui `NavigationRegion3D` própria: ela não participa da navegação do
+  fazendeiro nem do fotógrafo, que continuam restritos à fazenda. O estado
+  "já gerada" vive apenas em memória, como variável do próprio nó
+  `Dungeon.tscn` (sem autoload dedicado), e é perdido ao recarregar a cena
+  atual — por exemplo, ao reiniciar após a morte do ET.
 
 ## Estado do protótipo e pendências
 
@@ -241,6 +261,9 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   `Polygon Prototype` antes de redistribuir os PNGs derivados.
 - Os áudios foram fornecidos pelo usuário sem licença anexada. A procedência e
   o uso de cada arquivo estão registrados em `assets/audio/SOURCE.md`.
+- A masmorra procedural não tem objetivo além de coletar os destroços que
+  aparecem nela; não há inimigos, iluminação atmosférica dedicada nem
+  variação visual entre salas além dos materiais reaproveitados da fazenda.
 
 ## Qualidade e validação
 
