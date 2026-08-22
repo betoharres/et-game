@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://brxgcx53ho257"]
+
+[ext_resource type="PackedScene" uid="uid://jnkrjpkd7sgg" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="1_jp4om"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_ys434"]
+
+[node name="SM_Bld_Barn_03" unique_id=997954030 instance=ExtResource("1_jp4om")]
+
+[node name="SM_Bld_Barn_03" parent="." index="0" unique_id=641900358]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Door_01" parent="SM_Bld_Barn_03" index="0" unique_id=375908630]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Door_02" parent="SM_Bld_Barn_03" index="1" unique_id=316311888]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Door_03" parent="SM_Bld_Barn_03" index="2" unique_id=61574439]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Door_04" parent="SM_Bld_Barn_03" index="3" unique_id=1341340897]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Shutter_01" parent="SM_Bld_Barn_03" index="4" unique_id=1854680357]
+surface_material_override/0 = ExtResource("2_ys434")
+
+[node name="SM_Bld_Barn_03_Shutter_02" parent="SM_Bld_Barn_03" index="5" unique_id=119823466]
+surface_material_override/0 = ExtResource("2_ys434")

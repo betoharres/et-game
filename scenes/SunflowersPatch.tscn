@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq4h6uwraybej"]
+[gd_scene format=3 uid="uid://dq4h6uwraybej"]
 
 [ext_resource type="ArrayMesh" uid="uid://bxgxsei6nl1ty" path="res://3dModelos/SM_Prop_Sunflower_02.fbx" id="1_3vnp0"]
 [ext_resource type="Script" uid="uid://b36kfx8jaehrg" path="res://scripts/sunflowers_patch.gd" id="1_eg1uo"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_eg1uo"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_eg1uo"]
 [ext_resource type="ArrayMesh" uid="uid://dmfhf0evtxy7b" path="res://3dModelos/SM_Prop_Sunflower_01.fbx" id="2_we8r4"]
-[ext_resource type="Script" path="res://scripts/vegetation_concealment.gd" id="3_concealment"]
+[ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="3_concealment"]
 
 [sub_resource type="BoxShape3D" id="BoxShapeConcealment"]
 size = Vector3(1.5, 2, 2)

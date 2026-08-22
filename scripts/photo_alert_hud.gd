@@ -4,16 +4,16 @@ const ATTENTION_HOLD_SECONDS : float = 3.0
 const ACTIVE_OPACITY : float = 1.0
 const IDLE_OPACITY : float = 0.42
 const STAR_FILLED : Texture2D = preload(
-	"res://assets/ui/prototype_icons/star_filled.png"
+	"res://Texturas/ui/star_filled.png"
 )
 const STAR_EMPTY : Texture2D = preload(
-	"res://assets/ui/prototype_icons/star_empty.png"
+	"res://Texturas/ui/star_empty.png"
 )
 const WATCH_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/watch.png"
+	"res://Texturas/ui/watch.png"
 )
 const WARNING_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/warning.png"
+	"res://Texturas/ui/warning.png"
 )
 
 @onready var alert_panel : PanelContainer = $Interface/AlertPanel

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bskcllmu8c84n"]
+
+[ext_resource type="ArrayMesh" uid="uid://4vlif5oreonm" path="res://3dModelos/SM_Env_Tree_Peach_Grown_01.fbx" id="1_ctgnk"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_yu2j0"]
+
+[node name="Tree2" type="Node3D" unique_id=749753455]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=64741806]
+mesh = ExtResource("1_ctgnk")
+surface_material_override/0 = ExtResource("2_yu2j0")

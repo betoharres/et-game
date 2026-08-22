@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b6ly07pkwge6a"]
+
+[ext_resource type="PackedScene" uid="uid://7qu3ofny3wqg" path="res://3dModelos/SICS Trees/Forest_Tree_1A.fbx" id="1_1mvw0"]
+[ext_resource type="Material" uid="uid://lvoqa3g1761n" path="res://3dModelos/SICS Trees/trunk1a.tres" id="2_7o3ca"]
+[ext_resource type="Material" uid="uid://cfrhjf8lk4hb6" path="res://3dModelos/SICS Trees/leaves.tres" id="3_b2df4"]
+
+[node name="Forest_Tree_1A" unique_id=1967239554 instance=ExtResource("1_1mvw0")]
+
+[node name="Forest_Tree_1A" parent="." index="0" unique_id=1132550235]
+surface_material_override/0 = ExtResource("2_7o3ca")
+surface_material_override/1 = ExtResource("3_b2df4")

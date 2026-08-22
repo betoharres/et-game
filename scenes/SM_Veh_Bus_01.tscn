@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://co5c2mj1daafm"]
+
+[ext_resource type="ArrayMesh" uid="uid://bt30etop3hwnl" path="res://3dModelos/SM_Veh_Bus_01.res" id="1_erw0b"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_2lcpy"]
+[ext_resource type="ArrayMesh" uid="uid://bfqiowryjkkml" path="res://3dModelos/SM_Veh_Bus_Door_01.res" id="3_6r4v7"]
+[ext_resource type="ArrayMesh" uid="uid://ohbweu1mwnuf" path="res://3dModelos/SM_Veh_Bus_Door_01_Glass.res" id="4_qecet"]
+[ext_resource type="ArrayMesh" uid="uid://cceaqkr2ysoxt" path="res://3dModelos/SM_Veh_Bus_Door_02.res" id="5_d2i4q"]
+[ext_resource type="ArrayMesh" uid="uid://cgwbsadmqrc0o" path="res://3dModelos/SM_Veh_Bus_Door_02_Glass.res" id="6_bjhqs"]
+[ext_resource type="ArrayMesh" uid="uid://bl6tvqhx2xl47" path="res://3dModelos/SM_Veh_Bus_Door_03.res" id="7_kmn0g"]
+[ext_resource type="ArrayMesh" uid="uid://beh455ju2etqa" path="res://3dModelos/SM_Veh_Bus_Door_03_Glass.res" id="8_gp7q7"]
+[ext_resource type="ArrayMesh" uid="uid://d0gpidshkf487" path="res://3dModelos/SM_Veh_Bus_Door_04.res" id="9_k4pu6"]
+[ext_resource type="ArrayMesh" uid="uid://dqefgpc77hpbe" path="res://3dModelos/SM_Veh_Bus_Door_04_Glass.res" id="10_6rj7d"]
+[ext_resource type="ArrayMesh" uid="uid://dwksmk84h5d58" path="res://3dModelos/SM_Veh_Bus_Glass.res" id="11_6pnsk"]
+[ext_resource type="ArrayMesh" uid="uid://bprxebjpbj83u" path="res://3dModelos/SM_Veh_Bus_SteeringW.res" id="12_kvy05"]
+[ext_resource type="ArrayMesh" uid="uid://cgls3etcikkel" path="res://3dModelos/SM_Veh_Bus_Wheel_fl.res" id="13_v0ntm"]
+[ext_resource type="ArrayMesh" uid="uid://dkybkq4cxlsyc" path="res://3dModelos/SM_Veh_Bus_Wheel_fr.res" id="14_rqsha"]
+[ext_resource type="ArrayMesh" uid="uid://cdaegpwuqwbfc" path="res://3dModelos/SM_Veh_Bus_Wheel_rl.res" id="15_sjmpo"]
+[ext_resource type="ArrayMesh" uid="uid://dggrv4v18hudo" path="res://3dModelos/SM_Veh_Bus_Wheel_rr.res" id="16_0qshi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cbrrh"]
+size = Vector3(2.7874107, 3.209589, 11.426151)
+
+[node name="SM_Veh_Bus_01" type="MeshInstance3D" unique_id=1250280951]
+gi_mode = 2
+mesh = ExtResource("1_erw0b")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_01" type="MeshInstance3D" parent="." unique_id=1132647697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.294692, 1.6550765, 5.719225)
+gi_mode = 2
+mesh = ExtResource("3_6r4v7")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_01_Glass" type="MeshInstance3D" parent="SM_Veh_Bus_Door_01" unique_id=950451962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0059888363, 0.03524697, -0.2651863)
+gi_mode = 2
+mesh = ExtResource("4_qecet")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_02" type="MeshInstance3D" parent="." unique_id=1534034444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.294692, 1.6550765, 4.5389786)
+gi_mode = 2
+mesh = ExtResource("5_d2i4q")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_02_Glass" type="MeshInstance3D" parent="SM_Veh_Bus_Door_02" unique_id=1949971990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0059888363, 0.03524697, 0.25995827)
+gi_mode = 2
+mesh = ExtResource("6_bjhqs")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_03" type="MeshInstance3D" parent="." unique_id=1043051310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.294692, 1.6550765, 0.7077675)
+gi_mode = 2
+mesh = ExtResource("7_kmn0g")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_03_Glass" type="MeshInstance3D" parent="SM_Veh_Bus_Door_03" unique_id=1763110478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0059888363, 0.03524697, -0.26518583)
+gi_mode = 2
+mesh = ExtResource("8_gp7q7")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_04" type="MeshInstance3D" parent="." unique_id=1148896091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.294692, 1.6550765, -0.4724774)
+gi_mode = 2
+mesh = ExtResource("9_k4pu6")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Door_04_Glass" type="MeshInstance3D" parent="SM_Veh_Bus_Door_04" unique_id=2088486377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0059888363, 0.03524697, 0.25995803)
+gi_mode = 2
+mesh = ExtResource("10_6rj7d")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Glass" type="MeshInstance3D" parent="." unique_id=1564003151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11248016, 0)
+gi_mode = 2
+mesh = ExtResource("11_6pnsk")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_SteeringW" type="MeshInstance3D" parent="." unique_id=1256856686]
+transform = Transform3D(1, 0, 0, 0, 0.8760459, -0.48222774, 0, 0.48222774, 0.8760459, 0.7706403, 1.7535827, 5.76643)
+gi_mode = 2
+mesh = ExtResource("12_kvy05")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Wheel_fl" type="MeshInstance3D" parent="." unique_id=907930334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2120223, 0.541633, 3.4539316)
+gi_mode = 2
+mesh = ExtResource("13_v0ntm")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1612026540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2120223, 0.541633, 3.4539316)
+gi_mode = 2
+mesh = ExtResource("14_rqsha")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Wheel_rl" type="MeshInstance3D" parent="." unique_id=928369102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1895403, 0.541633, -1.5614799)
+gi_mode = 2
+mesh = ExtResource("15_sjmpo")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="SM_Veh_Bus_Wheel_rr" type="MeshInstance3D" parent="." unique_id=206742830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1895403, 0.541633, -1.5614799)
+gi_mode = 2
+mesh = ExtResource("16_0qshi")
+surface_material_override/0 = ExtResource("2_2lcpy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1074029647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7839774, 0.6875057)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1544785933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.849102e-05, -0.17450225, 0)
+shape = SubResource("BoxShape3D_cbrrh")
