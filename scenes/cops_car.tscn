@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://couowd6wegplm"]
+
+[ext_resource type="PackedScene" uid="uid://dbhvishwudhdw" path="res://3dModelos/SM_Veh_Car_Police_01.fbx" id="1_f8hie"]
+[ext_resource type="Script" uid="uid://cgekmg1pnkfpj" path="res://scripts/cops_car.gd" id="1_ve12k"]
+[ext_resource type="Texture2D" uid="uid://b6katdfst6l0o" path="res://Texturas/PolygonCity_Texture_02_A.png" id="2_ve12k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vdds8"]
+size = Vector3(1.9258448, 1.0543126, 5.247453)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_io7wd"]
+size = Vector3(1.9258448, 0.5000284, 2.614733)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3p2d"]
+albedo_texture = ExtResource("2_ve12k")
+
+[node name="CopsCar" type="Node3D" unique_id=917484143]
+script = ExtResource("1_ve12k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=95646162]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=85894890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1411648e-05, 0.53082395, 0.15558529)
+shape = SubResource("BoxShape3D_vdds8")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=774090712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1411648e-05, 1.2944816, -0.25337017)
+shape = SubResource("BoxShape3D_io7wd")
+
+[node name="SM_Veh_Car_Police_01" parent="." unique_id=191159772 instance=ExtResource("1_f8hie")]
+
+[node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=1806286519]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=1030170779]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=588875566]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=132005615]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=1322699590]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=903290553]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=1294619005]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=289607353]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
+
+[node name="ArmRed3" type="Node3D" parent="." unique_id=1158455866]
+transform = Transform3D(-0.6785794, 0, 0.73452705, 0, 1, 0, -0.73452705, 0, -0.6785794, -0.431, 1.781, -0.194)
+
+[node name="Red3" type="SpotLight3D" parent="ArmRed3" unique_id=1749445774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+distance_fade_begin = 15.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 30.0
+spot_angle = 20.0
+
+[node name="ArmRed2" type="Node3D" parent="." unique_id=590977176]
+transform = Transform3D(-0.89147866, 0, -0.45306265, 0, 1, 0, 0.45306265, 0, -0.89147866, 0, 1.781, -0.194)
+
+[node name="Red2" type="SpotLight3D" parent="ArmRed2" unique_id=751025401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+distance_fade_begin = 15.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 30.0
+spot_angle = 20.0
+
+[node name="ArmRed1" type="Node3D" parent="." unique_id=1790771256]
+transform = Transform3D(0.7772088, 0, -0.6292428, 0, 1, 0, 0.6292428, 0, 0.7772088, 0.43060437, 1.781, -0.194)
+
+[node name="Red1" type="SpotLight3D" parent="ArmRed1" unique_id=1043142357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+distance_fade_begin = 15.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 30.0
+spot_angle = 20.0
+
+[node name="ArmWhite1" type="Node3D" parent="." unique_id=114161850]
+transform = Transform3D(0.83787054, 0, 0.545869, 0, 1, 0, -0.545869, 0, 0.83787054, 0.21143511, 1.781, -0.19025353)
+
+[node name="White1" type="SpotLight3D" parent="ArmWhite1" unique_id=1246723595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+light_energy = 10.0
+distance_fade_begin = 15.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 30.0
+spot_angle = 20.0
+
+[node name="ArmWhite2" type="Node3D" parent="." unique_id=750172341]
+transform = Transform3D(-0.9875193, 0, 0.15749761, 0, 1, 0, -0.15749761, 0, -0.9875193, -0.21191725, 1.781, -0.19025353)
+
+[node name="White2" type="SpotLight3D" parent="ArmWhite2" unique_id=549122500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+light_energy = 10.0
+distance_fade_begin = 15.0
+distance_fade_shadow = 20.0
+distance_fade_length = 15.0
+spot_range = 30.0
+spot_angle = 20.0
+
+[editable path="SM_Veh_Car_Police_01"]

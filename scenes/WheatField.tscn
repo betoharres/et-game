@@ -1,12 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccf5fvks4od7s"]
+[gd_scene format=3 uid="uid://ccf5fvks4od7s"]
 
 [ext_resource type="ArrayMesh" uid="uid://bvo5uf1iy2dbh" path="res://3dModelos/SM_Prop_Plant_Wheat_04.fbx" id="1_1dqas"]
 [ext_resource type="Script" uid="uid://cj1w7kwevyirr" path="res://scripts/wheat_field.gd" id="1_63ylk"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_nheqg"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_nheqg"]
 [ext_resource type="ArrayMesh" uid="uid://cqswlmlp5j2ce" path="res://3dModelos/SM_Prop_Plant_Wheat_03.fbx" id="3_63ylk"]
 [ext_resource type="ArrayMesh" uid="uid://cldpx4ttprxy2" path="res://3dModelos/SM_Prop_Plant_Wheat_02.fbx" id="4_oqkts"]
 [ext_resource type="ArrayMesh" uid="uid://dtv3rmhtqgqou" path="res://3dModelos/SM_Prop_Plant_Wheat_01.fbx" id="5_nihgy"]
-[ext_resource type="Script" path="res://scripts/vegetation_concealment.gd" id="6_concealment"]
+[ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="6_concealment"]
 
 [sub_resource type="BoxShape3D" id="BoxShapeConcealment"]
 size = Vector3(6.2, 2, 6.2)

@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://di8tol2e7thnq"]
-
-[ext_resource type="ArrayMesh" uid="uid://c2qw766ojt2np" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Flowers_02.res" id="1_43l2a"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_340ju"]
-
-[node name="SM_Prop_Flowers_02" type="MeshInstance3D" unique_id=1628770570]
-gi_mode = 2
-mesh = ExtResource("1_43l2a")
-surface_material_override/0 = ExtResource("2_340ju")

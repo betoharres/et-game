@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://be7win0uc4lai"]
 
 [ext_resource type="ArrayMesh" uid="uid://cj5gy076771ke" path="res://3dModelos/SM_Env_Vege_Rows_02.fbx" id="1_rsgrs"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_q4e8w"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_q4e8w"]
 [ext_resource type="ArrayMesh" uid="uid://cnaoa0v6rl3rd" path="res://3dModelos/SM_Env_Vege_Rows_03.fbx" id="3_g8s67"]
 [ext_resource type="ArrayMesh" uid="uid://b4s531eka7n6e" path="res://3dModelos/SM_Env_Vege_Rows_01.fbx" id="4_ck0t0"]
 [ext_resource type="ArrayMesh" uid="uid://cuye08hnrc2tq" path="res://3dModelos/SM_Env_Tree_Stump_03.fbx" id="5_qfel1"]

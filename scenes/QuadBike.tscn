@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bt7agmpqpyapt"]
+
+[ext_resource type="PackedScene" uid="uid://cx1ovle5o2phw" path="res://3dModelos/SM_Veh_QuadBike_01.fbx" id="1_3sbrf"]
+[ext_resource type="Material" uid="uid://440dsxswjpq4" path="res://Materiais/QuadBike.tres" id="2_3sbrf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3sbrf"]
+size = Vector3(1.1317483, 1.0835837, 2.2097259)
+
+[node name="QuadBike" type="Node3D" unique_id=1548747028]
+
+[node name="SM_Veh_QuadBike_01" parent="." unique_id=918693580 instance=ExtResource("1_3sbrf")]
+
+[node name="SM_Veh_QuadBike_01" parent="SM_Veh_QuadBike_01" index="0" unique_id=865439830]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="0" unique_id=557647553]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01/StaticBody3D" unique_id=1614098937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5399123, 0.0388633)
+shape = SubResource("BoxShape3D_3sbrf")
+
+[node name="SM_Veh_QuadBike_Wheel_fl" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="1" unique_id=1910185135]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Wheel_fr" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="2" unique_id=1685836114]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Wheel_rl" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="3" unique_id=2019929236]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Wheel_rr" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="4" unique_id=1354817177]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_HandleBar_01" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="5" unique_id=1801307253]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Cargo_Front_01" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="6" unique_id=287756180]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Cargo_Back_01" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="7" unique_id=1769021167]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[node name="SM_Veh_QuadBike_Shovel_01" parent="SM_Veh_QuadBike_01/SM_Veh_QuadBike_01" index="8" unique_id=938337710]
+surface_material_override/0 = ExtResource("2_3sbrf")
+
+[editable path="SM_Veh_QuadBike_01"]

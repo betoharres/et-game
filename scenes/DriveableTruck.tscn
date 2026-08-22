@@ -2,17 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dxru6e8607dkp" path="res://scripts/driveable_truck.gd" id="1_oub4l"]
 [ext_resource type="ArrayMesh" uid="uid://cpde58dqb71a0" path="res://3dModelos/SM_Veh_Pickup_02.fbx" id="2_dsrke"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_oub4l"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_oub4l"]
 [ext_resource type="ArrayMesh" uid="uid://bx2188ks8cmi4" path="res://3dModelos/SM_Veh_Pickup_Wheel_fl.fbx" id="2_usi65"]
 [ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="3_oub4l"]
 [ext_resource type="ArrayMesh" uid="uid://c07ntekcwpmid" path="res://3dModelos/SM_Veh_Pickup_Wheel_rr.fbx" id="4_dsrke"]
+[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Materiais/Window_Glass_mat.tres" id="4_jdtfx"]
 [ext_resource type="ArrayMesh" uid="uid://7j17vs7kcg6o" path="res://3dModelos/SM_Veh_Pickup_Wheel_rl.fbx" id="5_jdtfx"]
 [ext_resource type="ArrayMesh" uid="uid://44sig4r5st58" path="res://3dModelos/SM_Veh_Pickup_Wheel_fr.fbx" id="6_6y0hr"]
 [ext_resource type="ArrayMesh" uid="uid://bjke8inefi147" path="res://3dModelos/SM_Veh_Pickup_Steering_Wheel.fbx" id="9_dsrke"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usi65"]
-blend_mode = 3
-cull_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(2.125, 1.518, 5.4646444)
@@ -76,7 +73,7 @@ max_engine_force = 1000.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=229161337]
 mesh = ExtResource("2_dsrke")
 surface_material_override/0 = ExtResource("2_oub4l")
-surface_material_override/1 = SubResource("StandardMaterial3D_usi65")
+surface_material_override/1 = ExtResource("4_jdtfx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=271162186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.095726, 0.059043407)

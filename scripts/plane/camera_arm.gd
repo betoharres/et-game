@@ -25,7 +25,26 @@ func _process(delta : float) -> void:
 	global_position = plane.global_position
 
 	# Follow the TargetArm's rotation.
-	global_rotation = global_rotation.lerp(
-		target_arm.global_rotation,
+	#global_rotation = global_rotation.lerp(
+		#target_arm.global_rotation,
+		#delta * rotation_speed
+	#)
+	# Lerp() fucks up on -180 to +180 transitions
+	
+	global_rotation.x = lerp_angle(
+		global_rotation.x,
+		target_arm.global_rotation.x,
+		delta * rotation_speed
+	)
+	
+	global_rotation.y = lerp_angle(
+		global_rotation.y,
+		target_arm.global_rotation.y,
+		delta * rotation_speed
+	)
+	
+	global_rotation.z = lerp_angle(
+		global_rotation.z,
+		target_arm.global_rotation.z,
 		delta * rotation_speed
 	)

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dw5l2w55rpfyq"]
+
+[ext_resource type="ArrayMesh" uid="uid://bo3t5cpp7qrwn" path="res://3dModelos/SM_Prop_Flag_Wall_01.res" id="1_2g6gi"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_647g3"]
+
+[node name="SM_Prop_Flag_Wall_01" type="MeshInstance3D" unique_id=218520845]
+gi_mode = 2
+mesh = ExtResource("1_2g6gi")
+surface_material_override/0 = ExtResource("2_647g3")

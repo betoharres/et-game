@@ -1,6 +1,6 @@
 extends Node
 
-const WIND_STREAM := preload("res://assets/audio/ambient/wind.wav")
+const WIND_STREAM : Resource = preload("res://assets/audio/ambient/wind.wav")
 const CRICKETS_STREAM := preload("res://assets/audio/ambient/crickets.mp3")
 const DOG_STREAMS : Array[AudioStream] = [
 	preload("res://assets/audio/ambient/dogs/dog_1.wav"),
