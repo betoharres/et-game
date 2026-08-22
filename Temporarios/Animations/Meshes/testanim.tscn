@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cd82jglk8vjgr"]
 
 [ext_resource type="PackedScene" uid="uid://coghhuwbp06mh" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="1_htm0r"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="2_342cg"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_342cg"]
 [ext_resource type="Script" uid="uid://bc8un6hk3hv1g" path="res://Temporarios/Animations/Meshes/testanim_animation_controller.gd" id="3_controller"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]

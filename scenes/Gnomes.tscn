@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://dhy2th4yxy1hj"]
+
+[ext_resource type="PackedScene" uid="uid://baqieqyv0x2c7" path="res://3dModelos/SM_Prop_Gnome_Zombie_01.fbx" id="1_yfxsc"]
+[ext_resource type="PackedScene" uid="uid://cfm4c2bqhn0aj" path="res://3dModelos/SM_Prop_Gnome_Wizard_01.fbx" id="2_5rdrh"]
+[ext_resource type="PackedScene" uid="uid://drbpemnw6cob1" path="res://3dModelos/SM_Prop_Gnome_Theorist_01.fbx" id="3_itlap"]
+[ext_resource type="PackedScene" uid="uid://bhhh03dl5ob0" path="res://3dModelos/SM_Prop_Gnome_Soldier_01.fbx" id="4_r6e8k"]
+[ext_resource type="PackedScene" uid="uid://d101r3kx73tc6" path="res://3dModelos/SM_Prop_Gnome_Santa_01.fbx" id="5_exgho"]
+[ext_resource type="PackedScene" uid="uid://cnoe27nswso5s" path="res://3dModelos/SM_Prop_Gnome_Dwarf_01.fbx" id="6_5qkol"]
+[ext_resource type="PackedScene" uid="uid://gntugyg57238" path="res://3dModelos/SM_Prop_Gnome_Beach_01.fbx" id="7_5etph"]
+[ext_resource type="PackedScene" uid="uid://8q2meyi2usw7" path="res://3dModelos/SM_Prop_Gnome_Basalt_01.fbx" id="8_ubysw"]
+[ext_resource type="Texture2D" uid="uid://bim6icebx4f5p" path="res://Texturas/PolygonXmasGnomes_Texture_01.png" id="9_v4ul4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfxsc"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rdrh"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itlap"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6e8k"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exgho"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qkol"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5etph"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sh0rl"]
+albedo_texture = ExtResource("9_v4ul4")
+
+[node name="Node3D" type="Node3D" unique_id=1193136171]
+
+[node name="SM_Prop_Gnome_Zombie_01" parent="." unique_id=962794040 instance=ExtResource("1_yfxsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47748786, 0, 0.27937126)
+
+[node name="SM_Prop_Gnome_Zombie_01" parent="SM_Prop_Gnome_Zombie_01" index="0" unique_id=1244030435]
+material_override = SubResource("StandardMaterial3D_yfxsc")
+
+[node name="SM_Prop_Gnome_Wizard_01" parent="." unique_id=1869271650 instance=ExtResource("2_5rdrh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.705801, 0, 0.4748305)
+
+[node name="SM_Prop_Gnome_Wizard_01" parent="SM_Prop_Gnome_Wizard_01" index="0" unique_id=1477852644]
+material_override = SubResource("StandardMaterial3D_5rdrh")
+
+[node name="SM_Prop_Gnome_Theorist_01" parent="." unique_id=1411068334 instance=ExtResource("3_itlap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88582575, 0, -0.2748264)
+
+[node name="SM_Prop_Gnome_Theorist_01" parent="SM_Prop_Gnome_Theorist_01" index="0" unique_id=1046933306]
+material_override = SubResource("StandardMaterial3D_itlap")
+
+[node name="SM_Prop_Gnome_Soldier_01" parent="." unique_id=1014580573 instance=ExtResource("4_r6e8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11296719, 0, -0.31935382)
+
+[node name="SM_Prop_Gnome_Soldier_01" parent="SM_Prop_Gnome_Soldier_01" index="0" unique_id=473344097]
+material_override = SubResource("StandardMaterial3D_r6e8k")
+
+[node name="SM_Prop_Gnome_Santa_01" parent="." unique_id=1060892950 instance=ExtResource("5_exgho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5194052, 0, 0.93346024)
+
+[node name="SM_Prop_Gnome_Santa_01" parent="SM_Prop_Gnome_Santa_01" index="0" unique_id=78856900]
+material_override = SubResource("StandardMaterial3D_exgho")
+
+[node name="SM_Prop_Gnome_Dwarf_01" parent="." unique_id=1737568229 instance=ExtResource("6_5qkol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9420154, 0, -0.19780815)
+
+[node name="SM_Prop_Gnome_Dwarf_01" parent="SM_Prop_Gnome_Dwarf_01" index="0" unique_id=914074284]
+material_override = SubResource("StandardMaterial3D_5qkol")
+
+[node name="SM_Prop_Gnome_Beach_01" parent="." unique_id=166741646 instance=ExtResource("7_5etph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051698804, 0, 0.5584122)
+
+[node name="SM_Prop_Gnome_Beach_01" parent="SM_Prop_Gnome_Beach_01" index="0" unique_id=713394385]
+material_override = SubResource("StandardMaterial3D_5etph")
+
+[node name="SM_Prop_Gnome_Basalt_01" parent="." unique_id=201859713 instance=ExtResource("8_ubysw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1345905, 0, 1.3916686)
+
+[node name="SM_Prop_Gnome_Basalt_01" parent="SM_Prop_Gnome_Basalt_01" index="0" unique_id=539934494]
+surface_material_override/0 = SubResource("StandardMaterial3D_sh0rl")
+
+[editable path="SM_Prop_Gnome_Zombie_01"]
+[editable path="SM_Prop_Gnome_Wizard_01"]
+[editable path="SM_Prop_Gnome_Theorist_01"]
+[editable path="SM_Prop_Gnome_Soldier_01"]
+[editable path="SM_Prop_Gnome_Santa_01"]
+[editable path="SM_Prop_Gnome_Dwarf_01"]
+[editable path="SM_Prop_Gnome_Beach_01"]
+[editable path="SM_Prop_Gnome_Basalt_01"]

@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://ci5ffuqrifnlc"]
+
+[ext_resource type="PackedScene" uid="uid://dvdj8tcb7wfhh" path="res://3dModelos/SM_Veh_Bulldozer_01.fbx" id="1_nxreh"]
+[ext_resource type="Script" uid="uid://bn3fak51amfbm" path="res://scripts/dozer.gd" id="1_suqcd"]
+[ext_resource type="Texture2D" uid="uid://bhrmykp42xmrv" path="res://Texturas/PolygonConstruction_Texture_01_A.png" id="2_suqcd"]
+[ext_resource type="Texture2D" uid="uid://dg8053qjw84vh" path="res://Texturas/Track_Texture.png" id="3_nxreh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t56gd"]
+albedo_texture = ExtResource("2_suqcd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_suqcd"]
+albedo_texture = ExtResource("3_nxreh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnklu"]
+albedo_texture = ExtResource("3_nxreh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oidyl"]
+size = Vector3(3.5253985, 4.079465, 5.195018)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nxreh"]
+size = Vector3(2.5518804, 1.9868008, 0.7666832)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_suqcd"]
+size = Vector3(4.5727844, 2.2111738, 1.4409996)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cnklu"]
+size = Vector3(2.5518804, 1.8742597, 1.3704466)
+
+[node name="Dozer" type="Node3D" unique_id=1251112082]
+script = ExtResource("1_suqcd")
+
+[node name="SM_Veh_Bulldozer_01" parent="." unique_id=798230185 instance=ExtResource("1_nxreh")]
+
+[node name="SM_Veh_Bulldozer_01" parent="SM_Veh_Bulldozer_01" index="0" unique_id=400624754]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_l" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="0" unique_id=329944457]
+surface_material_override/0 = SubResource("StandardMaterial3D_suqcd")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_rl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="1" unique_id=619610328]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_ml" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="2" unique_id=1821106206]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_fl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="3" unique_id=1939668026]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_r" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="4" unique_id=47461456]
+surface_material_override/0 = SubResource("StandardMaterial3D_cnklu")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_rr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="5" unique_id=1891481754]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_mr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="6" unique_id=1480441266]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_fr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="7" unique_id=1117133360]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Joystick_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="8" unique_id=1340412972]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Joystick_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="9" unique_id=1510988955]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Lever_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="10" unique_id=1370461324]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Lever_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="11" unique_id=698962299]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Blade" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="12" unique_id=1854415445]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="SM_Veh_Bulldozer_01_Glass" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="13" unique_id=1265658958]
+surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="14" unique_id=735582570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-06, 2.0466614, -0.6707878)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/StaticBody3D" unique_id=1972612463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016483545, 0, 0.38461828)
+shape = SubResource("BoxShape3D_oidyl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/StaticBody3D" unique_id=1399762682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0518575, 3.3557196)
+shape = SubResource("BoxShape3D_nxreh")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/StaticBody3D" unique_id=995446595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9398135, 4.452613)
+shape = SubResource("BoxShape3D_suqcd")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/StaticBody3D" unique_id=1857477176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1107295, -2.902)
+shape = SubResource("BoxShape3D_cnklu")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=147808809]
+transform = Transform3D(-0.71556515, 0.472829, -0.5141977, 0, 0.73609716, 0.67687595, 0.698546, 0.48434886, -0.5267254, -3.839816, 2.3344903, -3.9433787)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2080437900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9249954, 1.9477534, -1.1042166)
+
+[editable path="SM_Veh_Bulldozer_01"]

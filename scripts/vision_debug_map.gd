@@ -11,19 +11,19 @@ const SHORTCUT_FONT : Font = preload(
 	"res://assets/menu/fonts/Oxanium-Regular.ttf"
 )
 const PLAYER_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/player.png"
+	"res://Texturas/ui/player.png"
 )
 const CAMERA_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/camera.png"
+	"res://Texturas/ui/camera.png"
 )
 const WARNING_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/warning.png"
+	"res://Texturas/ui/warning.png"
 )
 const CIRCLE_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/circle.png"
+	"res://Texturas/ui/circle.png"
 )
 const GLOW_RING_ICON : Texture2D = preload(
-	"res://assets/ui/prototype_icons/glow_ring.png"
+	"res://Texturas/ui/glow_ring.png"
 )
 
 var map_visible : bool = true

@@ -55,7 +55,8 @@ var _player_was_input_processing: bool = true
 var _player_camera_was_current: bool = false
 var _player_collision_layer: int = 0
 var _player_collision_mask: int = 0
-
+var current_engine_force: float = 0.0
+var throttle: float = 1200.0
 
 func _ready() -> void:
 	var gravity: float = float(ProjectSettings.get_setting("physics/3d/default_gravity", 9.8))
@@ -71,6 +72,13 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("move_forward"):
+		current_engine_force += throttle
+		current_engine_force = clampf(current_engine_force, 0.0, engine_force)
+	elif event.is_action_pressed("move_backward"):
+		current_engine_force -= throttle
+		current_engine_force = clampf(current_engine_force, 0.0, engine_force)
+	
 	if not event.is_action_pressed("interact") or event.is_echo():
 		return
 
@@ -80,6 +88,8 @@ func _input(event: InputEvent) -> void:
 		try_take_control()
 
 
+	
+	
 func _physics_process(delta: float) -> void:
 	if not plane_controlled:
 		return
@@ -220,7 +230,7 @@ func _apply_engine_and_drag() -> void:
 	var sideways_speed: float = linear_velocity.dot(right)
 	var upward_speed: float = linear_velocity.dot(up)
 
-	apply_central_force(forward * (engine_force + forward_drag_force))
+	apply_central_force(forward * (current_engine_force + forward_drag_force))
 	apply_central_force(-right * sideways_speed * lateral_drag)
 	apply_central_force(-up * upward_speed * vertical_drag)
 

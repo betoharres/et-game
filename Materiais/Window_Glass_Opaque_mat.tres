@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d3l5ij48pohbn"]
+
+[resource]
+resource_name = "Window_Glass_Opaque_mat"
+depth_draw_mode = 1
+albedo_color = Color(0.5417207, 0.690846, 1, 1)
+metallic = 0.252
+roughness = 0.392
+uv1_scale = Vector3(1, 1, 0)

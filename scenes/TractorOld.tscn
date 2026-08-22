@@ -2,12 +2,23 @@
 
 [ext_resource type="ArrayMesh" uid="uid://vafjo1wjumxr" path="res://3dModelos/SM_Veh_TractorOld_01.fbx" id="1_ada6i"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_obwk5"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_gt71q"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="3_gt71q"]
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="4_hqdwh"]
 [ext_resource type="Material" uid="uid://t1b1o10ghl6i" path="res://Materiais/text4A.tres" id="5_q08jp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cpkvi"]
-size = Vector3(2.147, 2.209, 3.346)
+size = Vector3(0.68054885, 1.6325846, 1.4565463)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ada6i"]
+size = Vector3(0.68054885, 1.3237538, 1.0481265)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ada6i"]
+height = 2.116211
+radius = 0.81103516
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_obwk5"]
+height = 1.5537109
+radius = 0.3930664
 
 [node name="Root" type="Node3D" unique_id=1402539885]
 
@@ -24,4 +35,17 @@ surface_material_override/5 = ExtResource("5_q08jp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3841858e-07, 1.0685426, -0.038560033)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SmVehTractorOld01/StaticBody3D" unique_id=1737057108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.760789e-05, -0.25367022, 0.7208234)
 shape = SubResource("BoxShape3D_cpkvi")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="SmVehTractorOld01/StaticBody3D" unique_id=1360628937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.760789e-05, -0.40832257, -0.5301677)
+shape = SubResource("BoxShape3D_ada6i")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SmVehTractorOld01/StaticBody3D" unique_id=1367052406]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.297, -0.838)
+shape = SubResource("CylinderShape3D_ada6i")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SmVehTractorOld01/StaticBody3D" unique_id=530480864]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.682, 1.244)
+shape = SubResource("CylinderShape3D_obwk5")

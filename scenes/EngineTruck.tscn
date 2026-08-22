@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://c50tukg86jx2u"]
+
+[ext_resource type="PackedScene" uid="uid://coygyabdi20is" path="res://3dModelos/SM_Veh_Pickup_03.fbx" id="1_jngmu"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_i1sut"]
+[ext_resource type="Script" uid="uid://3bi3v2yyqmc5" path="res://scripts/engine_truck.gd" id="2_ioe6r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ioe6r"]
+size = Vector3(2.062, 1.856, 1.37)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds531"]
+size = Vector3(2.062, 0.759, 2.596)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
+size = Vector3(2.0622559, 0.5783386, 1.347168)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c00e2"]
+size = Vector3(2.062, 0.201, 1.3523085)
+
+[node name="SM_Veh_Pickup_03" unique_id=330235063 instance=ExtResource("1_jngmu")]
+script = ExtResource("2_ioe6r")
+
+[node name="SM_Veh_Pickup_01" parent="." index="0" unique_id=1527075000]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_01" index="0" unique_id=1583085264]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_01/StaticBody3D" index="0" unique_id=1279198251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9229999, 0.66400003)
+shape = SubResource("BoxShape3D_ioe6r")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SM_Veh_Pickup_01/StaticBody3D" index="1" unique_id=150116945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3740001, -1.318)
+shape = SubResource("BoxShape3D_ds531")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SM_Veh_Pickup_01/StaticBody3D" index="2" unique_id=380056626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2829548, 2.024)
+shape = SubResource("BoxShape3D_ec6vt")
+
+[node name="SM_Veh_Pickup_Glass" parent="SM_Veh_Pickup_01" index="1" unique_id=875341987]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_SteeringW" parent="SM_Veh_Pickup_01" index="2" unique_id=762144205]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_Wheel_fl" parent="SM_Veh_Pickup_01" index="3" unique_id=1042492583]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_Wheel_fr" parent="SM_Veh_Pickup_01" index="4" unique_id=1430598075]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_Wheel_rl" parent="SM_Veh_Pickup_01" index="5" unique_id=1888566280]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_Wheel_rr" parent="SM_Veh_Pickup_01" index="6" unique_id=1476116500]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_01_Engine" parent="." index="1" unique_id=535051144]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="SM_Veh_Pickup_01_Hood" parent="." index="2" unique_id=1059321285]
+surface_material_override/0 = ExtResource("2_i1sut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_01_Hood" index="0" unique_id=433249435]
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="SM_Veh_Pickup_01_Hood/StaticBody3D" index="0" unique_id=1150676962]
+transform = Transform3D(1, -2.071085e-27, 0, -2.071085e-27, 1, 0, 0, 0, 1, -0.009410858, -0.101575375, 0.7733836)
+shape = SubResource("BoxShape3D_c00e2")

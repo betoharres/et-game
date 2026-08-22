@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bft6m1wdkcnij"]
+
+[ext_resource type="PackedScene" uid="uid://cjdswofehfhyg" path="res://3dModelos/SM_Veh_Car_Muscle_01.fbx" id="1_bjgt7"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="2_vamu1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hh4ji"]
+size = Vector3(2.1963022, 1.1155696, 5.642582)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n4y16"]
+size = Vector3(2.1963022, 0.38554358, 2.5396123)
+
+[node name="Node3D" type="Node3D" unique_id=1254061930]
+
+[node name="SM_Veh_Car_Muscle_01" parent="." unique_id=1066690165 instance=ExtResource("1_bjgt7")]
+
+[node name="SM_Veh_Car_Muscle_01" parent="SM_Veh_Car_Muscle_01" index="0" unique_id=1406612632]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="SM_Veh_Car_Muscle_Glass" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="0" unique_id=1600436749]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="Wheel_rl" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="1" unique_id=1110083558]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="Wheel_rr" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="2" unique_id=498059520]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="Wheel_fl" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="3" unique_id=755141085]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="Wheel_fr" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="4" unique_id=1018113513]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="SteeringW" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="5" unique_id=1937991890]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="SM_Veh_Car_Muscle_Plates" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="6" unique_id=984155644]
+surface_material_override/0 = ExtResource("2_vamu1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01" index="7" unique_id=1917055992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8365444, 0.1301856)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01/StaticBody3D" unique_id=385940253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26884437, 0)
+shape = SubResource("BoxShape3D_hh4ji")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SM_Veh_Car_Muscle_01/SM_Veh_Car_Muscle_01/StaticBody3D" unique_id=102706163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47571623, -0.43814087)
+shape = SubResource("BoxShape3D_n4y16")
+
+[editable path="SM_Veh_Car_Muscle_01"]
