@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/player_hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://xtyt5ysc683s" path="res://scripts/player_hud.gd" id="1_hud"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
-[ext_resource type="Shader" path="res://shaders/damage_vignette.gdshader" id="3_vignette"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/heart.png" id="4_heart_icon"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/gauge.png" id="5_stamina_icon"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/warning.png" id="6_warning_icon"]
+[ext_resource type="Shader" uid="uid://px6d0y6wn2xe" path="res://shaders/damage_vignette.gdshader" id="3_vignette"]
+[ext_resource type="Texture2D" uid="uid://df6wrla80ev3i" path="res://Texturas/ui/heart.png" id="4_heart_icon"]
+[ext_resource type="Texture2D" uid="uid://chonlgyphsml3" path="res://Texturas/ui/gauge.png" id="5_stamina_icon"]
+[ext_resource type="Texture2D" uid="uid://c1c2nwy3q7cpw" path="res://Texturas/ui/warning.png" id="6_warning_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StatusPanelStyle"]
 bg_color = Color(0.012, 0.025, 0.04, 0.46)

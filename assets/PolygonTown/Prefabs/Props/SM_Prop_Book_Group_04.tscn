@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://74xhe577xg1p"]
-
-[ext_resource type="ArrayMesh" uid="uid://btjxu3x8qiiml" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Book_Group_04.res" id="1_l8ktn"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_60roo"]
-
-[node name="SM_Prop_Book_Group_04" type="MeshInstance3D" unique_id=874123780]
-gi_mode = 2
-mesh = ExtResource("1_l8ktn")
-surface_material_override/0 = ExtResource("2_60roo")

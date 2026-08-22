@@ -1,8 +1,7 @@
-[gd_resource type="Theme" load_steps=2 format=3]
+[gd_resource type="Theme" format=3 uid="uid://ds6ac3raauq3j"]
 
-[ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-Regular.ttf" id="1_font"]
+[ext_resource type="FontFile" uid="uid://je7ck4n2auv7" path="res://assets/menu/fonts/Oxanium-Regular.ttf" id="1_font"]
 
 [resource]
 default_font = ExtResource("1_font")
 default_font_size = 15
-

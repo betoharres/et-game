@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cadgaprd4qfk3"]
+
+[ext_resource type="ArrayMesh" uid="uid://bdgna3e1tribh" path="res://3dModelos/SM_Prop_CeilingLight_06.res" id="1_66f7j"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_4umfg"]
+
+[node name="SM_Prop_CeilingLight_06" type="MeshInstance3D" unique_id=686688859]
+gi_mode = 2
+mesh = ExtResource("1_66f7j")
+surface_material_override/0 = ExtResource("2_4umfg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1464995662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.807075, 0)
+light_bake_mode = 1

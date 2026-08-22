@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://deeub3siqrmmb" path="res://scripts/delivery_area.gd" id="1_trv2r"]
 [ext_resource type="ArrayMesh" uid="uid://boct5jnx8ug3" path="res://3dModelos/SM_Bld_ConcreteBase_01.fbx" id="2_yf2p4"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1A.tres" id="3_52udj"]
-[ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
-[ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/switch_button.png" id="6_switch_icon"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="3_52udj"]
+[ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
+[ext_resource type="Theme" uid="uid://ds6ac3raauq3j" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
+[ext_resource type="Texture2D" uid="uid://b3b1wfkvyx5cj" path="res://Texturas/ui/switch_button.png" id="6_switch_icon"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
 size = Vector3(4, 4, 4)

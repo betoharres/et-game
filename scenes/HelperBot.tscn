@@ -1,0 +1,896 @@
+[gd_scene format=3 uid="uid://bdw4ajafrmwx7"]
+
+[ext_resource type="PackedScene" uid="uid://do1fkabs8vi5u" path="res://3dModelos/Mechs/Models/SM_Veh_Mech_01.fbx" id="1_kl2fb"]
+[ext_resource type="Script" uid="uid://cg0gmhdi1ju1q" path="res://scripts/helper_bot.gd" id="1_yu2eb"]
+[ext_resource type="Texture2D" uid="uid://dj0u0wcja0fr0" path="res://Texturas/PolygonMech_Texture_01_A.png" id="2_yu2eb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pivyw"]
+albedo_texture = ExtResource("2_yu2eb")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_enter"]
+animation = &"CrouchEnter"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_exit"]
+animation = &"CrouchExit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_idle"]
+animation = &"CrouchIdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_walk"]
+animation = &"CrouchWalk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_fall"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle_to_run"]
+animation = &"IdleToRun"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle_to_walk"]
+animation = &"IdleToWalk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_jump"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_land"]
+animation = &"Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_run"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_run_to_idle"]
+animation = &"RunToIdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_crouch_90_l"]
+animation = &"TurnCrouch90L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_crouch_90_r"]
+animation = &"TurnCrouch90R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_180_l"]
+animation = &"TurnStand180L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_180_r"]
+animation = &"TurnStand180R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_90_l"]
+animation = &"TurnStand90L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_90_r"]
+animation = &"TurnStand90R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_walk"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_walk_to_idle"]
+animation = &"WalkToIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_auto"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_crossfade"]
+xfade_time = 0.15
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_at_end"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_crossfade_fast"]
+xfade_time = 0.08
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kl2fb"]
+states/CrouchEnter/node = SubResource("AnimationNode_crouch_enter")
+states/CrouchEnter/position = Vector2(190, -220)
+states/CrouchExit/node = SubResource("AnimationNode_crouch_exit")
+states/CrouchExit/position = Vector2(430, -90)
+states/CrouchIdle/node = SubResource("AnimationNode_crouch_idle")
+states/CrouchIdle/position = Vector2(430, -220)
+states/CrouchWalk/node = SubResource("AnimationNode_crouch_walk")
+states/CrouchWalk/position = Vector2(680, -220)
+states/End/position = Vector2(1110, 80)
+states/Fall/node = SubResource("AnimationNode_fall")
+states/Fall/position = Vector2(430, 220)
+states/Idle/node = SubResource("AnimationNode_idle")
+states/Idle/position = Vector2(-520, 80)
+states/IdleToRun/node = SubResource("AnimationNode_idle_to_run")
+states/IdleToRun/position = Vector2(-300, 240)
+states/IdleToWalk/node = SubResource("AnimationNode_idle_to_walk")
+states/IdleToWalk/position = Vector2(-300, -80)
+states/Jump/node = SubResource("AnimationNode_jump")
+states/Jump/position = Vector2(190, 220)
+states/Land/node = SubResource("AnimationNode_land")
+states/Land/position = Vector2(680, 220)
+states/Run/node = SubResource("AnimationNode_run")
+states/Run/position = Vector2(-60, 240)
+states/RunToIdle/node = SubResource("AnimationNode_run_to_idle")
+states/RunToIdle/position = Vector2(-300, 150)
+states/Start/position = Vector2(-740, 80)
+states/TurnCrouch90L/node = SubResource("AnimationNode_turn_crouch_90_l")
+states/TurnCrouch90L/position = Vector2(680, -350)
+states/TurnCrouch90R/node = SubResource("AnimationNode_turn_crouch_90_r")
+states/TurnCrouch90R/position = Vector2(430, -350)
+states/TurnStand180L/node = SubResource("AnimationNode_turn_stand_180_l")
+states/TurnStand180L/position = Vector2(-520, 390)
+states/TurnStand180R/node = SubResource("AnimationNode_turn_stand_180_r")
+states/TurnStand180R/position = Vector2(-300, 390)
+states/TurnStand90L/node = SubResource("AnimationNode_turn_stand_90_l")
+states/TurnStand90L/position = Vector2(-740, -80)
+states/TurnStand90R/node = SubResource("AnimationNode_turn_stand_90_r")
+states/TurnStand90R/position = Vector2(-740, 240)
+states/Walk/node = SubResource("AnimationNode_walk")
+states/Walk/position = Vector2(-60, -80)
+states/WalkToIdle/node = SubResource("AnimationNode_walk_to_idle")
+states/WalkToIdle/position = Vector2(-300, 10)
+transitions = ["Start", "Idle", SubResource("Transition_auto"), "Idle", "IdleToWalk", SubResource("Transition_crossfade"), "IdleToWalk", "Walk", SubResource("Transition_at_end"), "Walk", "WalkToIdle", SubResource("Transition_crossfade"), "WalkToIdle", "Idle", SubResource("Transition_at_end"), "Idle", "IdleToRun", SubResource("Transition_crossfade"), "IdleToRun", "Run", SubResource("Transition_at_end"), "Run", "RunToIdle", SubResource("Transition_crossfade"), "RunToIdle", "Idle", SubResource("Transition_at_end"), "Walk", "Run", SubResource("Transition_crossfade"), "Run", "Walk", SubResource("Transition_crossfade"), "Idle", "CrouchEnter", SubResource("Transition_crossfade"), "Walk", "CrouchEnter", SubResource("Transition_crossfade"), "Run", "CrouchEnter", SubResource("Transition_crossfade"), "CrouchEnter", "CrouchIdle", SubResource("Transition_at_end"), "CrouchIdle", "CrouchWalk", SubResource("Transition_crossfade"), "CrouchWalk", "CrouchIdle", SubResource("Transition_crossfade"), "CrouchIdle", "CrouchExit", SubResource("Transition_crossfade"), "CrouchWalk", "CrouchExit", SubResource("Transition_crossfade"), "CrouchExit", "Idle", SubResource("Transition_at_end"), "Idle", "Jump", SubResource("Transition_crossfade_fast"), "Walk", "Jump", SubResource("Transition_crossfade_fast"), "Run", "Jump", SubResource("Transition_crossfade_fast"), "CrouchEnter", "Jump", SubResource("Transition_crossfade_fast"), "CrouchIdle", "Jump", SubResource("Transition_crossfade_fast"), "CrouchWalk", "Jump", SubResource("Transition_crossfade_fast"), "CrouchExit", "Jump", SubResource("Transition_crossfade_fast"), "Jump", "Fall", SubResource("Transition_crossfade_fast"), "Fall", "Land", SubResource("Transition_crossfade_fast"), "Land", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand90L", SubResource("Transition_crossfade"), "TurnStand90L", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand90R", SubResource("Transition_crossfade"), "TurnStand90R", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand180L", SubResource("Transition_crossfade"), "TurnStand180L", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand180R", SubResource("Transition_crossfade"), "TurnStand180R", "Idle", SubResource("Transition_at_end"), "CrouchIdle", "TurnCrouch90L", SubResource("Transition_crossfade"), "TurnCrouch90L", "CrouchIdle", SubResource("Transition_at_end"), "CrouchIdle", "TurnCrouch90R", SubResource("Transition_crossfade"), "TurnCrouch90R", "CrouchIdle", SubResource("Transition_at_end"), "TurnStand90L", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand90L", "Run", SubResource("Transition_crossfade_fast"), "TurnStand90L", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand90L", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Run", SubResource("Transition_crossfade_fast"), "TurnStand90R", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Run", SubResource("Transition_crossfade_fast"), "TurnStand180L", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Run", SubResource("Transition_crossfade_fast"), "TurnStand180R", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Jump", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "CrouchWalk", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "CrouchExit", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "Jump", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "CrouchWalk", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "CrouchExit", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "Jump", SubResource("Transition_crossfade_fast")]
+graph_offset = Vector2(-369, -338)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
+radius = 0.9707031
+height = 5.370117
+
+[sub_resource type="BoxMesh" id="BoxMesh_ec6vt"]
+size = Vector3(100, 5.18911, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yu2eb"]
+size = Vector3(100, 5.18911, 100)
+
+[node name="HelperBot" type="CharacterBody3D" unique_id=2059867114]
+script = ExtResource("1_yu2eb")
+
+[node name="SM_Veh_Mech_01" parent="." unique_id=260607774 instance=ExtResource("1_kl2fb")]
+
+[node name="Skeleton3D" parent="SM_Veh_Mech_01" index="0" unique_id=381832565]
+bones/2/rotation = Quaternion(0.5161225, 0.48570076, -0.50586283, -0.49174705)
+bones/4/rotation = Quaternion(0.97796947, 0.20764598, 0.0013574122, -0.021380145)
+bones/16/rotation = Quaternion(0.16690482, 0.9671542, -0.06843592, 0.17908671)
+bones/31/rotation = Quaternion(0.16690482, 0.9671542, -0.06843592, 0.17908671)
+bones/39/rotation = Quaternion(1, 7.5691723e-06, -1.1177671e-05, -3.5889927e-06)
+bones/56/rotation = Quaternion(0.93968236, 8.9652055e-08, -0.34204844, 8.722439e-09)
+bones/57/rotation = Quaternion(0.9396818, 8.965204e-08, -0.34204984, 8.7225756e-09)
+
+[node name="geo_c_head_01" parent="SM_Veh_Mech_01/Skeleton3D" index="0" unique_id=1478241840]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_02" parent="SM_Veh_Mech_01/Skeleton3D" index="1" unique_id=931002213]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_03" parent="SM_Veh_Mech_01/Skeleton3D" index="2" unique_id=1006719783]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_04" parent="SM_Veh_Mech_01/Skeleton3D" index="3" unique_id=1871754560]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_05" parent="SM_Veh_Mech_01/Skeleton3D" index="4" unique_id=719466460]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_06" parent="SM_Veh_Mech_01/Skeleton3D" index="5" unique_id=1146423499]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_07" parent="SM_Veh_Mech_01/Skeleton3D" index="6" unique_id=589052272]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_head_08" parent="SM_Veh_Mech_01/Skeleton3D" index="7" unique_id=960014268]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_neck" parent="SM_Veh_Mech_01/Skeleton3D" index="8" unique_id=2137222549]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_collar_01" parent="SM_Veh_Mech_01/Skeleton3D" index="9" unique_id=1427995839]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_collar_02" parent="SM_Veh_Mech_01/Skeleton3D" index="10" unique_id=431946494]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_collar_03" parent="SM_Veh_Mech_01/Skeleton3D" index="11" unique_id=1057938571]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_chest" parent="SM_Veh_Mech_01/Skeleton3D" index="12" unique_id=670967363]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cockpit_door_01" parent="SM_Veh_Mech_01/Skeleton3D" index="13" unique_id=1337383691]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cockpit_door_02" parent="SM_Veh_Mech_01/Skeleton3D" index="14" unique_id=829667763]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cockpit_door_03" parent="SM_Veh_Mech_01/Skeleton3D" index="15" unique_id=1029319023]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cockpit_door_saddlebags" parent="SM_Veh_Mech_01/Skeleton3D" index="16" unique_id=586650466]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_exhaust" parent="SM_Veh_Mech_01/Skeleton3D" index="17" unique_id=82226318]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_exhaust" parent="SM_Veh_Mech_01/Skeleton3D" index="18" unique_id=1687744274]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_exhaust" parent="SM_Veh_Mech_01/Skeleton3D" index="19" unique_id=1563187967]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_jetpack_intakes_01" parent="SM_Veh_Mech_01/Skeleton3D" index="20" unique_id=1910643610]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_jetpack_intakes_02" parent="SM_Veh_Mech_01/Skeleton3D" index="21" unique_id=895797353]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_jetpack_intakes_02" parent="SM_Veh_Mech_01/Skeleton3D" index="22" unique_id=2133778273]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_attach_radio" parent="SM_Veh_Mech_01/Skeleton3D" index="23" unique_id=2018363494]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_attach_radio" parent="SM_Veh_Mech_01/Skeleton3D" index="24" unique_id=1001204295]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_01" parent="SM_Veh_Mech_01/Skeleton3D" index="25" unique_id=641324900]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_02" parent="SM_Veh_Mech_01/Skeleton3D" index="26" unique_id=993550513]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_03" parent="SM_Veh_Mech_01/Skeleton3D" index="27" unique_id=1751327050]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_03_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="28" unique_id=1513597440]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_04" parent="SM_Veh_Mech_01/Skeleton3D" index="29" unique_id=1071801647]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_05" parent="SM_Veh_Mech_01/Skeleton3D" index="30" unique_id=1191834316]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_06" parent="SM_Veh_Mech_01/Skeleton3D" index="31" unique_id=1201153023]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_07" parent="SM_Veh_Mech_01/Skeleton3D" index="32" unique_id=264825704]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_08" parent="SM_Veh_Mech_01/Skeleton3D" index="33" unique_id=2105222687]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_08_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="34" unique_id=2029235179]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_01" parent="SM_Veh_Mech_01/Skeleton3D" index="35" unique_id=2011115801]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_02" parent="SM_Veh_Mech_01/Skeleton3D" index="36" unique_id=243996254]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_03" parent="SM_Veh_Mech_01/Skeleton3D" index="37" unique_id=1992954963]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_03_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="38" unique_id=1382400150]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_04" parent="SM_Veh_Mech_01/Skeleton3D" index="39" unique_id=1740553404]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_05" parent="SM_Veh_Mech_01/Skeleton3D" index="40" unique_id=1058213382]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_06" parent="SM_Veh_Mech_01/Skeleton3D" index="41" unique_id=1578309755]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_07" parent="SM_Veh_Mech_01/Skeleton3D" index="42" unique_id=1609324273]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_clavicle" parent="SM_Veh_Mech_01/Skeleton3D" index="43" unique_id=846669188]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_clavicle" parent="SM_Veh_Mech_01/Skeleton3D" index="44" unique_id=35288796]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder" parent="SM_Veh_Mech_01/Skeleton3D" index="45" unique_id=1891467351]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="46" unique_id=1264978859]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="47" unique_id=1737023854]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="48" unique_id=668688426]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="49" unique_id=929403679]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="50" unique_id=1459429867]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_06" parent="SM_Veh_Mech_01/Skeleton3D" index="51" unique_id=9267482]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_07" parent="SM_Veh_Mech_01/Skeleton3D" index="52" unique_id=1199299857]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_07_energyShields" parent="SM_Veh_Mech_01/Skeleton3D" index="53" unique_id=1000657954]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_08_heavy" parent="SM_Veh_Mech_01/Skeleton3D" index="54" unique_id=12068299]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_shoulder_armor_09" parent="SM_Veh_Mech_01/Skeleton3D" index="55" unique_id=1803694927]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder" parent="SM_Veh_Mech_01/Skeleton3D" index="56" unique_id=2126019448]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="57" unique_id=287097578]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="58" unique_id=1886073016]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="59" unique_id=835252759]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="60" unique_id=1383912763]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="61" unique_id=1007946455]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_06" parent="SM_Veh_Mech_01/Skeleton3D" index="62" unique_id=966057570]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_07" parent="SM_Veh_Mech_01/Skeleton3D" index="63" unique_id=225865572]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_07_energyShields" parent="SM_Veh_Mech_01/Skeleton3D" index="64" unique_id=1291683145]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_08_heavy" parent="SM_Veh_Mech_01/Skeleton3D" index="65" unique_id=790449162]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_shoulder_armor_09" parent="SM_Veh_Mech_01/Skeleton3D" index="66" unique_id=1682522257]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow" parent="SM_Veh_Mech_01/Skeleton3D" index="67" unique_id=259776747]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_L_elbow_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="68" unique_id=977520523]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_L_elbow_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="69" unique_id=187910706]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_L_elbow_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="70" unique_id=685117515]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_L_elbow_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="71" unique_id=2102616263]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="72" unique_id=1858278355]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_01" parent="SM_Veh_Mech_01/Skeleton3D" index="73" unique_id=707057695]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_02" parent="SM_Veh_Mech_01/Skeleton3D" index="74" unique_id=1742329069]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_03" parent="SM_Veh_Mech_01/Skeleton3D" index="75" unique_id=1249593179]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_04" parent="SM_Veh_Mech_01/Skeleton3D" index="76" unique_id=969245229]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_05" parent="SM_Veh_Mech_01/Skeleton3D" index="77" unique_id=1756117172]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_06" parent="SM_Veh_Mech_01/Skeleton3D" index="78" unique_id=873677436]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_elbow_attach_weapon_06_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="79" unique_id=538669534]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow" parent="SM_Veh_Mech_01/Skeleton3D" index="80" unique_id=1880560568]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="81" unique_id=369061002]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="82" unique_id=1394034025]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="83" unique_id=1341748731]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="84" unique_id=1291059588]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="85" unique_id=1371321989]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_01" parent="SM_Veh_Mech_01/Skeleton3D" index="86" unique_id=778594717]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_02" parent="SM_Veh_Mech_01/Skeleton3D" index="87" unique_id=360215951]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_03" parent="SM_Veh_Mech_01/Skeleton3D" index="88" unique_id=2024712233]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_04" parent="SM_Veh_Mech_01/Skeleton3D" index="89" unique_id=1495468375]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_05" parent="SM_Veh_Mech_01/Skeleton3D" index="90" unique_id=385698367]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_06" parent="SM_Veh_Mech_01/Skeleton3D" index="91" unique_id=1020763016]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_elbow_attach_weapon_06_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="92" unique_id=1743798865]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_hand" parent="SM_Veh_Mech_01/Skeleton3D" index="93" unique_id=2129362564]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_hand_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="94" unique_id=489437522]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_hand_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="95" unique_id=1049776632]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_hand_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="96" unique_id=25328763]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_hand_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="97" unique_id=2020952564]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_thumb_01" parent="SM_Veh_Mech_01/Skeleton3D" index="98" unique_id=989724991]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_thumb_02" parent="SM_Veh_Mech_01/Skeleton3D" index="99" unique_id=2139138474]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_index_01" parent="SM_Veh_Mech_01/Skeleton3D" index="100" unique_id=1039135373]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_index_02" parent="SM_Veh_Mech_01/Skeleton3D" index="101" unique_id=421497904]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_index_03" parent="SM_Veh_Mech_01/Skeleton3D" index="102" unique_id=1165892616]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_mid_01" parent="SM_Veh_Mech_01/Skeleton3D" index="103" unique_id=553330206]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_mid_02" parent="SM_Veh_Mech_01/Skeleton3D" index="104" unique_id=1573822066]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_mid_03" parent="SM_Veh_Mech_01/Skeleton3D" index="105" unique_id=403752190]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_hand" parent="SM_Veh_Mech_01/Skeleton3D" index="106" unique_id=797855632]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_hand_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="107" unique_id=1425648381]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_hand_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="108" unique_id=2077320289]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_hand_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="109" unique_id=1476686934]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_hand_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="110" unique_id=1073971361]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_thumb_01" parent="SM_Veh_Mech_01/Skeleton3D" index="111" unique_id=824133524]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_thumb_02" parent="SM_Veh_Mech_01/Skeleton3D" index="112" unique_id=239045452]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_index_01" parent="SM_Veh_Mech_01/Skeleton3D" index="113" unique_id=130403637]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_index_02" parent="SM_Veh_Mech_01/Skeleton3D" index="114" unique_id=1768037431]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_index_03" parent="SM_Veh_Mech_01/Skeleton3D" index="115" unique_id=1603107091]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_mid_01" parent="SM_Veh_Mech_01/Skeleton3D" index="116" unique_id=1121154320]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_mid_02" parent="SM_Veh_Mech_01/Skeleton3D" index="117" unique_id=1317331475]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_mid_03" parent="SM_Veh_Mech_01/Skeleton3D" index="118" unique_id=2008105668]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips" parent="SM_Veh_Mech_01/Skeleton3D" index="119" unique_id=777497307]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_rotor" parent="SM_Veh_Mech_01/Skeleton3D" index="120" unique_id=1202293331]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="121" unique_id=53881105]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="122" unique_id=1417532968]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="123" unique_id=25932122]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_belt_01" parent="SM_Veh_Mech_01/Skeleton3D" index="124" unique_id=934158585]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_belt_02" parent="SM_Veh_Mech_01/Skeleton3D" index="125" unique_id=607793447]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_belt_03" parent="SM_Veh_Mech_01/Skeleton3D" index="126" unique_id=114301891]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_belt_04" parent="SM_Veh_Mech_01/Skeleton3D" index="127" unique_id=1412217563]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_hips_belt_04_saddlebags" parent="SM_Veh_Mech_01/Skeleton3D" index="128" unique_id=52790545]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cargo_01" parent="SM_Veh_Mech_01/Skeleton3D" index="129" unique_id=406759153]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cargo_02" parent="SM_Veh_Mech_01/Skeleton3D" index="130" unique_id=9353240]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_c_cargo_03" parent="SM_Veh_Mech_01/Skeleton3D" index="131" unique_id=986397866]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg" parent="SM_Veh_Mech_01/Skeleton3D" index="132" unique_id=704306892]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="133" unique_id=1164183284]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="134" unique_id=1973502597]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="135" unique_id=1446433314]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="136" unique_id=134643709]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperleg_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="137" unique_id=1741433887]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg" parent="SM_Veh_Mech_01/Skeleton3D" index="138" unique_id=1445112199]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="139" unique_id=1071225995]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="140" unique_id=40583775]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="141" unique_id=2068152447]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="142" unique_id=952655923]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperleg_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="143" unique_id=773444824]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg" parent="SM_Veh_Mech_01/Skeleton3D" index="144" unique_id=839407638]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_upperShin_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="145" unique_id=317948100]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="146" unique_id=223377479]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="147" unique_id=1415057641]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="148" unique_id=1151742064]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="149" unique_id=1539323845]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="150" unique_id=183849123]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_06" parent="SM_Veh_Mech_01/Skeleton3D" index="151" unique_id=539155042]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_knee_armor_07" parent="SM_Veh_Mech_01/Skeleton3D" index="152" unique_id=732123648]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_shin_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="153" unique_id=1264397598]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_shin_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="154" unique_id=522341329]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_shin_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="155" unique_id=383508408]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_shin_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="156" unique_id=1725080053]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_lowerleg_shin_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="157" unique_id=575413260]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg" parent="SM_Veh_Mech_01/Skeleton3D" index="158" unique_id=9793595]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_upperShin_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="159" unique_id=132748273]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="160" unique_id=1218946483]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="161" unique_id=1707628339]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="162" unique_id=931966743]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="163" unique_id=1160513546]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="164" unique_id=2103654602]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_06" parent="SM_Veh_Mech_01/Skeleton3D" index="165" unique_id=193191011]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_knee_armor_07" parent="SM_Veh_Mech_01/Skeleton3D" index="166" unique_id=631318439]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_shin_armor_01" parent="SM_Veh_Mech_01/Skeleton3D" index="167" unique_id=1078614141]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_shin_armor_02" parent="SM_Veh_Mech_01/Skeleton3D" index="168" unique_id=22906089]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_shin_armor_03" parent="SM_Veh_Mech_01/Skeleton3D" index="169" unique_id=1968286641]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_shin_armor_04" parent="SM_Veh_Mech_01/Skeleton3D" index="170" unique_id=107874537]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_lowerleg_shin_armor_05" parent="SM_Veh_Mech_01/Skeleton3D" index="171" unique_id=1559065895]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ankle" parent="SM_Veh_Mech_01/Skeleton3D" index="172" unique_id=390563686]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ankle_heel_01" parent="SM_Veh_Mech_01/Skeleton3D" index="173" unique_id=1659837597]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ankle_heel_02" parent="SM_Veh_Mech_01/Skeleton3D" index="174" unique_id=1436815568]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ankle_heel_03" parent="SM_Veh_Mech_01/Skeleton3D" index="175" unique_id=1684641825]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ankle" parent="SM_Veh_Mech_01/Skeleton3D" index="176" unique_id=885750249]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ankle_heel_01" parent="SM_Veh_Mech_01/Skeleton3D" index="177" unique_id=1472107169]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ankle_heel_02" parent="SM_Veh_Mech_01/Skeleton3D" index="178" unique_id=1568032190]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ankle_heel_03" parent="SM_Veh_Mech_01/Skeleton3D" index="179" unique_id=276408261]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ball_01" parent="SM_Veh_Mech_01/Skeleton3D" index="180" unique_id=981890368]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ball_02" parent="SM_Veh_Mech_01/Skeleton3D" index="181" unique_id=2129927595]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ball_03" parent="SM_Veh_Mech_01/Skeleton3D" index="182" unique_id=1011733784]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ball_04" parent="SM_Veh_Mech_01/Skeleton3D" index="183" unique_id=1532339658]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_ball_05" parent="SM_Veh_Mech_01/Skeleton3D" index="184" unique_id=262338807]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ball_01" parent="SM_Veh_Mech_01/Skeleton3D" index="185" unique_id=284660607]
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ball_02" parent="SM_Veh_Mech_01/Skeleton3D" index="186" unique_id=1998767582]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ball_03" parent="SM_Veh_Mech_01/Skeleton3D" index="187" unique_id=1220105956]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ball_04" parent="SM_Veh_Mech_01/Skeleton3D" index="188" unique_id=1475507862]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_ball_05" parent="SM_Veh_Mech_01/Skeleton3D" index="189" unique_id=111916860]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_02_Launcher_01" parent="SM_Veh_Mech_01/Skeleton3D" index="190" unique_id=1924014916]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_06_Launcher" parent="SM_Veh_Mech_01/Skeleton3D" index="191" unique_id=656505555]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_l_chest_attach_weapon_06_Launcher_Emptry" parent="SM_Veh_Mech_01/Skeleton3D" index="192" unique_id=1083337758]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_01_Launcher_01" parent="SM_Veh_Mech_01/Skeleton3D" index="193" unique_id=973483132]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_06_Launcher" parent="SM_Veh_Mech_01/Skeleton3D" index="194" unique_id=1247770188]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="geo_r_chest_attach_weapon_06_Launcher_Empty" parent="SM_Veh_Mech_01/Skeleton3D" index="195" unique_id=1382483922]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_pivyw")
+
+[node name="AnimationTree" type="AnimationTree" parent="SM_Veh_Mech_01" unique_id=1021856296]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_kl2fb")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1768381109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.68442, 0)
+shape = SubResource("CapsuleShape3D_ec6vt")
+
+[node name="CameraArm" type="Node3D" parent="." unique_id=676551859]
+
+[node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=2074308418]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 4.1334314, 6.702528)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=112775075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.763363, 0)
+top_level = true
+mesh = SubResource("BoxMesh_ec6vt")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1423814651]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1034503849]
+shape = SubResource("BoxShape3D_yu2eb")
+
+[editable path="SM_Veh_Mech_01"]

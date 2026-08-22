@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://jos04d6taow7"]
-
-[ext_resource type="ArrayMesh" uid="uid://8drlvlgxaj4j" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Computer_Keyboard_01.res" id="1_2rf4t"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_n3rf8"]
-
-[node name="SM_Prop_Computer_Keyboard_01" type="MeshInstance3D" unique_id=212348225]
-gi_mode = 2
-mesh = ExtResource("1_2rf4t")
-surface_material_override/0 = ExtResource("2_n3rf8")

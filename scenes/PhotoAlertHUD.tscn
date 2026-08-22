@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/photo_alert_hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://c8oblh51s31a2" path="res://scripts/photo_alert_hud.gd" id="1_hud"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
-[ext_resource type="AudioStream" path="res://assets/menu/blip_click_menu.mp3" id="3_photo_blip"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/camera.png" id="4_camera_icon"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/star_filled.png" id="5_star_filled"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/star_empty.png" id="6_star_empty"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/watch.png" id="7_watch_icon"]
-[ext_resource type="Texture2D" path="res://assets/ui/prototype_icons/warning.png" id="8_warning_icon"]
+[ext_resource type="AudioStream" uid="uid://d3li7n02vapyu" path="res://assets/menu/blip_click_menu.mp3" id="3_photo_blip"]
+[ext_resource type="Texture2D" uid="uid://b2h2mc5kkdsoa" path="res://Texturas/ui/camera.png" id="4_camera_icon"]
+[ext_resource type="Texture2D" uid="uid://cgy7k0co3vn6t" path="res://Texturas/ui/star_filled.png" id="5_star_filled"]
+[ext_resource type="Texture2D" uid="uid://brysjniiumo7b" path="res://Texturas/ui/star_empty.png" id="6_star_empty"]
+[ext_resource type="Texture2D" uid="uid://c8tiqqx65j2b" path="res://Texturas/ui/watch.png" id="7_watch_icon"]
+[ext_resource type="Texture2D" uid="uid://c1c2nwy3q7cpw" path="res://Texturas/ui/warning.png" id="8_warning_icon"]
 
 [sub_resource type="StyleBoxFlat" id="PhotoPanelStyle"]
 bg_color = Color(0.012, 0.025, 0.055, 0.48)
