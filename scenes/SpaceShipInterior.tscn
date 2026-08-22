@@ -1,0 +1,459 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/spaceship_interior.gd" id="1_interior"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Hull"]
+albedo_color = Color(0.53, 0.56, 0.61, 1)
+metallic = 0.55
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_Floor"]
+albedo_color = Color(0.32, 0.34, 0.38, 1)
+metallic = 0.4
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_Console"]
+albedo_color = Color(0.09, 0.1, 0.13, 1)
+metallic = 0.3
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_Screen"]
+albedo_color = Color(0.05, 0.2, 0.24, 1)
+emission_enabled = true
+emission = Color(0.2, 0.9, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Window"]
+albedo_color = Color(0.02, 0.05, 0.09, 0.85)
+transparency = 1
+emission_enabled = true
+emission = Color(0.05, 0.12, 0.28, 1)
+emission_energy_multiplier = 1.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_Bed"]
+albedo_color = Color(0.74, 0.71, 0.67, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_Furniture"]
+albedo_color = Color(0.42, 0.34, 0.26, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_Hatch"]
+albedo_color = Color(0.05, 0.3, 0.35, 1)
+emission_enabled = true
+emission = Color(0.18, 0.85, 1, 1)
+emission_energy_multiplier = 3.5
+
+[sub_resource type="CylinderShape3D" id="Shape_DescendPad"]
+radius = 1.6
+height = 1.5
+
+[sub_resource type="Environment" id="Env_Interior"]
+background_mode = 1
+background_color = Color(0.01, 0.015, 0.03, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.08, 0.1, 0.14, 1)
+ambient_light_energy = 1.0
+
+[node name="SpaceShipInterior" type="Node3D"]
+script = ExtResource("1_interior")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_Interior")
+
+[node name="CentralHall" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+use_collision = true
+size = Vector3(8, 0.3, 8)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 0)
+use_collision = true
+size = Vector3(8, 0.3, 8)
+material = SubResource("Mat_Hull")
+
+[node name="Wall000" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.5)
+use_collision = true
+size = Vector3(2.9, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="Wall045" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(0.7071068, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071068, 2.475, 1.5, 2.475)
+use_collision = true
+size = Vector3(2.9, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="Wall135" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(-0.7071068, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071068, 2.475, 1.5, -2.475)
+use_collision = true
+size = Vector3(2.9, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="Wall225" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(-0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071068, -2.475, 1.5, -2.475)
+use_collision = true
+size = Vector3(2.9, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="Wall315" type="CSGBox3D" parent="CentralHall"]
+transform = Transform3D(0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071068, -2.475, 1.5, 2.475)
+use_collision = true
+size = Vector3(2.9, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="HallLight" type="OmniLight3D" parent="CentralHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+light_color = Color(0.75, 0.92, 1, 1)
+light_energy = 3.0
+omni_range = 6.0
+
+[node name="DescendPad" type="Node3D" parent="CentralHall"]
+
+[node name="PadDisc" type="CSGCylinder3D" parent="CentralHall/DescendPad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+radius = 1.5
+height = 0.12
+sides = 24
+material = SubResource("Mat_Hatch")
+
+[node name="DescendTrigger" type="Area3D" parent="CentralHall/DescendPad"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CentralHall/DescendPad/DescendTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("Shape_DescendPad")
+
+[node name="DescendPrompt" type="Label3D" parent="CentralHall/DescendPad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+billboard = 1
+modulate = Color(0.7, 0.95, 1, 1)
+outline_modulate = Color(0, 0.1, 0.15, 1)
+font_size = 32
+text = "PRESSIONE E PARA DESCER"
+visible = false
+
+[node name="CorridorA" type="Node3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 3.5, 0, 0)
+
+[node name="Floor" type="CSGBox3D" parent="CorridorA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 1.1)
+use_collision = true
+size = Vector3(5.0, 0.3, 2.2)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="CorridorA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 1.1)
+use_collision = true
+size = Vector3(5.0, 0.3, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="CorridorA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="CorridorA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="CorridorLight" type="OmniLight3D" parent="CorridorA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
+light_color = Color(0.75, 0.92, 1, 1)
+light_energy = 1.4
+omni_range = 3.5
+
+[node name="RoomA" type="Node3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.7, 0, 0)
+
+[node name="Floor" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 2.75)
+use_collision = true
+size = Vector3(5.0, 0.3, 5.5)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 2.75)
+use_collision = true
+size = Vector3(5.0, 0.3, 5.5)
+material = SubResource("Mat_Hull")
+
+[node name="BackWall" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5.6)
+use_collision = true
+size = Vector3(5.0, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.5, 2.75)
+use_collision = true
+size = Vector3(0.2, 3.0, 5.5)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 2.75)
+use_collision = true
+size = Vector3(0.2, 3.0, 5.5)
+material = SubResource("Mat_Hull")
+
+[node name="RoomLight" type="OmniLight3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 2.75)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 2.2
+omni_range = 5.5
+
+[node name="BunkLower" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85, 0.4, 1.6)
+use_collision = true
+size = Vector3(1.2, 0.4, 2.0)
+material = SubResource("Mat_Bed")
+
+[node name="BunkUpper" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85, 1.3, 1.6)
+use_collision = true
+size = Vector3(1.2, 0.4, 2.0)
+material = SubResource("Mat_Bed")
+
+[node name="Desk" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0.375, 1.0)
+use_collision = true
+size = Vector3(1.0, 0.75, 0.6)
+material = SubResource("Mat_Furniture")
+
+[node name="LockerA" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0.9, 3.8)
+use_collision = true
+size = Vector3(0.6, 1.8, 0.5)
+material = SubResource("Mat_Console")
+
+[node name="LockerB" type="CSGBox3D" parent="RoomA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0.9, 4.6)
+use_collision = true
+size = Vector3(0.6, 1.8, 0.5)
+material = SubResource("Mat_Console")
+
+[node name="CorridorControl" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -3.5)
+
+[node name="Floor" type="CSGBox3D" parent="CorridorControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 1.1)
+use_collision = true
+size = Vector3(6.5, 0.3, 2.2)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="CorridorControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 1.1)
+use_collision = true
+size = Vector3(6.5, 0.3, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="CorridorControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.35, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="CorridorControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="CorridorLight" type="OmniLight3D" parent="CorridorControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
+light_color = Color(0.75, 0.92, 1, 1)
+light_energy = 1.4
+omni_range = 3.5
+
+[node name="RoomControl" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -5.7)
+
+[node name="Floor" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 3.0)
+use_collision = true
+size = Vector3(6.5, 0.3, 6.0)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 3.0)
+use_collision = true
+size = Vector3(6.5, 0.3, 6.0)
+material = SubResource("Mat_Hull")
+
+[node name="BackWall" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6.1)
+use_collision = true
+size = Vector3(6.5, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.35, 1.5, 3.0)
+use_collision = true
+size = Vector3(0.2, 3.0, 6.0)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35, 1.5, 3.0)
+use_collision = true
+size = Vector3(0.2, 3.0, 6.0)
+material = SubResource("Mat_Hull")
+
+[node name="RoomLight" type="OmniLight3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 3.0)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 2.5
+omni_range = 6.0
+
+[node name="Window" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 5.9)
+size = Vector3(5.0, 1.8, 0.1)
+material = SubResource("Mat_Window")
+
+[node name="ConsoleLeft" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0.45, 1.8)
+use_collision = true
+size = Vector3(1.3, 0.9, 0.6)
+material = SubResource("Mat_Console")
+
+[node name="ScreenLeft" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0.925, 1.8)
+size = Vector3(1.0, 0.05, 0.4)
+material = SubResource("Mat_Screen")
+
+[node name="ConsoleCenter" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 1.8)
+use_collision = true
+size = Vector3(1.3, 0.9, 0.6)
+material = SubResource("Mat_Console")
+
+[node name="ScreenCenter" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.925, 1.8)
+size = Vector3(1.0, 0.05, 0.4)
+material = SubResource("Mat_Screen")
+
+[node name="ConsoleRight" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.45, 1.8)
+use_collision = true
+size = Vector3(1.3, 0.9, 0.6)
+material = SubResource("Mat_Console")
+
+[node name="ScreenRight" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.925, 1.8)
+size = Vector3(1.0, 0.05, 0.4)
+material = SubResource("Mat_Screen")
+
+[node name="PilotSeat" type="CSGCylinder3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 2.6)
+use_collision = true
+radius = 0.32
+height = 0.1
+material = SubResource("Mat_Console")
+
+[node name="PilotBackrest" type="CSGBox3D" parent="RoomControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 2.85)
+use_collision = true
+size = Vector3(0.6, 0.6, 0.1)
+material = SubResource("Mat_Console")
+
+[node name="CorridorB" type="Node3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.5, 0, 0)
+
+[node name="Floor" type="CSGBox3D" parent="CorridorB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 1.1)
+use_collision = true
+size = Vector3(5.0, 0.3, 2.2)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="CorridorB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 1.1)
+use_collision = true
+size = Vector3(5.0, 0.3, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="CorridorB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="CorridorB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 1.1)
+use_collision = true
+size = Vector3(0.2, 3.0, 2.2)
+material = SubResource("Mat_Hull")
+
+[node name="CorridorLight" type="OmniLight3D" parent="CorridorB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
+light_color = Color(0.75, 0.92, 1, 1)
+light_energy = 1.4
+omni_range = 3.5
+
+[node name="RoomB" type="Node3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.7, 0, 0)
+
+[node name="Floor" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 2.5)
+use_collision = true
+size = Vector3(5.0, 0.3, 5.0)
+material = SubResource("Mat_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 2.5)
+use_collision = true
+size = Vector3(5.0, 0.3, 5.0)
+material = SubResource("Mat_Hull")
+
+[node name="BackWall" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5.1)
+use_collision = true
+size = Vector3(5.0, 3.0, 0.2)
+material = SubResource("Mat_Hull")
+
+[node name="WallLeft" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.5, 2.5)
+use_collision = true
+size = Vector3(0.2, 3.0, 5.0)
+material = SubResource("Mat_Hull")
+
+[node name="WallRight" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.5, 2.5)
+use_collision = true
+size = Vector3(0.2, 3.0, 5.0)
+material = SubResource("Mat_Hull")
+
+[node name="RoomLight" type="OmniLight3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 2.5)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 2.2
+omni_range = 5.5
+
+[node name="Bed" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.4, 1.4)
+use_collision = true
+size = Vector3(1.3, 0.4, 2.1)
+material = SubResource("Mat_Bed")
+
+[node name="Table" type="CSGCylinder3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.3, 1.2)
+use_collision = true
+radius = 0.4
+height = 0.6
+material = SubResource("Mat_Furniture")
+
+[node name="Stool" type="CSGCylinder3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.225, 2.0)
+use_collision = true
+radius = 0.25
+height = 0.45
+material = SubResource("Mat_Furniture")
+
+[node name="Shelf" type="CSGBox3D" parent="RoomB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0.8, 4.0)
+use_collision = true
+size = Vector3(0.5, 1.6, 1.5)
+material = SubResource("Mat_Console")
