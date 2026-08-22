@@ -19,8 +19,8 @@ const FLOOR_THICKNESS : float = 0.3
 const FLOOR_ITEM_ID : int = 0
 const WALL_ITEM_ID : int = 1
 
-const FLOOR_MATERIAL : Material = preload("res://Materiais/text1A.tres")
-const WALL_MATERIAL : Material = preload("res://Materiais/text3A.tres")
+const FLOOR_MATERIAL : Material = preload("uid://c08ymfckvdpwk")
+const WALL_MATERIAL : Material = preload("uid://dpvrh0fvoa2cq")
 const SCRAP_SCENE : PackedScene = preload("res://scenes/spaceship_scraps.tscn")
 
 const NEIGHBOR_DIRECTIONS : Array[Vector2i] = [
