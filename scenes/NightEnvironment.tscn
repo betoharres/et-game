@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/night_environment.gd" id="1_controller"]
 [ext_resource type="Shader" path="res://shaders/night_sky.gdshader" id="2_sky_shader"]
+[ext_resource type="Shader" path="res://shaders/alien_incident_post.gdshader" id="3_incident_post"]
+[ext_resource type="Script" path="res://scripts/alien_incident_post_process.gd" id="4_post_controller"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_sky_shader")
@@ -31,31 +33,31 @@ background_mode = 2
 background_energy_multiplier = 0.72
 sky = SubResource("Sky_procedural_night")
 ambient_light_source = 2
-ambient_light_color = Color(0.32, 0.38, 0.5, 1)
-ambient_light_energy = 0.08
+ambient_light_color = Color(0.2, 0.34, 0.42, 1)
+ambient_light_energy = 0.1
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 1
 tonemap_mode = 4
-tonemap_exposure = 1.05
-tonemap_agx_contrast = 1.05
+tonemap_exposure = 1.03
+tonemap_agx_contrast = 1.08
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 0.15
-glow_strength = 0.5
-glow_bloom = 0.06
-glow_hdr_threshold = 1.15
-glow_hdr_scale = 1.4
+glow_intensity = 0.28
+glow_strength = 0.72
+glow_bloom = 0.12
+glow_hdr_threshold = 0.92
+glow_hdr_scale = 1.3
 glow_levels/1 = 0.0
-glow_levels/2 = 0.45
-glow_levels/3 = 0.28
-glow_levels/4 = 0.08
+glow_levels/2 = 0.4
+glow_levels/3 = 0.3
+glow_levels/4 = 0.1
 ssao_enabled = true
 ssao_radius = 1.1
 ssao_intensity = 1.6
 ssao_power = 1.35
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.004
-volumetric_fog_albedo = Color(0.12, 0.2, 0.36, 1)
+volumetric_fog_albedo = Color(0.07, 0.18, 0.24, 1)
 volumetric_fog_ambient_inject = 0.1
 volumetric_fog_anisotropy = 0.34
 volumetric_fog_length = 82.0
@@ -64,10 +66,13 @@ volumetric_fog_temporal_reprojection_enabled = true
 volumetric_fog_temporal_reprojection_amount = 0.9
 
 [sub_resource type="FogMaterial" id="FogMaterial_ground"]
-albedo = Color(0.1, 0.18, 0.32, 1)
+albedo = Color(0.06, 0.16, 0.22, 1)
 density = 0.009
 edge_fade = 0.55
 height_falloff = 0.85
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_incident_post"]
+shader = ExtResource("3_incident_post")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_meteor"]
 transparency = 1
@@ -131,6 +136,20 @@ script = ExtResource("1_controller")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_night")
+
+[node name="IncidentPostProcess" type="CanvasLayer" parent="." groups=["alien_post_process"]]
+layer = 1
+script = ExtResource("4_post_controller")
+
+[node name="ScreenFilter" type="ColorRect" parent="IncidentPostProcess"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_incident_post")
+color = Color(1, 1, 1, 1)
 
 [node name="SkyController" type="Node" parent="."]
 

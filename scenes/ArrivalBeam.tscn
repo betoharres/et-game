@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/arrival_beam.gd" id="1_script"]
 [ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="2_beam_shader"]
+[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="3_interference"]
 
 [sub_resource type="ShaderMaterial" id="BeamMaterial"]
 shader = ExtResource("2_beam_shader")
-shader_parameter/beam_color = Color(0.02, 0.5, 0.72, 0.018)
+shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
 shader_parameter/emission_strength = 0.38
 
 [sub_resource type="CylinderMesh" id="BeamMesh"]
@@ -18,7 +19,7 @@ rings = 4
 
 [sub_resource type="ShaderMaterial" id="BeamCoreMaterial"]
 shader = ExtResource("2_beam_shader")
-shader_parameter/beam_color = Color(0.12, 0.86, 1, 0.24)
+shader_parameter/beam_color = Color(0.25, 0.98, 0.75, 0.24)
 shader_parameter/emission_strength = 2.4
 
 [sub_resource type="CylinderMesh" id="BeamCoreMesh"]
@@ -33,6 +34,14 @@ rings = 2
 visible = false
 script = ExtResource("1_script")
 
+[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
+script = ExtResource("3_interference")
+full_strength_radius = 8.0
+fade_radius = 34.0
+intensity = 1.0
+pulse_amount = 0.14
+pulse_frequency = 0.62
+
 [node name="BeamVolume" type="MeshInstance3D" parent="."]
 mesh = SubResource("BeamMesh")
 
@@ -40,7 +49,7 @@ mesh = SubResource("BeamMesh")
 mesh = SubResource("BeamCoreMesh")
 
 [node name="BeamSpotLight" type="SpotLight3D" parent="."]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 0.0
 light_volumetric_fog_energy = 1.0
 shadow_enabled = true
@@ -49,14 +58,14 @@ spot_attenuation = 0.45
 spot_angle = 13.0
 
 [node name="BeamGroundLight" type="OmniLight3D" parent="."]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 0.0
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamCoreLight" type="OmniLight3D" parent="."]
-light_color = Color(0.3, 0.9, 1, 1)
+light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.1

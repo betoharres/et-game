@@ -4,6 +4,7 @@ const ENVIRONMENT_GROUP : StringName = &"debug_environment_lighting"
 const HOUSE_GROUP : StringName = &"debug_house_lighting"
 const UFO_GROUP : StringName = &"ufo_lighting"
 const DELIVERY_GROUP : StringName = &"debug_delivery_lighting"
+const PLAYER_GROUP : StringName = &"debug_player"
 
 @onready var overlay : Control = $Overlay
 @onready var main_panel : VBoxContainer = (
@@ -17,6 +18,12 @@ const DELIVERY_GROUP : StringName = &"debug_delivery_lighting"
 )
 @onready var close_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/CloseButton
+)
+@onready var god_mode_toggle : CheckButton = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/GodModeToggle
+)
+@onready var flight_mode_toggle : CheckButton = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/FlightModeToggle
 )
 @onready var back_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/BackButton
@@ -90,6 +97,8 @@ func _ready() -> void:
 
 	lighting_button.pressed.connect(_show_lighting_panel)
 	close_button.pressed.connect(_close_menu)
+	god_mode_toggle.toggled.connect(_set_god_mode_enabled)
+	flight_mode_toggle.toggled.connect(_set_flight_mode_enabled)
 	back_button.pressed.connect(_show_main_panel)
 	reset_button.pressed.connect(_enable_all_lighting)
 	moon_toggle.toggled.connect(_set_moon_enabled)
@@ -150,6 +159,17 @@ func _show_lighting_panel() -> void:
 
 func _sync_toggles_from_world() -> void:
 	var environment := _get_first_target(ENVIRONMENT_GROUP)
+	var player := _get_first_target(PLAYER_GROUP)
+	_sync_method_toggle(
+		god_mode_toggle,
+		player,
+		&"is_debug_god_mode_enabled"
+	)
+	_sync_method_toggle(
+		flight_mode_toggle,
+		player,
+		&"is_debug_flight_enabled"
+	)
 	_sync_method_toggle(
 		moon_toggle,
 		environment,
@@ -333,6 +353,20 @@ func _set_environment_option(method : StringName, value : Variant) -> void:
 	var environment := _get_first_target(ENVIRONMENT_GROUP)
 	if environment != null and environment.has_method(method):
 		environment.call(method, value)
+
+
+func _set_player_option(method : StringName, value : Variant) -> void:
+	var player := _get_first_target(PLAYER_GROUP)
+	if player != null and player.has_method(method):
+		player.call(method, value)
+
+
+func _set_god_mode_enabled(enabled : bool) -> void:
+	_set_player_option(&"set_debug_god_mode_enabled", enabled)
+
+
+func _set_flight_mode_enabled(enabled : bool) -> void:
+	_set_player_option(&"set_debug_flight_enabled", enabled)
 
 
 func _set_group_option(

@@ -18,9 +18,9 @@ metallic = 0.3
 roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="Mat_Screen"]
-albedo_color = Color(0.05, 0.2, 0.24, 1)
+albedo_color = Color(0.05, 0.22, 0.17, 1)
 emission_enabled = true
-emission = Color(0.2, 0.9, 1, 1)
+emission = Color(0.22, 1, 0.75, 1)
 emission_energy_multiplier = 3.0
 
 [sub_resource type="StandardMaterial3D" id="Mat_Window"]
@@ -39,9 +39,9 @@ albedo_color = Color(0.42, 0.34, 0.26, 1)
 roughness = 0.7
 
 [sub_resource type="StandardMaterial3D" id="Mat_Hatch"]
-albedo_color = Color(0.05, 0.3, 0.35, 1)
+albedo_color = Color(0.05, 0.32, 0.23, 1)
 emission_enabled = true
-emission = Color(0.18, 0.85, 1, 1)
+emission = Color(0.2, 1, 0.72, 1)
 emission_energy_multiplier = 3.5
 
 [sub_resource type="CylinderShape3D" id="Shape_DescendPad"]
@@ -107,7 +107,7 @@ material = SubResource("Mat_Hull")
 
 [node name="HallLight" type="OmniLight3D" parent="CentralHall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
-light_color = Color(0.75, 0.92, 1, 1)
+light_color = Color(0.72, 1, 0.88, 1)
 light_energy = 3.0
 omni_range = 6.0
 
@@ -164,7 +164,7 @@ material = SubResource("Mat_Hull")
 
 [node name="CorridorLight" type="OmniLight3D" parent="CorridorA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
-light_color = Color(0.75, 0.92, 1, 1)
+light_color = Color(0.72, 1, 0.88, 1)
 light_energy = 1.4
 omni_range = 3.5
 
@@ -203,7 +203,7 @@ material = SubResource("Mat_Hull")
 
 [node name="RoomLight" type="OmniLight3D" parent="RoomA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 2.75)
-light_color = Color(0.85, 0.9, 1, 1)
+light_color = Color(0.82, 1, 0.92, 1)
 light_energy = 2.2
 omni_range = 5.5
 
@@ -266,7 +266,7 @@ material = SubResource("Mat_Hull")
 
 [node name="CorridorLight" type="OmniLight3D" parent="CorridorControl"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
-light_color = Color(0.75, 0.92, 1, 1)
+light_color = Color(0.72, 1, 0.88, 1)
 light_energy = 1.4
 omni_range = 3.5
 
@@ -305,7 +305,7 @@ material = SubResource("Mat_Hull")
 
 [node name="RoomLight" type="OmniLight3D" parent="RoomControl"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 3.0)
-light_color = Color(0.85, 0.9, 1, 1)
+light_color = Color(0.82, 1, 0.92, 1)
 light_energy = 2.5
 omni_range = 6.0
 
@@ -389,7 +389,7 @@ material = SubResource("Mat_Hull")
 
 [node name="CorridorLight" type="OmniLight3D" parent="CorridorB"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.1)
-light_color = Color(0.75, 0.92, 1, 1)
+light_color = Color(0.72, 1, 0.88, 1)
 light_energy = 1.4
 omni_range = 3.5
 
@@ -428,7 +428,7 @@ material = SubResource("Mat_Hull")
 
 [node name="RoomLight" type="OmniLight3D" parent="RoomB"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 2.5)
-light_color = Color(0.85, 0.9, 1, 1)
+light_color = Color(0.82, 1, 0.92, 1)
 light_energy = 2.2
 omni_range = 5.5
 

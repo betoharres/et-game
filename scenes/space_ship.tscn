@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://l7yncpk64gr6" path="res://scripts/space_ship.gd" id="1_bt5oy"]
 [ext_resource type="ArrayMesh" uid="uid://jbko44hxsgpw" path="res://3dModelos/ET_Alien_Space_Ship.glb" id="1_dp8cb"]
 [ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="2_beam_shader"]
+[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="3_interference"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bt5oy"]
 data = PackedVector3Array(0.72929996, -1.8475, -16.1264, -0.0002, -1.1553, -14.6212, -0.72969997, -1.8475, -16.1264, 13.600699, -1.8475, 8.695, 12.6621, -1.1553, 7.3103, 14.3306, -1.8475, 7.4311, -14.3306, -1.8475, 7.4311, -12.6626, -1.1553, 7.3103, -13.6011, -1.8475, 8.695, -14.3306, -1.8475, 7.4311, -12.7505, -2.5, 6.5186996, -0.72969997, -2.5, -14.3019, 14.3306, -1.8475, 7.4311, 0.72929996, -1.8475, -16.1264, 0.72929996, -2.5, -14.3019, 0.72929996, -2.5, -14.3019, -12.7505, -2.5, 6.5186996, 12.020599, -2.5, 7.7826, -12.6626, -1.1553, 7.3103, -0.72969997, -1.8475, -16.1264, -0.0002, -1.1553, -14.6212, -0.0002, -1.1553, -14.6212, 14.3306, -1.8475, 7.4311, 12.6621, -1.1553, 7.3103, 13.600699, -1.8475, 8.695, 12.020599, -2.5, 7.7826, -12.021, -2.5, 7.7826, 12.6621, -1.1553, 7.3103, -13.6011, -1.8475, 8.695, -12.6626, -1.1553, 7.3103, -0.4691, -1.9353, -15.8813, 0.46859998, -1.9353, -15.8813, 0.72929996, -1.8475, -16.1264, 13.518499, -1.9353, 8.346499, 13.600699, -1.8475, 8.695, 14.3306, -1.8475, 7.4311, -13.5189, -1.9353, 8.346499, -13.988199, -1.9353, 7.5340996, -14.3306, -1.8475, 7.4311, 0.46859998, -2.4122999, -14.5473995, -0.4691, -2.4122999, -14.5473995, -0.72969997, -2.5, -14.3019, -0.4691, -1.9353, -15.8813, -0.72969997, -1.8475, -16.1264, -0.72969997, -2.5, -14.3019, -0.4691, -1.9353, -15.8813, -0.72969997, -2.5, -14.3019, -0.4691, -2.4122999, -14.5473995, 0.46859998, -1.9353, -15.8813, 0.46859998, -2.4122999, -14.5473995, 0.72929996, -2.5, -14.3019, 0.46859998, -1.9353, -15.8813, 0.72929996, -2.5, -14.3019, 0.72929996, -1.8475, -16.1264, 13.518499, -1.9353, 8.346499, 12.3633995, -2.4122999, 7.6794996, 12.020599, -2.5, 7.7826, 12.3633995, -2.4122999, 7.6794996, 12.832299, -2.4122999, 6.8671, 12.7501, -2.5, 6.5186996, 12.832299, -2.4122999, 6.8671, 13.9876995, -1.9353, 7.5340996, 14.3306, -1.8475, 7.4311, -13.988199, -1.9353, 7.5340996, -12.8327, -2.4122999, 6.8671, -12.7505, -2.5, 6.5186996, -12.8327, -2.4122999, 6.8671, -12.363899, -2.4122999, 7.6794996, -12.021, -2.5, 7.7826, -13.5189, -1.9353, 8.346499, -13.6011, -1.8475, 8.695, -12.021, -2.5, 7.7826, -14.3306, -1.8475, 7.4311, -0.72969997, -2.5, -14.3019, -0.72969997, -1.8475, -16.1264, 14.3306, -1.8475, 7.4311, 0.72929996, -2.5, -14.3019, 12.7501, -2.5, 6.5186996, -12.7505, -2.5, 6.5186996, 0.72929996, -2.5, -14.3019, -0.72969997, -2.5, -14.3019, 12.020599, -2.5, 7.7826, -12.7505, -2.5, 6.5186996, -12.021, -2.5, 7.7826, 0.72929996, -2.5, -14.3019, 12.020599, -2.5, 7.7826, 12.7501, -2.5, 6.5186996, -0.72969997, -1.8475, -16.1264, -12.6626, -1.1553, 7.3103, -14.3306, -1.8475, 7.4311, -12.6626, -1.1553, 7.3103, -0.0002, -1.1553, -14.6212, -0.0002, 2.5, -0.0004, 14.3306, -1.8475, 7.4311, -0.0002, -1.1553, -14.6212, 0.72929996, -1.8475, -16.1264, -0.0002, -1.1553, -14.6212, 12.6621, -1.1553, 7.3103, -0.0002, 2.5, -0.0004, 13.600699, -1.8475, 8.695, -12.021, -2.5, 7.7826, -13.6011, -1.8475, 8.695, -13.6011, -1.8475, 8.695, 12.6621, -1.1553, 7.3103, 13.600699, -1.8475, 8.695, 12.6621, -1.1553, 7.3103, -12.6626, -1.1553, 7.3103, -0.0002, 2.5, -0.0004, -0.4691, -1.9353, -15.8813, 0.72929996, -1.8475, -16.1264, -0.72969997, -1.8475, -16.1264, 13.518499, -1.9353, 8.346499, 14.3306, -1.8475, 7.4311, 13.9876995, -1.9353, 7.5340996, -13.5189, -1.9353, 8.346499, -14.3306, -1.8475, 7.4311, -13.6011, -1.8475, 8.695, 0.46859998, -2.4122999, -14.5473995, -0.72969997, -2.5, -14.3019, 0.72929996, -2.5, -14.3019, 13.518499, -1.9353, 8.346499, 12.020599, -2.5, 7.7826, 13.600699, -1.8475, 8.695, 12.3633995, -2.4122999, 7.6794996, 12.7501, -2.5, 6.5186996, 12.020599, -2.5, 7.7826, 12.832299, -2.4122999, 6.8671, 14.3306, -1.8475, 7.4311, 12.7501, -2.5, 6.5186996, -13.988199, -1.9353, 7.5340996, -12.7505, -2.5, 6.5186996, -14.3306, -1.8475, 7.4311, -12.8327, -2.4122999, 6.8671, -12.021, -2.5, 7.7826, -12.7505, -2.5, 6.5186996, -13.5189, -1.9353, 8.346499, -12.021, -2.5, 7.7826, -12.363899, -2.4122999, 7.6794996, -0.4689, -2.4122, -14.5471, 0.4685, -2.4122, -14.5471, 0.4685, -1.9352, -15.881, -0.4689, -2.4122, -14.5471, 0.4685, -1.9352, -15.881, -0.4689, -1.9352, -15.881, 12.3635, -2.4122, 7.6793, 13.5185995, -1.9352, 8.3466, 13.9878, -1.9352, 7.5344, -13.9878, -1.9352, 7.5344, -13.519099, -1.9352, 8.3466, -12.363899, -2.4122, 7.6793, 12.3635, -2.4122, 7.6793, 13.9878, -1.9352, 7.5344, 12.8322, -2.4122, 6.8671, -13.9878, -1.9352, 7.5344, -12.363899, -2.4122, 7.6793, -12.8326, -2.4122, 6.8671)
@@ -30,9 +31,9 @@ color_ramp = SubResource("GradientTexture_beam_dust")
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.35, 0.9, 1, 0.3)
+albedo_color = Color(0.36, 0.96, 0.76, 0.3)
 emission_enabled = true
-emission = Color(0.18, 0.78, 1, 1)
+emission = Color(0.16, 0.92, 0.68, 1)
 emission_energy_multiplier = 1.2
 billboard_mode = 1
 
@@ -42,9 +43,9 @@ size = Vector2(0.055, 0.055)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_hull_glow"]
 shading_mode = 0
-albedo_color = Color(0.12, 0.75, 0.9, 1)
+albedo_color = Color(0.16, 0.84, 0.62, 1)
 emission_enabled = true
-emission = Color(0.08, 0.82, 1, 1)
+emission = Color(0.12, 1, 0.68, 1)
 emission_energy_multiplier = 3.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_hull_glow"]
@@ -54,7 +55,7 @@ height = 0.36
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_beam_volume"]
 shader = ExtResource("2_beam_shader")
-shader_parameter/beam_color = Color(0.02, 0.5, 0.72, 0.018)
+shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
 shader_parameter/emission_strength = 0.38
 
 [sub_resource type="CylinderMesh" id="ConeMesh_beam_volume"]
@@ -68,6 +69,15 @@ rings = 4
 [node name="SpaceShip" type="StaticBody3D" unique_id=1163053841 groups=["ufo_lighting"]]
 script = ExtResource("1_bt5oy")
 
+[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
+position = Vector3(0, 1.5, 0)
+script = ExtResource("3_interference")
+full_strength_radius = 14.0
+fade_radius = 55.0
+intensity = 0.9
+pulse_amount = 0.07
+pulse_frequency = 0.3
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=643264025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9083743, 0)
 shape = SubResource("ConcavePolygonShape3D_bt5oy")
@@ -80,7 +90,7 @@ mesh = ExtResource("1_dp8cb")
 
 [node name="HullLight1" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(0, 0, -7.5)
-light_color = Color(0.03, 0.58, 0.78, 1)
+light_color = Color(0.1, 0.76, 0.54, 1)
 light_energy = 1.0
 light_volumetric_fog_energy = 0.12
 omni_range = 10.0
@@ -90,7 +100,7 @@ mesh = SubResource("SphereMesh_hull_glow")
 
 [node name="HullLight2" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(7.2, 0, 3.5)
-light_color = Color(0.03, 0.58, 0.78, 1)
+light_color = Color(0.1, 0.76, 0.54, 1)
 light_energy = 1.0
 light_volumetric_fog_energy = 0.12
 omni_range = 10.0
@@ -100,7 +110,7 @@ mesh = SubResource("SphereMesh_hull_glow")
 
 [node name="HullLight3" type="OmniLight3D" parent="UFOLights"]
 position = Vector3(-7.2, 0, 3.5)
-light_color = Color(0.03, 0.58, 0.78, 1)
+light_color = Color(0.1, 0.76, 0.54, 1)
 light_energy = 1.0
 light_volumetric_fog_energy = 0.12
 omni_range = 10.0
@@ -109,21 +119,21 @@ omni_range = 10.0
 mesh = SubResource("SphereMesh_hull_glow")
 
 [node name="BeamGroundLight1" type="OmniLight3D" parent="UFOLights"]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 1.6
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamGroundLight2" type="OmniLight3D" parent="UFOLights"]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 1.6
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamGroundLight3" type="OmniLight3D" parent="UFOLights"]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 1.6
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
@@ -134,7 +144,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7294254, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm1" unique_id=1485045908]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
 light_volumetric_fog_energy = 1.0
 shadow_enabled = true
@@ -163,7 +173,7 @@ transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50
 
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm2" unique_id=881389874]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
 light_volumetric_fog_energy = 1.0
 shadow_enabled = true
@@ -192,7 +202,7 @@ transform = Transform3D(-0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, -0.
 
 [node name="SpotLight3D" type="SpotLight3D" parent="LightArm3" unique_id=1858242947]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
 light_volumetric_fog_energy = 1.0
 shadow_enabled = true

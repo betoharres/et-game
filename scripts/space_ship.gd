@@ -3,7 +3,7 @@ extends StaticBody3D
 @export_range(0.0, 1.0, 0.01) var var_speed : float = 0.18
 
 @export_group("UFO Lighting")
-@export_color_no_alpha var beam_color : Color = Color(0.16, 0.68, 0.86)
+@export_color_no_alpha var beam_color : Color = Color(0.16, 0.88, 0.68)
 @export_range(0.0, 40.0, 0.1) var beam_energy : float = 5.2
 @export_range(20.0, 120.0, 1.0) var beam_range : float = 52.0
 @export_range(1.0, 45.0, 0.5) var beam_angle_degrees : float = 13.0

@@ -43,6 +43,9 @@ scenes/
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Controla qualidade e animações atmosféricas do mundo
+  cinematic_camera_rig.gd Seguimento, enquadramento e colisão da câmera do ET
+  alien_incident_post_process.gd Mistura o filtro normal e a interferência ET
+  alien_interference_source.gd Fonte espacial reutilizável de interferência
   house_lights.gd      Oscilação discreta das luzes quentes da casa
   player.gd            Movimento, vida, stamina, equilíbrio, coleta e entrega
   player_animation_controller.gd Estado visual central e transições do AnimationTree
@@ -69,6 +72,9 @@ tools/test_player_animation.gd Smoke test dos estados visuais do Player
 tools/test_player_jump_stamina.gd Smoke test do impulso e consumo de stamina
 tools/test_player_reversal.gd Smoke test de freada e pivô em reversões bruscas
 tools/test_player_ragdoll.gd Smoke test do ragdoll e da recuperação
+tools/test_cinematic_camera.gd Smoke test do enquadramento e colisão da câmera
+tools/test_player_debug_modes.gd Smoke test dos modos Deus e Voo
+tools/test_alien_interference.gd Smoke test do filtro alienígena dinâmico
 tools/render_prototype_icons.py Utilitário para regenerar os ícones do HUD
 3dModelos/             Modelos 3D importados
 Texturas/              Texturas do cenário e dos modelos
@@ -114,8 +120,19 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 ```
 
 - O jogador começa no mapa rural com câmera em terceira pessoa.
+- A câmera usa enquadramento sobre o ombro com FOV de 60 graus, seguimento e
+  rotação suavizados, colisão volumétrica contra o cenário e movimentos
+  orgânicos discretos ao caminhar, girar ou permanecer parado.
 - A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
   névoa baixa e iluminação ambiente azulada configurável por qualidade.
+- O tratamento visual combina sombras azul-petróleo, luzes humanas âmbar e
+  emissões alienígenas ciano-esverdeadas. Um filtro sutil acrescenta grão,
+  vinheta, aberração cromática periférica e eleva levemente os pretos; o glow
+  do ambiente fornece bloom/halation sem comprometer a leitura do gameplay.
+- Nave, feixe de chegada e abdução funcionam como fontes espaciais de
+  interferência. Ao se aproximar, o filtro aumenta suavemente grão e separação
+  cromática, introduz microdistorção e uma oscilação mínima de exposição. A
+  sequência de abdução também dispara um pulso curto, sem afetar a HUD.
 - Destroços próximos podem ser carregados e largados.
 - Para entregar um destroço, o jogador deve largá-lo na plataforma. Um aviso
   piscante aparece na HUD; próximo ao item, segure `E` por 3 segundos para
@@ -260,6 +277,10 @@ pulo normal, até 1,5 m   nada
 - Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
   alternar Lua, céu, luz ambiente, neblina, casa e nave/feixes, além de regular
   cada intensidade entre 0% e 200%.
+- No painel principal do `F4`, `Modo Deus` torna o ET imortal, mantém a stamina
+  cheia e multiplica velocidade e aceleração por cinco. `Modo Voo` remove a
+  gravidade: use `WASD` para deslocar, `Espaço` para subir e `C` para descer.
+  Os dois modos são independentes e podem permanecer ativos ao mesmo tempo.
 - No menu inicial, o botão de áudio no canto inferior esquerdo silencia ou
   reativa a música do menu.
 
@@ -284,7 +305,30 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
 Player -> colisão de parede -> equilíbrio -> stumble/queda -> PlayerRagdoll
 Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo
 Mixamo -> LookAt/IK de ação -> reação -> ragdoll (prioridade crescente)
+Player -> CinematicCameraRig -> SpringArm3D -> Camera3D
+NightEnvironment -> AgX/glow/névoa -> filtro de incidente alienígena
+Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
+
+## Ajustes de câmera e visual
+
+- FOV, distância e colisão: `Camera3D.fov` e `SpringArm3D` em
+  `scenes/Player.tscn`.
+- Offset, smoothing, sway e respiração: exports de
+  `scripts/cinematic_camera_rig.gd`.
+- Grain, vignette, aberração, contraste e black lift: grupo `Base Look` do
+  `IncidentPostProcess` em `scenes/NightEnvironment.tscn`.
+- Bloom/halation: propriedades `glow_*` do `Environment` na mesma cena.
+- Intensidade e resposta global da interferência: grupo `Alien Interference`
+  do `IncidentPostProcess`.
+- Alcance, intensidade e pulso por nave/feixe/evento: exports de cada
+  `AlienInterferenceSource` nas respectivas cenas.
+- Cores alienígenas: materiais e luzes em `space_ship.tscn`,
+  `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn`.
+
+Por código, o grupo `alien_post_process` expõe `set_manual_interference()`,
+`clear_manual_interference()` e `pulse_interference()`. Cada fonte espacial
+pode ser ligada ou desligada com `set_interference_enabled()`.
 
 - `GlobalScore` é um autoload e mantém pontuação e uma lista simples de itens.
 - `PhotoAlertSystem` é um autoload e mantém as estrelas, observadores ativos,

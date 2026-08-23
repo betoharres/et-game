@@ -32,7 +32,7 @@ enum QualityLevel {
 @export_range(5.0, 240.0, 1.0) var shooting_star_interval_max : float = 85.0
 
 @export_group("Fog and Atmosphere")
-@export_color_no_alpha var fog_color : Color = Color(0.1, 0.18, 0.32)
+@export_color_no_alpha var fog_color : Color = Color(0.06, 0.16, 0.22)
 @export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.018
 @export_range(0.0, 2.0, 0.01) var fog_drift_speed : float = 0.18
 @export_range(0, 256, 1) var atmospheric_particle_amount : int = 96
