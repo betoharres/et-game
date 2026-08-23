@@ -822,12 +822,8 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		_eye_light_tween.kill()
 
 	var target_energy : float = eye_light_energy if enabled else 0.0
-<<<<<<< HEAD
 	var target_glow_energy : float = eye_glow_energy if enabled else 0.0
-	var target_albedo := active_eye_color * 0.42 if enabled else Color.BLACK
-=======
 	var target_albedo : Color = active_eye_color * 0.42 if enabled else Color.BLACK
->>>>>>> 0936d19388ca7eee2cdc436bb0ff7fee9bd04b72
 	target_albedo.a = 1.0
 	var target_emission : Color = active_eye_color if enabled else Color.BLACK
 	var target_emission_energy : float = 1.35 if enabled else 0.0
