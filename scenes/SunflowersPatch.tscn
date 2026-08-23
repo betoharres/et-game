@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dmfhf0evtxy7b" path="res://3dModelos/SM_Prop_Sunflower_01.fbx" id="2_we8r4"]
 [ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="3_concealment"]
 
+[ext_resource type="Script" path="res://scripts/fog_zone.gd" id="4_fog_zone"]
 [sub_resource type="BoxShape3D" id="BoxShapeConcealment"]
 size = Vector3(1.5, 2, 2)
 
@@ -96,3 +97,8 @@ surface_material_override/0 = ExtResource("2_eg1uo")
 transform = Transform3D(0.51478714, 0, -0.85731804, 0, 1, 0, 0.85731804, 0, 0.51478714, -0.539422, 0, 0.41141033)
 mesh = ExtResource("1_3vnp0")
 surface_material_override/0 = ExtResource("2_eg1uo")
+
+[node name="FogZone" type="Node3D" parent="." groups=["fog_zones"]]
+script = ExtResource("4_fog_zone")
+radius = 6.0
+strength = 0.35

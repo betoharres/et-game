@@ -2,6 +2,8 @@ extends CanvasLayer
 
 const STAMINA_HIDE_DELAY : float = 1.4
 const IDLE_STATUS_OPACITY : float = 0.78
+const LOW_ENERGY_RATIO : float = 0.2
+const LOW_ENERGY_COLOR : Color = Color(1.0, 0.62, 0.35, 1.0)
 
 @onready var status_panel : PanelContainer = $Interface/StatusPanel
 @onready var health_bar : ProgressBar = (
@@ -9,6 +11,12 @@ const IDLE_STATUS_OPACITY : float = 0.78
 )
 @onready var health_value : Label = (
 	$Interface/StatusPanel/StatusMargin/StatusRows/HealthRow/HealthValue
+)
+@onready var energy_bar : ProgressBar = (
+	$Interface/StatusPanel/StatusMargin/StatusRows/EnergyRow/EnergyBar
+)
+@onready var energy_value : Label = (
+	$Interface/StatusPanel/StatusMargin/StatusRows/EnergyRow/EnergyValue
 )
 @onready var stamina_row : HBoxContainer = (
 	$Interface/StatusPanel/StatusMargin/StatusRows/StaminaRow
@@ -42,6 +50,7 @@ func _ready() -> void:
 
 	player.connect("health_changed", _on_health_changed)
 	player.connect("stamina_changed", _on_stamina_changed)
+	player.connect("energy_changed", _on_energy_changed)
 	player.connect("died", _on_player_died)
 	restart_button.pressed.connect(_on_restart_pressed)
 
@@ -52,6 +61,10 @@ func _ready() -> void:
 	_on_stamina_changed(
 		float(player.call("get_stamina")),
 		float(player.call("get_max_stamina"))
+	)
+	_on_energy_changed(
+		float(player.call("get_energy")),
+		float(player.call("get_max_energy"))
 	)
 
 
@@ -84,6 +97,17 @@ func _on_stamina_changed(current : float, maximum : float) -> void:
 		_show_stamina_row()
 	else:
 		_stamina_hide_timer = STAMINA_HIDE_DELAY
+
+
+func _on_energy_changed(current : float, maximum : float) -> void:
+	energy_bar.max_value = maximum
+	energy_bar.value = current
+	energy_value.text = str(roundi(current))
+	energy_bar.modulate = (
+		LOW_ENERGY_COLOR
+		if maximum > 0.0 and current / maximum <= LOW_ENERGY_RATIO
+		else Color.WHITE
+	)
 
 
 func _show_stamina_row() -> void:

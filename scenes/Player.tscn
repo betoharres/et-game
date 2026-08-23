@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
 [ext_resource type="Script" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 [ext_resource type="Script" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
+[ext_resource type="Script" path="res://scripts/energy_pool.gd" id="11_energy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -87,11 +88,27 @@ shadow_enabled = true
 spot_range = 25.867836
 spot_angle = 17.842344
 
+[node name="EyeGlowLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.064058006, 0.109894976)
+light_color = Color(0.2, 0.92, 0.7, 1)
+light_energy = 0.0
+light_indirect_energy = 0.6
+light_volumetric_fog_energy = 0.6
+shadow_enabled = false
+omni_range = 4.5
+omni_attenuation = 1.6
+
 [node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D"]
 script = ExtResource("8_recovery")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 anim_player = NodePath("../ET/AnimationPlayer")
+
+[node name="EnergyPool" type="Node" parent="."]
+script = ExtResource("11_energy")
+max_energy = 100.0
+recharge_per_second = 4.0
+recharge_delay = 2.5
 
 [node name="PlayerRagdoll" type="Node" parent="." unique_id=558996212]
 script = ExtResource("6_ragdoll")
@@ -130,7 +147,7 @@ collision_mask = 1
 cull_mask = 1047551
 fov = 60.0
 near = 0.05
-far = 150.0
+far = 600.0
 
 [node name="HeadTarget" type="Marker3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D" unique_id=46629359]
 position = Vector3(0, 0, -6)

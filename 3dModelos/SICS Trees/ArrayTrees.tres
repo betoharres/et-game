@@ -20,8 +20,10 @@ name = "tem_tree_01a"
 scene_file = ExtResource("1_cke5o")
 density = 0.01
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_2fcip"]
 name = "tem_tree_02a"
@@ -29,8 +31,10 @@ id = 1
 scene_file = ExtResource("2_lbygu")
 density = 0.017688073
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_hlbul"]
 name = "tem_tree_03a"
@@ -38,8 +42,10 @@ id = 2
 scene_file = ExtResource("3_sd5ao")
 density = 0.01056926
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_1peam"]
 name = "tem_tree_04a"
@@ -47,8 +53,10 @@ id = 3
 scene_file = ExtResource("4_dta3x")
 density = 0.01
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_usegu"]
 name = "tem_tree_05a"
@@ -56,8 +64,10 @@ id = 4
 scene_file = ExtResource("5_60chi")
 density = 0.01487112
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_t0r4g"]
 name = "tem_tree_06a"
@@ -65,8 +75,10 @@ id = 5
 scene_file = ExtResource("6_8iqwd")
 density = 0.040113054
 last_lod = 2
+lod0_range = 40.0
+lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 128.0
+lod2_range = 300.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_oiwmu"]
 name = "tem_grass_patch_01a"

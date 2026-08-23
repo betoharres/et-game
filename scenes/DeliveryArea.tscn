@@ -118,7 +118,7 @@ position = Vector3(0, 1.35, 0)
 [node name="SignalRing" type="MeshInstance3D" parent="SignalMarker"]
 mesh = SubResource("SignalRingMesh")
 
-[node name="SignalLight" type="OmniLight3D" parent="SignalMarker"]
+[node name="SignalLight" type="OmniLight3D" parent="SignalMarker" groups=["volumetric_lights", "alien_volumetric_lights"]]
 position = Vector3(0, 0.5, 0)
 light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 3.2
@@ -134,7 +134,7 @@ mesh = SubResource("BeamMesh")
 [node name="BeamCore" type="MeshInstance3D" parent="AbductionBeam"]
 mesh = SubResource("BeamCoreMesh")
 
-[node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam"]
+[node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam" groups=["volumetric_lights", "alien_volumetric_lights"]]
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
 light_volumetric_fog_energy = 1.0

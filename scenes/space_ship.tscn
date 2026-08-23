@@ -142,7 +142,7 @@ omni_attenuation = 1.15
 [node name="LightArm1" type="Node3D" parent="." unique_id=1516044063]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7294254, 0)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="LightArm1" unique_id=1485045908]
+[node name="SpotLight3D" type="SpotLight3D" parent="LightArm1" unique_id=1485045908 groups=["volumetric_lights", "alien_volumetric_lights"]]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
@@ -171,7 +171,7 @@ mesh = SubResource("ConeMesh_beam_volume")
 [node name="LightArm2" type="Node3D" parent="." unique_id=2100780941]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 0, -1.7294254, 0)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="LightArm2" unique_id=881389874]
+[node name="SpotLight3D" type="SpotLight3D" parent="LightArm2" unique_id=881389874 groups=["volumetric_lights", "alien_volumetric_lights"]]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
@@ -200,7 +200,7 @@ mesh = SubResource("ConeMesh_beam_volume")
 [node name="LightArm3" type="Node3D" parent="." unique_id=1333890043]
 transform = Transform3D(-0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, -0.49999997, 0, -1.7294254, 0)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="LightArm3" unique_id=1858242947]
+[node name="SpotLight3D" type="SpotLight3D" parent="LightArm3" unique_id=1858242947 groups=["volumetric_lights", "alien_volumetric_lights"]]
 transform = Transform3D(1, 0, 0, 0, 0.3327529, 0.9430141, 0, -0.9430141, 0.33275294, 0, 0.7403428, -15.093393)
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2

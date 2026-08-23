@@ -2,8 +2,11 @@ extends CharacterBody3D
 
 signal health_changed(current_health : float, maximum_health : float)
 signal stamina_changed(current_stamina : float, maximum_stamina : float)
+signal energy_changed(current_energy : float, maximum_energy : float)
 signal stealth_alert_changed(alert_level : float)
 signal died
+
+const EYE_LIGHT_ENERGY_SOURCE : StringName = &"eye_light"
 
 const STANDING_COLLISION_HEIGHT : float = 1.0
 const CROUCHING_COLLISION_HEIGHT : float = 0.62
@@ -102,6 +105,9 @@ enum ImpactReaction {
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_on_duration : float = 1.2
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_off_duration : float = 1.6
 @export_color_no_alpha var active_eye_color : Color = Color(0.2, 0.92, 0.7)
+@export_range(0.0, 8.0, 0.05) var eye_glow_energy : float = 1.6
+@export_range(0.5, 12.0, 0.1) var eye_glow_range : float = 4.5
+@export_range(0.0, 30.0, 0.1) var eye_light_energy_cost_per_second : float = 3.5
 
 @onready var camera_pivot : CinematicCameraRig = $CameraHolder
 @onready var footstep_audio : Node = $FootstepAudio
@@ -116,6 +122,10 @@ enum ImpactReaction {
 @onready var eye_area_light : SpotLight3D = (
 	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
 )
+@onready var eye_glow_light : OmniLight3D = (
+	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeGlowLight
+)
+@onready var energy_pool : EnergyPool = $EnergyPool
 
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
@@ -190,8 +200,15 @@ func _ready() -> void:
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
 
+	energy_pool.energy_changed.connect(_on_energy_changed)
+	energy_pool.depleted.connect(_on_energy_depleted)
+
 	health_changed.emit(health, max_health)
 	stamina_changed.emit(stamina, max_stamina)
+	energy_changed.emit(
+		energy_pool.get_energy(),
+		energy_pool.get_max_energy()
+	)
 
 func set_movement_locked(locked : bool, yaw_limit_degrees : float = 0.0) -> void:
 	_movement_locked = locked
@@ -252,9 +269,12 @@ func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
 		return
 	if _movement_locked:
+		# Durante a intro o corpo desce por tween, sem chegar ao chao pela
+		# fisica. Reportar "no chao" mantem o ET em idle no feixe em vez de
+		# entrar na animacao de queda.
 		animation_controller.set_motion_state(
 			Vector3.ZERO,
-			is_on_floor(),
+			true,
 			false,
 			is_crouching,
 			JumpState.READY
@@ -698,6 +718,31 @@ func get_max_stamina() -> float:
 	return max_stamina
 
 
+func get_energy() -> float:
+	return _get_energy_pool().get_energy()
+
+
+func get_max_energy() -> float:
+	return _get_energy_pool().get_max_energy()
+
+
+## O HUD é filho do jogador e consulta a reserva antes do [method _ready]
+## daqui, quando a variável [member energy_pool] ainda não foi resolvida.
+func _get_energy_pool() -> EnergyPool:
+	if energy_pool == null:
+		energy_pool = $EnergyPool
+	return energy_pool
+
+
+func _on_energy_changed(current : float, maximum : float) -> void:
+	energy_changed.emit(current, maximum)
+
+
+func _on_energy_depleted() -> void:
+	if _eye_light_enabled:
+		set_eye_light_enabled(false)
+
+
 func set_debug_god_mode_enabled(enabled : bool) -> void:
 	_debug_god_mode_enabled = enabled
 	if not enabled:
@@ -713,6 +758,7 @@ func set_debug_god_mode_enabled(enabled : bool) -> void:
 	_balance = balance_max
 	_stumble_strength = 0.0
 	_knockback_remaining_distance = 0.0
+	energy_pool.refill()
 	if health_changed_value:
 		health_changed.emit(health, max_health)
 	if stamina_changed_value:
@@ -760,11 +806,23 @@ func set_intervention_signal_pose(active : bool) -> void:
 
 
 func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
+	if enabled and not energy_pool.can_be_used():
+		return
+
 	_eye_light_enabled = enabled
+	if enabled:
+		energy_pool.set_drain(
+			EYE_LIGHT_ENERGY_SOURCE,
+			eye_light_energy_cost_per_second
+		)
+	else:
+		energy_pool.clear_drain(EYE_LIGHT_ENERGY_SOURCE)
+
 	if _eye_light_tween != null:
 		_eye_light_tween.kill()
 
 	var target_energy : float = eye_light_energy if enabled else 0.0
+	var target_glow_energy : float = eye_glow_energy if enabled else 0.0
 	var target_albedo := active_eye_color * 0.42 if enabled else Color.BLACK
 	target_albedo.a = 1.0
 	var target_emission := active_eye_color if enabled else Color.BLACK
@@ -777,6 +835,7 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 
 	if immediate:
 		eye_area_light.light_energy = target_energy
+		eye_glow_light.light_energy = target_glow_energy
 		if _eye_material != null:
 			_eye_material.albedo_color = target_albedo
 			_eye_material.emission = target_emission
@@ -791,6 +850,12 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		eye_area_light,
 		"light_energy",
 		target_energy,
+		duration
+	)
+	_eye_light_tween.tween_property(
+		eye_glow_light,
+		"light_energy",
+		target_glow_energy,
 		duration
 	)
 	if _eye_material != null:
@@ -820,6 +885,8 @@ func is_eye_light_enabled() -> bool:
 
 func _setup_eye_light() -> void:
 	eye_area_light.spot_range = eye_light_range
+	eye_glow_light.omni_range = eye_glow_range
+	eye_glow_light.light_color = active_eye_color
 	character_mesh.layers = 2
 	var source_material : StandardMaterial3D = character_mesh.get_active_material(1)
 	if source_material is StandardMaterial3D:

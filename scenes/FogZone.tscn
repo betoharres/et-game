@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/fog_zone.gd" id="1_fog_zone"]
+
+[node name="FogZone" type="Node3D" groups=["fog_zones"]]
+script = ExtResource("1_fog_zone")
+radius = 18.0
+strength = 0.55

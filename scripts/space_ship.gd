@@ -23,6 +23,11 @@ extends StaticBody3D
 @export var beam_particles_enabled : bool = true
 @export_range(0, 96, 1) var beam_particle_amount : int = 30
 
+@export_group("Alien Atmosphere")
+## Ganho aplicado aos feixes quando NightEnvironment.set_alien_fog_intensity()
+## esta ativo. A transicao ja vem suavizada pelo controlador da atmosfera.
+@export_range(0.0, 3.0, 0.05) var alien_beam_energy_boost : float = 0.6
+
 var _spot_lights : Array[SpotLight3D] = []
 var _hull_lights : Array[OmniLight3D] = []
 var _ground_lights : Array[OmniLight3D] = []
@@ -32,6 +37,8 @@ var _base_spot_rotations : Array[Vector3] = []
 var _elapsed : float = 0.0
 var _debug_lighting_enabled : bool = true
 var _debug_lighting_intensity : float = 1.0
+var _alien_fog_intensity : float = 0.0
+var _beam_shadows_allowed : bool = true
 
 
 func _ready() -> void:
@@ -42,7 +49,6 @@ func _ready() -> void:
 		spot.light_color = beam_color
 		spot.light_energy = beam_energy * _debug_lighting_intensity
 		spot.light_volumetric_fog_energy = beam_fog_energy
-		spot.shadow_enabled = true
 		spot.spot_range = beam_range
 		spot.spot_angle = beam_angle_degrees
 		spot.spot_attenuation = beam_attenuation
@@ -115,7 +121,10 @@ func _process(delta : float) -> void:
 		)
 		var pulse := sin(_elapsed * beam_pulse_speed + phase) * beam_pulse_amount
 		_spot_lights[index].light_energy = (
-			beam_energy * _debug_lighting_intensity * (1.0 + pulse)
+			beam_energy
+			* _debug_lighting_intensity
+			* _alien_energy_scale()
+			* (1.0 + pulse)
 		)
 
 	for index : int in range(_hull_lights.size()):
@@ -124,6 +133,7 @@ func _process(delta : float) -> void:
 		_hull_lights[index].light_energy = (
 			hull_light_energy
 			* _debug_lighting_intensity
+			* _alien_energy_scale()
 			* (1.0 + pulse * beam_pulse_amount * 0.7)
 		)
 
@@ -157,6 +167,7 @@ func _update_ground_lights() -> void:
 		ground_light.light_energy = (
 			ground_light_energy
 			* _debug_lighting_intensity
+			* _alien_energy_scale()
 			* (1.0 + pulse * 0.5)
 		)
 
@@ -191,12 +202,24 @@ func get_debug_lighting_intensity() -> float:
 
 func set_atmosphere_quality(quality_level : int, particles_allowed : bool) -> void:
 	var amount_scale := 1.0 if quality_level >= 2 else 0.55
+	_beam_shadows_allowed = quality_level > 0
+	for spot : SpotLight3D in _spot_lights:
+		spot.shadow_enabled = _beam_shadows_allowed
 	for dust : GPUParticles3D in _beam_dust:
 		dust.amount = maxi(1, int(round(float(beam_particle_amount) * amount_scale)))
 		dust.emitting = beam_particles_enabled and particles_allowed and quality_level > 0
 		dust.visible = dust.emitting
 	for volume : MeshInstance3D in _beam_volumes:
 		volume.visible = quality_level > 0
+
+
+## Chamado por NightEnvironment enquanto um evento alienigena esta ativo.
+func set_alien_fog_intensity(intensity : float) -> void:
+	_alien_fog_intensity = clampf(intensity, 0.0, 1.0)
+
+
+func _alien_energy_scale() -> float:
+	return 1.0 + _alien_fog_intensity * alien_beam_energy_boost
 
 
 func configure_external_beam(
@@ -207,7 +230,7 @@ func configure_external_beam(
 	spotlight.light_color = beam_color
 	spotlight.light_energy = beam_energy
 	spotlight.light_volumetric_fog_energy = beam_fog_energy
-	spotlight.shadow_enabled = true
+	spotlight.shadow_enabled = _beam_shadows_allowed
 	spotlight.spot_angle = beam_angle_degrees
 	spotlight.spot_attenuation = beam_attenuation
 
