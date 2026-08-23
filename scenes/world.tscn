@@ -8,14 +8,19 @@
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/TractorOld.tscn" id="8_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://1dpav48qe8yh" path="res://scenes/Harvester01.tscn" id="9_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://cl8gvqtu4l83d" path="res://scenes/SICS Trees/tem_grass_patch_01a.tscn" id="10_8j4su"]
 [ext_resource type="PackedScene" uid="uid://ccf5fvks4od7s" path="res://scenes/WheatField.tscn" id="10_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://dq4h6uwraybej" path="res://scenes/SunflowersPatch.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://bsui201eehmom" path="res://scenes/SICS Trees/tem_grass_patch_02a.tscn" id="11_edwmm"]
 [ext_resource type="ArrayMesh" uid="uid://duxqivmu3x2nu" path="res://3dModelos/SM_Prop_Hay_Bale_Round_01.fbx" id="11_xgqkh"]
+[ext_resource type="PackedScene" uid="uid://ggyw0g6j67oy" path="res://scenes/SICS Trees/tem_grass_patch_03a.tscn" id="12_cagmf"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="12_munwf"]
 [ext_resource type="PackedScene" uid="uid://be7win0uc4lai" path="res://scenes/PropsRandom.tscn" id="12_q5onr"]
+[ext_resource type="PackedScene" uid="uid://bigqluinq1ce1" path="res://scenes/SICS Trees/tem_grass_patch_04a.tscn" id="13_befh3"]
 [ext_resource type="PackedScene" uid="uid://cqme5flfi737h" path="res://scenes/DriveableTruck.tscn" id="13_jhx03"]
 [ext_resource type="ArrayMesh" uid="uid://4vknygjcamwi" path="res://3dModelos/SM_Prop_Hay_Bale_Round_01_Green.fbx" id="13_ts3gi"]
 [ext_resource type="ArrayMesh" uid="uid://dpy8776oe8ar3" path="res://3dModelos/SM_Prop_Hay_Bale_Round_02.fbx" id="14_0nbtd"]
+[ext_resource type="PackedScene" uid="uid://cmhwmobubg7us" path="res://scenes/SICS Trees/tem_grass_patch_05a.tscn" id="14_a43o0"]
 [ext_resource type="ArrayMesh" uid="uid://3bufh43hdgch" path="res://3dModelos/SM_Prop_Hay_Bale_Round_02_Green.fbx" id="15_37qwj"]
 [ext_resource type="ArrayMesh" uid="uid://cpd6enhaas3vb" path="res://3dModelos/SM_Prop_Hay_Bale_Round_Plastic_01.fbx" id="16_navra"]
 [ext_resource type="ArrayMesh" uid="uid://dyg2ou0adoqtq" path="res://3dModelos/SM_Prop_Hay_Bale_Square_01.fbx" id="17_luhhm"]
@@ -128,14 +133,12 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="131_7m83x"]
 [ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="131_l8ik4"]
 [ext_resource type="PackedScene" uid="uid://karjnsnc4cje" path="res://scenes/Barn01.tscn" id="132_8bem1"]
-[ext_resource type="Shader" uid="uid://dwa8qm6usabx1" path="res://shaders/ground_variation.gdshader" id="85_ground_shader"]
-[ext_resource type="PackedScene" uid="uid://dc8tgbh2pmvfq" path="res://assets/PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_01.tscn" id="132_k2fqw"]
-[ext_resource type="PackedScene" path="res://scenes/Dungeon.tscn" id="133_dungeon"]
-[ext_resource type="PackedScene" path="res://scenes/DungeonDoor.tscn" id="134_dungeon_door"]
 [ext_resource type="Texture2D" uid="uid://bhrmykp42xmrv" path="res://Texturas/PolygonConstruction_Texture_01_A.png" id="133_70d8d"]
+[ext_resource type="PackedScene" path="res://scenes/Dungeon.tscn" id="133_dungeon"]
 [ext_resource type="ArrayMesh" uid="uid://cwqpsuhsgabuy" path="res://3dModelos/SM_Bld_House_Preset_01.res" id="133_l8ik4"]
 [ext_resource type="Material" uid="uid://s85g563cqhp3" path="res://Materiais/PolygonConstruction1.tres" id="133_sjp3e"]
 [ext_resource type="ArrayMesh" uid="uid://c7uka26qrhsav" path="res://3dModelos/SM_Bld_House_Preset_02.res" id="134_70d8d"]
+[ext_resource type="PackedScene" path="res://scenes/DungeonDoor.tscn" id="134_dungeon_door"]
 [ext_resource type="PackedScene" uid="uid://bt7agmpqpyapt" path="res://scenes/QuadBike.tscn" id="134_qn65p"]
 [ext_resource type="ArrayMesh" uid="uid://o5t1ohhcdt6t" path="res://3dModelos/SM_Bld_House_Preset_03.res" id="135_ctgs1"]
 [ext_resource type="PackedScene" uid="uid://couowd6wegplm" path="res://scenes/cops_car.tscn" id="135_ou5tn"]
@@ -175,23 +178,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cpovf3kvrsu3q" path="res://3dModelos/SM_Tool_Circular_Saw_01.fbx" id="179_a43o0"]
 [ext_resource type="ArrayMesh" uid="uid://d4gpkktxvw51a" path="res://3dModelos/SM_Tool_Hammer_Claw.fbx" id="180_qk8ru"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_yf2p4"]
-vertices = PackedVector3Array(-127.5, 0.5, -127.5, -127.5, 0.5, 127.5, 127.5, 0.5, 127.5, 127.5, 0.5, -127.5)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ground_variation"]
-render_priority = 0
-shader = ExtResource("85_ground_shader")
-shader_parameter/grass_color = Color(0.025, 0.105, 0.045, 1)
-shader_parameter/grass_light_color = Color(0.045, 0.14, 0.065, 1)
-shader_parameter/soil_color = Color(0.19, 0.085, 0.028, 1)
-shader_parameter/patch_scale = 8.0
-shader_parameter/soil_amount = 0.36
-shader_parameter/color_variation = 0.12
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ec6vt"]
-material = SubResource("ShaderMaterial_ground_variation")
-size = Vector2(256, 256)
+[sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5p8eo"]
 height = 1.5820062
@@ -419,8 +406,6 @@ albedo_texture = ExtResource("133_70d8d")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6th7"]
 albedo_texture = ExtResource("133_70d8d")
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_3r8ca"]
 size = Vector3(11.596367, 4.480428, 6.9033337)
 
@@ -443,6 +428,37 @@ script = ExtResource("80_audio")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 32.947754, -8.647179)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
+navigation_mesh = SubResource("NavigationMesh_ec6vt")
+
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=2137716348]
+data_directory = "res://scenes"
+material = ExtResource("168_sjp3e")
+assets = ExtResource("169_sjp3e")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="TEM_Grass_Patch_01A" parent="NavigationRegion3D" unique_id=1450798490 instance=ExtResource("10_8j4su")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.506058, 0, -14.790283)
+
+[node name="TEM_Grass_Patch_02A" parent="NavigationRegion3D" unique_id=1887605295 instance=ExtResource("11_edwmm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.700012, 0, -4.993042)
+
+[node name="TEM_Grass_Patch_03A" parent="NavigationRegion3D" unique_id=669067315 instance=ExtResource("12_cagmf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.324219, 0, -2.0285645)
+
+[node name="TEM_Grass_Patch_04A" parent="NavigationRegion3D" unique_id=409426641 instance=ExtResource("13_befh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4526367, 0, -0.83374023)
+
+[node name="TEM_Grass_Patch_05A" parent="NavigationRegion3D" unique_id=1432699243 instance=ExtResource("14_a43o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.715576, 0, 5.192749)
+
+[node name="TEM_Grass_Patch_04A2" parent="NavigationRegion3D" unique_id=1994111134 instance=ExtResource("13_befh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.487976, 0, -11.707825)
+
+[node name="TEM_Grass_Patch_05A2" parent="NavigationRegion3D" unique_id=1299144849 instance=ExtResource("14_a43o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.791199, 0, -8.55127)
 
 [node name="PropsHolder" type="Node3D" parent="." unique_id=803200198]
 
@@ -2604,7 +2620,7 @@ mesh = ExtResource("180_qk8ru")
 transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.82162666, 7.7456913, 0.022559673, -1.100656)
 
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.25922, 0, -65.26941)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.889252, 0, -65.37311)
 
 [node name="VisionDebugMap" parent="." unique_id=972011175 instance=ExtResource("99_vision_debug")]
 
@@ -2635,18 +2651,6 @@ light_energy = 1000.0
 editor_only = true
 omni_range = 1006.0206
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
-navigation_mesh = SubResource("NavigationMesh_ec6vt")
-
-[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=2137716348]
-data_directory = "res://scenes"
-material = ExtResource("168_sjp3e")
-assets = ExtResource("169_sjp3e")
-collision_mode = 2
-show_navigation = true
-top_level = true
-metadata/_edit_lock_ = true
-
 [node name="Barn2" parent="." unique_id=1112714426 instance=ExtResource("168_3r8ca")]
 transform = Transform3D(0.29395762, 0, -0.9558184, 0, 1, 0, 0.9558184, 0, 0.29395762, 51.062424, 0, -52.53492)
 
@@ -2670,11 +2674,16 @@ shape = SubResource("BoxShape3D_sjp3e")
 [node name="SM_Veh_Pickup_03" parent="." unique_id=330235063 instance=ExtResource("170_3r8ca")]
 transform = Transform3D(-0.734354, 0, -0.67876667, 0, 1, 0, 0.67876667, 0, -0.734354, -16.403378, -0.02041626, 3.611289)
 
-[node name="Dungeon" parent="." instance=ExtResource("133_dungeon")]
+[node name="Dungeon" parent="." unique_id=2090588350 instance=ExtResource("133_dungeon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2000, 0, 2000)
 
+<<<<<<< HEAD
 [node name="DungeonDoor" parent="." instance=ExtResource("134_dungeon_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 0, -14.7)
+=======
+[node name="DungeonDoor" parent="." unique_id=1961323462 instance=ExtResource("134_dungeon_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
+>>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 dungeon_path = NodePath("../Dungeon")
 
 [editable path="PropsHolder/Root3"]

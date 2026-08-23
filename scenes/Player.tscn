@@ -72,16 +72,21 @@ transform = Transform3D(1, -3.824085e-08, -2.943728e-07, 1.687549e-08, 0.9973871
 bone_name = "mixamorig_Head"
 bone_idx = 31
 
+<<<<<<< HEAD
 [node name="EyeAreaLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.055, 0.18)
+=======
+[node name="EyeAreaLight" type="SpotLight3D" parent="ET/Armature/Skeleton3D/EyeLightAttachment" unique_id=2020007476]
+transform = Transform3D(-1, 1.0974415e-07, -8.146101e-08, 1.0231025e-07, 0.99627477, 0.08623806, 9.0621654e-08, 0.08623801, -0.99627477, -2.0290639e-08, 0.064058006, 0.109894976)
+>>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 light_color = Color(0.52, 0.76, 0.88, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.03
 light_cull_mask = 1
 shadow_enabled = true
-omni_range = 4.0
-omni_attenuation = 1.25
+spot_range = 25.867836
+spot_angle = 17.842344
 
 [node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D"]
 script = ExtResource("8_recovery")

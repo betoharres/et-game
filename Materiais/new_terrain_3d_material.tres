@@ -40,4 +40,3 @@ _shader_parameters = {
 &"noise_texture": SubResource("NoiseTexture2D_4khmu"),
 &"projection_threshold": 0.0
 }
-show_navigation = true
