@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b44p7ahr7372s"]
+
+[ext_resource type="Texture2D" uid="uid://cr8gr3tk4sdx3" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_Vegetation_1A.tga" id="1_p2ppn"]
+
+[resource]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_p2ppn")
+metallic_specular = 0.0
+roughness = 0.5
+subsurf_scatter_strength = 0.55

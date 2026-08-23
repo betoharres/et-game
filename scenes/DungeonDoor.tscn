@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://pr0wmkbti6tn"]
 
-[ext_resource type="Script" path="res://scripts/dungeon_door.gd" id="1_door"]
-[ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_frame_mat"]
+[ext_resource type="Script" uid="uid://dhda4h8ibnu7j" path="res://scripts/dungeon_door.gd" id="1_door"]
+[ext_resource type="PackedScene" uid="uid://c646tj0i371e0" path="res://scenes/SICS Columns/tem_broken_pillar_01a.tscn" id="2_twkbo"]
+[ext_resource type="ArrayMesh" uid="uid://cwyid5idue345" path="res://3dModelos/SM_Generic_Small_Rocks_01.fbx" id="3_ud3ly"]
+[ext_resource type="Material" uid="uid://s85g563cqhp3" path="res://Materiais/PolygonConstruction1.tres" id="4_8hhl8"]
+[ext_resource type="ArrayMesh" uid="uid://bcgw5jsjiysl2" path="res://3dModelos/SM_Generic_Small_Rocks_02.fbx" id="5_58ie1"]
+
+[sub_resource type="BoxShape3D" id="Shape_DoorTrigger"]
+size = Vector3(3, 3, 3)
 
 [sub_resource type="StandardMaterial3D" id="Mat_Portal"]
 albedo_color = Color(0.25, 0.9, 0.55, 1)
@@ -9,50 +15,62 @@ emission_enabled = true
 emission = Color(0.2, 0.95, 0.5, 1)
 emission_energy_multiplier = 2.5
 
-[sub_resource type="BoxShape3D" id="Shape_DoorTrigger"]
-size = Vector3(3, 3, 3)
+[sub_resource type="QuadMesh" id="QuadMesh_ec6vt"]
+material = SubResource("Mat_Portal")
+size = Vector2(2, 2.5)
 
-[node name="DungeonDoor" type="Area3D"]
+[node name="DungeonDoor" type="Area3D" unique_id=761210432]
 script = ExtResource("1_door")
 
-[node name="FrameLeft" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.2, 0)
-use_collision = true
-size = Vector3(0.4, 2.4, 0.4)
-material = ExtResource("2_frame_mat")
-
-[node name="FrameRight" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.2, 0)
-use_collision = true
-size = Vector3(0.4, 2.4, 0.4)
-material = ExtResource("2_frame_mat")
-
-[node name="FrameTop" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-use_collision = true
-size = Vector3(2.6, 0.4, 0.4)
-material = ExtResource("2_frame_mat")
-
-[node name="PortalVeil" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-size = Vector3(1.8, 2.2, 0.08)
-material = SubResource("Mat_Portal")
-
-[node name="PortalLight" type="OmniLight3D" parent="."]
+[node name="PortalLight" type="OmniLight3D" parent="." unique_id=1247374332]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 light_color = Color(0.4, 1, 0.65, 1)
 light_energy = 1.6
 omni_range = 4.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1452423226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("Shape_DoorTrigger")
 
-[node name="EntryPrompt" type="Label3D" parent="."]
+[node name="EntryPrompt" type="Label3D" parent="." unique_id=1608569605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+visible = false
 billboard = 1
 modulate = Color(0.55, 1, 0.7, 1)
 outline_modulate = Color(0, 0.15, 0.05, 1)
-font_size = 32
 text = "PRESSIONE E PARA ENTRAR NA MASMORRA"
-visible = false
+
+[node name="TEM_Broken_Pillar_01A" parent="." unique_id=1842880316 instance=ExtResource("2_twkbo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="TEM_Broken_Pillar_01A3" parent="." unique_id=1443139920 instance=ExtResource("2_twkbo")]
+transform = Transform3D(-4.371139e-08, 0.535, 0, -1, -2.3385594e-08, 0, 0, 0, 1, 0, 2.487, 0)
+
+[node name="TEM_Broken_Pillar_01A4" parent="." unique_id=803924241 instance=ExtResource("2_twkbo")]
+transform = Transform3D(4.371139e-08, -0.535, 8.742278e-08, -0.84161997, 5.57794e-09, 0.5400702, -0.5400702, -5.199343e-08, -0.84161997, 0, 2.487, 0)
+
+[node name="TEM_Broken_Pillar_01A2" parent="." unique_id=1089247389 instance=ExtResource("2_twkbo")]
+transform = Transform3D(-0.670903, 0, 0.7415451, 0, 1, 0, -0.7415451, 0, -0.670903, 1, 0, 0)
+
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=850087082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.06027198)
+mesh = SubResource("QuadMesh_ec6vt")
+
+[node name="Portal2" type="MeshInstance3D" parent="." unique_id=1482657280]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.25, -0.06)
+mesh = SubResource("QuadMesh_ec6vt")
+
+[node name="SmGenericSmallRocks01" type="MeshInstance3D" parent="." unique_id=17059829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2280931, 0, 0.4006148)
+mesh = ExtResource("3_ud3ly")
+surface_material_override/0 = ExtResource("4_8hhl8")
+
+[node name="SmGenericSmallRocks02" type="MeshInstance3D" parent="." unique_id=40046360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1204925, 0, 0.9000878)
+mesh = ExtResource("5_58ie1")
+surface_material_override/0 = ExtResource("4_8hhl8")
+
+[node name="SmGenericSmallRocks03" type="MeshInstance3D" parent="." unique_id=29360199]
+transform = Transform3D(0.7097982, 0, 0.70440507, 0, 1, 0, -0.70440507, 0, 0.7097982, 0.46161368, 0, -0.9383979)
+mesh = ExtResource("5_58ie1")
+surface_material_override/0 = ExtResource("4_8hhl8")

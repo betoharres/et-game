@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b4k5y8rmeltij"]
+
+[ext_resource type="PackedScene" uid="uid://bfaksvrk4g8aj" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bush_02A.fbx" id="1_ev6rn"]
+[ext_resource type="Material" uid="uid://b44p7ahr7372s" path="res://Materiais/SICS_TEM_Trees.tres" id="2_ewdyd"]
+
+[node name="TEM_Bush_02A" unique_id=398801795 instance=ExtResource("1_ev6rn")]
+
+[node name="TEM_Bush_02A_LOD0" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(674472311) index="0" unique_id=430427989]
+surface_material_override/0 = ExtResource("2_ewdyd")
+
+[node name="TEM_Bush_02A_LOD1" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(674472311) index="1" unique_id=958180599]
+visible = false
+surface_material_override/0 = ExtResource("2_ewdyd")

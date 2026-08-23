@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c646tj0i371e0"]
+
+[ext_resource type="PackedScene" uid="uid://52whfmeeihoc" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_01A.fbx" id="1_qjohv"]
+[ext_resource type="Texture2D" uid="uid://c11hl354cj6sp" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_1A.png" id="2_c17x7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8j4su"]
+albedo_texture = ExtResource("2_c17x7")
+
+[node name="TEM_Broken_Pillar_01A" unique_id=1842880316 instance=ExtResource("1_qjohv")]
+
+[node name="TEM_Broken_Pillar_01A" parent="." index="0" unique_id=1333655216]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="TEM_Broken_Pillar_01A_LOD0" parent="TEM_Broken_Pillar_01A" index="0" unique_id=1082078962]
+surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")
+
+[node name="TEM_Broken_Pillar_01A_LOD1" parent="TEM_Broken_Pillar_01A" index="1" unique_id=1141594035]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")
+
+[node name="TEM_Broken_Pillar_01A_LOD2" parent="TEM_Broken_Pillar_01A" index="2" unique_id=959180908]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")
