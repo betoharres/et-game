@@ -104,16 +104,11 @@ enum ImpactReaction {
 @onready var character_mesh : MeshInstance3D = $ET/ETArmature/Skeleton3D/ET
 @onready var ragdoll : PlayerRagdoll = $PlayerRagdoll
 @onready var ik_target_container : Node = $IKtargetContainer
-<<<<<<< HEAD
 @onready var animation_controller : PlayerAnimationController = (
 	$PlayerAnimationController
 )
-@onready var eye_area_light : OmniLight3D = (
-	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
-=======
 @onready var eye_area_light : SpotLight3D = (
-	$ET/Armature/Skeleton3D/EyeLightAttachment/EyeAreaLight
->>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
+	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
 )
 
 var camera_yaw: float = 0.0
@@ -228,13 +223,8 @@ func _input(event: InputEvent) -> void:
 		else:
 			carried_item.drop()
 			carried_item = null
-<<<<<<< HEAD
 			if ik_target_container.has_method("set_carrying"):
 				ik_target_container.call("set_carrying", false)
-=======
-			
-		
->>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 
 func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:

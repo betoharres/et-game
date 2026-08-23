@@ -231,10 +231,10 @@ mesh = SubResource("ArrayMesh_kuoyb")
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 
-[node name="StaticBody3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51265126, 1.112174, 0.1171191)
 
-[node name="CollisionShape3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06295407)
 shape = SubResource("BoxShape3D_qifwr")
 
