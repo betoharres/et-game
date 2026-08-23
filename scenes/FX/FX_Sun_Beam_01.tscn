@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dv3hf3urlj7mf"]
 
-[ext_resource type="Texture2D" path="res://assets/Particle_FX/Textures/FX/Generic_Sun_Beam_01.png" id="1_h6m3o"]
+[ext_resource type="Texture2D" uid="uid://dxbgy67btrdmk" path="res://Texturas/FX/Generic_Sun_Beam_01.png" id="1_h6m3o"]
 
 [sub_resource type="Curve" id="Curve_81ewy"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2179487, 1), 0.0, 0.0, 0, 0, Vector2(0.7948718, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

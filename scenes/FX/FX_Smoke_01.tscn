@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://fr02ae4bpuwf"]
 
-[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Smoke_01.tres" id="1_y2vah"]
+[ext_resource type="Material" uid="uid://dx0subc5hmo45" path="res://Materiais/FX/Smoke_01.tres" id="1_y2vah"]
 
 [sub_resource type="Gradient" id="Gradient_y2vah"]
 offsets = PackedFloat32Array(0, 0.23776224, 0.3216783, 0.3986014, 1)
@@ -40,7 +40,7 @@ turbulence_initial_displacement_max = 55.100002
 [sub_resource type="QuadMesh" id="QuadMesh_fsx80"]
 material = ExtResource("1_y2vah")
 
-[node name="FX_Smoke_01" type="GPUParticles3D"]
+[node name="FX_Smoke_01" type="GPUParticles3D" unique_id=704633436]
 transform = Transform3D(0.99992836, 0.011972666, 0, -0.011972666, 0.99992836, 0, 0, 0, 1, 0, 0, 0)
 amount = 15
 lifetime = 3.1999999999999997

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmrltdlw4uj43"]
 
-[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Snow_01.tres" id="1_1fad5"]
+[ext_resource type="Material" uid="uid://crh8uhqeakayc" path="res://Materiais/FX/Snow_01.tres" id="1_1fad5"]
 
 [sub_resource type="Curve" id="Curve_168uw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.33974358, 1), 0.0, 0.0, 0, 0, Vector2(0.67628205, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -37,7 +37,7 @@ turbulence_initial_displacement_max = 1.490116e-06
 [sub_resource type="QuadMesh" id="QuadMesh_8a2lq"]
 material = ExtResource("1_1fad5")
 
-[node name="FX_Snow_01" type="GPUParticles3D"]
+[node name="FX_Snow_01" type="GPUParticles3D" unique_id=370598160]
 amount = 150
 lifetime = 8.0
 randomness = 0.09

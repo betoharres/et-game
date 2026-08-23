@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://di6oo1kuyml3m"]
 
-[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Fire_Flames_01.tres" id="1_txbo8"]
-[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Ember_01.tres" id="2_8f7x2"]
+[ext_resource type="Material" uid="uid://2ai8gf15g0hi" path="res://Materiais/FX/Fire_Flames_01.tres" id="1_txbo8"]
+[ext_resource type="Material" uid="uid://8w3bdjuoxue0" path="res://Materiais/FX/Ember_01.tres" id="2_8f7x2"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_txbo8"]
 spread = 0.0
@@ -80,7 +80,7 @@ anim_speed_max = 1.0
 material = ExtResource("1_txbo8")
 center_offset = Vector3(0, 0.47, 0)
 
-[node name="FX_Fire_Large_01" type="GPUParticles3D"]
+[node name="FX_Fire_Large_01" type="GPUParticles3D" unique_id=506374572]
 amount = 1
 lifetime = 7.0
 speed_scale = 1.3
@@ -89,7 +89,7 @@ visibility_aabb = AABB(-0.75, 0, -0.75, 1.5, 1.5, 1.5)
 process_material = SubResource("ParticleProcessMaterial_txbo8")
 draw_pass_1 = SubResource("QuadMesh_fc23b")
 
-[node name="FX_Fire_Embers_01" type="GPUParticles3D" parent="."]
+[node name="FX_Fire_Embers_01" type="GPUParticles3D" parent="." unique_id=1057482948]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3883477, 0)
 amount = 10
 lifetime = 2.0
@@ -101,7 +101,7 @@ visibility_aabb = AABB(-0.75, -0.4, -0.75, 1.5, 1.5, 1.5)
 process_material = SubResource("ParticleProcessMaterial_8f7x2")
 draw_pass_1 = SubResource("QuadMesh_wcqov")
 
-[node name="FX_Fire_Spread_01" type="GPUParticles3D" parent="."]
+[node name="FX_Fire_Spread_01" type="GPUParticles3D" parent="." unique_id=425019049]
 amount = 4
 lifetime = 7.0
 speed_scale = 1.3
