@@ -183,6 +183,9 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   planta os pés e completa um único giro de 180° antes de começar a caminhar.
   O yaw interno dos clips de turn é removido na geração do GLB para não se
   somar à rotação física do `CharacterBody3D`.
+- Mudanças menores de direção, inclusive soltar a frente e apertar um lado,
+  permanecem em uma animação de locomoção enquanto o corpo gira. Apenas uma
+  reversão ampla aciona o pivô que planta os pés antes de voltar a andar.
 - Cair de altura também derruba. A velocidade vertical no instante em que o ET
   toca o chão é comparada com `min_landing_speed` e `landing_ragdoll_speed`:
 

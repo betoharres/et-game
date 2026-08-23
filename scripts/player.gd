@@ -280,7 +280,6 @@ func _physics_process(delta: float) -> void:
 		and _jump_state == JumpState.READY
 	)
 	_update_stamina(delta, wants_to_sprint)
-	var previous_horizontal_speed := Vector2(velocity.x, velocity.z).length()
 
 	if has_movement_input:
 		movement_direction = movement_direction.normalized()
@@ -300,8 +299,7 @@ func _physics_process(delta: float) -> void:
 		_update_horizontal_movement(
 			delta,
 			movement_direction,
-			has_movement_input,
-			previous_horizontal_speed
+			has_movement_input
 		)
 
 	_apply_knockback(delta)
@@ -330,7 +328,7 @@ func _get_movement_speed() -> float:
 
 
 func _update_horizontal_movement(delta : float, movement_direction : Vector3,
-	has_movement_input : bool, previous_horizontal_speed : float) -> void:
+	has_movement_input : bool) -> void:
 	var horizontal_velocity := Vector2(velocity.x, velocity.z)
 
 	if has_movement_input:
@@ -346,13 +344,6 @@ func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 		)
 
 		var target_angle := atan2(movement_direction.x, movement_direction.z)
-		var turn_delta := wrapf(target_angle - rotation.y, -PI, PI)
-		if (
-			previous_horizontal_speed < 0.35
-			and absf(turn_delta) > deg_to_rad(50.0)
-		):
-			animation_controller.trigger_turn(turn_delta)
-
 		rotation.y = rotate_toward(
 			rotation.y,
 			target_angle,
