@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://ct8axay17kyjg"]
 
 [ext_resource type="Script" uid="uid://biy7wkqgtlxmb" path="res://scripts/player.gd" id="1_p0vlq"]
-[ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="2_3li8b"]
+[ext_resource type="PackedScene" path="res://animations/mixamo/ET_animated.glb" id="2_3li8b"]
 [ext_resource type="Script" uid="uid://dbwjogvkof04y" path="res://scripts/ik_target_container.gd" id="3_3li8b"]
 [ext_resource type="Script" uid="uid://d2qkhr65jljsa" path="res://scripts/audio/footstep_audio.gd" id="4_footsteps"]
 [ext_resource type="PackedScene" path="res://scenes/PlayerHUD.tscn" id="5_hud"]
 [ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="6_ragdoll"]
+[ext_resource type="Script" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
+[ext_resource type="Script" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -24,43 +26,11 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
 
-[node name="LegR" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="0" unique_id=511071823]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.033597767, 0, 0.03857422)
-rotation_edit_mode = 1
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKtargetContainer/TargetLegR")
-settings/0/pole_node = NodePath("../../../../IKtargetContainer/PoleR")
-settings/0/root_bone_name = "Femur.R"
-settings/0/root_bone = 28
-settings/0/middle_bone_name = "Shin.R"
-settings/0/middle_bone = 29
-settings/0/pole_direction = 0
-settings/0/end_bone_name = "Foot.R"
-settings/0/end_bone = 31
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="LegL" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="1" unique_id=1438643627]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
-rotation_edit_mode = 1
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKtargetContainer/TargetLegL")
-settings/0/pole_node = NodePath("../../../../IKtargetContainer/PoleL")
-settings/0/root_bone_name = "Femur.L"
-settings/0/root_bone = 23
-settings/0/middle_bone_name = "Shin.L"
-settings/0/middle_bone = 24
-settings/0/pole_direction = 0
-settings/0/end_bone_name = "Foot.L"
-settings/0/end_bone = 26
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="Head" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="3" unique_id=1917786700]
+[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D"]
 influence = 0.242
 target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
-bone_name = "Head"
-bone = 5
+bone_name = "mixamorig_Head"
+bone = 31
 duration = 0.5
 use_angle_limitation = true
 symmetry_limitation = true
@@ -69,10 +39,11 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.5707964
 secondary_damp_threshold = 1.0
 
-[node name="Torso" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="4" unique_id=1057221420]
+[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D"]
+influence = 0.2
 target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
-bone_name = "Chest"
-bone = 3
+bone_name = "mixamorig_Spine2"
+bone = 13
 duration = 0.5
 use_angle_limitation = true
 symmetry_limitation = true
@@ -81,51 +52,27 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="Hips" type="LookAtModifier3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="5" unique_id=203524647]
-target_node = NodePath("../../../../IKtargetContainer/Hips")
-bone_name = "HipsRoot"
-bone = 0
-use_secondary_rotation = false
-duration = 0.5
-use_angle_limitation = true
-symmetry_limitation = true
-primary_limit_angle = 0.34906584
-primary_damp_threshold = 1.0
-
-[node name="HandR" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="6" unique_id=2139516878]
+[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D"]
+influence = 0.0
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
 settings/0/pole_node = NodePath("../../../../IKtargetContainer/ElbowR")
-settings/0/root_bone_name = "Arm.R"
-settings/0/root_bone = 15
-settings/0/middle_bone_name = "Forearm.R"
-settings/0/middle_bone = 16
+settings/0/root_bone_name = "mixamorig_RightArm"
+settings/0/root_bone = 34
+settings/0/middle_bone_name = "mixamorig_RightForeArm"
+settings/0/middle_bone = 35
 settings/0/pole_direction = 0
-settings/0/end_bone_name = "Hand.R"
-settings/0/end_bone = 17
+settings/0/end_bone_name = "mixamorig_RightHand"
+settings/0/end_bone = 36
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="HandL" type="TwoBoneIK3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="7" unique_id=912824023]
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKtargetContainer/HandL")
-settings/0/pole_node = NodePath("../../../../IKtargetContainer/ElbowL")
-settings/0/root_bone_name = "Arm.L"
-settings/0/root_bone = 7
-settings/0/middle_bone_name = "Forearm.L"
-settings/0/middle_bone = 8
-settings/0/pole_direction = 0
-settings/0/end_bone_name = "Hand.L"
-settings/0/end_bone = 9
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/Armature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 2120497707) index="8" unique_id=1475869698]
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D"]
 transform = Transform3D(1, -3.824085e-08, -2.943728e-07, 1.687549e-08, 0.9973871, -0.072239734, 2.9636624e-07, 0.07223978, 0.9973871, -9.907526e-10, 0.7487974, -0.008015207)
-bone_name = "Head"
-bone_idx = 5
+bone_name = "mixamorig_Head"
+bone_idx = 31
 
-[node name="EyeAreaLight" type="OmniLight3D" parent="ET/Armature/Skeleton3D/EyeLightAttachment" unique_id=128685309]
+[node name="EyeAreaLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.055, 0.18)
 light_color = Color(0.52, 0.76, 0.88, 1)
 light_energy = 0.0
@@ -136,38 +83,23 @@ shadow_enabled = true
 omni_range = 4.0
 omni_attenuation = 1.25
 
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D"]
+script = ExtResource("8_recovery")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+anim_player = NodePath("../ET/AnimationPlayer")
+
 [node name="PlayerRagdoll" type="Node" parent="." unique_id=558996212]
 script = ExtResource("6_ragdoll")
 
 [node name="IKtargetContainer" type="Node3D" parent="." unique_id=1353782455]
 script = ExtResource("3_3li8b")
 
-[node name="TargetLegR" type="Marker3D" parent="IKtargetContainer" unique_id=1172848748]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043884277, 0.06503368, 0.11838886)
-
-[node name="TargetLegL" type="Marker3D" parent="IKtargetContainer" unique_id=998866677]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044, 0.23666672, -0.26643685)
-
-[node name="PoleR" type="Marker3D" parent="IKtargetContainer" unique_id=354409181]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.044, 0.43, 0.513)
-
-[node name="PoleL" type="Marker3D" parent="IKtargetContainer" unique_id=723523628]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044, 0.43, 0.513)
-
 [node name="HandR" type="Marker3D" parent="IKtargetContainer" unique_id=1162400189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14912415, 0.47468626, -0.10402681)
 
-[node name="HandL" type="Marker3D" parent="IKtargetContainer" unique_id=161511938]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149, 0.55720675, 0.103934616)
-
 [node name="ElbowR" type="Marker3D" parent="IKtargetContainer" unique_id=1830083975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.149, 0.781, -0.442)
-
-[node name="ElbowL" type="Marker3D" parent="IKtargetContainer" unique_id=2027736850]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149, 0.781, -0.442)
-
-[node name="Hips" type="Marker3D" parent="IKtargetContainer" unique_id=45537913]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 1.944)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1887678891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -190,5 +122,8 @@ rotation_edit_mode = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=830682375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52871704, 0.46142578)
 shape = SubResource("BoxShape3D_ec6vt")
+
+[node name="PlayerAnimationController" type="Node" parent="."]
+script = ExtResource("9_animation")
 
 [editable path="ET"]

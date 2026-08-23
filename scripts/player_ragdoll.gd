@@ -1,73 +1,303 @@
+class_name PlayerRagdoll
 extends Node
 
-const SKELETON_PATH := NodePath("../ET/Armature/Skeleton3D")
-const LEFT_HIP_BONE := "Hips.L"
-const RIGHT_HIP_BONE := "Hips.R"
-const ROOT_BONE := "HipsRoot"
+## Physically simulated fall for the ET.
+##
+## Two entry points share the same rig setup:
+##
+##   * start_ragdoll() is the permanent death fall;
+##   * start_comic_fall() is the exaggerated pratfall used when the balance
+##     system in player.gd runs out of balance. It is reversible through
+##     stop_ragdoll() followed by apply_recovery(), which blends the skeleton
+##     from the fallen pose back to the IK pose.
+##
+## Entering the ragdoll deactivates every SkeletonModifier3D so IK and LookAt
+## stop fighting the simulation. stop_ragdoll() captures the physical pose and
+## hands it to RagdollRecoveryModifier for a short blend into Get Up.
+
+const SKELETON_PATH := NodePath("../ET/ETArmature/Skeleton3D")
+const ROOT_BONE := "mixamorig_Hips"
+const CHEST_BONE := "mixamorig_Spine2"
+const HEAD_BONE := "mixamorig_Head"
+const LEFT_ARM_BONE := "mixamorig_LeftArm"
+const RIGHT_ARM_BONE := "mixamorig_RightArm"
+const FOOT_BONES : PackedStringArray = [
+	"mixamorig_LeftFoot",
+	"mixamorig_RightFoot",
+]
+const HAND_BONES : PackedStringArray = [
+	"mixamorig_LeftHand",
+	"mixamorig_RightHand",
+]
 
 @export var impact_impulse : float = 0.8
+
+@export_category("Comic Fall")
+@export_range(0.0, 20.0, 0.1) var comic_impulse : float = 4.5
+@export_range(0.0, 12.0, 0.1) var comic_lift_impulse : float = 2.4
+@export_range(0.0, 20.0, 0.1) var comic_sweep_impulse : float = 3.2
+@export_range(0.0, 10.0, 0.1) var comic_flail_impulse : float = 1.6
 
 var _skeleton : Skeleton3D
 var _simulator : PhysicalBoneSimulator3D
 var _physical_bones : Dictionary = {}
 var _active : bool = false
+var _recovering : bool = false
+var _suspended_modifiers : Array[SkeletonModifier3D] = []
+var _suspended_influences : PackedFloat32Array = PackedFloat32Array()
+var _recovery_modifier : RagdollRecoveryModifier
+var _random := RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	_random.randomize()
 	_skeleton = get_node_or_null(SKELETON_PATH) as Skeleton3D
 
 	if _skeleton == null:
 		push_warning("PlayerRagdoll could not find the ET skeleton.")
+		return
+
+	for child : Node in _skeleton.get_children():
+		if child is RagdollRecoveryModifier:
+			_recovery_modifier = child as RagdollRecoveryModifier
+			break
+
+	if _recovery_modifier == null:
+		push_warning("PlayerRagdoll could not find RagdollRecoveryModifier.")
 
 
 func start_ragdoll(impact_direction : Vector3 = Vector3.ZERO) -> void:
-	if _active or _skeleton == null:
+	if not _enter_ragdoll():
 		return
 
-	_active = true
-	_connect_leg_roots()
-	_build_ragdoll()
+	_start_physics.call_deferred(impact_direction, false, 1.0)
 
-	for child : Node in _skeleton.get_children():
-		if child is SkeletonModifier3D and child != _simulator:
-			(child as SkeletonModifier3D).active = false
 
-	_start_physics.call_deferred(impact_direction)
+## Exaggerated, recoverable fall. Strength scales the impulses so a barely
+## failed balance check tips the ET over and a full-speed crash sends it flying.
+func start_comic_fall(impact_direction : Vector3 = Vector3.ZERO,
+	strength : float = 1.0) -> void:
+	if not _enter_ragdoll():
+		return
+
+	_start_physics.call_deferred(
+		impact_direction,
+		true,
+		clampf(strength, 0.2, 2.0)
+	)
+
+
+## Ends the simulation while keeping the fallen pose, so the caller can blend
+## back to the standing pose through apply_recovery().
+func stop_ragdoll() -> void:
+	if not _active or _skeleton == null:
+		return
+
+	var fallen_globals : Array[Transform3D] = _capture_fallen_global_poses()
+
+	if _simulator != null:
+		_simulator.physical_bones_stop_simulation()
+		_skeleton.remove_child(_simulator)
+		_simulator.queue_free()
+		_simulator = null
+
+	_physical_bones.clear()
+	# The IK comes back at full strength right away. What makes the stand up
+	# gradual is RagdollRecoveryModifier holding the fallen pose over its output.
+	_resume_modifiers()
+
+	var bone_count : int = _skeleton.get_bone_count()
+	var fallen_rotations : Array[Quaternion] = []
+	fallen_rotations.resize(bone_count)
+	var root_bones : PackedInt32Array = PackedInt32Array()
+	var root_positions : PackedVector3Array = PackedVector3Array()
+
+	for bone : int in bone_count:
+		var parent : int = _skeleton.get_bone_parent(bone)
+		var parent_global : Transform3D = Transform3D.IDENTITY
+
+		if parent >= 0:
+			parent_global = fallen_globals[parent]
+
+		var local_pose : Transform3D = (
+			parent_global.affine_inverse() * fallen_globals[bone]
+		)
+		fallen_rotations[bone] = local_pose.basis.get_rotation_quaternion()
+
+		# Only the bones without a parent carry the body around; every other
+		# bone keeps the position the modifier stack gives it.
+		if parent < 0:
+			root_bones.append(bone)
+			root_positions.append(local_pose.origin)
+
+	if _recovery_modifier != null:
+		_recovery_modifier.begin(fallen_rotations, root_bones, root_positions)
+
+	_active = false
+	_recovering = true
+
+
+## Reads the fallen pose from the physical bones instead of from the skeleton.
+## Skeleton3D restores the bone poses right after the modifier stack runs, so
+## get_bone_global_pose() called from a normal script returns the pose from
+## before the simulation, not the ragdoll.
+func _capture_fallen_global_poses() -> Array[Transform3D]:
+	var bone_count : int = _skeleton.get_bone_count()
+	var fallen_globals : Array[Transform3D] = []
+	fallen_globals.resize(bone_count)
+
+	var reference : Node3D = _simulator if _simulator != null else _skeleton
+	var reference_inverse : Transform3D = (
+		reference.global_transform.affine_inverse()
+	)
+
+	for bone : int in bone_count:
+		var physical_bone := _physical_bones.get(
+			_skeleton.get_bone_name(bone)
+		) as PhysicalBone3D
+
+		if physical_bone != null:
+			fallen_globals[bone] = (
+				reference_inverse
+				* physical_bone.global_transform
+				* physical_bone.body_offset.affine_inverse()
+			)
+			continue
+
+		# Bones without a physical body kept the local pose they already had.
+		var parent : int = _skeleton.get_bone_parent(bone)
+		var parent_global : Transform3D = Transform3D.IDENTITY
+
+		if parent >= 0:
+			parent_global = fallen_globals[parent]
+
+		fallen_globals[bone] = parent_global * _skeleton.get_bone_pose(bone)
+
+	return fallen_globals
+
+
+## Blends the skeleton from the fallen pose (0.0) back to the pose the modifier
+## stack produces (1.0). The interpolation itself happens inside
+## RagdollRecoveryModifier, which is the only place the posed skeleton exists.
+func apply_recovery(ratio : float) -> void:
+	if not _recovering:
+		return
+
+	var blend : float = clampf(ratio, 0.0, 1.0)
+
+	if _recovery_modifier != null:
+		_recovery_modifier.set_blend(blend)
+
+	if blend < 1.0:
+		return
+
+	if _recovery_modifier != null:
+		_recovery_modifier.finish()
+
+	_recovering = false
+	_suspended_modifiers.clear()
+	_suspended_influences.clear()
 
 
 func is_active() -> bool:
 	return _active
 
 
-func _connect_leg_roots() -> void:
+func is_recovering() -> bool:
+	return _recovering
+
+
+## World position of the hips, used by player.gd to keep the character body and
+## the camera following the falling ET.
+func get_body_global_position() -> Vector3:
+	if _skeleton == null:
+		return Vector3.ZERO
+
 	var root_id : int = _skeleton.find_bone(ROOT_BONE)
 
 	if root_id < 0:
-		return
+		return _skeleton.global_position
 
-	for hip_name : String in [LEFT_HIP_BONE, RIGHT_HIP_BONE]:
-		var hip_id : int = _skeleton.find_bone(hip_name)
+	return _skeleton.to_global(_skeleton.get_bone_global_pose(root_id).origin)
 
-		if hip_id < 0 or _skeleton.get_bone_parent(hip_id) == root_id:
+
+## Uses the shoulder/spine plane instead of a single bone axis, which remains
+## reliable even when the ragdoll twists individual joints.
+func is_face_up() -> bool:
+	if _skeleton == null:
+		return true
+
+	var left_shoulder := _bone_global_position(LEFT_ARM_BONE)
+	var right_shoulder := _bone_global_position(RIGHT_ARM_BONE)
+	var hips := _bone_global_position(ROOT_BONE)
+	var head := _bone_global_position(HEAD_BONE)
+	var shoulder_axis := right_shoulder - left_shoulder
+	var spine_axis := head - hips
+
+	if (
+		shoulder_axis.length_squared() <= 0.0001
+		or spine_axis.length_squared() <= 0.0001
+	):
+		return true
+
+	var body_front := shoulder_axis.cross(spine_axis).normalized()
+	var visual_forward := _skeleton.global_transform.basis.z.normalized()
+	if body_front.dot(visual_forward) < 0.0:
+		body_front = -body_front
+	return body_front.dot(Vector3.UP) >= 0.0
+
+
+func _bone_global_position(bone_name : String) -> Vector3:
+	var physical_bone := _physical_bones.get(bone_name) as PhysicalBone3D
+	if physical_bone != null and is_instance_valid(physical_bone):
+		return physical_bone.global_position
+
+	var bone : int = _skeleton.find_bone(bone_name)
+	if bone < 0:
+		return _skeleton.global_position
+	return _skeleton.to_global(_skeleton.get_bone_global_pose(bone).origin)
+
+
+func _enter_ragdoll() -> bool:
+	if _active or _skeleton == null:
+		return false
+
+	# Finish a pending recovery first, otherwise the mid-blend influences would
+	# be recorded as the originals and the IK would never come back fully.
+	apply_recovery(1.0)
+
+	_active = true
+	_build_ragdoll()
+	_suspend_modifiers()
+	return true
+
+
+func _suspend_modifiers() -> void:
+	_suspended_modifiers.clear()
+	_suspended_influences.clear()
+
+	for child : Node in _skeleton.get_children():
+		if not (child is SkeletonModifier3D) or child == _simulator:
 			continue
 
-		var global_rest : Transform3D = _skeleton.get_bone_global_rest(hip_id)
-		var global_pose : Transform3D = _skeleton.get_bone_global_pose(hip_id)
-		var parent_global_rest : Transform3D = (
-			_skeleton.get_bone_global_rest(root_id)
-		)
-		var parent_global_pose : Transform3D = (
-			_skeleton.get_bone_global_pose(root_id)
-		)
-		_skeleton.set_bone_parent(hip_id, root_id)
-		_skeleton.set_bone_rest(
-			hip_id,
-			parent_global_rest.affine_inverse() * global_rest
-		)
-		_skeleton.set_bone_pose(
-			hip_id,
-			parent_global_pose.affine_inverse() * global_pose
-		)
+		if child is RagdollRecoveryModifier:
+			continue
+
+		var modifier : SkeletonModifier3D = child as SkeletonModifier3D
+		_suspended_modifiers.append(modifier)
+		_suspended_influences.append(modifier.influence)
+		modifier.active = false
+
+
+func _resume_modifiers() -> void:
+	for index : int in _suspended_modifiers.size():
+		var modifier : SkeletonModifier3D = _suspended_modifiers[index]
+
+		if not is_instance_valid(modifier):
+			continue
+
+		modifier.influence = _suspended_influences[index]
+		modifier.active = true
 
 
 func _build_ragdoll() -> void:
@@ -76,24 +306,22 @@ func _build_ragdoll() -> void:
 	_skeleton.add_child(_simulator)
 
 	_add_sphere_bone(ROOT_BONE, 0.14, 2.4)
-	_add_sphere_bone("Chest", 0.16, 1.8)
-	_add_sphere_bone("Head", 0.14, 0.7)
+	_add_sphere_bone(CHEST_BONE, 0.16, 1.8)
+	_add_sphere_bone(HEAD_BONE, 0.14, 0.7)
 
-	_add_capsule_bone("Arm.L", "Forearm.L", 0.052, 0.5)
-	_add_capsule_bone("Forearm.L", "Hand.L", 0.045, 0.4)
-	_add_sphere_bone("Hand.L", 0.055, 0.25)
-	_add_capsule_bone("Arm.R", "Forearm.R", 0.052, 0.5)
-	_add_capsule_bone("Forearm.R", "Hand.R", 0.045, 0.4)
-	_add_sphere_bone("Hand.R", 0.055, 0.25)
+	_add_capsule_bone(LEFT_ARM_BONE, "mixamorig_LeftForeArm", 0.052, 0.5)
+	_add_capsule_bone("mixamorig_LeftForeArm", "mixamorig_LeftHand", 0.045, 0.4)
+	_add_sphere_bone("mixamorig_LeftHand", 0.055, 0.25)
+	_add_capsule_bone(RIGHT_ARM_BONE, "mixamorig_RightForeArm", 0.052, 0.5)
+	_add_capsule_bone("mixamorig_RightForeArm", "mixamorig_RightHand", 0.045, 0.4)
+	_add_sphere_bone("mixamorig_RightHand", 0.055, 0.25)
 
-	_add_sphere_bone(LEFT_HIP_BONE, 0.075, 0.45)
-	_add_capsule_bone("Femur.L", "Shin.L", 0.06, 0.7)
-	_add_capsule_bone("Shin.L", "Foot.L", 0.052, 0.55)
-	_add_sphere_bone("Foot.L", 0.065, 0.3)
-	_add_sphere_bone(RIGHT_HIP_BONE, 0.075, 0.45)
-	_add_capsule_bone("Femur.R", "Shin.R", 0.06, 0.7)
-	_add_capsule_bone("Shin.R", "Foot.R", 0.052, 0.55)
-	_add_sphere_bone("Foot.R", 0.065, 0.3)
+	_add_capsule_bone("mixamorig_LeftUpLeg", "mixamorig_LeftLeg", 0.06, 0.7)
+	_add_capsule_bone("mixamorig_LeftLeg", "mixamorig_LeftFoot", 0.052, 0.55)
+	_add_sphere_bone("mixamorig_LeftFoot", 0.065, 0.3)
+	_add_capsule_bone("mixamorig_RightUpLeg", "mixamorig_RightLeg", 0.06, 0.7)
+	_add_capsule_bone("mixamorig_RightLeg", "mixamorig_RightFoot", 0.052, 0.55)
+	_add_sphere_bone("mixamorig_RightFoot", 0.065, 0.3)
 
 
 func _add_sphere_bone(
@@ -189,11 +417,16 @@ func _configure_joint(physical_bone : PhysicalBone3D) -> void:
 	physical_bone.set("joint_constraints/twist_span", 35.0)
 
 
-func _start_physics(impact_direction : Vector3) -> void:
+func _start_physics(impact_direction : Vector3, comic : bool,
+	strength : float) -> void:
 	if _simulator == null:
 		return
 
 	_simulator.physical_bones_start_simulation()
+
+	if comic:
+		_apply_comic_impact.call_deferred(impact_direction, strength)
+		return
 
 	if impact_direction.length_squared() > 0.0001:
 		var impulse := impact_direction.normalized() * impact_impulse
@@ -212,7 +445,79 @@ func _basis_with_y_axis(y_axis : Vector3) -> Basis:
 
 
 func _apply_impact(impulse : Vector3) -> void:
-	var chest := _physical_bones.get("Chest") as PhysicalBone3D
+	var chest := _physical_bones.get(CHEST_BONE) as PhysicalBone3D
 
 	if chest != null:
 		chest.apply_central_impulse(impulse)
+
+
+## Sweeps the feet out from under the ET while throwing the chest and the head
+## the other way, which reads as a pratfall instead of a limp collapse.
+func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
+	var push : Vector3 = Vector3.ZERO
+
+	if impact_direction.length_squared() > 0.0001:
+		push = Vector3(impact_direction.x, 0.0, impact_direction.z)
+
+	if push.length_squared() > 0.0001:
+		push = push.normalized()
+	else:
+		push = Vector3(
+			_random.randf_range(-1.0, 1.0),
+			0.0,
+			_random.randf_range(-1.0, 1.0)
+		).normalized()
+
+	var chest := _physical_bones.get(CHEST_BONE) as PhysicalBone3D
+
+	if chest != null:
+		chest.apply_central_impulse(
+			push * comic_impulse * strength
+			+ Vector3.UP * comic_lift_impulse * strength
+		)
+
+	var head := _physical_bones.get(HEAD_BONE) as PhysicalBone3D
+
+	if head != null:
+		head.apply_central_impulse(
+			(push + Vector3.UP * 0.35).normalized()
+			* comic_impulse
+			* strength
+			* 0.5
+		)
+
+	for foot_name : String in FOOT_BONES:
+		var foot := _physical_bones.get(foot_name) as PhysicalBone3D
+
+		if foot == null:
+			continue
+
+		foot.apply_central_impulse(
+			(-push + Vector3.UP * 0.9).normalized()
+			* comic_sweep_impulse
+			* strength
+			* _random.randf_range(0.7, 1.3)
+		)
+
+	for hand_name : String in HAND_BONES:
+		var hand := _physical_bones.get(hand_name) as PhysicalBone3D
+
+		if hand == null:
+			continue
+
+		hand.apply_central_impulse(
+			_random_flail_direction() * comic_flail_impulse * strength
+		)
+
+
+func _random_flail_direction() -> Vector3:
+	var direction := Vector3(
+		_random.randf_range(-1.0, 1.0),
+		_random.randf_range(0.3, 1.0),
+		_random.randf_range(-1.0, 1.0)
+	)
+
+	if direction.length_squared() <= 0.0001:
+		return Vector3.UP
+
+	return direction.normalized()
