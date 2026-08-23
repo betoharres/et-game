@@ -56,15 +56,19 @@ ssao_enabled = true
 ssao_radius = 1.1
 ssao_intensity = 1.6
 ssao_power = 1.35
-fog_enabled = false
-fog_light_color = Color(0.06, 0.16, 0.22, 1)
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.022, 0.045, 0.09, 1)
 fog_light_energy = 1.0
 fog_sun_scatter = 0.06
-fog_density = 0.01
+fog_density = 1.0
 fog_aerial_perspective = 0.16
-fog_sky_affect = 0.26
-fog_height = 3.5
-fog_height_density = 0.025
+fog_sky_affect = 0.35
+fog_height = 6.0
+fog_height_density = 0.0
+fog_depth_curve = 1.0
+fog_depth_begin = 350.0
+fog_depth_end = 400.0
 volumetric_fog_enabled = false
 volumetric_fog_density = 0.0055
 volumetric_fog_albedo = Color(0.07, 0.18, 0.24, 1)
@@ -141,7 +145,7 @@ billboard_mode = 1
 material = SubResource("StandardMaterial_atmosphere")
 size = Vector2(0.035, 0.035)
 
-[node name="NightEnvironment" type="Node3D" groups=["debug_environment_lighting"]]
+[node name="NightEnvironment" type="Node3D" groups=["debug_environment_lighting", "night_environment"]]
 script = ExtResource("1_controller")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

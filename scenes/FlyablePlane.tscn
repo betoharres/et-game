@@ -141,5 +141,6 @@ script = ExtResource("5_06hpb")
 
 [node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=706269107]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.278174, 1.129673)
+far = 1200.0
 
 [editable path="SM_Veh_Plane_Stunt_01"]

@@ -1,8 +1,8 @@
 extends SceneTree
 
 ## Smoke test da nevoa rasteira e dos presets de atmosfera do NightEnvironment.
-## A unica nevoa ativa e a manta rente ao chao: fog atmosferico e volumetric fog
-## ficam desligados, mas continuam configuraveis.
+## Duas camadas ativas: a manta rente ao chao e o fog atmosferico em modo Depth,
+## que fecha opaco antes do "far" das cameras. O volumetric fog fica desligado.
 
 const MAX_LAYER_HEIGHT : float = 1.5
 
@@ -31,8 +31,16 @@ func _run() -> void:
 	var fog_layer : Node3D = environment_node.get_node("GroundFogLayer")
 
 	_check(
-		not environment.fog_enabled,
-		"O fog atmosferico de tela cheia fica desligado"
+		environment.fog_enabled and environment.fog_mode == Environment.FOG_MODE_DEPTH,
+		"O fog atmosferico de tela cheia esta ligado em modo Depth"
+	)
+	_check(
+		environment.fog_density >= 0.99,
+		"fog_density fica em 1.0: em modo Depth ele multiplica a rampa"
+	)
+	_check(
+		is_zero_approx(environment.fog_height_density),
+		"fog_height_density fica em 0: ele tambem multiplicaria o depth fog"
 	)
 	_check(
 		int(environment_node.call("get_quality_preset")) == 2,
@@ -54,8 +62,8 @@ func _run() -> void:
 		)
 		_check(not fog_volume.visible, "%s nao usa o FogVolume" % label)
 		_check(
-			not environment.fog_enabled,
-			"%s nao liga o fog atmosferico" % label
+			environment.fog_enabled and environment.fog_depth_end <= 400.0,
+			"%s fecha o fog atmosferico dentro de 400 m" % label
 		)
 		_check(
 			bool(fog_layer.call("is_fog_enabled")) and _visible_layers(fog_layer) >= 1,
@@ -70,17 +78,36 @@ func _run() -> void:
 		"HIGH usa duas camadas de nevoa rasteira"
 	)
 
-	# O fog atmosferico continua disponivel para quem quiser religar.
-	environment_node.set("atmospheric_fog_enabled", true)
-	environment_node.call("set_debug_fog_intensity", 1.0)
-	await process_frame
-	_check(
-		environment.fog_enabled,
-		"atmospheric_fog_enabled religa o fog de tela cheia"
-	)
+	# O fog atmosferico pode ser desligado por quem quiser so a manta rasteira.
 	environment_node.set("atmospheric_fog_enabled", false)
 	environment_node.call("set_debug_fog_intensity", 1.0)
 	await process_frame
+	_check(
+		not environment.fog_enabled,
+		"atmospheric_fog_enabled desliga o fog de tela cheia"
+	)
+	environment_node.set("atmospheric_fog_enabled", true)
+	environment_node.call("set_debug_fog_intensity", 1.0)
+	await process_frame
+
+	# Perfil de voo: mesma nevoa, so mais aberta, e volta sozinha ao pousar.
+	var ground_end : float = environment.fog_depth_end
+	environment_node.call("set_fog_profile", 1)
+	await _settle_fog(environment)
+	_check(
+		environment.fog_depth_end > ground_end,
+		"O perfil de voo afasta a parede de nevoa"
+	)
+	_check(
+		environment.fog_depth_end <= 1000.0,
+		"O perfil de voo fecha antes do plano distante da camera do aviao"
+	)
+	environment_node.call("set_fog_profile", 0)
+	await _settle_fog(environment)
+	_check(
+		absf(environment.fog_depth_end - ground_end) <= 1.0,
+		"Sair do aviao devolve o perfil de chao"
+	)
 
 	# Selecao de luzes: continua valendo se a volumetria for religada.
 	var free_light := OmniLight3D.new()
@@ -211,6 +238,16 @@ func _visible_layers(fog_layer : Node3D) -> int:
 		if layer != null and layer.visible:
 			count += 1
 	return count
+
+
+## Espera a transicao de perfil de nevoa estabilizar, com teto de frames.
+func _settle_fog(environment : Environment) -> void:
+	var previous := environment.fog_depth_end
+	for i in 2000:
+		await process_frame
+		if absf(environment.fog_depth_end - previous) < 0.01:
+			return
+		previous = environment.fog_depth_end
 
 
 func _check(condition : bool, label : String) -> void:

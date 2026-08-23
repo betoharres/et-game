@@ -143,7 +143,7 @@ top_level = true
 [node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=751591385]
 transform = Transform3D(-1, 3.1886466e-15, 8.742278e-08, 4.6735952e-08, 0.8451072, 0.53459704, -7.38816e-08, 0.53459704, -0.8451072, 0, 3.5803342, -4.141616)
 cull_mask = 1047551
-far = 600.0
+far = 450.0
 
 [node name="ET2" parent="." unique_id=306698158 instance=ExtResource("3_oub4l")]
 transform = Transform3D(1, 0, 0, 0, 0.99353033, 0.11356681, 0, -0.11356681, 0.99353033, 0.4512354, 0.49217248, 0.67538583)

@@ -156,6 +156,7 @@ func take_control(player: CharacterBody3D) -> void:
 	freeze = false
 	camera.current = true
 	_set_aim_control_enabled(true, true)
+	_apply_fog_profile(true)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -167,6 +168,7 @@ func leave_plane() -> void:
 	plane_controlled = false
 	_set_aim_control_enabled(false, false)
 	camera.current = false
+	_apply_fog_profile(false)
 	freeze = freeze_when_unoccupied
 
 	departing_player.global_position = exit_point.global_position
@@ -211,6 +213,16 @@ func _enable_standalone_control_if_needed() -> void:
 	freeze = false
 	camera.current = true
 	_set_aim_control_enabled(true, true)
+	_apply_fog_profile(true)
+
+
+## Do ar a nevoa de 400 m fecharia antes de qualquer referencia no chao, entao
+## o NightEnvironment troca para o perfil de voo enquanto o aviao e pilotado.
+## E so alcance de nevoa: nao entra geometria nem impostor nenhum.
+func _apply_fog_profile(flying: bool) -> void:
+	for node: Node in get_tree().get_nodes_in_group("night_environment"):
+		if node.has_method("set_fog_profile"):
+			node.call("set_fog_profile", 1 if flying else 0)
 
 
 func _apply_engine_and_drag() -> void:

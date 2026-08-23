@@ -38,5 +38,15 @@ _shader_parameters = {
 &"noise1_scale": 0.0010000000475,
 &"noise2_scale": null,
 &"noise_texture": SubResource("NoiseTexture2D_4khmu"),
-&"projection_threshold": 0.0
+&"projection_threshold": 0.0,
+&"world_noise_fragment_normals": false,
+&"world_noise_height": 0.35,
+&"world_noise_lod_distance": 400.0,
+&"world_noise_max_octaves": 3,
+&"world_noise_min_octaves": 1,
+&"world_noise_offset": Vector3(0, 0, 0),
+&"world_noise_region_blend": 0.9,
+&"world_noise_scale": 8.0
 }
+auto_shader = true
+world_background = 2
