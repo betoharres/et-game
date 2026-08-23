@@ -10,6 +10,9 @@ const CORE_LIGHT_ENERGY : float = 1.5
 
 @onready var beam_volume : MeshInstance3D = $BeamVolume
 @onready var beam_core : MeshInstance3D = $BeamCore
+@onready var interference_source : AlienInterferenceSource = (
+	$AlienInterferenceSource
+)
 @onready var spot_light : SpotLight3D = $BeamSpotLight
 @onready var ground_light : OmniLight3D = $BeamGroundLight
 @onready var core_light : OmniLight3D = $BeamCoreLight
@@ -17,6 +20,7 @@ const CORE_LIGHT_ENERGY : float = 1.5
 
 func configure(origin : Vector3, height : float) -> void:
 	var mid_point : Vector3 = origin + Vector3.UP * height * 0.5
+	interference_source.global_position = mid_point
 	beam_volume.global_position = mid_point
 	beam_volume.scale = Vector3(1.0, height, 1.0)
 	beam_core.global_position = mid_point
@@ -34,6 +38,12 @@ func configure(origin : Vector3, height : float) -> void:
 	core_light.light_energy = CORE_LIGHT_ENERGY
 
 	visible = true
+	get_tree().call_group(
+		&"alien_post_process",
+		&"pulse_interference",
+		1.0,
+		1.0
+	)
 
 
 func fade_out(duration : float) -> void:

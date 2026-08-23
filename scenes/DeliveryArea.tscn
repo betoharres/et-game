@@ -6,15 +6,16 @@
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
 [ext_resource type="Theme" uid="uid://ds6ac3raauq3j" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
 [ext_resource type="Texture2D" uid="uid://b3b1wfkvyx5cj" path="res://Texturas/ui/switch_button.png" id="6_switch_icon"]
+[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="7_interference"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
 size = Vector3(4, 4, 4)
 
 [sub_resource type="StandardMaterial3D" id="SignalMaterial"]
 shading_mode = 0
-albedo_color = Color(0.35, 0.95, 1, 1)
+albedo_color = Color(0.42, 1, 0.82, 1)
 emission_enabled = true
-emission = Color(0.18, 0.88, 1, 1)
+emission = Color(0.18, 1, 0.72, 1)
 emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="SignalRingMesh"]
@@ -26,7 +27,7 @@ ring_segments = 48
 
 [sub_resource type="ShaderMaterial" id="BeamMaterial"]
 shader = ExtResource("4_beam_shader")
-shader_parameter/beam_color = Color(0.02, 0.5, 0.72, 0.018)
+shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
 shader_parameter/emission_strength = 0.38
 
 [sub_resource type="CylinderMesh" id="BeamMesh"]
@@ -39,7 +40,7 @@ rings = 4
 
 [sub_resource type="ShaderMaterial" id="BeamCoreMaterial"]
 shader = ExtResource("4_beam_shader")
-shader_parameter/beam_color = Color(0.12, 0.86, 1, 0.24)
+shader_parameter/beam_color = Color(0.25, 0.98, 0.75, 0.24)
 shader_parameter/emission_strength = 2.4
 
 [sub_resource type="CylinderMesh" id="BeamCoreMesh"]
@@ -89,6 +90,16 @@ corner_radius_bottom_left = 5
 collision_mask = 9
 script = ExtResource("1_trv2r")
 
+[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
+position = Vector3(0, 1.2, 0)
+script = ExtResource("7_interference")
+enabled = false
+full_strength_radius = 6.0
+fade_radius = 22.0
+intensity = 1.0
+pulse_amount = 0.14
+pulse_frequency = 0.7
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1533504320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2337084, 0)
 shape = SubResource("BoxShape3D_trv2r")
@@ -109,7 +120,7 @@ mesh = SubResource("SignalRingMesh")
 
 [node name="SignalLight" type="OmniLight3D" parent="SignalMarker"]
 position = Vector3(0, 0.5, 0)
-light_color = Color(0.32, 0.9, 1, 1)
+light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 3.2
 light_volumetric_fog_energy = 0.25
 omni_range = 7.0
@@ -124,7 +135,7 @@ mesh = SubResource("BeamMesh")
 mesh = SubResource("BeamCoreMesh")
 
 [node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam"]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
 light_volumetric_fog_energy = 1.0
 shadow_enabled = true
@@ -133,14 +144,14 @@ spot_attenuation = 0.45
 spot_angle = 13.0
 
 [node name="BeamGroundLight" type="OmniLight3D" parent="AbductionBeam"]
-light_color = Color(0.16, 0.68, 0.86, 1)
+light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 1.6
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
 [node name="BeamCoreLight" type="OmniLight3D" parent="AbductionBeam"]
-light_color = Color(0.3, 0.9, 1, 1)
+light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 1.5
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.1

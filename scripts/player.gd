@@ -89,15 +89,21 @@ enum ImpactReaction {
 @export_category("Camera")
 @export var camera_pitch_min: float = -80.0
 @export var camera_pitch_max: float = 80.0
+@export_range(-35.0, 35.0, 0.5) var camera_initial_pitch_degrees : float = 10.0
+
+@export_category("Debug Movement")
+@export_range(1.0, 10.0, 0.5) var god_mode_speed_multiplier : float = 5.0
+@export_range(1.0, 30.0, 0.5) var flight_speed : float = 6.0
+@export_range(1.0, 100.0, 1.0) var flight_acceleration : float = 30.0
 
 @export_category("Eye Light")
 @export_range(0.0, 2.0, 0.05) var eye_light_energy : float = 0.55
 @export_range(0.5, 8.0, 0.1) var eye_light_range : float = 4.0
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_on_duration : float = 1.2
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_off_duration : float = 1.6
-@export_color_no_alpha var active_eye_color : Color = Color(0.12, 0.72, 0.88)
+@export_color_no_alpha var active_eye_color : Color = Color(0.2, 0.92, 0.7)
 
-@onready var camera_pivot: Node3D = $CameraHolder
+@onready var camera_pivot : CinematicCameraRig = $CameraHolder
 @onready var footstep_audio : Node = $FootstepAudio
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
 @onready var character_visual : Node3D = $ET
@@ -155,6 +161,8 @@ var _fall_target_position : Vector3 = Vector3.ZERO
 var _fall_impact_normal : Vector3 = Vector3.ZERO
 var _stand_up_elapsed : float = 0.0
 var _is_dead : bool = false
+var _debug_god_mode_enabled : bool = false
+var _debug_flight_enabled : bool = false
 
 # Items
 var carried_item : RigidBody3D = null
@@ -166,9 +174,18 @@ func _ready() -> void:
 	_balance = balance_max
 
 	camera_yaw = global_rotation.y
-	camera_pitch = camera_pivot.rotation.x
+	camera_pitch = deg_to_rad(camera_initial_pitch_degrees)
 	_standing_visual_position = character_visual.position
 	_setup_eye_light()
+	camera_pivot.set_target_pose(
+		global_position,
+		camera_yaw,
+		camera_pitch,
+		0.0,
+		0.0,
+		true,
+		true
+	)
 
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
@@ -230,11 +247,7 @@ func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
 		_update_fall(delta)
 
-	camera_pivot.global_position = (
-		global_position
-		+ Vector3.DOWN * crouch_camera_drop * _crouch_amount
-	)
-	camera_pivot.global_rotation = Vector3(camera_pitch, camera_yaw, 0.0)
+	_update_camera_target()
 
 	if _fall_state != FallState.NONE:
 		return
@@ -246,6 +259,9 @@ func _physics_process(delta: float) -> void:
 			is_crouching,
 			JumpState.READY
 		)
+		return
+	if _debug_flight_enabled:
+		_update_flight_movement(delta)
 		return
 
 	_update_jump_state(delta)
@@ -316,6 +332,18 @@ func _physics_process(delta: float) -> void:
 	_update_animation_controller()
 
 
+func _update_camera_target() -> void:
+	var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+	camera_pivot.set_target_pose(
+		global_position,
+		camera_yaw,
+		camera_pitch,
+		crouch_camera_drop * _crouch_amount,
+		horizontal_speed,
+		is_on_floor()
+	)
+
+
 func _get_movement_speed() -> float:
 	var base_speed : float = speed
 
@@ -324,7 +352,7 @@ func _get_movement_speed() -> float:
 	elif _is_sprinting:
 		base_speed = sprint_speed
 
-	return base_speed * _control_multiplier()
+	return base_speed * _control_multiplier() * _debug_speed_multiplier()
 
 
 func _update_horizontal_movement(delta : float, movement_direction : Vector3,
@@ -340,7 +368,10 @@ func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 		var acceleration := ground_acceleration if is_on_floor() else air_acceleration
 		horizontal_velocity = horizontal_velocity.move_toward(
 			target_velocity,
-			acceleration * _control_multiplier() * delta
+			acceleration
+			* _control_multiplier()
+			* _debug_speed_multiplier()
+			* delta
 		)
 
 		var target_angle := atan2(movement_direction.x, movement_direction.z)
@@ -353,7 +384,7 @@ func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 		var deceleration := ground_deceleration if is_on_floor() else air_acceleration
 		horizontal_velocity = horizontal_velocity.move_toward(
 			Vector2.ZERO,
-			deceleration * delta
+			deceleration * _debug_speed_multiplier() * delta
 		)
 
 	velocity.x = horizontal_velocity.x
@@ -364,6 +395,7 @@ func _should_start_moving_turn(movement_direction : Vector3,
 	has_movement_input : bool) -> bool:
 	if (
 		_moving_turn_active
+		or _debug_god_mode_enabled
 		or not has_movement_input
 		or not is_on_floor()
 		or is_crouching
@@ -496,6 +528,58 @@ func _control_multiplier() -> float:
 	return lerpf(1.0, stumble_control_multiplier, _stumble_strength)
 
 
+func _debug_speed_multiplier() -> float:
+	return god_mode_speed_multiplier if _debug_god_mode_enabled else 1.0
+
+
+func _update_flight_movement(delta : float) -> void:
+	var input_direction := Input.get_vector(
+		"ui_right",
+		"ui_left",
+		"ui_up",
+		"ui_down"
+	)
+	var camera_forward := Vector3(-sin(camera_yaw), 0.0, -cos(camera_yaw))
+	var camera_right := Vector3(cos(camera_yaw), 0.0, -sin(camera_yaw))
+	var vertical_input := (
+		Input.get_action_strength("jump")
+		- Input.get_action_strength("crouch")
+	)
+	var movement_direction := (
+		camera_right * input_direction.x
+		+ camera_forward * input_direction.y
+		+ Vector3.UP * vertical_input
+	)
+
+	if movement_direction.length_squared() > 0.0001:
+		movement_direction = movement_direction.normalized()
+
+	var speed_multiplier := _debug_speed_multiplier()
+	var target_velocity := movement_direction * flight_speed * speed_multiplier
+	velocity = velocity.move_toward(
+		target_velocity,
+		flight_acceleration * speed_multiplier * delta
+	)
+
+	var horizontal_direction := Vector3(
+		movement_direction.x,
+		0.0,
+		movement_direction.z
+	)
+	if horizontal_direction.length_squared() > 0.0001:
+		var target_angle := atan2(
+			horizontal_direction.x,
+			horizontal_direction.z
+		)
+		rotation.y = rotate_toward(rotation.y, target_angle, rotation_speed * delta)
+
+	_update_stamina(delta, false)
+	move_and_slide()
+	footstep_audio.set_motion(0.0, false)
+	_jump_state = JumpState.AIRBORNE
+	_update_animation_controller()
+
+
 func _update_jump_state(_delta : float) -> void:
 	if _jump_state == JumpState.AIRBORNE and is_on_floor():
 		_jump_state = JumpState.READY
@@ -512,6 +596,16 @@ func _update_jump_state(_delta : float) -> void:
 
 func _update_stamina(delta : float, wants_to_sprint : bool) -> void:
 	var previous_stamina : float = stamina
+	if _debug_god_mode_enabled:
+		stamina = max_stamina
+		_is_sprinting = wants_to_sprint
+		_sprint_exhausted = false
+		_stamina_recovery_timer = 0.0
+		_stamina_exhaustion_timer = 0.0
+		if not is_equal_approx(previous_stamina, stamina):
+			stamina_changed.emit(stamina, max_stamina)
+		return
+
 	_is_sprinting = (
 		wants_to_sprint
 		and not _sprint_exhausted
@@ -555,7 +649,7 @@ func _update_stamina(delta : float, wants_to_sprint : bool) -> void:
 func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
 	push_distance : float = 0.0) -> void:
 		
-	if amount <= 0.0 or health <= 0.0:
+	if _debug_god_mode_enabled or amount <= 0.0 or health <= 0.0:
 		return
 
 	var is_fatal : bool = health - amount <= 0.0
@@ -573,7 +667,7 @@ func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
 
 
 func apply_knockback(direction : Vector3, distance : float) -> void:
-	if distance <= 0.0 or health <= 0.0:
+	if _debug_god_mode_enabled or distance <= 0.0 or health <= 0.0:
 		return
 
 	direction.y = 0.0
@@ -602,6 +696,58 @@ func get_stamina() -> float:
 
 func get_max_stamina() -> float:
 	return max_stamina
+
+
+func set_debug_god_mode_enabled(enabled : bool) -> void:
+	_debug_god_mode_enabled = enabled
+	if not enabled:
+		return
+
+	var health_changed_value := not is_equal_approx(health, max_health)
+	var stamina_changed_value := not is_equal_approx(stamina, max_stamina)
+	health = max_health
+	stamina = max_stamina
+	_sprint_exhausted = false
+	_stamina_recovery_timer = 0.0
+	_stamina_exhaustion_timer = 0.0
+	_balance = balance_max
+	_stumble_strength = 0.0
+	_knockback_remaining_distance = 0.0
+	if health_changed_value:
+		health_changed.emit(health, max_health)
+	if stamina_changed_value:
+		stamina_changed.emit(stamina, max_stamina)
+
+
+func is_debug_god_mode_enabled() -> bool:
+	return _debug_god_mode_enabled
+
+
+func set_debug_flight_enabled(enabled : bool) -> void:
+	if _debug_flight_enabled == enabled:
+		return
+
+	_debug_flight_enabled = enabled
+	_cancel_moving_turn()
+	velocity.y = 0.0
+	_jump_state = JumpState.AIRBORNE
+	motion_mode = (
+		CharacterBody3D.MOTION_MODE_FLOATING
+		if enabled
+		else CharacterBody3D.MOTION_MODE_GROUNDED
+	)
+
+	if enabled:
+		is_crouching = false
+		_crouch_amount = 0.0
+		var capsule := collision_shape.shape as CapsuleShape3D
+		if capsule != null:
+			capsule.height = STANDING_COLLISION_HEIGHT
+			collision_shape.position.y = STANDING_COLLISION_HEIGHT * 0.5
+
+
+func is_debug_flight_enabled() -> bool:
+	return _debug_flight_enabled
 
 
 func is_alive() -> bool:
@@ -826,6 +972,8 @@ func _stumble_strength_for(balance : float) -> float:
 ## fall. A plain jump from flat ground lands at jump_velocity, well below
 ## min_landing_speed, so it never costs anything.
 func _detect_landing(was_on_floor : bool, velocity_before_move : Vector3) -> void:
+	if _debug_god_mode_enabled or _debug_flight_enabled:
+		return
 	if was_on_floor or not is_on_floor():
 		return
 
@@ -883,6 +1031,10 @@ func _detect_landing(was_on_floor : bool, velocity_before_move : Vector3) -> voi
 ## Resting against a surface is not an impact: only a fresh contact, or a
 ## clearly different surface, counts as one.
 func _detect_body_impacts(velocity_before_move : Vector3) -> void:
+	if _debug_god_mode_enabled or _debug_flight_enabled:
+		_was_on_wall = is_on_wall()
+		return
+
 	if not is_on_wall():
 		_was_on_wall = false
 		_last_impact_normal = Vector3.ZERO
@@ -981,6 +1133,8 @@ func _apply_body_impact(direction : Vector3, strength : float) -> void:
 ## this method guarantees that only the selected tier is dispatched.
 func _trigger_impact_reaction(direction : Vector3, reaction : ImpactReaction,
 	fall_strength : float = 1.0) -> void:
+	if _debug_god_mode_enabled:
+		return
 	_cancel_moving_turn()
 	match reaction:
 		ImpactReaction.HIT:

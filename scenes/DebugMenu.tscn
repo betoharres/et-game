@@ -84,6 +84,24 @@ horizontal_alignment = 1
 [node name="Separator" type="HSeparator" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
 layout_mode = 2
 
+[node name="PlayerSection" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.86, 0.7, 1)
+theme_override_font_sizes/font_size = 17
+text = "JOGADOR"
+
+[node name="GodModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+tooltip_text = "Imortalidade, stamina infinita e velocidade multiplicada por 5"
+text = "Modo Deus — imortal, stamina infinita, velocidade 5×"
+
+[node name="FlightModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+tooltip_text = "WASD move, Espaço sobe e C desce; pode ser combinado com Modo Deus"
+text = "Modo Voo — WASD + Espaço/C"
+
 [node name="LightingButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
 custom_minimum_size = Vector2(0, 54)
 layout_mode = 2

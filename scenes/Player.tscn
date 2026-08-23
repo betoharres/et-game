@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="6_ragdoll"]
 [ext_resource type="Script" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
 [ext_resource type="Script" path="res://scripts/player_animation_controller.gd" id="9_animation"]
+[ext_resource type="Script" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -16,7 +17,10 @@ height = 1.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(1, 1.1122437, 0.9169922)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
+radius = 0.22
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player"]]
 script = ExtResource("1_p0vlq")
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]
@@ -28,7 +32,7 @@ script = ExtResource("4_footsteps")
 
 [node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D"]
 influence = 0.242
-target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
+target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Head"
 bone = 31
 duration = 0.5
@@ -41,7 +45,7 @@ secondary_damp_threshold = 1.0
 
 [node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D"]
 influence = 0.2
-target_node = NodePath("../../../../CameraHolder/Camera3D/HeadTarget")
+target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Spine2"
 bone = 13
 duration = 0.5
@@ -107,14 +111,29 @@ shape = SubResource("CapsuleShape3D_ec6vt")
 
 [node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
 top_level = true
+script = ExtResource("10_camera_rig")
 
-[node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=1582696248]
-transform = Transform3D(-1, 1.6081538e-08, -8.593094e-08, 0, 0.98293537, 0.18395135, 8.742278e-08, 0.18395135, -0.98293537, 0, 1.1784546, -1.4856567)
+[node name="PitchPivot" type="Node3D" parent="CameraHolder"]
+position = Vector3(0, 1.08, 0)
+
+[node name="ShoulderOffset" type="Node3D" parent="CameraHolder/PitchPivot"]
+position = Vector3(0.72, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraHolder/PitchPivot/ShoulderOffset"]
+rotation = Vector3(0, 3.1415927, 0)
+spring_length = 4.1
+margin = 0.14
+shape = SubResource("SphereShape3D_camera")
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=1582696248]
 cull_mask = 1047551
-far = 100.0
+fov = 60.0
+near = 0.05
+far = 150.0
 
-[node name="HeadTarget" type="Marker3D" parent="CameraHolder/Camera3D" unique_id=46629359]
-transform = Transform3D(-1, 1.7763568e-15, 8.742278e-08, 1.6081533e-08, 0.9829352, 0.18395132, -8.593093e-08, 0.18395132, -0.9829352, 5.215464e-07, 0.70969266, -5.9365506)
+[node name="HeadTarget" type="Marker3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D" unique_id=46629359]
+position = Vector3(0, 0, -6)
 rotation_edit_mode = 1
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=410694173]

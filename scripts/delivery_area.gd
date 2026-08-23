@@ -19,6 +19,9 @@ enum DeliveryState {
 @onready var signal_marker : Node3D = $SignalMarker
 @onready var signal_light : OmniLight3D = $SignalMarker/SignalLight
 @onready var abduction_origin : Marker3D = $AbductionOrigin
+@onready var interference_source : AlienInterferenceSource = (
+	$AlienInterferenceSource
+)
 @onready var abduction_beam : Node3D = $AbductionBeam
 @onready var beam_volume : MeshInstance3D = $AbductionBeam/BeamVolume
 @onready var beam_core : MeshInstance3D = $AbductionBeam/BeamCore
@@ -64,6 +67,7 @@ func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 	signal_marker.visible = false
 	abduction_beam.visible = false
+	interference_source.set_interference_enabled(false)
 	prompt_root.visible = false
 	hold_progress.max_value = signal_hold_duration
 	_beam_core_base_energy = beam_core_light.light_energy
@@ -189,6 +193,7 @@ func _begin_charge(
 	_target_item = item
 	_signaling_character = character
 	signal_marker.visible = true
+	interference_source.set_interference_enabled(true)
 	_set_character_signal_pose(true)
 	_prepare_ufo_approach()
 
@@ -227,6 +232,7 @@ func _cancel_charge() -> void:
 	_signaling_character = null
 	signal_marker.visible = false
 	signal_marker.scale = Vector3.ONE
+	interference_source.set_interference_enabled(false)
 	hold_progress.value = 0.0
 
 
@@ -388,6 +394,12 @@ func _start_abduction() -> void:
 	abduction_beam.visible = true
 	_target_start_position = _target_item.global_position
 	_configure_beam()
+	get_tree().call_group(
+		&"alien_post_process",
+		&"pulse_interference",
+		1.0,
+		0.9
+	)
 	abduction_started.emit(_target_item)
 
 
@@ -491,6 +503,7 @@ func _reset_sequence() -> void:
 	signal_marker.visible = false
 	signal_marker.scale = Vector3.ONE
 	abduction_beam.visible = false
+	interference_source.set_interference_enabled(false)
 	prompt_root.visible = false
 	hold_progress.value = 0.0
 

@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled, blend_add, depth_draw_never;
 
-uniform vec4 beam_color : source_color = vec4(0.02, 0.5, 0.72, 0.018);
+uniform vec4 beam_color : source_color = vec4(0.03, 0.56, 0.43, 0.018);
 uniform float emission_strength : hint_range(0.0, 3.0, 0.01) = 0.38;
 
 
