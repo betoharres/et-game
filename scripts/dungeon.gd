@@ -113,7 +113,7 @@ func _place_rooms() -> Array[Rect2i]:
 			var height : int = randi_range(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
 			var x : int = randi_range(1, GRID_SIZE - width - 1)
 			var z : int = randi_range(1, GRID_SIZE - height - 1)
-			var candidate := Rect2i(x, z, width, height)
+			var candidate : Rect2i = Rect2i(x, z, width, height)
 			var padded : Rect2i = candidate.grow(1)
 
 			var overlaps : bool = false
@@ -131,10 +131,8 @@ func _place_rooms() -> Array[Rect2i]:
 
 
 func _room_center(room : Rect2i) -> Vector2i:
-	return Vector2i(
-		room.position.x + room.size.x / 2,
-		room.position.y + room.size.y / 2
-	)
+	return Vector2i(room.position.x + room.size.x / 2,
+		room.position.y + room.size.y / 2)
 
 
 func _carve_corridor(

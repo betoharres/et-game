@@ -60,7 +60,7 @@ enum JumpState {
 @onready var character_mesh : MeshInstance3D = $ET/Armature/Skeleton3D/ET
 @onready var ragdoll : Node = $PlayerRagdoll
 @onready var ik_target_container : Node = $IKtargetContainer
-@onready var eye_area_light : OmniLight3D = (
+@onready var eye_area_light : SpotLight3D = (
 	$ET/Armature/Skeleton3D/EyeLightAttachment/EyeAreaLight
 )
 
@@ -153,6 +153,8 @@ func _input(event: InputEvent) -> void:
 		else:
 			carried_item.drop()
 			carried_item = null
+			
+		
 
 func _physics_process(delta: float) -> void:
 	camera_pivot.global_position = (
@@ -420,9 +422,9 @@ func is_eye_light_enabled() -> bool:
 
 
 func _setup_eye_light() -> void:
-	eye_area_light.omni_range = eye_light_range
+	eye_area_light.spot_range = eye_light_range
 	character_mesh.layers = 2
-	var source_material := character_mesh.get_active_material(1)
+	var source_material : StandardMaterial3D = character_mesh.get_active_material(1)
 	if source_material is StandardMaterial3D:
 		_eye_material = source_material.duplicate() as StandardMaterial3D
 		_eye_material.resource_local_to_scene = true

@@ -35,9 +35,7 @@ func try_open_hood() -> void:
 		if not character is CharacterBody3D:
 			continue
 
-		var distance : float = global_position.distance_to(
-			character.global_position
-		)
+		var distance : float = global_position.distance_to(	character.global_position)
 
 		if distance < closest_distance:
 			closest_distance = distance
