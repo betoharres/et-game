@@ -27,6 +27,34 @@ func run() -> void:
 		"PlayerAnimationController"
 	) as PlayerAnimationController
 
+	Input.action_press("ui_up")
+	for _frame : int in 25:
+		await physics_frame
+	Input.action_release("ui_up")
+	for _frame : int in 8:
+		await physics_frame
+
+	Input.action_press("ui_left")
+	var kept_locomotion_animation := true
+	for _frame : int in 20:
+		await physics_frame
+		if controller.get_current_state() not in [
+			&"Walk",
+			&"StrafeLeftWalk",
+			&"StrafeRightWalk",
+		]:
+			kept_locomotion_animation = false
+	Input.action_release("ui_left")
+	check(
+		kept_locomotion_animation,
+		"Side restart keeps a locomotion animation"
+	)
+
+	player.velocity = Vector3.ZERO
+	player.rotation.y = 0.0
+	for _frame : int in 3:
+		await physics_frame
+
 	Input.action_press("ui_down")
 	await physics_frame
 	check(controller.get_current_state() == &"WalkTurn180", "Idle pivot starts")
