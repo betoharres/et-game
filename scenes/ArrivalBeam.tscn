@@ -48,7 +48,7 @@ mesh = SubResource("BeamMesh")
 [node name="BeamCore" type="MeshInstance3D" parent="."]
 mesh = SubResource("BeamCoreMesh")
 
-[node name="BeamSpotLight" type="SpotLight3D" parent="."]
+[node name="BeamSpotLight" type="SpotLight3D" parent="." groups=["volumetric_lights", "alien_volumetric_lights"]]
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 0.0
 light_volumetric_fog_energy = 1.0
@@ -64,7 +64,7 @@ light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
-[node name="BeamCoreLight" type="OmniLight3D" parent="."]
+[node name="BeamCoreLight" type="OmniLight3D" parent="." groups=["volumetric_lights", "alien_volumetric_lights"]]
 light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0

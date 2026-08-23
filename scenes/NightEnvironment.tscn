@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scripts/night_environment.gd" id="1_controller"]
 [ext_resource type="Shader" path="res://shaders/night_sky.gdshader" id="2_sky_shader"]
 [ext_resource type="Shader" path="res://shaders/alien_incident_post.gdshader" id="3_incident_post"]
 [ext_resource type="Script" path="res://scripts/alien_incident_post_process.gd" id="4_post_controller"]
+[ext_resource type="PackedScene" path="res://scenes/GroundFogLayer.tscn" id="5_ground_fog_layer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_sky_shader")
@@ -55,19 +56,28 @@ ssao_enabled = true
 ssao_radius = 1.1
 ssao_intensity = 1.6
 ssao_power = 1.35
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.004
+fog_enabled = false
+fog_light_color = Color(0.06, 0.16, 0.22, 1)
+fog_light_energy = 1.0
+fog_sun_scatter = 0.06
+fog_density = 0.01
+fog_aerial_perspective = 0.16
+fog_sky_affect = 0.26
+fog_height = 3.5
+fog_height_density = 0.025
+volumetric_fog_enabled = false
+volumetric_fog_density = 0.0055
 volumetric_fog_albedo = Color(0.07, 0.18, 0.24, 1)
 volumetric_fog_ambient_inject = 0.1
 volumetric_fog_anisotropy = 0.34
-volumetric_fog_length = 82.0
+volumetric_fog_length = 92.0
 volumetric_fog_sky_affect = 0.08
 volumetric_fog_temporal_reprojection_enabled = true
 volumetric_fog_temporal_reprojection_amount = 0.9
 
 [sub_resource type="FogMaterial" id="FogMaterial_ground"]
 albedo = Color(0.06, 0.16, 0.22, 1)
-density = 0.009
+density = 0.012
 edge_fade = 0.55
 height_falloff = 0.85
 
@@ -155,7 +165,7 @@ color = Color(1, 1, 1, 1)
 
 [node name="MoonVisual" type="Node3D" parent="SkyController"]
 
-[node name="MoonLight" type="DirectionalLight3D" parent="SkyController/MoonVisual"]
+[node name="MoonLight" type="DirectionalLight3D" parent="SkyController/MoonVisual" groups=["volumetric_lights"]]
 light_color = Color(0.68, 0.76, 0.9, 1)
 light_energy = 0.75
 light_indirect_energy = 0.12
@@ -192,6 +202,8 @@ draw_pass_1 = SubResource("QuadMesh_atmosphere")
 [node name="GroundFog" type="FogVolume" parent="."]
 size = Vector3(118, 8, 118)
 material = SubResource("FogMaterial_ground")
+
+[node name="GroundFogLayer" parent="." instance=ExtResource("5_ground_fog_layer")]
 
 [node name="LocalLights" type="Node3D" parent="."]
 

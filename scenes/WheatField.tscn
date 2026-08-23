@@ -8,6 +8,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dtv3rmhtqgqou" path="res://3dModelos/SM_Prop_Plant_Wheat_01.fbx" id="5_nihgy"]
 [ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="6_concealment"]
 
+[ext_resource type="Script" path="res://scripts/fog_zone.gd" id="7_fog_zone"]
 [sub_resource type="BoxShape3D" id="BoxShapeConcealment"]
 size = Vector3(6.2, 2, 6.2)
 
@@ -268,3 +269,8 @@ surface_material_override/0 = ExtResource("2_nheqg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30082536, 0, -0.7768106)
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
+
+[node name="FogZone" type="Node3D" parent="." groups=["fog_zones"]]
+script = ExtResource("7_fog_zone")
+radius = 9.0
+strength = 0.5

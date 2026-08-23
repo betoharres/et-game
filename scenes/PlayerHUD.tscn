@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://df6wrla80ev3i" path="res://Texturas/ui/heart.png" id="4_heart_icon"]
 [ext_resource type="Texture2D" uid="uid://chonlgyphsml3" path="res://Texturas/ui/gauge.png" id="5_stamina_icon"]
 [ext_resource type="Texture2D" uid="uid://c1c2nwy3q7cpw" path="res://Texturas/ui/warning.png" id="6_warning_icon"]
+[ext_resource type="Texture2D" uid="uid://b3ya854e6upib" path="res://Texturas/ui/power.png" id="7_energy_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StatusPanelStyle"]
 bg_color = Color(0.012, 0.025, 0.04, 0.46)
@@ -25,6 +26,13 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="HealthFillStyle"]
 bg_color = Color(0.9, 0.18, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="EnergyFillStyle"]
+bg_color = Color(0.25, 0.78, 0.95, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -76,7 +84,7 @@ anchor_top = 1.0
 anchor_right = 0.0
 anchor_bottom = 1.0
 offset_left = 48.0
-offset_top = -118.0
+offset_top = -146.0
 offset_right = 348.0
 offset_bottom = -48.0
 grow_vertical = 0
@@ -122,6 +130,39 @@ theme_override_styles/fill = SubResource("HealthFillStyle")
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.94, 1, 0.95)
+text = "100"
+horizontal_alignment = 2
+
+[node name="EnergyRow" type="HBoxContainer" parent="Interface/StatusPanel/StatusMargin/StatusRows"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="EnergyIcon" type="TextureRect" parent="Interface/StatusPanel/StatusMargin/StatusRows/EnergyRow"]
+self_modulate = Color(0.35, 0.85, 1, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 2
+texture = ExtResource("7_energy_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnergyBar" type="ProgressBar" parent="Interface/StatusPanel/StatusMargin/StatusRows/EnergyRow"]
+custom_minimum_size = Vector2(205, 9)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+value = 100.0
+show_percentage = false
+theme_override_styles/background = SubResource("BarBackgroundStyle")
+theme_override_styles/fill = SubResource("EnergyFillStyle")
+
+[node name="EnergyValue" type="Label" parent="Interface/StatusPanel/StatusMargin/StatusRows/EnergyRow"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.9, 1, 0.95)
+theme_override_font_sizes/font_size = 13
 text = "100"
 horizontal_alignment = 2
 

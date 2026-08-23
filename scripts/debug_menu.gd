@@ -31,6 +31,9 @@ const PLAYER_GROUP : StringName = &"debug_player"
 @onready var reset_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/ResetButton
 )
+@onready var quality_preset : OptionButton = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/QualityPreset/Options
+)
 @onready var moon_toggle : CheckButton = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/MoonToggle
 )
@@ -101,6 +104,8 @@ func _ready() -> void:
 	flight_mode_toggle.toggled.connect(_set_flight_mode_enabled)
 	back_button.pressed.connect(_show_main_panel)
 	reset_button.pressed.connect(_enable_all_lighting)
+	_populate_quality_preset()
+	quality_preset.item_selected.connect(_set_quality_preset)
 	moon_toggle.toggled.connect(_set_moon_enabled)
 	sky_toggle.toggled.connect(_set_sky_enabled)
 	ambient_toggle.toggled.connect(_set_ambient_enabled)
@@ -160,6 +165,7 @@ func _show_lighting_panel() -> void:
 func _sync_toggles_from_world() -> void:
 	var environment := _get_first_target(ENVIRONMENT_GROUP)
 	var player := _get_first_target(PLAYER_GROUP)
+	_sync_quality_preset(environment)
 	_sync_method_toggle(
 		god_mode_toggle,
 		player,
@@ -387,6 +393,29 @@ func _set_sky_enabled(enabled : bool) -> void:
 
 func _set_ambient_enabled(enabled : bool) -> void:
 	_set_environment_option(&"set_debug_ambient_enabled", enabled)
+
+
+func _populate_quality_preset() -> void:
+	quality_preset.clear()
+	quality_preset.add_item("Baixo", 0)
+	quality_preset.add_item("Médio", 1)
+	quality_preset.add_item("Alto", 2)
+
+
+func _sync_quality_preset(environment : Node) -> void:
+	var available := environment != null and environment.has_method(
+		&"get_quality_preset"
+	)
+	quality_preset.disabled = not available
+	if available:
+		quality_preset.select(
+			clampi(int(environment.call(&"get_quality_preset")), 0, 2)
+		)
+
+
+func _set_quality_preset(index : int) -> void:
+	_set_environment_option(&"set_quality_preset", index)
+	_sync_toggles_from_world()
 
 
 func _set_fog_enabled(enabled : bool) -> void:

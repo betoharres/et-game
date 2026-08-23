@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ground_fog_layer.gd" id="1_ground_fog"]
+[ext_resource type="Shader" path="res://shaders/ground_fog.gdshader" id="2_ground_fog_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ground_fog"]
+render_priority = -1
+shader = ExtResource("2_ground_fog_shader")
+shader_parameter/fog_color = Color(0.18, 0.28, 0.35, 1)
+shader_parameter/alien_color = Color(0.09, 0.6, 0.5, 1)
+shader_parameter/alien_blend = 0.0
+shader_parameter/alien_glow = 1.1
+shader_parameter/opacity = 0.46
+shader_parameter/noise_scale = 0.024
+shader_parameter/coverage = 0.58
+shader_parameter/softness = 0.46
+shader_parameter/detail_amount = 1.0
+shader_parameter/warp_amount = 1.15
+shader_parameter/drift_direction = Vector2(0.82, 0.34)
+shader_parameter/drift_speed = 0.11
+shader_parameter/swell_speed = 0.06
+shader_parameter/near_fade = 2.0
+shader_parameter/far_fade_start = 26.0
+shader_parameter/far_fade_end = 64.0
+shader_parameter/height_fade_start = 7.0
+shader_parameter/height_fade_end = 18.0
+shader_parameter/soft_depth = 1.2
+shader_parameter/horizon_fade = 0.09
+shader_parameter/horizon_min_height = 1.2
+shader_parameter/fog_zone_count = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground_fog"]
+material = SubResource("ShaderMaterial_ground_fog")
+size = Vector2(2, 2)
+
+[node name="GroundFogLayer" type="Node3D"]
+script = ExtResource("1_ground_fog")
+
+[node name="FogLayer1" type="MeshInstance3D" parent="."]
+transform = Transform3D(110, 0, 0, 0, 1, 0, 0, 0, 110, 0, 0.25, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_ground_fog")
+
+[node name="FogLayer2" type="MeshInstance3D" parent="."]
+transform = Transform3D(110, 0, 0, 0, 1, 0, 0, 0, 110, 0, 0.7, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_ground_fog")
+
+[node name="FogLayer3" type="MeshInstance3D" parent="."]
+transform = Transform3D(110, 0, 0, 0, 1, 0, 0, 0, 110, 0, 1.4, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_ground_fog")

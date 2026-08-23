@@ -436,6 +436,7 @@ navigation_mesh = SubResource("NavigationMesh_ec6vt")
 data_directory = "res://scenes"
 material = ExtResource("168_sjp3e")
 assets = ExtResource("169_sjp3e")
+cull_margin = 64.0
 top_level = true
 metadata/_edit_lock_ = true
 

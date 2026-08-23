@@ -23,6 +23,8 @@ export_presets.cfg     Exportação para Windows Desktop
 scenes/
   MenuAtmosphere.tscn   Fundo noturno extraterrestre animado do menu
   NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
+  GroundFogLayer.tscn  Névoa rasteira otimizada em camadas de planos com shader
+  FogZone.tscn         Marcador que adensa a névoa rasteira em uma área
   main_menu.tscn       Menu principal, opções e remapeamento de movimento
   world.tscn           Mapa jogável e composição do cenário
   Player.tscn          Jogador ET, câmera, rig Mixamo, AnimationTree e IK de ação
@@ -42,7 +44,9 @@ scenes/
   Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
-  night_environment.gd Controla qualidade e animações atmosféricas do mundo
+  night_environment.gd Presets de atmosfera, névoa híbrida e eventos alienígenas
+  ground_fog_layer.gd  Camadas de névoa rasteira que seguem a câmera e o chão
+  fog_zone.gd          Reforço local de névoa em campos, milharais e estradas
   cinematic_camera_rig.gd Seguimento, enquadramento e colisão da câmera do ET
   alien_incident_post_process.gd Mistura o filtro normal e a interferência ET
   alien_interference_source.gd Fonte espacial reutilizável de interferência
@@ -67,6 +71,7 @@ assets/audio/          Vento, grilos, cães, passos e registro de origem
 assets/ui/             Ícones leves derivados dos meshes low-poly do pacote visual
 animations/mixamo/     Rig visual único, fontes FBX, GLB gerado e mapeamento
 shaders/night_sky.gdshader Céu procedural estrelado e Lua
+shaders/ground_fog.gdshader Névoa rasteira animada, com zonas e soft depth
 tools/build_mixamo_character.py Gera o GLB in-place usado pelo Player
 tools/test_player_animation.gd Smoke test dos estados visuais do Player
 tools/test_player_jump_stamina.gd Smoke test do impulso e consumo de stamina
@@ -75,6 +80,8 @@ tools/test_player_ragdoll.gd Smoke test do ragdoll e da recuperação
 tools/test_cinematic_camera.gd Smoke test do enquadramento e colisão da câmera
 tools/test_player_debug_modes.gd Smoke test dos modos Deus e Voo
 tools/test_alien_interference.gd Smoke test do filtro alienígena dinâmico
+tools/test_atmosphere_presets.gd Smoke test dos presets de névoa e do evento ET
+tools/measure_atmosphere_cost.gd Mede FPS e tempo de render por preset
 tools/render_prototype_icons.py Utilitário para regenerar os ícones do HUD
 3dModelos/             Modelos 3D importados
 Texturas/              Texturas do cenário e dos modelos
@@ -125,6 +132,10 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   orgânicos discretos ao caminhar, girar ou permanecer parado.
 - A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
   névoa baixa e iluminação ambiente azulada configurável por qualidade.
+- A única névoa ativa é uma manta rente ao chão, feita de camadas de planos com
+  shader que seguem a câmera e a altura do terreno. O fog atmosférico de tela
+  cheia e o volumetric fog ficam desligados, mas continuam configuráveis. Campos
+  e milharais adensam a névoa por meio de `FogZone`.
 - O tratamento visual combina sombras azul-petróleo, luzes humanas âmbar e
   emissões alienígenas ciano-esverdeadas. Um filtro sutil acrescenta grão,
   vinheta, aberração cromática periférica e eleva levemente os pretos; o glow
@@ -275,8 +286,9 @@ pulo normal, até 1,5 m   nada
 - Abrir ou fechar o menu de pausa: `Esc`.
 - Mostrar ou ocultar o radar circular: `F3`.
 - Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
-  alternar Lua, céu, luz ambiente, neblina, casa e nave/feixes, além de regular
-  cada intensidade entre 0% e 200%.
+  trocar o preset de atmosfera entre Baixo, Médio e Alto, alternar Lua, céu, luz
+  ambiente, neblina, casa e nave/feixes, além de regular cada intensidade entre
+  0% e 200%.
 - No painel principal do `F4`, `Modo Deus` torna o ET imortal, mantém a stamina
   cheia e multiplica velocidade e aceleração por cinco. `Modo Voo` remove a
   gravidade: use `WASD` para deslocar, `Espaço` para subir e `C` para descer.
@@ -307,6 +319,9 @@ Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo
 Mixamo -> LookAt/IK de ação -> reação -> ragdoll (prioridade crescente)
 Player -> CinematicCameraRig -> SpringArm3D -> Camera3D
 NightEnvironment -> AgX/glow/névoa -> filtro de incidente alienígena
+NightEnvironment -> preset -> fog atmosférico + GroundFogLayer + volumetric fog
+FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
+Evento ET -> set_alien_fog_intensity() -> névoa/scattering/feixes/interferência
 Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
 
@@ -325,6 +340,85 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   `AlienInterferenceSource` nas respectivas cenas.
 - Cores alienígenas: materiais e luzes em `space_ship.tscn`,
   `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn`.
+
+### Névoa e presets de atmosfera
+
+O `NightEnvironment` controla três fontes de névoa independentes. Hoje só a
+primeira está ligada; as outras duas ficam prontas para serem religadas:
+
+| Fonte | O que é | Estado | Custo |
+| --- | --- | --- | --- |
+| Névoa rasteira | Planos com `shaders/ground_fog.gdshader` que seguem a câmera | Ativa | Fill-rate |
+| Fog atmosférico | `fog_*` do `Environment`, de tela cheia | Desligado | Quase nulo |
+| Volumetric fog | `volumetric_fog_*` e o `FogVolume` rasteiro | Desligado | O mais caro |
+
+Para religar o fog atmosférico, marque `atmospheric_fog_enabled` no Inspector do
+`NightEnvironment`. Para religar a volumetria — e com ela os cones de luz da nave
+e da abdução visíveis no ar —, ponha `volumetric_enabled` como `true` no preset
+desejado dentro de `QUALITY_PRESETS`, no topo de
+`scripts/night_environment.gd`; `fog_volume_enabled` faz o mesmo com o
+`FogVolume` rasteiro. Todos os parâmetros de cada preset (`length`, resolução do
+froxel grid, filtro, densidade) continuam lá.
+
+Os presets diferem na qualidade e no alcance da manta rasteira:
+
+- **Baixo** — uma camada, alcance de 46 m, sem soft depth, sem detalhe fino, sem
+  domain warp, sem zonas, sem partículas atmosféricas e sem sombra nos feixes da
+  nave.
+- **Médio** — uma camada com soft depth, detalhe parcial e até quatro zonas;
+  alcance de 55 m.
+- **Alto** — duas camadas, detalhe completo e até seis zonas; alcance de 64 m.
+
+Se a volumetria for religada, fora do preset Alto só a alimentam as luzes do grupo
+`volumetric_lights` (Lua, holofotes da nave, feixe de abdução e feixe de
+chegada). As demais têm `light_volumetric_fog_energy` zerado e restaurado quando
+o preset volta a Alto; o valor original de cada luz fica guardado em metadata.
+
+Ajustes disponíveis no Inspector do `NightEnvironment`:
+
+- grupo `Quality`: `quality_level`, `particles_enabled`, `ground_fog_enabled`;
+- grupo `Fog and Atmosphere`: `atmospheric_fog_enabled` (liga o fog de tela
+  cheia), `fog_color` (fog atmosférico e volumetria), `ground_fog_color`
+  (névoa rasteira, propositalmente mais clara), `atmospheric_fog_density`,
+  `atmospheric_fog_height`, `atmospheric_fog_height_density` e
+  `ground_fog_density` (só o `FogVolume`);
+- grupo `Alien Atmosphere`: `alien_fog_color`, `alien_fog_response` (velocidade
+  da transição), `alien_volumetric_density_boost`, `alien_fog_density_boost`,
+  `alien_anisotropy`, `alien_emission_energy`, `alien_beam_fog_boost` e
+  `alien_interference`.
+
+A altura da manta vem de `layer_heights`, no `GroundFogLayer`: por padrão
+0,25 m, 0,7 m e 1,4 m, ou seja, névoa rente ao chão. Suba esses valores para
+uma névoa mais alta. No mesmo nó é possível ajustar `layer_noise_scales`,
+`layer_opacities`, `forward_bias`, os intervalos de sondagem do terreno e das
+zonas, e o comportamento alienígena (`alien_response`, `alien_drift_boost`,
+`alien_opacity_boost`). Forma, movimento e cor da névoa ficam nos parâmetros do
+`ShaderMaterial` compartilhado pelas três camadas em `scenes/GroundFogLayer.tscn`
+(`noise_scale`, `coverage`, `softness`, `drift_speed`, `near_fade`, `far_fade_*`,
+`height_fade_*` e `soft_depth`).
+
+Cada camada é um plano, então perto do seu horizonte o desvanecimento por
+distância se comprimiria em poucos pixels e apareceria como uma linha reta. Para
+evitar isso, o shader também desvanece pela inclinação do raio de visão
+(`horizon_fade`, em radianos aproximados, e `horizon_min_height`, a separação
+mínima considerada para a névoa não sumir com a câmera dentro dela), o que
+distribui o degradê de forma uniforme na tela. O raio dos planos é derivado de
+`far_fade_end` para que o fade sempre termine antes da borda geométrica, e o
+shader ainda zera o alfa na moldura do plano como garantia. Por isso
+`forward_bias` fica em 0: deslocar o centro obriga a ampliar o plano na mesma
+proporção, sem ganho.
+
+Para adensar a névoa em um lugar específico — estrada, campo aberto, beira de
+mata — basta instanciar `scenes/FogZone.tscn` na posição desejada e ajustar
+`radius` e `strength`. `WheatField.tscn` e `SunflowersPatch.tscn` já trazem a sua
+própria zona. O `GroundFogLayer` envia ao shader apenas as zonas mais próximas
+da câmera, respeitando o limite do preset.
+
+Por código, `NightEnvironment.set_alien_fog_intensity(valor)` recebe de 0 a 1 e
+interpola suavemente densidade, tonalidade ciano-esverdeada, scattering,
+velocidade da névoa, energia dos feixes no ar e interferência do filtro de tela.
+Chame com `0.0` para voltar ao normal e use `get_alien_fog_intensity()` para ler
+o valor atual. `set_quality_preset(nivel)` troca o preset em runtime.
 
 Por código, o grupo `alien_post_process` expõe `set_manual_interference()`,
 `clear_manual_interference()` e `pulse_interference()`. Cada fonte espacial
@@ -407,9 +501,13 @@ pode ser ligada ou desligada com `set_interference_enabled()`.
 - As opções e os remapeamentos feitos no menu não são salvos entre execuções.
 - O projeto não possui multiplayer nem arquitetura de servidor.
 - Há smoke tests automatizados dos estados de animação, do salto e da stamina,
-  da reversão física e do ciclo reversível de ragdoll em
-  `tools/test_player_animation.gd`, `tools/test_player_jump_stamina.gd`,
-  `tools/test_player_reversal.gd` e `tools/test_player_ragdoll.gd`.
+  da reversão física, do ciclo reversível de ragdoll e dos presets de atmosfera
+  em `tools/test_player_animation.gd`, `tools/test_player_jump_stamina.gd`,
+  `tools/test_player_reversal.gd`, `tools/test_player_ragdoll.gd` e
+  `tools/test_atmosphere_presets.gd`.
+- A névoa rasteira é uma aproximação em camadas planas: ela não recebe luz das
+  fontes do mapa. Com o volumetric fog desligado, feixes e holofotes não
+  aparecem como cones de luz no ar.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/` não estão
   documentadas no repositório; confirme-as antes de redistribuir o projeto.
 - A biblioteca usada para gerar os ícones da interface não continha uma licença
@@ -444,6 +542,28 @@ Uma validação básica sem interface pode ser executada quando o Godot estiver 
 ```powershell
 godot --headless --path . --editor --quit
 ```
+
+Os smoke tests dos presets de névoa e do evento alienígena rodam sem interface:
+
+```powershell
+godot --headless --path . --script res://tools/test_atmosphere_presets.gd
+```
+
+Para conferir o custo da atmosfera antes e depois de mexer na névoa, use o
+medidor, que percorre os presets em `world.tscn` e imprime FPS, tempo de GPU e
+tempo de CPU de renderização por frame:
+
+```powershell
+godot --path . --script res://tools/measure_atmosphere_cost.gd
+```
+
+Ele mede a referência sem névoa no início e no fim, porque a nave gira e muda
+quantos feixes aparecem em tela: compare as duas para saber se a deriva entre as
+amostras é pequena o bastante. Os números medidos com o volumetric fog ainda
+ativo ficaram em +0,20 ms de GPU no preset Baixo, +0,57 ms no Médio e +0,86 ms
+no Alto, sobre uma referência de ~6,5 ms por frame; com a volumetria desligada e
+a manta mais baixa e curta, o custo atual é menor que isso — rode o medidor para
+confirmar na sua máquina.
 
 Mudanças de gameplay, câmera, física, veículo, navegação, IK ou vegetação devem
 ser conferidas também em uma execução normal. Não inclua senhas, tokens,
