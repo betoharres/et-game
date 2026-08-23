@@ -1,12 +1,20 @@
 extends Node3D
 
-## Procedural dungeon: rectangular rooms on a grid, connected in sequence by
-## corridors, with walls auto-placed on every floor cell edge (GridMap).
+## Procedural wooden cellar: rectangular rooms on a grid, connected in
+## sequence by corridors, with full-height walls auto-placed on every floor
+## cell edge and a closed ceiling over every walkable cell (GridMap).
 ## The layout is built once per session by ensure_generated(), called from
 ## DungeonDoor.gd; later calls only reposition the exit and never regenerate
 ## the GridMap. The dungeon sits far outside the farm's NavigationRegion3D
 ## bounds and has no NavigationRegion3D of its own, so it never affects the
 ## farmer's or photographer's pathfinding.
+##
+## Vertical layout inside one grid cell (cell_size.y is 3.0 and the GridMap
+## centers cells on Y, so the layer 0 cell center sits at local y 1.5):
+##
+##   floor slab   centered on the cell center  -> top face at +0.15
+##   wall block   sits on the floor top        -> +0.15 .. +3.15
+##   ceiling slab layer 1, resting on the wall -> +3.15 .. +3.45
 
 const GRID_SIZE : int = 40
 const ROOM_COUNT : int = 6
@@ -15,12 +23,23 @@ const ROOM_MAX_SIZE : int = 6
 const PLACEMENT_ATTEMPTS : int = 200
 const CELL_SIZE : Vector3 = Vector3(4.0, 3.0, 4.0)
 const FLOOR_THICKNESS : float = 0.3
+const CEILING_THICKNESS : float = 0.3
+const ROOM_HEIGHT : float = 3.0
 
 const FLOOR_ITEM_ID : int = 0
 const WALL_ITEM_ID : int = 1
+const CEILING_ITEM_ID : int = 2
 
-const FLOOR_MATERIAL : Material = preload("uid://c08ymfckvdpwk")
-const WALL_MATERIAL : Material = preload("uid://dpvrh0fvoa2cq")
+const CEILING_LAYER : int = 1
+
+const FLOOR_WOOD_COLOR : Color = Color(0.30, 0.20, 0.12)
+const WALL_WOOD_COLOR : Color = Color(0.37, 0.26, 0.16)
+const CEILING_WOOD_COLOR : Color = Color(0.21, 0.14, 0.09)
+
+const LAMP_COLOR : Color = Color(1.0, 0.82, 0.55)
+const LAMP_ENERGY : float = 2.4
+const LAMP_RANGE : float = 16.0
+
 const SCRAP_SCENE : PackedScene = preload("res://scenes/spaceship_scraps.tscn")
 
 const NEIGHBOR_DIRECTIONS : Array[Vector2i] = [
@@ -95,12 +114,17 @@ func _generate_layout() -> void:
 
 	for cell : Vector2i in floor_cells.keys():
 		grid_map.set_cell_item(Vector3i(cell.x, 0, cell.y), FLOOR_ITEM_ID)
+		grid_map.set_cell_item(
+			Vector3i(cell.x, CEILING_LAYER, cell.y),
+			CEILING_ITEM_ID
+		)
 
 	for cell : Vector2i in wall_cells.keys():
 		grid_map.set_cell_item(Vector3i(cell.x, 0, cell.y), WALL_ITEM_ID)
 
 	_entry_cell = _room_center(rooms[0])
 	_position_exit_door()
+	_spawn_ceiling_lamps(rooms)
 	_spawn_scraps(rooms)
 
 
@@ -200,36 +224,82 @@ func _floor_top_global(cell : Vector2i) -> Vector3:
 
 func _build_mesh_library() -> MeshLibrary:
 	var library := MeshLibrary.new()
+	var floor_top : float = FLOOR_THICKNESS * 0.5
 
-	var floor_mesh := BoxMesh.new()
-	floor_mesh.size = Vector3(CELL_SIZE.x, FLOOR_THICKNESS, CELL_SIZE.z)
-	floor_mesh.material = FLOOR_MATERIAL
-
-	var floor_shape := BoxShape3D.new()
-	floor_shape.size = floor_mesh.size
-
-	library.create_item(FLOOR_ITEM_ID)
-	library.set_item_mesh(FLOOR_ITEM_ID, floor_mesh)
-	library.set_item_shapes(
+	# Floor slab, centered on the cell so its top face lands at +floor_top.
+	_add_box_item(
+		library,
 		FLOOR_ITEM_ID,
-		[floor_shape, Transform3D.IDENTITY]
+		Vector3(CELL_SIZE.x, FLOOR_THICKNESS, CELL_SIZE.z),
+		0.0,
+		FLOOR_WOOD_COLOR
 	)
 
-	var wall_mesh := BoxMesh.new()
-	wall_mesh.size = CELL_SIZE
-	wall_mesh.material = WALL_MATERIAL
-
-	var wall_shape := BoxShape3D.new()
-	wall_shape.size = CELL_SIZE
-
-	library.create_item(WALL_ITEM_ID)
-	library.set_item_mesh(WALL_ITEM_ID, wall_mesh)
-	library.set_item_shapes(
+	# Wall block standing on the floor top, tall enough to reach the ceiling.
+	_add_box_item(
+		library,
 		WALL_ITEM_ID,
-		[wall_shape, Transform3D.IDENTITY]
+		Vector3(CELL_SIZE.x, ROOM_HEIGHT, CELL_SIZE.z),
+		floor_top + ROOM_HEIGHT * 0.5,
+		WALL_WOOD_COLOR
+	)
+
+	# Ceiling slab, placed one layer up and resting on top of the walls.
+	_add_box_item(
+		library,
+		CEILING_ITEM_ID,
+		Vector3(CELL_SIZE.x, CEILING_THICKNESS, CELL_SIZE.z),
+		floor_top + ROOM_HEIGHT + CEILING_THICKNESS * 0.5 - CELL_SIZE.y,
+		CEILING_WOOD_COLOR
 	)
 
 	return library
+
+
+## Registers one box item whose mesh and collision are shifted by
+## vertical_offset from the center of the grid cell that holds it.
+func _add_box_item(
+	library : MeshLibrary,
+	item_id : int,
+	size : Vector3,
+	vertical_offset : float,
+	wood_color : Color
+) -> void:
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	mesh.material = _make_wood_material(wood_color)
+
+	var shape := BoxShape3D.new()
+	shape.size = size
+
+	var offset := Transform3D(Basis.IDENTITY, Vector3.UP * vertical_offset)
+
+	library.create_item(item_id)
+	library.set_item_mesh(item_id, mesh)
+	library.set_item_mesh_transform(item_id, offset)
+	library.set_item_shapes(item_id, [shape, offset])
+
+
+func _make_wood_material(wood_color : Color) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = wood_color
+	material.roughness = 0.92
+	material.metallic = 0.0
+	return material
+
+
+func _spawn_ceiling_lamps(rooms : Array[Rect2i]) -> void:
+	for room : Rect2i in rooms:
+		var lamp := OmniLight3D.new()
+		lamp.light_color = LAMP_COLOR
+		lamp.light_energy = LAMP_ENERGY
+		lamp.omni_range = LAMP_RANGE
+		lamp.shadow_enabled = true
+		add_child(lamp)
+		lamp.global_position = (
+			_floor_top_global(_room_center(room))
+			+ Vector3.UP * (ROOM_HEIGHT - 0.45)
+		)
 
 
 func _return_to_farm() -> void:

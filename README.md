@@ -25,7 +25,7 @@ scenes/
   NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
   main_menu.tscn       Menu principal, opções e remapeamento de movimento
   world.tscn           Mapa jogável e composição do cenário
-  Player.tscn          Jogador ET, câmera, vida, stamina e alvos de IK
+  Player.tscn          Jogador ET, câmera, rig Mixamo, AnimationTree e IK de ação
   PlayerHUD.tscn       HUD de vida e stamina do ET
   PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
   DebugMenu.tscn       Menu F4 com ferramentas de inspeção da iluminação
@@ -39,13 +39,16 @@ scenes/
   WheatField.tscn      Trigo com vento e reação a personagens e veículos
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
   DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
-  Dungeon.tscn          Masmorra procedural (GridMap) e portal de retorno
+  Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Controla qualidade e animações atmosféricas do mundo
   house_lights.gd      Oscilação discreta das luzes quentes da casa
-  player.gd            Movimento, vida, stamina, coleta e entrega
-  player_ragdoll.gd    Morte física articulada do ET
+  player.gd            Movimento, vida, stamina, equilíbrio, coleta e entrega
+  player_animation_controller.gd Estado visual central e transições do AnimationTree
+  player_ragdoll.gd    Queda física do ET: morte definitiva e tombo reversível
+  ragdoll_recovery_modifier.gd Alinha brevemente o ragdoll ao início do get-up
+  ik_target_container.gd IK do braço direito apenas para ações específicas
   driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
   vision_debug_map.gd  Radar circular com ícones e cones de visão discretos
   debug_menu.gd        Alterna fontes de luz e atmosfera durante a partida
@@ -59,7 +62,13 @@ scripts/
   *_field.gd           Comportamento da vegetação
 assets/audio/          Vento, grilos, cães, passos e registro de origem
 assets/ui/             Ícones leves derivados dos meshes low-poly do pacote visual
+animations/mixamo/     Rig visual único, fontes FBX, GLB gerado e mapeamento
 shaders/night_sky.gdshader Céu procedural estrelado e Lua
+tools/build_mixamo_character.py Gera o GLB in-place usado pelo Player
+tools/test_player_animation.gd Smoke test dos estados visuais do Player
+tools/test_player_jump_stamina.gd Smoke test do impulso e consumo de stamina
+tools/test_player_reversal.gd Smoke test de freada e pivô em reversões bruscas
+tools/test_player_ragdoll.gd Smoke test do ragdoll e da recuperação
 tools/render_prototype_icons.py Utilitário para regenerar os ícones do HUD
 3dModelos/             Modelos 3D importados
 Texturas/              Texturas do cenário e dos modelos
@@ -129,6 +138,10 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - O ET possui 100 pontos de vida e 100 pontos de stamina. Correr consome
   stamina; ao esgotá-la por completo, a recuperação fica bloqueada por 3
   segundos antes de voltar gradualmente.
+- A locomoção usa 3 m/s ao caminhar, 5,5 m/s ao correr e 1,6 m/s agachado.
+  Os ciclos Mixamo acompanham essas velocidades com playback calibrado por
+  tipo de movimento para reduzir o deslizamento dos pés sem deixar os passos
+  rápidos demais.
 - A HUD compacta no canto inferior esquerdo mantém a vida visível; a stamina
   aparece somente durante uso ou recuperação. Dano pulsa a barra e produz uma
   vinheta vermelha breve.
@@ -146,6 +159,58 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - Os disparos empurram o ET por aproximadamente 0,5 m. Ao chegar a zero de
   vida, os controles são desativados, o corpo entra em ragdoll e um pequeno
   menu permite recomeçar a cena atual.
+- Parado no chão, o ET reproduz um idle autoral do Mixamo e escolhe entre duas
+  variações em intervalos aleatórios. A entrada e a saída dessas variações usam
+  0,4 segundo de mistura para não trocar a pose bruscamente. Cabeça e torso
+  ainda acompanham o `HeadTarget` com influência pequena, como ajuste sobre a
+  animação base.
+  Durante o sinal de intervenção ou ao carregar um item, somente o braço
+  direito passa gradualmente para o IK específico da ação.
+- Bater em obstáculos enquanto se movimenta consome equilíbrio. A perda é
+  proporcional à velocidade com que o ET entra na superfície, e não ao simples
+  contato: encostar ou empurrar uma parede não gasta equilíbrio nenhum, andar
+  contra ela quase não gasta, e correr contra ela provoca um tropeço visível.
+- Enquanto tropeça, o ET toca uma reação Mixamo coerente com a direção do
+  impacto, ganha um empurrão residual, perde parte do controle de movimento e
+  da velocidade de giro e vai se recuperando aos poucos. Novos impactos ainda
+  somam ao desequilíbrio anterior.
+- Ao inverter bruscamente a direção enquanto já está em movimento, o ET não
+  troca mais a velocidade de forma instantânea. A velocidade anterior freia,
+  um pivot Mixamo de 180° gira o corpo e a aceleração no novo sentido só começa
+  depois do apoio do pé. Caminhada e corrida usam clips e durações próprios;
+  pulo, crouch, hit, stumble e ragdoll podem interromper a manobra.
+- Pedir a direção oposta partindo do idle usa o mesmo princípio: o personagem
+  planta os pés e completa um único giro de 180° antes de começar a caminhar.
+  O yaw interno dos clips de turn é removido na geração do GLB para não se
+  somar à rotação física do `CharacterBody3D`.
+- Cair de altura também derruba. A velocidade vertical no instante em que o ET
+  toca o chão é comparada com `min_landing_speed` e `landing_ragdoll_speed`:
+
+```text
+pulo normal, até 1,5 m   nada
+1,8 m a 2,2 m            cambaleia ao pousar, cada vez mais
+2,4 m em diante          cai no chão
+```
+
+  O tombo cresce com a altura: por volta de 2,5 m o ET desaba praticamente no
+  lugar e fica pouco tempo caído, enquanto uma queda de 12 m é o tombo completo.
+  Um pulo em terreno plano toca o chão a cerca de 5,5 m/s e nunca custa nada,
+  mas pular de uma beirada soma o impulso do pulo à altura da queda.
+- Se o equilíbrio zerar, ou se um único impacto for forte demais, o ET cai num
+  ragdoll exagerado: os pés são varridos para trás, o tronco e a cabeça vão
+  para a frente e os braços se agitam. A queda não causa dano. Um tropeço deixa
+  o ET cerca de 0,9 segundo no chão e um tombo de altura cerca de 1,8; em
+  seguida ele escolhe uma animação de levantar de costas ou de bruços conforme
+  a orientação final do ragdoll e recupera o controle ao terminar. Não é
+  preciso apertar nada. O controle é liberado 0,25 segundo antes do fim do clip,
+  durante o trecho em que o ET já está visualmente de pé.
+- A queda tem intensidade. Bater correndo, ou ficar sem equilíbrio, produz uma
+  queda pequena: o ET tropeça e desaba praticamente no lugar, ficando pouco
+  tempo no chão. Só o tombo de altura usa a força total, que joga o corpo
+  longe. A mesma intensidade controla o impulso do ragdoll e o tempo caído.
+- Correr é limitado a `sprint_speed` (5,5 m/s) e `fall_impact_speed` é 5,15 m/s,
+  logo bater de frente numa parede em velocidade máxima derruba; chegar de
+  raspão, ou apenas andando, continua sendo tropeço ou nada.
 - Trigo e girassóis escondem parcialmente o ET: reduzem o alcance e tornam a
   detecção do fazendeiro mais lenta. Agachar dentro da vegetação aumenta a
   camuflagem.
@@ -155,10 +220,13 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   em posições e intervalos variados ao redor da fazenda.
 - Os passos acompanham o movimento do ET, variam amostra e afinação e tentam
   distinguir terra, pedra e madeira pelo objeto sob o personagem.
-- Uma porta (`DungeonDoor.tscn`) na fazenda dá acesso a uma masmorra gerada
-  proceduralmente num `GridMap`: salas retangulares sem sobreposição,
-  conectadas em sequência por corredores, com paredes automáticas nas bordas
-  de cada célula de chão. A masmorra é construída apenas uma vez por sessão,
+- Uma porta (`DungeonDoor.tscn`) na fazenda dá acesso a um porão de madeira
+  gerado proceduralmente num `GridMap`: salas retangulares sem sobreposição,
+  conectadas em sequência por corredores, com paredes de altura inteira nas
+  bordas de cada célula de chão e teto fechado sobre toda a área caminhável.
+  Piso, paredes e teto usam materiais de madeira em tons diferentes, e cada
+  sala recebe uma lâmpada quente presa ao teto. A masmorra é construída
+  apenas uma vez por sessão,
   na primeira vez que a porta é tocada; os toques seguintes só teleportam
   para o layout já existente. Dentro da masmorra, destroços coletáveis
   (`spaceship_scraps.tscn`) aparecem em algumas das salas geradas e seguem o
@@ -170,8 +238,9 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 
 - Movimento do jogador e direção da caminhonete: `WASD`.
 - Correr: segure `Shift` enquanto se movimenta; a corrida consome stamina e é
-  bloqueada durante a preparação do salto e enquanto o ET estiver no ar.
-- Pular: `Espaço`. O ET flexiona rapidamente os joelhos antes do impulso.
+  bloqueada enquanto o ET estiver no ar.
+- Pular: `Espaço`. O impulso físico é imediato e entra diretamente no clip de
+  subida, sem agachamento automático, atraso ou uma segunda abertura dos braços.
 - Agachar: segure `C`.
 - Câmera: mouse.
 - Coletar ou largar item: `E`.
@@ -209,6 +278,9 @@ Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
 Player -> grupo characters -> vegetação e detecção do inimigo
 WheatField/SunflowersPatch -> área de camuflagem -> visibilidade do Player
 DriveableTruck -> grupo vehicles -> direção e reação da vegetação
+Player -> colisão de parede -> equilíbrio -> stumble/queda -> PlayerRagdoll
+Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo
+Mixamo -> LookAt/IK de ação -> reação -> ragdoll (prioridade crescente)
 ```
 
 - `GlobalScore` é um autoload e mantém pontuação e uma lista simples de itens.
@@ -232,8 +304,42 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   olhos e o ET.
 - Dano, intervalo entre tiros, alcance, precisão, dispersão, tempo de detecção
   e perda de visão são parâmetros exportados no fazendeiro.
-- IK procedural movimenta membros do ET e do fazendeiro sem concentrar esse
-  comportamento nos scripts principais de gameplay.
+- O ET usa um único `Skeleton3D` Mixamo de 49 ossos. O GLB reúne o mesh e 31
+  clips nomeados; as translações horizontais do quadril foram removidas para
+  que todas as animações sejam in-place e `CharacterBody3D` continue sendo a
+  única autoridade de deslocamento e colisão.
+- `PlayerAnimationController` constrói e centraliza a máquina de estados do
+  `AnimationTree`: idle e variações, walk/run, strafes, agachamento, turn,
+  pivôs móveis de 180°, run-stop, salto/queda/pouso, hit, stumble e duas
+  orientações de get-up. A velocidade de reprodução da locomoção acompanha a
+  velocidade física.
+- `player.gd` continua cuidando de input, gravidade, colisão, impacto,
+  equilíbrio, knockback e da decisão entre reação e queda. Ele apenas envia o
+  estado físico ao controlador visual e dispara ações pontuais.
+- Sobre a animação base permanecem dois `LookAtModifier3D`, com influência
+  limitada, para cabeça e torso. O único `TwoBoneIK3D` do Player controla o
+  braço direito e começa com influência zero; ele só entra ao carregar um item
+  ou executar o sinal de intervenção. Pernas, quadril e movimento principal
+  não são gerados por código.
+- A entrada em ragdoll foi extraída para `_enter_ragdoll()`, sem os efeitos
+  colaterais de morte. `_die()` chama essa função e acrescenta cursor visível,
+  desligamento dos processos e o sinal `died`; a queda por desequilíbrio chama
+  a mesma função e apenas conta o tempo até levantar.
+- `player_ragdoll.gd` gera corpos físicos para a hierarquia Mixamo e é
+  reversível. Ao entrar em queda, o `AnimationTree` e os modifiers visuais são
+  suspensos; ao sair, a orientação do peito escolhe `get_up_back` ou
+  `get_up_front` e a simulação entrega a pose final ao controlador.
+- `RagdollRecoveryModifier`, último nó da pilha do esqueleto, mantém a pose
+  caída somente por `ragdoll_pose_blend_duration` (0,25 s por padrão) e a
+  dissolve sobre o começo do clip autoral. Ele serve para alinhamento curto,
+  não para fabricar matematicamente o movimento de levantar.
+- A pose caída também não pode ser lida do esqueleto, pelo mesmo motivo. Ela é
+  reconstruída a partir do `global_transform` de cada `PhysicalBone3D`,
+  corrigido pelo `body_offset`, antes de a simulação parar.
+- Enquanto está caído, o `CharacterBody3D` acompanha a posição do quadril
+  projetada no chão por raycast, para que a câmera siga o corpo. A cápsula de
+  colisão fica desabilitada nesse período, já que os ossos físicos colidem com
+  a máscara 1 e empurrariam o próprio personagem.
 - A masmorra fica isolada, longe das duas `NavigationRegion3D` da fazenda, e
   não possui `NavigationRegion3D` própria: ela não participa da navegação do
   fazendeiro nem do fotógrafo, que continuam restritos à fazenda. O estado
@@ -253,7 +359,10 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   coleta e entrega.
 - As opções e os remapeamentos feitos no menu não são salvos entre execuções.
 - O projeto não possui multiplayer nem arquitetura de servidor.
-- Não há testes automatizados versionados neste momento.
+- Há smoke tests automatizados dos estados de animação, do salto e da stamina,
+  da reversão física e do ciclo reversível de ragdoll em
+  `tools/test_player_animation.gd`, `tools/test_player_jump_stamina.gd`,
+  `tools/test_player_reversal.gd` e `tools/test_player_ragdoll.gd`.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/` não estão
   documentadas no repositório; confirme-as antes de redistribuir o projeto.
 - A biblioteca usada para gerar os ícones da interface não continha uma licença
@@ -261,6 +370,19 @@ DriveableTruck -> grupo vehicles -> direção e reação da vegetação
   `Polygon Prototype` antes de redistribuir os PNGs derivados.
 - Os áudios foram fornecidos pelo usuário sem licença anexada. A procedência e
   o uso de cada arquivo estão registrados em `assets/audio/SOURCE.md`.
+- Os FBX Mixamo foram fornecidos pelo usuário sem licença anexada. Inventário,
+  seleção, mapeamento e processo de geração estão registrados em
+  `animations/mixamo/SOURCE.md`; confirme os termos antes de redistribuí-los.
+- O clip de levantar de bruços é consideravelmente mais longo que o de costas.
+  Ele começa a 3,2× para tirar os braços do chão sem demora e desacelera
+  suavemente até 1,9× antes da parte de erguer o corpo, equilibrando o ritmo.
+  O alinhamento inicial é uma mistura curta da pose física; ainda não há
+  correção dinâmica de mãos e pés para terrenos inclinados.
+- A queda não causa dano nem é registrada por nenhum sistema: fazendeiro,
+  fotógrafo e vegetação continuam tratando o ET caído como um alvo normal.
+- Durante a queda a cápsula de colisão fica desabilitada, então o ET pode
+  atravessar geometria fina se o ragdoll escorregar para dentro dela; ao
+  levantar não há verificação de espaço livre acima da cabeça.
 - A masmorra procedural não tem objetivo além de coletar os destroços que
   aparecem nela; não há inimigos, iluminação atmosférica dedicada nem
   variação visual entre salas além dos materiais reaproveitados da fazenda.
