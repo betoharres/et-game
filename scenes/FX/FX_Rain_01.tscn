@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://btuuo6cu6f48x"]
 
-[ext_resource type="Material" path="res://assets/Particle_FX/Materials/FX/Rain_01.tres" id="1_2uk51"]
+[ext_resource type="Material" uid="uid://g02vx5nq1e4o" path="res://Materiais/FX/Rain_01.tres" id="1_2uk51"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fdpgf"]
 lifetime_randomness = 0.1
@@ -27,7 +27,7 @@ material = ExtResource("1_2uk51")
 shape = 0
 curve = SubResource("Curve_2uk51")
 
-[node name="FX_Rain_01" type="GPUParticles3D"]
+[node name="FX_Rain_01" type="GPUParticles3D" unique_id=3492760]
 amount = 500
 preprocess = 1.0
 randomness = 0.39

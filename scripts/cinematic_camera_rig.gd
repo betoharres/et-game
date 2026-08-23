@@ -55,7 +55,7 @@ func _ready() -> void:
 
 
 func set_target_pose(
-	position : Vector3,
+	position_in : Vector3,
 	yaw : float,
 	pitch : float,
 	crouch_drop : float,
@@ -63,7 +63,7 @@ func set_target_pose(
 	grounded : bool,
 	snap : bool = false
 ) -> void:
-	_target_position = position
+	_target_position = position_in
 	_target_yaw = yaw
 	_target_pitch = pitch
 	_target_crouch_drop = crouch_drop
@@ -71,7 +71,7 @@ func set_target_pose(
 	_target_grounded = grounded
 	_has_target = true
 
-	if snap or global_position.distance_to(position) >= teleport_snap_distance:
+	if snap or global_position.distance_to(position_in) >= teleport_snap_distance:
 		_snap_to_target()
 
 

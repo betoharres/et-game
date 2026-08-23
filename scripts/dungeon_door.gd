@@ -13,13 +13,11 @@ extends Area3D
 
 var _characters_nearby : Array[CharacterBody3D] = []
 
-
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	prompt.visible = false
-
-
+	
 func _process(_delta : float) -> void:
 	_cleanup_characters()
 	prompt.visible = not _characters_nearby.is_empty()
@@ -47,7 +45,7 @@ func _enter_dungeon() -> void:
 
 func _on_body_entered(body : Node3D) -> void:
 	if body is CharacterBody3D and body.is_in_group("characters"):
-		var character := body as CharacterBody3D
+		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_nearby.has(character):
 			_characters_nearby.append(character)
 
@@ -61,3 +59,4 @@ func _cleanup_characters() -> void:
 	for index : int in range(_characters_nearby.size() - 1, -1, -1):
 		if not is_instance_valid(_characters_nearby[index]):
 			_characters_nearby.remove_at(index)
+			
