@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ggyw0g6j67oy"]
+
+[ext_resource type="PackedScene" uid="uid://b5p4gh6pnp0c0" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_03A.fbx" id="1_laelp"]
+[ext_resource type="Material" uid="uid://b44p7ahr7372s" path="res://Materiais/SICS_TEM_Trees.tres" id="2_8aehe"]
+
+[node name="TEM_Grass_Patch_03A" unique_id=669067315 instance=ExtResource("1_laelp")]
+
+[node name="TEM_Grass_Patch_03A_LOD0" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="0" unique_id=269186763]
+surface_material_override/0 = ExtResource("2_8aehe")
+
+[node name="TEM_Grass_Patch_03A_LOD1" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="1" unique_id=1046580275]
+visible = false
+surface_material_override/0 = ExtResource("2_8aehe")
+
+[node name="TEM_Grass_Patch_03A_LOD2" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="2" unique_id=1163931516]
+visible = false
+surface_material_override/0 = ExtResource("2_8aehe")

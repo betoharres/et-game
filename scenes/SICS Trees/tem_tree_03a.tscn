@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b2prnpedaixdu"]
+
+[ext_resource type="PackedScene" uid="uid://dpna18wi41ox6" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_03A.fbx" id="1_y7x62"]
+[ext_resource type="Material" uid="uid://b44p7ahr7372s" path="res://Materiais/SICS_TEM_Trees.tres" id="2_14p0n"]
+
+[node name="TEM_Tree_03A" unique_id=1143689898 instance=ExtResource("1_y7x62")]
+
+[node name="TEM_Tree_03A_LOD0" parent="TEM_Tree_03A" parent_id_path=PackedInt32Array(1431100528) index="0" unique_id=1352424499]
+surface_material_override/0 = ExtResource("2_14p0n")
+
+[node name="TEM_Tree_03A_LOD1" parent="TEM_Tree_03A" parent_id_path=PackedInt32Array(1431100528) index="1" unique_id=1276776965]
+visible = false
+surface_material_override/0 = ExtResource("2_14p0n")
+
+[node name="TEM_Tree_03A_LOD2" parent="TEM_Tree_03A" parent_id_path=PackedInt32Array(1431100528) index="2" unique_id=2135784622]
+visible = false
+surface_material_override/0 = ExtResource("2_14p0n")

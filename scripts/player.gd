@@ -104,11 +104,16 @@ enum ImpactReaction {
 @onready var character_mesh : MeshInstance3D = $ET/ETArmature/Skeleton3D/ET
 @onready var ragdoll : PlayerRagdoll = $PlayerRagdoll
 @onready var ik_target_container : Node = $IKtargetContainer
+<<<<<<< HEAD
 @onready var animation_controller : PlayerAnimationController = (
 	$PlayerAnimationController
 )
 @onready var eye_area_light : OmniLight3D = (
 	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
+=======
+@onready var eye_area_light : SpotLight3D = (
+	$ET/Armature/Skeleton3D/EyeLightAttachment/EyeAreaLight
+>>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 )
 
 var camera_yaw: float = 0.0
@@ -223,8 +228,13 @@ func _input(event: InputEvent) -> void:
 		else:
 			carried_item.drop()
 			carried_item = null
+<<<<<<< HEAD
 			if ik_target_container.has_method("set_carrying"):
 				ik_target_container.call("set_carrying", false)
+=======
+			
+		
+>>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 
 func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
@@ -682,9 +692,9 @@ func is_eye_light_enabled() -> bool:
 
 
 func _setup_eye_light() -> void:
-	eye_area_light.omni_range = eye_light_range
+	eye_area_light.spot_range = eye_light_range
 	character_mesh.layers = 2
-	var source_material := character_mesh.get_active_material(1)
+	var source_material : StandardMaterial3D = character_mesh.get_active_material(1)
 	if source_material is StandardMaterial3D:
 		_eye_material = source_material.duplicate() as StandardMaterial3D
 		_eye_material.resource_local_to_scene = true
