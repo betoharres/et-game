@@ -6,16 +6,10 @@
 [ext_resource type="Script" uid="uid://d2qkhr65jljsa" path="res://scripts/audio/footstep_audio.gd" id="4_footsteps"]
 [ext_resource type="PackedScene" path="res://scenes/PlayerHUD.tscn" id="5_hud"]
 [ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="6_ragdoll"]
-<<<<<<< HEAD
-[ext_resource type="Script" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
-[ext_resource type="Script" path="res://scripts/player_animation_controller.gd" id="9_animation"]
-[ext_resource type="Script" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
-[ext_resource type="Script" path="res://scripts/energy_pool.gd" id="11_energy"]
-=======
 [ext_resource type="Script" uid="uid://ble30vc8ite7l" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 [ext_resource type="Script" uid="uid://bttmbvxpmu3e6" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
->>>>>>> 0936d19388ca7eee2cdc436bb0ff7fee9bd04b72
+[ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -94,7 +88,6 @@ shadow_enabled = true
 spot_range = 25.867836
 spot_angle = 17.842344
 
-<<<<<<< HEAD
 [node name="EyeGlowLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007477]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.064058006, 0.109894976)
 light_color = Color(0.2, 0.92, 0.7, 1)
@@ -105,8 +98,6 @@ shadow_enabled = false
 omni_range = 4.5
 omni_attenuation = 1.6
 
-[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D"]
-=======
 [node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="5" unique_id=197484809]
 unique_name_in_owner = false
 process_mode = 0
@@ -124,7 +115,6 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
->>>>>>> 0936d19388ca7eee2cdc436bb0ff7fee9bd04b72
 script = ExtResource("8_recovery")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=294358955]
@@ -172,12 +162,8 @@ margin = 0.14
 [node name="Camera3D" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=1582696248]
 cull_mask = 1047551
 fov = 60.0
-<<<<<<< HEAD
 near = 0.05
 far = 600.0
-=======
-far = 150.0
->>>>>>> 0936d19388ca7eee2cdc436bb0ff7fee9bd04b72
 
 [node name="HeadTarget" type="Marker3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D" unique_id=46629359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
