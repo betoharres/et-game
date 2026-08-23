@@ -303,7 +303,7 @@ func _physics_process(delta: float) -> void:
 	if _should_start_moving_turn(movement_direction, has_movement_input):
 		_start_moving_turn(movement_direction)
 
-	var moving_turn_handled := false
+	var moving_turn_handled : bool = false
 	if _moving_turn_active:
 		moving_turn_handled = _update_moving_turn(
 			delta,
@@ -333,7 +333,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_camera_target() -> void:
-	var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+	var horizontal_speed : float = Vector2(velocity.x, velocity.z).length()
 	camera_pivot.set_target_pose(
 		global_position,
 		camera_yaw,
@@ -360,12 +360,12 @@ func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 	var horizontal_velocity := Vector2(velocity.x, velocity.z)
 
 	if has_movement_input:
-		var movement_speed := _get_movement_speed()
-		var target_velocity := Vector2(
+		var movement_speed : float = _get_movement_speed()
+		var target_velocity : Vector2 = Vector2(
 			movement_direction.x,
 			movement_direction.z
 		) * movement_speed
-		var acceleration := ground_acceleration if is_on_floor() else air_acceleration
+		var acceleration : float = ground_acceleration if is_on_floor() else air_acceleration
 		horizontal_velocity = horizontal_velocity.move_toward(
 			target_velocity,
 			acceleration
@@ -374,14 +374,14 @@ func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 			* delta
 		)
 
-		var target_angle := atan2(movement_direction.x, movement_direction.z)
+		var target_angle : float = atan2(movement_direction.x, movement_direction.z)
 		rotation.y = rotate_toward(
 			rotation.y,
 			target_angle,
 			rotation_speed * _control_multiplier() * delta
 		)
 	else:
-		var deceleration := ground_deceleration if is_on_floor() else air_acceleration
+		var deceleration : float = ground_deceleration if is_on_floor() else air_acceleration
 		horizontal_velocity = horizontal_velocity.move_toward(
 			Vector2.ZERO,
 			deceleration * _debug_speed_multiplier() * delta
@@ -404,25 +404,25 @@ func _should_start_moving_turn(movement_direction : Vector3,
 	):
 		return false
 
-	var horizontal_velocity := Vector2(velocity.x, velocity.z)
+	var horizontal_velocity : Vector2 = Vector2(velocity.x, velocity.z)
 	if horizontal_velocity.length() < reversal_minimum_speed:
-		var target_yaw := atan2(movement_direction.x, movement_direction.z)
-		var facing_angle := absf(wrapf(target_yaw - rotation.y, -PI, PI))
+		var target_yaw : float = atan2(movement_direction.x, movement_direction.z)
+		var facing_angle : float = absf(wrapf(target_yaw - rotation.y, -PI, PI))
 		return facing_angle >= deg_to_rad(stationary_pivot_angle_degrees)
 
-	var desired := Vector2(movement_direction.x, movement_direction.z).normalized()
-	var current := horizontal_velocity.normalized()
-	var angle := acos(clampf(current.dot(desired), -1.0, 1.0))
+	var desired : Vector2 = Vector2(movement_direction.x, movement_direction.z).normalized()
+	var current : Vector2 = horizontal_velocity.normalized()
+	var angle : float = acos(clampf(current.dot(desired), -1.0, 1.0))
 	return angle >= deg_to_rad(reversal_angle_degrees)
 
 
 func _start_moving_turn(movement_direction : Vector3) -> void:
-	var current_speed := Vector2(velocity.x, velocity.z).length()
-	var is_running := (
+	var current_speed : float = Vector2(velocity.x, velocity.z).length()
+	var is_running : bool = (
 		_is_sprinting
 		and current_speed >= maxf(speed * 0.85, reversal_minimum_speed)
 	)
-	var duration := animation_controller.trigger_moving_turn(is_running)
+	var duration : float = animation_controller.trigger_moving_turn(is_running)
 	if duration <= 0.0:
 		return
 
@@ -453,8 +453,8 @@ func _update_moving_turn(delta : float, movement_direction : Vector3,
 		_cancel_moving_turn()
 		return false
 
-	var desired := movement_direction.normalized()
-	var input_angle := acos(clampf(
+	var desired : Vector3 = movement_direction.normalized()
+	var input_angle : float = acos(clampf(
 		desired.dot(_moving_turn_target_direction),
 		-1.0,
 		1.0
@@ -467,21 +467,21 @@ func _update_moving_turn(delta : float, movement_direction : Vector3,
 		_moving_turn_elapsed + delta,
 		_moving_turn_duration
 	)
-	var ratio := clampf(
+	var ratio : float = clampf(
 		_moving_turn_elapsed / maxf(_moving_turn_duration, 0.001),
 		0.0,
 		1.0
 	)
-	var rotation_ratio := pow(ratio, _moving_turn_rotation_exponent)
+	var rotation_ratio : float = pow(ratio, _moving_turn_rotation_exponent)
 	rotation.y = lerp_angle(
 		_moving_turn_start_yaw,
 		_moving_turn_target_yaw,
 		rotation_ratio
 	)
 
-	var horizontal_velocity := Vector2(velocity.x, velocity.z)
+	var horizontal_velocity : Vector2 = Vector2(velocity.x, velocity.z)
 	if ratio < reversal_commit_ratio:
-		var braking_duration := maxf(
+		var braking_duration : float = maxf(
 			_moving_turn_duration * reversal_commit_ratio,
 			0.05
 		)
@@ -490,11 +490,11 @@ func _update_moving_turn(delta : float, movement_direction : Vector3,
 			_moving_turn_start_speed / braking_duration * delta
 		)
 	else:
-		var acceleration_duration := maxf(
+		var acceleration_duration : float = maxf(
 			_moving_turn_duration * (1.0 - reversal_commit_ratio),
 			0.05
 		)
-		var target_velocity := Vector2(
+		var target_velocity : Vector2 = Vector2(
 			_moving_turn_target_direction.x,
 			_moving_turn_target_direction.z
 		) * _moving_turn_target_speed
@@ -533,19 +533,19 @@ func _debug_speed_multiplier() -> float:
 
 
 func _update_flight_movement(delta : float) -> void:
-	var input_direction := Input.get_vector(
+	var input_direction : Vector2 = Input.get_vector(
 		"ui_right",
 		"ui_left",
 		"ui_up",
 		"ui_down"
 	)
-	var camera_forward := Vector3(-sin(camera_yaw), 0.0, -cos(camera_yaw))
-	var camera_right := Vector3(cos(camera_yaw), 0.0, -sin(camera_yaw))
-	var vertical_input := (
+	var camera_forward : Vector3 = Vector3(-sin(camera_yaw), 0.0, -cos(camera_yaw))
+	var camera_right : Vector3 = Vector3(cos(camera_yaw), 0.0, -sin(camera_yaw))
+	var vertical_input : float = (
 		Input.get_action_strength("jump")
 		- Input.get_action_strength("crouch")
 	)
-	var movement_direction := (
+	var movement_direction : Vector3 = (
 		camera_right * input_direction.x
 		+ camera_forward * input_direction.y
 		+ Vector3.UP * vertical_input
@@ -554,20 +554,20 @@ func _update_flight_movement(delta : float) -> void:
 	if movement_direction.length_squared() > 0.0001:
 		movement_direction = movement_direction.normalized()
 
-	var speed_multiplier := _debug_speed_multiplier()
-	var target_velocity := movement_direction * flight_speed * speed_multiplier
+	var speed_multiplier : float = _debug_speed_multiplier()
+	var target_velocity : Vector3 = movement_direction * flight_speed * speed_multiplier
 	velocity = velocity.move_toward(
 		target_velocity,
 		flight_acceleration * speed_multiplier * delta
 	)
 
-	var horizontal_direction := Vector3(
+	var horizontal_direction : Vector3 = Vector3(
 		movement_direction.x,
 		0.0,
 		movement_direction.z
 	)
 	if horizontal_direction.length_squared() > 0.0001:
-		var target_angle := atan2(
+		var target_angle : float = atan2(
 			horizontal_direction.x,
 			horizontal_direction.z
 		)
@@ -703,8 +703,8 @@ func set_debug_god_mode_enabled(enabled : bool) -> void:
 	if not enabled:
 		return
 
-	var health_changed_value := not is_equal_approx(health, max_health)
-	var stamina_changed_value := not is_equal_approx(stamina, max_stamina)
+	var health_changed_value : bool = not is_equal_approx(health, max_health)
+	var stamina_changed_value : bool = not is_equal_approx(stamina, max_stamina)
 	health = max_health
 	stamina = max_stamina
 	_sprint_exhausted = false
@@ -740,7 +740,7 @@ func set_debug_flight_enabled(enabled : bool) -> void:
 	if enabled:
 		is_crouching = false
 		_crouch_amount = 0.0
-		var capsule := collision_shape.shape as CapsuleShape3D
+		var capsule : CapsuleShape3D = collision_shape.shape as CapsuleShape3D
 		if capsule != null:
 			capsule.height = STANDING_COLLISION_HEIGHT
 			collision_shape.position.y = STANDING_COLLISION_HEIGHT * 0.5
@@ -765,9 +765,9 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		_eye_light_tween.kill()
 
 	var target_energy : float = eye_light_energy if enabled else 0.0
-	var target_albedo := active_eye_color * 0.42 if enabled else Color.BLACK
+	var target_albedo : Color = active_eye_color * 0.42 if enabled else Color.BLACK
 	target_albedo.a = 1.0
-	var target_emission := active_eye_color if enabled else Color.BLACK
+	var target_emission : Color = active_eye_color if enabled else Color.BLACK
 	var target_emission_energy : float = 1.35 if enabled else 0.0
 	var duration : float = (
 		eye_light_turn_on_duration
@@ -1229,7 +1229,7 @@ func _project_to_floor(probe_position : Vector3) -> Vector3:
 	if world == null:
 		return probe_position
 
-	var query := PhysicsRayQueryParameters3D.create(
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
 		probe_position + Vector3.UP * FLOOR_PROBE_HEIGHT,
 		probe_position + Vector3.DOWN * FLOOR_PROBE_DEPTH
 	)
@@ -1267,7 +1267,7 @@ func is_fallen() -> bool:
 
 
 func _update_crouch_state(delta : float) -> void:
-	var wants_crouch := Input.is_action_pressed("crouch")
+	var wants_crouch : bool = Input.is_action_pressed("crouch")
 
 	if not wants_crouch and is_crouching and not _can_stand():
 		wants_crouch = true
@@ -1281,7 +1281,7 @@ func _update_crouch_state(delta : float) -> void:
 		delta * crouch_transition_speed
 	)
 
-	var capsule := collision_shape.shape as CapsuleShape3D
+	var capsule : CapsuleShape3D = collision_shape.shape as CapsuleShape3D
 
 	if capsule != null:
 		capsule.height = lerpf(
@@ -1292,15 +1292,15 @@ func _update_crouch_state(delta : float) -> void:
 		collision_shape.position.y = capsule.height * 0.5
 
 func _can_stand() -> bool:
-	var capsule := collision_shape.shape as CapsuleShape3D
+	var capsule : CapsuleShape3D = collision_shape.shape as CapsuleShape3D
 
 	if capsule == null or get_world_3d() == null:
 		return true
 
-	var standing_shape := capsule.duplicate() as CapsuleShape3D
+	var standing_shape : CapsuleShape3D = capsule.duplicate() as CapsuleShape3D
 	standing_shape.height = STANDING_COLLISION_HEIGHT
 
-	var query := PhysicsShapeQueryParameters3D.new()
+	var query : PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 	query.shape = standing_shape
 	query.transform = Transform3D(
 		Basis.IDENTITY,
