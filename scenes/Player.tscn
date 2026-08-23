@@ -163,7 +163,7 @@ margin = 0.14
 cull_mask = 1047551
 fov = 60.0
 near = 0.05
-far = 600.0
+far = 450.0
 
 [node name="HeadTarget" type="Marker3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D" unique_id=46629359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)

@@ -2,13 +2,20 @@ extends Node3D
 
 ## Controla o clima noturno da fase: ceu, Lua, nevoa e presets de qualidade.
 ##
-## Hoje a unica nevoa ativa e a rasteira do GroundFogLayer: uma manta baixa e
-## local, que segue o chao. O fog atmosferico e o volumetric fog ficam
-## desligados por padrao, mas continuam disponiveis:
-## - fog atmosferico: ligue "atmospheric_fog_enabled" no Inspector;
-## - volumetric fog: ponha "volumetric_enabled" como true no preset desejado,
-##   em QUALITY_PRESETS. Ele so alimenta as luzes do grupo "volumetric_lights"
-##   (Lua, feixes da nave, abducao) fora do preset HIGH.
+## A nevoa tem duas camadas:
+## - GroundFogLayer: manta baixa e local, que segue o chao;
+## - fog atmosferico do Environment, em modo Depth. Ele e o orcamento de
+##   renderizacao do mapa: fecha opaco antes do alcance das cameras, entao
+##   nada precisa ser desenhado alem dele. Ligado por padrao.
+##
+## O volumetric fog continua DESLIGADO em todos os presets, por custo. Para
+## experimentar, ponha "volumetric_enabled" como true no preset desejado, em
+## QUALITY_PRESETS. Ele so alimenta as luzes do grupo "volumetric_lights"
+## (Lua, feixes da nave, abducao) fora do preset HIGH.
+##
+## Perfis de nevoa: no chao a nevoa fecha por volta de 400 m; no ar, o avioo
+## precisa enxergar mais longe, entao set_fog_profile(FogProfile.FLIGHT) abre
+## a nevoa ate 950 m, ainda dentro do alcance do Terrain3D. A troca e suave.
 ##
 ## Eventos alienigenas usam set_alien_fog_intensity(), que interpola densidade,
 ## tonalidade, scattering, movimento da nevoa e interferencia visual.
@@ -17,6 +24,13 @@ enum QualityLevel {
 	LOW,
 	MEDIUM,
 	HIGH,
+}
+
+## Alcance da nevoa por contexto. GROUND e a pe / de caminhao; FLIGHT abre a
+## nevoa enquanto o jogador pilota o aviao.
+enum FogProfile {
+	GROUND,
+	FLIGHT,
 }
 
 ## Luzes autorizadas a alimentar a volumetria fora do preset HIGH.
@@ -39,6 +53,7 @@ const QUALITY_PRESETS : Array[Dictionary] = [
 		"volumetric_filter": false,
 		"fog_density_scale": 1.0,
 		"fog_height_density_scale": 1.0,
+		"fog_depth_scale": 0.82,
 		"fog_volume_enabled": false,
 		"non_alien_volumetric_lights": false,
 		"particles": false,
@@ -65,6 +80,7 @@ const QUALITY_PRESETS : Array[Dictionary] = [
 		"volumetric_filter": false,
 		"fog_density_scale": 1.0,
 		"fog_height_density_scale": 1.0,
+		"fog_depth_scale": 0.92,
 		"fog_volume_enabled": false,
 		"non_alien_volumetric_lights": false,
 		"particles": true,
@@ -91,6 +107,7 @@ const QUALITY_PRESETS : Array[Dictionary] = [
 		"volumetric_filter": true,
 		"fog_density_scale": 1.0,
 		"fog_height_density_scale": 1.0,
+		"fog_depth_scale": 1.0,
 		"fog_volume_enabled": false,
 		"non_alien_volumetric_lights": true,
 		"particles": true,
@@ -135,23 +152,48 @@ const QUALITY_PRESETS : Array[Dictionary] = [
 @export_range(5.0, 240.0, 1.0) var shooting_star_interval_max : float = 85.0
 
 @export_group("Fog and Atmosphere")
-## Fog exponencial de tela cheia. Desligado: a nevoa fica so rente ao chao.
-@export var atmospheric_fog_enabled : bool = false
-## Cor do fog atmosferico e do espalhamento da volumetria.
-@export_color_no_alpha var fog_color : Color = Color(0.06, 0.16, 0.22)
+## Fog de tela cheia do Environment, em modo Depth. Fecha opaco antes do "far"
+## das cameras e e o que esconde a borda do mapa.
+@export var atmospheric_fog_enabled : bool = true
+## Cor do fog atmosferico e do espalhamento da volumetria. Fica proxima da cor
+## do horizonte do ceu: se for mais clara, o fog vira uma faixa luminosa.
+@export_color_no_alpha var fog_color : Color = Color(0.022, 0.045, 0.09)
 ## Cor da nevoa rasteira. Ela nao recebe luz, entao precisa ser mais clara que
 ## o fog atmosferico para ler como nevoa iluminada pela Lua.
 @export_color_no_alpha var ground_fog_color : Color = Color(0.18, 0.28, 0.35)
-## Fog exponencial barato do Environment; controla a profundidade a distancia.
-@export_range(0.0, 0.08, 0.0005) var atmospheric_fog_density : float = 0.010
+## Distancia em que o fog de profundidade comeca a somar (perfil GROUND).
+@export_range(10.0, 2000.0, 5.0) var fog_depth_begin : float = 350.0
+## Distancia em que o fog de profundidade fica opaco (perfil GROUND). Precisa
+## ficar abaixo do "far" das cameras de jogo, hoje 450 m.
+@export_range(20.0, 2500.0, 5.0) var fog_depth_end : float = 400.0
+## Curva entre begin e end. 1.0 e linear; abaixo de 1 fecha mais cedo.
+@export_range(0.1, 4.0, 0.05) var fog_depth_curve : float = 1.0
+## Opacidade maxima do fog de profundidade, aplicada em fog_depth_end.
+## ATENCAO: em modo Depth o Godot 4.7 MULTIPLICA a rampa de profundidade por
+## Environment.fog_density. Deixar aqui o antigo 0.010 do modo exponencial
+## reduz a nevoa a 1% e ela some por completo. 1.0 = parede opaca.
+@export_range(0.0, 1.0, 0.01) var atmospheric_fog_opacity : float = 1.0
 ## Altura em que a nevoa de altura barata comeca a somar.
-@export_range(0.0, 30.0, 0.5) var atmospheric_fog_height : float = 3.5
-## Ganho da nevoa de altura. Valores altos lavam objetos proximos ao chao.
-@export_range(0.0, 0.3, 0.001) var atmospheric_fog_height_density : float = 0.025
+@export_range(0.0, 30.0, 0.5) var atmospheric_fog_height : float = 6.0
+## Ganho da nevoa de altura. ATENCAO: no Godot 4.7 este termo MULTIPLICA o fog
+## de profundidade. Um valor pequeno (0.006, por exemplo) derruba o depth fog
+## para ~3% e a parede de nevoa simplesmente some. Fica em 0.0 de proposito:
+## quem faz a nevoa de perto e o GroundFogLayer.
+@export_range(0.0, 0.3, 0.001) var atmospheric_fog_height_density : float = 0.0
 ## Densidade do FogVolume rasteiro, usado apenas no preset HIGH.
 @export_range(0.0, 0.05, 0.001) var ground_fog_density : float = 0.012
 @export_range(0.0, 2.0, 0.01) var fog_drift_speed : float = 0.18
 @export_range(0, 256, 1) var atmospheric_particle_amount : int = 96
+
+@export_group("Flight Fog Profile")
+## Perfil usado enquanto o jogador pilota. O limite e o "far" da camera do
+## aviao: o terreno some no plano distante, medido em ~1330 m com far = 1200.
+## A nevoa fecha em 950 m, bem antes disso, e ainda deixa o jogador enxergar
+## a fazenda inteira de 350 m de altitude.
+@export_range(10.0, 2000.0, 5.0) var flight_fog_depth_begin : float = 550.0
+@export_range(20.0, 2500.0, 5.0) var flight_fog_depth_end : float = 950.0
+## Velocidade da transicao entre os perfis GROUND e FLIGHT.
+@export_range(0.1, 8.0, 0.1) var fog_profile_response : float = 1.2
 
 @export_group("Alien Atmosphere")
 @export_color_no_alpha var alien_fog_color : Color = Color(0.09, 0.62, 0.5)
@@ -190,6 +232,8 @@ var _ambient_debug_intensity : float = 1.0
 var _fog_debug_intensity : float = 1.0
 var _alien_fog_target : float = 0.0
 var _alien_fog_current : float = 0.0
+var _fog_profile : int = FogProfile.GROUND
+var _fog_profile_blend : float = 0.0
 var _shooting_star_timer : float = 0.0
 var _elapsed : float = 0.0
 
@@ -217,6 +261,7 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	_elapsed += delta * motion_scale
 	_update_alien_fog(delta)
+	_update_fog_profile(delta)
 	_update_cloud_shadow()
 	_update_ground_atmosphere()
 	_update_shooting_stars(delta)
@@ -299,13 +344,33 @@ func _apply_fog_values() -> void:
 		return
 
 	environment.fog_enabled = atmospheric_fog_enabled and _fog_debug_enabled
+	environment.fog_mode = Environment.FOG_MODE_DEPTH
 	environment.fog_light_color = alien_tint
-	environment.fog_density = (
-		atmospheric_fog_density
+	environment.fog_density = clampf(
+		atmospheric_fog_opacity
 		* float(preset.get("fog_density_scale", 1.0))
-		* _fog_debug_intensity
-		* (1.0 + alien * alien_fog_density_boost * 0.45)
+		* _fog_debug_intensity,
+		0.0,
+		1.0
 	)
+
+	# Em modo Depth a "densidade" e distancia: quanto menor o alcance, mais
+	# fechada a nevoa. O preset e o slider de debug encurtam o alcance, e o
+	# evento alienigena tambem aproxima a parede de nevoa.
+	var depth_scale := (
+		float(preset.get("fog_depth_scale", 1.0))
+		/ maxf(_fog_debug_intensity, 0.05)
+		/ (1.0 + alien * alien_fog_density_boost * 0.45)
+	)
+	var begin := lerpf(fog_depth_begin, flight_fog_depth_begin, _fog_profile_blend)
+	var end := lerpf(fog_depth_end, flight_fog_depth_end, _fog_profile_blend)
+	environment.fog_depth_begin = begin * depth_scale
+	environment.fog_depth_end = maxf(
+		environment.fog_depth_begin + 1.0,
+		end * depth_scale
+	)
+	environment.fog_depth_curve = fog_depth_curve
+
 	environment.fog_height = atmospheric_fog_height
 	environment.fog_height_density = (
 		atmospheric_fog_height_density
@@ -425,6 +490,30 @@ func _apply_alien_light_boost() -> void:
 		light.light_volumetric_fog_energy = base_energy * (
 			1.0 + _alien_fog_current * alien_beam_fog_boost
 		)
+
+
+## Troca o perfil de alcance da nevoa. Chamado pelo aviao ao assumir e ao
+## largar o controle. A transicao e suave; nao ha custo extra de frame, so o
+## alcance em que o fog fecha muda.
+func set_fog_profile(profile : int) -> void:
+	_fog_profile = clampi(profile, FogProfile.GROUND, FogProfile.FLIGHT)
+
+
+func get_fog_profile() -> int:
+	return _fog_profile
+
+
+func _update_fog_profile(delta : float) -> void:
+	var target := 1.0 if _fog_profile == FogProfile.FLIGHT else 0.0
+	if is_equal_approx(_fog_profile_blend, target):
+		return
+
+	var weight := 1.0 - exp(-fog_profile_response * delta)
+	_fog_profile_blend = lerpf(_fog_profile_blend, target, weight)
+	if absf(_fog_profile_blend - target) < 0.002:
+		_fog_profile_blend = target
+
+	_apply_fog_values()
 
 
 func _update_alien_fog(delta : float) -> void:

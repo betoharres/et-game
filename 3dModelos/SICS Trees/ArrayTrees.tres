@@ -23,7 +23,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_2fcip"]
 name = "tem_tree_02a"
@@ -34,7 +35,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_hlbul"]
 name = "tem_tree_03a"
@@ -45,7 +47,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_1peam"]
 name = "tem_tree_04a"
@@ -56,7 +59,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_usegu"]
 name = "tem_tree_05a"
@@ -67,7 +71,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_t0r4g"]
 name = "tem_tree_06a"
@@ -78,7 +83,8 @@ last_lod = 2
 lod0_range = 40.0
 lod1_range = 100.0
 last_shadow_lod = 2
-lod2_range = 300.0
+lod2_range = 200.0
+fade_margin = 30.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_oiwmu"]
 name = "tem_grass_patch_01a"
@@ -86,8 +92,12 @@ id = 6
 scene_file = ExtResource("7_fsfdl")
 density = 1.4725244
 cast_shadows = 0
-last_lod = 4
-last_shadow_lod = 4
+last_lod = 2
+last_shadow_lod = 2
+lod0_range = 24.0
+lod1_range = 48.0
+lod2_range = 80.0
+fade_margin = 12.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_vjjps"]
 name = "tem_grass_patch_02a"
@@ -95,8 +105,12 @@ id = 7
 scene_file = ExtResource("8_sdtgv")
 density = 1.062577
 cast_shadows = 0
-last_lod = 4
-last_shadow_lod = 4
+last_lod = 2
+last_shadow_lod = 2
+lod0_range = 24.0
+lod1_range = 48.0
+lod2_range = 80.0
+fade_margin = 12.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_olmvs"]
 name = "tem_grass_patch_03a"
@@ -106,25 +120,36 @@ density = 1.5853803
 cast_shadows = 0
 last_lod = 2
 last_shadow_lod = 2
-lod2_range = 128.0
+lod0_range = 24.0
+lod1_range = 48.0
+lod2_range = 80.0
+fade_margin = 12.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_04f5o"]
 name = "tem_grass_patch_04a"
 id = 9
 scene_file = ExtResource("10_clclx")
+density = 1.0
 cast_shadows = 0
-last_lod = 1
-last_shadow_lod = 1
-lod1_range = 128.0
+last_lod = 2
+last_shadow_lod = 2
+lod0_range = 24.0
+lod1_range = 48.0
+lod2_range = 80.0
+fade_margin = 12.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_s10hv"]
 name = "tem_grass_patch_05a"
 id = 10
 scene_file = ExtResource("11_uqbrg")
+density = 1.0
 cast_shadows = 0
-last_lod = 1
-last_shadow_lod = 1
-lod1_range = 128.0
+last_lod = 2
+last_shadow_lod = 2
+lod0_range = 24.0
+lod1_range = 48.0
+lod2_range = 80.0
+fade_margin = 12.0
 
 [sub_resource type="Image" id="Image_cke5o"]
 data = {

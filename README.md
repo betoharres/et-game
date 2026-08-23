@@ -132,10 +132,29 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   orgânicos discretos ao caminhar, girar ou permanecer parado.
 - A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
   névoa baixa e iluminação ambiente azulada configurável por qualidade.
-- A única névoa ativa é uma manta rente ao chão, feita de camadas de planos com
-  shader que seguem a câmera e a altura do terreno. O fog atmosférico de tela
-  cheia e o volumetric fog ficam desligados, mas continuam configuráveis. Campos
-  e milharais adensam a névoa por meio de `FogZone`.
+- A névoa tem duas camadas. Perto, uma manta rente ao chão feita de planos com
+  shader que seguem a câmera e a altura do terreno; campos e milharais a
+  adensam por meio de `FogZone`. Longe, o fog atmosférico do `Environment` em
+  modo Depth, que fecha opaco entre 350 m e 400 m e serve de orçamento de
+  renderização: é ele que esconde a borda do mapa. O volumetric fog continua
+  desligado em todos os presets, por custo.
+- Atenção ao mexer no fog em modo Depth do Godot 4.7: `Environment.fog_density`
+  deixa de ser densidade e passa a multiplicar a rampa de profundidade. Um
+  valor de modo exponencial (0.01) reduz a névoa a 1% e ela some. O controle
+  correto é `atmospheric_fog_opacity` em `night_environment.gd`, que fica em
+  1.0. `fog_height_density` também multiplica o depth fog, e por isso está em
+  0.0: quem faz a névoa de perto é o `GroundFogLayer`.
+- Alcance visual: as câmeras do jogador e do caminhão têm `far` 450 m, à frente
+  dos 400 m onde a névoa já está opaca. Ao pilotar, o avião troca para um
+  perfil de névoa mais aberto (550 m a 950 m) com `far` 1200 m, para que dê
+  para enxergar a fazenda inteira do alto. A troca é automática, feita por
+  `NightEnvironment.set_fog_profile()` a partir de `flyable_plane.gd`, e é
+  suave. Não há controle novo para o jogador.
+- O terreno usa fundo procedural (`world_background = Noise` no
+  `Terrain3DMaterial`) com relevo baixo, casado com as bordas planas das
+  regiões, e `auto_shader` ligado para que o fundo receba a mesma grama do
+  mapa. As 20 regiões cobrem 640 x 512 m; fora delas o Terrain3D continua
+  gerando terreno até o plano distante da câmera, e a névoa fecha antes.
 - O tratamento visual combina sombras azul-petróleo, luzes humanas âmbar e
   emissões alienígenas ciano-esverdeadas. Um filtro sutil acrescenta grão,
   vinheta, aberração cromática periférica e eleva levemente os pretos; o glow
