@@ -2677,13 +2677,8 @@ transform = Transform3D(-0.734354, 0, -0.67876667, 0, 1, 0, 0.67876667, 0, -0.73
 [node name="Dungeon" parent="." unique_id=2090588350 instance=ExtResource("133_dungeon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2000, 0, 2000)
 
-<<<<<<< HEAD
-[node name="DungeonDoor" parent="." instance=ExtResource("134_dungeon_door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 0, -14.7)
-=======
 [node name="DungeonDoor" parent="." unique_id=1961323462 instance=ExtResource("134_dungeon_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
->>>>>>> 7511138497e1730e22afca716ce71191afaf7d6d
 dungeon_path = NodePath("../Dungeon")
 
 [editable path="PropsHolder/Root3"]
