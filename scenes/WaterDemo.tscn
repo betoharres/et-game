@@ -1,8 +1,8 @@
 [gd_scene format=3]
 
-[ext_resource type="ArrayMesh" path="res://Meshes/ea_terrain.res" id="1_terrainmesh"]
+[ext_resource type="ArrayMesh" uid="uid://c70sjsbgrl6hy" path="res://3dModelos/ea_terrain.res" id="1_terrainmesh"]
 [ext_resource type="PackedScene" path="res://Scenes/UI_ParameterPanel.tscn" id="7_panel"]
-[ext_resource type="Script" uid="uid://ck7leip6xhelj" path="res://Scripts/DemoCamera.gd" id="2_cam"]
+[ext_resource type="Script" uid="uid://ck7leip6xhelj" path="res://scripts/DemoCamera.gd" id="2_cam"]
 [ext_resource type="Material" path="res://Materials/EA_Water_Tropical.tres" id="3_tropical"]
 [ext_resource type="Material" path="res://Materials/EA_Water_DeepBlue.tres" id="4_deepblue"]
 [ext_resource type="Material" path="res://Materials/EA_Water_Lagoon.tres" id="5_lagoon"]

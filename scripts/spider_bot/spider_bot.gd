@@ -52,6 +52,10 @@ var _leg_targets : Array[Marker3D] = []
 var _leg_iks : Array[SkeletonIK3D] = []
 var _deployment_requested : bool = false
 var _leg_reset_requested : bool = false
+# Motion completed during the current fixed tick. The IK target rig consumes
+# these values directly so its offset shrinks and grows with the root motion.
+var current_velocity : Vector3 = Vector3.ZERO
+var current_rotation_velocity : float = 0.0
 
 
 func _ready() -> void:
@@ -67,7 +71,17 @@ func _ready() -> void:
 	_enter_stowed()
 
 
-func _process(delta : float) -> void:
+func _physics_process(delta : float) -> void:
+	var motion_start : Vector3 = global_position
+	var forward_start : Vector3 = _get_horizontal_forward()
+	current_velocity = Vector3.ZERO
+	current_rotation_velocity = 0.0
+
+	if _leg_reset_requested:
+		_leg_reset_requested = false
+		_set_terrestrial_processing(true)
+		_reset_leg_targets_to_ground()
+
 	match _state:
 		BehaviorState.STOWED:
 			_update_stowed()
@@ -79,17 +93,32 @@ func _process(delta : float) -> void:
 			_apply_ground_alignment(delta)
 			_update_ground_behavior(delta)
 
-
-func _physics_process(_delta : float) -> void:
-	if _leg_reset_requested:
-		_leg_reset_requested = false
-		_set_terrestrial_processing(true)
-		_reset_leg_targets_to_ground()
+	_capture_current_motion(motion_start, forward_start)
 	if _state != BehaviorState.STOWED or not _deployment_requested:
 		return
 	_deployment_requested = false
 	if _is_valid_item(_target_item) and not _is_delivery_busy():
 		_start_descent()
+
+
+func _capture_current_motion(
+	motion_start : Vector3,
+	forward_start : Vector3
+) -> void:
+	current_velocity = global_position - motion_start
+	current_velocity.y = 0.0
+	current_rotation_velocity = forward_start.signed_angle_to(
+		_get_horizontal_forward(),
+		Vector3.UP
+	)
+
+
+func _get_horizontal_forward() -> Vector3:
+	var forward : Vector3 = -global_transform.basis.z
+	forward.y = 0.0
+	if forward.length_squared() <= 0.0001:
+		return Vector3.FORWARD
+	return forward.normalized()
 
 
 func _resolve_references() -> void:
@@ -480,6 +509,8 @@ func _fade_beam_after_hold(beam : ArrivalBeam) -> void:
 
 func _set_terrestrial_processing(active : bool) -> void:
 	var process_mode : Node.ProcessMode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+	if active and step_target_container.has_method("reset_motion"):
+		step_target_container.call("reset_motion")
 	step_target_container.process_mode = process_mode
 	for target : Marker3D in _leg_targets:
 		target.process_mode = process_mode

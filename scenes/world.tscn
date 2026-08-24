@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cqub6i2xmuro5" path="res://scenes/space_ship.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://cabgrr2bvykhs" path="res://scenes/spider_bot.tscn" id="3_spider"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/TractorOld.tscn" id="8_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://1dpav48qe8yh" path="res://scenes/Harvester01.tscn" id="9_7r4gi"]
@@ -427,6 +428,11 @@ script = ExtResource("80_audio")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 32.947754, -8.647179)
+
+[node name="SpiderBot" parent="." unique_id=614909317 node_paths=PackedStringArray("ship_node", "delivery_area") instance=ExtResource("3_spider")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2577915, 36.85962, -8.605088)
+ship_node = NodePath("../SpaceShip")
+delivery_area = NodePath("../DeliveryArea")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
@@ -2667,7 +2673,7 @@ mesh = ExtResource("180_qk8ru")
 transform = Transform3D(0.82162666, 0, -0.570026, 0, 1, 0, 0.570026, 0, 0.82162666, 7.7456913, 0.022559673, -1.100656)
 
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -109.48552, 0, -99.57892)
+transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -64.25314, 0.1560452, -13.301771)
 
 [node name="VisionDebugMap" parent="." unique_id=972011175 instance=ExtResource("99_vision_debug")]
 
@@ -2701,7 +2707,7 @@ omni_range = 1006.0206
 [node name="Barn2" parent="." unique_id=1112714426 instance=ExtResource("168_3r8ca")]
 transform = Transform3D(0.29395762, 0, -0.9558184, 0, 1, 0, 0.9558184, 0, 0.29395762, 51.062424, 0, -52.53492)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Barn2/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 276392370) index="6" unique_id=1019813264]
+[node name="StaticBody3D" type="StaticBody3D" parent="Barn2/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1560334774) index="6" unique_id=1019813264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5526824, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Barn2/SM_Bld_Barn_02/StaticBody3D" unique_id=1139145137]
@@ -2711,7 +2717,7 @@ shape = SubResource("BoxShape3D_3r8ca")
 [node name="Barn3" parent="." unique_id=997954030 instance=ExtResource("168_3fb5j")]
 transform = Transform3D(0.732647, 0, 0.6806088, 0, 1, 0, -0.6806088, 0, 0.732647, -42.23614, 0, 45.51762)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Barn3/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 282750721) index="6" unique_id=1130262061]
+[node name="StaticBody3D" type="StaticBody3D" parent="Barn3/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 672382015) index="6" unique_id=1130262061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 4.5526824, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Barn3/SM_Bld_Barn_03/StaticBody3D" unique_id=643692222]
@@ -2727,6 +2733,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2000, 0, 2000)
 [node name="DungeonDoor" parent="." unique_id=1961323462 instance=ExtResource("134_dungeon_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
 dungeon_path = NodePath("../Dungeon")
+
+[node name="SpaceshipScraps2" parent="." unique_id=1950931597 instance=ExtResource("27_ts3gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.443676, -1.9073486e-06, -16.38624)
 
 [editable path="PropsHolder/Root3"]
 [editable path="Barn2"]
