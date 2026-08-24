@@ -173,6 +173,11 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
   reforçado por um núcleo cilíndrico emissivo, suga o item por 10 segundos;
   somente ao
   chegar à nave ele desaparece e soma seu `score_value` ao `GlobalScore`.
+- O spider bot permanece oculto e acompanha a nave. Quando detecta um destroço
+  dentro do raio configurado, desce até o terreno pelo mesmo feixe da chegada
+  do jogador, coleta o item e o transporta até a plataforma. Depois que a
+  entrega confirma a pontuação, ele retorna à posição atual da nave, sobe pelo
+  feixe e volta a ficar oculto.
 - A pontuação atual é exibida apenas no console de depuração.
 - A caminhonete pode ser usada para atravessar o mapa e possui câmeras externa
   e interna.
