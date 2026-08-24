@@ -10,17 +10,10 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahgjw"]
 albedo_color = Color(0.52549, 0.52549, 0.52549, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_0eln4"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_xbl04"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_aiwvm"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_0f8hv"]
-
 [node name="SpiderBot" unique_id=564775910 instance=ExtResource("1_vovvw")]
 script = ExtResource("2_kfpvc")
 move_speed = 5.0
+turn_speed = 0.5
 
 [node name="Leg" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="1" unique_id=1356951272]
 material_override = SubResource("StandardMaterial3D_ahgjw")
@@ -105,9 +98,6 @@ step_target = NodePath("FrontLeftStepTarget")
 [node name="FrontLeftStepTarget" type="Marker3D" parent="StepTargetContainer/FrontLeftRay" index="0" unique_id=103191045]
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000004, -5.9604645e-08, -5.21685, -1.1920929e-07)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StepTargetContainer/FrontLeftRay/FrontLeftStepTarget" index="0" unique_id=1780684593]
-mesh = SubResource("BoxMesh_0eln4")
-
 [node name="FrontRightRay" type="RayCast3D" parent="StepTargetContainer" index="1" unique_id=847712584 node_paths=PackedStringArray("step_target")]
 transform = Transform3D(0.996195, -0.0871557, -4.63889e-10, 0.0868241, 0.992404, -0.0871557, 0.00759612, 0.0868241, 0.996195, 3.13673, 3.06899, -3.09518)
 target_position = Vector3(0, -10, 0)
@@ -116,9 +106,6 @@ step_target = NodePath("FrontRightStepTarget")
 
 [node name="FrontRightStepTarget" type="Marker3D" parent="StepTargetContainer/FrontRightRay" index="0" unique_id=831991285]
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000002, -2.38419e-07, -5.21685, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StepTargetContainer/FrontRightRay/FrontRightStepTarget" index="0" unique_id=1107940740]
-mesh = SubResource("BoxMesh_xbl04")
 
 [node name="BackLeftRay" type="RayCast3D" parent="StepTargetContainer" index="2" unique_id=1812720200 node_paths=PackedStringArray("step_target")]
 transform = Transform3D(0.996195, 0.0871557, -4.63889e-10, -0.0868241, 0.992404, 0.0871557, 0.00759612, -0.0868241, 0.996195, -3.13864, 3.06899, 3.13846)
@@ -129,9 +116,6 @@ step_target = NodePath("BackLeftStepTarget")
 [node name="BackLeftStepTarget" type="Marker3D" parent="StepTargetContainer/BackLeftRay" index="0" unique_id=250602315]
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000002, 0, -5.21685, -2.38419e-07)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StepTargetContainer/BackLeftRay/BackLeftStepTarget" index="0" unique_id=1627555346]
-mesh = SubResource("BoxMesh_aiwvm")
-
 [node name="BackRightRay" type="RayCast3D" parent="StepTargetContainer" index="3" unique_id=561419081 node_paths=PackedStringArray("step_target")]
 transform = Transform3D(0.996195, -0.0871557, 4.63889e-10, 0.0868241, 0.992404, 0.0871557, -0.00759612, -0.0868241, 0.996195, 3.137, 3.069, 3.138)
 target_position = Vector3(0, -10, 0)
@@ -140,6 +124,3 @@ step_target = NodePath("BackRightStepTarget")
 
 [node name="BackRightStepTarget" type="Marker3D" parent="StepTargetContainer/BackRightRay" index="0" unique_id=1652736324]
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000002, 0, -5.217, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StepTargetContainer/BackRightRay/BackRightStepTarget" index="0" unique_id=98934769]
-mesh = SubResource("BoxMesh_0f8hv")
