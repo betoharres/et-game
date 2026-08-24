@@ -14,10 +14,10 @@ func play_shot() -> void:
 
 func _create_gunshot_stream() -> AudioStreamWAV:
 	var frame_count : int = roundi(SAMPLE_RATE * SHOT_DURATION)
-	var audio_data := PackedByteArray()
+	var audio_data : PackedByteArray = PackedByteArray()
 	audio_data.resize(frame_count * 2)
 
-	var random := RandomNumberGenerator.new()
+	var random : RandomNumberGenerator = RandomNumberGenerator.new()
 	random.seed = 73921
 
 	for frame in range(frame_count):
@@ -34,7 +34,7 @@ func _create_gunshot_stream() -> AudioStreamWAV:
 		sample = clampf(sample, -1.0, 1.0)
 		audio_data.encode_s16(frame * 2, roundi(sample * 32767.0))
 
-	var shot_stream := AudioStreamWAV.new()
+	var shot_stream : AudioStreamWAV = AudioStreamWAV.new()
 	shot_stream.format = AudioStreamWAV.FORMAT_16_BITS
 	shot_stream.mix_rate = SAMPLE_RATE
 	shot_stream.stereo = false

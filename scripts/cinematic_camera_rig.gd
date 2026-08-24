@@ -267,7 +267,7 @@ func update_binos(delta : float) -> void:
 
 func _apply_xray_materials() -> void:
 	_restore_materials()
-	var scene_root := get_tree().current_scene
+	var scene_root : Node = get_tree().current_scene
 	if (
 		scene_root == null
 		or xray_material == null

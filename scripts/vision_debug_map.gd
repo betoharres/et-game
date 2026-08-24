@@ -61,7 +61,7 @@ func _notification(what : int) -> void:
 
 
 func _update_map_geometry() -> void:
-	var diameter := clampf(
+	var diameter : float = clampf(
 		size.y * MAP_HEIGHT_RATIO,
 		MIN_MAP_DIAMETER,
 		MAX_MAP_DIAMETER
@@ -99,7 +99,7 @@ func _draw() -> void:
 	)
 	_draw_shortcut_hint()
 
-	var player := _find_player()
+	var player : Node3D = _find_player()
 	if player == null:
 		return
 
@@ -113,13 +113,13 @@ func _draw() -> void:
 
 
 func _draw_shortcut_hint() -> void:
-	var text_size := SHORTCUT_FONT.get_string_size(
+	var text_size : Vector2 = SHORTCUT_FONT.get_string_size(
 		SHORTCUT_TEXT,
 		HORIZONTAL_ALIGNMENT_LEFT,
 		-1.0,
 		SHORTCUT_FONT_SIZE
 	)
-	var text_position := Vector2(
+	var text_position : Vector2 = Vector2(
 		map_center.x - text_size.x * 0.5,
 		map_center.y + map_radius + 25.0
 	)
@@ -144,8 +144,8 @@ func _draw_shortcut_hint() -> void:
 
 
 func _draw_north_tick(player : Node3D) -> void:
-	var world_north := Vector3(0.0, 0.0, -1.0)
-	var north_direction := Vector2(
+	var world_north : Vector3 = Vector3(0.0, 0.0, -1.0)
+	var north_direction : Vector2 = Vector2(
 		world_north.dot(_map_right(player)),
 		-world_north.dot(_map_forward(player))
 	).normalized()
@@ -159,15 +159,15 @@ func _draw_north_tick(player : Node3D) -> void:
 
 
 func _draw_delivery_objective(player : Node3D) -> void:
-	var delivery_area := _find_delivery_area()
+	var delivery_area : Node3D = _find_delivery_area()
 	if delivery_area == null:
 		return
 
-	var point := _clamp_to_radar(
+	var point : Vector2 = _clamp_to_radar(
 		_world_to_map(delivery_area.global_position, player),
 		8.0
 	)
-	var pulse := 17.0 + sin(_elapsed * 3.2) * 2.5
+	var pulse : float = 17.0 + sin(_elapsed * 3.2) * 2.5
 	draw_texture_rect(
 		GLOW_RING_ICON,
 		Rect2(point - Vector2.ONE * pulse * 0.5, Vector2.ONE * pulse),
@@ -195,7 +195,7 @@ func _draw_vision_actor(actor : Node, player : Node3D) -> void:
 	if not actor is Node3D:
 		return
 
-	var actor_3d := actor as Node3D
+	var actor_3d : Node3D = actor as Node3D
 	var actor_position : Vector3 = actor_3d.global_position
 	if actor.has_method("get_vision_origin"):
 		actor_position = Vector3(actor.call("get_vision_origin"))
@@ -220,9 +220,9 @@ func _draw_vision_actor(actor : Node, player : Node3D) -> void:
 		return
 	forward = forward.normalized()
 
-	var is_photographer := actor.is_in_group("photographers")
+	var is_photographer : bool = actor.is_in_group("photographers")
 	var sees_player : bool = bool(actor.get("has_visual_contact"))
-	var color := (
+	var color : Color = (
 		Color(1.0, 0.78, 0.22)
 		if is_photographer
 		else Color(0.95, 0.25, 0.3)
@@ -230,28 +230,28 @@ func _draw_vision_actor(actor : Node, player : Node3D) -> void:
 	if sees_player:
 		color = Color(1.0, 0.16, 0.2)
 
-	var center := _clamp_to_radar(
+	var center : Vector2 = _clamp_to_radar(
 		_world_to_map(actor_position, player),
 		7.0
 	)
-	var vision_radius := minf(
+	var vision_radius : float = minf(
 		distance / WORLD_RADIUS * map_radius,
 		map_radius
 	)
-	var screen_forward := Vector2(
+	var screen_forward : Vector2 = Vector2(
 		forward.dot(_map_right(player)),
 		-forward.dot(_map_forward(player))
 	)
-	var forward_angle := atan2(screen_forward.x, screen_forward.y)
-	var points := PackedVector2Array([center])
+	var forward_angle : float = atan2(screen_forward.x, screen_forward.y)
+	var points : PackedVector2Array = PackedVector2Array([center])
 	var segments : int = 16
 
 	for index : int in range(segments + 1):
-		var angle_offset := deg_to_rad(
+		var angle_offset : float = deg_to_rad(
 			-half_angle_degrees
 			+ (half_angle_degrees * 2.0) * float(index) / float(segments)
 		)
-		var direction := Vector2(
+		var direction : Vector2 = Vector2(
 			sin(forward_angle + angle_offset),
 			cos(forward_angle + angle_offset)
 		)
@@ -293,16 +293,16 @@ func _draw_actor_marker(
 
 
 func _clamp_to_radar(point : Vector2, padding : float) -> Vector2:
-	var offset := point - map_center
-	var maximum_distance := map_radius - padding
+	var offset : Vector2 = point - map_center
+	var maximum_distance : float = map_radius - padding
 	if offset.length() > maximum_distance:
 		offset = offset.normalized() * maximum_distance
 	return map_center + offset
 
 
 func _world_to_map(world_position : Vector3, player : Node3D) -> Vector2:
-	var relative := world_position - player.global_position
-	var normalized := Vector2(
+	var relative : Vector3 = world_position - player.global_position
+	var normalized : Vector2 = Vector2(
 		relative.dot(_map_right(player)),
 		-relative.dot(_map_forward(player))
 	) / WORLD_RADIUS
@@ -310,8 +310,8 @@ func _world_to_map(world_position : Vector3, player : Node3D) -> Vector2:
 
 
 func _map_right(player : Node3D) -> Vector3:
-	var camera_holder := player.get_node_or_null("CameraHolder") as Node3D
-	var right := (
+	var camera_holder : Node3D = player.get_node_or_null("CameraHolder") as Node3D
+	var right : Vector3 = (
 		camera_holder.global_transform.basis.x
 		if camera_holder != null
 		else player.global_transform.basis.x
@@ -321,8 +321,8 @@ func _map_right(player : Node3D) -> Vector3:
 
 
 func _map_forward(player : Node3D) -> Vector3:
-	var camera_holder := player.get_node_or_null("CameraHolder") as Node3D
-	var forward := (
+	var camera_holder : Node3D = player.get_node_or_null("CameraHolder") as Node3D
+	var forward : Vector3 = (
 		camera_holder.global_transform.basis.z
 		if camera_holder != null
 		else player.global_transform.basis.z
@@ -339,7 +339,7 @@ func _find_player() -> Node3D:
 
 
 func _find_delivery_area() -> Node3D:
-	var current_scene := get_tree().current_scene
+	var current_scene : Node = get_tree().current_scene
 	if current_scene == null:
 		return null
 	return current_scene.find_child("DeliveryArea", true, false) as Node3D
@@ -347,7 +347,7 @@ func _find_delivery_area() -> Node3D:
 
 func _find_vision_actors() -> Array[Node]:
 	var actors : Array[Node] = []
-	var current_scene := get_tree().current_scene
+	var current_scene : Node = get_tree().current_scene
 	if current_scene == null:
 		return actors
 

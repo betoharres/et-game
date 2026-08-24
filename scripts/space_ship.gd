@@ -18,6 +18,8 @@ extends StaticBody3D
 @export_range(0.0, 2.0, 0.05) var beam_fog_energy : float = 1.0
 @export_range(0.0, 2.0, 0.05) var hull_fog_energy : float = 0.12
 @export_range(0.0, 2.0, 0.05) var ground_fog_energy : float = 0.08
+@export var patrol_radius : Vector2 = Vector2(8.0, 6.0)
+@export var patrol_speed : float = 0.08
 
 @export_group("Beam Particles")
 @export var beam_particles_enabled : bool = true
@@ -39,11 +41,14 @@ var _debug_lighting_enabled : bool = true
 var _debug_lighting_intensity : float = 1.0
 var _alien_fog_intensity : float = 0.0
 var _beam_shadows_allowed : bool = true
+var _patrol_origin : Vector3
+var _external_movement_active : bool = false
 
 
 func _ready() -> void:
+	_patrol_origin = global_position - _get_patrol_offset()
 	for child : Node in find_children("*", "SpotLight3D", true, false):
-		var spot := child as SpotLight3D
+		var spot : SpotLight3D = child as SpotLight3D
 		if spot == null:
 			continue
 		spot.light_color = beam_color
@@ -57,7 +62,7 @@ func _ready() -> void:
 		_base_spot_rotations.append(spot.rotation)
 
 	for child : Node in find_children("HullLight*", "OmniLight3D", true, false):
-		var hull_light := child as OmniLight3D
+		var hull_light : OmniLight3D = child as OmniLight3D
 		if hull_light == null:
 			continue
 		hull_light.light_color = beam_color
@@ -73,7 +78,7 @@ func _ready() -> void:
 		true,
 		false
 	):
-		var ground_light := child as OmniLight3D
+		var ground_light : OmniLight3D = child as OmniLight3D
 		if ground_light == null:
 			continue
 		ground_light.light_color = beam_color
@@ -87,13 +92,13 @@ func _ready() -> void:
 		_ground_lights.append(ground_light)
 
 	for child : Node in find_children("BeamDust*", "GPUParticles3D", true, false):
-		var dust := child as GPUParticles3D
+		var dust : GPUParticles3D = child as GPUParticles3D
 		if dust == null:
 			continue
 		_beam_dust.append(dust)
 
 	for child : Node in find_children("BeamVolume*", "MeshInstance3D", true, false):
-		var volume := child as MeshInstance3D
+		var volume : MeshInstance3D = child as MeshInstance3D
 		if volume != null:
 			_beam_volumes.append(volume)
 
@@ -102,16 +107,38 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	self.rotation.y += var_speed * delta
+	if not _external_movement_active:
+		global_position = _patrol_origin + _get_patrol_offset()
 	_update_ground_lights()
+
+
+## Lets a gameplay sequence move the ship without the ambient patrol fighting it.
+func begin_external_movement() -> void:
+	_external_movement_active = true
+
+
+## Resumes patrol around the ship's current position without snapping it.
+func end_external_movement() -> void:
+	_patrol_origin = global_position - _get_patrol_offset()
+	_external_movement_active = false
+
+
+func _get_patrol_offset() -> Vector3:
+	var patrol_time : float = _elapsed * patrol_speed
+	return Vector3(
+		sin(patrol_time) * patrol_radius.x,
+		0.0,
+		cos(patrol_time * 0.73) * patrol_radius.y
+	)
 
 
 func _process(delta : float) -> void:
 	_elapsed += delta
 	for index : int in range(_spot_lights.size()):
-		var phase := float(index) * 2.17
-		var speed := beam_sweep_speed * (0.82 + float(index) * 0.13)
-		var pitch := sin(_elapsed * speed + phase) * deg_to_rad(beam_sweep_degrees)
-		var yaw := cos(_elapsed * speed * 0.71 + phase * 1.3) * deg_to_rad(
+		var phase : float = float(index) * 2.17
+		var speed : float = beam_sweep_speed * (0.82 + float(index) * 0.13)
+		var pitch : float = sin(_elapsed * speed + phase) * deg_to_rad(beam_sweep_degrees)
+		var yaw : float = cos(_elapsed * speed * 0.71 + phase * 1.3) * deg_to_rad(
 			beam_sweep_degrees * 0.75
 		)
 		_spot_lights[index].rotation = _base_spot_rotations[index] + Vector3(
@@ -119,7 +146,7 @@ func _process(delta : float) -> void:
 			yaw,
 			0.0
 		)
-		var pulse := sin(_elapsed * beam_pulse_speed + phase) * beam_pulse_amount
+		var pulse : float = sin(_elapsed * beam_pulse_speed + phase) * beam_pulse_amount
 		_spot_lights[index].light_energy = (
 			beam_energy
 			* _debug_lighting_intensity
@@ -128,8 +155,8 @@ func _process(delta : float) -> void:
 		)
 
 	for index : int in range(_hull_lights.size()):
-		var phase := float(index) * 1.73
-		var pulse := sin(_elapsed * beam_pulse_speed * 0.8 + phase)
+		var phase : float = float(index) * 1.73
+		var pulse : float = sin(_elapsed * beam_pulse_speed * 0.8 + phase)
 		_hull_lights[index].light_energy = (
 			hull_light_energy
 			* _debug_lighting_intensity
@@ -141,19 +168,19 @@ func _update_ground_lights() -> void:
 	if get_world_3d() == null:
 		return
 
-	var light_count := mini(_spot_lights.size(), _ground_lights.size())
-	var space_state := get_world_3d().direct_space_state
+	var light_count : int = mini(_spot_lights.size(), _ground_lights.size())
+	var space_state : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	for index : int in range(light_count):
-		var spot := _spot_lights[index]
-		var direction := -spot.global_transform.basis.z.normalized()
-		var query := PhysicsRayQueryParameters3D.create(
+		var spot : SpotLight3D = _spot_lights[index]
+		var direction : Vector3 = -spot.global_transform.basis.z.normalized()
+		var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
 			spot.global_position,
 			spot.global_position + direction * beam_range
 		)
 		query.exclude = [get_rid()]
 		query.collide_with_areas = false
-		var hit := space_state.intersect_ray(query)
-		var ground_light := _ground_lights[index]
+		var hit : Dictionary = space_state.intersect_ray(query)
+		var ground_light : OmniLight3D = _ground_lights[index]
 		ground_light.visible = _debug_lighting_enabled and not hit.is_empty()
 		if hit.is_empty():
 			continue
@@ -161,7 +188,7 @@ func _update_ground_lights() -> void:
 		var hit_position : Vector3 = hit.get("position", Vector3.ZERO)
 		var hit_normal : Vector3 = hit.get("normal", Vector3.UP)
 		ground_light.global_position = hit_position + hit_normal * 2.0
-		var pulse := sin(
+		var pulse : float = sin(
 			_elapsed * beam_pulse_speed + float(index) * 2.17
 		) * beam_pulse_amount
 		ground_light.light_energy = (
@@ -201,7 +228,7 @@ func get_debug_lighting_intensity() -> float:
 
 
 func set_atmosphere_quality(quality_level : int, particles_allowed : bool) -> void:
-	var amount_scale := 1.0 if quality_level >= 2 else 0.55
+	var amount_scale : float = 1.0 if quality_level >= 2 else 0.55
 	_beam_shadows_allowed = quality_level > 0
 	for spot : SpotLight3D in _spot_lights:
 		spot.shadow_enabled = _beam_shadows_allowed
@@ -243,6 +270,6 @@ func configure_external_beam(
 	if _beam_volumes.is_empty():
 		return
 
-	var source_material := _beam_volumes[0].get_active_material(0)
+	var source_material : Material = _beam_volumes[0].get_active_material(0)
 	if source_material != null:
 		volume.material_override = source_material

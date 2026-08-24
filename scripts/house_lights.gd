@@ -15,7 +15,7 @@ var _debug_lighting_intensity : float = 1.0
 
 func _ready() -> void:
 	for child : Node in find_children("*", "OmniLight3D", true, false):
-		var light := child as OmniLight3D
+		var light : OmniLight3D = child as OmniLight3D
 		if light == null:
 			continue
 		light.light_color = window_light_color
@@ -30,10 +30,10 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	_elapsed += delta
 	for index : int in range(_window_lights.size()):
-		var phase := float(index) * 1.91
-		var slow_wave := sin(_elapsed * flicker_speed + phase)
-		var secondary_wave := sin(_elapsed * flicker_speed * 0.37 + phase * 0.6)
-		var variation := (slow_wave * 0.65 + secondary_wave * 0.35) * flicker_amount
+		var phase : float = float(index) * 1.91
+		var slow_wave : float = sin(_elapsed * flicker_speed + phase)
+		var secondary_wave : float = sin(_elapsed * flicker_speed * 0.37 + phase * 0.6)
+		var variation : float = (slow_wave * 0.65 + secondary_wave * 0.35) * flicker_amount
 		_window_lights[index].light_energy = (
 			window_light_energy
 			* _debug_lighting_intensity

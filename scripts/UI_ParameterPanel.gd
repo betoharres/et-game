@@ -55,16 +55,16 @@ func _ready() -> void:
 func _collect_rows() -> void:
 	for row in _params.get_children():
 		if row is CheckBox:
-			var box := row as CheckBox
+			var box : CheckBox = row as CheckBox
 			box.toggled.connect(_on_bool_toggled.bind(box))
 			_bool_rows.append(box)
 			continue
-		var slider := row.get_node_or_null(^"Slider") as HSlider
+		var slider : HSlider = row.get_node_or_null(^"Slider") as HSlider
 		if slider != null:
 			slider.value_changed.connect(_on_slider_changed.bind(row))
 			_slider_rows.append(row)
 			continue
-		var options := row.get_node_or_null(^"Options") as OptionButton
+		var options : OptionButton = row.get_node_or_null(^"Options") as OptionButton
 		if options != null:
 			options.item_selected.connect(_on_enum_selected.bind(row))
 			_enum_rows.append(row)
@@ -77,7 +77,7 @@ func _on_surface_selected(index: int) -> void:
 func _select_surface(index: int) -> void:
 	_material = null
 	if index >= 0 and index < surface_paths.size():
-		var mesh := get_node_or_null(surface_paths[index]) as GeometryInstance3D
+		var mesh : GeometryInstance3D = get_node_or_null(surface_paths[index]) as GeometryInstance3D
 		if mesh != null:
 			_material = mesh.material_override as ShaderMaterial
 	_refresh_from_material()
@@ -85,7 +85,7 @@ func _select_surface(index: int) -> void:
 
 # -- Control callbacks --------------------------------------------------------
 func _on_slider_changed(value: float, row: Node) -> void:
-	var slider := row.get_node(^"Slider") as HSlider
+	var slider : HSlider = row.get_node(^"Slider") as HSlider
 	_update_value_label(row, value, slider.step)
 	if _material == null:
 		return
@@ -113,13 +113,13 @@ func _on_bool_toggled(pressed: bool, box: CheckBox) -> void:
 # really holds, not the defaults written into the scene.
 func _refresh_from_material() -> void:
 	for row in _slider_rows:
-		var slider := row.get_node(^"Slider") as HSlider
-		var value := float(_shader_value(row.name, slider.value))
+		var slider : HSlider = row.get_node(^"Slider") as HSlider
+		var value : float = float(_shader_value(row.name, slider.value))
 		slider.set_value_no_signal(clampf(value, slider.min_value, slider.max_value))
 		_update_value_label(row, slider.value, slider.step)
 	for row in _enum_rows:
-		var options := row.get_node(^"Options") as OptionButton
-		var index := int(_shader_value(row.name, options.selected))
+		var options : OptionButton = row.get_node(^"Options") as OptionButton
+		var index : int = int(_shader_value(row.name, options.selected))
 		# select() does not emit item_selected, so this cannot loop back.
 		options.select(clampi(index, 0, options.item_count - 1))
 	for box in _bool_rows:
@@ -141,7 +141,7 @@ func _shader_value(uniform: StringName, fallback: Variant) -> Variant:
 
 
 func _update_value_label(row: Node, value: float, step: float) -> void:
-	var label := row.get_node_or_null(^"Header/Value") as Label
+	var label : Label = row.get_node_or_null(^"Header/Value") as Label
 	if label == null:
 		return
 	if step >= 1.0:
@@ -156,14 +156,14 @@ func _update_value_label(row: Node, value: float, step: float) -> void:
 # This node stays visible and only switches its child panel off, so the key
 # still reaches the script once the panel is gone.
 func _unhandled_key_input(event: InputEvent) -> void:
-	var key := event as InputEventKey
+	var key : InputEventKey = event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return
 	if key.keycode != toggle_key:
 		return
-	var show_ui := not _panel.visible
+	var show_ui : bool = not _panel.visible
 	_panel.visible = show_ui
-	var help := get_node_or_null(help_overlay_path) as CanvasItem
+	var help : CanvasItem = get_node_or_null(help_overlay_path) as CanvasItem
 	if help != null:
 		help.visible = show_ui
 	get_viewport().set_input_as_handled()

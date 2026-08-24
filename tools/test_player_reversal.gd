@@ -8,22 +8,22 @@ func _init() -> void:
 
 
 func run() -> void:
-	var floor_body := StaticBody3D.new()
-	var floor_collision := CollisionShape3D.new()
-	var floor_shape := BoxShape3D.new()
+	var floor_body : StaticBody3D = StaticBody3D.new()
+	var floor_collision : CollisionShape3D = CollisionShape3D.new()
+	var floor_shape : BoxShape3D = BoxShape3D.new()
 	floor_shape.size = Vector3(30.0, 0.2, 30.0)
 	floor_collision.shape = floor_shape
 	floor_collision.position.y = -0.1
 	floor_body.add_child(floor_collision)
 	root.add_child(floor_body)
 
-	var player := (
+	var player : CharacterBody3D = (
 		load("res://scenes/Player.tscn") as PackedScene
 	).instantiate() as CharacterBody3D
 	root.add_child(player)
 	for _frame : int in 5:
 		await physics_frame
-	var controller := player.get_node(
+	var controller : PlayerAnimationController = player.get_node(
 		"PlayerAnimationController"
 	) as PlayerAnimationController
 
@@ -35,7 +35,7 @@ func run() -> void:
 		await physics_frame
 
 	Input.action_press("ui_left")
-	var kept_locomotion_animation := true
+	var kept_locomotion_animation : bool = true
 	for _frame : int in 20:
 		await physics_frame
 		if controller.get_current_state() not in [
@@ -58,8 +58,8 @@ func run() -> void:
 	Input.action_press("ui_down")
 	await physics_frame
 	check(controller.get_current_state() == &"WalkTurn180", "Idle pivot starts")
-	var previous_yaw := player.rotation.y
-	var accumulated_yaw := absf(wrapf(previous_yaw, -PI, PI))
+	var previous_yaw : float = player.rotation.y
+	var accumulated_yaw : float = absf(wrapf(previous_yaw, -PI, PI))
 	for _frame : int in 20:
 		await physics_frame
 		accumulated_yaw += absf(wrapf(player.rotation.y - previous_yaw, -PI, PI))
@@ -72,7 +72,7 @@ func run() -> void:
 		await physics_frame
 		accumulated_yaw += absf(wrapf(player.rotation.y - previous_yaw, -PI, PI))
 		previous_yaw = player.rotation.y
-	var walk_direction := Vector2(player.velocity.x, player.velocity.z).normalized()
+	var walk_direction : Vector2 = Vector2(player.velocity.x, player.velocity.z).normalized()
 	check(
 		Vector2(player.velocity.x, player.velocity.z).length() > 2.7,
 		"Idle pivot exits walking"
@@ -86,7 +86,7 @@ func run() -> void:
 	Input.action_release("ui_down")
 	Input.action_press("ui_up")
 	await physics_frame
-	var first_reversal_velocity := Vector2(player.velocity.x, player.velocity.z)
+	var first_reversal_velocity : Vector2 = Vector2(player.velocity.x, player.velocity.z)
 	check(controller.get_current_state() == &"WalkTurn180", "Walk pivot starts")
 	check(
 		first_reversal_velocity.length() < 0.01
@@ -95,13 +95,13 @@ func run() -> void:
 	)
 	for _frame : int in 70:
 		await physics_frame
-	var reversed_walk := Vector2(player.velocity.x, player.velocity.z).normalized()
+	var reversed_walk : Vector2 = Vector2(player.velocity.x, player.velocity.z).normalized()
 	check(reversed_walk.dot(walk_direction) < -0.9, "Walk exits in new direction")
 
 	Input.action_press("sprint")
 	for _frame : int in 35:
 		await physics_frame
-	var run_direction := Vector2(player.velocity.x, player.velocity.z).normalized()
+	var run_direction : Vector2 = Vector2(player.velocity.x, player.velocity.z).normalized()
 	check(
 		Vector2(player.velocity.x, player.velocity.z).length() > 5.0,
 		"Run reaches movement speed"
@@ -110,7 +110,7 @@ func run() -> void:
 	Input.action_release("ui_up")
 	Input.action_press("ui_down")
 	await physics_frame
-	var first_run_reversal := Vector2(player.velocity.x, player.velocity.z)
+	var first_run_reversal : Vector2 = Vector2(player.velocity.x, player.velocity.z)
 	check(controller.get_current_state() == &"RunTurn180", "Run pivot starts")
 	check(
 		first_run_reversal.length() < 0.01
@@ -119,7 +119,7 @@ func run() -> void:
 	)
 	for _frame : int in 50:
 		await physics_frame
-	var reversed_run := Vector2(player.velocity.x, player.velocity.z).normalized()
+	var reversed_run : Vector2 = Vector2(player.velocity.x, player.velocity.z).normalized()
 	check(reversed_run.dot(run_direction) < -0.9, "Run exits in new direction")
 
 	Input.action_release("ui_down")

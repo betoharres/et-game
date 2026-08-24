@@ -30,7 +30,7 @@ func _process(_delta : float) -> void:
 
 func _on_pad_body_entered(body : Node3D) -> void:
 	if body is CharacterBody3D and body.is_in_group("characters"):
-		var character := body as CharacterBody3D
+		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_on_pad.has(character):
 			_characters_on_pad.append(character)
 

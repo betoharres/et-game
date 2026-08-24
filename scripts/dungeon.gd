@@ -221,7 +221,7 @@ func _floor_top_global(cell : Vector2i) -> Vector3:
 
 
 func _build_mesh_library() -> MeshLibrary:
-	var library := MeshLibrary.new()
+	var library : MeshLibrary = MeshLibrary.new()
 	var floor_top : float = FLOOR_THICKNESS * 0.5
 
 	# Floor slab, centered on the cell so its top face lands at +floor_top.
@@ -263,14 +263,14 @@ func _add_box_item(
 	vertical_offset : float,
 	wood_color : Color
 ) -> void:
-	var mesh := BoxMesh.new()
+	var mesh : BoxMesh = BoxMesh.new()
 	mesh.size = size
 	mesh.material = _make_wood_material(wood_color)
 
-	var shape := BoxShape3D.new()
+	var shape : BoxShape3D = BoxShape3D.new()
 	shape.size = size
 
-	var offset := Transform3D(Basis.IDENTITY, Vector3.UP * vertical_offset)
+	var offset : Transform3D = Transform3D(Basis.IDENTITY, Vector3.UP * vertical_offset)
 
 	library.create_item(item_id)
 	library.set_item_mesh(item_id, mesh)
@@ -279,7 +279,7 @@ func _add_box_item(
 
 
 func _make_wood_material(wood_color : Color) -> StandardMaterial3D:
-	var material := StandardMaterial3D.new()
+	var material : StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = wood_color
 	material.roughness = 0.92
 	material.metallic = 0.0
@@ -288,7 +288,7 @@ func _make_wood_material(wood_color : Color) -> StandardMaterial3D:
 
 func _spawn_ceiling_lamps(rooms : Array[Rect2i]) -> void:
 	for room : Rect2i in rooms:
-		var lamp := OmniLight3D.new()
+		var lamp : OmniLight3D = OmniLight3D.new()
 		lamp.light_color = LAMP_COLOR
 		lamp.light_energy = LAMP_ENERGY
 		lamp.omni_range = LAMP_RANGE
@@ -311,7 +311,7 @@ func _return_to_farm() -> void:
 
 func _on_exit_body_entered(body : Node3D) -> void:
 	if body is CharacterBody3D and body.is_in_group("characters"):
-		var character := body as CharacterBody3D
+		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_at_exit.has(character):
 			_characters_at_exit.append(character)
 

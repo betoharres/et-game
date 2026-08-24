@@ -190,7 +190,7 @@ func _wander(delta : float) -> void:
 		return
 
 	if not has_wander_target:
-		var random_direction := Vector3(
+		var random_direction : Vector3 = Vector3(
 			randf_range(-1.0, 1.0),
 			0.0,
 			randf_range(-1.0, 1.0)
@@ -300,7 +300,7 @@ func _can_see_player() -> bool:
 
 
 func _has_clear_line_of_sight() -> bool:
-	var query := PhysicsRayQueryParameters3D.create(
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
 		get_vision_origin(),
 		player.global_position + Vector3.UP * player_target_height
 	)

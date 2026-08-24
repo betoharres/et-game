@@ -8,7 +8,7 @@ func _init() -> void:
 
 
 func _run() -> void:
-	var source := AlienInterferenceSource.new()
+	var source : AlienInterferenceSource = AlienInterferenceSource.new()
 	source.pulse_amount = 0.0
 	source.full_strength_radius = 3.0
 	source.fade_radius = 12.0
@@ -16,9 +16,9 @@ func _run() -> void:
 	root.add_child(source)
 	await process_frame
 
-	var near_strength := source.get_interference_at(Vector3.ZERO)
-	var middle_strength := source.get_interference_at(Vector3(7.5, 0.0, 0.0))
-	var far_strength := source.get_interference_at(Vector3(20.0, 0.0, 0.0))
+	var near_strength : float = source.get_interference_at(Vector3.ZERO)
+	var middle_strength : float = source.get_interference_at(Vector3(7.5, 0.0, 0.0))
+	var far_strength : float = source.get_interference_at(Vector3(20.0, 0.0, 0.0))
 	_check(is_equal_approx(near_strength, 0.8), "Source reaches full strength nearby")
 	_check(
 		middle_strength > 0.0 and middle_strength < near_strength,
@@ -32,16 +32,16 @@ func _run() -> void:
 	)
 	source.queue_free()
 
-	var environment := (
+	var environment : Node = (
 		load("res://scenes/NightEnvironment.tscn") as PackedScene
 	).instantiate()
 	root.add_child(environment)
 	await process_frame
-	var post_process := environment.get_node("IncidentPostProcess")
-	var camera := Camera3D.new()
+	var post_process : Node = environment.get_node("IncidentPostProcess")
+	var camera : Camera3D = Camera3D.new()
 	root.add_child(camera)
 	camera.make_current()
-	var spatial_source := AlienInterferenceSource.new()
+	var spatial_source : AlienInterferenceSource = AlienInterferenceSource.new()
 	spatial_source.pulse_amount = 0.0
 	spatial_source.intensity = 0.7
 	spatial_source.add_to_group("alien_interference_sources")
@@ -71,9 +71,9 @@ func _run() -> void:
 		"res://scenes/ArrivalBeam.tscn",
 		"res://scenes/DeliveryArea.tscn",
 	]:
-		var instance := (load(scene_path) as PackedScene).instantiate()
+		var instance : Node = (load(scene_path) as PackedScene).instantiate()
 		root.add_child(instance)
-		var event_source := instance.get_node_or_null("AlienInterferenceSource")
+		var event_source : Node = instance.get_node_or_null("AlienInterferenceSource")
 		_check(
 			event_source != null
 			and event_source.is_in_group("alien_interference_sources"),

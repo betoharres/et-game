@@ -8,14 +8,14 @@ extends Camera3D
 ##   space             - pause/resume animation (to inspect a single frame)
 ##   1 / 2 / 3         - camera presets: overview / beach level / the two pools
 
-@export var target := Vector3(0.0, 0.0, 0.0)
-@export var distance := 34.0
-@export var yaw := 40.0
-@export var pitch := -30.0
+@export var target : Vector3 = Vector3(0.0, 0.0, 0.0)
+@export var distance : float = 34.0
+@export var yaw : float = 40.0
+@export var pitch : float = -30.0
 
-var _dragging := false
-var _panning := false
-var _paused := false
+var _dragging : bool = false
+var _panning : bool = false
+var _paused : bool = false
 
 
 func _ready() -> void:
@@ -23,9 +23,9 @@ func _ready() -> void:
 
 
 func _apply() -> void:
-	var y := deg_to_rad(yaw)
-	var p := deg_to_rad(pitch)
-	var offset := Vector3(
+	var y : float = deg_to_rad(yaw)
+	var p : float = deg_to_rad(pitch)
+	var offset : Vector3 = Vector3(
 		cos(p) * sin(y),
 		sin(p),
 		cos(p) * cos(y)) * distance
@@ -52,8 +52,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			pitch = clampf(pitch - event.relative.y * 0.3, -85.0, 85.0)
 			_apply()
 		elif _panning:
-			var right := global_transform.basis.x
-			var fwd := global_transform.basis.y
+			var right : Vector3 = global_transform.basis.x
+			var fwd : Vector3 = global_transform.basis.y
 			target -= (right * event.relative.x + fwd * -event.relative.y) * distance * 0.002
 			_apply()
 	elif event is InputEventKey and event.pressed and not event.echo:

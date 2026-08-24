@@ -349,7 +349,7 @@ func _has_clear_line_of_sight() -> bool:
 	if player == null or get_world_3d() == null:
 		return false
 
-	var query := PhysicsRayQueryParameters3D.create(
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
 		get_vision_origin(),
 		player.global_position + Vector3.UP * player_target_height
 	)
@@ -555,7 +555,7 @@ func _perform_shot() -> void:
 	var shot_end : Vector3 = (
 		shot_origin + shot_direction * maxf(shoot_distance, sight_distance)
 	)
-	var query := PhysicsRayQueryParameters3D.create(shot_origin, shot_end)
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(shot_origin, shot_end)
 	query.exclude = [get_rid()]
 	query.collide_with_areas = false
 

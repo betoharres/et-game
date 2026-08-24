@@ -36,7 +36,7 @@ func set_carrying(active : bool) -> void:
 
 
 func _physics_process(delta : float) -> void:
-	var target_intervention_weight := (
+	var target_intervention_weight : float = (
 		1.0 if intervention_pose_requested else 0.0
 	)
 	intervention_pose_weight = move_toward(

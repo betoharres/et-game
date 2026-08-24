@@ -377,7 +377,7 @@ func _get_movement_speed() -> float:
 
 func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 	has_movement_input : bool) -> void:
-	var horizontal_velocity := Vector2(velocity.x, velocity.z)
+	var horizontal_velocity : Vector2 = Vector2(velocity.x, velocity.z)
 
 	if has_movement_input:
 		var movement_speed : float = _get_movement_speed()

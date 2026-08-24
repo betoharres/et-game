@@ -8,20 +8,20 @@ func _init() -> void:
 
 
 func _run() -> void:
-	var packed := load("res://scenes/Player.tscn") as PackedScene
+	var packed : PackedScene = load("res://scenes/Player.tscn") as PackedScene
 	var player : Node = packed.instantiate()
 	root.add_child(player)
 	await process_frame
 	player.set_physics_process(false)
-	var debug_menu := (
+	var debug_menu : Node = (
 		load("res://scenes/DebugMenu.tscn") as PackedScene
 	).instantiate()
 	root.add_child(debug_menu)
 	await process_frame
-	var god_toggle := debug_menu.get_node(
+	var god_toggle : CheckButton = debug_menu.get_node(
 		"Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/GodModeToggle"
 	) as CheckButton
-	var flight_toggle := debug_menu.get_node(
+	var flight_toggle : CheckButton = debug_menu.get_node(
 		"Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/FlightModeToggle"
 	) as CheckButton
 
@@ -61,7 +61,7 @@ func _run() -> void:
 	)
 
 	flight_toggle.button_pressed = true
-	var body := player as CharacterBody3D
+	var body : CharacterBody3D = player as CharacterBody3D
 	_check(bool(player.call("is_debug_flight_enabled")), "Flight mode enables")
 	_check(
 		body.motion_mode == CharacterBody3D.MOTION_MODE_FLOATING,
@@ -72,7 +72,7 @@ func _run() -> void:
 		and bool(player.call("is_debug_flight_enabled")),
 		"God and flight modes coexist"
 	)
-	var starting_height := body.global_position.y
+	var starting_height : float = body.global_position.y
 	Input.action_press("jump")
 	player.set_physics_process(true)
 	for _frame : int in 5:

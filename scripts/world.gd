@@ -43,7 +43,7 @@ func _play_arrival_intro() -> void:
 	player.global_position = start_position
 	player.camera_pivot.global_position = start_position
 
-	var beam = ARRIVAL_BEAM_SCENE.instantiate()
+	var beam : ArrivalBeam = ARRIVAL_BEAM_SCENE.instantiate() as ArrivalBeam
 	add_child(beam)
 	beam.configure(spawn_position, descend_height + BEAM_HEIGHT_MARGIN)
 

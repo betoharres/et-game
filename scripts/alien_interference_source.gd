@@ -16,14 +16,14 @@ func get_interference_at(world_position : Vector3) -> float:
 	if not enabled or not is_visible_in_tree():
 		return 0.0
 
-	var inner_radius := minf(full_strength_radius, fade_radius)
-	var outer_radius := maxf(fade_radius, inner_radius + 0.001)
-	var distance := global_position.distance_to(world_position)
-	var proximity := 1.0 - smoothstep(inner_radius, outer_radius, distance)
+	var inner_radius : float = minf(full_strength_radius, fade_radius)
+	var outer_radius : float = maxf(fade_radius, inner_radius + 0.001)
+	var distance : float = global_position.distance_to(world_position)
+	var proximity : float = 1.0 - smoothstep(inner_radius, outer_radius, distance)
 	if proximity <= 0.0:
 		return 0.0
 
-	var pulse := 1.0 + sin(Time.get_ticks_msec() * 0.001 * pulse_frequency * TAU) * pulse_amount
+	var pulse : float = 1.0 + sin(Time.get_ticks_msec() * 0.001 * pulse_frequency * TAU) * pulse_amount
 	return clampf(intensity * proximity * pulse, 0.0, 1.0)
 
 

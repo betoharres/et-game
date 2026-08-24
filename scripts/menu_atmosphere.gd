@@ -279,7 +279,7 @@ func _draw_ufo_and_beams(viewport_size : Vector2) -> void:
 	)
 	var ufo_alpha : float = 0.42 if menu_state != "exit" else 0.22
 	var ship_scale : float = 1.0 + launch_pulse * 0.12
-	var ship_points := PackedVector2Array([
+	var ship_points : PackedVector2Array = PackedVector2Array([
 		ufo_position + Vector2(-48, 9) * ship_scale,
 		ufo_position + Vector2(0, -13) * ship_scale,
 		ufo_position + Vector2(48, 9) * ship_scale,
@@ -305,7 +305,7 @@ func _draw_ufo_and_beams(viewport_size : Vector2) -> void:
 		var beam_direction : Vector2 = (target - start).normalized()
 		var perpendicular : Vector2 = Vector2(-beam_direction.y, beam_direction.x)
 		var width : float = 22.0 + sin(elapsed * 0.3 + beam_index) * 4.0
-		var beam_points := PackedVector2Array([
+		var beam_points : PackedVector2Array = PackedVector2Array([
 			start - perpendicular * 2.0,
 			start + perpendicular * 2.0,
 			target + perpendicular * width,
@@ -319,7 +319,7 @@ func _draw_ufo_and_beams(viewport_size : Vector2) -> void:
 
 func _draw_terrain(viewport_size : Vector2) -> void:
 	var horizon : float = viewport_size.y * 0.72
-	var hills := PackedVector2Array([
+	var hills : PackedVector2Array = PackedVector2Array([
 		Vector2(0, horizon + 30), Vector2(viewport_size.x * 0.16, horizon - 8),
 		Vector2(viewport_size.x * 0.3, horizon + 18), Vector2(viewport_size.x * 0.48, horizon - 22),
 		Vector2(viewport_size.x * 0.64, horizon + 10), Vector2(viewport_size.x * 0.82, horizon - 14),

@@ -8,27 +8,27 @@ func _init() -> void:
 
 
 func run() -> void:
-	var floor_body := StaticBody3D.new()
-	var floor_collision := CollisionShape3D.new()
-	var floor_shape := BoxShape3D.new()
+	var floor_body : StaticBody3D = StaticBody3D.new()
+	var floor_collision : CollisionShape3D = CollisionShape3D.new()
+	var floor_shape : BoxShape3D = BoxShape3D.new()
 	floor_shape.size = Vector3(100.0, 0.2, 100.0)
 	floor_collision.shape = floor_shape
 	floor_collision.position.y = -0.1
 	floor_body.add_child(floor_collision)
 	root.add_child(floor_body)
 
-	var player := (
+	var player : CharacterBody3D = (
 		load("res://scenes/Player.tscn") as PackedScene
 	).instantiate() as CharacterBody3D
 	root.add_child(player)
 	for _frame : int in 5:
 		await physics_frame
 
-	var controller := player.get_node(
+	var controller : PlayerAnimationController = player.get_node(
 		"PlayerAnimationController"
 	) as PlayerAnimationController
-	var collision := player.get_node("CollisionShape3D") as CollisionShape3D
-	var capsule := collision.shape as CapsuleShape3D
+	var collision : CollisionShape3D = player.get_node("CollisionShape3D") as CollisionShape3D
+	var capsule : CapsuleShape3D = collision.shape as CapsuleShape3D
 
 	Input.action_press("jump")
 	await physics_frame

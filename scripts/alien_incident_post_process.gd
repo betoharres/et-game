@@ -32,11 +32,11 @@ func _ready() -> void:
 
 
 func _process(delta : float) -> void:
-	var target := _sample_spatial_interference()
+	var target : float = _sample_spatial_interference()
 	target = maxf(target, _manual_interference)
 	target = maxf(target, _update_pulse(delta))
 	target = clampf(target * global_interference_scale, 0.0, 1.0)
-	var response_weight := 1.0 - exp(-interference_response * delta)
+	var response_weight : float = 1.0 - exp(-interference_response * delta)
 	_current_interference = lerpf(
 		_current_interference,
 		target,
@@ -68,15 +68,15 @@ func get_interference_intensity() -> float:
 
 
 func _sample_spatial_interference() -> float:
-	var camera := get_viewport().get_camera_3d()
+	var camera : Camera3D = get_viewport().get_camera_3d()
 	if camera == null:
 		return 0.0
 
-	var combined := 0.0
+	var combined : float = 0.0
 	for source : Node in get_tree().get_nodes_in_group(SOURCE_GROUP):
 		if not source.has_method("get_interference_at"):
 			continue
-		var contribution := clampf(
+		var contribution : float = clampf(
 			float(source.call("get_interference_at", camera.global_position)),
 			0.0,
 			1.0
@@ -89,7 +89,7 @@ func _update_pulse(delta : float) -> float:
 	if _pulse_elapsed >= _pulse_duration:
 		return 0.0
 	_pulse_elapsed += delta
-	var ratio := clampf(_pulse_elapsed / _pulse_duration, 0.0, 1.0)
+	var ratio : float = clampf(_pulse_elapsed / _pulse_duration, 0.0, 1.0)
 	return _pulse_strength * sin(ratio * PI) * (1.0 - ratio * 0.35)
 
 

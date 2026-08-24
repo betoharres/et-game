@@ -104,7 +104,7 @@ const IDLE_VARIANT_STATES : PackedStringArray = [
 @onready var player_body : CharacterBody3D = get_parent() as CharacterBody3D
 
 var _playback : AnimationNodeStateMachinePlayback
-var _random := RandomNumberGenerator.new()
+var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 var _current_state : StringName = &""
 var _action_state : StringName = &""
 var _action_timer : float = 0.0
@@ -157,7 +157,7 @@ func trigger_turn(turn_delta : float) -> void:
 	if _ragdoll_active or _get_up_active or absf(turn_delta) < 0.01:
 		return
 
-	var is_wide_turn := absf(turn_delta) >= deg_to_rad(100.0)
+	var is_wide_turn : bool = absf(turn_delta) >= deg_to_rad(100.0)
 	var state : StringName
 	if turn_delta > 0.0:
 		state = &"TurnLeftWide" if is_wide_turn else &"TurnLeft"
@@ -175,7 +175,7 @@ func trigger_moving_turn(is_running : bool) -> float:
 		return 0.0
 
 	var state : StringName = &"RunTurn180" if is_running else &"WalkTurn180"
-	var duration := _animation_length_for_state(state)
+	var duration : float = _animation_length_for_state(state)
 	_trigger_action(state, duration, false)
 	return duration
 
@@ -193,7 +193,7 @@ func trigger_hit(impact_direction : Vector3) -> void:
 	if _ragdoll_active or _get_up_active or _action_is_reaction():
 		return
 
-	var local_direction := _to_local_direction(impact_direction)
+	var local_direction : Vector3 = _to_local_direction(impact_direction)
 	var state : StringName = (
 		&"HitSide"
 		if absf(local_direction.x) > absf(local_direction.z) * 0.65
@@ -206,7 +206,7 @@ func trigger_stumble(impact_direction : Vector3) -> void:
 	if _ragdoll_active or _get_up_active:
 		return
 
-	var local_direction := _to_local_direction(impact_direction)
+	var local_direction : Vector3 = _to_local_direction(impact_direction)
 	var state : StringName = (
 		&"StumbleBack" if local_direction.z < 0.0 else &"StumbleForward"
 	)
@@ -324,7 +324,7 @@ func _update_get_up_front_speed(delta : float) -> void:
 		_get_up_front_position + delta * _action_speed,
 		_get_up_animation_length
 	)
-	var progress := clampf(
+	var progress : float = clampf(
 		_get_up_front_position / _get_up_animation_length,
 		0.0,
 		1.0
@@ -333,7 +333,7 @@ func _update_get_up_front_speed(delta : float) -> void:
 
 
 func _get_up_front_speed_at(progress : float) -> float:
-	var blend := smoothstep(
+	var blend : float = smoothstep(
 		GET_UP_FRONT_SPEED_RAMP_START,
 		GET_UP_FRONT_SPEED_RAMP_END,
 		clampf(progress, 0.0, 1.0)
@@ -349,17 +349,17 @@ func _get_up_front_duration() -> float:
 	if _get_up_animation_length <= 0.0:
 		return 0.05
 
-	var source_step := _get_up_animation_length / GET_UP_FRONT_DURATION_STEPS
+	var source_step : float = _get_up_animation_length / GET_UP_FRONT_DURATION_STEPS
 	var duration : float = 0.0
 	for step : int in GET_UP_FRONT_DURATION_STEPS:
-		var progress := (float(step) + 0.5) / GET_UP_FRONT_DURATION_STEPS
+		var progress : float = (float(step) + 0.5) / GET_UP_FRONT_DURATION_STEPS
 		duration += source_step / maxf(_get_up_front_speed_at(progress), 0.05)
 	return duration
 
 
 func _configure_animation_resources() -> void:
 	for animation_name : StringName in animation_player.get_animation_list():
-		var animation := animation_player.get_animation(animation_name)
+		var animation : Animation = animation_player.get_animation(animation_name)
 		if animation == null:
 			continue
 		animation.loop_mode = (
@@ -368,7 +368,7 @@ func _configure_animation_resources() -> void:
 			else Animation.LOOP_NONE
 		)
 func _build_state_machine() -> void:
-	var machine := AnimationNodeStateMachine.new()
+	var machine : AnimationNodeStateMachine = AnimationNodeStateMachine.new()
 	var state_names : Array[StringName] = []
 	var column : int = 0
 	var row : int = 0
@@ -379,7 +379,7 @@ func _build_state_machine() -> void:
 			push_warning("Player animation missing: %s" % animation_name)
 			continue
 
-		var animation_node := AnimationNodeAnimation.new()
+		var animation_node : AnimationNodeAnimation = AnimationNodeAnimation.new()
 		animation_node.animation = StringName(animation_name)
 		machine.add_node(
 			StringName(state_name),
@@ -396,7 +396,7 @@ func _build_state_machine() -> void:
 		for to_state : StringName in state_names:
 			if from_state == to_state:
 				continue
-			var transition := AnimationNodeStateMachineTransition.new()
+			var transition : AnimationNodeStateMachineTransition = AnimationNodeStateMachineTransition.new()
 			if from_state in IDLE_VARIANT_STATES and to_state in IDLE_VARIANT_STATES:
 				transition.xfade_time = idle_variant_blend
 			elif from_state in LOCOMOTION_STATES and to_state in LOCOMOTION_STATES:
@@ -446,7 +446,7 @@ func _update_locomotion(delta : float) -> void:
 		return
 
 	_reset_idle_variant_timer()
-	var local_horizontal := Vector2(_local_velocity.x, _local_velocity.z)
+	var local_horizontal : Vector2 = Vector2(_local_velocity.x, _local_velocity.z)
 	var lateral_ratio : float = (
 		absf(local_horizontal.x) / maxf(local_horizontal.length(), 0.001)
 	)

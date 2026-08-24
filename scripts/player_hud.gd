@@ -165,7 +165,7 @@ func _play_damage_feedback() -> void:
 
 
 func _set_vignette_intensity(value : float) -> void:
-	var vignette_material := damage_vignette.material as ShaderMaterial
+	var vignette_material : ShaderMaterial = damage_vignette.material as ShaderMaterial
 	if vignette_material != null:
 		vignette_material.set_shader_parameter("intensity", value)
 
