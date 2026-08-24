@@ -20,13 +20,11 @@ func pickup(player : Node3D) -> void:
 
 	reparent(player)
 
-	var hand_target : Marker3D = (
-		player.get_node("IKtargetContainer/HandR")
-	)
+	var hand_target : Marker3D = player.get_node_or_null("IKtargetContainer/HandR") as Marker3D
 	if hand_target:
 		position = hand_target.position
 	else:
-		position = Vector3(0.0,1.0,1.0)
+		position = Vector3(0.0, 1.0, 1.0)
 	
 func drop() -> void:
 

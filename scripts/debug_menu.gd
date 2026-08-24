@@ -163,8 +163,8 @@ func _show_lighting_panel() -> void:
 
 
 func _sync_toggles_from_world() -> void:
-	var environment := _get_first_target(ENVIRONMENT_GROUP)
-	var player := _get_first_target(PLAYER_GROUP)
+	var environment : Node = _get_first_target(ENVIRONMENT_GROUP)
+	var player : Node = _get_first_target(PLAYER_GROUP)
 	_sync_quality_preset(environment)
 	_sync_method_toggle(
 		god_mode_toggle,
@@ -249,7 +249,7 @@ func _sync_method_toggle(
 	target : Node,
 	getter : StringName
 ) -> void:
-	var available := target != null and target.has_method(getter)
+	var available : bool = target != null and target.has_method(getter)
 	button.disabled = not available
 	button.set_pressed_no_signal(
 		bool(target.call(getter)) if available else false
@@ -261,9 +261,9 @@ func _sync_group_toggle(
 	group : StringName,
 	getter : StringName
 ) -> void:
-	var targets := get_tree().get_nodes_in_group(group)
-	var available := not targets.is_empty()
-	var enabled := available
+	var targets : Array[Node] = get_tree().get_nodes_in_group(group)
+	var available : bool = not targets.is_empty()
+	var enabled : bool = available
 	for target : Node in targets:
 		if not target.has_method(getter):
 			available = false
@@ -278,8 +278,8 @@ func _sync_combined_group_toggle(
 	groups : Array[StringName],
 	getter : StringName
 ) -> void:
-	var found_target := false
-	var enabled := true
+	var found_target : bool = false
+	var enabled : bool = true
 	for group : StringName in groups:
 		for target : Node in get_tree().get_nodes_in_group(group):
 			if not target.has_method(getter):
@@ -296,8 +296,8 @@ func _sync_method_intensity(
 	target : Node,
 	getter : StringName
 ) -> void:
-	var available := target != null and target.has_method(getter)
-	var intensity := float(target.call(getter)) if available else 0.0
+	var available : bool = target != null and target.has_method(getter)
+	var intensity : float = float(target.call(getter)) if available else 0.0
 	_sync_intensity_control(slider, value_label, intensity, available)
 
 
@@ -307,8 +307,8 @@ func _sync_group_intensity(
 	group : StringName,
 	getter : StringName
 ) -> void:
-	var available := false
-	var intensity := 0.0
+	var available : bool = false
+	var intensity : float = 0.0
 	for target : Node in get_tree().get_nodes_in_group(group):
 		if target.has_method(getter):
 			available = true
@@ -323,8 +323,8 @@ func _sync_combined_group_intensity(
 	groups : Array[StringName],
 	getter : StringName
 ) -> void:
-	var available := false
-	var intensity := 0.0
+	var available : bool = false
+	var intensity : float = 0.0
 	for group : StringName in groups:
 		for target : Node in get_tree().get_nodes_in_group(group):
 			if target.has_method(getter):
@@ -356,13 +356,13 @@ func _get_first_target(group : StringName) -> Node:
 
 
 func _set_environment_option(method : StringName, value : Variant) -> void:
-	var environment := _get_first_target(ENVIRONMENT_GROUP)
+	var environment : Node = _get_first_target(ENVIRONMENT_GROUP)
 	if environment != null and environment.has_method(method):
 		environment.call(method, value)
 
 
 func _set_player_option(method : StringName, value : Variant) -> void:
-	var player := _get_first_target(PLAYER_GROUP)
+	var player : Node = _get_first_target(PLAYER_GROUP)
 	if player != null and player.has_method(method):
 		player.call(method, value)
 
@@ -403,7 +403,7 @@ func _populate_quality_preset() -> void:
 
 
 func _sync_quality_preset(environment : Node) -> void:
-	var available := environment != null and environment.has_method(
+	var available : bool = environment != null and environment.has_method(
 		&"get_quality_preset"
 	)
 	quality_preset.disabled = not available

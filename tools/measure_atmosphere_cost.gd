@@ -30,7 +30,7 @@ func _run() -> void:
 	change_scene_to_file("res://scenes/world.tscn")
 	await create_timer(9.0).timeout
 
-	var environment := get_first_node_in_group("debug_environment_lighting")
+	var environment : Node = get_first_node_in_group("debug_environment_lighting")
 	if environment == null:
 		print("FPS|FAIL|NightEnvironment nao encontrado")
 		quit(1)
@@ -42,12 +42,12 @@ func _run() -> void:
 		environment.call("set_debug_fog_enabled", bool(case["fog"]))
 		await create_timer(WARMUP_SECONDS).timeout
 
-		var viewport_rid := get_root().get_viewport_rid()
+		var viewport_rid : RID = get_root().get_viewport_rid()
 		RenderingServer.viewport_set_measure_render_time(viewport_rid, true)
-		var frames := 0
-		var elapsed := 0.0
-		var gpu_total := 0.0
-		var cpu_total := 0.0
+		var frames : int = 0
+		var elapsed : float = 0.0
+		var gpu_total : float = 0.0
+		var cpu_total : float = 0.0
 		while elapsed < SAMPLE_SECONDS:
 			await process_frame
 			elapsed += get_root().get_process_delta_time()

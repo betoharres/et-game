@@ -46,7 +46,7 @@ var _recovering : bool = false
 var _suspended_modifiers : Array[SkeletonModifier3D] = []
 var _suspended_influences : PackedFloat32Array = PackedFloat32Array()
 var _recovery_modifier : RagdollRecoveryModifier
-var _random := RandomNumberGenerator.new()
+var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
@@ -152,7 +152,7 @@ func _capture_fallen_global_poses() -> Array[Transform3D]:
 	)
 
 	for bone : int in bone_count:
-		var physical_bone := _physical_bones.get(
+		var physical_bone : PhysicalBone3D = _physical_bones.get(
 			_skeleton.get_bone_name(bone)
 		) as PhysicalBone3D
 
@@ -227,12 +227,12 @@ func is_face_up() -> bool:
 	if _skeleton == null:
 		return true
 
-	var left_shoulder := _bone_global_position(LEFT_ARM_BONE)
-	var right_shoulder := _bone_global_position(RIGHT_ARM_BONE)
-	var hips := _bone_global_position(ROOT_BONE)
-	var head := _bone_global_position(HEAD_BONE)
-	var shoulder_axis := right_shoulder - left_shoulder
-	var spine_axis := head - hips
+	var left_shoulder : Vector3 = _bone_global_position(LEFT_ARM_BONE)
+	var right_shoulder : Vector3 = _bone_global_position(RIGHT_ARM_BONE)
+	var hips : Vector3 = _bone_global_position(ROOT_BONE)
+	var head : Vector3 = _bone_global_position(HEAD_BONE)
+	var shoulder_axis : Vector3 = right_shoulder - left_shoulder
+	var spine_axis : Vector3 = head - hips
 
 	if (
 		shoulder_axis.length_squared() <= 0.0001
@@ -240,15 +240,15 @@ func is_face_up() -> bool:
 	):
 		return true
 
-	var body_front := shoulder_axis.cross(spine_axis).normalized()
-	var visual_forward := _skeleton.global_transform.basis.z.normalized()
+	var body_front : Vector3 = shoulder_axis.cross(spine_axis).normalized()
+	var visual_forward : Vector3 = _skeleton.global_transform.basis.z.normalized()
 	if body_front.dot(visual_forward) < 0.0:
 		body_front = -body_front
 	return body_front.dot(Vector3.UP) >= 0.0
 
 
 func _bone_global_position(bone_name : String) -> Vector3:
-	var physical_bone := _physical_bones.get(bone_name) as PhysicalBone3D
+	var physical_bone : PhysicalBone3D = _physical_bones.get(bone_name) as PhysicalBone3D
 	if physical_bone != null and is_instance_valid(physical_bone):
 		return physical_bone.global_position
 
@@ -329,13 +329,13 @@ func _add_sphere_bone(
 	radius : float,
 	mass : float
 ) -> void:
-	var physical_bone := _create_physical_bone(bone_name, mass)
+	var physical_bone : PhysicalBone3D = _create_physical_bone(bone_name, mass)
 
 	if physical_bone == null:
 		return
 
-	var shape := CollisionShape3D.new()
-	var sphere := SphereShape3D.new()
+	var shape : CollisionShape3D = CollisionShape3D.new()
+	var sphere : SphereShape3D = SphereShape3D.new()
 	sphere.radius = radius
 	shape.shape = sphere
 	physical_bone.add_child(shape)
@@ -353,7 +353,7 @@ func _add_capsule_bone(
 	if bone_id < 0 or end_bone_id < 0:
 		return
 
-	var physical_bone := _create_physical_bone(bone_name, mass)
+	var physical_bone : PhysicalBone3D = _create_physical_bone(bone_name, mass)
 
 	if physical_bone == null:
 		return
@@ -370,11 +370,11 @@ func _add_capsule_bone(
 	if length <= 0.001:
 		return
 
-	var body_basis := _basis_with_y_axis(segment.normalized())
+	var body_basis : Basis = _basis_with_y_axis(segment.normalized())
 	physical_bone.body_offset = Transform3D(body_basis, segment * 0.5)
 
-	var shape := CollisionShape3D.new()
-	var capsule := CapsuleShape3D.new()
+	var shape : CollisionShape3D = CollisionShape3D.new()
+	var capsule : CapsuleShape3D = CapsuleShape3D.new()
 	capsule.radius = minf(radius, length * 0.45)
 	capsule.height = maxf(length, capsule.radius * 2.0)
 	shape.shape = capsule
@@ -391,7 +391,7 @@ func _create_physical_bone(
 		push_warning("Ragdoll bone not found: %s" % bone_name)
 		return null
 
-	var physical_bone := PhysicalBone3D.new()
+	var physical_bone : PhysicalBone3D = PhysicalBone3D.new()
 	physical_bone.name = "Physical_%s" % bone_name.replace(".", "_")
 	physical_bone.mass = mass
 	physical_bone.collision_layer = 0
@@ -429,12 +429,12 @@ func _start_physics(impact_direction : Vector3, comic : bool,
 		return
 
 	if impact_direction.length_squared() > 0.0001:
-		var impulse := impact_direction.normalized() * impact_impulse
+		var impulse : Vector3 = impact_direction.normalized() * impact_impulse
 		_apply_impact.call_deferred(impulse)
 
 
 func _basis_with_y_axis(y_axis : Vector3) -> Basis:
-	var reference_axis := Vector3.FORWARD
+	var reference_axis : Vector3 = Vector3.FORWARD
 
 	if absf(y_axis.dot(reference_axis)) > 0.95:
 		reference_axis = Vector3.RIGHT
@@ -445,7 +445,7 @@ func _basis_with_y_axis(y_axis : Vector3) -> Basis:
 
 
 func _apply_impact(impulse : Vector3) -> void:
-	var chest := _physical_bones.get(CHEST_BONE) as PhysicalBone3D
+	var chest : PhysicalBone3D = _physical_bones.get(CHEST_BONE) as PhysicalBone3D
 
 	if chest != null:
 		chest.apply_central_impulse(impulse)
@@ -468,7 +468,7 @@ func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
 			_random.randf_range(-1.0, 1.0)
 		).normalized()
 
-	var chest := _physical_bones.get(CHEST_BONE) as PhysicalBone3D
+	var chest : PhysicalBone3D = _physical_bones.get(CHEST_BONE) as PhysicalBone3D
 
 	if chest != null:
 		chest.apply_central_impulse(
@@ -476,7 +476,7 @@ func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
 			+ Vector3.UP * comic_lift_impulse * strength
 		)
 
-	var head := _physical_bones.get(HEAD_BONE) as PhysicalBone3D
+	var head : PhysicalBone3D = _physical_bones.get(HEAD_BONE) as PhysicalBone3D
 
 	if head != null:
 		head.apply_central_impulse(
@@ -487,7 +487,7 @@ func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
 		)
 
 	for foot_name : String in FOOT_BONES:
-		var foot := _physical_bones.get(foot_name) as PhysicalBone3D
+		var foot : PhysicalBone3D = _physical_bones.get(foot_name) as PhysicalBone3D
 
 		if foot == null:
 			continue
@@ -500,7 +500,7 @@ func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
 		)
 
 	for hand_name : String in HAND_BONES:
-		var hand := _physical_bones.get(hand_name) as PhysicalBone3D
+		var hand : PhysicalBone3D = _physical_bones.get(hand_name) as PhysicalBone3D
 
 		if hand == null:
 			continue
@@ -511,7 +511,7 @@ func _apply_comic_impact(impact_direction : Vector3, strength : float) -> void:
 
 
 func _random_flail_direction() -> Vector3:
-	var direction := Vector3(
+	var direction : Vector3 = Vector3(
 		_random.randf_range(-1.0, 1.0),
 		_random.randf_range(0.3, 1.0),
 		_random.randf_range(-1.0, 1.0)

@@ -51,7 +51,7 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	_update_status()
 	_attention_timer = maxf(_attention_timer - delta, 0.0)
-	var target_opacity := (
+	var target_opacity : float = (
 		ACTIVE_OPACITY if _attention_timer > 0.0 else IDLE_OPACITY
 	)
 	alert_panel.modulate.a = move_toward(
@@ -63,8 +63,8 @@ func _process(delta : float) -> void:
 
 func _on_photo_count_changed(current_count : int, maximum_count : int) -> void:
 	for star_index : int in range(star_icons.size()):
-		var is_available := star_index < maximum_count
-		var is_filled := star_index < current_count
+		var is_available : bool = star_index < maximum_count
+		var is_filled : bool = star_index < current_count
 		star_icons[star_index].visible = is_available
 		star_icons[star_index].texture = STAR_FILLED if is_filled else STAR_EMPTY
 		star_icons[star_index].self_modulate = (
@@ -99,7 +99,7 @@ func _update_status() -> void:
 		new_mode = &"hidden"
 		status_icon.texture = WATCH_ICON
 		status_icon.self_modulate = Color(0.35, 0.82, 1.0, 0.95)
-		var seconds := ceili(PhotoAlertSystem.get_seconds_until_photo_decay())
+		var seconds : int = ceili(PhotoAlertSystem.get_seconds_until_photo_decay())
 		if seconds != _last_seconds:
 			status_label.text = "OCULTO — %ds" % seconds
 			_last_seconds = seconds

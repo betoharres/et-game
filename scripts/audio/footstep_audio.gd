@@ -29,7 +29,7 @@ var _horizontal_speed : float = 0.0
 var _grounded : bool = true
 var _step_elapsed : float = 0.0
 var _last_step_by_surface : Dictionary = {}
-var _random := RandomNumberGenerator.new()
+var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
@@ -47,7 +47,7 @@ func set_motion(horizontal_speed : float, grounded : bool) -> void:
 
 
 func _physics_process(delta : float) -> void:
-	var character := get_parent()
+	var character : Node = get_parent()
 	var can_step : bool = (
 		character.is_physics_processing()
 		and _grounded
@@ -98,14 +98,14 @@ func _get_samples(surface : String) -> Array[AudioStream]:
 
 
 func _get_surface() -> String:
-	var character := get_parent() as CollisionObject3D
+	var character : CollisionObject3D = get_parent() as CollisionObject3D
 
 	if character == null:
 		return "dirt"
 
 	var from : Vector3 = character.global_position + Vector3.UP * 0.35
 	var to : Vector3 = character.global_position + Vector3.DOWN * 1.2
-	var query := PhysicsRayQueryParameters3D.create(from, to)
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
 	query.exclude = [character.get_rid()]
 	query.collide_with_areas = false
 
@@ -114,7 +114,7 @@ func _get_surface() -> String:
 	if hit.is_empty():
 		return "dirt"
 
-	var collider := hit.get("collider") as Node
+	var collider : Node = hit.get("collider") as Node
 	var surface_name : String = _get_hierarchy_name(collider)
 
 	for token in WOOD_SURFACE_NAMES:

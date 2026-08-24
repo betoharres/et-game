@@ -196,7 +196,7 @@ func _get_action_key(action : StringName) -> String:
 
 	for input_event : InputEvent in events:
 		if input_event is InputEventKey:
-			var key_event := input_event as InputEventKey
+			var key_event : InputEventKey = input_event as InputEventKey
 			var keycode : Key = key_event.physical_keycode
 
 			if keycode == KEY_NONE:

@@ -64,7 +64,7 @@ var _fog_enabled : bool = true
 func _ready() -> void:
 	_zone_data.resize(MAX_ZONES * ZONE_FLOATS)
 	for child : Node in get_children():
-		var layer := child as MeshInstance3D
+		var layer : MeshInstance3D = child as MeshInstance3D
 		if layer == null:
 			continue
 		_layers.append(layer)
@@ -116,8 +116,8 @@ func apply_quality(config : Dictionary) -> void:
 	_base_opacity = float(config.get("opacity", 0.42))
 
 	if _material != null:
-		var far_start := float(config.get("far_start", 58.0))
-		var far_end := float(config.get("far_end", 98.0))
+		var far_start : float = float(config.get("far_start", 58.0))
+		var far_end : float = float(config.get("far_end", 98.0))
 		_material.set_shader_parameter("far_fade_start", far_start)
 		_material.set_shader_parameter("far_fade_end", far_end)
 		_material.set_shader_parameter(
@@ -137,7 +137,7 @@ func apply_quality(config : Dictionary) -> void:
 			float(config.get("detail", 1.0))
 		)
 		_material.set_shader_parameter("warp_amount", float(config.get("warp", 1.15)))
-		var safe_bias := clampf(forward_bias, 0.0, 0.6)
+		var safe_bias : float = clampf(forward_bias, 0.0, 0.6)
 		_radius = (far_end + RADIUS_MARGIN) / (1.0 - safe_bias)
 		_forward_offset = _radius * safe_bias
 
@@ -178,7 +178,7 @@ func set_fog_colors(base_color : Color, alien_color : Color) -> void:
 
 
 func _apply_layer_instance_parameters(index : int) -> void:
-	var layer := _layers[index]
+	var layer : MeshInstance3D = _layers[index]
 	layer.set_instance_shader_parameter("layer_seed", float(index) * 1.37)
 	layer.set_instance_shader_parameter(
 		"layer_scale",
@@ -198,7 +198,7 @@ func _refresh_layer_visibility() -> void:
 func _apply_opacity() -> void:
 	if _material == null:
 		return
-	var alien_opacity := 1.0 + _alien_current * alien_opacity_boost
+	var alien_opacity : float = 1.0 + _alien_current * alien_opacity_boost
 	_material.set_shader_parameter(
 		"opacity",
 		clampf(_base_opacity * _density_scale * alien_opacity, 0.0, 1.0)
@@ -209,7 +209,7 @@ func _update_alien_blend(delta : float) -> void:
 	if is_equal_approx(_alien_current, _alien_target):
 		return
 
-	var weight := 1.0 - exp(-alien_response * delta)
+	var weight : float = 1.0 - exp(-alien_response * delta)
 	_alien_current = lerpf(_alien_current, _alien_target, weight)
 	if absf(_alien_current - _alien_target) < 0.002:
 		_alien_current = _alien_target
@@ -223,12 +223,12 @@ func _update_alien_blend(delta : float) -> void:
 
 
 func _follow_camera() -> void:
-	var camera := get_viewport().get_camera_3d()
+	var camera : Camera3D = get_viewport().get_camera_3d()
 	if camera == null:
 		return
 
-	var camera_position := camera.global_position
-	var forward := -camera.global_basis.z
+	var camera_position : Vector3 = camera.global_position
+	var forward : Vector3 = -camera.global_basis.z
 	forward.y = 0.0
 	if forward.length_squared() > 0.001:
 		forward = forward.normalized()
@@ -239,7 +239,7 @@ func _follow_camera() -> void:
 		_ground_height = camera_position.y
 		_ground_height_ready = true
 
-	var center := camera_position + forward * _forward_offset
+	var center : Vector3 = camera_position + forward * _forward_offset
 	global_position = Vector3(center.x, _ground_height, center.z)
 
 	for index : int in range(_active_layers):
@@ -252,18 +252,18 @@ func _follow_camera() -> void:
 
 
 func _probe_ground_height() -> void:
-	var camera := get_viewport().get_camera_3d()
-	var world := get_world_3d()
+	var camera : Camera3D = get_viewport().get_camera_3d()
+	var world : World3D = get_world_3d()
 	if camera == null or world == null:
 		return
 
-	var origin := camera.global_position + Vector3.UP * 4.0
-	var query := PhysicsRayQueryParameters3D.create(
+	var origin : Vector3 = camera.global_position + Vector3.UP * 4.0
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
 		origin,
 		origin + Vector3.DOWN * ground_probe_length
 	)
 	query.collide_with_areas = false
-	var hit := world.direct_space_state.intersect_ray(query)
+	var hit : Dictionary = world.direct_space_state.intersect_ray(query)
 	if hit.is_empty():
 		return
 
@@ -273,7 +273,7 @@ func _probe_ground_height() -> void:
 		_ground_height_ready = true
 		return
 
-	var weight := clampf(ground_follow_speed * ground_probe_interval, 0.0, 1.0)
+	var weight : float = clampf(ground_follow_speed * ground_probe_interval, 0.0, 1.0)
 	_ground_height = lerpf(_ground_height, hit_position.y, weight)
 
 
@@ -284,9 +284,9 @@ func _update_zones() -> void:
 	for index : int in range(_zone_data.size()):
 		_zone_data[index] = 0.0
 
-	var used := 0
+	var used : int = 0
 	if _max_zones > 0:
-		var camera := get_viewport().get_camera_3d()
+		var camera : Camera3D = get_viewport().get_camera_3d()
 		if camera != null:
 			used = _collect_zones(camera.global_position)
 
@@ -297,15 +297,15 @@ func _update_zones() -> void:
 func _collect_zones(camera_position : Vector3) -> int:
 	var candidates : Array[Dictionary] = []
 	for node : Node in get_tree().get_nodes_in_group(ZONE_GROUP):
-		var zone := node as Node3D
+		var zone : Node3D = node as Node3D
 		if zone == null or not zone.has_method(&"get_fog_strength"):
 			continue
-		var strength := float(zone.call(&"get_fog_strength"))
+		var strength : float = float(zone.call(&"get_fog_strength"))
 		if strength <= 0.0:
 			continue
-		var zone_position := zone.global_position
-		var radius := float(zone.call(&"get_fog_radius"))
-		var distance := Vector2(
+		var zone_position : Vector3 = zone.global_position
+		var radius : float = float(zone.call(&"get_fog_radius"))
+		var distance : float = Vector2(
 			zone_position.x - camera_position.x,
 			zone_position.z - camera_position.z
 		).length()
@@ -320,10 +320,10 @@ func _collect_zones(camera_position : Vector3) -> int:
 
 	candidates.sort_custom(_compare_zone_distance)
 
-	var used := mini(candidates.size(), _max_zones)
+	var used : int = mini(candidates.size(), _max_zones)
 	for index : int in range(used):
 		var zone : Dictionary = candidates[index]
-		var offset := index * ZONE_FLOATS
+		var offset : int = index * ZONE_FLOATS
 		var zone_position : Vector3 = zone["position"]
 		_zone_data[offset] = zone_position.x
 		_zone_data[offset + 1] = zone_position.z

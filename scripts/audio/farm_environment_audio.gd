@@ -16,7 +16,7 @@ const DOG_POSITIONS : Array[Vector3] = [
 var _dog_player : AudioStreamPlayer3D
 var _dog_timer : Timer
 var _last_dog_index : int = -1
-var _random := RandomNumberGenerator.new()
+var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
@@ -44,7 +44,7 @@ func _ready() -> void:
 func _add_loop(node_name : String, stream : AudioStream, volume_db : float) -> void:
 	_configure_loop(stream)
 
-	var player := AudioStreamPlayer.new()
+	var player : AudioStreamPlayer = AudioStreamPlayer.new()
 	player.name = node_name
 	player.stream = stream
 	player.volume_db = volume_db
@@ -74,7 +74,7 @@ func _configure_loop(stream : AudioStream) -> void:
 	if stream is AudioStreamMP3:
 		(stream as AudioStreamMP3).loop = true
 	elif stream is AudioStreamWAV:
-		var wav := stream as AudioStreamWAV
+		var wav : AudioStreamWAV = stream as AudioStreamWAV
 		wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
 		wav.loop_begin = 0
 		wav.loop_end = int(wav.mix_rate * wav.get_length())

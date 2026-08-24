@@ -8,24 +8,24 @@ func _init() -> void:
 
 
 func run() -> void:
-	var floor_body := StaticBody3D.new()
-	var floor_shape := CollisionShape3D.new()
-	var floor_box := BoxShape3D.new()
+	var floor_body : StaticBody3D = StaticBody3D.new()
+	var floor_shape : CollisionShape3D = CollisionShape3D.new()
+	var floor_box : BoxShape3D = BoxShape3D.new()
 	floor_box.size = Vector3(20.0, 0.2, 20.0)
 	floor_shape.shape = floor_box
 	floor_body.add_child(floor_shape)
 	floor_body.position.y = -0.1
 	root.add_child(floor_body)
 
-	var player := (
+	var player : CharacterBody3D = (
 		load("res://scenes/Player.tscn") as PackedScene
 	).instantiate() as CharacterBody3D
 	root.add_child(player)
 	await process_frame
 	player.set_physics_process(false)
 
-	var ragdoll := player.get_node("PlayerRagdoll") as PlayerRagdoll
-	var controller := player.get_node(
+	var ragdoll : PlayerRagdoll = player.get_node("PlayerRagdoll") as PlayerRagdoll
+	var controller : PlayerAnimationController = player.get_node(
 		"PlayerAnimationController"
 	) as PlayerAnimationController
 	ragdoll.start_comic_fall(Vector3.BACK, 0.3)
@@ -36,7 +36,7 @@ func run() -> void:
 
 	check(ragdoll.is_active(), "Ragdoll active")
 	check(ragdoll.get_body_global_position().is_finite(), "Finite body position")
-	var face_up := ragdoll.is_face_up()
+	var face_up : bool = ragdoll.is_face_up()
 
 	ragdoll.stop_ragdoll()
 	check(ragdoll.is_recovering(), "Recovery pose captured")

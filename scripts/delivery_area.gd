@@ -60,6 +60,7 @@ var _beam_ground_base_energy : float = 1.6
 var _beam_core_base_energy : float = 1.5
 var _debug_lighting_enabled : bool = true
 var _debug_lighting_intensity : float = 1.0
+var _automatic_request : bool = false
 
 
 func _ready() -> void:
@@ -72,6 +73,37 @@ func _ready() -> void:
 	hold_progress.max_value = signal_hold_duration
 	_beam_core_base_energy = beam_core_light.light_energy
 	_apply_debug_lighting_visibility()
+
+
+func is_delivery_active() -> bool:
+	return _state != DeliveryState.IDLE
+
+
+func request_automatic_delivery(item : RigidBody3D, character : Node3D) -> bool:
+	if _state != DeliveryState.IDLE or item == null or not is_instance_valid(item):
+		return false
+	if not _candidate_items.has(item):
+		_candidate_items.append(item)
+	if item.has_method("is_available_for_abduction") and not bool(item.call("is_available_for_abduction")):
+		return false
+	if item.has_method("begin_abduction"):
+		if not bool(item.call("begin_abduction")):
+			return false
+	else:
+		item.freeze = true
+		item.remove_from_group("pickup_items")
+	item.global_position = abduction_origin.global_position
+	item.linear_velocity = Vector3.ZERO
+	item.angular_velocity = Vector3.ZERO
+	_target_item = item
+	_signaling_character = character as CharacterBody3D
+	_automatic_request = true
+	_state = DeliveryState.CHARGING
+	_state_elapsed = 0.0
+	signal_marker.visible = true
+	interference_source.set_interference_enabled(true)
+	_prepare_ufo_approach()
+	return true
 
 
 func set_debug_lighting_enabled(enabled : bool) -> void:
@@ -88,8 +120,8 @@ func set_debug_lighting_intensity(intensity : float) -> void:
 	if _state == DeliveryState.CHARGING:
 		_update_signal_effect()
 	elif _state == DeliveryState.ABDUCTING:
-		var beam_pulse := 1.0 + sin(_state_elapsed * 7.0) * 0.05
-		var core_pulse := 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
+		var beam_pulse : float = 1.0 + sin(_state_elapsed * 7.0) * 0.05
+		var core_pulse : float = 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
 		_update_abduction_light_energy(beam_pulse, core_pulse)
 	else:
 		signal_light.light_energy = 3.2 * _debug_lighting_intensity
@@ -123,19 +155,39 @@ func _process(delta : float) -> void:
 		_state_elapsed += delta
 		_update_abduction(delta)
 		return
+	if _automatic_request and _state == DeliveryState.CHARGING:
+		_update_automatic_charge(delta)
+		return
 
 	_update_interaction_prompt(delta)
 
 
+func _update_automatic_charge(delta : float) -> void:
+	if _target_item == null or not is_instance_valid(_target_item):
+		_reset_sequence()
+		return
+
+	_state_elapsed = minf(_state_elapsed + delta, signal_hold_duration)
+	_update_signal_effect()
+	_update_ufo_approach()
+	if _state_elapsed < signal_hold_duration:
+		return
+
+	_automatic_request = false
+	signal_marker.visible = false
+	intervention_requested.emit()
+	_start_abduction()
+
+
 func _on_body_entered(body : Node3D) -> void:
 	if body is RigidBody3D and body.is_in_group("pickup_items"):
-		var item := body as RigidBody3D
+		var item : RigidBody3D = body as RigidBody3D
 		if not _candidate_items.has(item):
 			_candidate_items.append(item)
 		return
 
 	if body is CharacterBody3D and body.is_in_group("characters"):
-		var character := body as CharacterBody3D
+		var character : CharacterBody3D = body as CharacterBody3D
 		if not _nearby_characters.has(character):
 			_nearby_characters.append(character)
 
@@ -151,9 +203,9 @@ func _update_interaction_prompt(delta : float) -> void:
 	_cleanup_tracked_bodies()
 	_prompt_elapsed += delta
 
-	var available_item := _find_available_item()
-	var available_character := _find_available_character()
-	var can_signal := available_item != null and available_character != null
+	var available_item : RigidBody3D = _find_available_item()
+	var available_character : CharacterBody3D = _find_available_character()
+	var can_signal : bool = available_item != null and available_character != null
 	prompt_root.visible = can_signal
 
 	if not can_signal:
@@ -188,6 +240,7 @@ func _begin_charge(
 	item : RigidBody3D,
 	character : CharacterBody3D
 ) -> void:
+	_automatic_request = false
 	_state = DeliveryState.CHARGING
 	_state_elapsed = 0.0
 	_target_item = item
@@ -225,6 +278,7 @@ func _cancel_charge() -> void:
 	_set_character_signal_pose(false)
 	if _ufo != null and is_instance_valid(_ufo):
 		_ufo.global_position = _ufo_start_position
+	_release_ufo_movement()
 
 	_state = DeliveryState.IDLE
 	_state_elapsed = 0.0
@@ -270,7 +324,7 @@ func _find_available_item() -> RigidBody3D:
 			if not bool(item.call("is_available_for_abduction")):
 				continue
 
-		var distance := item.global_position.distance_squared_to(
+		var distance : float = item.global_position.distance_squared_to(
 			abduction_origin.global_position
 		)
 		if distance < closest_distance:
@@ -324,7 +378,7 @@ func _update_waiting_prompt() -> void:
 
 
 func _update_charge_prompt() -> void:
-	var remaining := maxf(signal_hold_duration - _state_elapsed, 0.0)
+	var remaining : float = maxf(signal_hold_duration - _state_elapsed, 0.0)
 	prompt_label.text = "SINAL DE INTERVENÇÃO  %.1f s" % remaining
 	hold_progress.value = _state_elapsed
 
@@ -347,6 +401,8 @@ func _prepare_ufo_approach() -> void:
 		return
 
 	_ufo_start_position = _ufo.global_position
+	if _ufo.has_method("begin_external_movement"):
+		_ufo.call("begin_external_movement")
 	_ufo_target_position = Vector3(
 		abduction_origin.global_position.x,
 		_ufo_start_position.y,
@@ -364,7 +420,7 @@ func _prepare_ufo_approach() -> void:
 
 
 func _update_signal_effect() -> void:
-	var pulse := 1.0 + sin(_state_elapsed * TAU * 2.0) * 0.14
+	var pulse : float = 1.0 + sin(_state_elapsed * TAU * 2.0) * 0.14
 	signal_marker.scale = Vector3.ONE * pulse
 	signal_light.light_energy = (
 		(2.4 + pulse * 0.8) * _debug_lighting_intensity
@@ -375,8 +431,8 @@ func _update_ufo_approach() -> void:
 	if _ufo == null or not is_instance_valid(_ufo):
 		return
 
-	var progress := clampf(_state_elapsed / signal_hold_duration, 0.0, 1.0)
-	var eased_progress := ease(progress, -2.0)
+	var progress : float = clampf(_state_elapsed / signal_hold_duration, 0.0, 1.0)
+	var eased_progress : float = ease(progress, -2.0)
 	_ufo.global_position = _ufo_start_position.lerp(
 		_ufo_target_position,
 		eased_progress
@@ -404,9 +460,9 @@ func _start_abduction() -> void:
 
 
 func _configure_beam() -> void:
-	var origin := abduction_origin.global_position
-	var capture_position := _get_capture_position()
-	var beam_height := maxf(capture_position.y - origin.y, 1.0)
+	var origin : Vector3 = abduction_origin.global_position
+	var capture_position : Vector3 = _get_capture_position()
+	var beam_height : float = maxf(capture_position.y - origin.y, 1.0)
 
 	beam_volume.global_position = origin + Vector3.UP * beam_height * 0.5
 	beam_volume.global_rotation = Vector3.ZERO
@@ -431,24 +487,24 @@ func _update_abduction(delta : float) -> void:
 		_reset_sequence()
 		return
 
-	var progress := clampf(_state_elapsed / abduction_duration, 0.0, 1.0)
-	var lift_progress := smoothstep(0.0, 1.0, progress)
-	var capture_position := _get_capture_position()
-	var item_position := _target_start_position.lerp(
+	var progress : float = clampf(_state_elapsed / abduction_duration, 0.0, 1.0)
+	var lift_progress : float = smoothstep(0.0, 1.0, progress)
+	var capture_position : Vector3 = _get_capture_position()
+	var item_position : Vector3 = _target_start_position.lerp(
 		capture_position,
 		lift_progress
 	)
-	var wobble_strength := sin(progress * PI) * 0.22
+	var wobble_strength : float = sin(progress * PI) * 0.22
 	item_position.x += sin(_state_elapsed * 2.4) * wobble_strength
 	item_position.z += cos(_state_elapsed * 2.1) * wobble_strength
 	_target_item.global_position = item_position
 	_target_item.rotate_y(delta * 1.8)
 	_target_item.rotate_x(delta * 0.7)
 
-	var beam_pulse := 1.0 + sin(_state_elapsed * 7.0) * 0.05
+	var beam_pulse : float = 1.0 + sin(_state_elapsed * 7.0) * 0.05
 	beam_volume.scale.x = beam_pulse
 	beam_volume.scale.z = beam_pulse
-	var core_pulse := 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
+	var core_pulse : float = 1.0 + sin(_state_elapsed * 9.0 + 0.8) * 0.08
 	beam_core.scale.x = core_pulse
 	beam_core.scale.z = core_pulse
 	_update_abduction_light_energy(beam_pulse, core_pulse)
@@ -497,8 +553,10 @@ func _finish_delivery() -> void:
 
 func _reset_sequence() -> void:
 	_set_character_signal_pose(false)
+	_release_ufo_movement()
 	_state = DeliveryState.IDLE
 	_state_elapsed = 0.0
+	_automatic_request = false
 	_signaling_character = null
 	signal_marker.visible = false
 	signal_marker.scale = Vector3.ONE
@@ -506,6 +564,13 @@ func _reset_sequence() -> void:
 	interference_source.set_interference_enabled(false)
 	prompt_root.visible = false
 	hold_progress.value = 0.0
+
+
+func _release_ufo_movement() -> void:
+	if _ufo == null or not is_instance_valid(_ufo):
+		return
+	if _ufo.has_method("end_external_movement"):
+		_ufo.call("end_external_movement")
 
 
 func _cleanup_tracked_bodies() -> void:

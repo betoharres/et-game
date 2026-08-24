@@ -214,7 +214,7 @@ const QUALITY_PRESETS : Array[Dictionary] = [
 @onready var ground_fog : FogVolume = $GroundFog
 @onready var ground_fog_layer : GroundFogLayer = $GroundFogLayer
 
-var _rng := RandomNumberGenerator.new()
+var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _sky_material : ShaderMaterial
 var _base_moon_energy : float = 0.0
 var _base_background_energy : float = 1.0
@@ -269,7 +269,7 @@ func _process(delta : float) -> void:
 
 ## Troca o preset em runtime (menu de debug, opcoes ou eventos de script).
 func set_quality_preset(level : int) -> void:
-	var clamped := clampi(level, QualityLevel.LOW, QualityLevel.HIGH)
+	var clamped : int = clampi(level, QualityLevel.LOW, QualityLevel.HIGH)
 	if clamped == quality_level:
 		return
 	quality_level = clamped
@@ -296,7 +296,7 @@ func _current_preset() -> Dictionary:
 
 
 func _apply_inspector_settings() -> void:
-	var normalized_moon_direction := moon_direction.normalized()
+	var normalized_moon_direction : Vector3 = moon_direction.normalized()
 	if normalized_moon_direction.is_zero_approx():
 		normalized_moon_direction = Vector3(0.48, 0.34, 0.81).normalized()
 
@@ -326,11 +326,11 @@ func _apply_inspector_settings() -> void:
 ## Reaplica densidade, cor e scattering a partir do preset, do slider de debug
 ## e da intensidade alienigena atual.
 func _apply_fog_values() -> void:
-	var preset := _current_preset()
-	var alien := _alien_fog_current
-	var alien_tint := fog_color.lerp(alien_fog_color, alien * 0.5)
+	var preset : Dictionary = _current_preset()
+	var alien : float = _alien_fog_current
+	var alien_tint : Color = fog_color.lerp(alien_fog_color, alien * 0.5)
 
-	var fog_material := ground_fog.material as FogMaterial
+	var fog_material : FogMaterial = ground_fog.material as FogMaterial
 	if fog_material != null:
 		fog_material.albedo = alien_tint
 		fog_material.density = (
@@ -339,7 +339,7 @@ func _apply_fog_values() -> void:
 			* (1.0 + alien * alien_fog_density_boost)
 		)
 
-	var environment := world_environment.environment
+	var environment : Environment = world_environment.environment
 	if environment == null:
 		return
 
@@ -357,13 +357,13 @@ func _apply_fog_values() -> void:
 	# Em modo Depth a "densidade" e distancia: quanto menor o alcance, mais
 	# fechada a nevoa. O preset e o slider de debug encurtam o alcance, e o
 	# evento alienigena tambem aproxima a parede de nevoa.
-	var depth_scale := (
+	var depth_scale : float = (
 		float(preset.get("fog_depth_scale", 1.0))
 		/ maxf(_fog_debug_intensity, 0.05)
 		/ (1.0 + alien * alien_fog_density_boost * 0.45)
 	)
-	var begin := lerpf(fog_depth_begin, flight_fog_depth_begin, _fog_profile_blend)
-	var end := lerpf(fog_depth_end, flight_fog_depth_end, _fog_profile_blend)
+	var begin : float = lerpf(fog_depth_begin, flight_fog_depth_begin, _fog_profile_blend)
+	var end : float = lerpf(fog_depth_end, flight_fog_depth_end, _fog_profile_blend)
 	environment.fog_depth_begin = begin * depth_scale
 	environment.fog_depth_end = maxf(
 		environment.fog_depth_begin + 1.0,
@@ -397,10 +397,10 @@ func _apply_fog_values() -> void:
 
 
 func _apply_quality_level() -> void:
-	var preset := _current_preset()
-	var use_particles := particles_enabled and bool(preset.get("particles", true))
-	var use_ground_fog := ground_fog_enabled and _fog_debug_enabled
-	var use_fog_volume := (
+	var preset : Dictionary = _current_preset()
+	var use_particles : bool = particles_enabled and bool(preset.get("particles", true))
+	var use_ground_fog : bool = ground_fog_enabled and _fog_debug_enabled
+	var use_fog_volume : bool = (
 		use_ground_fog and bool(preset.get("fog_volume_enabled", false))
 	)
 
@@ -425,11 +425,11 @@ func _apply_quality_level() -> void:
 
 
 func _apply_volumetric_fog(preset : Dictionary) -> void:
-	var environment := world_environment.environment
+	var environment : Environment = world_environment.environment
 	if environment == null:
 		return
 
-	var use_volumetric := (
+	var use_volumetric : bool = (
 		bool(preset.get("volumetric_enabled", false)) and _fog_debug_enabled
 	)
 	environment.volumetric_fog_enabled = use_volumetric
@@ -456,12 +456,12 @@ func _refresh_light_volumetrics() -> void:
 	if scene_root == null:
 		return
 
-	var preset := _current_preset()
-	var allow_all := bool(preset.get("non_alien_volumetric_lights", true))
+	var preset : Dictionary = _current_preset()
+	var allow_all : bool = bool(preset.get("non_alien_volumetric_lights", true))
 	_alien_lights.clear()
 
 	for node : Node in scene_root.find_children("*", "Light3D", true, false):
-		var light := node as Light3D
+		var light : Light3D = node as Light3D
 		if light == null:
 			continue
 
@@ -471,10 +471,10 @@ func _refresh_light_volumetrics() -> void:
 		)
 		light.set_meta(BASE_FOG_ENERGY_META, base_energy)
 
-		var is_alien := light.is_in_group(ALIEN_LIGHT_GROUP)
+		var is_alien : bool = light.is_in_group(ALIEN_LIGHT_GROUP)
 		if is_alien:
 			_alien_lights.append(light)
-		var allowed := allow_all or is_alien or light.is_in_group(
+		var allowed : bool = allow_all or is_alien or light.is_in_group(
 			VOLUMETRIC_LIGHT_GROUP
 		)
 		light.light_volumetric_fog_energy = base_energy if allowed else 0.0
@@ -504,11 +504,11 @@ func get_fog_profile() -> int:
 
 
 func _update_fog_profile(delta : float) -> void:
-	var target := 1.0 if _fog_profile == FogProfile.FLIGHT else 0.0
+	var target : float = 1.0 if _fog_profile == FogProfile.FLIGHT else 0.0
 	if is_equal_approx(_fog_profile_blend, target):
 		return
 
-	var weight := 1.0 - exp(-fog_profile_response * delta)
+	var weight : float = 1.0 - exp(-fog_profile_response * delta)
 	_fog_profile_blend = lerpf(_fog_profile_blend, target, weight)
 	if absf(_fog_profile_blend - target) < 0.002:
 		_fog_profile_blend = target
@@ -520,7 +520,7 @@ func _update_alien_fog(delta : float) -> void:
 	if is_equal_approx(_alien_fog_current, _alien_fog_target):
 		return
 
-	var weight := 1.0 - exp(-alien_fog_response * delta)
+	var weight : float = 1.0 - exp(-alien_fog_response * delta)
 	_alien_fog_current = lerpf(_alien_fog_current, _alien_fog_target, weight)
 	if absf(_alien_fog_current - _alien_fog_target) < 0.002:
 		_alien_fog_current = _alien_fog_target
@@ -565,7 +565,7 @@ func get_debug_moon_intensity() -> float:
 
 func set_debug_sky_enabled(enabled : bool) -> void:
 	_sky_debug_enabled = enabled
-	var environment := world_environment.environment
+	var environment : Environment = world_environment.environment
 	if environment != null:
 		environment.background_energy_multiplier = (
 			_base_background_energy * _sky_debug_intensity if enabled else 0.0
@@ -587,7 +587,7 @@ func get_debug_sky_intensity() -> float:
 
 func set_debug_ambient_enabled(enabled : bool) -> void:
 	_ambient_debug_enabled = enabled
-	var environment := world_environment.environment
+	var environment : Environment = world_environment.environment
 	if environment != null:
 		environment.ambient_light_energy = (
 			_base_ambient_energy * _ambient_debug_intensity if enabled else 0.0
@@ -635,20 +635,20 @@ func _notify_ufo_quality(particles_allowed : bool) -> void:
 
 
 func _update_cloud_shadow() -> void:
-	var slow_cloud := sin(_elapsed * cloud_speed * 2.1 + 0.8) * 0.55
-	var broad_cloud := sin(_elapsed * cloud_speed * 0.73 + 2.4) * 0.45
-	var cloud_cover := smoothstep(0.35, 0.92, slow_cloud + broad_cloud)
+	var slow_cloud : float = sin(_elapsed * cloud_speed * 2.1 + 0.8) * 0.55
+	var broad_cloud : float = sin(_elapsed * cloud_speed * 0.73 + 2.4) * 0.45
+	var cloud_cover : float = smoothstep(0.35, 0.92, slow_cloud + broad_cloud)
 	moon_light.light_energy = _base_moon_energy * _moon_debug_intensity * (
 		1.0 - cloud_cover * cloud_shadow_strength
 	)
 
 
 func _update_ground_atmosphere() -> void:
-	var camera := get_viewport().get_camera_3d()
+	var camera : Camera3D = get_viewport().get_camera_3d()
 	if camera == null:
 		return
 
-	var camera_position := camera.global_position
+	var camera_position : Vector3 = camera.global_position
 	if atmospheric_particles.visible:
 		atmospheric_particles.global_position = Vector3(
 			camera_position.x,
@@ -659,7 +659,7 @@ func _update_ground_atmosphere() -> void:
 	if not ground_fog.visible:
 		return
 
-	var fog_offset := Vector3(
+	var fog_offset : Vector3 = Vector3(
 		sin(_elapsed * fog_drift_speed * 0.11) * 10.0,
 		2.2,
 		cos(_elapsed * fog_drift_speed * 0.08) * 8.0
@@ -684,7 +684,7 @@ func _update_shooting_stars(delta : float) -> void:
 
 
 func _emit_shooting_star() -> void:
-	var camera := get_viewport().get_camera_3d()
+	var camera : Camera3D = get_viewport().get_camera_3d()
 	if camera == null:
 		return
 
@@ -699,6 +699,6 @@ func _emit_shooting_star() -> void:
 
 
 func _schedule_shooting_star() -> void:
-	var minimum := minf(shooting_star_interval_min, shooting_star_interval_max)
-	var maximum := maxf(shooting_star_interval_min, shooting_star_interval_max)
+	var minimum : float = minf(shooting_star_interval_min, shooting_star_interval_max)
+	var maximum : float = maxf(shooting_star_interval_min, shooting_star_interval_max)
 	_shooting_star_timer = _rng.randf_range(minimum, maximum)

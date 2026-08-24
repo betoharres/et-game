@@ -8,17 +8,17 @@ func _init() -> void:
 
 
 func run() -> void:
-	var packed := load("res://scenes/Player.tscn") as PackedScene
-	var player := packed.instantiate() as CharacterBody3D
+	var packed : PackedScene = load("res://scenes/Player.tscn") as PackedScene
+	var player : CharacterBody3D = packed.instantiate() as CharacterBody3D
 	root.add_child(player)
 	await process_frame
 	player.set_physics_process(false)
 
-	var controller := player.get_node(
+	var controller : PlayerAnimationController = player.get_node(
 		"PlayerAnimationController"
 	) as PlayerAnimationController
-	var tree := player.get_node("AnimationTree") as AnimationTree
-	var animation_player := player.get_node("ET/AnimationPlayer") as AnimationPlayer
+	var tree : AnimationTree = player.get_node("AnimationTree") as AnimationTree
+	var animation_player : AnimationPlayer = player.get_node("ET/AnimationPlayer") as AnimationPlayer
 
 	await physics_frame
 	check(
@@ -92,7 +92,7 @@ func run() -> void:
 
 	controller.set_ragdoll_active(true)
 	check(not tree.active, "Ragdoll disables AnimationTree")
-	var get_up_duration := controller.begin_get_up(true)
+	var get_up_duration : float = controller.begin_get_up(true)
 	check(tree.active, "Get up enables AnimationTree")
 	check(controller.get_current_state() == &"GetUpBack", "Get up")
 	check(not controller.is_get_up_ready_for_control(), "Get up starts locked")
@@ -112,8 +112,8 @@ func run() -> void:
 		"Get up releases control during standing tail"
 	)
 	controller.finish_get_up()
-	var front_duration := controller.begin_get_up(false)
-	var front_initial_speed := animation_player.speed_scale
+	var front_duration : float = controller.begin_get_up(false)
+	var front_initial_speed : float = animation_player.speed_scale
 	controller._physics_process(front_duration * 0.24)
 	check(
 		animation_player.speed_scale < front_initial_speed,
@@ -139,7 +139,7 @@ func check(condition : bool, label : String) -> void:
 
 func looping_animations_are_in_place(animation_player : AnimationPlayer) -> bool:
 	for animation_name : StringName in PlayerAnimationController.LOOPING_ANIMATIONS:
-		var animation := animation_player.get_animation(animation_name)
+		var animation : Animation = animation_player.get_animation(animation_name)
 		if animation == null:
 			return false
 		for track_index : int in animation.get_track_count():
@@ -149,9 +149,9 @@ func looping_animations_are_in_place(animation_player : AnimationPlayer) -> bool
 				":mixamorig_Hips"
 			):
 				continue
-			var first := animation.track_get_key_value(track_index, 0) as Vector3
+			var first : Vector3 = animation.track_get_key_value(track_index, 0) as Vector3
 			for key_index : int in animation.track_get_key_count(track_index):
-				var value := animation.track_get_key_value(
+				var value : Vector3 = animation.track_get_key_value(
 					track_index,
 					key_index
 				) as Vector3
@@ -172,7 +172,7 @@ func turn_clips_have_no_root_yaw(animation_player : AnimationPlayer) -> bool:
 		&"run_turn_180",
 		&"run_turn_right",
 	]:
-		var animation := animation_player.get_animation(animation_name)
+		var animation : Animation = animation_player.get_animation(animation_name)
 		if animation == null:
 			return false
 		for track_index : int in animation.get_track_count():
@@ -182,8 +182,8 @@ func turn_clips_have_no_root_yaw(animation_player : AnimationPlayer) -> bool:
 				":mixamorig_Hips"
 			):
 				continue
-			var start := animation.rotation_track_interpolate(track_index, 0.0)
-			var finish := animation.rotation_track_interpolate(
+			var start : Quaternion = animation.rotation_track_interpolate(track_index, 0.0)
+			var finish : Quaternion = animation.rotation_track_interpolate(
 				track_index,
 				animation.length
 			)

@@ -14,11 +14,11 @@ func _init() -> void:
 
 
 func _run() -> void:
-	var environment_node := (
+	var environment_node : Node = (
 		load("res://scenes/NightEnvironment.tscn") as PackedScene
 	).instantiate()
 	root.add_child(environment_node)
-	var camera := Camera3D.new()
+	var camera : Camera3D = Camera3D.new()
 	root.add_child(camera)
 	camera.make_current()
 	await process_frame
@@ -51,7 +51,7 @@ func _run() -> void:
 		"As camadas de nevoa ficam rentes ao chao"
 	)
 
-	var previous_reach := 0.0
+	var previous_reach : float = 0.0
 	for preset : int in [0, 1, 2]:
 		environment_node.call("set_quality_preset", preset)
 		await process_frame
@@ -69,7 +69,7 @@ func _run() -> void:
 			bool(fog_layer.call("is_fog_enabled")) and _visible_layers(fog_layer) >= 1,
 			"%s mantem a nevoa rasteira" % label
 		)
-		var reach := float(_shader_value(fog_layer, "far_fade_end"))
+		var reach : float = float(_shader_value(fog_layer, "far_fade_end"))
 		_check(reach > previous_reach, "%s amplia o alcance da nevoa" % label)
 		previous_reach = reach
 
@@ -110,10 +110,10 @@ func _run() -> void:
 	)
 
 	# Selecao de luzes: continua valendo se a volumetria for religada.
-	var free_light := OmniLight3D.new()
+	var free_light : OmniLight3D = OmniLight3D.new()
 	free_light.light_volumetric_fog_energy = 0.5
 	root.add_child(free_light)
-	var beam_light := SpotLight3D.new()
+	var beam_light : SpotLight3D = SpotLight3D.new()
 	beam_light.light_volumetric_fog_energy = 1.0
 	beam_light.add_to_group("volumetric_lights")
 	beam_light.add_to_group("alien_volumetric_lights")
@@ -140,7 +140,7 @@ func _run() -> void:
 	# Evento alienigena: transicao suave, nao instantanea.
 	environment_node.call("set_alien_fog_intensity", 1.0)
 	await process_frame
-	var first_step := float(environment_node.call("get_alien_fog_intensity"))
+	var first_step : float = float(environment_node.call("get_alien_fog_intensity"))
 	_check(
 		first_step > 0.0 and first_step < 0.9,
 		"A atmosfera alienigena entra de forma gradual"
@@ -188,9 +188,9 @@ func _run() -> void:
 		"res://scenes/WheatField.tscn",
 		"res://scenes/SunflowersPatch.tscn",
 	]:
-		var field := (load(scene_path) as PackedScene).instantiate()
+		var field : Node = (load(scene_path) as PackedScene).instantiate()
 		root.add_child(field)
-		var zone := field.get_node_or_null("FogZone")
+		var zone : Node = field.get_node_or_null("FogZone")
 		_check(
 			zone != null and zone.is_in_group("fog_zones"),
 			"Zona de nevoa configurada em %s" % scene_path.get_file()
@@ -208,14 +208,14 @@ func _run() -> void:
 
 func _fog_material(fog_layer : Node3D) -> ShaderMaterial:
 	for child : Node in fog_layer.get_children():
-		var layer := child as MeshInstance3D
+		var layer : MeshInstance3D = child as MeshInstance3D
 		if layer != null:
 			return layer.get_active_material(0) as ShaderMaterial
 	return null
 
 
 func _shader_value(fog_layer : Node3D, parameter : StringName) -> float:
-	var material := _fog_material(fog_layer)
+	var material : ShaderMaterial = _fog_material(fog_layer)
 	if material == null:
 		return 0.0
 	var stored : Variant = material.get_shader_parameter(parameter)
@@ -223,18 +223,18 @@ func _shader_value(fog_layer : Node3D, parameter : StringName) -> float:
 
 
 func _max_layer_height(fog_layer : Node3D) -> float:
-	var highest := 0.0
+	var highest : float = 0.0
 	for child : Node in fog_layer.get_children():
-		var layer := child as MeshInstance3D
+		var layer : MeshInstance3D = child as MeshInstance3D
 		if layer != null:
 			highest = maxf(highest, layer.position.y)
 	return highest
 
 
 func _visible_layers(fog_layer : Node3D) -> int:
-	var count := 0
+	var count : int = 0
 	for child : Node in fog_layer.get_children():
-		var layer := child as MeshInstance3D
+		var layer : MeshInstance3D = child as MeshInstance3D
 		if layer != null and layer.visible:
 			count += 1
 	return count
@@ -242,7 +242,7 @@ func _visible_layers(fog_layer : Node3D) -> int:
 
 ## Espera a transicao de perfil de nevoa estabilizar, com teto de frames.
 func _settle_fog(environment : Environment) -> void:
-	var previous := environment.fog_depth_end
+	var previous : float = environment.fog_depth_end
 	for i in 2000:
 		await process_frame
 		if absf(environment.fog_depth_end - previous) < 0.01:
