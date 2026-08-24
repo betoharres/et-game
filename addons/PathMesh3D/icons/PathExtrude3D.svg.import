@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/PathExtrude3D.svg-d52ee0a8b6d6a0e2a8770d67225
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
