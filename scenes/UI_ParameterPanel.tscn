@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://1vapxkt45fh8"]
 
-[ext_resource type="Script" path="res://Scripts/UI_ParameterPanel.gd" id="1_panelscript"]
+[ext_resource type="Script" uid="uid://ibo0g5jrcc7g" path="res://scripts/UI_ParameterPanel.gd" id="1_8h21k"]
 
 [sub_resource type="StyleBoxFlat" id="Panel_bg"]
 content_margin_left = 12.0
@@ -18,7 +18,9 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="UI_ParameterPanel" type="Control"]
+[node name="UI_ParameterPanel" type="Control" unique_id=63183224]
+layout_mode = 3
+anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = 110.0
@@ -26,44 +28,43 @@ offset_right = 360.0
 offset_bottom = -16.0
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_panelscript")
+script = ExtResource("1_8h21k")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=231166684]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 theme_override_styles/panel = SubResource("Panel_bg")
 
-[node name="Layout" type="VBoxContainer" parent="Panel"]
+[node name="Layout" type="VBoxContainer" parent="Panel" unique_id=1078779198]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="Panel/Layout"]
+[node name="Title" type="Label" parent="Panel/Layout" unique_id=1695454340]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "Water Parameters"
 
-[node name="Hint" type="Label" parent="Panel/Layout"]
+[node name="Hint" type="Label" parent="Panel/Layout" unique_id=1098324492]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
 text = "H - hide / show this panel"
 
-[node name="SurfaceRow" type="HBoxContainer" parent="Panel/Layout"]
+[node name="SurfaceRow" type="HBoxContainer" parent="Panel/Layout" unique_id=570276748]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="SurfaceLabel" type="Label" parent="Panel/Layout/SurfaceRow"]
+[node name="SurfaceLabel" type="Label" parent="Panel/Layout/SurfaceRow" unique_id=552554964]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Surface"
 
-[node name="SurfaceSelector" type="OptionButton" parent="Panel/Layout/SurfaceRow"]
+[node name="SurfaceSelector" type="OptionButton" parent="Panel/Layout/SurfaceRow" unique_id=768338059]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
@@ -76,39 +77,39 @@ popup/item_1/id = 1
 popup/item_2/text = "Rect Pool - Deep Blue"
 popup/item_2/id = 2
 
-[node name="Separator" type="HSeparator" parent="Panel/Layout"]
+[node name="Separator" type="HSeparator" parent="Panel/Layout" unique_id=1311025200]
 layout_mode = 2
 
-[node name="Scroll" type="ScrollContainer" parent="Panel/Layout"]
+[node name="Scroll" type="ScrollContainer" parent="Panel/Layout" unique_id=844065263]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Params" type="VBoxContainer" parent="Panel/Layout/Scroll"]
+[node name="Params" type="VBoxContainer" parent="Panel/Layout/Scroll" unique_id=951213295]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="Group1" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group1" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=784513532]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "COLORS AND DEPTH"
 
-[node name="water_depth" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="water_depth" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=617845452]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/water_depth"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/water_depth" unique_id=1058731188]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/water_depth/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/water_depth/Header" unique_id=978997512]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Water Depth"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/water_depth/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/water_depth/Header" unique_id=2000390529]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -116,7 +117,7 @@ theme_override_font_sizes/font_size = 12
 text = "3.00"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/water_depth"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/water_depth" unique_id=2047808904]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 min_value = 0.1
@@ -124,20 +125,20 @@ max_value = 20.0
 step = 0.05
 value = 3.0
 
-[node name="color_bands" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="color_bands" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1763214098]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/color_bands"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/color_bands" unique_id=823529690]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/color_bands/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/color_bands/Header" unique_id=1965187511]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Color Bands"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/color_bands/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/color_bands/Header" unique_id=696245604]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -145,28 +146,27 @@ theme_override_font_sizes/font_size = 12
 text = "3"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/color_bands"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/color_bands" unique_id=924704132]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 min_value = 1.0
 max_value = 8.0
-step = 1.0
 value = 3.0
 
-[node name="shore_glow_width" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="shore_glow_width" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=963805897]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/shore_glow_width"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/shore_glow_width" unique_id=945694358]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/shore_glow_width/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/shore_glow_width/Header" unique_id=278036698]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Shore Glow Width"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/shore_glow_width/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/shore_glow_width/Header" unique_id=1481760403]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -174,34 +174,33 @@ theme_override_font_sizes/font_size = 12
 text = "0.150"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/shore_glow_width"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/shore_glow_width" unique_id=1681943057]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.75
 step = 0.005
 value = 0.15
 
-[node name="Group2" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group2" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=653072402]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "LIGHTING AND TOON"
 
-[node name="specular_size" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="specular_size" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=2047923111]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_size"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_size" unique_id=607580588]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_size/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_size/Header" unique_id=1955864236]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Specular Size"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_size/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_size/Header" unique_id=1898760589]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -209,7 +208,7 @@ theme_override_font_sizes/font_size = 12
 text = "24.00"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_size"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_size" unique_id=1830206355]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 min_value = 5.0
@@ -217,20 +216,20 @@ max_value = 60.0
 step = 0.5
 value = 24.0
 
-[node name="specular_softness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="specular_softness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=620261945]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_softness"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_softness" unique_id=1495779074]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_softness/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_softness/Header" unique_id=1273242038]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Specular Softness"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_softness/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_softness/Header" unique_id=1610313539]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -238,28 +237,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.25"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_softness"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_softness" unique_id=467747320]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.25
 
-[node name="specular_hardness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="specular_hardness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=2036980331]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_hardness"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_hardness" unique_id=628962929]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_hardness/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_hardness/Header" unique_id=342976023]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Specular Hardness"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_hardness/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_hardness/Header" unique_id=1704307576]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -267,28 +265,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.85"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_hardness"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_hardness" unique_id=176712002]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.85
 
-[node name="specular_intensity" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="specular_intensity" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=347194841]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_intensity"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/specular_intensity" unique_id=1919011633]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_intensity/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/specular_intensity/Header" unique_id=361703121]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Specular Intensity"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_intensity/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/specular_intensity/Header" unique_id=1488158249]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -296,28 +293,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_intensity"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/specular_intensity" unique_id=1968234953]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.5
 
-[node name="fresnel_power" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="fresnel_power" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=322494472]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/fresnel_power"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/fresnel_power" unique_id=1897043037]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/fresnel_power/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/fresnel_power/Header" unique_id=1801625234]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Fresnel Power"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/fresnel_power/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/fresnel_power/Header" unique_id=1377818382]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -325,28 +321,27 @@ theme_override_font_sizes/font_size = 12
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/fresnel_power"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/fresnel_power" unique_id=1985107329]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 3.0
 step = 0.01
 value = 1.0
 
-[node name="refraction_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="refraction_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=694541407]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/refraction_strength"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/refraction_strength" unique_id=201546667]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/refraction_strength/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/refraction_strength/Header" unique_id=1767677285]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Refraction Strength"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/refraction_strength/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/refraction_strength/Header" unique_id=150307623]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -354,30 +349,29 @@ theme_override_font_sizes/font_size = 12
 text = "0.020"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/refraction_strength"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/refraction_strength" unique_id=1373314508]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.1
 step = 0.001
 value = 0.02
 
-[node name="Group3" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group3" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=1773874587]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "FOAM AND SHORE"
 
-[node name="foam_style" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_style" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1815654409]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_style"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_style" unique_id=87776654]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Foam Style"
 
-[node name="Options" type="OptionButton" parent="Panel/Layout/Scroll/Params/foam_style"]
+[node name="Options" type="OptionButton" parent="Panel/Layout/Scroll/Params/foam_style" unique_id=51084325]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 selected = 4
@@ -393,20 +387,20 @@ popup/item_3/id = 3
 popup/item_4/text = "Cellular"
 popup/item_4/id = 4
 
-[node name="foam_tiling" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_tiling" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1861154945]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_tiling"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_tiling" unique_id=1336300895]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_tiling/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_tiling/Header" unique_id=613556561]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Tiling"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_tiling/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_tiling/Header" unique_id=1125120870]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -414,28 +408,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.020"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_tiling"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_tiling" unique_id=1824131511]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.1
 step = 0.001
 value = 0.02
 
-[node name="foam_cutoff" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_cutoff" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1444482273]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_cutoff"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_cutoff" unique_id=83540483]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_cutoff/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_cutoff/Header" unique_id=1715424699]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Cutoff"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_cutoff/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_cutoff/Header" unique_id=1389659066]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -443,28 +436,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_cutoff"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_cutoff" unique_id=542396018]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.5
 
-[node name="foam_depth" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_depth" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=34945511]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_depth"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_depth" unique_id=313623036]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_depth/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_depth/Header" unique_id=1862038040]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Depth"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_depth/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_depth/Header" unique_id=2137148493]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -472,28 +464,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_depth"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_depth" unique_id=2027007822]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 2.0
 step = 0.01
 value = 0.5
 
-[node name="foam_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=915736094]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_speed"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_speed" unique_id=1951040189]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_speed/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_speed/Header" unique_id=1018144143]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Speed"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_speed/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_speed/Header" unique_id=501221521]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -501,28 +492,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.400"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_speed"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_speed" unique_id=622607467]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.6
 step = 0.005
 value = 0.4
 
-[node name="foam_edge_break" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_edge_break" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=27383334]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_edge_break"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_edge_break" unique_id=1964504591]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_edge_break/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_edge_break/Header" unique_id=1947171914]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Edge Break"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_edge_break/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_edge_break/Header" unique_id=1684210212]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -530,28 +520,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.60"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_edge_break"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_edge_break" unique_id=1176893469]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.6
 
-[node name="shore_edge_break" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="shore_edge_break" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=600999057]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/shore_edge_break"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/shore_edge_break" unique_id=334715775]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/shore_edge_break/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/shore_edge_break/Header" unique_id=653092678]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Shore Edge Break"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/shore_edge_break/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/shore_edge_break/Header" unique_id=391311348]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -559,28 +548,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.250"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/shore_edge_break"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/shore_edge_break" unique_id=712639946]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.6
 step = 0.005
 value = 0.25
 
-[node name="foam_hardness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_hardness" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1416059346]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_hardness"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_hardness" unique_id=1031848188]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_hardness/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_hardness/Header" unique_id=1189328108]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Hardness"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_hardness/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_hardness/Header" unique_id=2009185318]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -588,28 +576,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.80"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_hardness"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_hardness" unique_id=149719564]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.8
 
-[node name="foam_overlay" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="foam_overlay" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=235920368]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_overlay"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/foam_overlay" unique_id=1198585849]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_overlay/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/foam_overlay/Header" unique_id=366162042]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Foam Overlay"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_overlay/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/foam_overlay/Header" unique_id=1215216385]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -617,34 +604,32 @@ theme_override_font_sizes/font_size = 12
 text = "0.00"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_overlay"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/foam_overlay" unique_id=826400406]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
-value = 0.0
 
-[node name="Group4" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group4" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=125496006]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "CAUSTICS"
 
-[node name="caustics_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="caustics_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=175341900]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_strength"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_strength" unique_id=16285732]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_strength/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_strength/Header" unique_id=1229997021]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Caustics Strength"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_strength/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_strength/Header" unique_id=1264653703]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -652,28 +637,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.250"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_strength"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_strength" unique_id=263891444]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.5
 step = 0.005
 value = 0.25
 
-[node name="caustics_scale" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="caustics_scale" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1845274294]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_scale"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_scale" unique_id=1321589538]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_scale/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_scale/Header" unique_id=1504176455]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Caustics Scale"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_scale/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_scale/Header" unique_id=817260100]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -681,28 +665,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.050"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_scale"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_scale" unique_id=2037741874]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.1
 step = 0.001
 value = 0.05
 
-[node name="caustics_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="caustics_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=338459270]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_speed"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/caustics_speed" unique_id=118723144]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_speed/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/caustics_speed/Header" unique_id=1520591994]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Caustics Speed"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_speed/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/caustics_speed/Header" unique_id=662831552]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -710,40 +693,39 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_speed"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/caustics_speed" unique_id=775646554]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.2
 step = 0.01
 value = 0.5
 
-[node name="chromatic_aberration" type="CheckBox" parent="Panel/Layout/Scroll/Params"]
+[node name="chromatic_aberration" type="CheckBox" parent="Panel/Layout/Scroll/Params" unique_id=1899104978]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 button_pressed = true
 text = "Chromatic Aberration"
 
-[node name="Group5" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group5" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=2108322146]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "SPARKLE"
 
-[node name="sparkle_boost" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="sparkle_boost" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1588640876]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_boost"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_boost" unique_id=321330835]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_boost/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_boost/Header" unique_id=1790531902]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Sparkle Boost"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_boost/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_boost/Header" unique_id=1827290502]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -751,28 +733,26 @@ theme_override_font_sizes/font_size = 12
 text = "0.00"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_boost"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_boost" unique_id=1852788071]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
-value = 0.0
 
-[node name="sparkle_density" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="sparkle_density" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=285574767]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_density"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_density" unique_id=1467184495]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_density/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_density/Header" unique_id=1663528484]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Sparkle Density"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_density/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_density/Header" unique_id=1071062102]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -780,28 +760,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_density"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_density" unique_id=250794734]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.5
 
-[node name="sparkle_size" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="sparkle_size" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=1805235114]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_size"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/sparkle_size" unique_id=39045015]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_size/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_size/Header" unique_id=1854224568]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Sparkle Size"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_size/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/sparkle_size/Header" unique_id=461956270]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -809,34 +788,33 @@ theme_override_font_sizes/font_size = 12
 text = "0.35"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_size"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/sparkle_size" unique_id=345058494]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 1.0
 step = 0.01
 value = 0.35
 
-[node name="Group6" type="Label" parent="Panel/Layout/Scroll/Params"]
+[node name="Group6" type="Label" parent="Panel/Layout/Scroll/Params" unique_id=74882836]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "WAVES GEOMETRY"
 
-[node name="normal_tiling" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="normal_tiling" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=737204801]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/normal_tiling"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/normal_tiling" unique_id=2035010732]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/normal_tiling/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/normal_tiling/Header" unique_id=1807787011]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Normal Tiling"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/normal_tiling/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/normal_tiling/Header" unique_id=629322491]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -844,28 +822,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.080"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/normal_tiling"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/normal_tiling" unique_id=299007357]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.15
 step = 0.001
 value = 0.08
 
-[node name="normal_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="normal_strength" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=37341654]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/normal_strength"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/normal_strength" unique_id=407331433]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/normal_strength/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/normal_strength/Header" unique_id=860068650]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Normal Strength"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/normal_strength/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/normal_strength/Header" unique_id=865030141]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -873,28 +850,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.50"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/normal_strength"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/normal_strength" unique_id=463789157]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 2.0
 step = 0.01
 value = 0.5
 
-[node name="wave_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="wave_speed" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=208551575]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/wave_speed"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/wave_speed" unique_id=111745843]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/wave_speed/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/wave_speed/Header" unique_id=944538132]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Wave Speed"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/wave_speed/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/wave_speed/Header" unique_id=109858852]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -902,28 +878,27 @@ theme_override_font_sizes/font_size = 12
 text = "0.050"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/wave_speed"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/wave_speed" unique_id=488899963]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.2
 step = 0.001
 value = 0.05
 
-[node name="wave_height" type="VBoxContainer" parent="Panel/Layout/Scroll/Params"]
+[node name="wave_height" type="VBoxContainer" parent="Panel/Layout/Scroll/Params" unique_id=221196962]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/wave_height"]
+[node name="Header" type="HBoxContainer" parent="Panel/Layout/Scroll/Params/wave_height" unique_id=358118570]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/wave_height/Header"]
+[node name="Name" type="Label" parent="Panel/Layout/Scroll/Params/wave_height/Header" unique_id=1509337864]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Wave Height"
 
-[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/wave_height/Header"]
+[node name="Value" type="Label" parent="Panel/Layout/Scroll/Params/wave_height/Header" unique_id=1612007137]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.88, 1, 1)
@@ -931,11 +906,9 @@ theme_override_font_sizes/font_size = 12
 text = "0.040"
 horizontal_alignment = 2
 
-[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/wave_height"]
+[node name="Slider" type="HSlider" parent="Panel/Layout/Scroll/Params/wave_height" unique_id=1662248832]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-min_value = 0.0
 max_value = 0.3
 step = 0.005
 value = 0.04
-

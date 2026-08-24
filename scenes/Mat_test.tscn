@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://bv03xyxqppa8p" path="res://scenes/SM_Prop_Doghouse_01.tscn" id="14_0msnc"]
 [ext_resource type="ArrayMesh" uid="uid://bbd13s5r83gdq" path="res://3dModelos/SM_Bld_House_Door.res" id="16_clpg8"]
 [ext_resource type="PackedScene" uid="uid://dhy2th4yxy1hj" path="res://scenes/Gnomes.tscn" id="16_t2jpa"]
-[ext_resource type="ArrayMesh" uid="uid://c70sjsbgrl6hy" path="res://Meshes/ea_terrain.res" id="18_rk8kq"]
-[ext_resource type="Material" path="res://Materiais/ea_water_lagoon.tres" id="19_t2jpa"]
+[ext_resource type="ArrayMesh" uid="uid://c70sjsbgrl6hy" path="res://3dModelos/ea_terrain.res" id="18_rk8kq"]
+[ext_resource type="Material" uid="uid://b68kq8pe844wp" path="res://Materiais/ea_water_lagoon.tres" id="19_t2jpa"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_emb0l"]
 size = Vector2(16, 16)
