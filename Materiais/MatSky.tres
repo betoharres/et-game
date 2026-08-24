@@ -1,0 +1,16 @@
+[gd_resource type="Environment" format=3 uid="uid://dg7eggtyv4hn3"]
+
+[ext_resource type="Sky" uid="uid://ddcptrnfj6oac" path="res://Materiais/MatSkyProc.tres" id="1_kjxih"]
+
+[resource]
+background_mode = 2
+sky = ExtResource("1_kjxih")
+ambient_light_source = 3
+reflected_light_source = 1
+ssao_enabled = true
+ssao_radius = 10.89
+ssao_intensity = 4.47
+ssao_detail = 2.36
+ssao_horizon = 0.26
+ssao_sharpness = 1.0
+ssao_light_affect = 0.06
