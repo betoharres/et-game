@@ -18,4 +18,5 @@ mono_crash.*.json
 .DS_Store
 
 # Import shit
+*.import
 .import
