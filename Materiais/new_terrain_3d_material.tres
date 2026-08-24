@@ -23,6 +23,10 @@ seamless = true
 
 [resource]
 _shader_parameters = {
+&"auto_base_texture": null,
+&"auto_height_reduction": null,
+&"auto_overlay_texture": null,
+&"auto_slope": null,
 &"bias_distance": null,
 &"blend_sharpness": 0.0,
 &"depth_blur": 0.0,
@@ -48,5 +52,5 @@ _shader_parameters = {
 &"world_noise_region_blend": 0.9,
 &"world_noise_scale": 8.0
 }
-auto_shader = true
 world_background = 2
+auto_shader = true

@@ -9,11 +9,22 @@
 [ext_resource type="Script" uid="uid://ble30vc8ite7l" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 [ext_resource type="Script" uid="uid://bttmbvxpmu3e6" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
+[ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
 height = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o4126"]
+render_priority = 0
+shader = ExtResource("10_d3wef")
+shader_parameter/xray_center = Vector3(0, 0, 0)
+shader_parameter/xray_radius = 30.0
+shader_parameter/inner_radius = 12.0
+shader_parameter/color_inner = Vector3(0.05, 0.9, 1)
+shader_parameter/color_outer = Vector3(0.15, 0.2, 1)
+shader_parameter/opacity = 0.65
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
 radius = 0.22
@@ -31,7 +42,7 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
 
-[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="1" unique_id=420108015]
+[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="1" unique_id=420108015]
 influence = 0.242
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Head"
@@ -44,7 +55,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.5707964
 secondary_damp_threshold = 1.0
 
-[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="2" unique_id=460716206]
+[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="2" unique_id=460716206]
 influence = 0.2
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Spine2"
@@ -57,7 +68,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="3" unique_id=1183812581]
+[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="3" unique_id=1183812581]
 influence = 0.0
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
@@ -72,8 +83,7 @@ settings/0/end_bone = 36
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="4" unique_id=276298268]
-transform = Transform3D(0.9986179, -0.00050821237, 0.05255376, -0.0004278262, 0.9998415, 0.017798282, -0.052554477, -0.01779617, 0.99845934, 0.00019256858, 0.7793921, -0.015299758)
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="4" unique_id=276298268]
 bone_name = "mixamorig_Head"
 bone_idx = 31
 
@@ -94,11 +104,10 @@ light_color = Color(0.2, 0.92, 0.7, 1)
 light_energy = 0.0
 light_indirect_energy = 0.6
 light_volumetric_fog_energy = 0.6
-shadow_enabled = false
 omni_range = 4.5
 omni_attenuation = 1.6
 
-[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 93453124) index="5" unique_id=197484809]
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="5" unique_id=197484809]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -121,11 +130,8 @@ script = ExtResource("8_recovery")
 root_node = NodePath("../ET")
 anim_player = NodePath("../ET/AnimationPlayer")
 
-[node name="EnergyPool" type="Node" parent="."]
+[node name="EnergyPool" type="Node" parent="." unique_id=654981583]
 script = ExtResource("11_energy")
-max_energy = 100.0
-recharge_per_second = 4.0
-recharge_delay = 2.5
 
 [node name="PlayerRagdoll" type="Node" parent="." unique_id=558996212]
 script = ExtResource("6_ragdoll")
@@ -146,6 +152,7 @@ shape = SubResource("CapsuleShape3D_ec6vt")
 [node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
 top_level = true
 script = ExtResource("10_camera_rig")
+xray_material = SubResource("ShaderMaterial_o4126")
 
 [node name="PitchPivot" type="Node3D" parent="CameraHolder" unique_id=665883429]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08, 0)
@@ -161,13 +168,16 @@ margin = 0.14
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=1582696248]
 cull_mask = 1047551
+current = true
 fov = 60.0
-near = 0.05
 far = 450.0
 
 [node name="HeadTarget" type="Marker3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D" unique_id=46629359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 rotation_edit_mode = 1
+
+[node name="XRAYCamera" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=419894166]
+cull_mask = 1048575
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=410694173]
 

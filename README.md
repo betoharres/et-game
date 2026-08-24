@@ -176,6 +176,8 @@ Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
 - A pontuação atual é exibida apenas no console de depuração.
 - A caminhonete pode ser usada para atravessar o mapa e possui câmeras externa
   e interna.
+- A visão X-ray dos binóculos usa um passe separado sobre os mesmos meshes, com
+  material temporário e máscara de câmera completa, sem duplicar a geometria.
 - O fazendeiro escolhe destinos aleatórios na malha de navegação. Ao enxergar
   o jogador, passa a persegui-lo e entra no estado de disparo quando está
   próximo. Cada tiro causa dano, emite som e exibe um clarão provisório no

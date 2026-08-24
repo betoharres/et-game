@@ -40,18 +40,53 @@ var _sway_phase : float = 0.0
 var _elapsed : float = 0.0
 var _has_target : bool = false
 
+## XRAY stuff
+
+@onready var xray_camera : Camera3D = $PitchPivot/ShoulderOffset/SpringArm3D/XRAYCamera
+@export var xray_material : ShaderMaterial
+
+@export var normal_fov : float = 60.0
+@export var min_fov : float = 15.0
+@export var max_fov : float = 75.0
+@export var zoom_speed : float = 35.0
+
+@export var xray_radius : float = 35.0
+@export var xray_inner_radius : float = 12.0
+
+var binos_active : bool = false
+var current_fov : float = 60.0
+var _xray_overrides : Dictionary = {}
 
 func _ready() -> void:
 	top_level = true
 	process_priority = 10
 
-	var followed_body := get_parent() as CollisionObject3D
+	var followed_body : CollisionObject3D = get_parent() as CollisionObject3D
 	if followed_body != null:
 		spring_arm.add_excluded_object(followed_body.get_rid())
 
 	_target_position = global_position
 	_target_yaw = global_rotation.y
 	_target_pitch = pitch_pivot.rotation.x
+
+	## XRAY Stuff
+	xray_camera.current = false
+
+	current_fov = normal_fov
+
+	xray_material.set_shader_parameter(
+		"xray_radius",
+		xray_radius
+	)
+
+	xray_material.set_shader_parameter(
+		"inner_radius",
+		xray_inner_radius
+	)
+	
+
+func _exit_tree() -> void:
+	_restore_materials()
 
 
 func set_target_pose(
@@ -79,16 +114,27 @@ func get_camera() -> Camera3D:
 	return camera
 
 
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("binos"):
+		if binos_active:
+			deactivate_binos()
+		else:
+			activate_binos()
+
 func _process(delta : float) -> void:
 	if not _has_target:
 		return
 
+	#XRAY, pass delta
+	if binos_active:
+		update_binos(delta)
+		
 	_elapsed += delta
-	var position_weight := 1.0 - exp(-position_response * delta)
-	var rotation_weight := 1.0 - exp(-rotation_response * delta)
+	var position_weight : float = 1.0 - exp(-position_response * delta)
+	var rotation_weight : float = 1.0 - exp(-rotation_response * delta)
 
 	global_position = global_position.lerp(_target_position, position_weight)
-	var follow_offset := global_position - _target_position
+	var follow_offset : Vector3 = global_position - _target_position
 	if follow_offset.length() > maximum_follow_lag:
 		global_position = (
 			_target_position + follow_offset.normalized() * maximum_follow_lag
@@ -103,31 +149,24 @@ func _process(delta : float) -> void:
 
 	_update_organic_motion(delta, position_weight, rotation_weight)
 
-
 func _snap_to_target() -> void:
 	global_position = _target_position
 	rotation = Vector3(0.0, _target_yaw, 0.0)
 	pitch_pivot.rotation.x = _target_pitch
 
 
-func _update_organic_motion(
-	delta : float,
-	position_weight : float,
-	rotation_weight : float
-) -> void:
-	var desired_motion := 0.0
+func _update_organic_motion(delta : float, position_weight : float, rotation_weight : float) -> void:
+	
+	var desired_motion : float = 0.0
 	if _target_grounded:
 		desired_motion = clampf(_target_speed / 3.0, 0.0, 1.0)
 	_motion_blend = lerpf(_motion_blend, desired_motion, position_weight)
 	_sway_phase += delta * walk_sway_frequency * TAU * lerpf(
-		0.72,
-		1.12,
-		_motion_blend
-	)
+		0.72, 1.12, _motion_blend)
 
-	var breath := sin(_elapsed * idle_breath_frequency * TAU)
-	var lateral_sway := sin(_sway_phase) * walk_sway_amount * _motion_blend
-	var vertical_sway := (
+	var breath : float = sin(_elapsed * idle_breath_frequency * TAU)
+	var lateral_sway : float = sin(_sway_phase) * walk_sway_amount * _motion_blend
+	var vertical_sway : float = (
 		(0.5 - 0.5 * cos(_sway_phase * 2.0))
 		* walk_vertical_amount
 		* _motion_blend
@@ -140,8 +179,8 @@ func _update_organic_motion(
 		0.0
 	)
 
-	var yaw_lag := wrapf(_target_yaw - rotation.y, -PI, PI)
-	var parallax := clampf(
+	var yaw_lag : float = wrapf(_target_yaw - rotation.y, -PI, PI)
+	var parallax : float = clampf(
 		yaw_lag * turn_parallax_amount,
 		-turn_parallax_amount,
 		turn_parallax_amount
@@ -152,11 +191,121 @@ func _update_organic_motion(
 		rotation_weight
 	)
 
-	var walk_roll := sin(_sway_phase) * deg_to_rad(0.10) * _motion_blend
-	var turn_roll := clampf(yaw_lag * 0.012, -0.004, 0.004)
-	var idle_roll := breath * deg_to_rad(0.025) * (1.0 - _motion_blend)
+	var walk_roll : float = sin(_sway_phase) * deg_to_rad(0.10) * _motion_blend
+	var turn_roll : float = clampf(yaw_lag * 0.012, -0.004, 0.004)
+	var idle_roll : float = breath * deg_to_rad(0.025) * (1.0 - _motion_blend)
 	camera.rotation.z = lerpf(
 		camera.rotation.z,
 		walk_roll + turn_roll + idle_roll,
 		rotation_weight
 	)
+
+
+## XRAY Stuff
+func activate_binos() -> void:
+
+	binos_active = true
+
+	current_fov = normal_fov
+
+	_apply_xray_materials()
+	camera.current = false
+	xray_camera.current = true
+
+
+func deactivate_binos() -> void:
+
+	binos_active = false
+
+	xray_camera.current = false
+	camera.current = true
+
+	camera.fov = normal_fov
+	_restore_materials()
+
+
+func update_binos(delta : float) -> void:
+
+	# +/- zoom
+	if Input.is_action_pressed("binos_zoom_in"):
+		current_fov -= zoom_speed * delta
+
+	if Input.is_action_pressed("binos_zoom_out"):
+		current_fov += zoom_speed * delta
+
+	current_fov = clamp(
+		current_fov,
+		min_fov,
+		max_fov
+	)
+
+	xray_camera.fov = current_fov
+
+	# Keep X-ray camera synchronized with normal camera.
+	xray_camera.global_transform = camera.global_transform
+
+
+	# X-ray center is in front of camera.
+	var zoom_amount : float = inverse_lerp(
+		max_fov,
+		min_fov,
+		current_fov
+	)
+
+	var xray_distance : float = lerp(
+		12.0,
+		35.0,
+		zoom_amount
+	)
+
+	var center : Vector3 = \
+		xray_camera.global_position \
+		- xray_camera.global_transform.basis.z * xray_distance
+
+	xray_material.set_shader_parameter("xray_center", center)
+
+
+func _apply_xray_materials() -> void:
+	_restore_materials()
+	var scene_root := get_tree().current_scene
+	if (
+		scene_root == null
+		or xray_material == null
+		or not is_instance_valid(xray_material)
+	):
+		return
+
+	for node : Node in scene_root.find_children("*", "GeometryInstance3D", true, false):
+		var geometry : GeometryInstance3D = node as GeometryInstance3D
+		if geometry == null:
+			continue
+		var original_override: Material = geometry.material_override
+		_xray_overrides[geometry] = (
+			weakref(original_override)
+			if original_override != null
+			else null
+		)
+		geometry.material_override = xray_material
+
+
+func _restore_materials() -> void:
+	for geometry : GeometryInstance3D in _xray_overrides:
+		if not is_instance_valid(geometry):
+			continue
+
+		var original_reference: Variant = _xray_overrides[geometry]
+		if original_reference == null:
+			geometry.material_override = null
+			continue
+
+		var original_override: Object
+		if original_reference is WeakRef:
+			original_override = original_reference.get_ref()
+		else:
+			original_override = original_reference
+
+		if is_instance_valid(original_override):
+			geometry.material_override = original_override as Material
+		else:
+			geometry.material_override = null
+	_xray_overrides.clear()
