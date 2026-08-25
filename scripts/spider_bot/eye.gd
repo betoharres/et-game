@@ -5,7 +5,7 @@ extends MeshInstance3D
 @export var transition_time: float = 1.0
 
 @export var effect_count: int = 9
-
+var surface_index: int = 0
 
 var current_effect: int = 0
 var next_effect: int = 1
@@ -15,7 +15,7 @@ var transition_timer: float = 0.0
 
 var transitioning: bool = false
 
-@onready var eye_material: ShaderMaterial = material_override
+@onready var eye_material: ShaderMaterial = get_surface_override_material(surface_index)
 
 func _ready() -> void:
 	if eye_material == null:
