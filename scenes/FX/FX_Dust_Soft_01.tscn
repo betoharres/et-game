@@ -38,6 +38,7 @@ turbulence_noise_scale = 1.33
 material = ExtResource("1_ua075")
 
 [node name="FX_Dust_Soft_01" type="GPUParticles3D" unique_id=526991345]
+layers = 4
 amount = 80
 lifetime = 8.0
 preprocess = 1.0

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dqplaxph2n1w0"]
+
+[ext_resource type="PackedScene" uid="uid://dfyf7130ogh5o" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Medium_02A.fbx" id="1_i46tk"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="2_yw5g6"]
+
+[node name="TEM_Rock_Medium_02A" unique_id=1951795688 instance=ExtResource("1_i46tk")]
+
+[node name="TEM_Rock_Medium_02A_LOD0" parent="TEM_Rock_Medium_02A" parent_id_path=PackedInt32Array(876144323) index="0" unique_id=1558141096]
+surface_material_override/0 = ExtResource("2_yw5g6")
+
+[node name="TEM_Rock_Medium_02A_LOD1" parent="TEM_Rock_Medium_02A" parent_id_path=PackedInt32Array(876144323) index="1" unique_id=2013922583]
+visible = false
+surface_material_override/0 = ExtResource("2_yw5g6")
+
+[node name="TEM_Rock_Medium_02A_LOD2" parent="TEM_Rock_Medium_02A" parent_id_path=PackedInt32Array(876144323) index="2" unique_id=781844518]
+visible = false
+surface_material_override/0 = ExtResource("2_yw5g6")
+
+[node name="TEM_Rock_Medium_02A_MeshCollider" parent="TEM_Rock_Medium_02A" parent_id_path=PackedInt32Array(876144323) index="3" unique_id=109985041]
+visible = false
+surface_material_override/0 = ExtResource("2_yw5g6")

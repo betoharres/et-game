@@ -19,41 +19,48 @@ size = Vector3(2.1816936, 2.0996115, 1.2734547)
 size = Vector3(2.1816936, 0.8624899, 2.2828455)
 
 [node name="SM_Veh_Pickup_01" type="MeshInstance3D" unique_id=398390714]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("1_wda2o")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_Glass" type="MeshInstance3D" parent="." unique_id=995580192]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("3_or03s")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_SteeringW" type="MeshInstance3D" parent="." unique_id=1498228148]
 transform = Transform3D(1, 0, 0, 0, 0.9060948, -0.42307478, 0, 0.42307478, 0.9060948, 0.4473868, 1.336505, 0.62557507)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("4_0k2ry")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_Wheel_fl" type="MeshInstance3D" parent="." unique_id=1015314445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7838671, 0.43986803, 1.6946212)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("5_wya7a")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1016205313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7838671, 0.43986803, 1.6946212)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("6_d3gv8")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_Wheel_rl" type="MeshInstance3D" parent="." unique_id=1086756019]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9071506, 0.43986803, -1.3831422)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("7_10jv2")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
 [node name="SM_Veh_Pickup_Wheel_rr" type="MeshInstance3D" parent="." unique_id=369258574]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9071506, 0.43986803, -1.3831422)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("8_auqax")
 surface_material_override/0 = ExtResource("2_0k2ry")

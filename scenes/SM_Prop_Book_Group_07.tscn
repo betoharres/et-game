@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_ybs1i"]
 
 [node name="SM_Prop_Book_Group_07" type="MeshInstance3D" unique_id=92724558]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_72iu2")
 surface_material_override/0 = ExtResource("2_ybs1i")

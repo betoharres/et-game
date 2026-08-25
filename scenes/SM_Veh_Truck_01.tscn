@@ -28,6 +28,7 @@ size = Vector3(2.2841187, 1.1792603, 4.347519)
 size = Vector3(2.6750946, 0.49362946, 5.5224)
 
 [node name="SM_Veh_Truck_01" type="MeshInstance3D" unique_id=948223398]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("1_kjyic")
 surface_material_override/0 = ExtResource("4_51s1t")
@@ -48,87 +49,102 @@ shape = SubResource("BoxShape3D_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Delivery_01" type="MeshInstance3D" parent="." unique_id=192093914]
 visible = false
+layers = 8
 gi_mode = 2
 mesh = ExtResource("3_n7icb")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Delivery_Door_L" type="MeshInstance3D" parent="SM_Veh_Truck_Attachment_Delivery_01" unique_id=1161218252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1437627, 1.3322189, -3.068456)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("4_b08p2")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Delivery_Door_R" type="MeshInstance3D" parent="SM_Veh_Truck_Attachment_Delivery_01" unique_id=191494304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1437627, 1.3322189, -3.068456)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("5_7b28t")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Flatbed_01" type="MeshInstance3D" parent="." unique_id=1029553595]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("6_yxafe")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Garbage_01" type="MeshInstance3D" parent="." unique_id=1527126288]
 visible = false
+layers = 8
 gi_mode = 2
 mesh = ExtResource("7_har1c")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Garbage_Lid" type="MeshInstance3D" parent="SM_Veh_Truck_Attachment_Garbage_01" unique_id=126010642]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1103475e-32, 1.0118427, -2.0842373)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("8_0p386")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Attachment_Garbage_Pile" type="MeshInstance3D" parent="SM_Veh_Truck_Attachment_Garbage_01" unique_id=1441613310]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("9_3rlvn")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Glass" type="MeshInstance3D" parent="." unique_id=1503166878]
+layers = 8
 gi_mode = 2
 mesh = ExtResource("10_nre8t")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_SteeringW" type="MeshInstance3D" parent="." unique_id=854860746]
 transform = Transform3D(1, 0, 0, 0, 0.84013915, -0.54237086, 0, 0.54237086, 0.84013915, 0.46398243, 1.8105785, 3.205877)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("11_vy4ce")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_fl" type="MeshInstance3D" parent="." unique_id=1705411966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8414552, 0.48867783, 2.5354874)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("12_a03lv")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1828978398]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.83087003, 0.48867783, 2.5354874)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("13_slrmq")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_rl_01" type="MeshInstance3D" parent="." unique_id=1876814963]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8670078, 0.48867783, -0.7045754)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("14_g4j41")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_rl_02" type="MeshInstance3D" parent="." unique_id=236777732]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8670078, 0.48867783, -1.9333347)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("15_ved06")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_rr_01" type="MeshInstance3D" parent="." unique_id=616826478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8670078, 0.48867783, -0.7045754)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("16_mndt1")
 surface_material_override/0 = ExtResource("4_51s1t")
 
 [node name="SM_Veh_Truck_Wheel_rr_02" type="MeshInstance3D" parent="." unique_id=678766476]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8670078, 0.48867783, -1.9333347)
+layers = 8
 gi_mode = 2
 mesh = ExtResource("17_yxu32")
 surface_material_override/0 = ExtResource("4_51s1t")

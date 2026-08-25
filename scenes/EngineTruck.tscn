@@ -19,7 +19,8 @@ size = Vector3(2.062, 0.201, 1.3523085)
 [node name="SM_Veh_Pickup_03" unique_id=330235063 instance=ExtResource("1_jngmu")]
 script = ExtResource("2_ioe6r")
 
-[node name="SM_Veh_Pickup_01" parent="." index="0" unique_id=1527075000]
+[node name="SM_Veh_Pickup_01" parent="." index="0" unique_id=640865393]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_01" index="0" unique_id=1583085264]
@@ -36,28 +37,36 @@ shape = SubResource("BoxShape3D_ds531")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2829548, 2.024)
 shape = SubResource("BoxShape3D_ec6vt")
 
-[node name="SM_Veh_Pickup_Glass" parent="SM_Veh_Pickup_01" index="1" unique_id=875341987]
+[node name="SM_Veh_Pickup_Glass" parent="SM_Veh_Pickup_01" index="1" unique_id=331470457]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_SteeringW" parent="SM_Veh_Pickup_01" index="2" unique_id=762144205]
+[node name="SM_Veh_Pickup_SteeringW" parent="SM_Veh_Pickup_01" index="2" unique_id=1362392756]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_Wheel_fl" parent="SM_Veh_Pickup_01" index="3" unique_id=1042492583]
+[node name="SM_Veh_Pickup_Wheel_fl" parent="SM_Veh_Pickup_01" index="3" unique_id=1349209259]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_Wheel_fr" parent="SM_Veh_Pickup_01" index="4" unique_id=1430598075]
+[node name="SM_Veh_Pickup_Wheel_fr" parent="SM_Veh_Pickup_01" index="4" unique_id=496836222]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_Wheel_rl" parent="SM_Veh_Pickup_01" index="5" unique_id=1888566280]
+[node name="SM_Veh_Pickup_Wheel_rl" parent="SM_Veh_Pickup_01" index="5" unique_id=1675122866]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_Wheel_rr" parent="SM_Veh_Pickup_01" index="6" unique_id=1476116500]
+[node name="SM_Veh_Pickup_Wheel_rr" parent="SM_Veh_Pickup_01" index="6" unique_id=965708626]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_01_Engine" parent="." index="1" unique_id=535051144]
+[node name="SM_Veh_Pickup_01_Engine" parent="." index="1" unique_id=1983898165]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
-[node name="SM_Veh_Pickup_01_Hood" parent="." index="2" unique_id=1059321285]
+[node name="SM_Veh_Pickup_01_Hood" parent="." index="2" unique_id=2129079232]
+layers = 8
 surface_material_override/0 = ExtResource("2_i1sut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_01_Hood" index="0" unique_id=433249435]

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b2b0m73pe2msr"]
+
+[ext_resource type="PackedScene" uid="uid://bf4m26a65jwnq" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_04A.fbx" id="1_a3tye"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="2_2svcg"]
+
+[node name="TEM_Rock_Small_04A" unique_id=566431628 instance=ExtResource("1_a3tye")]
+
+[node name="TEM_Rock_Small_04A_LOD0" parent="TEM_Rock_Small_04A" parent_id_path=PackedInt32Array(1562770943) index="0" unique_id=644904817]
+surface_material_override/0 = ExtResource("2_2svcg")
+
+[node name="TEM_Rock_Small_04A_LOD1" parent="TEM_Rock_Small_04A" parent_id_path=PackedInt32Array(1562770943) index="1" unique_id=258128975]
+visible = false
+surface_material_override/0 = ExtResource("2_2svcg")

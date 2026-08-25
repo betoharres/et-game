@@ -23,6 +23,7 @@ radius = 0.3930664
 [node name="Root" type="Node3D" unique_id=1402539885]
 
 [node name="SmVehTractorOld01" type="MeshInstance3D" parent="." unique_id=750506850]
+layers = 8
 mesh = ExtResource("1_ada6i")
 surface_material_override/0 = ExtResource("2_obwk5")
 surface_material_override/1 = ExtResource("3_gt71q")

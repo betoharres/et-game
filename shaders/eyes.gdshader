@@ -37,6 +37,10 @@ uniform float animation_speed : hint_range(0.0, 5.0) = 1.0;
 uniform float distortion : hint_range(0.0, 2.0) = 0.45;
 uniform float glow : hint_range(0.0, 10.0) = 2.0;
 
+uniform float metallic : hint_range(0.0, 1.0) = 0.08;
+uniform float roughness : hint_range(0.0, 1.0) = 0.15;
+uniform float specular : hint_range(0.0, 1.0) = 0.2;
+
 
 // ============================================================
 // EYE
@@ -840,7 +844,7 @@ void fragment()
 		col *
 		glow;
 
-	ROUGHNESS = 0.08;
-	METALLIC = 0.15;
-	SPECULAR = 1.0;
+	ROUGHNESS = roughness;
+	METALLIC = metallic;
+	SPECULAR = specular;
 }

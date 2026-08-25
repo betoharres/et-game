@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://datwxktpja0bw"]
 
-[ext_resource type="Script" path="res://scripts/dungeon.gd" id="1_dungeon"]
+[ext_resource type="Script" uid="uid://12fpncdww6l0" path="res://scripts/dungeon.gd" id="1_dungeon"]
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_frame_mat"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_Portal"]
@@ -12,54 +12,58 @@ emission_energy_multiplier = 2.5
 [sub_resource type="BoxShape3D" id="Shape_ExitTrigger"]
 size = Vector3(3, 3, 3)
 
-[node name="Dungeon" type="Node3D"]
+[node name="Dungeon" type="Node3D" unique_id=2124837843]
 script = ExtResource("1_dungeon")
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="." unique_id=1201961658]
 cell_size = Vector3(4, 3, 4)
 
-[node name="ExitDoor" type="Node3D" parent="."]
+[node name="ExitDoor" type="Node3D" parent="." unique_id=345876783]
 
-[node name="FrameLeft" type="CSGBox3D" parent="ExitDoor"]
+[node name="FrameLeft" type="CSGBox3D" parent="ExitDoor" unique_id=504691983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.2, 0)
+layers = 128
 use_collision = true
 size = Vector3(0.4, 2.4, 0.4)
 material = ExtResource("2_frame_mat")
 
-[node name="FrameRight" type="CSGBox3D" parent="ExitDoor"]
+[node name="FrameRight" type="CSGBox3D" parent="ExitDoor" unique_id=681629151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.2, 0)
+layers = 128
 use_collision = true
 size = Vector3(0.4, 2.4, 0.4)
 material = ExtResource("2_frame_mat")
 
-[node name="FrameTop" type="CSGBox3D" parent="ExitDoor"]
+[node name="FrameTop" type="CSGBox3D" parent="ExitDoor" unique_id=357870201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+layers = 128
 use_collision = true
 size = Vector3(2.6, 0.4, 0.4)
 material = ExtResource("2_frame_mat")
 
-[node name="PortalVeil" type="CSGBox3D" parent="ExitDoor"]
+[node name="PortalVeil" type="CSGBox3D" parent="ExitDoor" unique_id=537625441]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+layers = 128
 size = Vector3(1.8, 2.2, 0.08)
 material = SubResource("Mat_Portal")
 
-[node name="PortalLight" type="OmniLight3D" parent="ExitDoor"]
+[node name="PortalLight" type="OmniLight3D" parent="ExitDoor" unique_id=1777596703]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+layers = 4
 light_color = Color(0.4, 1, 0.65, 1)
 light_energy = 1.6
 omni_range = 4.0
 
-[node name="ExitTrigger" type="Area3D" parent="ExitDoor"]
+[node name="ExitTrigger" type="Area3D" parent="ExitDoor" unique_id=88244914]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitDoor/ExitTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitDoor/ExitTrigger" unique_id=471162795]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("Shape_ExitTrigger")
 
-[node name="ExitPrompt" type="Label3D" parent="ExitDoor"]
+[node name="ExitPrompt" type="Label3D" parent="ExitDoor" unique_id=1134897808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+visible = false
 billboard = 1
 modulate = Color(0.55, 1, 0.7, 1)
 outline_modulate = Color(0, 0.15, 0.05, 1)
-font_size = 32
 text = "PRESSIONE E PARA VOLTAR À FAZENDA"
-visible = false

@@ -7,6 +7,7 @@
 size = Vector3(0.5, 0.46508095, 0.5)
 
 [node name="SM_Prop_CardboardBox_05" type="MeshInstance3D" unique_id=1774189597]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_y8h1p")
 surface_material_override/0 = ExtResource("2_l2e1s")

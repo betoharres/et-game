@@ -8,16 +8,19 @@ albedo_texture = ExtResource("2_c17x7")
 
 [node name="TEM_Broken_Pillar_01A" unique_id=1842880316 instance=ExtResource("1_qjohv")]
 
-[node name="TEM_Broken_Pillar_01A" parent="." index="0" unique_id=1333655216]
+[node name="TEM_Broken_Pillar_01A" parent="." index="0" unique_id=1661978407]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="TEM_Broken_Pillar_01A_LOD0" parent="TEM_Broken_Pillar_01A" index="0" unique_id=1082078962]
+[node name="TEM_Broken_Pillar_01A_LOD0" parent="TEM_Broken_Pillar_01A" index="0" unique_id=773990933]
+layers = 128
 surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")
 
-[node name="TEM_Broken_Pillar_01A_LOD1" parent="TEM_Broken_Pillar_01A" index="1" unique_id=1141594035]
+[node name="TEM_Broken_Pillar_01A_LOD1" parent="TEM_Broken_Pillar_01A" index="1" unique_id=31140446]
 visible = false
+layers = 128
 surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")
 
-[node name="TEM_Broken_Pillar_01A_LOD2" parent="TEM_Broken_Pillar_01A" index="2" unique_id=959180908]
+[node name="TEM_Broken_Pillar_01A_LOD2" parent="TEM_Broken_Pillar_01A" index="2" unique_id=1161862843]
 visible = false
+layers = 128
 surface_material_override/0 = SubResource("StandardMaterial3D_8j4su")

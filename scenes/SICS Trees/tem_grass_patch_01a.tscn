@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cr8gr3tk4sdx3" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_Vegetation_1A.tga" id="3_i6hd0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfwoy"]
+disable_fog = true
 albedo_texture = ExtResource("3_i6hd0")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_262gv"]
@@ -19,20 +20,24 @@ surface_material_override/0 = ExtResource("2_7ot8f")
 [node name="TEM_Grass_Patch_01A_LOD1" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="1" unique_id=1961564357]
 visible = false
 layers = 32
+cast_shadow = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
 [node name="TEM_Grass_Patch_01A_LOD2" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="2" unique_id=481120719]
 visible = false
 layers = 32
+cast_shadow = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
 [node name="TEM_Grass_Patch_01A_LOD3" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="3" unique_id=1536928172]
 visible = false
 layers = 32
+cast_shadow = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
 [node name="TEM_Grass_Patch_01A_LOD4" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="4" unique_id=1186552921]
 visible = false
 layers = 32
 material_override = SubResource("StandardMaterial3D_262gv")
+cast_shadow = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")

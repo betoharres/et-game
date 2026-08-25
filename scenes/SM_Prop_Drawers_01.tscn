@@ -7,6 +7,7 @@
 size = Vector3(0.66052246, 0.81695557, 0.83984375)
 
 [node name="SM_Prop_Drawers_01" type="MeshInstance3D" unique_id=157494251]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_6u2vk")
 surface_material_override/0 = ExtResource("2_l4tsg")

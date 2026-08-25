@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://klsr256wypig"]
+
+[ext_resource type="PackedScene" uid="uid://cccukyyt88m58" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Idol_Eyes_01A.fbx" id="1_f1vf0"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="2_o2p4g"]
+
+[node name="TEM_Rock_Idol_Eyes_01A" unique_id=1803929979 instance=ExtResource("1_f1vf0")]
+
+[node name="TEM_Rock_Idol_Eyes_01A" parent="." index="0" unique_id=374517346]
+layers = 512
+surface_material_override/0 = ExtResource("2_o2p4g")

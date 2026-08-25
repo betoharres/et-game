@@ -37,6 +37,7 @@ material = ExtResource("1_jw3xv")
 size = Vector2(0.5, 0.3)
 
 [node name="FX_Fog_01" type="GPUParticles3D" unique_id=613052129]
+layers = 32
 amount = 50
 lifetime = 4.0
 randomness = 0.43

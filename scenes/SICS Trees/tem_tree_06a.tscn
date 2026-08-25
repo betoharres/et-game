@@ -5,13 +5,16 @@
 
 [node name="TEM_Tree_06A" unique_id=1706607209 instance=ExtResource("1_nxt1o")]
 
-[node name="TEM_Tree_06A_LOD0" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(95849532) index="0" unique_id=1590452548]
+[node name="TEM_Tree_06A_LOD0" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(2059577702) index="0" unique_id=1945294234]
+layers = 2
 surface_material_override/0 = ExtResource("2_c3b3i")
 
-[node name="TEM_Tree_06A_LOD1" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(95849532) index="1" unique_id=892464993]
+[node name="TEM_Tree_06A_LOD1" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(2059577702) index="1" unique_id=1489220691]
 visible = false
+layers = 2
 surface_material_override/0 = ExtResource("2_c3b3i")
 
-[node name="TEM_Tree_06A_LOD2" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(95849532) index="2" unique_id=321921848]
+[node name="TEM_Tree_06A_LOD2" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(2059577702) index="2" unique_id=553184359]
 visible = false
+layers = 2
 surface_material_override/0 = ExtResource("2_c3b3i")

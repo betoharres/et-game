@@ -41,6 +41,9 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
 
+[node name="ET" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="0" unique_id=50943474]
+layers = 256
+
 [node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="1" unique_id=420108015]
 influence = 0.242
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
@@ -88,6 +91,7 @@ bone_idx = 31
 
 [node name="EyeAreaLight" type="SpotLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007476]
 transform = Transform3D(-1, 1.0974415e-07, -8.146101e-08, 1.0231025e-07, 0.99627477, 0.08623806, 9.0621654e-08, 0.08623801, -0.99627477, -2.0290639e-08, 0.064058006, 0.109894976)
+layers = 32
 light_color = Color(0.52, 0.76, 0.88, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
@@ -99,6 +103,7 @@ spot_angle = 17.842344
 
 [node name="EyeGlowLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007477]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.064058006, 0.109894976)
+layers = 32
 light_color = Color(0.2, 0.92, 0.7, 1)
 light_energy = 0.0
 light_indirect_energy = 0.6
@@ -177,7 +182,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 rotation_edit_mode = 1
 
 [node name="XRAYCamera" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=419894166]
-cull_mask = 1048543
+cull_mask = 1047519
+fov = 60.0
+far = 450.0
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=410694173]
 

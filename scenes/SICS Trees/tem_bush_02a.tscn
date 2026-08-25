@@ -5,9 +5,11 @@
 
 [node name="TEM_Bush_02A" unique_id=398801795 instance=ExtResource("1_ev6rn")]
 
-[node name="TEM_Bush_02A_LOD0" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(674472311) index="0" unique_id=430427989]
+[node name="TEM_Bush_02A_LOD0" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(861378152) index="0" unique_id=940873039]
+layers = 2
 surface_material_override/0 = ExtResource("2_ewdyd")
 
-[node name="TEM_Bush_02A_LOD1" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(674472311) index="1" unique_id=958180599]
+[node name="TEM_Bush_02A_LOD1" parent="TEM_Bush_02A" parent_id_path=PackedInt32Array(861378152) index="1" unique_id=1174969604]
 visible = false
+layers = 32
 surface_material_override/0 = ExtResource("2_ewdyd")

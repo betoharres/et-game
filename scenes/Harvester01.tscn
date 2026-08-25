@@ -21,6 +21,7 @@ size = Vector3(1.0189209, 1.1350708, 1.5223389)
 [node name="Root" type="Node3D" unique_id=526029516]
 
 [node name="SmVehHarvester01" type="MeshInstance3D" parent="." unique_id=1376510335]
+layers = 8
 mesh = ExtResource("1_h6a0k")
 surface_material_override/0 = ExtResource("2_icei6")
 surface_material_override/1 = ExtResource("2_icei6")

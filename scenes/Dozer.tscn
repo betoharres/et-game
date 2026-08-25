@@ -32,49 +32,64 @@ script = ExtResource("1_suqcd")
 
 [node name="SM_Veh_Bulldozer_01" parent="." unique_id=798230185 instance=ExtResource("1_nxreh")]
 
-[node name="SM_Veh_Bulldozer_01" parent="SM_Veh_Bulldozer_01" index="0" unique_id=400624754]
+[node name="SM_Veh_Bulldozer_01" parent="SM_Veh_Bulldozer_01" index="0" unique_id=2027171300]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_l" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="0" unique_id=329944457]
+[node name="SM_Veh_Bulldozer_01_Track_l" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="0" unique_id=989628489]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_suqcd")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_rl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="1" unique_id=619610328]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_rl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="1" unique_id=2000778565]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_ml" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="2" unique_id=1821106206]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_ml" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="2" unique_id=1021313571]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_fl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="3" unique_id=1939668026]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_fl" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="3" unique_id=617435880]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_r" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="4" unique_id=47461456]
+[node name="SM_Veh_Bulldozer_01_Track_r" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="4" unique_id=1659324645]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_cnklu")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_rr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="5" unique_id=1891481754]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_rr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="5" unique_id=380390813]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_mr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="6" unique_id=1480441266]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_mr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="6" unique_id=1222268317]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Track_Wheel_fr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="7" unique_id=1117133360]
+[node name="SM_Veh_Bulldozer_01_Track_Wheel_fr" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="7" unique_id=808817780]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Joystick_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="8" unique_id=1340412972]
+[node name="SM_Veh_Bulldozer_01_Joystick_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="8" unique_id=25470780]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Joystick_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="9" unique_id=1510988955]
+[node name="SM_Veh_Bulldozer_01_Joystick_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="9" unique_id=1134214550]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Lever_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="10" unique_id=1370461324]
+[node name="SM_Veh_Bulldozer_01_Lever_02" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="10" unique_id=1122430186]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Lever_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="11" unique_id=698962299]
+[node name="SM_Veh_Bulldozer_01_Lever_01" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="11" unique_id=1914251856]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Blade" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="12" unique_id=1854415445]
+[node name="SM_Veh_Bulldozer_01_Blade" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="12" unique_id=903232899]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_t56gd")
 
-[node name="SM_Veh_Bulldozer_01_Glass" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="13" unique_id=1265658958]
+[node name="SM_Veh_Bulldozer_01_Glass" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="13" unique_id=1225245091]
+layers = 8
 surface_material_override/0 = ExtResource("5_cnklu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01" index="14" unique_id=735582570]

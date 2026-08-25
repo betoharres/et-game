@@ -6,12 +6,13 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_as6od"]
 points = PackedVector3Array(-0.3055357, -0.004767455, -0.17748886, -0.28645468, 0.033409555, -0.16791002, -0.095464945, 0.062061936, -0.16791002, 0.3055357, -0.004767455, -0.17748886, -0.3055357, -0.004767455, 0.17578682, -0.28645468, 0.033409555, 0.16620797, -0.095464945, 0.062061936, 0.16620797, 0.095464945, 0.062061936, -0.16791002, 0.3055357, -0.004767455, 0.17578682, 0.28639486, 0.033409555, -0.16791002, 0.095464945, 0.062061936, 0.16620797, 0.28639486, 0.033409555, 0.16620797)
 
-[node name="SM_Prop_BookOpen_01" type="MeshInstance3D"]
+[node name="SM_Prop_BookOpen_01" type="MeshInstance3D" unique_id=1729665156]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_28ijb")
 surface_material_override/0 = ExtResource("2_5rbyc")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
+[node name="MeshCollider" type="StaticBody3D" parent="." unique_id=313224319]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider" unique_id=1745192623]
 shape = SubResource("ConvexPolygonShape3D_as6od")

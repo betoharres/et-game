@@ -609,7 +609,15 @@ binos_zoom_out={
 [layer_names]
 
 3d_render/layer_1="Terrain"
-3d_render/layer_6="Not Visible For XRAY"
+3d_render/layer_2="vegetation"
+3d_render/layer_3="lights, fog, dust, other FX"
+3d_render/layer_4="vehicles"
+3d_render/layer_5="NPCs"
+3d_render/layer_6="XRAY - ACTIVATE layer 6 ALONE on VisualInstance3D for everything that needs to be INVISIBLE when xray goggles are on"
+3d_render/layer_7="Scraps, Pickable Items"
+3d_render/layer_8="Buildings"
+3d_render/layer_9="PLAYERS"
+3d_render/layer_10="Common Props"
 3d_physics/layer_1="Common Collision (ground, obstacles, players, etc.)"
 3d_physics/layer_4="Pickup Items"
 

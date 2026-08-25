@@ -79,9 +79,9 @@
 [ext_resource type="ArrayMesh" uid="uid://73kawbg1glup" path="res://3dModelos/SM_Bld_Garage_01.fbx" id="76_1v02h"]
 [ext_resource type="Script" uid="uid://c6qrkcglgvt7l" path="res://scripts/audio/farm_environment_audio.gd" id="80_audio"]
 [ext_resource type="PackedScene" uid="uid://ds12y6akdbe8y" path="res://scenes/SM_Prop_Art_Standing_02.tscn" id="81_mlb8o"]
-[ext_resource type="PackedScene" path="res://scenes/NightEnvironment.tscn" id="81_night_environment"]
+[ext_resource type="PackedScene" uid="uid://b7kgyrrylgmhf" path="res://scenes/NightEnvironment.tscn" id="81_night_environment"]
 [ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="82_pause_menu"]
-[ext_resource type="PackedScene" path="res://scenes/Photographer.tscn" id="83_photographer"]
+[ext_resource type="PackedScene" uid="uid://ctlyi6tcv6xdp" path="res://scenes/Photographer.tscn" id="83_photographer"]
 [ext_resource type="PackedScene" uid="uid://cdfkl3n51qfkf" path="res://scenes/SM_Prop_BedsideTable_01.tscn" id="84_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 [ext_resource type="PackedScene" uid="uid://br05hptvyc4vo" path="res://scenes/SM_Prop_Bed_Double_02.tscn" id="85_n6seq"]
@@ -129,7 +129,7 @@
 [ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="131_l8ik4"]
 [ext_resource type="PackedScene" uid="uid://karjnsnc4cje" path="res://scenes/Barn01.tscn" id="132_8bem1"]
 [ext_resource type="Texture2D" uid="uid://bhrmykp42xmrv" path="res://Texturas/PolygonConstruction_Texture_01_A.png" id="133_70d8d"]
-[ext_resource type="PackedScene" path="res://scenes/Dungeon.tscn" id="133_dungeon"]
+[ext_resource type="PackedScene" uid="uid://datwxktpja0bw" path="res://scenes/Dungeon.tscn" id="133_dungeon"]
 [ext_resource type="ArrayMesh" uid="uid://cwqpsuhsgabuy" path="res://3dModelos/SM_Bld_House_Preset_01.res" id="133_l8ik4"]
 [ext_resource type="Material" uid="uid://s85g563cqhp3" path="res://Materiais/PolygonConstruction1.tres" id="133_sjp3e"]
 [ext_resource type="ArrayMesh" uid="uid://c7uka26qrhsav" path="res://3dModelos/SM_Bld_House_Preset_02.res" id="134_70d8d"]
@@ -176,6 +176,7 @@
 [ext_resource type="ArrayMesh" uid="uid://brh002qxj44ri" path="res://3dModelos/SM_Prop_Trestle_Table_01.fbx" id="177_cagmf"]
 [ext_resource type="ArrayMesh" uid="uid://c2sspfy8v67pn" path="res://3dModelos/SM_Prop_Wood_Frame_01.fbx" id="178_befh3"]
 [ext_resource type="ArrayMesh" uid="uid://cpovf3kvrsu3q" path="res://3dModelos/SM_Tool_Circular_Saw_01.fbx" id="179_a43o0"]
+[ext_resource type="PackedScene" uid="uid://bsm8nnrcmfey2" path="res://scenes/SICS Trees/tem_bush_01a.tscn" id="179_pq1gm"]
 [ext_resource type="ArrayMesh" uid="uid://d4gpkktxvw51a" path="res://3dModelos/SM_Tool_Hammer_Claw.fbx" id="180_qk8ru"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
@@ -2736,6 +2737,9 @@ dungeon_path = NodePath("../Dungeon")
 
 [node name="SpaceshipScraps2" parent="." unique_id=1950931597 instance=ExtResource("27_ts3gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.443676, -1.9073486e-06, -16.38624)
+
+[node name="TEM_Bush_01A" parent="." unique_id=542895956 instance=ExtResource("179_pq1gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.36784, 0, -17.594063)
 
 [editable path="PropsHolder/Root3"]
 [editable path="Barn2"]

@@ -202,65 +202,78 @@ size = Vector3(2.8184485, 1.9701157, 8.089359)
 size = Vector3(2.8204598, 1.2687559, 6.534792)
 
 [node name="SM_Veh_SchoolBus_01" type="MeshInstance3D" unique_id=1343368969]
+layers = 8
 mesh = ExtResource("1_0o65d")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Door_01" type="MeshInstance3D" parent="." unique_id=1400256583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.334098, 1.4887782, 1.2793583)
+layers = 8
 mesh = SubResource("ArrayMesh_53t64")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Door_01_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_01" unique_id=1786464987]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019581318, 0.025211453, 0.18042219)
+layers = 8
 mesh = SubResource("ArrayMesh_kv2fu")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Door_02" type="MeshInstance3D" parent="." unique_id=2012843763]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.334098, 1.4887782, 2.0985005)
+layers = 8
 mesh = SubResource("ArrayMesh_xjpwd")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Door_02_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_02" unique_id=1379949834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019581318, 0.025211453, -0.18405032)
+layers = 8
 mesh = SubResource("ArrayMesh_qdwoc")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Glass" type="MeshInstance3D" parent="." unique_id=1881848609]
+layers = 8
 mesh = SubResource("ArrayMesh_0n3kd")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Sign_l" type="MeshInstance3D" parent="." unique_id=2139264845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4815731, 1.6472168, 1.3908942)
+layers = 8
 mesh = SubResource("ArrayMesh_f6hbg")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Sign_r" type="MeshInstance3D" parent="." unique_id=1113373770]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4726994, 1.6472168, 0.7591128)
+layers = 8
 mesh = SubResource("ArrayMesh_3y5g2")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_SteeringW" type="MeshInstance3D" parent="." unique_id=412340195]
 transform = Transform3D(1, 0, 0, 0, 0.75437146, -0.65644777, 0, 0.65644777, 0.75437146, 0.955616, 1.9932941, 2.0919166)
+layers = 8
 mesh = SubResource("ArrayMesh_yud60")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Wheel_fl" type="MeshInstance3D" parent="." unique_id=1842814212]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0514299, 0.52868664, 3.1693573)
+layers = 8
 mesh = SubResource("ArrayMesh_3j3v8")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Wheel_fr" type="MeshInstance3D" parent="." unique_id=65408589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0629039, 0.52868664, 3.1693573)
+layers = 8
 mesh = SubResource("ArrayMesh_ed4p2")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Wheel_rl" type="MeshInstance3D" parent="." unique_id=1563363319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0076474, 0.5268964, -1.8532443)
+layers = 8
 mesh = SubResource("ArrayMesh_svdsd")
 surface_material_override/0 = ExtResource("2_nwpnc")
 
 [node name="SM_Veh_SchoolBus_Wheel_rr" type="MeshInstance3D" parent="." unique_id=2102982741]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0076474, 0.5268964, -1.8532443)
+layers = 8
 mesh = SubResource("ArrayMesh_6hr23")
 surface_material_override/0 = ExtResource("2_nwpnc")
 

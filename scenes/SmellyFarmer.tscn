@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkp3s55pwy4em"]
+[gd_scene format=3 uid="uid://bkp3s55pwy4em"]
 
 [ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
 [ext_resource type="ArrayMesh" uid="uid://d3irt6sfulsdc" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
 [ext_resource type="Script" uid="uid://c7b1g0wjyngyp" path="res://scripts/IKsmelly.gd" id="4_vfalg"]
-[ext_resource type="Script" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
+[ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.18603516
@@ -15,9 +15,6 @@ height = 1.8
 transparency = 1
 shading_mode = 0
 albedo_color = Color(1, 0.45, 0.05, 0.9)
-emission_enabled = true
-emission = Color(1, 0.12, 0.01, 1)
-emission_energy_multiplier = 6.0
 
 [sub_resource type="SphereMesh" id="SphereMeshMuzzleFlash"]
 material = SubResource("StandardMaterialMuzzleFlash")
@@ -31,10 +28,11 @@ script = ExtResource("1_c8nde")
 
 [node name="FarmerOld2" parent="." unique_id=1811171003 instance=ExtResource("2_vfalg")]
 
-[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="0" unique_id=1450332848]
+[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="0" unique_id=916395720]
+layers = 16
 surface_material_override/0 = ExtResource("2_88yto")
 
-[node name="Characters_Characters_Skeleton3D#HandR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="1" unique_id=1303654083]
+[node name="Characters_Characters_Skeleton3D#HandR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="1" unique_id=1303654083]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/HandR")
@@ -49,7 +47,7 @@ settings/0/end_bone = 22
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#FootR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="2" unique_id=1381833618]
+[node name="Characters_Characters_Skeleton3D#FootR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="2" unique_id=1381833618]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/FootR")
@@ -64,7 +62,7 @@ settings/0/end_bone = 45
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#FootL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="3" unique_id=1073337]
+[node name="Characters_Characters_Skeleton3D#FootL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="3" unique_id=1073337]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/FootL")
@@ -79,7 +77,7 @@ settings/0/end_bone = 40
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="4" unique_id=2124072261]
+[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="4" unique_id=2124072261]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/HandR/Shotgun/HandL")
@@ -94,7 +92,7 @@ settings/0/end_bone = 7
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1635758937) index="5" unique_id=1712986502]
+[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="5" unique_id=1712986502]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 target_node = NodePath("../../../../IKcontainer/HeadTarget")
 bone_name = "Neck"
@@ -115,7 +113,6 @@ shape = SubResource("CapsuleShape3D_ec6vt")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=746269821]
 path_height_offset = 0.5
-debug_enabled = false
 
 [node name="IKcontainer" type="Node3D" parent="." unique_id=808096475]
 script = ExtResource("4_vfalg")
@@ -128,32 +125,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24059471, 1.1306759, 0.023
 
 [node name="Shotgun" type="MeshInstance3D" parent="IKcontainer/HandR" unique_id=112335132]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05236326, 0.053773046, 0.099586636)
+layers = 512
 mesh = ExtResource("3_88yto")
 surface_material_override/0 = ExtResource("2_88yto")
 
-[node name="Muzzle" type="Marker3D" parent="IKcontainer/HandR/Shotgun"]
-position = Vector3(0, 0, 0.92)
+[node name="Muzzle" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=964404474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.92)
 
-[node name="MuzzleFlash" type="Node3D" parent="IKcontainer/HandR/Shotgun/Muzzle"]
+[node name="MuzzleFlash" type="Node3D" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=96982296]
 visible = false
 
-[node name="FlashMesh" type="MeshInstance3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash"]
-scale = Vector3(0.65, 0.65, 1.4)
+[node name="FlashMesh" type="MeshInstance3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash" unique_id=1639839150]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 1.4, 0, 0, 0)
+layers = 4
 mesh = SubResource("SphereMeshMuzzleFlash")
 
-[node name="FlashLight" type="OmniLight3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash"]
+[node name="FlashLight" type="OmniLight3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash" unique_id=1151187736]
 light_color = Color(1, 0.35, 0.08, 1)
 light_energy = 4.0
-omni_range = 3.0
 shadow_enabled = true
+omni_range = 3.0
 
-[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="IKcontainer/HandR/Shotgun/Muzzle"]
-max_distance = 45.0
+[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=322138375]
 unit_size = 4.0
+max_distance = 45.0
 max_polyphony = 3
 script = ExtResource("5_gunshot")
 
-[node name="MuzzleFlashTimer" type="Timer" parent="IKcontainer/HandR/Shotgun/Muzzle"]
+[node name="MuzzleFlashTimer" type="Timer" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=1544325410]
 wait_time = 0.08
 one_shot = true
 

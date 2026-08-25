@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_340ju"]
 
 [node name="SM_Prop_Flowers_02" type="MeshInstance3D" unique_id=1048579006]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_43l2a")
 surface_material_override/0 = ExtResource("2_340ju")
