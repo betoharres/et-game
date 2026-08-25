@@ -24,6 +24,7 @@ script = ExtResource("1_door")
 
 [node name="PortalLight" type="OmniLight3D" parent="." unique_id=1247374332]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+layers = 4
 light_color = Color(0.4, 1, 0.65, 1)
 light_energy = 1.6
 omni_range = 4.0
@@ -54,23 +55,28 @@ transform = Transform3D(-0.670903, 0, 0.7415451, 0, 1, 0, -0.7415451, 0, -0.6709
 
 [node name="Portal" type="MeshInstance3D" parent="." unique_id=850087082]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.06027198)
+layers = 4
 mesh = SubResource("QuadMesh_ec6vt")
 
 [node name="Portal2" type="MeshInstance3D" parent="." unique_id=1482657280]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.25, -0.06)
+layers = 4
 mesh = SubResource("QuadMesh_ec6vt")
 
 [node name="SmGenericSmallRocks01" type="MeshInstance3D" parent="." unique_id=17059829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2280931, 0, 0.4006148)
+layers = 128
 mesh = ExtResource("3_ud3ly")
 surface_material_override/0 = ExtResource("4_8hhl8")
 
 [node name="SmGenericSmallRocks02" type="MeshInstance3D" parent="." unique_id=40046360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1204925, 0, 0.9000878)
+layers = 128
 mesh = ExtResource("5_58ie1")
 surface_material_override/0 = ExtResource("4_8hhl8")
 
 [node name="SmGenericSmallRocks03" type="MeshInstance3D" parent="." unique_id=29360199]
 transform = Transform3D(0.7097982, 0, 0.70440507, 0, 1, 0, -0.70440507, 0, 0.7097982, 0.46161368, 0, -0.9383979)
+layers = 128
 mesh = ExtResource("5_58ie1")
 surface_material_override/0 = ExtResource("4_8hhl8")

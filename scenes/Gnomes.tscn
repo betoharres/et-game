@@ -39,49 +39,57 @@ albedo_texture = ExtResource("9_v4ul4")
 [node name="SM_Prop_Gnome_Zombie_01" parent="." unique_id=962794040 instance=ExtResource("1_yfxsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47748786, 0, 0.27937126)
 
-[node name="SM_Prop_Gnome_Zombie_01" parent="SM_Prop_Gnome_Zombie_01" index="0" unique_id=1244030435]
+[node name="SM_Prop_Gnome_Zombie_01" parent="SM_Prop_Gnome_Zombie_01" index="0" unique_id=658408568]
+layers = 512
 material_override = SubResource("StandardMaterial3D_yfxsc")
 
 [node name="SM_Prop_Gnome_Wizard_01" parent="." unique_id=1869271650 instance=ExtResource("2_5rdrh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.705801, 0, 0.4748305)
 
-[node name="SM_Prop_Gnome_Wizard_01" parent="SM_Prop_Gnome_Wizard_01" index="0" unique_id=1477852644]
+[node name="SM_Prop_Gnome_Wizard_01" parent="SM_Prop_Gnome_Wizard_01" index="0" unique_id=822932800]
+layers = 512
 material_override = SubResource("StandardMaterial3D_5rdrh")
 
 [node name="SM_Prop_Gnome_Theorist_01" parent="." unique_id=1411068334 instance=ExtResource("3_itlap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88582575, 0, -0.2748264)
 
-[node name="SM_Prop_Gnome_Theorist_01" parent="SM_Prop_Gnome_Theorist_01" index="0" unique_id=1046933306]
+[node name="SM_Prop_Gnome_Theorist_01" parent="SM_Prop_Gnome_Theorist_01" index="0" unique_id=871564616]
+layers = 512
 material_override = SubResource("StandardMaterial3D_itlap")
 
 [node name="SM_Prop_Gnome_Soldier_01" parent="." unique_id=1014580573 instance=ExtResource("4_r6e8k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11296719, 0, -0.31935382)
 
-[node name="SM_Prop_Gnome_Soldier_01" parent="SM_Prop_Gnome_Soldier_01" index="0" unique_id=473344097]
+[node name="SM_Prop_Gnome_Soldier_01" parent="SM_Prop_Gnome_Soldier_01" index="0" unique_id=963374459]
+layers = 512
 material_override = SubResource("StandardMaterial3D_r6e8k")
 
 [node name="SM_Prop_Gnome_Santa_01" parent="." unique_id=1060892950 instance=ExtResource("5_exgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5194052, 0, 0.93346024)
 
-[node name="SM_Prop_Gnome_Santa_01" parent="SM_Prop_Gnome_Santa_01" index="0" unique_id=78856900]
+[node name="SM_Prop_Gnome_Santa_01" parent="SM_Prop_Gnome_Santa_01" index="0" unique_id=659657205]
+layers = 512
 material_override = SubResource("StandardMaterial3D_exgho")
 
 [node name="SM_Prop_Gnome_Dwarf_01" parent="." unique_id=1737568229 instance=ExtResource("6_5qkol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9420154, 0, -0.19780815)
 
-[node name="SM_Prop_Gnome_Dwarf_01" parent="SM_Prop_Gnome_Dwarf_01" index="0" unique_id=914074284]
+[node name="SM_Prop_Gnome_Dwarf_01" parent="SM_Prop_Gnome_Dwarf_01" index="0" unique_id=1114977589]
+layers = 512
 material_override = SubResource("StandardMaterial3D_5qkol")
 
 [node name="SM_Prop_Gnome_Beach_01" parent="." unique_id=166741646 instance=ExtResource("7_5etph")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051698804, 0, 0.5584122)
 
-[node name="SM_Prop_Gnome_Beach_01" parent="SM_Prop_Gnome_Beach_01" index="0" unique_id=713394385]
+[node name="SM_Prop_Gnome_Beach_01" parent="SM_Prop_Gnome_Beach_01" index="0" unique_id=1044059530]
+layers = 512
 material_override = SubResource("StandardMaterial3D_5etph")
 
 [node name="SM_Prop_Gnome_Basalt_01" parent="." unique_id=201859713 instance=ExtResource("8_ubysw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1345905, 0, 1.3916686)
 
-[node name="SM_Prop_Gnome_Basalt_01" parent="SM_Prop_Gnome_Basalt_01" index="0" unique_id=539934494]
+[node name="SM_Prop_Gnome_Basalt_01" parent="SM_Prop_Gnome_Basalt_01" index="0" unique_id=813884991]
+layers = 512
 surface_material_override/0 = SubResource("StandardMaterial3D_sh0rl")
 
 [editable path="SM_Prop_Gnome_Zombie_01"]

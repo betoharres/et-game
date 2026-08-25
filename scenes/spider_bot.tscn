@@ -5,38 +5,43 @@
 [ext_resource type="Script" uid="uid://cfvm5ylrw0kqf" path="res://scripts/spider_bot/spider_bot.gd" id="2_kfpvc"]
 [ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_0f8hv"]
 [ext_resource type="Script" uid="uid://1g3w36rtmt44" path="res://scripts/spider_bot/step_ray.gd" id="4_8a6ki"]
+[ext_resource type="Shader" uid="uid://tax2k4kitkxn" path="res://shaders/body_glass.gdshader" id="4_fvotl"]
 [ext_resource type="Script" uid="uid://cvppf16by64p3" path="res://scripts/spider_bot/ik_target.gd" id="4_p25cf"]
 [ext_resource type="Script" uid="uid://matqbctwawoh" path="res://scripts/spider_bot/eye.gd" id="5_0f8hv"]
 [ext_resource type="Shader" uid="uid://dbq4edew3ci7d" path="res://shaders/eyes.gdshader" id="5_csgri"]
 [ext_resource type="Material" uid="uid://c2yptqf18rkgh" path="res://Materiais/Mirror_Glass_mat.tres" id="5_fvotl"]
+[ext_resource type="Script" uid="uid://blmvpdw3dddwd" path="res://scripts/spider_bot/body_glass.gd" id="5_vbepm"]
 [ext_resource type="Script" uid="uid://bbo16dywndl6r" path="res://scripts/spider_bot/StepTargetContainer.gd" id="5_yguvh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csgri"]
-resource_name = "Veh_Glass_mat"
-transparency = 1
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.44705883, 0.5568628, 0.67058825, 0.4627451)
-metallic = 0.51
-metallic_specular = 0.61
-roughness = 0.16
-rim_enabled = true
-rim_tint = 0.43
-ao_light_affect = 1.0
-uv1_scale = Vector3(1, 1, 0)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t1ejp"]
+render_priority = 0
+shader = ExtResource("4_fvotl")
+shader_parameter/effect_mode = 0.0
+shader_parameter/intensity = 1.0
+shader_parameter/color_a = Color(0.05, 1, 0.7, 1)
+shader_parameter/color_b = Color(0.8, 0.05, 1, 1)
+shader_parameter/color_c = Color(1, 0.05, 0.15, 1)
+shader_parameter/bubble_scale = 7.0
+shader_parameter/distortion = 1.425
+shader_parameter/pulse_speed = 1.4
+shader_parameter/rotation_speed = 0.35
+shader_parameter/transparency = 0.10000000475
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fvotl"]
 render_priority = 0
 shader = ExtResource("5_csgri")
 shader_parameter/effect_a = 0
 shader_parameter/effect_b = 1
 shader_parameter/transition = 0.0
 shader_parameter/intensity = 1.0
-shader_parameter/animation_speed = 1.0
+shader_parameter/animation_speed = 5.0
 shader_parameter/distortion = 0.45
 shader_parameter/glow = 2.0
-shader_parameter/pupil_size = 0.22
-shader_parameter/pupil_softness = 0.08
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 1.0
+shader_parameter/pupil_size = 0.09500000288256
+shader_parameter/pupil_softness = 0.038000001804999996
 
 [node name="SpiderBot" unique_id=564775910 instance=ExtResource("1_vovvw")]
 script = ExtResource("2_kfpvc")
@@ -44,16 +49,23 @@ move_speed = 5.0
 turn_speed = 0.5
 
 [node name="Body" parent="Armature/Skeleton3D/Body_2" parent_id_path=PackedInt32Array(543441228) index="0" unique_id=429876040]
+layers = 16
 surface_material_override/0 = ExtResource("3_0f8hv")
-surface_material_override/1 = SubResource("StandardMaterial3D_csgri")
+surface_material_override/1 = SubResource("ShaderMaterial_t1ejp")
 surface_material_override/2 = ExtResource("5_fvotl")
+script = ExtResource("5_vbepm")
 
 [node name="Eye" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="1" unique_id=528285177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5538026e-07, 0)
-material_override = SubResource("ShaderMaterial_t1ejp")
+layers = 16
+surface_material_override/0 = SubResource("ShaderMaterial_fvotl")
 script = ExtResource("5_0f8hv")
+change_time = null
+transition_time = null
+effect_count = null
 
 [node name="Leg" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="2" unique_id=1988626723]
+layers = 16
 surface_material_override/0 = ExtResource("3_0f8hv")
 
 [node name="FrontLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="3" unique_id=316618086]

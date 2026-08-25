@@ -6,7 +6,7 @@
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
 [ext_resource type="Theme" uid="uid://ds6ac3raauq3j" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
 [ext_resource type="Texture2D" uid="uid://b3b1wfkvyx5cj" path="res://Texturas/ui/switch_button.png" id="6_switch_icon"]
-[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="7_interference"]
+[ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="7_interference"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_trv2r"]
 size = Vector3(4, 4, 4)
@@ -14,9 +14,6 @@ size = Vector3(4, 4, 4)
 [sub_resource type="StandardMaterial3D" id="SignalMaterial"]
 shading_mode = 0
 albedo_color = Color(0.42, 1, 0.82, 1)
-emission_enabled = true
-emission = Color(0.18, 1, 0.72, 1)
-emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="SignalRingMesh"]
 material = SubResource("SignalMaterial")
@@ -26,6 +23,7 @@ rings = 24
 ring_segments = 48
 
 [sub_resource type="ShaderMaterial" id="BeamMaterial"]
+render_priority = 0
 shader = ExtResource("4_beam_shader")
 shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
 shader_parameter/emission_strength = 0.38
@@ -36,9 +34,9 @@ top_radius = 0.18
 bottom_radius = 4.2
 height = 1.0
 radial_segments = 32
-rings = 4
 
 [sub_resource type="ShaderMaterial" id="BeamCoreMaterial"]
+render_priority = 0
 shader = ExtResource("4_beam_shader")
 shader_parameter/beam_color = Color(0.25, 0.98, 0.75, 0.24)
 shader_parameter/emission_strength = 2.4
@@ -57,7 +55,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.6)
 shadow_size = 8
 
 [sub_resource type="StyleBoxFlat" id="KeyIconStyle"]
@@ -90,8 +87,8 @@ corner_radius_bottom_left = 5
 collision_mask = 9
 script = ExtResource("1_trv2r")
 
-[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
-position = Vector3(0, 1.2, 0)
+[node name="AlienInterferenceSource" type="Node3D" parent="." unique_id=1946122606 groups=["alien_interference_sources"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 script = ExtResource("7_interference")
 enabled = false
 full_strength_radius = 6.0
@@ -108,61 +105,66 @@ shape = SubResource("BoxShape3D_trv2r")
 mesh = ExtResource("2_yf2p4")
 surface_material_override/0 = ExtResource("3_52udj")
 
-[node name="AbductionOrigin" type="Marker3D" parent="."]
-position = Vector3(0, 1.2, 0)
+[node name="AbductionOrigin" type="Marker3D" parent="." unique_id=957201968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 
-[node name="SignalMarker" type="Node3D" parent="."]
+[node name="SignalMarker" type="Node3D" parent="." unique_id=1063269615]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
 visible = false
-position = Vector3(0, 1.35, 0)
 
-[node name="SignalRing" type="MeshInstance3D" parent="SignalMarker"]
+[node name="SignalRing" type="MeshInstance3D" parent="SignalMarker" unique_id=993003384]
+layers = 32
 mesh = SubResource("SignalRingMesh")
 
-[node name="SignalLight" type="OmniLight3D" parent="SignalMarker" groups=["volumetric_lights", "alien_volumetric_lights"]]
-position = Vector3(0, 0.5, 0)
+[node name="SignalLight" type="OmniLight3D" parent="SignalMarker" unique_id=1621581805 groups=["alien_volumetric_lights", "volumetric_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 32
 light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 3.2
 light_volumetric_fog_energy = 0.25
 omni_range = 7.0
 
-[node name="AbductionBeam" type="Node3D" parent="."]
+[node name="AbductionBeam" type="Node3D" parent="." unique_id=1647409696]
 visible = false
 
-[node name="BeamVolume" type="MeshInstance3D" parent="AbductionBeam"]
+[node name="BeamVolume" type="MeshInstance3D" parent="AbductionBeam" unique_id=236365255]
+layers = 32
 mesh = SubResource("BeamMesh")
 
-[node name="BeamCore" type="MeshInstance3D" parent="AbductionBeam"]
+[node name="BeamCore" type="MeshInstance3D" parent="AbductionBeam" unique_id=42091518]
+layers = 32
 mesh = SubResource("BeamCoreMesh")
 
-[node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam" groups=["volumetric_lights", "alien_volumetric_lights"]]
+[node name="BeamSpotLight" type="SpotLight3D" parent="AbductionBeam" unique_id=435992935 groups=["alien_volumetric_lights", "volumetric_lights"]]
+layers = 32
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 5.2
-light_volumetric_fog_energy = 1.0
 shadow_enabled = true
 spot_range = 40.0
 spot_attenuation = 0.45
 spot_angle = 13.0
 
-[node name="BeamGroundLight" type="OmniLight3D" parent="AbductionBeam"]
+[node name="BeamGroundLight" type="OmniLight3D" parent="AbductionBeam" unique_id=1700052235]
+layers = 32
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 1.6
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
-[node name="BeamCoreLight" type="OmniLight3D" parent="AbductionBeam"]
+[node name="BeamCoreLight" type="OmniLight3D" parent="AbductionBeam" unique_id=421510425]
+layers = 32
 light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 1.5
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.1
-shadow_enabled = false
 omni_range = 4.5
 omni_attenuation = 1.35
 
-[node name="InteractionPrompt" type="CanvasLayer" parent="."]
+[node name="InteractionPrompt" type="CanvasLayer" parent="." unique_id=378530467]
 layer = 30
 
-[node name="PromptRoot" type="Control" parent="InteractionPrompt"]
+[node name="PromptRoot" type="Control" parent="InteractionPrompt" unique_id=1709575957]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -172,7 +174,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("5_hud_theme")
 
-[node name="PromptPanel" type="PanelContainer" parent="InteractionPrompt/PromptRoot"]
+[node name="PromptPanel" type="PanelContainer" parent="InteractionPrompt/PromptRoot" unique_id=449407753]
 custom_minimum_size = Vector2(440, 0)
 layout_mode = 1
 anchors_preset = 7
@@ -188,42 +190,33 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("PromptPanelStyle")
 
-[node name="PromptMargin" type="MarginContainer" parent="InteractionPrompt/PromptRoot/PromptPanel"]
+[node name="PromptMargin" type="MarginContainer" parent="InteractionPrompt/PromptRoot/PromptPanel" unique_id=787392904]
 layout_mode = 2
 theme_override_constants/margin_left = 22
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 16
 
-[node name="PromptContent" type="VBoxContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin"]
+[node name="PromptContent" type="VBoxContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin" unique_id=773941448]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="KeyButton" type="PanelContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+[node name="KeyButton" type="PanelContainer" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent" unique_id=1064732447]
 custom_minimum_size = Vector2(68, 62)
 layout_mode = 2
-theme_override_styles/panel = SubResource("KeyIconStyle")
 size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("KeyIconStyle")
 
-[node name="MeshIcon" type="TextureRect" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton"]
+[node name="MeshIcon" type="TextureRect" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton" unique_id=78184152]
 self_modulate = Color(0.25, 0.9, 1, 0.72)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.0
-offset_right = -4.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 texture_filter = 2
+layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("6_switch_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton"]
+[node name="KeyLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent/KeyButton" unique_id=1795957335]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.015, 0.07, 0.1, 1)
 theme_override_colors/font_outline_color = Color(0.68, 0.98, 1, 0.9)
@@ -233,19 +226,18 @@ text = "F"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PromptLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+[node name="PromptLabel" type="Label" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent" unique_id=1012243265]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.95, 1, 1)
 theme_override_font_sizes/font_size = 20
 text = "SEGURE F PARA CHAMAR A LUZ"
 horizontal_alignment = 1
 
-[node name="HoldProgress" type="ProgressBar" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent"]
+[node name="HoldProgress" type="ProgressBar" parent="InteractionPrompt/PromptRoot/PromptPanel/PromptMargin/PromptContent" unique_id=279092177]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("ProgressBackgroundStyle")
 theme_override_styles/fill = SubResource("ProgressFillStyle")
 max_value = 3.0
-step = 0.01
 show_percentage = false

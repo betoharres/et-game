@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://qpwtx0dw3ehb"]
 
-[ext_resource type="Script" path="res://scripts/arrival_beam.gd" id="1_script"]
-[ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="2_beam_shader"]
-[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="3_interference"]
+[ext_resource type="Script" uid="uid://mcq6r8ddpmk6" path="res://scripts/arrival_beam.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="2_beam_shader"]
+[ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="3_interference"]
 
 [sub_resource type="ShaderMaterial" id="BeamMaterial"]
+render_priority = 0
 shader = ExtResource("2_beam_shader")
 shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
 shader_parameter/emission_strength = 0.38
@@ -15,26 +16,24 @@ top_radius = 0.22
 bottom_radius = 3.4
 height = 1.0
 radial_segments = 32
-rings = 4
 
 [sub_resource type="ShaderMaterial" id="BeamCoreMaterial"]
+render_priority = 0
 shader = ExtResource("2_beam_shader")
 shader_parameter/beam_color = Color(0.25, 0.98, 0.75, 0.24)
 shader_parameter/emission_strength = 2.4
 
 [sub_resource type="CylinderMesh" id="BeamCoreMesh"]
 material = SubResource("BeamCoreMaterial")
-top_radius = 0.5
-bottom_radius = 0.5
 height = 1.0
 radial_segments = 32
 rings = 2
 
-[node name="ArrivalBeam" type="Node3D"]
+[node name="ArrivalBeam" type="Node3D" unique_id=535163799]
 visible = false
 script = ExtResource("1_script")
 
-[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
+[node name="AlienInterferenceSource" type="Node3D" parent="." unique_id=323610719 groups=["alien_interference_sources"]]
 script = ExtResource("3_interference")
 full_strength_radius = 8.0
 fade_radius = 34.0
@@ -42,33 +41,36 @@ intensity = 1.0
 pulse_amount = 0.14
 pulse_frequency = 0.62
 
-[node name="BeamVolume" type="MeshInstance3D" parent="."]
+[node name="BeamVolume" type="MeshInstance3D" parent="." unique_id=1339557017]
+layers = 32
 mesh = SubResource("BeamMesh")
 
-[node name="BeamCore" type="MeshInstance3D" parent="."]
+[node name="BeamCore" type="MeshInstance3D" parent="." unique_id=2097381395]
+layers = 32
 mesh = SubResource("BeamCoreMesh")
 
-[node name="BeamSpotLight" type="SpotLight3D" parent="." groups=["volumetric_lights", "alien_volumetric_lights"]]
+[node name="BeamSpotLight" type="SpotLight3D" parent="." unique_id=2090476814 groups=["alien_volumetric_lights", "volumetric_lights"]]
+layers = 32
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 0.0
-light_volumetric_fog_energy = 1.0
 shadow_enabled = true
 spot_range = 40.0
 spot_attenuation = 0.45
 spot_angle = 13.0
 
-[node name="BeamGroundLight" type="OmniLight3D" parent="."]
+[node name="BeamGroundLight" type="OmniLight3D" parent="." unique_id=1516667861]
+layers = 32
 light_color = Color(0.16, 0.88, 0.68, 1)
 light_energy = 0.0
 light_volumetric_fog_energy = 0.08
 omni_range = 8.5
 omni_attenuation = 1.15
 
-[node name="BeamCoreLight" type="OmniLight3D" parent="." groups=["volumetric_lights", "alien_volumetric_lights"]]
+[node name="BeamCoreLight" type="OmniLight3D" parent="." unique_id=1735288999 groups=["alien_volumetric_lights", "volumetric_lights"]]
+layers = 32
 light_color = Color(0.5, 1, 0.8, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.1
-shadow_enabled = false
 omni_range = 4.5
 omni_attenuation = 1.35

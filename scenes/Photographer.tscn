@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene format=3 uid="uid://ctlyi6tcv6xdp"]
 
-[ext_resource type="Script" path="res://scripts/photographer.gd" id="1_photographer"]
+[ext_resource type="Script" uid="uid://be7v6q604sshy" path="res://scripts/photographer.gd" id="1_photographer"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_farmer_model"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_farmer_material"]
 
@@ -36,9 +36,6 @@ radial_segments = 16
 transparency = 1
 shading_mode = 0
 albedo_color = Color(0.85, 0.94, 1, 0.95)
-emission_enabled = true
-emission = Color(0.7, 0.88, 1, 1)
-emission_energy_multiplier = 8.0
 
 [sub_resource type="SphereMesh" id="FlashMesh"]
 material = SubResource("FlashMaterial")
@@ -47,57 +44,58 @@ height = 0.22
 radial_segments = 12
 rings = 6
 
-[node name="Photographer" type="CharacterBody3D" groups=["photographers"]]
+[node name="Photographer" type="CharacterBody3D" unique_id=753964151 groups=["photographers"]]
 script = ExtResource("1_photographer")
 
-[node name="FarmerOld2" parent="." instance=ExtResource("2_farmer_model")]
+[node name="FarmerOld2" parent="." unique_id=1036764768 instance=ExtResource("2_farmer_model")]
 
-[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" index="0"]
+[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1036764768, 1712719073) index="0" unique_id=916395720]
+layers = 16
 surface_material_override/0 = ExtResource("3_farmer_material")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-position = Vector3(0, 0.9, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1458509790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsulePhotographer")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 0.5
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1052011456]
 path_desired_distance = 0.5
-target_desired_distance = 1.0
+path_height_offset = 0.5
 
-[node name="CameraRig" type="Node3D" parent="."]
-position = Vector3(0, 1.25, 0.34)
+[node name="CameraRig" type="Node3D" parent="." unique_id=2129671512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.34)
 
-[node name="CameraBody" type="MeshInstance3D" parent="CameraRig"]
+[node name="CameraBody" type="MeshInstance3D" parent="CameraRig" unique_id=281091573]
+layers = 512
 mesh = SubResource("CameraBodyMesh")
 
-[node name="CameraLens" type="MeshInstance3D" parent="CameraRig"]
-position = Vector3(0, 0, 0.13)
-rotation = Vector3(1.5707964, 0, 0)
+[node name="CameraLens" type="MeshInstance3D" parent="CameraRig" unique_id=1614826246]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.13)
+layers = 512
 mesh = SubResource("CameraLensMesh")
 
-[node name="CameraFlash" type="Node3D" parent="CameraRig"]
+[node name="CameraFlash" type="Node3D" parent="CameraRig" unique_id=1449712293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0.1, 0.14)
 visible = false
-position = Vector3(0.12, 0.1, 0.14)
 
-[node name="FlashMesh" type="MeshInstance3D" parent="CameraRig/CameraFlash"]
+[node name="FlashMesh" type="MeshInstance3D" parent="CameraRig/CameraFlash" unique_id=1695669636]
+layers = 4
 mesh = SubResource("FlashMesh")
 
-[node name="FlashLight" type="OmniLight3D" parent="CameraRig/CameraFlash"]
+[node name="FlashLight" type="OmniLight3D" parent="CameraRig/CameraFlash" unique_id=1099410089]
 light_color = Color(0.72, 0.88, 1, 1)
 light_energy = 3.0
-omni_range = 3.0
 shadow_enabled = true
+omni_range = 3.0
 
-[node name="FlashTimer" type="Timer" parent="CameraRig"]
+[node name="FlashTimer" type="Timer" parent="CameraRig" unique_id=330748459]
 wait_time = 0.1
 one_shot = true
 
-[node name="RoleLabel" type="Label3D" parent="."]
-position = Vector3(0, 2.05, 0)
+[node name="RoleLabel" type="Label3D" parent="." unique_id=1117793553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
 billboard = 1
-text = "FOTÓGRAFO"
-font_size = 32
-outline_size = 8
 modulate = Color(0.75, 0.9, 1, 1)
+text = "FOTÓGRAFO"
+outline_size = 8
 
 [editable path="FarmerOld2"]

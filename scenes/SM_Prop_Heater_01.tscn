@@ -7,6 +7,7 @@
 size = Vector3(0.63385254, 0.7001171, 0.39052734)
 
 [node name="SM_Prop_Heater_01" type="MeshInstance3D" unique_id=1533419366]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_hu73a")
 surface_material_override/0 = ExtResource("2_gmat0")

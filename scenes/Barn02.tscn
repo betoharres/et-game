@@ -5,23 +5,30 @@
 
 [node name="Barn2" unique_id=1112714426 instance=ExtResource("1_wcc3u")]
 
-[node name="SM_Bld_Barn_02" parent="." index="0" unique_id=141172870]
+[node name="SM_Bld_Barn_02" parent="." index="0" unique_id=1560334774]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Door_01" parent="SM_Bld_Barn_02" index="0" unique_id=550147858]
+[node name="SM_Bld_Barn_02_Door_01" parent="SM_Bld_Barn_02" index="0" unique_id=926932621]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Door_02" parent="SM_Bld_Barn_02" index="1" unique_id=744201887]
+[node name="SM_Bld_Barn_02_Door_02" parent="SM_Bld_Barn_02" index="1" unique_id=169056044]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Door_03" parent="SM_Bld_Barn_02" index="2" unique_id=93708079]
+[node name="SM_Bld_Barn_02_Door_03" parent="SM_Bld_Barn_02" index="2" unique_id=1273334303]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Door_04" parent="SM_Bld_Barn_02" index="3" unique_id=394791004]
+[node name="SM_Bld_Barn_02_Door_04" parent="SM_Bld_Barn_02" index="3" unique_id=896672889]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Shutter_01" parent="SM_Bld_Barn_02" index="4" unique_id=508241270]
+[node name="SM_Bld_Barn_02_Shutter_01" parent="SM_Bld_Barn_02" index="4" unique_id=2035538135]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")
 
-[node name="SM_Bld_Barn_02_Shutter_02" parent="SM_Bld_Barn_02" index="5" unique_id=1691601791]
+[node name="SM_Bld_Barn_02_Shutter_02" parent="SM_Bld_Barn_02" index="5" unique_id=2132827578]
+layers = 128
 surface_material_override/0 = ExtResource("2_gllro")

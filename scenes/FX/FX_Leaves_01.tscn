@@ -51,6 +51,7 @@ turbulence_initial_displacement_max = 0.2000015
 material = ExtResource("1_csebq")
 
 [node name="FX_Leaves_01" type="GPUParticles3D" unique_id=303212454]
+layers = 32
 amount = 50
 lifetime = 12.0
 speed_scale = 0.7

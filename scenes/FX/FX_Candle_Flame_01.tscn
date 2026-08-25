@@ -40,6 +40,7 @@ size = Vector2(0.5, 1)
 center_offset = Vector3(0, 0.455, 0)
 
 [node name="FX_Candle_Flame_01" type="GPUParticles3D" unique_id=71959969]
+layers = 32
 amount = 6
 speed_scale = 0.5
 fixed_fps = 0

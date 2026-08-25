@@ -4,10 +4,12 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_a3fo0"]
 
 [node name="SM_Prop_CeilingLight_01" type="MeshInstance3D" unique_id=1136198726]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_wfvr5")
 surface_material_override/0 = ExtResource("2_a3fo0")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1387580989]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.82795846, 0)
+layers = 4
 light_bake_mode = 1

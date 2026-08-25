@@ -52,49 +52,57 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
 
 [node name="SmPropTireStack02" type="MeshInstance3D" parent="." unique_id=666125408]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4131844, 0, 4.320926)
+layers = 512
 mesh = ExtResource("6_je5pk")
 surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
 
 [node name="SmPropTireStack03" type="MeshInstance3D" parent="." unique_id=961527842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5245624, 0, 4.2750597)
+layers = 512
 mesh = ExtResource("7_37myx")
 surface_material_override/0 = SubResource("StandardMaterial3D_g1i70")
 
 [node name="SmPropTireStack01" type="MeshInstance3D" parent="." unique_id=1341317613]
 transform = Transform3D(0.9458388, 0, -0.32463658, 0, 1, 0, 0.32463658, 0, 0.9458388, -3.788268, 0, 3.0348427)
+layers = 512
 mesh = ExtResource("8_bqev6")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
 
 [node name="SmPropTireStack04" type="MeshInstance3D" parent="." unique_id=1667394845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0658436, 0, -2.8749816)
+layers = 512
 mesh = ExtResource("7_37myx")
 surface_material_override/0 = SubResource("StandardMaterial3D_g1i70")
 
 [node name="SmPropTireStack06" type="MeshInstance3D" parent="." unique_id=70530008]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254776, 0, -3.3070068)
+layers = 512
 mesh = ExtResource("6_je5pk")
 surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
 
 [node name="SmPropTireStack07" type="MeshInstance3D" parent="." unique_id=691184924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4682465, 0, 1.2778807)
+layers = 512
 mesh = ExtResource("6_je5pk")
 surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
 
 [node name="SmPropTire02" type="MeshInstance3D" parent="." unique_id=2091166700]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4964742, 0, 3.3543112)
+layers = 512
 mesh = ExtResource("9_5wg2k")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
 
 [node name="SmPropTireStack05" type="MeshInstance3D" parent="." unique_id=1430252364]
 transform = Transform3D(0.4638495, 0, 0.885914, 0, 1, 0, -0.885914, 0, 0.4638495, 3.3604846, 0, -0.30817544)
+layers = 512
 mesh = ExtResource("8_bqev6")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
 
 [node name="SmPropTire01" type="MeshInstance3D" parent="." unique_id=1650318625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3206787, 0, -1.5853271)
+layers = 512
 mesh = ExtResource("9_5wg2k")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
 
 [node name="FX_Fog_01" parent="." unique_id=65490421 instance=ExtResource("10_37myx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8674097, 0.5557697, 0.61229706)
-layers = 32

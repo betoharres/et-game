@@ -7,270 +7,318 @@
 [ext_resource type="ArrayMesh" uid="uid://cldpx4ttprxy2" path="res://3dModelos/SM_Prop_Plant_Wheat_02.fbx" id="4_oqkts"]
 [ext_resource type="ArrayMesh" uid="uid://dtv3rmhtqgqou" path="res://3dModelos/SM_Prop_Plant_Wheat_01.fbx" id="5_nihgy"]
 [ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="6_concealment"]
+[ext_resource type="Script" uid="uid://ddokxatimv323" path="res://scripts/fog_zone.gd" id="7_fog_zone"]
 
-[ext_resource type="Script" path="res://scripts/fog_zone.gd" id="7_fog_zone"]
 [sub_resource type="BoxShape3D" id="BoxShapeConcealment"]
 size = Vector3(6.2, 2, 6.2)
 
 [node name="Root" type="Node3D" unique_id=269317343]
 script = ExtResource("1_63ylk")
 
-[node name="ConcealmentArea" type="Area3D" parent="." groups=["concealment_areas"]]
-position = Vector3(0, 0.8, 0)
+[node name="ConcealmentArea" type="Area3D" parent="." unique_id=2078090153 groups=["concealment_areas"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 collision_layer = 0
-collision_mask = 1
 script = ExtResource("6_concealment")
 visibility_multiplier = 0.35
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ConcealmentArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConcealmentArea" unique_id=812530383]
 shape = SubResource("BoxShapeConcealment")
 
 [node name="SmPropPlantWheat04" type="MeshInstance3D" parent="." unique_id=237119138]
 transform = Transform3D(-0.9994287, 0, 0.033798367, 0, 1, 0, -0.033798367, 0, -0.9994287, 0, 0, 0)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat05" type="MeshInstance3D" parent="." unique_id=386023134]
 transform = Transform3D(-0.35431433, 0, -0.9351265, 0, 1, 0, 0.9351265, 0, -0.35431433, -0.75662696, 0, -1.6342728)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat06" type="MeshInstance3D" parent="." unique_id=1385080812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8132147, 0, 0.28025204)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat07" type="MeshInstance3D" parent="." unique_id=728327324]
 transform = Transform3D(-0.9863585, 0, 0.16461131, 0, 1, 0, -0.16461131, 0, -0.9863585, -1.1093644, 0, 1.4801024)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat08" type="MeshInstance3D" parent="." unique_id=1630122830]
 transform = Transform3D(-0.99758697, 0, -0.06942801, 0, 1, 0, 0.06942801, 0, -0.99758697, 1.1455489, 0, 0.7038157)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat09" type="MeshInstance3D" parent="." unique_id=1146738049]
 transform = Transform3D(0.8959581, 0, -0.44413853, 0, 1, 0, 0.44413853, 0, 0.8959581, -0.40438664, 0, 2.3091478)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat10" type="MeshInstance3D" parent="." unique_id=990427601]
 transform = Transform3D(-0.9782632, 0, -0.20736703, 0, 1, 0, 0.20736703, 0, -0.9782632, -2.0288262, 0, -0.7840107)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat11" type="MeshInstance3D" parent="." unique_id=1092153058]
 transform = Transform3D(0.7445487, 0, 0.66756815, 0, 1, 0, -0.66756815, 0, 0.7445487, 0.8066689, 0, -1.4632355)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat12" type="MeshInstance3D" parent="." unique_id=1374852638]
 transform = Transform3D(-0.25881904, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881904, 2.0896492, 0, -0.6222903)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat03" type="MeshInstance3D" parent="." unique_id=1511205985]
 transform = Transform3D(0.24357769, 0, 0.9698814, 0, 1, 0, -0.9698814, 0, 0.24357769, 0.046590917, 0, -1.735491)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat13" type="MeshInstance3D" parent="." unique_id=743735767]
 transform = Transform3D(0.7827037, 0, 0.6223945, 0, 1, 0, -0.6223945, 0, 0.7827037, 1.0891689, 0, 1.8416553)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat14" type="MeshInstance3D" parent="." unique_id=414274558]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4490924, 0, 1.2315992)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat15" type="MeshInstance3D" parent="." unique_id=710946372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.643201, 0, -2.6505747)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat02" type="MeshInstance3D" parent="." unique_id=1273792690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012713796, 0, 1.016475)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat16" type="MeshInstance3D" parent="." unique_id=1895838279]
 transform = Transform3D(0.7458543, 0, 0.6661091, 0, 1, 0, -0.6661091, 0, 0.7458543, -0.8860034, 0, -0.5360398)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat17" type="MeshInstance3D" parent="." unique_id=680738659]
 transform = Transform3D(0.61266804, 0, 0.79034036, 0, 1, 0, -0.79034036, 0, 0.61266804, 1.1732346, 0, -0.27728721)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat01" type="MeshInstance3D" parent="." unique_id=2056699633]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4250716, 0, 0.8331923)
+layers = 2
 mesh = ExtResource("5_nihgy")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat18" type="MeshInstance3D" parent="." unique_id=452475511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0477241, 0, 2.3641446)
+layers = 2
 mesh = ExtResource("5_nihgy")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat19" type="MeshInstance3D" parent="." unique_id=510028407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5074574, 0, 1.1566327)
+layers = 2
 mesh = ExtResource("5_nihgy")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat20" type="MeshInstance3D" parent="." unique_id=1658649737]
 transform = Transform3D(0.83322585, 0, 0.55293286, 0, 1, 0, -0.55293286, 0, 0.83322585, 1.9964538, 0, 2.0730484)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat21" type="MeshInstance3D" parent="." unique_id=256392730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6287174, 0, 0.33724996)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat22" type="MeshInstance3D" parent="." unique_id=508557332]
 transform = Transform3D(-0.07321279, 0, 0.99731636, 0, 1, 0, -0.99731636, 0, -0.07321279, 2.6394997, 0, -1.2907348)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat23" type="MeshInstance3D" parent="." unique_id=1920407205]
 transform = Transform3D(-0.5163117, 0, -0.8564008, 0, 1, 0, 0.8564008, 0, -0.5163117, -1.6622614, 0, 2.6552413)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat24" type="MeshInstance3D" parent="." unique_id=469665750]
 transform = Transform3D(-0.33456585, 0, 0.9423724, 0, 1, 0, -0.9423724, 0, -0.33456585, -2.6649272, 0, 1.9328904)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat25" type="MeshInstance3D" parent="." unique_id=773978894]
 transform = Transform3D(0.8504071, 0, -0.5261252, 0, 1, 0, 0.5261252, 0, 0.8504071, -2.7727408, 0, 0.46662632)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat26" type="MeshInstance3D" parent="." unique_id=1657058009]
 transform = Transform3D(0.9573755, 0, 0.28884587, 0, 1, 0, -0.28884587, 0, 0.9573755, -2.1258597, 0, -2.1963682)
+layers = 2
 mesh = ExtResource("1_1dqas")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat27" type="MeshInstance3D" parent="." unique_id=865555140]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9710552, 0, -1.8298025)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat28" type="MeshInstance3D" parent="." unique_id=558074133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.168985, 0, 1.7496072)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat29" type="MeshInstance3D" parent="." unique_id=643651328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8266478, 0, 2.8385246)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat30" type="MeshInstance3D" parent="." unique_id=1828793090]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4681967, 0, 1.1027259)
+layers = 2
 mesh = ExtResource("5_nihgy")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat31" type="MeshInstance3D" parent="." unique_id=1278127834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17443407, 0, 1.4800737)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat32" type="MeshInstance3D" parent="." unique_id=1421586901]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37927997, 0, -0.54682124)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat33" type="MeshInstance3D" parent="." unique_id=1836301378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14900601, 0, -2.6491854)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat34" type="MeshInstance3D" parent="." unique_id=581880675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7580938, 0, -2.6276226)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat35" type="MeshInstance3D" parent="." unique_id=880489233]
 transform = Transform3D(-0.8696243, 0, 0.493714, 0, 1, 0, -0.493714, 0, -0.8696243, -2.4113293, 0, 2.5632057)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat36" type="MeshInstance3D" parent="." unique_id=128740319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3059652, 0, 1.5486169)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat37" type="MeshInstance3D" parent="." unique_id=1980776572]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88262343, 0, 2.6495106)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat38" type="MeshInstance3D" parent="." unique_id=1502549242]
 transform = Transform3D(0.0057430705, 0, 0.9999835, 0, 1, 0, -0.9999835, 0, 0.0057430705, 2.6417232, 0, 2.6436858)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat39" type="MeshInstance3D" parent="." unique_id=1268881024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0190492, 0, 0.5594677)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat40" type="MeshInstance3D" parent="." unique_id=2031720516]
 transform = Transform3D(-0.99999774, 0, 0.002131548, 0, 1, 0, -0.002131548, 0, -0.99999774, 2.6015325, 0, 1.0371039)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat41" type="MeshInstance3D" parent="." unique_id=599443849]
 transform = Transform3D(-0.99886227, 0, 0.047688596, 0, 1, 0, -0.047688596, 0, -0.99886227, 1.6649587, 0, -0.19496736)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat42" type="MeshInstance3D" parent="." unique_id=2019189683]
 transform = Transform3D(-0.99976164, 0, -0.021831598, 0, 1, 0, 0.021831598, 0, -0.99976164, -0.5300615, 0, -2.681811)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat43" type="MeshInstance3D" parent="." unique_id=1436667018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6926732, 0, -1.9795747)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat44" type="MeshInstance3D" parent="." unique_id=1454506079]
 transform = Transform3D(0.059008114, 0, 0.9982575, 0, 1, 0, -0.9982575, 0, 0.059008114, 2.0321722, 0, -2.651278)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat45" type="MeshInstance3D" parent="." unique_id=847919723]
 transform = Transform3D(0.075787, 0, -0.997124, 0, 1, 0, 0.997124, 0, 0.075787, 1.4478906, 0, -2.651278)
+layers = 2
 mesh = ExtResource("3_63ylk")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat46" type="MeshInstance3D" parent="." unique_id=1282105153]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7537446, 0, -2.7811182)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat47" type="MeshInstance3D" parent="." unique_id=547242300]
 transform = Transform3D(-0.9335296, 0, -0.35850036, 0, 1, 0, 0.35850036, 0, -0.9335296, 0.65886116, 0, -2.471499)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat48" type="MeshInstance3D" parent="." unique_id=88804449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1513555, 0, 0.5004784)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
 [node name="SmPropPlantWheat49" type="MeshInstance3D" parent="." unique_id=438920121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30082536, 0, -0.7768106)
+layers = 2
 mesh = ExtResource("4_oqkts")
 surface_material_override/0 = ExtResource("2_nheqg")
 
-[node name="FogZone" type="Node3D" parent="." groups=["fog_zones"]]
+[node name="FogZone" type="Node3D" parent="." unique_id=955724872 groups=["fog_zones"]]
 script = ExtResource("7_fog_zone")
 radius = 9.0
 strength = 0.5

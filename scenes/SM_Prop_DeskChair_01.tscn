@@ -7,6 +7,7 @@
 size = Vector3(0.49174142, 0.12933683, 0.48826247)
 
 [node name="SM_Prop_DeskChair_01" type="MeshInstance3D" unique_id=1092404629]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_bpb6b")
 surface_material_override/0 = ExtResource("2_yjesh")

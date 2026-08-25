@@ -96,6 +96,7 @@ script = ExtResource("5_house_lights")
 
 [node name="SmBldFarmhouse01" type="MeshInstance3D" parent="." unique_id=2109646978]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.218536, -0.0056750774, -1.1798294)
+layers = 128
 mesh = ExtResource("1_rjiv2")
 surface_material_override/0 = ExtResource("2_1e7hi")
 surface_material_override/1 = ExtResource("2_mvcib")

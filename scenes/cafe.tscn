@@ -137,7 +137,8 @@ size = Vector3(1.0252979, 2.224348, 0.085555725)
 
 [node name="SM_Bld_Cafe_01" parent="." unique_id=970507128 instance=ExtResource("1_a6vgn")]
 
-[node name="SM_Bld_Cafe_01" parent="SM_Bld_Cafe_01" index="0" unique_id=663747928]
+[node name="SM_Bld_Cafe_01" parent="SM_Bld_Cafe_01" index="0" unique_id=1805809853]
+layers = 128
 surface_material_override/0 = ExtResource("2_de0wi")
 surface_material_override/1 = ExtResource("3_qifwr")
 
@@ -203,7 +204,8 @@ shape = SubResource("CylinderShape3D_58by1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6601605, 1.3436179, 3.1239705)
 shape = SubResource("CylinderShape3D_de0wi")
 
-[node name="SM_Bld_Cafe_Door_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="1" unique_id=113250297]
+[node name="SM_Bld_Cafe_Door_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="1" unique_id=696026775]
+layers = 128
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 
@@ -214,7 +216,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5126516, 1.112174, 0.117119
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06490719)
 shape = SubResource("BoxShape3D_de0wi")
 
-[node name="SM_Bld_Cafe_Door_02" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="2" unique_id=807682109]
+[node name="SM_Bld_Cafe_Door_02" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="2" unique_id=125087675]
+layers = 128
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 
@@ -227,20 +230,22 @@ shape = SubResource("BoxShape3D_qifwr")
 
 [node name="SM_Bld_Cafe_Door_05" type="MeshInstance3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="3" unique_id=1586240713]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.636258, 3.1845737, 1.365673)
+layers = 128
 mesh = SubResource("ArrayMesh_kuoyb")
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05" unique_id=2088073015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51265126, 1.112174, 0.1171191)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_05/StaticBody3D" unique_id=196835411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06295407)
 shape = SubResource("BoxShape3D_qifwr")
 
-[node name="SM_Bld_Cafe_Door_03" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="4" unique_id=2053392959]
+[node name="SM_Bld_Cafe_Door_03" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="4" unique_id=22780705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8579957, -4.7172165, 3.0267477)
 visible = false
+layers = 128
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 
@@ -250,10 +255,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.984619, 1.2951827, -1.63396
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Door_03/StaticBody3D" unique_id=1502075204]
 shape = SubResource("BoxShape3D_c2152")
 
-[node name="SM_Bld_Cafe_Sign_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="5" unique_id=257578264]
+[node name="SM_Bld_Cafe_Sign_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="5" unique_id=1081636590]
+layers = 128
 surface_material_override/0 = ExtResource("2_de0wi")
 
-[node name="SM_Bld_Cafe_Cup_Sign_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="6" unique_id=1445521255]
+[node name="SM_Bld_Cafe_Cup_Sign_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="6" unique_id=485440969]
+layers = 128
 surface_material_override/0 = ExtResource("2_de0wi")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01/SM_Bld_Cafe_Cup_Sign_01" index="0" unique_id=835927950]
@@ -263,10 +270,12 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1
 transform = Transform3D(-4.371139e-08, 0.9650577, -0.2620376, -1, -4.218401e-08, 1.1454027e-08, 0, 0.2620376, 0.9650577, 0.064398766, -0.01738811, 0.14580253)
 shape = SubResource("CylinderShape3D_7i37m")
 
-[node name="SM_Bld_Cafe_Tables_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="7" unique_id=2128889971]
+[node name="SM_Bld_Cafe_Tables_01" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="7" unique_id=62892521]
+layers = 128
 surface_material_override/0 = ExtResource("2_de0wi")
 
-[node name="SM_Bld_Cafe_Door_04" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="8" unique_id=807610329]
+[node name="SM_Bld_Cafe_Door_04" parent="SM_Bld_Cafe_01/SM_Bld_Cafe_01" index="8" unique_id=1555672819]
+layers = 128
 surface_material_override/0 = ExtResource("3_qifwr")
 surface_material_override/1 = ExtResource("2_de0wi")
 

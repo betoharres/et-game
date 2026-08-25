@@ -28,28 +28,36 @@ shape = SubResource("BoxShape3D_io7wd")
 
 [node name="SM_Veh_Car_Police_01" parent="." unique_id=191159772 instance=ExtResource("1_f8hie")]
 
-[node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=1806286519]
+[node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=1866918940]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=1030170779]
+[node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=1744624098]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=588875566]
+[node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=1863357074]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=132005615]
+[node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=2053954340]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=1322699590]
+[node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=641937306]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=903290553]
+[node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=705890241]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=1294619005]
+[node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=1359590043]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
-[node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=289607353]
+[node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=639457389]
+layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
 [node name="ArmRed3" type="Node3D" parent="." unique_id=1158455866]

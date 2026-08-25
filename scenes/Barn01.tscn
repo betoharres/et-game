@@ -132,11 +132,13 @@ shape = SubResource("BoxShape3D_nnnxe")
 
 [node name="SM_Bld_Barn_01" parent="." unique_id=1651500588 instance=ExtResource("1_j7ge2")]
 
-[node name="SM_Bld_Barn_01" parent="SM_Bld_Barn_01" index="0" unique_id=1679798840]
+[node name="SM_Bld_Barn_01" parent="SM_Bld_Barn_01" index="0" unique_id=1942117581]
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
-[node name="SM_Bld_Barn_01_Door_01" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="0" unique_id=257971903]
+[node name="SM_Bld_Barn_01_Door_01" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="0" unique_id=1464714516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.831, 0, 1.6710459)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_01" index="0" unique_id=1735512522]
@@ -145,8 +147,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.427267e-07, 1.7581403, -5.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_01/StaticBody3D" unique_id=1853557946]
 shape = SubResource("BoxShape3D_cl8lt")
 
-[node name="SM_Bld_Barn_01_Door_02" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="1" unique_id=552269398]
+[node name="SM_Bld_Barn_01_Door_02" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="1" unique_id=291004009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.831, 0, -1.6876757)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_02" index="0" unique_id=987928958]
@@ -155,8 +158,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.427267e-07, 1.7581403, 1.3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_02/StaticBody3D" unique_id=1328711900]
 shape = SubResource("BoxShape3D_gspiu")
 
-[node name="SM_Bld_Barn_01_Door_03" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="2" unique_id=299650663]
+[node name="SM_Bld_Barn_01_Door_03" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="2" unique_id=550586392]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8266516, -1.1608123e-05, 1.6691623)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_03" index="0" unique_id=114656620]
@@ -165,8 +169,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2351742e-08, 1.7581403, -5.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_03/StaticBody3D" unique_id=706275224]
 shape = SubResource("BoxShape3D_0fs5n")
 
-[node name="SM_Bld_Barn_01_Door_04" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="3" unique_id=515941377]
+[node name="SM_Bld_Barn_01_Door_04" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="3" unique_id=740727007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8266516, -1.1608123e-05, -1.7590783)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_04" index="0" unique_id=1012082676]
@@ -175,8 +180,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2351742e-08, 1.7581403, 1.3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Door_04/StaticBody3D" unique_id=1542351855]
 shape = SubResource("BoxShape3D_7v71u")
 
-[node name="SM_Bld_Barn_01_Shutter_01" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="4" unique_id=1295792113]
+[node name="SM_Bld_Barn_01_Shutter_01" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="4" unique_id=1317605210]
 transform = Transform3D(0.74103135, 0, 0.67147046, 0, 1, 0, -0.67147046, 0, 0.74103135, -5.7360983, 5.179363, 0.70615774)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Shutter_01" index="0" unique_id=350441812]
@@ -185,8 +191,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.060209595, 0, -0.6957766)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Shutter_01/StaticBody3D" unique_id=1453411756]
 shape = SubResource("BoxShape3D_novky")
 
-[node name="SM_Bld_Barn_01_Shutter_02" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="5" unique_id=338664746]
+[node name="SM_Bld_Barn_01_Shutter_02" parent="SM_Bld_Barn_01/SM_Bld_Barn_01" index="5" unique_id=1001756942]
 transform = Transform3D(0.98802847, 0, 0.15427156, 0, 1, 0, -0.15427156, 0, 0.98802847, 5.7585826, 5.179363, -0.6853938)
+layers = 128
 surface_material_override/0 = ExtResource("2_cl8lt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SM_Bld_Barn_01/SM_Bld_Barn_01/SM_Bld_Barn_01_Shutter_02" index="0" unique_id=1145083256]

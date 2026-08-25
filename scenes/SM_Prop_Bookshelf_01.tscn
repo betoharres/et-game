@@ -7,6 +7,7 @@
 size = Vector3(1.1507128, 2.1851044, 0.37916747)
 
 [node name="SM_Prop_Bookshelf_01" type="MeshInstance3D" unique_id=1290790048]
+layers = 512
 gi_mode = 2
 mesh = ExtResource("1_ft8ix")
 surface_material_override/0 = ExtResource("2_e8q2j")

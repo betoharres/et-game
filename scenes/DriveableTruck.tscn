@@ -71,6 +71,7 @@ script = ExtResource("1_oub4l")
 max_engine_force = 1000.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=229161337]
+layers = 8
 mesh = ExtResource("2_dsrke")
 surface_material_override/0 = ExtResource("2_oub4l")
 surface_material_override/1 = ExtResource("4_jdtfx")
@@ -91,6 +92,7 @@ suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FrontLeftWheel" unique_id=717154743]
+layers = 8
 mesh = ExtResource("2_usi65")
 surface_material_override/0 = ExtResource("2_oub4l")
 
@@ -105,6 +107,7 @@ suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RearRightWheel" unique_id=1193158370]
+layers = 8
 mesh = ExtResource("4_dsrke")
 surface_material_override/0 = ExtResource("2_oub4l")
 
@@ -119,6 +122,7 @@ suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RearLeftWheel" unique_id=153384237]
+layers = 8
 mesh = ExtResource("5_jdtfx")
 surface_material_override/0 = ExtResource("2_oub4l")
 
@@ -134,6 +138,7 @@ suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FrontRightWheel" unique_id=1118714899]
+layers = 8
 mesh = ExtResource("6_6y0hr")
 surface_material_override/0 = ExtResource("2_oub4l")
 
@@ -149,7 +154,7 @@ far = 450.0
 transform = Transform3D(1, 0, 0, 0, 0.99353033, 0.11356681, 0, -0.11356681, 0.99353033, 0.4512354, 0.49217248, 0.67538583)
 visible = false
 
-[node name="Skeleton3D" parent="ET2/Armature" parent_id_path=PackedInt32Array(306698158, 2000038218) index="0" unique_id=2120497707]
+[node name="Skeleton3D" parent="ET2/Armature" parent_id_path=PackedInt32Array(306698158, 588762772) index="0" unique_id=698747928]
 bones/7/rotation = Quaternion(0.012007, 0, 0.099219, 0.994993)
 bones/23/rotation = Quaternion(-0.677082, -0.595, -0.44, 0.566991)
 bones/24/rotation = Quaternion(0.058856, 0.124827, 0.199967, 0.998981)
@@ -184,7 +189,8 @@ settings/0/end_bone = 9
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="ET" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1618770810]
+[node name="ET" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1189663179]
+layers = 256
 mesh = SubResource("ArrayMesh_oub4l")
 
 [node name="IKContainer" type="Node3D" parent="." unique_id=654266772]
@@ -200,6 +206,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9396926, -0.34202012, 0, 0.34202012, 0.939
 
 [node name="SteeringWheel" type="MeshInstance3D" parent="IKContainer/SteeringWheelPivot" unique_id=373305110]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -0.00030228496, -1.5497208e-06, 0.00011843443)
+layers = 8
 mesh = ExtResource("9_dsrke")
 surface_material_override/0 = ExtResource("2_oub4l")
 

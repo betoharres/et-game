@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene format=3 uid="uid://b7kgyrrylgmhf"]
 
-[ext_resource type="Script" path="res://scripts/night_environment.gd" id="1_controller"]
-[ext_resource type="Shader" path="res://shaders/night_sky.gdshader" id="2_sky_shader"]
-[ext_resource type="Shader" path="res://shaders/alien_incident_post.gdshader" id="3_incident_post"]
-[ext_resource type="Script" path="res://scripts/alien_incident_post_process.gd" id="4_post_controller"]
-[ext_resource type="PackedScene" path="res://scenes/GroundFogLayer.tscn" id="5_ground_fog_layer"]
+[ext_resource type="Script" uid="uid://vtc4bnu05cm4" path="res://scripts/night_environment.gd" id="1_controller"]
+[ext_resource type="Shader" uid="uid://cge75rbpo8nsw" path="res://shaders/night_sky.gdshader" id="2_sky_shader"]
+[ext_resource type="Shader" uid="uid://m3flf0i0p2ae" path="res://shaders/alien_incident_post.gdshader" id="3_incident_post"]
+[ext_resource type="Script" uid="uid://ci8g2hsejc0vi" path="res://scripts/alien_incident_post_process.gd" id="4_post_controller"]
+[ext_resource type="PackedScene" uid="uid://bcopx23eftoor" path="res://scenes/GroundFogLayer.tscn" id="5_ground_fog_layer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_sky_shader")
@@ -25,9 +25,8 @@ shader_parameter/cloud_speed = 0.008
 shader_parameter/cloud_opacity = 0.11
 
 [sub_resource type="Sky" id="Sky_procedural_night"]
-radiance_size = 3
-process_mode = 1
 sky_material = SubResource("ShaderMaterial_night_sky")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_night"]
 background_mode = 2
@@ -35,82 +34,72 @@ background_energy_multiplier = 0.72
 sky = SubResource("Sky_procedural_night")
 ambient_light_source = 2
 ambient_light_color = Color(0.2, 0.34, 0.42, 1)
-ambient_light_energy = 0.1
 ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.1
 reflected_light_source = 1
 tonemap_mode = 4
 tonemap_exposure = 1.03
 tonemap_agx_contrast = 1.08
+ssao_enabled = true
+ssao_radius = 1.1
+ssao_intensity = 1.6
+ssao_power = 1.35
 glow_enabled = true
+glow_levels/2 = 0.4
+glow_levels/3 = 0.3
 glow_normalized = true
 glow_intensity = 0.28
 glow_strength = 0.72
 glow_bloom = 0.12
 glow_hdr_threshold = 0.92
 glow_hdr_scale = 1.3
-glow_levels/1 = 0.0
-glow_levels/2 = 0.4
-glow_levels/3 = 0.3
-glow_levels/4 = 0.1
-ssao_enabled = true
-ssao_radius = 1.1
-ssao_intensity = 1.6
-ssao_power = 1.35
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.022, 0.045, 0.09, 1)
-fog_light_energy = 1.0
 fog_sun_scatter = 0.06
 fog_density = 1.0
 fog_aerial_perspective = 0.16
 fog_sky_affect = 0.35
 fog_height = 6.0
-fog_height_density = 0.0
-fog_depth_curve = 1.0
 fog_depth_begin = 350.0
 fog_depth_end = 400.0
-volumetric_fog_enabled = false
+volumetric_fog_enabled = true
 volumetric_fog_density = 0.0055
 volumetric_fog_albedo = Color(0.07, 0.18, 0.24, 1)
-volumetric_fog_ambient_inject = 0.1
 volumetric_fog_anisotropy = 0.34
 volumetric_fog_length = 92.0
+volumetric_fog_ambient_inject = 0.1
 volumetric_fog_sky_affect = 0.08
-volumetric_fog_temporal_reprojection_enabled = true
-volumetric_fog_temporal_reprojection_amount = 0.9
-
-[sub_resource type="FogMaterial" id="FogMaterial_ground"]
-albedo = Color(0.06, 0.16, 0.22, 1)
-density = 0.012
-edge_fade = 0.55
-height_falloff = 0.85
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_incident_post"]
 shader = ExtResource("3_incident_post")
+shader_parameter/grain_amount = 0.024
+shader_parameter/vignette_amount = 0.2
+shader_parameter/chromatic_aberration = 0.001
+shader_parameter/cool_shadow_amount = 0.15
+shader_parameter/contrast = 1.07
+shader_parameter/black_lift = 0.018
+shader_parameter/interference_intensity = 0.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_meteor"]
+direction = Vector3(1, -0.24, 0)
+spread = 2.5
+initial_velocity_min = 46.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.72
+color = Color(0.72, 0.9, 1, 0.82)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_meteor"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.55, 0.82, 1, 0.7)
-emission_enabled = true
-emission = Color(0.34, 0.69, 1, 1)
-emission_energy_multiplier = 4.0
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_meteor"]
 material = SubResource("StandardMaterial_meteor")
 size = Vector2(0.11, 4.8)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_meteor"]
-direction = Vector3(1, -0.24, 0)
-spread = 2.5
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 46.0
-initial_velocity_max = 60.0
-scale_min = 0.72
-scale_max = 1.0
-color = Color(0.72, 0.9, 1, 0.82)
 
 [sub_resource type="Gradient" id="Gradient_atmosphere"]
 offsets = PackedFloat32Array(0, 0.18, 0.76, 1)
@@ -124,11 +113,10 @@ emission_shape = 3
 emission_box_extents = Vector3(38, 1.6, 38)
 direction = Vector3(0.4, 0.18, 0.2)
 spread = 65.0
-gravity = Vector3(0, 0.008, 0)
 initial_velocity_min = 0.015
 initial_velocity_max = 0.07
+gravity = Vector3(0, 0.008, 0)
 scale_min = 0.35
-scale_max = 1.0
 color_ramp = SubResource("GradientTexture_atmosphere")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_atmosphere"]
@@ -136,65 +124,68 @@ transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.45, 0.76, 1, 0.24)
-emission_enabled = true
-emission = Color(0.18, 0.45, 0.8, 1)
-emission_energy_multiplier = 0.8
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_atmosphere"]
 material = SubResource("StandardMaterial_atmosphere")
 size = Vector2(0.035, 0.035)
 
-[node name="NightEnvironment" type="Node3D" groups=["debug_environment_lighting", "night_environment"]]
+[sub_resource type="FogMaterial" id="FogMaterial_ground"]
+density = 0.012
+albedo = Color(0.06, 0.16, 0.22, 1)
+height_falloff = 0.85
+edge_fade = 0.55
+
+[node name="NightEnvironment" type="Node3D" unique_id=2103467839 groups=["debug_environment_lighting", "night_environment"]]
 script = ExtResource("1_controller")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1646179489]
 environment = SubResource("Environment_night")
 
-[node name="IncidentPostProcess" type="CanvasLayer" parent="." groups=["alien_post_process"]]
-layer = 1
+[node name="IncidentPostProcess" type="CanvasLayer" parent="." unique_id=698029298 groups=["alien_post_process"]]
 script = ExtResource("4_post_controller")
 
-[node name="ScreenFilter" type="ColorRect" parent="IncidentPostProcess"]
+[node name="ScreenFilter" type="ColorRect" parent="IncidentPostProcess" unique_id=1389224221]
+material = SubResource("ShaderMaterial_incident_post")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-material = SubResource("ShaderMaterial_incident_post")
-color = Color(1, 1, 1, 1)
 
-[node name="SkyController" type="Node" parent="."]
+[node name="SkyController" type="Node" parent="." unique_id=150546100]
 
-[node name="MoonVisual" type="Node3D" parent="SkyController"]
+[node name="MoonVisual" type="Node3D" parent="SkyController" unique_id=1310546498]
 
-[node name="MoonLight" type="DirectionalLight3D" parent="SkyController/MoonVisual" groups=["volumetric_lights"]]
+[node name="MoonLight" type="DirectionalLight3D" parent="SkyController/MoonVisual" unique_id=356593309 groups=["volumetric_lights"]]
+layers = 32
 light_color = Color(0.68, 0.76, 0.9, 1)
 light_energy = 0.75
 light_indirect_energy = 0.12
 light_volumetric_fog_energy = 0.28
 shadow_enabled = true
-directional_shadow_mode = 2
 directional_shadow_blend_splits = true
-directional_shadow_max_distance = 80.0
 directional_shadow_fade_start = 0.78
+directional_shadow_max_distance = 80.0
 sky_mode = 1
 
-[node name="ShootingStars" type="GPUParticles3D" parent="."]
+[node name="ShootingStars" type="GPUParticles3D" parent="." unique_id=1022552896]
+layers = 32
 emitting = false
 amount = 1
 lifetime = 0.95
 one_shot = true
 explosiveness = 1.0
 randomness = 0.24
-local_coords = true
 visibility_aabb = AABB(-8, -8, -8, 80, 40, 40)
+local_coords = true
 transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_meteor")
 draw_pass_1 = SubResource("QuadMesh_meteor")
 
-[node name="AtmosphericParticles" type="GPUParticles3D" parent="."]
+[node name="AtmosphericParticles" type="GPUParticles3D" parent="." unique_id=1482670366]
+layers = 32
 amount = 96
 lifetime = 9.0
 preprocess = 9.0
@@ -203,12 +194,13 @@ visibility_aabb = AABB(-42, -3, -42, 84, 8, 84)
 process_material = SubResource("ParticleProcessMaterial_atmosphere")
 draw_pass_1 = SubResource("QuadMesh_atmosphere")
 
-[node name="GroundFog" type="FogVolume" parent="."]
+[node name="GroundFog" type="FogVolume" parent="." unique_id=1245942131]
+layers = 32
 size = Vector3(118, 8, 118)
 material = SubResource("FogMaterial_ground")
 
-[node name="GroundFogLayer" parent="." instance=ExtResource("5_ground_fog_layer")]
+[node name="GroundFogLayer" parent="." unique_id=1846347320 instance=ExtResource("5_ground_fog_layer")]
 
-[node name="LocalLights" type="Node3D" parent="."]
+[node name="LocalLights" type="Node3D" parent="." unique_id=2139264767]
 
-[node name="UFOLights" type="Node3D" parent="."]
+[node name="UFOLights" type="Node3D" parent="." unique_id=1217125654]
