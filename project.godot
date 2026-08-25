@@ -609,6 +609,7 @@ binos_zoom_out={
 [layer_names]
 
 3d_render/layer_1="Terrain"
+3d_render/layer_6="Not Visible For XRAY"
 3d_physics/layer_1="Common Collision (ground, obstacles, players, etc.)"
 3d_physics/layer_4="Pickup Items"
 

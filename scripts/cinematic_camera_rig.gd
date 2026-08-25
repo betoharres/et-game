@@ -41,7 +41,7 @@ var _elapsed : float = 0.0
 var _has_target : bool = false
 
 ## XRAY stuff
-
+@export var null_material : StandardMaterial3D
 @onready var xray_camera : Camera3D = $PitchPivot/ShoulderOffset/SpringArm3D/XRAYCamera
 @export var xray_material : ShaderMaterial
 
@@ -295,7 +295,8 @@ func _restore_materials() -> void:
 
 		var original_reference: Variant = _xray_overrides[geometry]
 		if original_reference == null:
-			geometry.material_override = null
+			geometry.material_override = null_material
+			print('error retrieving original material, using default instead')
 			continue
 
 		var original_override: Object

@@ -5,13 +5,16 @@
 
 [node name="TEM_Grass_Patch_03A" unique_id=669067315 instance=ExtResource("1_laelp")]
 
-[node name="TEM_Grass_Patch_03A_LOD0" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="0" unique_id=269186763]
+[node name="TEM_Grass_Patch_03A_LOD0" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(1820519977) index="0" unique_id=94607857]
+layers = 32
 surface_material_override/0 = ExtResource("2_8aehe")
 
-[node name="TEM_Grass_Patch_03A_LOD1" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="1" unique_id=1046580275]
+[node name="TEM_Grass_Patch_03A_LOD1" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(1820519977) index="1" unique_id=801972298]
 visible = false
+layers = 32
 surface_material_override/0 = ExtResource("2_8aehe")
 
-[node name="TEM_Grass_Patch_03A_LOD2" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(108528499) index="2" unique_id=1163931516]
+[node name="TEM_Grass_Patch_03A_LOD2" parent="TEM_Grass_Patch_03A" parent_id_path=PackedInt32Array(1820519977) index="2" unique_id=1452590397]
 visible = false
+layers = 32
 surface_material_override/0 = ExtResource("2_8aehe")

@@ -343,6 +343,7 @@ func _pick_up_target_item() -> void:
 	_target_item.call("pickup", self)
 	if _is_target_carried_by_bot():
 		_state = BehaviorState.CARRYING_TO_DELIVERY
+		## activate effect
 	else:
 		_begin_return_to_ship()
 

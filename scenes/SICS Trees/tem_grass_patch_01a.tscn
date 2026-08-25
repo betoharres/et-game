@@ -12,22 +12,27 @@ albedo_texture = ExtResource("3_i6hd0")
 
 [node name="TEM_Grass_Patch_01A" unique_id=1450798490 instance=ExtResource("1_4wxb5")]
 
-[node name="TEM_Grass_Patch_01A_LOD0" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(659908136) index="0" unique_id=717332269]
+[node name="TEM_Grass_Patch_01A_LOD0" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="0" unique_id=1710531801]
+layers = 32
 surface_material_override/0 = ExtResource("2_7ot8f")
 
-[node name="TEM_Grass_Patch_01A_LOD1" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(659908136) index="1" unique_id=498884818]
+[node name="TEM_Grass_Patch_01A_LOD1" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="1" unique_id=1961564357]
 visible = false
+layers = 32
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
-[node name="TEM_Grass_Patch_01A_LOD2" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(659908136) index="2" unique_id=470361186]
+[node name="TEM_Grass_Patch_01A_LOD2" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="2" unique_id=481120719]
 visible = false
+layers = 32
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
-[node name="TEM_Grass_Patch_01A_LOD3" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(659908136) index="3" unique_id=46563056]
+[node name="TEM_Grass_Patch_01A_LOD3" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="3" unique_id=1536928172]
 visible = false
+layers = 32
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
 
-[node name="TEM_Grass_Patch_01A_LOD4" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(659908136) index="4" unique_id=1160306360]
+[node name="TEM_Grass_Patch_01A_LOD4" parent="TEM_Grass_Patch_01A" parent_id_path=PackedInt32Array(1563948533) index="4" unique_id=1186552921]
 visible = false
+layers = 32
 material_override = SubResource("StandardMaterial3D_262gv")
 surface_material_override/0 = SubResource("StandardMaterial3D_vfwoy")
