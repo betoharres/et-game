@@ -3,7 +3,6 @@
 [resource]
 resource_name = "Veh_Glass_mat"
 transparency = 1
-depth_draw_mode = 1
 albedo_color = Color(0.44705883, 0.5568628, 0.67058825, 0.4627451)
 metallic = 0.51
 metallic_specular = 0.61

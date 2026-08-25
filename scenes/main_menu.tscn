@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://0qau8wjtp1s1" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="AudioStream" uid="uid://t0jxnjmxs6wh" path="res://assets/menu/menu_music.mp3" id="2_music"]
 [ext_resource type="AudioStream" uid="uid://d3li7n02vapyu" path="res://assets/menu/blip_click_menu.mp3" id="3_click"]
-[ext_resource type="FontFile" uid="uid://je7ck4n2auv7" path="res://assets/menu/fonts/Oxanium-Regular.ttf" id="4_font_regular"]
 [ext_resource type="FontFile" uid="uid://b5pyu6wiav50x" path="res://assets/menu/fonts/Oxanium-SemiBold.ttf" id="5_font_semibold"]
 [ext_resource type="FontFile" uid="uid://ccgwj16dy3d6h" path="res://assets/menu/fonts/Oxanium-Bold.ttf" id="6_font_bold"]
 [ext_resource type="PackedScene" path="res://scenes/MenuAtmosphere.tscn" id="7_atmosphere"]
@@ -42,6 +41,10 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxMenuPanel"]
+content_margin_left = 26.0
+content_margin_top = 19.0
+content_margin_right = 26.0
+content_margin_bottom = 15.0
 bg_color = Color(0.045, 0.06, 0.13, 0.94)
 border_width_left = 1
 border_width_top = 1
@@ -55,70 +58,10 @@ corner_radius_bottom_left = 18
 shadow_color = Color(0, 0, 0, 0.48)
 shadow_size = 24
 shadow_offset = Vector2(0, 10)
-content_margin_left = 26.0
-content_margin_top = 19.0
-content_margin_right = 26.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxButtonNormal"]
-bg_color = Color(0.075, 0.094, 0.18, 0.96)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.17, 0.25, 0.43, 1)
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-content_margin_left = 22.0
-content_margin_right = 22.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxButtonHover"]
-bg_color = Color(0.1, 0.15, 0.27, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.16, 0.83, 0.98, 0.95)
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-shadow_color = Color(0.05, 0.72, 0.95, 0.2)
-shadow_size = 8
-content_margin_left = 22.0
-content_margin_right = 22.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxButtonPressed"]
-bg_color = Color(0.13, 0.12, 0.28, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.49, 0.31, 0.95, 1)
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-content_margin_left = 22.0
-content_margin_right = 22.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxButtonDisabled"]
-bg_color = Color(0.045, 0.053, 0.09, 0.8)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.12, 0.14, 0.21, 0.8)
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-content_margin_left = 22.0
-content_margin_right = 22.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryNormal"]
+content_margin_left = 22.0
+content_margin_right = 22.0
 bg_color = Color(0.075, 0.094, 0.18, 0.96)
 border_width_left = 1
 border_width_top = 1
@@ -131,26 +74,24 @@ corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
 shadow_color = Color(0.03, 0.63, 0.9, 0.28)
 shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryPressed"]
 content_margin_left = 22.0
 content_margin_right = 22.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryFocus"]
-bg_color = Color(0.075, 0.094, 0.18, 0.96)
+bg_color = Color(0.14, 0.25, 0.49, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.25, 0.86, 1, 0.95)
+border_color = Color(0.56, 0.83, 1, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
 corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
-shadow_color = Color(0.05, 0.72, 0.95, 0.24)
-shadow_size = 9
-content_margin_left = 21.0
-content_margin_right = 21.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryHover"]
+content_margin_left = 22.0
+content_margin_right = 22.0
 bg_color = Color(0.12, 0.57, 0.76, 1)
 border_width_left = 1
 border_width_top = 1
@@ -163,24 +104,86 @@ corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
 shadow_color = Color(0.05, 0.8, 1, 0.4)
 shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxButtonDisabled"]
 content_margin_left = 22.0
 content_margin_right = 22.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryPressed"]
-bg_color = Color(0.14, 0.25, 0.49, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.56, 0.83, 1, 1)
+bg_color = Color(0.045, 0.053, 0.09, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.12, 0.14, 0.21, 0.8)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
 corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxPrimaryFocus"]
+content_margin_left = 21.0
+content_margin_right = 21.0
+bg_color = Color(0.075, 0.094, 0.18, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.86, 1, 0.95)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0.05, 0.72, 0.95, 0.24)
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxButtonNormal"]
 content_margin_left = 22.0
 content_margin_right = 22.0
+bg_color = Color(0.075, 0.094, 0.18, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.17, 0.25, 0.43, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxButtonPressed"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+bg_color = Color(0.13, 0.12, 0.28, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.49, 0.31, 0.95, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxButtonHover"]
+content_margin_left = 22.0
+content_margin_right = 22.0
+bg_color = Color(0.1, 0.15, 0.27, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16, 0.83, 0.98, 0.95)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0.05, 0.72, 0.95, 0.2)
+shadow_size = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxSubPanel"]
+content_margin_left = 26.0
+content_margin_top = 19.0
+content_margin_right = 26.0
+content_margin_bottom = 15.0
 bg_color = Color(0.035, 0.047, 0.102, 0.98)
 border_width_left = 1
 border_width_top = 1
@@ -194,10 +197,6 @@ corner_radius_bottom_left = 18
 shadow_color = Color(0, 0, 0, 0.5)
 shadow_size = 24
 shadow_offset = Vector2(0, 10)
-content_margin_left = 26.0
-content_margin_top = 19.0
-content_margin_right = 26.0
-content_margin_bottom = 15.0
 
 [node name="MainMenu" type="Control" unique_id=758836042]
 layout_mode = 3
@@ -218,7 +217,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.008, 0.012, 0.035, 1)
 
-[node name="BackgroundGradient" type="TextureRect" parent="ColorRect"]
+[node name="BackgroundGradient" type="TextureRect" parent="ColorRect" unique_id=2088211007]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -230,7 +229,7 @@ texture = SubResource("GradientTextureBackground")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Nebula" type="TextureRect" parent="ColorRect"]
+[node name="Nebula" type="TextureRect" parent="ColorRect" unique_id=326225968]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -248,7 +247,7 @@ texture = SubResource("GradientTextureNebula")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="VignetteTop" type="ColorRect" parent="ColorRect"]
+[node name="VignetteTop" type="ColorRect" parent="ColorRect" unique_id=705840893]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -257,7 +256,7 @@ grow_horizontal = 2
 mouse_filter = 2
 color = Color(0.17, 0.61, 0.84, 0.85)
 
-[node name="VignetteBottom" type="ColorRect" parent="ColorRect"]
+[node name="VignetteBottom" type="ColorRect" parent="ColorRect" unique_id=876915420]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -269,30 +268,32 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.005, 0.008, 0.025, 0.68)
 
-[node name="VignetteLeft" type="ColorRect" parent="ColorRect"]
+[node name="VignetteLeft" type="ColorRect" parent="ColorRect" unique_id=1093569315]
 layout_mode = 1
-anchors_preset = 3
-anchor_right = 0.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
 offset_right = 42.0
+grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.004, 0.006, 0.02, 0.38)
 
-[node name="VignetteRight" type="ColorRect" parent="ColorRect"]
+[node name="VignetteRight" type="ColorRect" parent="ColorRect" unique_id=1367197892]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -42.0
+grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.004, 0.006, 0.02, 0.38)
 
-[node name="MenuAtmosphere" parent="ColorRect" instance=ExtResource("7_atmosphere")]
+[node name="MenuAtmosphere" parent="ColorRect" unique_id=569257315 instance=ExtResource("7_atmosphere")]
 
-[node name="SignalEmblem" type="Control" parent="ColorRect"]
+[node name="SignalEmblem" type="Control" parent="ColorRect" unique_id=1228302607]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -301,8 +302,9 @@ offset_bottom = 326.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="GlowRing" type="TextureRect" parent="ColorRect/SignalEmblem"]
+[node name="GlowRing" type="TextureRect" parent="ColorRect/SignalEmblem" unique_id=173244314]
 modulate = Color(0.2, 0.72, 1, 0.1)
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -316,13 +318,13 @@ offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture_filter = 2
 texture = ExtResource("16_glow_ring")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SelectionRing" type="TextureRect" parent="ColorRect/SignalEmblem"]
+[node name="SelectionRing" type="TextureRect" parent="ColorRect/SignalEmblem" unique_id=1298831417]
 modulate = Color(0.42, 0.88, 1, 0.16)
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -336,15 +338,14 @@ offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture_filter = 2
 texture = ExtResource("15_selection_ring")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PurpleGlow" type="ColorRect" parent="ColorRect"]
+[node name="PurpleGlow" type="ColorRect" parent="ColorRect" unique_id=702912824]
 visible = false
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -358,18 +359,17 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.38, 0.19, 0.75, 0.55)
 
-[node name="Header" type="VBoxContainer" parent="ColorRect"]
+[node name="Header" type="VBoxContainer" parent="ColorRect" unique_id=1469974758]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 182.0
 offset_bottom = 296.0
 grow_horizontal = 2
-theme_override_constants/separation = 5
-theme_override_fonts/font = ExtResource("4_font_regular")
 mouse_filter = 2
+theme_override_constants/separation = 5
 
-[node name="Eyebrow" type="Label" parent="ColorRect/Header"]
+[node name="Eyebrow" type="Label" parent="ColorRect/Header" unique_id=1985610472]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.28, 0.57, 0.71, 0.86)
@@ -377,24 +377,24 @@ theme_override_font_sizes/font_size = 11
 text = "SIGNAL DETECTED  //  SINGLE-PLAYER PROTOCOL"
 horizontal_alignment = 1
 
-[node name="Title" type="Label" parent="ColorRect/Header"]
+[node name="Title" type="Label" parent="ColorRect/Header" unique_id=456237469]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0.65, 0.95, 0.34)
+theme_override_colors/font_outline_color = Color(0.16, 0.08, 0.32, 0.9)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 8
-theme_override_colors/font_outline_color = Color(0.16, 0.08, 0.32, 0.9)
-theme_override_font_sizes/font_size = 54
 theme_override_fonts/font = ExtResource("6_font_bold")
+theme_override_font_sizes/font_size = 54
 text = "ETs"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="ColorRect/Header"]
+[node name="Subtitle" type="Label" parent="ColorRect/Header" unique_id=1645618627]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.8, 0.94, 1)
-theme_override_font_sizes/font_size = 16
 theme_override_fonts/font = ExtResource("5_font_semibold")
+theme_override_font_sizes/font_size = 16
 text = "EXTRATERRESTRIAL TERRAIN OPERATIONS"
 horizontal_alignment = 1
 
@@ -413,13 +413,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxMenuPanel")
-theme_override_fonts/font = ExtResource("4_font_regular")
 
 [node name="VSeparator" type="VBoxContainer" parent="ColorRect/MenuBar" unique_id=1204412746]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="MenuKicker" type="Label" parent="ColorRect/MenuBar/VSeparator"]
+[node name="MenuKicker" type="Label" parent="ColorRect/MenuBar/VSeparator" unique_id=425077666]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47, 0.55, 0.7, 1)
 theme_override_font_sizes/font_size = 11
@@ -430,74 +429,71 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../MenuButton2")
-text = "JOGAR"
-icon = ExtResource("8_play_icon")
-expand_icon = true
-icon_max_width = 26
-alignment = 0
-theme_override_colors/icon_normal_color = Color(0.4, 0.92, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(0.72, 0.97, 1, 1)
 theme_override_colors/font_color = Color(0.96, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.4, 0.45, 0.55, 1)
+theme_override_colors/icon_normal_color = Color(0.4, 0.92, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.72, 0.97, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxPrimaryNormal")
-theme_override_styles/hover = SubResource("StyleBoxPrimaryHover")
 theme_override_styles/pressed = SubResource("StyleBoxPrimaryPressed")
-theme_override_styles/focus = SubResource("StyleBoxPrimaryFocus")
+theme_override_styles/hover = SubResource("StyleBoxPrimaryHover")
 theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
+theme_override_styles/focus = SubResource("StyleBoxPrimaryFocus")
+text = "JOGAR"
+icon = ExtResource("8_play_icon")
+alignment = 0
+expand_icon = true
 
 [node name="MenuButton2" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=517891902]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton1")
 focus_neighbor_bottom = NodePath("../MenuButton3")
-text = "OPÇÕES"
-icon = ExtResource("9_options_icon")
-expand_icon = true
-icon_max_width = 24
-alignment = 0
-theme_override_colors/icon_normal_color = Color(0.42, 0.78, 1, 0.9)
-theme_override_colors/icon_hover_color = Color(0.78, 0.97, 1, 1)
-theme_override_colors/icon_focus_color = Color(0.78, 0.97, 1, 1)
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
-theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.82, 0.97, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.4, 0.45, 0.55, 1)
+theme_override_colors/icon_normal_color = Color(0.42, 0.78, 1, 0.9)
+theme_override_colors/icon_focus_color = Color(0.78, 0.97, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.78, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxButtonNormal")
-theme_override_styles/hover = SubResource("StyleBoxButtonHover")
 theme_override_styles/pressed = SubResource("StyleBoxButtonPressed")
-theme_override_styles/focus = SubResource("StyleBoxButtonHover")
+theme_override_styles/hover = SubResource("StyleBoxButtonHover")
 theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
+theme_override_styles/focus = SubResource("StyleBoxButtonHover")
+text = "OPÇÕES"
+icon = ExtResource("9_options_icon")
+alignment = 0
+expand_icon = true
 
 [node name="MenuButton3" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=608888326]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton2")
-text = "SAIR"
-icon = ExtResource("10_exit_icon")
-expand_icon = true
-icon_max_width = 24
-alignment = 0
-theme_override_colors/icon_normal_color = Color(0.65, 0.72, 0.9, 0.9)
-theme_override_colors/icon_hover_color = Color(1, 0.56, 0.48, 1)
-theme_override_colors/icon_focus_color = Color(1, 0.56, 0.48, 1)
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
-theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.82, 0.97, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.4, 0.45, 0.55, 1)
+theme_override_colors/icon_normal_color = Color(0.65, 0.72, 0.9, 0.9)
+theme_override_colors/icon_focus_color = Color(1, 0.56, 0.48, 1)
+theme_override_colors/icon_hover_color = Color(1, 0.56, 0.48, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxButtonNormal")
-theme_override_styles/hover = SubResource("StyleBoxButtonHover")
 theme_override_styles/pressed = SubResource("StyleBoxButtonPressed")
-theme_override_styles/focus = SubResource("StyleBoxButtonHover")
+theme_override_styles/hover = SubResource("StyleBoxButtonHover")
 theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
+theme_override_styles/focus = SubResource("StyleBoxButtonHover")
+text = "SAIR"
+icon = ExtResource("10_exit_icon")
+alignment = 0
+expand_icon = true
 
 [node name="OptionsPanel" type="PanelContainer" parent="ColorRect/MenuBar" unique_id=86669022]
 visible = false
@@ -509,7 +505,7 @@ theme_override_styles/panel = SubResource("StyleBoxSubPanel")
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer"]
+[node name="Title" type="Label" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=1097773176]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.91, 1, 1)
 theme_override_font_sizes/font_size = 25
@@ -519,10 +515,7 @@ horizontal_alignment = 1
 [node name="ResolutionButton" type="OptionButton" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=423097941]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
-text = "RESOLUÇÃO"
-icon = ExtResource("9_options_icon")
 expand_icon = true
-icon_max_width = 22
 
 [node name="VSyncButton" type="CheckBox" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=732321687]
 custom_minimum_size = Vector2(0, 42)
@@ -536,7 +529,6 @@ layout_mode = 2
 text = "MODO DE JANELA"
 icon = ExtResource("12_window_icon")
 expand_icon = true
-icon_max_width = 22
 
 [node name="KeybindsButton" type="Button" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=2130534527]
 custom_minimum_size = Vector2(0, 42)
@@ -544,7 +536,6 @@ layout_mode = 2
 text = "CONTROLES"
 icon = ExtResource("13_controls_icon")
 expand_icon = true
-icon_max_width = 22
 
 [node name="BackButton" type="Button" parent="ColorRect/MenuBar/OptionsPanel/VBoxContainer" unique_id=1242803595]
 custom_minimum_size = Vector2(0, 42)
@@ -552,7 +543,6 @@ layout_mode = 2
 text = "VOLTAR"
 icon = ExtResource("14_back_icon")
 expand_icon = true
-icon_max_width = 23
 
 [node name="KeybindsPanel" type="PanelContainer" parent="ColorRect/MenuBar" unique_id=1625043727]
 visible = false
@@ -564,7 +554,7 @@ theme_override_styles/panel = SubResource("StyleBoxSubPanel")
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="Title" type="Label" parent="ColorRect/MenuBar/KeybindsPanel/VBoxContainer"]
+[node name="Title" type="Label" parent="ColorRect/MenuBar/KeybindsPanel/VBoxContainer" unique_id=850801204]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.91, 1, 1)
 theme_override_font_sizes/font_size = 25
@@ -593,11 +583,10 @@ layout_mode = 2
 text = "VOLTAR"
 icon = ExtResource("14_back_icon")
 expand_icon = true
-icon_max_width = 23
 
-[node name="Footer" type="Label" parent="ColorRect"]
+[node name="Footer" type="Label" parent="ColorRect" unique_id=1997862927]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -613,29 +602,32 @@ theme_override_font_sizes/font_size = 11
 text = "A BIKE CAVERA PRODUCTIONS"
 horizontal_alignment = 1
 
-[node name="AudioToggle" type="TextureButton" parent="ColorRect"]
+[node name="AudioToggle" type="TextureButton" parent="ColorRect" unique_id=1698012229]
 modulate = Color(0.42, 0.72, 0.9, 0.72)
+texture_filter = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 48.0
 offset_top = -72.0
 offset_right = 80.0
 offset_bottom = -40.0
+grow_horizontal = 0
 grow_vertical = 0
-texture_filter = 2
 tooltip_text = "Ativar ou silenciar música"
 toggle_mode = true
 texture_normal = ExtResource("17_audio_icon")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1780514793]
 stream = ExtResource("2_music")
 volume_db = -24.0
 
-[node name="MenuClick" type="AudioStreamPlayer" parent="."]
+[node name="MenuClick" type="AudioStreamPlayer" parent="." unique_id=1195208121]
 stream = ExtResource("3_click")
 volume_db = -8.0

@@ -3,23 +3,62 @@
 [ext_resource type="Script" uid="uid://c7554dwiw4quj" path="res://scripts/spider_bot/start_ik.gd" id="1_n6l5c"]
 [ext_resource type="PackedScene" uid="uid://b1n5rqw53onuo" path="res://3dModelos/spider_bot_model.gltf" id="1_vovvw"]
 [ext_resource type="Script" uid="uid://cfvm5ylrw0kqf" path="res://scripts/spider_bot/spider_bot.gd" id="2_kfpvc"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_0f8hv"]
 [ext_resource type="Script" uid="uid://1g3w36rtmt44" path="res://scripts/spider_bot/step_ray.gd" id="4_8a6ki"]
 [ext_resource type="Script" uid="uid://cvppf16by64p3" path="res://scripts/spider_bot/ik_target.gd" id="4_p25cf"]
+[ext_resource type="Script" uid="uid://matqbctwawoh" path="res://scripts/spider_bot/eye.gd" id="5_0f8hv"]
+[ext_resource type="Shader" uid="uid://dbq4edew3ci7d" path="res://shaders/eyes.gdshader" id="5_csgri"]
+[ext_resource type="Material" uid="uid://c2yptqf18rkgh" path="res://Materiais/Mirror_Glass_mat.tres" id="5_fvotl"]
 [ext_resource type="Script" uid="uid://bbo16dywndl6r" path="res://scripts/spider_bot/StepTargetContainer.gd" id="5_yguvh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahgjw"]
-albedo_color = Color(0.52549, 0.52549, 0.52549, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csgri"]
+resource_name = "Veh_Glass_mat"
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.44705883, 0.5568628, 0.67058825, 0.4627451)
+metallic = 0.51
+metallic_specular = 0.61
+roughness = 0.16
+rim_enabled = true
+rim_tint = 0.43
+ao_light_affect = 1.0
+uv1_scale = Vector3(1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1ejp"]
+render_priority = 0
+shader = ExtResource("5_csgri")
+shader_parameter/effect_a = 0
+shader_parameter/effect_b = 1
+shader_parameter/transition = 0.0
+shader_parameter/intensity = 1.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/distortion = 0.45
+shader_parameter/glow = 2.0
+shader_parameter/pupil_size = 0.22
+shader_parameter/pupil_softness = 0.08
 
 [node name="SpiderBot" unique_id=564775910 instance=ExtResource("1_vovvw")]
 script = ExtResource("2_kfpvc")
 move_speed = 5.0
 turn_speed = 0.5
 
-[node name="Leg" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="1" unique_id=1356951272]
-material_override = SubResource("StandardMaterial3D_ahgjw")
+[node name="Body" parent="Armature/Skeleton3D/Body_2" parent_id_path=PackedInt32Array(543441228) index="0" unique_id=429876040]
+surface_material_override/0 = ExtResource("3_0f8hv")
+surface_material_override/1 = SubResource("StandardMaterial3D_csgri")
+surface_material_override/2 = ExtResource("5_fvotl")
 
-[node name="FrontLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="2" unique_id=316618086]
+[node name="Eye" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="1" unique_id=528285177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5538026e-07, 0)
+material_override = SubResource("ShaderMaterial_t1ejp")
+script = ExtResource("5_0f8hv")
+
+[node name="Leg" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="2" unique_id=1988626723]
+surface_material_override/0 = ExtResource("3_0f8hv")
+
+[node name="FrontLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="3" unique_id=316618086]
 process_priority = 1
+transform = Transform3D(0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0)
 root_bone = &"leg1FrontLeft"
 tip_bone = &"Foot IKFrontLeft"
 use_magnet = true
@@ -27,8 +66,9 @@ magnet = Vector3(0, 10, 0)
 target_node = NodePath("../../../FrontLeftIKTarget")
 script = ExtResource("1_n6l5c")
 
-[node name="FrontRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="3" unique_id=1706647077]
+[node name="FrontRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="4" unique_id=1706647077]
 process_priority = 1
+transform = Transform3D(0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0)
 root_bone = &"leg1FrontRight"
 tip_bone = &"Foot IKFrontRight"
 use_magnet = true
@@ -36,8 +76,9 @@ magnet = Vector3(0, 10, 0)
 target_node = NodePath("../../../FrontRightIKTarget")
 script = ExtResource("1_n6l5c")
 
-[node name="BackLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="4" unique_id=1057809014]
+[node name="BackLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="5" unique_id=1057809014]
 process_priority = 1
+transform = Transform3D(0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0)
 root_bone = &"leg1BackLeft"
 tip_bone = &"Foot IKBackLeft"
 use_magnet = true
@@ -45,8 +86,9 @@ magnet = Vector3(0, 10, 0)
 target_node = NodePath("../../../BackLeftIKTarget")
 script = ExtResource("1_n6l5c")
 
-[node name="BackRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(628525637) index="5" unique_id=665029486]
+[node name="BackRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1539885538) index="6" unique_id=665029486]
 process_priority = 1
+transform = Transform3D(0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0, 0.32585603, 0, 0, 0)
 root_bone = &"leg1BackRight"
 tip_bone = &"Foot IKBackRight"
 use_magnet = true
