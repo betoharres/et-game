@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 [ext_resource type="Script" uid="uid://bttmbvxpmu3e6" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
 [ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
+[ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://Materiais/default.material" id="10_o4126"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
@@ -22,8 +23,6 @@ shader = ExtResource("10_d3wef")
 shader_parameter/xray_center = Vector3(0, 0, 0)
 shader_parameter/xray_radius = 30.0
 shader_parameter/inner_radius = 12.0
-shader_parameter/color_inner = Vector3(0.05, 0.9, 1)
-shader_parameter/color_outer = Vector3(0.15, 0.2, 1)
 shader_parameter/opacity = 0.65
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
@@ -42,7 +41,7 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
 
-[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="1" unique_id=420108015]
+[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="1" unique_id=420108015]
 influence = 0.242
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Head"
@@ -55,7 +54,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.5707964
 secondary_damp_threshold = 1.0
 
-[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="2" unique_id=460716206]
+[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="2" unique_id=460716206]
 influence = 0.2
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Spine2"
@@ -68,7 +67,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="3" unique_id=1183812581]
+[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="3" unique_id=1183812581]
 influence = 0.0
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
@@ -83,7 +82,7 @@ settings/0/end_bone = 36
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="4" unique_id=276298268]
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="4" unique_id=276298268]
 bone_name = "mixamorig_Head"
 bone_idx = 31
 
@@ -107,7 +106,7 @@ light_volumetric_fog_energy = 0.6
 omni_range = 4.5
 omni_attenuation = 1.6
 
-[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 237707033) index="5" unique_id=197484809]
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="5" unique_id=197484809]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -152,6 +151,7 @@ shape = SubResource("CapsuleShape3D_ec6vt")
 [node name="CameraHolder" type="Node3D" parent="." unique_id=643770843]
 top_level = true
 script = ExtResource("10_camera_rig")
+null_material = ExtResource("10_o4126")
 xray_material = SubResource("ShaderMaterial_o4126")
 
 [node name="PitchPivot" type="Node3D" parent="CameraHolder" unique_id=665883429]
@@ -177,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 rotation_edit_mode = 1
 
 [node name="XRAYCamera" type="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" unique_id=419894166]
-cull_mask = 1048575
+cull_mask = 1048543
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=410694173]
 

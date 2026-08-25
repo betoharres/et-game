@@ -5,9 +5,11 @@
 
 [node name="TEM_Grass_Patch_05A" unique_id=1432699243 instance=ExtResource("1_pp1vn")]
 
-[node name="TEM_Grass_Patch_05A_LOD0" parent="TEM_Grass_Patch_05A" parent_id_path=PackedInt32Array(1031876588) index="0" unique_id=2094360925]
+[node name="TEM_Grass_Patch_05A_LOD0" parent="TEM_Grass_Patch_05A" parent_id_path=PackedInt32Array(1663296928) index="0" unique_id=1566449475]
+layers = 32
 surface_material_override/0 = ExtResource("2_vh16d")
 
-[node name="TEM_Grass_Patch_05A_LOD1" parent="TEM_Grass_Patch_05A" parent_id_path=PackedInt32Array(1031876588) index="1" unique_id=608707619]
+[node name="TEM_Grass_Patch_05A_LOD1" parent="TEM_Grass_Patch_05A" parent_id_path=PackedInt32Array(1663296928) index="1" unique_id=2140144230]
 visible = false
+layers = 32
 surface_material_override/0 = ExtResource("2_vh16d")

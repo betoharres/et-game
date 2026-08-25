@@ -5,9 +5,10 @@
 
 [node name="TEM_Bush_01A" unique_id=542895956 instance=ExtResource("1_st2si")]
 
-[node name="TEM_Bush_01A_LOD0" parent="TEM_Bush_01A" parent_id_path=PackedInt32Array(169665857) index="0" unique_id=910530934]
+[node name="TEM_Bush_01A_LOD0" parent="TEM_Bush_01A" parent_id_path=PackedInt32Array(402669280) index="0" unique_id=330328558]
+layers = 32
 surface_material_override/0 = ExtResource("2_noijc")
 
-[node name="TEM_Bush_01A_LOD1" parent="TEM_Bush_01A" parent_id_path=PackedInt32Array(169665857) index="1" unique_id=1711385945]
+[node name="TEM_Bush_01A_LOD1" parent="TEM_Bush_01A" parent_id_path=PackedInt32Array(402669280) index="1" unique_id=1257988416]
 visible = false
 surface_material_override/0 = ExtResource("2_noijc")

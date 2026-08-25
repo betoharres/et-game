@@ -11,12 +11,12 @@ func _physics_process(_delta: float) -> void:
 
 	var angular_motion: float = float(parent.get("current_rotation_velocity"))
 
-	var target_rotation_motion : float = angular_motion * 1.3
+	var target_rotation_motion : float = angular_motion * 1.0
 
 	rotation_motion = lerp(
 		rotation_motion,
 		target_rotation_motion,
-		0.25
+		1.0
 	)
 
 	var target_basis: Basis = (

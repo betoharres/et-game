@@ -97,3 +97,4 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
 
 [node name="FX_Fog_01" parent="." unique_id=65490421 instance=ExtResource("10_37myx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8674097, 0.5557697, 0.61229706)
+layers = 32
