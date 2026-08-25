@@ -15,7 +15,7 @@ var transition_timer: float = 0.0
 
 var transitioning: bool = false
 
-@onready var eye_material: ShaderMaterial = surface_material_override/0
+@onready var eye_material: ShaderMaterial = material_override
 
 func _ready() -> void:
 	if eye_material == null:

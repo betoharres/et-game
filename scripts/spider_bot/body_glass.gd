@@ -9,17 +9,18 @@ var timer : float = 0.0
 
 
 func _process(delta: float) -> void:
-	timer += delta
+	if material_override != null:
+		timer += delta
 
-	if timer >= cycle_time:
-		timer -= cycle_time
+		if timer >= cycle_time:
+			timer -= cycle_time
 
-		effect_mode += 1.0
+			effect_mode += 1.0
 
-		if effect_mode >= 5.0:
-			effect_mode = 0.0
+			if effect_mode >= 5.0:
+				effect_mode = 0.0
 
-		mat.set_shader_parameter(
-			"effect_mode",
-			effect_mode
-		)
+			mat.set_shader_parameter(
+				"effect_mode",
+				effect_mode
+			)
