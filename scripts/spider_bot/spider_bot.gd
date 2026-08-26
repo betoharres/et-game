@@ -76,6 +76,8 @@ func _physics_process(delta : float) -> void:
 	var forward_start : Vector3 = _get_horizontal_forward()
 	current_velocity = Vector3.ZERO
 	current_rotation_velocity = 0.0
+	
+	$Armature/Skeleton3D/Eye.rotation.y += 0.1
 
 	if _leg_reset_requested:
 		_leg_reset_requested = false

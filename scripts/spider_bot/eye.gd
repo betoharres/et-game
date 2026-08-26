@@ -63,7 +63,6 @@ func _process(delta: float) -> void:
 		if progress >= 1.0:
 			_finish_transition()
 
-
 func _start_transition() -> void:
 	transitioning = true
 	transition_timer = 0.0

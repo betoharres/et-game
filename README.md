@@ -40,6 +40,7 @@ scenes/
   DeliveryArea.tscn    Área que converte itens entregues em pontos
   WheatField.tscn      Trigo com vento e reação a personagens e veículos
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
+  SICSVegetationInstances.tscn Instâncias editáveis copiadas da vegetação Terrain3D
   DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
   Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
 scripts/
