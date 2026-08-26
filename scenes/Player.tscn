@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dbwjogvkof04y" path="res://scripts/ik_target_container.gd" id="3_3li8b"]
 [ext_resource type="Script" uid="uid://d2qkhr65jljsa" path="res://scripts/audio/footstep_audio.gd" id="4_footsteps"]
 [ext_resource type="PackedScene" path="res://scenes/PlayerHUD.tscn" id="5_hud"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://Materiais/Fridge_Glass_mat.tres" id="5_lkdrv"]
 [ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="6_ragdoll"]
 [ext_resource type="Script" uid="uid://ble30vc8ite7l" path="res://scripts/ragdoll_recovery_modifier.gd" id="8_recovery"]
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="9_animation"]
@@ -12,6 +13,10 @@
 [ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
 [ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://Materiais/default.material" id="10_o4126"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p7iby"]
+material = ExtResource("5_lkdrv")
+size = Vector3(0.1538086, 0.06430054, 0.079589844)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -43,6 +48,12 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="0" unique_id=50943474]
 layers = 256
+
+[node name="FarSightGoggles" type="MeshInstance3D" parent="ET/ETArmature/Skeleton3D/ET" index="0" unique_id=648715834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026855469, 0.81858826, 0.083740234)
+visible = false
+layers = 256
+mesh = SubResource("BoxMesh_p7iby")
 
 [node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 866762196) index="1" unique_id=420108015]
 influence = 0.242

@@ -43,6 +43,7 @@ var _has_target : bool = false
 ## XRAY stuff
 @export var null_material : StandardMaterial3D
 @onready var xray_camera : Camera3D = $PitchPivot/ShoulderOffset/SpringArm3D/XRAYCamera
+@onready var binos_mesh : MeshInstance3D = $"../ET/ETArmature/Skeleton3D/ET/FarSightGoggles"
 @export var xray_material : ShaderMaterial
 
 @export var normal_fov : float = 60.0
@@ -205,6 +206,7 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 func activate_binos() -> void:
 
 	binos_active = true
+	binos_mesh.visibility = true
 
 	current_fov = normal_fov
 
@@ -216,6 +218,7 @@ func activate_binos() -> void:
 func deactivate_binos() -> void:
 
 	binos_active = false
+	binos_mesh.visibility = false
 
 	xray_camera.current = false
 	camera.current = true
