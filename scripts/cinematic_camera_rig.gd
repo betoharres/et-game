@@ -115,8 +115,11 @@ func get_camera() -> Camera3D:
 	return camera
 
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("binos"):
+func _input(event : InputEvent) -> void:
+	# Checked on the event itself: Input.is_action_just_pressed() stays true for
+	# the whole frame, and _input() runs once per event, so mouse motion in the
+	# same frame would toggle the binoculars a second time and cancel it out.
+	if event.is_action_pressed("binos"):
 		if binos_active:
 			deactivate_binos()
 		else:
@@ -206,7 +209,7 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 func activate_binos() -> void:
 
 	binos_active = true
-	binos_mesh.visibility = true
+	binos_mesh.visible = true
 
 	current_fov = normal_fov
 
@@ -218,7 +221,7 @@ func activate_binos() -> void:
 func deactivate_binos() -> void:
 
 	binos_active = false
-	binos_mesh.visibility = false
+	binos_mesh.visible = false
 
 	xray_camera.current = false
 	camera.current = true
