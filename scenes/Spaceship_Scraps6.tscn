@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dhba55x082ju"]
+
+[ext_resource type="ArrayMesh" uid="uid://dp00d3ct8m58q" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_02.fbx" id="1_dmubn"]
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_sqdc7"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_xlprs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_luccv"]
+size = Vector3(1.019767, 0.39551923, 0.71764946)
+
+[node name="SpaceshipScraps6" type="RigidBody3D" unique_id=174749796 groups=["pickup_items"]]
+script = ExtResource("1_sqdc7")
+
+[node name="SmPropCrateMilitary02" type="MeshInstance3D" parent="." unique_id=337171269]
+layers = 64
+mesh = ExtResource("1_dmubn")
+surface_material_override/0 = ExtResource("2_xlprs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1924393766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.198, 0)
+shape = SubResource("BoxShape3D_luccv")

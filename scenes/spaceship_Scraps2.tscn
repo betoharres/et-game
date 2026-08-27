@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://jnnbvr00yg2w"]
+
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_v5sgg"]
+[ext_resource type="ArrayMesh" uid="uid://brvdw0ovpbnkp" path="res://PolygonScifiCity/FBX/SM_Bld_Power_04.fbx" id="1_yprb2"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_2gwst"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_emb0l"]
+height = 1.9677734
+radius = 0.28076172
+
+[node name="SpaceshipScraps2" type="RigidBody3D" unique_id=1030946306 groups=["pickup_items"]]
+mass = 150.0
+script = ExtResource("1_v5sgg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1414117352]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0, 0, 0)
+layers = 64
+mesh = ExtResource("1_yprb2")
+surface_material_override/0 = ExtResource("2_2gwst")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=92632939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9838867, 0)
+shape = SubResource("CylinderShape3D_emb0l")

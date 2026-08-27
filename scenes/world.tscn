@@ -30,7 +30,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b83dpqh3m04s0" path="res://3dModelos/SM_Prop_Beehive_02.fbx" id="26_e75v4"]
 [ext_resource type="PackedScene" uid="uid://bkp3s55pwy4em" path="res://scenes/SmellyFarmer.tscn" id="26_munwf"]
 [ext_resource type="ArrayMesh" uid="uid://b6dty5uh7kiaw" path="res://3dModelos/SM_Prop_Beehive_03.fbx" id="27_8u370"]
-[ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/spaceship_scraps.tscn" id="27_ts3gi"]
+[ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/Spaceship_Scraps1.tscn" id="27_ts3gi"]
 [ext_resource type="PackedScene" uid="uid://coiorvs17f4oe" path="res://scenes/DeliveryArea.tscn" id="28_0nbtd"]
 [ext_resource type="ArrayMesh" uid="uid://dgvqxypgqrq7v" path="res://3dModelos/SM_Prop_Beehive_04.fbx" id="28_rga7q"]
 [ext_resource type="ArrayMesh" uid="uid://bdup7l5yp8th4" path="res://3dModelos/SM_Prop_Beehive_05.fbx" id="29_6oujy"]
@@ -185,6 +185,12 @@
 [ext_resource type="PackedScene" uid="uid://3ooscp81xku" path="res://scenes/SICS Trees/tem_tree_05a.tscn" id="182_onucu"]
 [ext_resource type="PackedScene" uid="uid://bnl1hqe3mxrk8" path="res://scenes/SICS Trees/tem_tree_04a.tscn" id="183_byr1c"]
 [ext_resource type="PackedScene" uid="uid://b2prnpedaixdu" path="res://scenes/SICS Trees/tem_tree_03a.tscn" id="184_4khmu"]
+[ext_resource type="PackedScene" uid="uid://jnnbvr00yg2w" path="res://scenes/spaceship_Scraps2.tscn" id="186_0tnqy"]
+[ext_resource type="PackedScene" uid="uid://ckrvhp1e41qs7" path="res://scenes/Spaceship_Scraps7.tscn" id="187_u6w7b"]
+[ext_resource type="PackedScene" uid="uid://ca65j4w5wksmi" path="res://scenes/Spaceship_Scraps5.tscn" id="188_so2em"]
+[ext_resource type="PackedScene" uid="uid://c1706107vicuy" path="res://scenes/Spaceship_Scraps3.tscn" id="189_0480k"]
+[ext_resource type="PackedScene" uid="uid://bhbub6jjfp0a7" path="res://scenes/Spaceship_Scraps4.tscn" id="190_t6th7"]
+[ext_resource type="PackedScene" uid="uid://dhba55x082ju" path="res://scenes/Spaceship_Scraps6.tscn" id="191_47d22"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
@@ -10427,6 +10433,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2000, 0, 2000)
 [node name="DungeonDoor" parent="." unique_id=1961323462 instance=ExtResource("134_dungeon_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
 dungeon_path = NodePath("../Dungeon")
+
+[node name="SpaceshipScraps3" parent="." unique_id=1030946306 instance=ExtResource("186_0tnqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.278774, -2.861023e-06, 26.517572)
+
+[node name="SpaceshipScraps7" parent="." unique_id=1544427752 instance=ExtResource("187_u6w7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.32552, -8.497826, 28.067389)
+
+[node name="SpaceshipScraps5" parent="." unique_id=611257175 instance=ExtResource("188_so2em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.251408, 0, -46.93089)
+
+[node name="SpaceshipScraps4" parent="." unique_id=921262471 instance=ExtResource("189_0480k")]
+transform = Transform3D(0.68158257, 0, 0.73174125, 0, 1, 0, -0.73174125, 0, 0.68158257, -7.6655707, 0.7498075, -14.977326)
+
+[node name="SpaceshipScraps6" parent="." unique_id=1681236300 instance=ExtResource("190_t6th7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.619029, 0, -46.900146)
+
+[node name="SpaceshipScraps8" parent="." unique_id=174749796 instance=ExtResource("191_47d22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
+
+[node name="SpaceshipScraps9" parent="." unique_id=1704994491 instance=ExtResource("187_u6w7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
 
 [editable path="PropsHolder/Root3"]
 [editable path="BuildingsHolder/Barn2"]

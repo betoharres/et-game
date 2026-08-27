@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bhbub6jjfp0a7"]
+
+[ext_resource type="ArrayMesh" uid="uid://ev48gg4uh387" path="res://PolygonScifiCity/FBX/SM_Prop_Box_RobotParts_01.fbx" id="1_675ax"]
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_rcdat"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_kl4ln"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k7pxw"]
+size = Vector3(0.5771451, 0.6828691, 0.56879747)
+
+[node name="SpaceshipScraps4" type="RigidBody3D" unique_id=1681236300 groups=["pickup_items"]]
+script = ExtResource("1_rcdat")
+
+[node name="SmPropBoxRobotParts01" type="MeshInstance3D" parent="." unique_id=149337117]
+layers = 64
+mesh = ExtResource("1_675ax")
+surface_material_override/0 = ExtResource("2_kl4ln")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=953695653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021848917, 0.34143454, -0.05576098)
+shape = SubResource("BoxShape3D_k7pxw")

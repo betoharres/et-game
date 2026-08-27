@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dcnt7u4mqrfr"]
+
+[ext_resource type="ArrayMesh" uid="uid://dg8edtdp1dgjy" path="res://3dModelos/SM_Prop_ToolBox_01.fbx" id="1_bkbr5"]
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_ihycg"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_ihycg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o1xo7"]
+size = Vector3(0.2654825, 0.2597693, 0.7185508)
+
+[node name="SpaceshipScraps" type="RigidBody3D" unique_id=626107039 groups=["pickup_items"]]
+collision_layer = 8
+mass = 5.0
+script = ExtResource("1_ihycg")
+
+[node name="SmPropToolBox01" type="MeshInstance3D" parent="." unique_id=1256562036]
+layers = 64
+mesh = ExtResource("1_bkbr5")
+surface_material_override/0 = ExtResource("2_ihycg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=247941762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.12988465, 0)
+shape = SubResource("BoxShape3D_o1xo7")
