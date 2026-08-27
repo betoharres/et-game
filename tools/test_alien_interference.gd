@@ -67,9 +67,9 @@ func _run() -> void:
 	)
 
 	for scene_path : String in [
-		"res://scenes/space_ship.tscn",
-		"res://scenes/ArrivalBeam.tscn",
-		"res://scenes/DeliveryArea.tscn",
+		"res://scenes/Vehicles/space_ship.tscn",
+		"res://scenes/FX/ArrivalBeam.tscn",
+		"res://scenes/Buildings/DeliveryArea.tscn",
 	]:
 		var instance : Node = (load(scene_path) as PackedScene).instantiate()
 		root.add_child(instance)

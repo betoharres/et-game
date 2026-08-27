@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="ETs"
-run/main_scene="uid://xvrcvkjy2juc"
+run/main_scene="res://scenes/Menu/main_menu.tscn"
 config/features=PackedStringArray("4.8", "Forward Plus")
 run/max_fps=75
 config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalScore="*uid://cwlo1k62mtyku"
+GlobalScore="*res://scripts/GlobalScore.gd"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
 GdPAIAutoload="*res://addons/GdPlanningAI/gdpai_autoload.gd"

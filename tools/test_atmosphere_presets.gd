@@ -185,8 +185,8 @@ func _run() -> void:
 
 	# Zonas reutilizaveis nos campos.
 	for scene_path : String in [
-		"res://scenes/WheatField.tscn",
-		"res://scenes/SunflowersPatch.tscn",
+		"res://scenes/AnimatedCrops/WheatField.tscn",
+		"res://scenes/AnimatedCrops/SunflowersPatch.tscn",
 	]:
 		var field : Node = (load(scene_path) as PackedScene).instantiate()
 		root.add_child(field)
