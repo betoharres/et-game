@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bpwvlxfudifgw"]
+
+[ext_resource type="ArrayMesh" uid="uid://csyx72t7u3o6f" path="res://PolygonScifiCity/FBX/SM_Prop_Meat_01.fbx" id="1_qujv2"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_gkfvv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qujv2"]
+radius = 0.13002586
+height = 1.0836964
+
+[node name="Meat1" type="StaticBody3D" unique_id=1873159825]
+
+[node name="SmPropMeat01" type="MeshInstance3D" parent="." unique_id=1204153]
+layers = 512
+mesh = ExtResource("1_qujv2")
+surface_material_override/0 = ExtResource("2_gkfvv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1378089980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017114878, -0.4967419, 0.021051407)
+shape = SubResource("CapsuleShape3D_qujv2")

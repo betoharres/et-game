@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckrvhp1e41qs7"]
+
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_miye6"]
+[ext_resource type="ArrayMesh" uid="uid://iy7ghxst3o6f" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_Hanging_01.fbx" id="1_nuot7"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_pba04"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nuot7"]
+size = Vector3(0.510362, 1.3164215, 0.5689614)
+
+[node name="SpaceshipScraps7" type="RigidBody3D" unique_id=1544427752 groups=["pickup_items"]]
+script = ExtResource("1_miye6")
+
+[node name="SmPropJarHanging01" type="MeshInstance3D" parent="." unique_id=867010082]
+layers = 64
+mesh = ExtResource("1_nuot7")
+surface_material_override/0 = ExtResource("2_pba04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1213143602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0045242906, -0.6146133, -0.008449435)
+shape = SubResource("BoxShape3D_nuot7")

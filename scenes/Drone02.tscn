@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bdkvum0fkikds"]
+
+[ext_resource type="ArrayMesh" uid="uid://kfxjncj3evet" path="res://PolygonScifiCity/FBX/SM_Prop_Drone_02.fbx" id="1_33ntx"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_elf1t"]
+
+[node name="Drone02" type="Node3D" unique_id=1519805945]
+
+[node name="SmPropDrone02" type="MeshInstance3D" parent="." unique_id=116077415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 16
+mesh = ExtResource("1_33ntx")
+surface_material_override/0 = ExtResource("2_elf1t")
