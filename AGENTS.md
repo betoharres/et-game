@@ -24,7 +24,10 @@
 
 - Prefira recursos nativos do Godot e GDScript tipado.
 - Use ações do Input Map em vez de adicionar teclas hard-coded. Ao criar uma
-  nova ação, registre-a em `project.godot` e documente o controle no README.
+  nova ação, registre-a em `project.godot`, documente o controle no README e
+  adicione-a ao menu de controles do ESC (`REBIND_ACTIONS`/`REBIND_LABELS` e
+  `action_buttons` em `scripts/pause_menu.gd`, com o botão correspondente em
+  `scenes/PauseMenu.tscn`), para que fique visível e rebindável pelo jogador.
 - Prefira sinais, grupos, composição e cenas reutilizáveis.
 - Mantenha scripts e nós com responsabilidades pequenas.
 - Preserve os grupos `characters`, `vehicles` e `pickup_items` ou atualize

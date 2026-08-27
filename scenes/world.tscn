@@ -30,7 +30,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b83dpqh3m04s0" path="res://3dModelos/SM_Prop_Beehive_02.fbx" id="26_e75v4"]
 [ext_resource type="PackedScene" uid="uid://bkp3s55pwy4em" path="res://scenes/SmellyFarmer.tscn" id="26_munwf"]
 [ext_resource type="ArrayMesh" uid="uid://b6dty5uh7kiaw" path="res://3dModelos/SM_Prop_Beehive_03.fbx" id="27_8u370"]
-[ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/Spaceship_Scraps1.tscn" id="27_ts3gi"]
+[ext_resource type="PackedScene" path="res://scenes/Spaceship_Scraps1.tscn" id="27_ts3gi"]
 [ext_resource type="PackedScene" uid="uid://coiorvs17f4oe" path="res://scenes/DeliveryArea.tscn" id="28_0nbtd"]
 [ext_resource type="ArrayMesh" uid="uid://dgvqxypgqrq7v" path="res://3dModelos/SM_Prop_Beehive_04.fbx" id="28_rga7q"]
 [ext_resource type="ArrayMesh" uid="uid://bdup7l5yp8th4" path="res://3dModelos/SM_Prop_Beehive_05.fbx" id="29_6oujy"]
@@ -442,7 +442,6 @@ script = ExtResource("80_audio")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 32.947754, -8.647179)
-visible = false
 
 [node name="SpiderBot" parent="." unique_id=614909317 node_paths=PackedStringArray("ship_node", "delivery_area") instance=ExtResource("3_spider")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2577915, 36.85962, -8.605088)

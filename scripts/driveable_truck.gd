@@ -25,8 +25,20 @@ extends VehicleBody3D
 @export var camera_pitch_min : float = -80.0
 @export var camera_pitch_max : float = 80.0
 
+# Camera collision (keeps the chase camera from clipping through terrain/props)
+@export var camera_collision_mask : int = 1
+@export var camera_collision_margin : float = 0.3
+@export var camera_collision_follow_speed : float = 12.0
+
+# Camera auto-return (snaps the chase camera back behind the vehicle when the
+# player stops looking around, GTA-style)
+@export var camera_return_delay : float = 1.2
+@export var camera_return_speed : float = 3.0
+
 var camera_yaw : float = 0.0
 var camera_pitch : float = 0.0
+var camera_distance : float = 0.0
+var time_since_camera_input : float = 0.0
 
 var vehicle_controlled : bool = false
 var current_player : CharacterBody3D = null
@@ -46,6 +58,7 @@ func _ready() -> void:
 
 	exterior_camera_position = camera.position
 	exterior_camera_rotation = camera.rotation
+	camera_distance = exterior_camera_position.length()
 	camera.current = false
 
 
@@ -72,6 +85,7 @@ func _input(event : InputEvent) -> void:
 
 			camera_yaw -= mouse_motion.x * sensitivity
 			camera_pitch -= mouse_motion.y * sensitivity
+			time_since_camera_input = 0.0
 
 			var minimum_pitch : float = deg_to_rad(camera_pitch_min)
 			var maximum_pitch : float = deg_to_rad(camera_pitch_max)
@@ -83,6 +97,19 @@ func _input(event : InputEvent) -> void:
 			)
 
 func _physics_process(delta : float) -> void:
+
+	time_since_camera_input += delta
+
+	if (
+		vehicle_controlled
+		and not first_person_camera
+		and time_since_camera_input > camera_return_delay
+	):
+		camera_yaw = lerp_angle(
+			camera_yaw,
+			global_rotation.y,
+			delta * camera_return_speed
+		)
 
 	# Camera follows vehicle position,
 	# but not vehicle rotation.
@@ -101,7 +128,65 @@ func _physics_process(delta : float) -> void:
 
 	camera_arm.rotation.x = camera_pitch
 
+	if vehicle_controlled and not first_person_camera:
+		_update_exterior_camera_collision(delta)
 
+	_update_driving(delta)
+
+
+func _update_exterior_camera_collision(delta : float) -> void:
+	var desired_local_position : Vector3 = exterior_camera_position
+	var desired_world_position : Vector3 = camera_arm.global_transform * (
+		desired_local_position
+	)
+
+	var space_state : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		camera_arm.global_position,
+		desired_world_position
+	)
+	query.collision_mask = camera_collision_mask
+	query.exclude = [get_rid()]
+
+	var result : Dictionary = space_state.intersect_ray(query)
+
+	var allowed_distance : float = camera_distance
+
+	if not result.is_empty():
+		var hit_distance : float = camera_arm.global_position.distance_to(
+			result.position
+		)
+		allowed_distance = clampf(
+			hit_distance - camera_collision_margin,
+			0.0,
+			camera_distance
+		)
+
+	var current_distance : float = camera.position.length()
+	var new_distance : float
+
+	if allowed_distance < current_distance:
+		# Pull in immediately so the camera never clips through geometry.
+		new_distance = allowed_distance
+	else:
+		# Ease back out smoothly once the obstruction is gone.
+		new_distance = move_toward(
+			current_distance,
+			allowed_distance,
+			delta * camera_collision_follow_speed * camera_distance
+		)
+
+	var direction : Vector3 = (
+		desired_local_position / camera_distance
+		if camera_distance > 0.0
+		else Vector3.ZERO
+	)
+
+	camera.position = direction * new_distance
+	camera.rotation = exterior_camera_rotation
+
+
+func _update_driving(delta : float) -> void:
 	if not vehicle_controlled:
 		engine_force = 0.0
 		brake = brake_force

@@ -40,7 +40,15 @@ const LAMP_COLOR : Color = Color(1.0, 0.82, 0.55)
 const LAMP_ENERGY : float = 2.4
 const LAMP_RANGE : float = 16.0
 
-const SCRAP_SCENE : PackedScene = preload("res://scenes/spaceship_scraps.tscn")
+const SCRAP_SCENES : Array[PackedScene] = [
+	preload("res://scenes/Spaceship_Scraps1.tscn"),
+	preload("res://scenes/spaceship_Scraps2.tscn"),
+	preload("res://scenes/Spaceship_Scraps3.tscn"),
+	preload("res://scenes/Spaceship_Scraps4.tscn"),
+	preload("res://scenes/Spaceship_Scraps5.tscn"),
+	preload("res://scenes/Spaceship_Scraps6.tscn"),
+	preload("res://scenes/Spaceship_Scraps7.tscn"),
+]
 
 const NEIGHBOR_DIRECTIONS : Array[Vector2i] = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
@@ -205,7 +213,8 @@ func _spawn_scraps(rooms : Array[Rect2i]) -> void:
 		scrap_room_indices.append(rooms.size() / 2)
 
 	for room_index : int in scrap_room_indices:
-		var scrap : RigidBody3D = SCRAP_SCENE.instantiate()
+		var scrap_scene : PackedScene = SCRAP_SCENES[randi() % SCRAP_SCENES.size()]
+		var scrap : RigidBody3D = scrap_scene.instantiate()
 		add_child(scrap)
 		scrap.global_position = (
 			_floor_top_global(_room_center(rooms[room_index]))

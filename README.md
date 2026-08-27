@@ -311,6 +311,8 @@ pulo normal, até 1,5 m   nada
   jogador, `E` assume ou devolve o controle perto da cabine. Ao executar
   `FlyablePlane.tscn` isoladamente, o controle é ativado automaticamente.
 - Abrir ou fechar o menu de pausa: `Esc`.
+- Ativar ou desativar os binóculos: `B`. Com os binóculos ativos, `+`/`-` do
+  teclado numérico ajustam o zoom.
 - Mostrar ou ocultar o radar circular: `F3`.
 - Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
   trocar o preset de atmosfera entre Baixo, Médio e Alto, alternar Lua, céu, luz
@@ -326,7 +328,9 @@ pulo normal, até 1,5 m   nada
 As interações usam uma ação própria para que `Espaço` possa ser reservado ao
 pulo. No menu de opções, as quatro teclas de movimento podem ser remapeadas.
 Durante a partida, o menu de pausa permite remapear movimento, corrida, pulo,
-agachamento e interação. Os remapeamentos duram pela sessão atual.
+agachamento, interação, chamada da nave, luz dos olhos, radar, binóculos
+(ativar e os dois zooms) e o menu de debug. Os remapeamentos duram pela sessão
+atual.
 
 ## Arquitetura
 

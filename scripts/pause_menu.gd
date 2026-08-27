@@ -11,7 +11,11 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"interact",
 	&"request_abduction",
 	&"toggle_eye_light",
-	&"debug_vision_map"
+	&"debug_vision_map",
+	&"binos",
+	&"binos_zoom_in",
+	&"binos_zoom_out",
+	&"debug_menu"
 ]
 
 const REBIND_LABELS : Array[String] = [
@@ -25,7 +29,11 @@ const REBIND_LABELS : Array[String] = [
 	"Interagir",
 	"Chamar nave",
 	"Luz dos olhos",
-	"Mini mapa"
+	"Mini mapa",
+	"Binóculos",
+	"Zoom binóculos +",
+	"Zoom binóculos -",
+	"Menu de debug"
 ]
 
 @onready var overlay : Control = $Overlay
@@ -61,7 +69,11 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/InteractButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/AbductionButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/EyeLightButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMapButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMapButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomInButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomOutButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMenuButton
 ]
 
 var rebinding_action : StringName = &""

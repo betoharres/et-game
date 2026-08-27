@@ -177,6 +177,22 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
+[node name="BinocularsButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BinocularsZoomInButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BinocularsZoomOutButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="DebugMenuButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
 [node name="BackButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
