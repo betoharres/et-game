@@ -285,12 +285,7 @@ func _apply_xray_materials() -> void:
 		var geometry : GeometryInstance3D = node as GeometryInstance3D
 		if geometry == null:
 			continue
-		var original_override: Material = geometry.material_override
-		_xray_overrides[geometry] = (
-			weakref(original_override)
-			if original_override != null
-			else null
-		)
+		_xray_overrides[geometry] = geometry.material_override
 		geometry.material_override = xray_material
 
 
@@ -299,20 +294,6 @@ func _restore_materials() -> void:
 		if not is_instance_valid(geometry):
 			continue
 
-		var original_reference: Variant = _xray_overrides[geometry]
-		if original_reference == null:
-			geometry.material_override = null_material
-			print('error retrieving original material, using default instead')
-			continue
-
-		var original_override: Object
-		if original_reference is WeakRef:
-			original_override = original_reference.get_ref()
-		else:
-			original_override = original_reference
-
-		if is_instance_valid(original_override):
-			geometry.material_override = original_override as Material
-		else:
-			geometry.material_override = null
+		var original_override : Material = _xray_overrides[geometry]
+		geometry.material_override = original_override
 	_xray_overrides.clear()

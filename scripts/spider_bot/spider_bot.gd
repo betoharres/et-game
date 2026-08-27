@@ -1,6 +1,6 @@
 extends Node3D
 
-const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/ArrivalBeam.tscn")
+const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/FX/ArrivalBeam.tscn")
 
 enum BehaviorState {
 	STOWED,

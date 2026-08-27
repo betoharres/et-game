@@ -14,7 +14,7 @@ func _run() -> void:
 	await process_frame
 	player.set_physics_process(false)
 	var debug_menu : Node = (
-		load("res://scenes/DebugMenu.tscn") as PackedScene
+		load("res://scenes/Menu/DebugMenu.tscn") as PackedScene
 	).instantiate()
 	root.add_child(debug_menu)
 	await process_frame

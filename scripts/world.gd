@@ -7,7 +7,7 @@ extends Node3D
 ## locked during the descent, but the player can still look around within a
 ## limited turn range (see LOOK_YAW_LIMIT_DEGREES).
 
-const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/ArrivalBeam.tscn")
+const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/FX/ArrivalBeam.tscn")
 
 const DESCEND_SPEED : float = 10.0
 const MIN_DESCEND_HEIGHT : float = 10.0

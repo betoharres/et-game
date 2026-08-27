@@ -30,13 +30,8 @@
 [ext_resource type="ArrayMesh" uid="uid://b83dpqh3m04s0" path="res://3dModelos/SM_Prop_Beehive_02.fbx" id="26_e75v4"]
 [ext_resource type="PackedScene" uid="uid://bkp3s55pwy4em" path="res://scenes/NPCs/SmellyFarmer.tscn" id="26_munwf"]
 [ext_resource type="ArrayMesh" uid="uid://b6dty5uh7kiaw" path="res://3dModelos/SM_Prop_Beehive_03.fbx" id="27_8u370"]
-<<<<<<< HEAD
-[ext_resource type="PackedScene" path="res://scenes/Spaceship_Scraps1.tscn" id="27_ts3gi"]
-[ext_resource type="PackedScene" uid="uid://coiorvs17f4oe" path="res://scenes/DeliveryArea.tscn" id="28_0nbtd"]
-=======
 [ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/Spaceship_Scraps1.tscn" id="27_ts3gi"]
 [ext_resource type="PackedScene" uid="uid://coiorvs17f4oe" path="res://scenes/Buildings/DeliveryArea.tscn" id="28_0nbtd"]
->>>>>>> 2819f765562464c9c9bd3cb582600dfce9b60570
 [ext_resource type="ArrayMesh" uid="uid://dgvqxypgqrq7v" path="res://3dModelos/SM_Prop_Beehive_04.fbx" id="28_rga7q"]
 [ext_resource type="ArrayMesh" uid="uid://bdup7l5yp8th4" path="res://3dModelos/SM_Prop_Beehive_05.fbx" id="29_6oujy"]
 [ext_resource type="ArrayMesh" uid="uid://te6b2vkikbel" path="res://3dModelos/SM_Prop_Beehive_06.fbx" id="30_hi6a0"]

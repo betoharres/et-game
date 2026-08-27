@@ -180,7 +180,7 @@ func _back_to_main_menu() -> void:
 	get_tree().paused = false
 	overlay.visible = false
 	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.warp_to("res://scenes/main_menu.tscn")
+	scene_transition.warp_to("res://scenes/Menu/main_menu.tscn")
 
 
 func _exit_game() -> void:
