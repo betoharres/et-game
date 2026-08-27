@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://cge75rbpo8nsw" path="res://shaders/night_sky.gdshader" id="2_sky_shader"]
 [ext_resource type="Shader" uid="uid://m3flf0i0p2ae" path="res://shaders/alien_incident_post.gdshader" id="3_incident_post"]
 [ext_resource type="Script" uid="uid://ci8g2hsejc0vi" path="res://scripts/alien_incident_post_process.gd" id="4_post_controller"]
-[ext_resource type="PackedScene" uid="uid://bcopx23eftoor" path="res://scenes/GroundFogLayer.tscn" id="5_ground_fog_layer"]
+[ext_resource type="PackedScene" uid="uid://bcopx23eftoor" path="res://scenes/FX/GroundFogLayer.tscn" id="5_ground_fog_layer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_sky_shader")
