@@ -31,6 +31,8 @@ extends Node3D
 
 var _target_position : Vector3
 var _target_yaw : float = 0.0
+var _target_basis : Basis = Basis.IDENTITY
+var _target_up_direction : Vector3 = Vector3.UP
 var _target_pitch : float = 0.0
 var _target_crouch_drop : float = 0.0
 var _target_speed : float = 0.0
@@ -68,6 +70,8 @@ func _ready() -> void:
 
 	_target_position = global_position
 	_target_yaw = global_rotation.y
+	_target_basis = global_basis.orthonormalized()
+	_target_up_direction = _target_basis.y.normalized()
 	_target_pitch = pitch_pivot.rotation.x
 
 	## XRAY Stuff
@@ -97,10 +101,17 @@ func set_target_pose(
 	crouch_drop : float,
 	horizontal_speed : float,
 	grounded : bool,
-	snap : bool = false
+	snap : bool = false,
+	up_direction_in : Vector3 = Vector3.UP
 ) -> void:
 	_target_position = position_in
 	_target_yaw = yaw
+	_target_up_direction = (
+		up_direction_in.normalized()
+		if up_direction_in.length_squared() > 0.0001
+		else Vector3.UP
+	)
+	_target_basis = _basis_for_yaw(_target_yaw, _target_up_direction)
 	_target_pitch = pitch
 	_target_crouch_drop = crouch_drop
 	_target_speed = horizontal_speed
@@ -144,7 +155,10 @@ func _process(delta : float) -> void:
 			_target_position + follow_offset.normalized() * maximum_follow_lag
 		)
 
-	rotation.y = lerp_angle(rotation.y, _target_yaw, rotation_weight)
+	global_basis = global_basis.orthonormalized().slerp(
+		_target_basis,
+		rotation_weight
+	).orthonormalized()
 	pitch_pivot.rotation.x = lerp_angle(
 		pitch_pivot.rotation.x,
 		_target_pitch,
@@ -155,7 +169,7 @@ func _process(delta : float) -> void:
 
 func _snap_to_target() -> void:
 	global_position = _target_position
-	rotation = Vector3(0.0, _target_yaw, 0.0)
+	global_basis = _target_basis
 	pitch_pivot.rotation.x = _target_pitch
 
 
@@ -183,7 +197,12 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 		0.0
 	)
 
-	var yaw_lag : float = wrapf(_target_yaw - rotation.y, -PI, PI)
+	var current_forward : Vector3 = -global_basis.z
+	var target_forward : Vector3 = -_target_basis.z
+	var yaw_lag : float = current_forward.signed_angle_to(
+		target_forward,
+		_target_up_direction
+	)
 	var parallax : float = clampf(
 		yaw_lag * turn_parallax_amount,
 		-turn_parallax_amount,
@@ -203,6 +222,16 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 		walk_roll + turn_roll + idle_roll,
 		rotation_weight
 	)
+
+
+func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
+	var reference_forward : Vector3 = Vector3.FORWARD.slide(up)
+	if reference_forward.length_squared() <= 0.0001:
+		reference_forward = Vector3.UP.slide(up)
+	reference_forward = reference_forward.normalized()
+
+	var forward : Vector3 = reference_forward.rotated(up, yaw).normalized()
+	return Basis.looking_at(forward, up).orthonormalized()
 
 
 ## XRAY Stuff

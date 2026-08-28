@@ -264,6 +264,8 @@ func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
 		_update_fall(delta)
 
+	if not _debug_flight_enabled:
+		_update_gravity_frame(get_gravity())
 	_update_camera_target()
 
 	if _fall_state != FallState.NONE:
@@ -290,21 +292,22 @@ func _physics_process(delta: float) -> void:
 
 	var was_on_floor : bool = is_on_floor()
 
+	var gravity : Vector3 = get_gravity()
+	var vertical_speed : float = velocity.dot(up_direction)
 	if not is_on_floor():
-		velocity.y += get_gravity().y * delta
-	elif velocity.y <= 0.0:
-		velocity.y = -0.1
+		velocity += gravity * delta
+	elif vertical_speed <= 0.0:
+		velocity = velocity.slide(up_direction) - up_direction * 0.1
 
 	var input_direction: Vector2 = Input.get_vector("ui_right","ui_left","ui_up","ui_down")
 
-	var camera_forward: Vector3 = Vector3(-sin(camera_yaw),0.0,-cos(camera_yaw))
-
-	var camera_right: Vector3 = Vector3(cos(camera_yaw),0.0,-sin(camera_yaw))
+	var camera_forward : Vector3 = _camera_forward_on_surface()
+	var camera_right : Vector3 = camera_forward.cross(up_direction).normalized()
 
 	var movement_direction: Vector3 = (camera_right * input_direction.x +
 		camera_forward * input_direction.y)
 
-	movement_direction.y = 0.0
+	movement_direction = movement_direction.slide(up_direction)
 	var has_movement_input : bool = (
 		movement_direction.length_squared() > 0.0001
 	)
@@ -347,21 +350,81 @@ func _physics_process(delta: float) -> void:
 	_detect_landing(was_on_floor, velocity_before_move)
 	_detect_body_impacts(velocity_before_move)
 
-	var horizontal_speed : float = Vector2(velocity.x, velocity.z).length()
+	var horizontal_speed : float = velocity.slide(up_direction).length()
 	footstep_audio.set_motion(horizontal_speed, is_on_floor())
 	_update_animation_controller()
 
 
 func _update_camera_target() -> void:
-	var horizontal_speed : float = Vector2(velocity.x, velocity.z).length()
+	var horizontal_speed : float = velocity.slide(up_direction).length()
 	camera_pivot.set_target_pose(
 		global_position,
 		camera_yaw,
 		camera_pitch,
 		crouch_camera_drop * _crouch_amount,
 		horizontal_speed,
-		is_on_floor()
+		is_on_floor(),
+		false,
+		up_direction
 	)
+
+
+func _update_gravity_frame(gravity : Vector3) -> void:
+	if gravity.length_squared() <= 0.0001:
+		return
+
+	var new_up_direction : Vector3 = -gravity.normalized()
+	if (
+		_moving_turn_active
+		and new_up_direction.dot(Vector3.UP) < 0.9999
+	):
+		_cancel_moving_turn()
+
+	up_direction = new_up_direction
+	var forward : Vector3 = global_basis.z.slide(up_direction)
+	if forward.length_squared() <= 0.0001:
+		forward = Vector3.BACK.slide(up_direction)
+	if forward.length_squared() <= 0.0001:
+		forward = Vector3.UP.slide(up_direction)
+	forward = forward.normalized()
+
+	var right : Vector3 = up_direction.cross(forward).normalized()
+	global_basis = Basis(right, up_direction, forward).orthonormalized()
+
+
+func _camera_forward_on_surface() -> Vector3:
+	var reference_forward : Vector3 = Vector3.FORWARD.slide(up_direction)
+	if reference_forward.length_squared() <= 0.0001:
+		reference_forward = Vector3.UP.slide(up_direction)
+	reference_forward = reference_forward.normalized()
+	return reference_forward.rotated(up_direction, camera_yaw).normalized()
+
+
+func _uses_surface_up() -> bool:
+	return up_direction.dot(Vector3.UP) < 0.9999
+
+
+func _set_tangent_velocity(tangent_velocity : Vector3) -> void:
+	var vertical_velocity : Vector3 = up_direction * velocity.dot(up_direction)
+	velocity = tangent_velocity.slide(up_direction) + vertical_velocity
+
+
+func _rotate_toward_surface_direction(direction : Vector3,
+	maximum_angle : float) -> void:
+	var desired_forward : Vector3 = direction.slide(up_direction)
+	if desired_forward.length_squared() <= 0.0001:
+		return
+	desired_forward = desired_forward.normalized()
+
+	var current_forward : Vector3 = global_basis.z.slide(up_direction).normalized()
+	var angle : float = current_forward.signed_angle_to(
+		desired_forward,
+		up_direction
+	)
+	var rotation_step : float = clampf(angle, -maximum_angle, maximum_angle)
+	global_basis = (
+		Basis(up_direction, rotation_step) * global_basis
+	).orthonormalized()
 
 
 func _get_movement_speed() -> float:
@@ -377,6 +440,35 @@ func _get_movement_speed() -> float:
 
 func _update_horizontal_movement(delta : float, movement_direction : Vector3,
 	has_movement_input : bool) -> void:
+	if _uses_surface_up():
+		var tangent_velocity : Vector3 = velocity.slide(up_direction)
+		var acceleration : float = (
+			ground_acceleration if is_on_floor() else air_acceleration
+		)
+		var target_velocity : Vector3 = Vector3.ZERO
+		if has_movement_input:
+			target_velocity = movement_direction * _get_movement_speed()
+		else:
+			acceleration = (
+				ground_deceleration if is_on_floor() else air_acceleration
+			)
+
+		tangent_velocity = tangent_velocity.move_toward(
+			target_velocity,
+			acceleration
+			* _control_multiplier()
+			* _debug_speed_multiplier()
+			* delta
+		)
+		_set_tangent_velocity(tangent_velocity)
+
+		if has_movement_input:
+			_rotate_toward_surface_direction(
+				movement_direction,
+				rotation_speed * _control_multiplier() * delta
+			)
+		return
+
 	var horizontal_velocity : Vector2 = Vector2(velocity.x, velocity.z)
 
 	if has_movement_input:
@@ -415,6 +507,7 @@ func _should_start_moving_turn(movement_direction : Vector3,
 	has_movement_input : bool) -> bool:
 	if (
 		_moving_turn_active
+		or _uses_surface_up()
 		or _debug_god_mode_enabled
 		or not has_movement_input
 		or not is_on_floor()
@@ -465,7 +558,8 @@ func _start_moving_turn(movement_direction : Vector3) -> void:
 func _update_moving_turn(delta : float, movement_direction : Vector3,
 	has_movement_input : bool) -> bool:
 	if (
-		not has_movement_input
+		_uses_surface_up()
+		or not has_movement_input
 		or not is_on_floor()
 		or is_crouching
 		or _jump_state != JumpState.READY
@@ -610,7 +704,7 @@ func _update_jump_state(_delta : float) -> void:
 		and Input.is_action_just_pressed("jump")
 	):
 		_cancel_moving_turn()
-		velocity.y = jump_velocity
+		velocity = velocity.slide(up_direction) + up_direction * jump_velocity
 		_jump_state = JumpState.AIRBORNE
 
 
@@ -690,7 +784,7 @@ func apply_knockback(direction : Vector3, distance : float) -> void:
 	if _debug_god_mode_enabled or distance <= 0.0 or health <= 0.0:
 		return
 
-	direction.y = 0.0
+	direction = direction.slide(up_direction)
 
 	if direction.length_squared() <= 0.0001:
 		return
@@ -1015,8 +1109,7 @@ func _apply_knockback(delta : float) -> void:
 	var knockback_velocity : Vector3 = (
 		_knockback_direction * step_distance / delta
 	)
-	velocity.x += knockback_velocity.x
-	velocity.z += knockback_velocity.z
+	velocity += knockback_velocity
 	_knockback_remaining_distance -= step_distance
 
 
@@ -1044,16 +1137,12 @@ func _detect_landing(was_on_floor : bool, velocity_before_move : Vector3) -> voi
 	if was_on_floor or not is_on_floor():
 		return
 
-	var landing_speed : float = -velocity_before_move.y
+	var landing_speed : float = -velocity_before_move.dot(up_direction)
 
 	if landing_speed < min_landing_speed:
 		return
 
-	var direction : Vector3 = Vector3(
-		velocity_before_move.x,
-		0.0,
-		velocity_before_move.z
-	)
+	var direction : Vector3 = velocity_before_move.slide(up_direction)
 
 	if direction.length_squared() > 0.0001:
 		direction = direction.normalized()
@@ -1107,11 +1196,7 @@ func _detect_body_impacts(velocity_before_move : Vector3) -> void:
 		_last_impact_normal = Vector3.ZERO
 		return
 
-	var travel : Vector3 = Vector3(
-		velocity_before_move.x,
-		0.0,
-		velocity_before_move.z
-	)
+	var travel : Vector3 = velocity_before_move.slide(up_direction)
 
 	if travel.length() < min_impact_speed:
 		_was_on_wall = true
@@ -1124,7 +1209,7 @@ func _detect_body_impacts(velocity_before_move : Vector3) -> void:
 		var collision : KinematicCollision3D = get_slide_collision(index)
 		var normal : Vector3 = collision.get_normal()
 
-		if absf(normal.y) > WALL_NORMAL_LIMIT:
+		if absf(normal.dot(up_direction)) > WALL_NORMAL_LIMIT:
 			continue
 
 		var entering_speed : float = -travel.dot(normal)
@@ -1133,7 +1218,7 @@ func _detect_body_impacts(velocity_before_move : Vector3) -> void:
 			continue
 
 		impact_speed = entering_speed
-		impact_normal = Vector3(normal.x, 0.0, normal.z)
+		impact_normal = normal.slide(up_direction)
 
 	var was_on_wall : bool = _was_on_wall
 	_was_on_wall = true
@@ -1297,8 +1382,8 @@ func _project_to_floor(probe_position : Vector3) -> Vector3:
 		return probe_position
 
 	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
-		probe_position + Vector3.UP * FLOOR_PROBE_HEIGHT,
-		probe_position + Vector3.DOWN * FLOOR_PROBE_DEPTH
+		probe_position + up_direction * FLOOR_PROBE_HEIGHT,
+		probe_position - up_direction * FLOOR_PROBE_DEPTH
 	)
 	query.collision_mask = collision_mask
 	query.exclude = [get_rid()]
@@ -1306,7 +1391,7 @@ func _project_to_floor(probe_position : Vector3) -> Vector3:
 	var hit : Dictionary = world.direct_space_state.intersect_ray(query)
 
 	if hit.is_empty():
-		return Vector3(probe_position.x, global_position.y, probe_position.z)
+		return probe_position
 
 	return hit["position"] as Vector3
 
@@ -1370,8 +1455,8 @@ func _can_stand() -> bool:
 	var query : PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 	query.shape = standing_shape
 	query.transform = Transform3D(
-		Basis.IDENTITY,
-		global_position + Vector3.UP * (STANDING_COLLISION_HEIGHT * 0.5)
+		global_basis,
+		global_position + up_direction * (STANDING_COLLISION_HEIGHT * 0.5)
 	)
 	query.collision_mask = collision_mask
 	query.exclude = [get_rid()]
