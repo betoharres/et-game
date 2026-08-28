@@ -56,7 +56,7 @@ var _has_target : bool = false
 
 var binos_active : bool = false
 var current_fov : float = 60.0
-var _xray_overrides : Dictionary = {}
+var _xray_states : Array[Dictionary] = []
 
 func _ready() -> void:
 	top_level = true
@@ -285,15 +285,56 @@ func _apply_xray_materials() -> void:
 		var geometry : GeometryInstance3D = node as GeometryInstance3D
 		if geometry == null:
 			continue
-		_xray_overrides[geometry] = geometry.material_override
+
+		var state : Dictionary = {
+			"geometry": weakref(geometry),
+			"material_override": geometry.material_override,
+			"surface_overrides": [],
+		}
+		if geometry is MeshInstance3D:
+			var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
+			var surface_overrides : Array[Material] = []
+			if mesh_instance.mesh != null:
+				for surface_index : int in range(mesh_instance.mesh.get_surface_count()):
+					surface_overrides.append(
+						mesh_instance.get_surface_override_material(surface_index)
+					)
+					mesh_instance.set_surface_override_material(
+						surface_index,
+						xray_material
+					)
+			state["surface_overrides"] = surface_overrides
+
+		_xray_states.append(state)
 		geometry.material_override = xray_material
 
 
 func _restore_materials() -> void:
-	for geometry : GeometryInstance3D in _xray_overrides:
-		if not is_instance_valid(geometry):
+	for state : Dictionary in _xray_states:
+		var geometry_reference : WeakRef = state["geometry"] as WeakRef
+		var geometry : GeometryInstance3D = (
+			geometry_reference.get_ref() as GeometryInstance3D
+		)
+		if geometry == null:
 			continue
 
-		var original_override : Material = _xray_overrides[geometry]
+		if geometry is MeshInstance3D:
+			var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
+			var surface_overrides : Array = state["surface_overrides"]
+			var surface_count : int = 0
+			if mesh_instance.mesh != null:
+				surface_count = mini(
+					surface_overrides.size(),
+					mesh_instance.mesh.get_surface_count()
+				)
+			for surface_index : int in range(surface_count):
+				var original_surface_override : Material = surface_overrides[surface_index]
+				mesh_instance.set_surface_override_material(
+					surface_index,
+					original_surface_override
+				)
+
+		var original_override : Material = state["material_override"] as Material
 		geometry.material_override = original_override
-	_xray_overrides.clear()
+
+	_xray_states.clear()
