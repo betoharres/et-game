@@ -966,7 +966,4 @@ surface_material_override/0 = ExtResource("24_cf3vh")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.9363465, 0, 5.731724)
 player_camera = NodePath("../CharacterBody3D/CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D")
 
-[node name="Mesh2" parent="PortalPair1" index="1" unique_id=1155961728]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.459756, 9.1757, 18.54007)
-
 [editable path="PortalPair1"]
