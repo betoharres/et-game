@@ -1,5 +1,16 @@
 extends Control
 
+## Preloaded rather than referenced by class_name: the global class cache is
+## only populated by the editor, so a class_name reference fails to parse when
+## the project is launched straight from the command line.
+const PROCEDURAL_SFX = preload("res://scripts/audio/procedural_sfx.gd")
+
+## Alpha steps and their share of the total duration for the menu's "signal
+## tuning" intro (see _tune_in). Uneven on purpose: even steps read as a
+## metronome, which is exactly the slideshow feel we are avoiding.
+const TUNE_IN_STEPS : Array[float] = [0.0, 0.55, 0.12, 0.85, 0.3, 1.0]
+const TUNE_IN_WEIGHTS : Array[float] = [0.0, 0.22, 0.12, 0.26, 0.14, 0.26]
+
 @onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
 @onready var menu_button_3 : Button = $ColorRect/MenuBar/VSeparator/MenuButton3
@@ -92,10 +103,11 @@ func _on_play_pressed() -> void:
 	var photo_alert_system : Node = get_node_or_null("/root/PhotoAlertSystem")
 	if photo_alert_system != null:
 		photo_alert_system.reset()
+	_play_launch_charge()
 	var music_tween : Tween = create_tween()
-	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.7)
+	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.45)
 	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.warp_to("res://scenes/world.tscn")
+	scene_transition.abduction_warp_to("res://scenes/world.tscn")
 
 func _on_options_pressed() -> void:
 	_play_click()
@@ -165,23 +177,63 @@ func _set_atmosphere_state(button : Button) -> void:
 
 
 func _play_menu_intro() -> void:
+	# The menu tunes in like a signal being locked, rather than sliding in:
+	# nothing translates, elements flicker into a stable alpha at different
+	# rates. The emblem pulses once at the end so the eye lands on it.
 	var header : Control = $ColorRect/Header
-	header.modulate.a = 0.0
-	header.position.y += 10.0
-	menu_bar.modulate.a = 0.0
-	menu_bar.position.y += 10.0
-	for button : Button in [menu_button_1, menu_button_2, menu_button_3]:
-		button.modulate.a = 0.0
+	var elements : Array[Control] = [
+		header, menu_bar, menu_button_1, menu_button_2, menu_button_3
+	]
+	for element : Control in elements:
+		element.modulate.a = 0.0
+
+	_tune_in(header, 0.0, 0.34)
+	_tune_in(menu_bar, 0.12, 0.3)
+	_tune_in(menu_button_1, 0.26, 0.26)
+	_tune_in(menu_button_2, 0.32, 0.24)
+	_tune_in(menu_button_3, 0.38, 0.22)
+	_pulse_emblem(0.44)
+
+
+## Fades a control in as an unstable signal: a few irregular alpha steps that
+## settle on full opacity. Durations are deliberately uneven so the steps never
+## read as a metronome.
+func _tune_in(control : Control, delay : float, duration : float) -> void:
 	var tween : Tween = create_tween()
-	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(header, "modulate:a", 1.0, 0.28)
-	tween.parallel().tween_property(header, "position:y", header.position.y - 10.0, 0.28)
-	tween.tween_interval(0.08)
-	tween.tween_property(menu_bar, "modulate:a", 1.0, 0.24)
-	tween.parallel().tween_property(menu_bar, "position:y", menu_bar.position.y - 10.0, 0.24)
-	for index : int in range(3):
-		tween.tween_interval(0.035)
-		tween.tween_property([menu_button_1, menu_button_2, menu_button_3][index], "modulate:a", 1.0, 0.16)
+	if delay > 0.0:
+		tween.tween_interval(delay)
+	for index : int in range(1, TUNE_IN_STEPS.size()):
+		var step_duration : float = duration * TUNE_IN_WEIGHTS[index]
+		tween.tween_property(control, "modulate:a", TUNE_IN_STEPS[index], step_duration)
+
+
+func _pulse_emblem(delay : float) -> void:
+	var emblem : Control = $ColorRect/SignalEmblem
+	var base_scale : Vector2 = emblem.scale
+
+	var tween : Tween = create_tween()
+	tween.tween_interval(delay)
+	# Set on the beat, not in _ready(): the control has no size until the first
+	# layout pass, and a zero pivot would scale it from its top-left corner.
+	tween.tween_callback(
+		func() -> void: emblem.pivot_offset = emblem.size * 0.5
+	)
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(emblem, "scale", base_scale * 1.06, 0.14)
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(emblem, "scale", base_scale, 0.42)
+
+
+## Placeholder rising whoosh for the launch, synthesized at runtime. It is cut
+## off by the scene swap on purpose: the sweep peaks into the whiteout instead
+## of resolving. Swap the stream assignment for a real asset once one exists.
+func _play_launch_charge() -> void:
+	var charge_player : AudioStreamPlayer = AudioStreamPlayer.new()
+	charge_player.stream = PROCEDURAL_SFX.launch_charge(0.55)
+	charge_player.volume_db = -6.0
+	add_child(charge_player)
+	charge_player.play()
+
 
 func _start_menu_music() -> void:
 	var music_stream : AudioStreamMP3 = menu_music.stream as AudioStreamMP3
