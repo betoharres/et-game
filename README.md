@@ -43,6 +43,8 @@ scenes/
   SICSVegetationInstances.tscn Instâncias editáveis copiadas da vegetação Terrain3D
   DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
   Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
+  interior_space_ship_room_1.tscn Teste isolado de caminhada com gravidade radial
+  Portal/portal.tscn  Par visual de portais com renderização cruzada por SubViewport
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Presets de atmosfera, névoa híbrida e eventos alienígenas
@@ -291,6 +293,13 @@ pulo normal, até 1,5 m   nada
   mesmo fluxo de coleta e entrega do restante do jogo. Um portal de retorno
   aparece na sala de entrada e teleporta o jogador de volta à posição da
   porta na fazenda.
+- `interior_space_ship_room_1.tscn` é uma cena de teste isolada: uma `Area3D`
+  aplica gravidade constante em direção ao centro da esfera, enquanto o
+  jogador adapta seu eixo vertical, movimento, salto, câmera e animações à
+  normal radial da superfície.
+- `Portal/portal.tscn` contém um par fechado de superfícies: cada portal exibe
+  em tempo real a vista da câmera posicionada no portal oposto. O efeito é
+  somente visual por enquanto; travessia e teletransporte ainda não existem.
 
 ## Controles
 

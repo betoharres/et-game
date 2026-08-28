@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dtbt3o64oa2bl"]
+
+[ext_resource type="Script" uid="uid://dpilhxqaj8kha" path="res://scenes/Portal/portal.gd" id="1_24q13"]
+[ext_resource type="Material" uid="uid://bmulrfdvdmgy6" path="res://Materiais/TeleportPortalMaterial.tres" id="2_0jopo"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_emb0l"]
+material = ExtResource("2_0jopo")
+size = Vector2(1, 2)
+
+[node name="PortalPair" type="Node3D" unique_id=182802936]
+script = ExtResource("1_24q13")
+
+[node name="Mesh1" type="MeshInstance3D" parent="." unique_id=754199913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 32
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="SubViewport" type="SubViewport" parent="Mesh1" unique_id=911234502]
+size = Vector2i(512, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Mesh1/SubViewport" unique_id=690013693]
+cull_mask = 1048543
+fov = 60.0
+far = 450.0
+
+[node name="Mesh2" type="MeshInstance3D" parent="." unique_id=1155961728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.334675, 1, 0)
+layers = 32
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="SubViewport2" type="SubViewport" parent="Mesh2" unique_id=618074124]
+size = Vector2i(512, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D2" type="Camera3D" parent="Mesh2/SubViewport2" unique_id=782293906]
+cull_mask = 1048543
+fov = 60.0
+far = 450.0
