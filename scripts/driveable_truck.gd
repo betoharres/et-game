@@ -30,6 +30,15 @@ extends VehicleBody3D
 @export var camera_collision_margin : float = 0.3
 @export var camera_collision_follow_speed : float = 12.0
 
+# Pivot height above the vehicle origin. The origin sits at ground level, so
+# tracing from there makes the ray graze the terrain and collapse the camera
+# into the chassis (black frames).
+@export var camera_pivot_height : float = 1.6
+
+# The camera is never pulled closer than this, so it can never end up inside
+# the truck mesh.
+@export var camera_min_distance : float = 1.5
+
 # Camera auto-return (snaps the chase camera back behind the vehicle when the
 # player stops looking around, GTA-style)
 @export var camera_return_delay : float = 1.2
@@ -55,6 +64,10 @@ func _ready() -> void:
 
 	camera_yaw = global_rotation.y
 	camera_pitch = camera_arm.rotation.x
+
+	# The arm is a child of the vehicle body: without top_level the chassis
+	# roll/pitch keeps dragging the camera around between physics ticks.
+	camera_arm.top_level = true
 
 	exterior_camera_position = camera.position
 	exterior_camera_rotation = camera.rotation
@@ -115,8 +128,11 @@ func _physics_process(delta : float) -> void:
 	# but not vehicle rotation.
 
 	var camera_position : Vector3 = global_position
+
 	if vehicle_controlled and first_person_camera:
 		camera_position += global_transform.basis * interior_camera_offset
+	else:
+		camera_position += Vector3.UP * camera_pivot_height
 
 	camera_arm.global_position = camera_position
 
@@ -125,8 +141,6 @@ func _physics_process(delta : float) -> void:
 		camera_yaw,
 		0.0
 	)
-
-	camera_arm.rotation.x = camera_pitch
 
 	if vehicle_controlled and not first_person_camera:
 		_update_exterior_camera_collision(delta)
@@ -146,11 +160,21 @@ func _update_exterior_camera_collision(delta : float) -> void:
 		desired_world_position
 	)
 	query.collision_mask = camera_collision_mask
-	query.exclude = [get_rid()]
+	query.collide_with_areas = false
+
+	var excluded : Array[RID] = [get_rid()]
+
+	# The hidden driver still has a collider sitting next to the truck; without
+	# this the ray hits it and slams the camera into the chassis.
+	if current_player != null:
+		excluded.append(current_player.get_rid())
+
+	query.exclude = excluded
 
 	var result : Dictionary = space_state.intersect_ray(query)
 
 	var allowed_distance : float = camera_distance
+	var minimum_distance : float = minf(camera_min_distance, camera_distance)
 
 	if not result.is_empty():
 		var hit_distance : float = camera_arm.global_position.distance_to(
@@ -158,7 +182,7 @@ func _update_exterior_camera_collision(delta : float) -> void:
 		)
 		allowed_distance = clampf(
 			hit_distance - camera_collision_margin,
-			0.0,
+			minf(camera_min_distance, camera_distance),
 			camera_distance
 		)
 
@@ -182,7 +206,7 @@ func _update_exterior_camera_collision(delta : float) -> void:
 		else Vector3.ZERO
 	)
 
-	camera.position = direction * new_distance
+	camera.position = direction * maxf(new_distance, minimum_distance)
 	camera.rotation = exterior_camera_rotation
 
 
