@@ -191,7 +191,6 @@
 [ext_resource type="PackedScene" uid="uid://c1706107vicuy" path="res://scenes/Spaceship_Scraps3.tscn" id="189_0480k"]
 [ext_resource type="PackedScene" uid="uid://bhbub6jjfp0a7" path="res://scenes/Spaceship_Scraps4.tscn" id="190_t6th7"]
 [ext_resource type="PackedScene" uid="uid://dhba55x082ju" path="res://scenes/Spaceship_Scraps6.tscn" id="191_47d22"]
-[ext_resource type="PackedScene" uid="uid://jdih45m42t7q" path="res://scenes/SpaceshipInterior/SpaceShipInterior.tscn" id="192_u6w7b"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
@@ -10454,9 +10453,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
 
 [node name="SpaceshipScraps9" parent="." unique_id=1704994491 instance=ExtResource("187_u6w7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
-
-[node name="SpaceShipInterior" parent="." unique_id=1809059096 instance=ExtResource("192_u6w7b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -64, 0)
 
 [editable path="PropsHolder/Root3"]
 [editable path="BuildingsHolder/Barn2"]

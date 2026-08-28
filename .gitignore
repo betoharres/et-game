@@ -20,3 +20,1890 @@ mono_crash.*.json
 # Import shit
 *.import
 .import
+3dModelos/SM_Item_Crowbar_01.fbx.import
+3dModelos/SM_Item_Flask_Mug_01.fbx.import
+3dModelos/SM_Item_Hammer_Claw.fbx.import
+3dModelos/SM_Item_Hammer_Mallet.fbx.import
+3dModelos/SM_Item_Hammer_Sledge.fbx.import
+3dModelos/SM_Item_Handsaw_01.fbx.import
+3dModelos/SM_Item_Handsaw_02.fbx.import
+3dModelos/SM_Item_Nail_01.fbx.import
+3dModelos/SM_Item_Nail_02.fbx.import
+3dModelos/SM_Item_Nail_03.fbx.import
+3dModelos/SM_Item_Nail_04.fbx.import
+3dModelos/SM_Item_Nail_05.fbx.import
+3dModelos/SM_Item_Nail_06.fbx.import
+3dModelos/SM_Item_Nail_07.fbx.import
+3dModelos/SM_Item_Nail_08.fbx.import
+3dModelos/SM_Item_Nail_09.fbx.import
+3dModelos/SM_Item_Paint_Brush_02.fbx.import
+3dModelos/SM_Item_Paint_Roller_01.fbx.import
+3dModelos/SM_Item_Paint_Roller_02.fbx.import
+3dModelos/SM_Item_Pencil_01.fbx.import
+3dModelos/SM_Item_Pencil_02.fbx.import
+3dModelos/SM_Item_Pipe_Wrench_01.fbx.import
+3dModelos/SM_Item_Pliers_01.fbx.import
+3dModelos/SM_Item_Prybar_01.fbx.import
+3dModelos/SM_Item_Radio_01.fbx.import
+3dModelos/SM_Item_Screw_01.fbx.import
+3dModelos/SM_Item_Screw_02.fbx.import
+3dModelos/SM_Item_Screw_03.fbx.import
+3dModelos/SM_Item_Screw_04.fbx.import
+3dModelos/SM_Item_Screw_Driver_01.fbx.import
+3dModelos/SM_Item_Spirit_Level_01.fbx.import
+3dModelos/SM_Item_SprayCan_01.fbx.import
+3dModelos/SM_Item_SprayCan_02.fbx.import
+3dModelos/SM_Item_Square_01.fbx.import
+3dModelos/SM_Item_Tape_01.fbx.import
+3dModelos/SM_Item_Tape_Measure_01.fbx.import
+3dModelos/SM_Item_ToiletRoll_01.fbx.import
+3dModelos/SM_Item_Trowel_01.fbx.import
+3dModelos/SM_Item_Trowel_02.fbx.import
+3dModelos/SM_Item_WalkieTalkie_01.fbx.import
+3dModelos/SM_Item_Wrench_01.fbx.import
+3dModelos/SM_Item_Wrench_02.fbx.import
+3dModelos/SM_Prop_Anvil_01.fbx.import
+3dModelos/SM_Prop_Barrel_01.fbx.import
+3dModelos/SM_Prop_Barrel_02.fbx.import
+3dModelos/SM_Prop_Barrel_03.fbx.import
+3dModelos/SM_Prop_Barrel_Coloured_01.fbx.import
+3dModelos/SM_Prop_Barrel_Oil_01.fbx.import
+3dModelos/SM_Prop_Barrel_Trash_01.fbx.import
+3dModelos/SM_Prop_Barrel_Water_01.fbx.import
+3dModelos/SM_Prop_BarrelStack_01.fbx.import
+3dModelos/SM_Prop_BarrelStack_02.fbx.import
+3dModelos/SM_Prop_BarrelStack_03_Tarp.fbx.import
+3dModelos/SM_Prop_Barricade_01.fbx.import
+3dModelos/SM_Prop_Barricade_Concrete_01.fbx.import
+3dModelos/SM_Prop_Barrier_01.fbx.import
+3dModelos/SM_Prop_Barrier_Long_01.fbx.import
+3dModelos/SM_Prop_Barrier_Long_02_Tarp.fbx.import
+3dModelos/SM_Prop_Barrier_Plastic_01.fbx.import
+3dModelos/SM_Prop_Barrier_Plastic_02.fbx.import
+3dModelos/SM_Prop_Battery_Charger_Dual_01.fbx.import
+3dModelos/SM_Prop_Battery_Charger_Single_01.fbx.import
+3dModelos/SM_Prop_Beam_01.fbx.import
+3dModelos/SM_Prop_Beam_Stack_01.fbx.import
+3dModelos/SM_Prop_Beehive_01.fbx.import
+3dModelos/SM_Prop_Beehive_02.fbx.import
+3dModelos/SM_Prop_Beehive_03.fbx.import
+3dModelos/SM_Prop_Beehive_04.fbx.import
+3dModelos/SM_Prop_Beehive_05.fbx.import
+3dModelos/SM_Prop_Beehive_06.fbx.import
+3dModelos/SM_Prop_Box_Apple_01.fbx.import
+3dModelos/SM_Prop_Box_Apple_02.fbx.import
+3dModelos/SM_Prop_Box_Apricot_01.fbx.import
+3dModelos/SM_Prop_Box_Carrot_01.fbx.import
+3dModelos/SM_Prop_Box_Cucumber_01.fbx.import
+3dModelos/SM_Prop_Box_Eggplant_01.fbx.import
+3dModelos/SM_Prop_Box_Onion_01.fbx.import
+3dModelos/SM_Prop_Box_Peach_01.fbx.import
+3dModelos/SM_Prop_Box_Plum_01.fbx.import
+3dModelos/SM_Prop_Box_Potato_01.fbx.import
+3dModelos/SM_Prop_Brick_01.fbx.import
+3dModelos/SM_Prop_Brick_02.fbx.import
+3dModelos/SM_Prop_Brick_03.fbx.import
+3dModelos/SM_Prop_Brick_Stack_01.fbx.import
+3dModelos/SM_Prop_Brick_Stack_02.fbx.import
+3dModelos/SM_Prop_Brick_Stack_03.fbx.import
+3dModelos/SM_Prop_Brick_Stack_04.fbx.import
+3dModelos/SM_Prop_CarBattery_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_02.fbx.import
+3dModelos/SM_Prop_CardboardBox_03.fbx.import
+3dModelos/SM_Prop_CardboardBox_04.fbx.import
+3dModelos/SM_Prop_CardboardBox_05.fbx.import
+3dModelos/SM_Prop_CardboardBox_06.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_02.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_03.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_03_Tarp.fbx.import
+3dModelos/SM_Prop_ChainSaw_01.fbx.import
+3dModelos/SM_Prop_Chair_01.fbx.import
+3dModelos/SM_Prop_Chair_Folding_01.fbx.import
+3dModelos/SM_Prop_Chair_Metal_01.fbx.import
+3dModelos/SM_Prop_Chair_Plastic_01.fbx.import
+3dModelos/SM_Prop_Chair_Rocking_01.fbx.import
+3dModelos/SM_Prop_Chicken_Coop_01.fbx.import
+3dModelos/SM_Prop_Christmas_Tree_01.fbx.import
+3dModelos/SM_Prop_Cinderblock_01.fbx.import
+3dModelos/SM_Prop_ClothesLine_01.fbx.import
+3dModelos/SM_Prop_ClothesLine_02.fbx.import
+3dModelos/SM_Prop_ClothesLine_03.fbx.import
+3dModelos/SM_Prop_Compactor_01.fbx.import
+3dModelos/SM_Prop_Compactor_02.fbx.import
+3dModelos/SM_Prop_Compressor_01.fbx.import
+3dModelos/SM_Prop_Concrete_Mixer_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_02.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_03.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_04.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_02.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_02_Tarp.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_03.fbx.import
+3dModelos/SM_Prop_ConcreteBag_01.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_01.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_02.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_03.fbx.import
+3dModelos/SM_Prop_Cone_01.fbx.import
+3dModelos/SM_Prop_Cone_02.fbx.import
+3dModelos/SM_Prop_Cone_Barrier_01.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_01.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_02.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_03.fbx.import
+3dModelos/SM_Prop_Crane_Section_01.fbx.import
+3dModelos/SM_Prop_Crate_01.fbx.import
+3dModelos/SM_Prop_Crate_02.fbx.import
+3dModelos/SM_Prop_Crate_03.fbx.import
+3dModelos/SM_Prop_Crate_Large_01.fbx.import
+3dModelos/SM_Prop_Crate_Stack_01.fbx.import
+3dModelos/SM_Prop_Crate_Stack_02_Tarp.fbx.import
+3dModelos/SM_Prop_Drill_Bit_01.fbx.import
+3dModelos/SM_Prop_Drill_Bit_02.fbx.import
+3dModelos/SM_Prop_Drink_Dispenser_01.fbx.import
+3dModelos/SM_Prop_Drop_Saw_01.fbx.import
+3dModelos/SM_Prop_Elevator_01.fbx.import
+3dModelos/SM_Prop_Elevator_02.fbx.import
+3dModelos/SM_Prop_Elevator_Frame_01.fbx.import
+3dModelos/SM_Prop_Elevator_Frame_02.fbx.import
+3dModelos/SM_Prop_Fence_Concrete_01.fbx.import
+3dModelos/SM_Prop_Fence_Concrete_Pillar_01.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_01.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_02.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_03.fbx.import
+3dModelos/SM_Prop_Fence_Wire_01.fbx.import
+3dModelos/SM_Prop_Floodlights_01.fbx.import
+3dModelos/SM_Prop_Fuel_Tank_01.fbx.import
+3dModelos/SM_Prop_Fuel_Tank_01_Base_01.fbx.import
+3dModelos/SM_Prop_GasCan_01.fbx.import
+3dModelos/SM_Prop_Generator_01.fbx.import
+3dModelos/SM_Prop_Generator_Large_01.fbx.import
+3dModelos/SM_Prop_Generator_Small_01.fbx.import
+3dModelos/SM_Prop_Gnome_Basalt_01.fbx.import
+3dModelos/SM_Prop_Scaffold_02.fbx.import
+3dModelos/SM_Prop_Scaffold_03.fbx.import
+3dModelos/SM_Prop_Scaffold_Base_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Ladder_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Preset_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Preset_02_Tarp.fbx.import
+3dModelos/SM_Prop_Scaffold_Ramp_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Ramp_02.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01_Tarp_1.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01_Tarp_2.fbx.import
+3dModelos/SM_Prop_Scarecrow_01.fbx.import
+3dModelos/SM_Prop_Shelter_01.fbx.import
+3dModelos/SM_Prop_Shipping_Container_01.fbx.import
+3dModelos/SM_Prop_Shipping_Container_Small_01.fbx.import
+3dModelos/SM_Prop_Sign_01.fbx.import
+3dModelos/SM_Prop_Sign_02.fbx.import
+3dModelos/SM_Prop_Sign_03.fbx.import
+3dModelos/SM_Prop_Sign_04.fbx.import
+3dModelos/SM_Prop_Sign_05.fbx.import
+3dModelos/SM_Prop_Sign_06.fbx.import
+3dModelos/SM_Prop_Sign_07.fbx.import
+3dModelos/SM_Prop_Sign_08.fbx.import
+3dModelos/SM_Prop_Sign_09.fbx.import
+3dModelos/SM_Prop_Sign_10.fbx.import
+3dModelos/SM_Prop_Sign_11.fbx.import
+3dModelos/SM_Prop_Sign_Road_01.fbx.import
+3dModelos/SM_Prop_Sign_Road_02.fbx.import
+3dModelos/SM_Prop_Skip_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01_Insert_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01_Insert_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Insert_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Insert_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Tarp.fbx.import
+3dModelos/SM_Prop_Skip_Large_03.fbx.import
+3dModelos/SM_Prop_Skip_Large_03_Insert_01.fbx.import
+3dModelos/SM_Prop_Slatbox_01.fbx.import
+3dModelos/SM_Prop_Slatbox_02.fbx.import
+3dModelos/SM_Prop_Spade_01.fbx.import
+3dModelos/SM_Prop_Spotlight_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Pipe_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Pipe_02_Tarp.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Plank_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Pipes_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Plank_01.fbx.import
+3dModelos/SM_Prop_Sunflower_01.fbx.import
+3dModelos/SM_Prop_Sunflower_02.fbx.import
+3dModelos/SM_Prop_SupportBeam_Extender_01.fbx.import
+3dModelos/SM_Prop_Survey_Tool_01.fbx.import
+3dModelos/SM_Prop_Table_01.fbx.import
+3dModelos/SM_Prop_Table_02.fbx.import
+3dModelos/SM_Prop_Table_Saw_01.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_01.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_02.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_03.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_04.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_05.fbx.import
+3dModelos/SM_Prop_Tile_Stack_01.fbx.import
+3dModelos/SM_Prop_Tile_Stack_02.fbx.import
+3dModelos/SM_Prop_Tire_01.fbx.import
+3dModelos/SM_Prop_TireStack_01.fbx.import
+3dModelos/SM_Prop_TireStack_02.fbx.import
+3dModelos/SM_Prop_TireStack_03.fbx.import
+3dModelos/SM_Prop_Toilet_Bucket_01.fbx.import
+3dModelos/SM_Prop_Tool_Axe_01.fbx.import
+3dModelos/SM_Prop_Tool_Bucket_01.fbx.import
+3dModelos/SM_Prop_Tool_Hayfork_01.fbx.import
+3dModelos/SM_Prop_Tool_Pitchfork_01.fbx.import
+3dModelos/SM_Prop_Tool_Rake_01.fbx.import
+3dModelos/SM_Prop_Tool_Spade_01.fbx.import
+3dModelos/SM_Prop_ToolBox_01.fbx.import
+3dModelos/SM_Prop_Tractor_Tire_01.fbx.import
+3dModelos/SM_Prop_Traffic_Barrel_01.fbx.import
+3dModelos/SM_Prop_Traffic_Barrel_02.fbx.import
+3dModelos/SM_Prop_TrafficLight_Directional_01.fbx.import
+3dModelos/SM_Prop_TrashBag_01.fbx.import
+3dModelos/SM_Prop_TrashBag_02.fbx.import
+3dModelos/SM_Prop_Trestle_Table_01.fbx.import
+3dModelos/SM_Prop_Vice_01.fbx.import
+3dModelos/SM_Prop_Watertank_01.fbx.import
+3dModelos/SM_Prop_Well_01.fbx.import
+3dModelos/SM_Prop_Wheelbarrow_01.fbx.import
+3dModelos/SM_Prop_Windmill_01.fbx.import
+3dModelos/SM_Prop_Windmill_02.fbx.import
+3dModelos/SM_Prop_Windmill_03.fbx.import
+3dModelos/SM_Prop_Wirespool_01.fbx.import
+3dModelos/SM_Prop_Wirespool_02.fbx.import
+3dModelos/SM_Prop_Wirespool_Small_01.fbx.import
+3dModelos/SM_Prop_Wood_Frame_01.fbx.import
+3dModelos/SM_Prop_Wood_Frame_02.fbx.import
+3dModelos/SM_Prop_Wood_Frame_03.fbx.import
+3dModelos/SM_Prop_Wood_Stack_01.fbx.import
+3dModelos/SM_Prop_Wood_Stack_02.fbx.import
+3dModelos/SM_Prop_Wood_Walkway_01.fbx.import
+3dModelos/SM_Prop_Wood_Walkway_02.fbx.import
+3dModelos/SM_Prop_Wooden_Table_Top_01.fbx.import
+3dModelos/SM_Tool_Angle_Grinder_01.fbx.import
+3dModelos/SM_Tool_Battery_01.fbx.import
+3dModelos/SM_Tool_Battery_02.fbx.import
+3dModelos/SM_Tool_Battery_03.fbx.import
+3dModelos/SM_Tool_BoxCutter_01.fbx.import
+3dModelos/SM_Tool_Buffer_01.fbx.import
+3dModelos/SM_Tool_Chisel_01.fbx.import
+3dModelos/SM_Tool_Circular_Saw_01.fbx.import
+3dModelos/SM_Tool_Concrete_Breaker_Hand_01.fbx.import
+3dModelos/SM_Tool_Concrete_Breaker_Jackhammer_01.fbx.import
+3dModelos/SM_Tool_Concrete_Saw_01.fbx.import
+3dModelos/SM_Tool_Crowbar_01.fbx.import
+3dModelos/SM_Tool_Drill_01.fbx.import
+3dModelos/SM_Tool_Hammer_Claw.fbx.import
+3dModelos/SM_Tool_Hammer_Mallet.fbx.import
+3dModelos/SM_Tool_Hammer_Sledge.fbx.import
+3dModelos/SM_Tool_Handsaw_01.fbx.import
+3dModelos/SM_Tool_Handsaw_02.fbx.import
+3dModelos/SM_Tool_Impact_Driver_01.fbx.import
+3dModelos/SM_Tool_Orbital_Sander_01.fbx.import
+3dModelos/SM_Tool_Paint_Brush_01.fbx.import
+3dModelos/SM_Tool_Paint_Brush_02.fbx.import
+3dModelos/SM_Tool_Paint_Roller_01.fbx.import
+3dModelos/SM_Tool_Paint_Roller_02.fbx.import
+3dModelos/SM_Tool_Pipe_Wrench_01.fbx.import
+3dModelos/SM_Tool_Pliers_01.fbx.import
+3dModelos/SM_Tool_Prybar_01.fbx.import
+3dModelos/SM_Tool_Saber_Saw_01.fbx.import
+3dModelos/SM_Tool_Screw_Driver_01.fbx.import
+3dModelos/SM_Tool_Spirit_Level_01.fbx.import
+3dModelos/SM_Tool_Square_01.fbx.import
+3dModelos/SM_Tool_Tape_Measure_01.fbx.import
+3dModelos/SM_Tool_Tool_Nailgun_01.fbx.import
+3dModelos/SM_Tool_Torch_01.fbx.import
+3dModelos/SM_Tool_Trowel_01.fbx.import
+3dModelos/SM_Tool_Trowel_02.fbx.import
+3dModelos/SM_Tool_Wirecutter_01.fbx.import
+3dModelos/SM_Tool_Wrench_01.fbx.import
+3dModelos/SM_Tool_Wrench_02.fbx.import
+3dModelos/SM_Veh_Attach_Plough_01.fbx.import
+3dModelos/SM_Veh_Attach_Trailer_Cylinder_01.fbx.import
+3dModelos/SM_Veh_Bulldozer_01.fbx.import
+3dModelos/SM_Veh_Car_Muscle_01.fbx.import
+3dModelos/SM_Veh_Car_Police_01.fbx.import
+3dModelos/SM_Veh_Cherry_Picker_01.fbx.import
+3dModelos/SM_Veh_Crane_01.fbx.import
+3dModelos/SM_Veh_Crane_01_WreckingBall_01.fbx.import
+animations/mixamo/Crouch Idle.fbx.import
+animations/mixamo/crouched sneaking left.fbx.import
+animations/mixamo/crouched sneaking right.fbx.import
+animations/mixamo/Crouched Walking.fbx.import
+animations/mixamo/ET_animated.glb.import
+animations/mixamo/ET_para_mixamo.fbx.import
+animations/mixamo/falling idle.fbx.import
+animations/mixamo/Getting Hit.fbx.import
+animations/mixamo/Getting Up.fbx.import
+animations/mixamo/hard landing.fbx.import
+animations/mixamo/Hit On Side Of Body.fbx.import
+animations/mixamo/idle (2).fbx.import
+animations/mixamo/idle (3).fbx.import
+animations/mixamo/idle.fbx.import
+animations/mixamo/Jogging Stumble.fbx.import
+animations/mixamo/jump.fbx.import
+animations/mixamo/jumping up.fbx.import
+animations/mixamo/left strafe walking.fbx.import
+animations/mixamo/left strafe.fbx.import
+animations/mixamo/left turn 90.fbx.import
+animations/mixamo/left turn.fbx.import
+animations/mixamo/right strafe walking.fbx.import
+animations/mixamo/right strafe.fbx.import
+animations/mixamo/right turn 90.fbx.import
+animations/mixamo/right turn.fbx.import
+animations/mixamo/run to stop.fbx.import
+animations/mixamo/Running Right Turn.fbx.import
+animations/mixamo/Running Turn 180.fbx.import
+animations/mixamo/running.fbx.import
+animations/mixamo/Standing Up.fbx.import
+animations/mixamo/Stumble Backwards.fbx.import
+animations/mixamo/Walking Turn 180.fbx.import
+animations/mixamo/walking.fbx.import
+Texturas/Track_Texture.png.import
+3dModelos/SICS Trees/Forest_Tree_1A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_1B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_1C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_1D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_2A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_2B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_2C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_2D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_3A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_3B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_3C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_3D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_4A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_4B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_4C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_4D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_4E.fbx.import
+3dModelos/SICS Trees/Forest_Tree_5A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_5B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_5C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_5D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_6A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_6B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_6C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_6D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_7A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_7B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_7C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_7D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_7E.fbx.import
+3dModelos/SICS Trees/Forest_Tree_8A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_8B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_8C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_8D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_9A.fbx.import
+3dModelos/SICS Trees/Forest_Tree_9B.fbx.import
+3dModelos/SICS Trees/Forest_Tree_9C.fbx.import
+3dModelos/SICS Trees/Forest_Tree_9D.fbx.import
+3dModelos/SICS Trees/Forest_Tree_9E.fbx.import
+3dModelos/CharactersTown.fbx.import
+3dModelos/ET.glb.import
+3dModelos/ET_Alien_Space_Ship.glb.import
+3dModelos/FarmerOld2.glb.import
+3dModelos/NewGround.fbx.import
+3dModelos/SM_Bld_Barn_01.fbx.import
+3dModelos/SM_Bld_Barn_02.fbx.import
+3dModelos/SM_Bld_Barn_03.fbx.import
+3dModelos/SM_Bld_Cafe_01.fbx.import
+3dModelos/SM_Bld_Concrete_Floor_01.fbx.import
+3dModelos/SM_Bld_Concrete_Floor_02.fbx.import
+3dModelos/SM_Bld_Concrete_Floor_03.fbx.import
+3dModelos/SM_Bld_Concrete_Floor_04.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_01.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_02.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_03.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_Short_01.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_Short_02.fbx.import
+3dModelos/SM_Bld_Concrete_Pillar_Short_03.fbx.import
+3dModelos/SM_Bld_Concrete_Slab_04.fbx.import
+3dModelos/SM_Bld_Concrete_Wall_01.fbx.import
+3dModelos/SM_Bld_Concrete_Wall_02.fbx.import
+3dModelos/SM_Bld_ConcreteBase_01.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_01.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_02.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_03.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_Short_01.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_Short_02.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Pillar_Short_03.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Wall_01.fbx.import
+3dModelos/SM_Bld_ConcreteFrame_Wall_02.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_01.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_02.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_03.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_Short_01.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_Short_02.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Pillar_Short_03.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Wall_01.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Wall_02.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Wall_03.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Wall_04.fbx.import
+3dModelos/SM_Bld_ConcreteRebar_Wall_05.fbx.import
+3dModelos/SM_Bld_Crane_01.fbx.import
+3dModelos/SM_Bld_Farmhouse_01.fbx.import
+3dModelos/SM_Bld_Garage_01.fbx.import
+3dModelos/SM_Bld_House_Ceiling_01.fbx.import
+3dModelos/SM_Bld_House_Ceiling_02.fbx.import
+3dModelos/SM_Bld_House_Corner_01.fbx.import
+3dModelos/SM_Bld_House_Corner_02.fbx.import
+3dModelos/SM_Bld_House_Roof_Beam_01.fbx.import
+3dModelos/SM_Bld_House_Truss_01.fbx.import
+3dModelos/SM_Bld_House_Truss_02.fbx.import
+3dModelos/SM_Bld_House_Wall_01.fbx.import
+3dModelos/SM_Bld_House_Wall_02.fbx.import
+3dModelos/SM_Bld_House_Wall_03.fbx.import
+3dModelos/SM_Bld_House_Wall_04.fbx.import
+3dModelos/SM_Bld_House_Wall_Door_01.fbx.import
+3dModelos/SM_Bld_House_Wall_Door_02.fbx.import
+3dModelos/SM_Bld_House_Wall_Door_03.fbx.import
+3dModelos/SM_Bld_House_Wall_Door_04.fbx.import
+3dModelos/SM_Bld_House_Wall_Window_01.fbx.import
+3dModelos/SM_Bld_House_Wall_Window_02.fbx.import
+3dModelos/SM_Bld_House_Wall_Window_03.fbx.import
+3dModelos/SM_Bld_House_Wall_Window_04.fbx.import
+3dModelos/SM_Bld_Outhouse_01.fbx.import
+3dModelos/SM_Bld_Portable_Office_01.fbx.import
+3dModelos/SM_Bld_Portable_Office_02.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Short.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Short_Angled.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Short_Corner.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Tall.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Tall_Angled.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_01_Tall_Corner.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Short.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Short_Angled.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Short_Corner.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Tall.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Tall_Angled.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_02_Tall_Corner.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_Stone_01.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_Stone_01_End_01.fbx.import
+3dModelos/SM_Bld_Retainer_Wall_Stone_01_End_02.fbx.import
+3dModelos/SM_Bld_Silo_02.fbx.import
+3dModelos/SM_Bld_SmokeStack_01.fbx.import
+3dModelos/SM_Bld_WaterTank_01.fbx.import
+3dModelos/SM_Bld_WaterTank_02.fbx.import
+3dModelos/SM_Bld_WaterTank_03.fbx.import
+3dModelos/SM_Bld_WaterTower_01.fbx.import
+3dModelos/SM_Chr_Attach_Beard_01.fbx.import
+3dModelos/SM_Chr_Attach_Beard_02.fbx.import
+3dModelos/SM_Chr_Attach_Beard_03.fbx.import
+3dModelos/SM_Chr_Attach_Beard_Grey_01.fbx.import
+3dModelos/SM_Chr_Attach_Beard_Grey_02.fbx.import
+3dModelos/SM_Chr_Attach_BeltLoop_01.fbx.import
+3dModelos/SM_Chr_Attach_BeltLoop_Chisel_01.fbx.import
+3dModelos/SM_Chr_Attach_BeltLoop_Hammer_01.fbx.import
+3dModelos/SM_Chr_Attach_BeltLoop_Screwdriver_01.fbx.import
+3dModelos/SM_Chr_Attach_Cigarette_01.fbx.import
+3dModelos/SM_Chr_Attach_Cigarette_02.fbx.import
+3dModelos/SM_Chr_Attach_Earmuffs_01.fbx.import
+3dModelos/SM_Chr_Attach_FaceShield_Mesh_01.fbx.import
+3dModelos/SM_Chr_Attach_FaceShield_Plastic_01.fbx.import
+3dModelos/SM_Chr_Attach_FilterMask_01.fbx.import
+3dModelos/SM_Chr_Attach_Goatee_01.fbx.import
+3dModelos/SM_Chr_Attach_Goggles_01.fbx.import
+3dModelos/SM_Chr_Attach_Goggles_OnHead_01.fbx.import
+3dModelos/SM_Chr_Attach_Hat_01.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_01.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_02.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_Backwards_01.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_Earmuffs_01.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_Earmuffs_02.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_Goggles_01.fbx.import
+3dModelos/SM_Chr_Attach_Helmet_Hat_01.fbx.import
+3dModelos/SM_Chr_Attach_ID_01.fbx.import
+3dModelos/SM_Chr_Attach_Mustache_01.fbx.import
+3dModelos/SM_Chr_Attach_Pouch_01.fbx.import
+3dModelos/SM_Chr_Attach_Pouch_02.fbx.import
+3dModelos/SM_Chr_Attach_SafteyGlasses_01.fbx.import
+3dModelos/SM_Chr_Attach_SunGlasses_01.fbx.import
+3dModelos/SM_Chr_Attach_WelderMask_01.fbx.import
+3dModelos/SM_Chr_Inspector_Female_Glasses_01.fbx.import
+3dModelos/SM_Chr_Inspector_Male_Glasses_01.fbx.import
+3dModelos/SM_Env_Bone_Rib_01.fbx.import
+3dModelos/SM_Env_Bone_Ribcage_01.fbx.import
+3dModelos/SM_Env_Bone_Vertebrae_01.fbx.import
+3dModelos/SM_Env_Dirt_Dust_01.fbx.import
+3dModelos/SM_Env_Dirt_Edge_Corner_01.fbx.import
+3dModelos/SM_Env_Dirt_Edge_Corner_02.fbx.import
+3dModelos/SM_Env_Dirt_Edge_Ramp_01.fbx.import
+3dModelos/SM_Env_Dirt_Edge_Ramp_Road_01.fbx.import
+3dModelos/SM_Env_Dirt_Edge_Straight_01.fbx.import
+3dModelos/SM_Env_Dirt_Hole_01.fbx.import
+3dModelos/SM_Env_Dirt_Pile_01.fbx.import
+3dModelos/SM_Env_Dirt_Pile_02.fbx.import
+3dModelos/SM_Env_Dirt_Pile_03.fbx.import
+3dModelos/SM_Env_Dirt_Pile_04.fbx.import
+3dModelos/SM_Env_Dirt_Rock_01.fbx.import
+3dModelos/SM_Env_Dirt_Rock_02.fbx.import
+3dModelos/SM_Env_Dirt_Rock_03.fbx.import
+3dModelos/SM_Env_Dirt_Rock_04.fbx.import
+3dModelos/SM_Env_Dirt_Rocks_01.fbx.import
+3dModelos/SM_Env_Dirt_Rocks_02.fbx.import
+3dModelos/SM_Env_Dirt_Rocks_03.fbx.import
+3dModelos/SM_Env_Dirt_Rocks_04.fbx.import
+3dModelos/SM_Env_Dirt_Round_01.fbx.import
+3dModelos/SM_Env_Dirt_Round_02.fbx.import
+3dModelos/SM_Env_Dirt_Slope_Corner_01.fbx.import
+3dModelos/SM_Env_Dirt_Slope_Straight_01.fbx.import
+3dModelos/SM_Env_Dirt_Square_01.fbx.import
+3dModelos/SM_Env_Dirt_Square_02.fbx.import
+3dModelos/SM_Env_DirtRoad_Corner_01.fbx.import
+3dModelos/SM_Env_DirtRoad_Driveway_01.fbx.import
+3dModelos/SM_Env_DirtRoad_End_01.fbx.import
+3dModelos/SM_Env_DirtRoad_Straight_01.fbx.import
+3dModelos/SM_Env_Flowers_01.fbx.import
+3dModelos/SM_Env_Flowers_02.fbx.import
+3dModelos/SM_Env_Flowers_03.fbx.import
+3dModelos/SM_Env_Ground_Snow__01.fbx.import
+3dModelos/SM_Env_Pebbles_01.fbx.import
+3dModelos/SM_Env_Pebbles_02.fbx.import
+3dModelos/SM_Env_Pebbles_03.fbx.import
+3dModelos/SM_Env_Sidewalk_Driveway_01.fbx.import
+3dModelos/SM_Env_Sidewalk_Driveway_02.fbx.import
+3dModelos/SM_Env_Skybox_01.fbx.import
+3dModelos/SM_Env_Tree_Apple_01.fbx.import
+3dModelos/SM_Env_Tree_Apple_Grown_01.fbx.import
+3dModelos/SM_Env_Tree_Apricot_01.fbx.import
+3dModelos/SM_Env_Tree_Cherry_Grown_01.fbx.import
+3dModelos/SM_Env_Tree_Large_01.fbx.import
+3dModelos/SM_Env_Tree_Lemon_01.fbx.import
+3dModelos/SM_Env_Tree_Orange_01.fbx.import
+3dModelos/SM_Env_Tree_Orange_Grown_01.fbx.import
+3dModelos/SM_Env_Tree_Peach_01.fbx.import
+3dModelos/SM_Env_Tree_Peach_Grown_01.fbx.import
+3dModelos/SM_Env_Tree_Pear_01.fbx.import
+3dModelos/SM_Env_Tree_Pear_Grown_01.fbx.import
+3dModelos/SM_Env_Tree_Stump_02.fbx.import
+3dModelos/SM_Env_Tree_Stump_03.fbx.import
+3dModelos/SM_Env_Vege_Rows_01.fbx.import
+3dModelos/SM_Env_Vege_Rows_02.fbx.import
+3dModelos/SM_Env_Vege_Rows_03.fbx.import
+3dModelos/SM_Generic_Cloud_01.fbx.import
+3dModelos/SM_Generic_Cloud_02.fbx.import
+3dModelos/SM_Generic_Cloud_03.fbx.import
+3dModelos/SM_Generic_Cloud_04.fbx.import
+3dModelos/SM_Generic_CloudRing_01.fbx.import
+3dModelos/SM_Generic_Grass_Patch_01.fbx.import
+3dModelos/SM_Generic_Grass_Patch_02.fbx.import
+3dModelos/SM_Generic_Grass_Patch_03.fbx.import
+3dModelos/SM_Generic_Ground_01.fbx.import
+3dModelos/SM_Generic_Ground_02.fbx.import
+3dModelos/SM_Generic_Ground_03.fbx.import
+3dModelos/SM_Generic_Small_Rocks_01.fbx.import
+3dModelos/SM_Generic_Small_Rocks_02.fbx.import
+3dModelos/SM_Generic_Tree_01.fbx.import
+3dModelos/SM_Generic_Tree_02.fbx.import
+3dModelos/SM_Generic_Tree_03.fbx.import
+3dModelos/SM_Generic_Tree_04.fbx.import
+3dModelos/SM_Generic_Tree_Patch_01.fbx.import
+3dModelos/SM_Generic_Tree_Patch_02.fbx.import
+3dModelos/SM_Generic_TreeDead_01.fbx.import
+3dModelos/SM_Generic_TreeStump_01.fbx.import
+3dModelos/SM_Generic_Water_Plane_01.fbx.import
+3dModelos/SM_Generic_Water_Plane_02.fbx.import
+3dModelos/SM_Item_Alcohol_01.fbx.import
+3dModelos/SM_Item_Alcohol_02.fbx.import
+3dModelos/SM_Item_Alcohol_03.fbx.import
+3dModelos/SM_Item_Battery_01.fbx.import
+3dModelos/SM_Item_Battery_02.fbx.import
+3dModelos/SM_Item_Chisel_01.fbx.import
+3dModelos/SM_Item_Clipboard_01.fbx.import
+3dModelos/SM_Item_Crowbar_01.fbx.import
+3dModelos/SM_Item_Flask_Mug_01.fbx.import
+3dModelos/SM_Item_Hammer_Claw.fbx.import
+3dModelos/SM_Item_Hammer_Mallet.fbx.import
+3dModelos/SM_Item_Hammer_Sledge.fbx.import
+3dModelos/SM_Item_Handsaw_01.fbx.import
+3dModelos/SM_Item_Handsaw_02.fbx.import
+3dModelos/SM_Item_Nail_01.fbx.import
+3dModelos/SM_Item_Nail_02.fbx.import
+3dModelos/SM_Item_Nail_03.fbx.import
+3dModelos/SM_Item_Nail_04.fbx.import
+3dModelos/SM_Item_Nail_05.fbx.import
+3dModelos/SM_Item_Nail_06.fbx.import
+3dModelos/SM_Item_Nail_07.fbx.import
+3dModelos/SM_Item_Nail_08.fbx.import
+3dModelos/SM_Item_Nail_09.fbx.import
+3dModelos/SM_Item_Paint_Brush_01.fbx.import
+3dModelos/SM_Item_Paint_Brush_02.fbx.import
+3dModelos/SM_Item_Paint_Roller_01.fbx.import
+3dModelos/SM_Item_Paint_Roller_02.fbx.import
+3dModelos/SM_Item_Pencil_01.fbx.import
+3dModelos/SM_Item_Pencil_02.fbx.import
+3dModelos/SM_Item_Pipe_Wrench_01.fbx.import
+3dModelos/SM_Item_Pliers_01.fbx.import
+3dModelos/SM_Item_Prybar_01.fbx.import
+3dModelos/SM_Item_Radio_01.fbx.import
+3dModelos/SM_Item_Screw_01.fbx.import
+3dModelos/SM_Item_Screw_02.fbx.import
+3dModelos/SM_Item_Screw_03.fbx.import
+3dModelos/SM_Item_Screw_04.fbx.import
+3dModelos/SM_Item_Screw_Driver_01.fbx.import
+3dModelos/SM_Item_Spirit_Level_01.fbx.import
+3dModelos/SM_Item_SprayCan_01.fbx.import
+3dModelos/SM_Item_SprayCan_02.fbx.import
+3dModelos/SM_Item_Square_01.fbx.import
+3dModelos/SM_Item_Tape_01.fbx.import
+3dModelos/SM_Item_Tape_Measure_01.fbx.import
+3dModelos/SM_Item_ToiletRoll_01.fbx.import
+3dModelos/SM_Item_Trowel_01.fbx.import
+3dModelos/SM_Item_Trowel_02.fbx.import
+3dModelos/SM_Item_WalkieTalkie_01.fbx.import
+3dModelos/SM_Item_Wrench_01.fbx.import
+3dModelos/SM_Item_Wrench_02.fbx.import
+3dModelos/SM_Prop_Anvil_01.fbx.import
+3dModelos/SM_Prop_Barrel_01.fbx.import
+3dModelos/SM_Prop_Barrel_02.fbx.import
+3dModelos/SM_Prop_Barrel_03.fbx.import
+3dModelos/SM_Prop_Barrel_Coloured_01.fbx.import
+3dModelos/SM_Prop_Barrel_Oil_01.fbx.import
+3dModelos/SM_Prop_Barrel_Trash_01.fbx.import
+3dModelos/SM_Prop_Barrel_Water_01.fbx.import
+3dModelos/SM_Prop_BarrelStack_01.fbx.import
+3dModelos/SM_Prop_BarrelStack_02.fbx.import
+3dModelos/SM_Prop_BarrelStack_03_Tarp.fbx.import
+3dModelos/SM_Prop_Barricade_01.fbx.import
+3dModelos/SM_Prop_Barricade_Concrete_01.fbx.import
+3dModelos/SM_Prop_Barrier_01.fbx.import
+3dModelos/SM_Prop_Barrier_Long_01.fbx.import
+3dModelos/SM_Prop_Barrier_Long_02_Tarp.fbx.import
+3dModelos/SM_Prop_Barrier_Plastic_01.fbx.import
+3dModelos/SM_Prop_Barrier_Plastic_02.fbx.import
+3dModelos/SM_Prop_Battery_Charger_Dual_01.fbx.import
+3dModelos/SM_Prop_Battery_Charger_Single_01.fbx.import
+3dModelos/SM_Prop_Beam_01.fbx.import
+3dModelos/SM_Prop_Beam_Stack_01.fbx.import
+3dModelos/SM_Prop_Beehive_01.fbx.import
+3dModelos/SM_Prop_Beehive_02.fbx.import
+3dModelos/SM_Prop_Beehive_03.fbx.import
+3dModelos/SM_Prop_Beehive_04.fbx.import
+3dModelos/SM_Prop_Beehive_05.fbx.import
+3dModelos/SM_Prop_Beehive_06.fbx.import
+3dModelos/SM_Prop_Box_Apple_01.fbx.import
+3dModelos/SM_Prop_Box_Apple_02.fbx.import
+3dModelos/SM_Prop_Box_Apricot_01.fbx.import
+3dModelos/SM_Prop_Box_Carrot_01.fbx.import
+3dModelos/SM_Prop_Box_Cucumber_01.fbx.import
+3dModelos/SM_Prop_Box_Eggplant_01.fbx.import
+3dModelos/SM_Prop_Box_Onion_01.fbx.import
+3dModelos/SM_Prop_Box_Peach_01.fbx.import
+3dModelos/SM_Prop_Box_Plum_01.fbx.import
+3dModelos/SM_Prop_Box_Potato_01.fbx.import
+3dModelos/SM_Prop_Brick_01.fbx.import
+3dModelos/SM_Prop_Brick_02.fbx.import
+3dModelos/SM_Prop_Brick_03.fbx.import
+3dModelos/SM_Prop_Brick_Stack_01.fbx.import
+3dModelos/SM_Prop_Brick_Stack_02.fbx.import
+3dModelos/SM_Prop_Brick_Stack_03.fbx.import
+3dModelos/SM_Prop_Brick_Stack_04.fbx.import
+3dModelos/SM_Prop_CarBattery_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_02.fbx.import
+3dModelos/SM_Prop_CardboardBox_03.fbx.import
+3dModelos/SM_Prop_CardboardBox_04.fbx.import
+3dModelos/SM_Prop_CardboardBox_05.fbx.import
+3dModelos/SM_Prop_CardboardBox_06.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_01.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_02.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_03.fbx.import
+3dModelos/SM_Prop_CardboardBox_Stack_03_Tarp.fbx.import
+3dModelos/SM_Prop_ChainSaw_01.fbx.import
+3dModelos/SM_Prop_Chair_01.fbx.import
+3dModelos/SM_Prop_Chair_Folding_01.fbx.import
+3dModelos/SM_Prop_Chair_Metal_01.fbx.import
+3dModelos/SM_Prop_Chair_Plastic_01.fbx.import
+3dModelos/SM_Prop_Chair_Rocking_01.fbx.import
+3dModelos/SM_Prop_Chicken_Coop_01.fbx.import
+3dModelos/SM_Prop_Christmas_Tree_01.fbx.import
+3dModelos/SM_Prop_Cinderblock_01.fbx.import
+3dModelos/SM_Prop_ClothesLine_01.fbx.import
+3dModelos/SM_Prop_ClothesLine_02.fbx.import
+3dModelos/SM_Prop_ClothesLine_03.fbx.import
+3dModelos/SM_Prop_Compactor_01.fbx.import
+3dModelos/SM_Prop_Compactor_02.fbx.import
+3dModelos/SM_Prop_Compressor_01.fbx.import
+3dModelos/SM_Prop_Concrete_Mixer_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_02.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_03.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_04.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_01.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_02.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_02_Tarp.fbx.import
+3dModelos/SM_Prop_Concrete_Slab_Pile_03.fbx.import
+3dModelos/SM_Prop_ConcreteBag_01.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_01.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_02.fbx.import
+3dModelos/SM_Prop_ConcreteBag_Stack_03.fbx.import
+3dModelos/SM_Prop_Cone_01.fbx.import
+3dModelos/SM_Prop_Cone_02.fbx.import
+3dModelos/SM_Prop_Cone_Barrier_01.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_01.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_02.fbx.import
+3dModelos/SM_Prop_Construction_Blocks_03.fbx.import
+3dModelos/SM_Prop_Crane_Section_01.fbx.import
+3dModelos/SM_Prop_Crate_01.fbx.import
+3dModelos/SM_Prop_Crate_02.fbx.import
+3dModelos/SM_Prop_Crate_03.fbx.import
+3dModelos/SM_Prop_Crate_Large_01.fbx.import
+3dModelos/SM_Prop_Crate_Stack_01.fbx.import
+3dModelos/SM_Prop_Crate_Stack_02_Tarp.fbx.import
+3dModelos/SM_Prop_Drill_Bit_01.fbx.import
+3dModelos/SM_Prop_Drill_Bit_02.fbx.import
+3dModelos/SM_Prop_Drink_Dispenser_01.fbx.import
+3dModelos/SM_Prop_Drop_Saw_01.fbx.import
+3dModelos/SM_Prop_Elevator_01.fbx.import
+3dModelos/SM_Prop_Elevator_02.fbx.import
+3dModelos/SM_Prop_Elevator_Frame_01.fbx.import
+3dModelos/SM_Prop_Elevator_Frame_02.fbx.import
+3dModelos/SM_Prop_Fence_Concrete_01.fbx.import
+3dModelos/SM_Prop_Fence_Concrete_Pillar_01.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_01.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_02.fbx.import
+3dModelos/SM_Prop_Fence_MetalSheet_03.fbx.import
+3dModelos/SM_Prop_Fence_Wire_01.fbx.import
+3dModelos/SM_Prop_Floodlights_01.fbx.import
+3dModelos/SM_Prop_Fuel_Tank_01.fbx.import
+3dModelos/SM_Prop_Fuel_Tank_01_Base_01.fbx.import
+3dModelos/SM_Prop_GasCan_01.fbx.import
+3dModelos/SM_Prop_Generator_01.fbx.import
+3dModelos/SM_Prop_Generator_Large_01.fbx.import
+3dModelos/SM_Prop_Generator_Small_01.fbx.import
+3dModelos/SM_Prop_Gnome_Basalt_01.fbx.import
+3dModelos/SM_Prop_Gnome_Beach_01.fbx.import
+3dModelos/SM_Prop_Gnome_Dwarf_01.fbx.import
+3dModelos/SM_Prop_Gnome_Santa_01.fbx.import
+3dModelos/SM_Prop_Gnome_Soldier_01.fbx.import
+3dModelos/SM_Prop_Gnome_Theorist_01.fbx.import
+3dModelos/SM_Prop_Gnome_Wizard_01.fbx.import
+3dModelos/SM_Prop_Gnome_Zombie_01.fbx.import
+3dModelos/SM_Prop_HandTrolley_01.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Round_01.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Round_01_Green.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Round_02.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Round_02_Green.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Round_Plastic_01.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_01.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_01_Green.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_02.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_02_Green.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_03.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_03_Green.fbx.import
+3dModelos/SM_Prop_Hay_Bale_Square_Plastic_01.fbx.import
+3dModelos/SM_Prop_I_Beam_01.fbx.import
+3dModelos/SM_Prop_I_Beam_02.fbx.import
+3dModelos/SM_Prop_Iron_Sheet_01.fbx.import
+3dModelos/SM_Prop_Iron_Sheet_02.fbx.import
+3dModelos/SM_Prop_Junk_Stack_01.fbx.import
+3dModelos/SM_Prop_Junk_Stack_02.fbx.import
+3dModelos/SM_Prop_Junk_Stack_03.fbx.import
+3dModelos/SM_Prop_Junk_Stack_04.fbx.import
+3dModelos/SM_Prop_Junk_Stack_05.fbx.import
+3dModelos/SM_Prop_Junk_Stack_06.fbx.import
+3dModelos/SM_Prop_Junk_Stack_07.fbx.import
+3dModelos/SM_Prop_Junk_Stack_08.fbx.import
+3dModelos/SM_Prop_Ladder_01.fbx.import
+3dModelos/SM_Prop_Ladder_02.fbx.import
+3dModelos/SM_Prop_Ladder_03.fbx.import
+3dModelos/SM_Prop_Ladder_Extender_01.fbx.import
+3dModelos/SM_Prop_Ladder_Folding_01.fbx.import
+3dModelos/SM_Prop_Ladder_Small_01.fbx.import
+3dModelos/SM_Prop_Ladder_Small_02.fbx.import
+3dModelos/SM_Prop_Ladder_Small_03.fbx.import
+3dModelos/SM_Prop_Ladder_Small_04.fbx.import
+3dModelos/SM_Prop_LetterBox_01.fbx.import
+3dModelos/SM_Prop_LetterBox_03.fbx.import
+3dModelos/SM_Prop_Light_Portable_01.fbx.import
+3dModelos/SM_Prop_Paint_Bucket_Closed_01.fbx.import
+3dModelos/SM_Prop_Paint_Bucket_Open_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Closed_Alt_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Closed_Alt_02.fbx.import
+3dModelos/SM_Prop_Paint_Can_Closed_Black_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Closed_White_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Open_Alt_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Open_Alt_02.fbx.import
+3dModelos/SM_Prop_Paint_Can_Open_Black_01.fbx.import
+3dModelos/SM_Prop_Paint_Can_Open_White_01.fbx.import
+3dModelos/SM_Prop_Paint_Tray_01.fbx.import
+3dModelos/SM_Prop_Paint_Tray_02.fbx.import
+3dModelos/SM_Prop_Pallet_01.fbx.import
+3dModelos/SM_Prop_Pallet_02.fbx.import
+3dModelos/SM_Prop_Pallet_03.fbx.import
+3dModelos/SM_Prop_PalletStack_01.fbx.import
+3dModelos/SM_Prop_PalletStack_02.fbx.import
+3dModelos/SM_Prop_Pipe_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_02.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Huge_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Huge_02.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Huge_03.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Huge_Corner_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Large_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Large_02.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Large_03.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Large_Corner_01.fbx.import
+3dModelos/SM_Prop_Pipe_Concrete_Stack_01.fbx.import
+3dModelos/SM_Prop_Pipe_Stack_01.fbx.import
+3dModelos/SM_Prop_Pipe_Stack_02.fbx.import
+3dModelos/SM_Prop_Plank_01.fbx.import
+3dModelos/SM_Prop_Plank_02.fbx.import
+3dModelos/SM_Prop_Plank_Long_01.fbx.import
+3dModelos/SM_Prop_Plank_Long_Stack_01.fbx.import
+3dModelos/SM_Prop_Plank_Long_Stack_02.fbx.import
+3dModelos/SM_Prop_Plank_Stack_01.fbx.import
+3dModelos/SM_Prop_Plank_Stack_02.fbx.import
+3dModelos/SM_Prop_Plans_01.fbx.import
+3dModelos/SM_Prop_Plans_02.fbx.import
+3dModelos/SM_Prop_Plans_03.fbx.import
+3dModelos/SM_Prop_Plans_04.fbx.import
+3dModelos/SM_Prop_Plans_05.fbx.import
+3dModelos/SM_Prop_Plans_06.fbx.import
+3dModelos/SM_Prop_Plans_07.fbx.import
+3dModelos/SM_Prop_Plans_08.fbx.import
+3dModelos/SM_Prop_Plans_09.fbx.import
+3dModelos/SM_Prop_Plans_10.fbx.import
+3dModelos/SM_Prop_Plant_01.fbx.import
+3dModelos/SM_Prop_Plant_02.fbx.import
+3dModelos/SM_Prop_Plant_Wheat_01.fbx.import
+3dModelos/SM_Prop_Plant_Wheat_02.fbx.import
+3dModelos/SM_Prop_Plant_Wheat_03.fbx.import
+3dModelos/SM_Prop_Plant_Wheat_04.fbx.import
+3dModelos/SM_Prop_Plastic_Pipe_Spool_01.fbx.import
+3dModelos/SM_Prop_Plywood_01.fbx.import
+3dModelos/SM_Prop_Plywood_Stack_01.fbx.import
+3dModelos/SM_Prop_Plywood_Stack_02.fbx.import
+3dModelos/SM_Prop_Portable_Saw_Stand_01.fbx.import
+3dModelos/SM_Prop_Portaloo_01.fbx.import
+3dModelos/SM_Prop_Portaloo_Temp_01.fbx.import
+3dModelos/SM_Prop_Poster_01.fbx.import
+3dModelos/SM_Prop_Poster_02.fbx.import
+3dModelos/SM_Prop_Poster_03.fbx.import
+3dModelos/SM_Prop_Poster_04.fbx.import
+3dModelos/SM_Prop_Poster_05.fbx.import
+3dModelos/SM_Prop_Poster_06.fbx.import
+3dModelos/SM_Prop_Poster_07.fbx.import
+3dModelos/SM_Prop_Pot_01.fbx.import
+3dModelos/SM_Prop_PowerBoxes_01.fbx.import
+3dModelos/SM_Prop_PowerBoxes_02.fbx.import
+3dModelos/SM_Prop_PowerBoxes_03.fbx.import
+3dModelos/SM_Prop_Powercable_01.fbx.import
+3dModelos/SM_Prop_Powercable_02.fbx.import
+3dModelos/SM_Prop_Powercable_03.fbx.import
+3dModelos/SM_Prop_Powercable_04.fbx.import
+3dModelos/SM_Prop_Powercable_05.fbx.import
+3dModelos/SM_Prop_Propane_01.fbx.import
+3dModelos/SM_Prop_Propane_Tall_02.fbx.import
+3dModelos/SM_Prop_Radio_01.fbx.import
+3dModelos/SM_Prop_Rebar_Stack_01.fbx.import
+3dModelos/SM_Prop_Rebar_Stack_02.fbx.import
+3dModelos/SM_Prop_Roadblock_01.fbx.import
+3dModelos/SM_Prop_Roadblock_02.fbx.import
+3dModelos/SM_Prop_Roadblock_03.fbx.import
+3dModelos/SM_Prop_RoadSign_Bag_01.fbx.import
+3dModelos/SM_Prop_Roller_Stand_01.fbx.import
+3dModelos/SM_Prop_Roller_Track_01.fbx.import
+3dModelos/SM_Prop_Rubbish_Chute_01.fbx.import
+3dModelos/SM_Prop_Rubbish_Chute_02.fbx.import
+3dModelos/SM_Prop_Rubbish_Papers_01.fbx.import
+3dModelos/SM_Prop_Rubbish_Papers_02.fbx.import
+3dModelos/SM_Prop_Rubbish_Papers_03.fbx.import
+3dModelos/SM_Prop_RubbishBin_01.fbx.import
+3dModelos/SM_Prop_Rubble_Concrete_01.fbx.import
+3dModelos/SM_Prop_Rubble_Concrete_02.fbx.import
+3dModelos/SM_Prop_Rubble_Concrete_03.fbx.import
+3dModelos/SM_Prop_Saw_Horse_01.fbx.import
+3dModelos/SM_Prop_Sawhorse_01.fbx.import
+3dModelos/SM_Prop_Scaffold_01.fbx.import
+3dModelos/SM_Prop_Scaffold_02.fbx.import
+3dModelos/SM_Prop_Scaffold_03.fbx.import
+3dModelos/SM_Prop_Scaffold_Base_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Ladder_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Preset_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Preset_02_Tarp.fbx.import
+3dModelos/SM_Prop_Scaffold_Ramp_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Ramp_02.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01_Tarp_1.fbx.import
+3dModelos/SM_Prop_Scaffold_Stackable_01_Tarp_2.fbx.import
+3dModelos/SM_Prop_Scarecrow_01.fbx.import
+3dModelos/SM_Prop_Shelter_01.fbx.import
+3dModelos/SM_Prop_Shipping_Container_01.fbx.import
+3dModelos/SM_Prop_Shipping_Container_Small_01.fbx.import
+3dModelos/SM_Prop_Sign_01.fbx.import
+3dModelos/SM_Prop_Sign_02.fbx.import
+3dModelos/SM_Prop_Sign_03.fbx.import
+3dModelos/SM_Prop_Sign_04.fbx.import
+3dModelos/SM_Prop_Sign_05.fbx.import
+3dModelos/SM_Prop_Sign_06.fbx.import
+3dModelos/SM_Prop_Sign_07.fbx.import
+3dModelos/SM_Prop_Sign_08.fbx.import
+3dModelos/SM_Prop_Sign_09.fbx.import
+3dModelos/SM_Prop_Sign_10.fbx.import
+3dModelos/SM_Prop_Sign_11.fbx.import
+3dModelos/SM_Prop_Sign_Road_01.fbx.import
+3dModelos/SM_Prop_Sign_Road_02.fbx.import
+3dModelos/SM_Prop_Skip_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01_Insert_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_01_Insert_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Insert_01.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Insert_02.fbx.import
+3dModelos/SM_Prop_Skip_Large_02_Tarp.fbx.import
+3dModelos/SM_Prop_Skip_Large_03.fbx.import
+3dModelos/SM_Prop_Skip_Large_03_Insert_01.fbx.import
+3dModelos/SM_Prop_Slatbox_01.fbx.import
+3dModelos/SM_Prop_Slatbox_02.fbx.import
+3dModelos/SM_Prop_Spade_01.fbx.import
+3dModelos/SM_Prop_Spotlight_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Pipe_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Pipe_02_Tarp.fbx.import
+3dModelos/SM_Prop_StorageShelf_Large_Plank_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Pipes_01.fbx.import
+3dModelos/SM_Prop_StorageShelf_Plank_01.fbx.import
+3dModelos/SM_Prop_Sunflower_01.fbx.import
+3dModelos/SM_Prop_Sunflower_02.fbx.import
+3dModelos/SM_Prop_SupportBeam_Extender_01.fbx.import
+3dModelos/SM_Prop_Survey_Tool_01.fbx.import
+3dModelos/SM_Prop_Table_01.fbx.import
+3dModelos/SM_Prop_Table_02.fbx.import
+3dModelos/SM_Prop_Table_Saw_01.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_01.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_02.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_03.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_04.fbx.import
+3dModelos/SM_Prop_Tarp_Generic_05.fbx.import
+3dModelos/SM_Prop_Tile_Stack_01.fbx.import
+3dModelos/SM_Prop_Tile_Stack_02.fbx.import
+3dModelos/SM_Prop_Tire_01.fbx.import
+3dModelos/SM_Prop_TireStack_01.fbx.import
+3dModelos/SM_Prop_TireStack_02.fbx.import
+3dModelos/SM_Prop_TireStack_03.fbx.import
+3dModelos/SM_Prop_Toilet_Bucket_01.fbx.import
+3dModelos/SM_Prop_Tool_Axe_01.fbx.import
+3dModelos/SM_Prop_Tool_Bucket_01.fbx.import
+3dModelos/SM_Prop_Tool_Hayfork_01.fbx.import
+3dModelos/SM_Prop_Tool_Pitchfork_01.fbx.import
+3dModelos/SM_Prop_Tool_Rake_01.fbx.import
+3dModelos/SM_Prop_Tool_Spade_01.fbx.import
+3dModelos/SM_Prop_ToolBox_01.fbx.import
+3dModelos/SM_Prop_Tractor_Tire_01.fbx.import
+3dModelos/SM_Prop_Traffic_Barrel_01.fbx.import
+3dModelos/SM_Prop_Traffic_Barrel_02.fbx.import
+3dModelos/SM_Prop_TrafficLight_Directional_01.fbx.import
+3dModelos/SM_Prop_TrashBag_01.fbx.import
+3dModelos/SM_Prop_TrashBag_02.fbx.import
+3dModelos/SM_Prop_Trestle_Table_01.fbx.import
+3dModelos/SM_Prop_Vice_01.fbx.import
+3dModelos/SM_Prop_Watertank_01.fbx.import
+3dModelos/SM_Prop_Well_01.fbx.import
+3dModelos/SM_Prop_Wheelbarrow_01.fbx.import
+3dModelos/SM_Prop_Windmill_01.fbx.import
+3dModelos/SM_Prop_Windmill_02.fbx.import
+3dModelos/SM_Prop_Windmill_03.fbx.import
+3dModelos/SM_Prop_Wirespool_01.fbx.import
+3dModelos/SM_Prop_Wirespool_02.fbx.import
+3dModelos/SM_Prop_Wirespool_Small_01.fbx.import
+3dModelos/SM_Prop_Wood_Frame_01.fbx.import
+3dModelos/SM_Prop_Wood_Frame_02.fbx.import
+3dModelos/SM_Prop_Wood_Frame_03.fbx.import
+3dModelos/SM_Prop_Wood_Stack_01.fbx.import
+3dModelos/SM_Prop_Wood_Stack_02.fbx.import
+3dModelos/SM_Prop_Wood_Walkway_01.fbx.import
+3dModelos/SM_Prop_Wood_Walkway_02.fbx.import
+3dModelos/SM_Prop_Wooden_Table_Top_01.fbx.import
+3dModelos/SM_Tool_Angle_Grinder_01.fbx.import
+3dModelos/SM_Tool_Battery_01.fbx.import
+3dModelos/SM_Tool_Battery_02.fbx.import
+3dModelos/SM_Tool_Battery_03.fbx.import
+3dModelos/SM_Tool_BoxCutter_01.fbx.import
+3dModelos/SM_Tool_Buffer_01.fbx.import
+3dModelos/SM_Tool_Chisel_01.fbx.import
+3dModelos/SM_Tool_Circular_Saw_01.fbx.import
+3dModelos/SM_Tool_Concrete_Breaker_Hand_01.fbx.import
+3dModelos/SM_Tool_Concrete_Breaker_Jackhammer_01.fbx.import
+3dModelos/SM_Tool_Concrete_Saw_01.fbx.import
+3dModelos/SM_Tool_Crowbar_01.fbx.import
+3dModelos/SM_Tool_Drill_01.fbx.import
+3dModelos/SM_Tool_Hammer_Claw.fbx.import
+3dModelos/SM_Tool_Hammer_Mallet.fbx.import
+3dModelos/SM_Tool_Hammer_Sledge.fbx.import
+3dModelos/SM_Tool_Handsaw_01.fbx.import
+3dModelos/SM_Tool_Handsaw_02.fbx.import
+3dModelos/SM_Tool_Impact_Driver_01.fbx.import
+3dModelos/SM_Tool_Orbital_Sander_01.fbx.import
+3dModelos/SM_Tool_Paint_Brush_01.fbx.import
+3dModelos/SM_Tool_Paint_Brush_02.fbx.import
+3dModelos/SM_Tool_Paint_Roller_01.fbx.import
+3dModelos/SM_Tool_Paint_Roller_02.fbx.import
+3dModelos/SM_Tool_Pipe_Wrench_01.fbx.import
+3dModelos/SM_Tool_Pliers_01.fbx.import
+3dModelos/SM_Tool_Prybar_01.fbx.import
+3dModelos/SM_Tool_Saber_Saw_01.fbx.import
+3dModelos/SM_Tool_Screw_Driver_01.fbx.import
+3dModelos/SM_Tool_Spirit_Level_01.fbx.import
+3dModelos/SM_Tool_Square_01.fbx.import
+3dModelos/SM_Tool_Tape_Measure_01.fbx.import
+3dModelos/SM_Tool_Tool_Nailgun_01.fbx.import
+3dModelos/SM_Tool_Torch_01.fbx.import
+3dModelos/SM_Tool_Trowel_01.fbx.import
+3dModelos/SM_Tool_Trowel_02.fbx.import
+3dModelos/SM_Tool_Wirecutter_01.fbx.import
+3dModelos/SM_Tool_Wrench_01.fbx.import
+3dModelos/SM_Tool_Wrench_02.fbx.import
+3dModelos/SM_Veh_Attach_Plough_01.fbx.import
+3dModelos/SM_Veh_Attach_Trailer_Cylinder_01.fbx.import
+3dModelos/SM_Veh_Bulldozer_01.fbx.import
+3dModelos/SM_Veh_Car_Muscle_01.fbx.import
+3dModelos/SM_Veh_Car_Police_01.fbx.import
+3dModelos/SM_Veh_Cherry_Picker_01.fbx.import
+3dModelos/SM_Veh_Crane_01.fbx.import
+3dModelos/SM_Veh_Crane_01_WreckingBall_01.fbx.import
+3dModelos/SM_Veh_Crane_01_WreckingBall_02.fbx.import
+3dModelos/SM_Veh_Excavator_01.fbx.import
+3dModelos/SM_Veh_Excavator_02.fbx.import
+3dModelos/SM_Veh_Harvester_01.fbx.import
+3dModelos/SM_Veh_Loader_01.fbx.import
+3dModelos/SM_Veh_Mini_Loader_01.fbx.import
+3dModelos/SM_Veh_Mini_Loader_02.fbx.import
+3dModelos/SM_Veh_Pickup_01.fbx.import
+3dModelos/SM_Veh_Pickup_01_Canopy.fbx.import
+3dModelos/SM_Veh_Pickup_01_ToolBox.fbx.import
+3dModelos/SM_Veh_Pickup_02.fbx.import
+3dModelos/SM_Veh_Pickup_03.fbx.import
+3dModelos/SM_Veh_Pickup_Light_01.fbx.import
+3dModelos/SM_Veh_Pickup_Steering_Wheel.fbx.import
+3dModelos/SM_Veh_Pickup_Wheel_fl.fbx.import
+3dModelos/SM_Veh_Pickup_Wheel_fr.fbx.import
+3dModelos/SM_Veh_Pickup_Wheel_rl.fbx.import
+3dModelos/SM_Veh_Pickup_Wheel_rr.fbx.import
+3dModelos/SM_Veh_Plane_Stunt_01.fbx.import
+3dModelos/SM_Veh_QuadBike_01.fbx.import
+3dModelos/SM_Veh_Roller_01.fbx.import
+3dModelos/SM_Veh_Telehandler_01.fbx.import
+3dModelos/SM_Veh_TractorOld_01.fbx.import
+3dModelos/SM_Veh_Trailer_01.fbx.import
+3dModelos/SM_Veh_Trailer_02.fbx.import
+3dModelos/SM_Veh_Truck_01.fbx.import
+3dModelos/SM_Veh_Truck_01_ConcreteMixer.fbx.import
+3dModelos/SM_Veh_Truck_01_DumpsterTray.fbx.import
+3dModelos/SM_Veh_Truck_01_DumpTray_01.fbx.import
+3dModelos/SM_Veh_Truck_01_DumpTray_01_Dirt_01.fbx.import
+3dModelos/SM_Veh_Truck_01_DumpTray_02.fbx.import
+3dModelos/SM_Veh_Truck_01_DumpTray_02_Dirt_01.fbx.import
+3dModelos/SM_Wep_Shotgun_01.fbx.import
+addons/PathMesh3D/bin/~path_mesh_3d.windows.template_debug.x86_64.dll
+addons/PathMesh3D/bin/~path_mesh_3d.windows.template_debug.x86_64.dll~RF18a6aa4.TMP
+addons/terrain_3d/bin/~libterrain.windows.debug.x86_64.dll~RF18a6b9e.TMP
+animations/mixamo/Crouch Idle.fbx.import
+animations/mixamo/crouched sneaking left.fbx.import
+animations/mixamo/crouched sneaking right.fbx.import
+animations/mixamo/Crouched Walking.fbx.import
+animations/mixamo/ET_animated.glb.import
+animations/mixamo/ET_para_mixamo.fbx.import
+animations/mixamo/falling idle.fbx.import
+animations/mixamo/Getting Hit.fbx.import
+animations/mixamo/Getting Up.fbx.import
+animations/mixamo/hard landing.fbx.import
+animations/mixamo/Hit On Side Of Body.fbx.import
+animations/mixamo/idle (2).fbx.import
+animations/mixamo/idle (3).fbx.import
+animations/mixamo/idle.fbx.import
+animations/mixamo/Jogging Stumble.fbx.import
+animations/mixamo/jump.fbx.import
+animations/mixamo/jumping up.fbx.import
+animations/mixamo/left strafe walking.fbx.import
+animations/mixamo/left strafe.fbx.import
+animations/mixamo/left turn 90.fbx.import
+animations/mixamo/left turn.fbx.import
+animations/mixamo/right strafe walking.fbx.import
+animations/mixamo/right strafe.fbx.import
+animations/mixamo/right turn 90.fbx.import
+animations/mixamo/right turn.fbx.import
+animations/mixamo/run to stop.fbx.import
+animations/mixamo/Running Right Turn.fbx.import
+animations/mixamo/Running Turn 180.fbx.import
+animations/mixamo/running.fbx.import
+animations/mixamo/Standing Up.fbx.import
+animations/mixamo/Stumble Backwards.fbx.import
+animations/mixamo/Walking Turn 180.fbx.import
+animations/mixamo/walking.fbx.import
+scenes/terrain3d_00_00.res
+scenes/terrain3d_00_01.res
+scenes/terrain3d_00-01.res
+scenes/terrain3d_00-02.res
+scenes/terrain3d_01_00.res
+scenes/terrain3d_01_01.res
+scenes/terrain3d_01-01.res
+scenes/terrain3d_01-02.res
+scenes/terrain3d_02_00.res
+scenes/terrain3d_02_01.res
+scenes/terrain3d_02-01.res
+scenes/terrain3d_02-02.res
+scenes/terrain3d_03_00.res
+scenes/terrain3d_03_01.res
+scenes/terrain3d_03-01.res
+scenes/terrain3d_03-02.res
+scenes/terrain3d-01_00.res
+scenes/terrain3d-01_01.res
+scenes/terrain3d-01-01.res
+scenes/terrain3d-01-02.res
+scripts/SpaceshipInterior/interior_space_ship_room_1.gd.uid
+Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx.import
+Temporarios/Animations/Polygon/Feminine/Idle/A_Idle_Crouching_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Idle/A_Idle_Standing_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_InAir_FallLarge_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_InAir_FallShort_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Idle_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Idle_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Running_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Running_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Running_RootMotionVertical_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Sprinting_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Sprinting_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Sprinting_RootMotionVertical_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Walking_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Walking_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Jump_Walking_RootMotionVertical_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleHard_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleHard_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleMedium_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleMedium_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleSoft_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/InAir/A_Land_IdleSoft_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeB_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeB_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeBL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeBL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_BckStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeF_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeF_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeFR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeFR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Crouch/A_Crouch_FwdStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeB_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeB_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeBL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeBL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_BckStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_Down25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_Down25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeF_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeF_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeFR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeFR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_FwdStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_Up25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Run/A_Run_Up25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_B_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_B_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_L_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Crouching_R_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_B_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_B_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_L_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Shuffle/A_Shuffle_Standing_R_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_Down25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_Down25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_Up25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Sprint/A_Sprint_Up25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Crouching_90L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Crouching_90LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Crouching_90R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Crouching_90RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_180L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_180LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_180R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_180RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_90L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_90LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_90R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Turn/A_Turn_Standing_90RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeB_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeB_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeBL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeBL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_BckStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_Down25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_Down25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeBR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeBR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeF_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeF_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeFL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeFL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeFR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeFR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeL_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeL_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeR_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_FwdStrafeR_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_Up25F_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_Up25F_RootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Crouch_ToStand/A_Crouch_ToStand_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun180L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun180LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun180R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun180RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun90L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun90LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun90R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRun90RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRunF_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToRun/A_Idle_ToRunFRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk180L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk180LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk180R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk180RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk90L_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk90LRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk90R_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalk90RRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalkF_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Idle_ToWalk/A_Idle_ToWalkFRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Run_ToIdle/A_Run_ToIdleF_LFoot_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Run_ToIdle/A_Run_ToIdleF_LFootRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Run_ToIdle/A_Run_ToIdleF_RFoot_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Run_ToIdle/A_Run_ToIdleF_RFootRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Sprint_ToCrouch/A_Sprint_ToCrouch_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Sprint_ToCrouch/A_Sprint_ToCrouchRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Stand_ToCrouch/A_Stand_ToCrouch_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_LFoot_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_LFootRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_RFoot_Femn.fbx.import
+Temporarios/Animations/Polygon/Feminine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_RFootRootMotion_Femn.fbx.import
+Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Crouching_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_InAir_FallLarge_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_InAir_FallShort_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Idle_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Idle_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Running_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Running_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Running_RootMotionVertical_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Sprinting_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Sprinting_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Sprinting_RootMotionVertical_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Walking_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Walking_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Jump_Walking_RootMotionVertical_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleHard_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleHard_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleMedium_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleMedium_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleSoft_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/InAir/A_Land_IdleSoft_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeB_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeB_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeBL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeBL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_BckStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeF_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeF_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeFR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeFR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Crouch/A_Crouch_FwdStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeB_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeB_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeBL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeBL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_BckStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_Down25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_Down25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeF_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeF_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeFR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeFR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_Up25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Run/A_Run_Up25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_B_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_B_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_L_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Crouching_R_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_B_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_B_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_L_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Shuffle/A_Shuffle_Standing_R_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_Down25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_Down25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_Up25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Sprint/A_Sprint_Up25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Crouching_90L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Crouching_90LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Crouching_90R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Crouching_90RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_180L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_180LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_180R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_180RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_90L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_90LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_90R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Turn/A_Turn_Standing_90RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeB_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeB_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeBL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeBL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_BckStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_Down25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_Down25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeBR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeBR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeF_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeF_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeFL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeFL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeFR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeFR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeL_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeL_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeR_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeR_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_Up25F_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_Up25F_RootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Crouch_ToStand/A_Crouch_ToStand_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun180L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun180LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun180R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun180RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun90L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun90LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun90R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRun90RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRunF_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToRun/A_Idle_ToRunFRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk180L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk180LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk180R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk180RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk90L_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk90LRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk90R_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalk90RRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalkF_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Idle_ToWalk/A_Idle_ToWalkFRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Run_ToIdle/A_Run_ToIdleF_LFoot_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Run_ToIdle/A_Run_ToIdleF_LFootRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Run_ToIdle/A_Run_ToIdleF_RFoot_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Run_ToIdle/A_Run_ToIdleF_RFootRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Sprint_ToCrouch/A_Sprint_ToCrouch_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Sprint_ToCrouch/A_Sprint_ToCrouchRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Stand_ToCrouch/A_Stand_ToCrouch_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_LFoot_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_LFootRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_RFoot_Masc.fbx.import
+Temporarios/Animations/Polygon/Masculine/Transitions/Walk_ToIdle/A_Walk_ToIdleF_RFootRootMotion_Masc.fbx.import
+Temporarios/Animations/Polygon/Neutral/Additive/Lean/A_Lean_Additive_Neut.fbx.import
+Temporarios/Animations/Polygon/Neutral/Additive/Look/A_BodyLook_Additive_Neut.fbx.import
+Temporarios/Animations/Polygon/Neutral/Additive/Look/A_HeadLook_Additive_Neut.fbx.import
+Temporarios/Animations/Polygon/Neutral/Additive/TPose/A_TPose_Neut.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_Crate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_Crate_01C.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Apple_Stack_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Barrel_Stand_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Barrel_Stand_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bed_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bed_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bed_02B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bed_02C.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Belt.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_BG_Mountain_01.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_BG_Mountain_02.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Boat_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Boat_Wreck_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Book_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Book_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Book_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Book_02B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Books_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bowl_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bowl_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_Base_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_Decoration_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_Decoration_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_Decoration_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_Decoration_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broom_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bush_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Bush_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Candle_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_02B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_03B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Canopy_04B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Carrot_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Column_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Eave_Corner_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Eave_Straight_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Entrance_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Entrance_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Entrance_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Bush_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Bush_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Pot_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Pot_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Pot_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Pot_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flower_Pot_04B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flowers_Patch_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flowers_Patch_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Flowers_Patch_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Forge.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_ForgeBlower.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Foundation_Block_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Foundation_Block_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Grass_Patch_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ivy_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ivy_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ivy_Corner_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lamp_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lamp_Post_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lamp_Post_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_Coverage_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_Coverage_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Leaf_Coverage_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lily_Flower_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lily_Flower_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lily_Flower_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mailbox_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Market_Stand_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mill_Wheel_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_07A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Mushroom_08A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Onion_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Particle_Quad_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Particle_Quad_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Particle_Quad_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Particle_Quad_03B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Paved_Floor_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Paved_Floor_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pavement_Dust_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pavement_Dust_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pavement_Dust_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pear_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pear_Crate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pear_Stack_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pepper_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pepper_Crate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pier_Bollard_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pier_Bollard_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plant_07A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Plate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Produce_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Produce_Crate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Pulley.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_QuenchingTrough.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rail_Module_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rail_Pole_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Idol_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Idol_Eyes_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Large_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Large_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Medium_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Medium_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Medium_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Corner_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Corner_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Straight_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Straight_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Straight_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Tall_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Roof_Tall_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rope.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rope_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_07A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_Brick_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Ruin_Brick_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Sack_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Sack_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Sack_Pile_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_SharpeningStation.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_SmithingHammerStation.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stairs_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stairs_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stairs_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stairs_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stairs_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Block_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Bridge_Module_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Bridge_Module_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Bridge_Module_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Bridge_Pillar_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Pillar_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_07A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_08A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_09A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_Ornament_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Railing_Pole_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Road_Module_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Road_Module_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Road_Module_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Slab_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Slab_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Step_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Wall_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Wall_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Wall_Anchor_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Stone_Wall_Ring_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tankard_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tankard_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tomato_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tomato_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tomato_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Treasure_Chest_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_Long_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_Long_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_Long_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_Long_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wall_Nub_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Waterfall_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WaterTank.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_WheelMechanism_06A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Window_Sill_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Barrel_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Barrel_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Beam_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Beam_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Beam_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Beam_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Beam_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Bench_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Bench_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Bucket_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Bucket_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Cabinet_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Cart_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Chair_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Chair_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Crate_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Crate_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Crate_01C.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Deck_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Fence_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Fence_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Fence_Pole_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Floor_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Floor_01B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pier_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_03A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_04A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_05A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Pillar_Corner_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Plank_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Plank_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Platform_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Table_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Table_02A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Table_02B.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Wood_Wheel_01A.fbx.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_1A.png.import
+Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_Vegetation_1A.tga.import
+Texturas/FX/Circle_Hard_Texture_01.png.import
+Texturas/FX/Circle_Soft_Texture_01.png.import
+Texturas/FX/Circle_Soft_Texture_02.png.import
+Texturas/FX/Fire_Sheet_01.png.import
+Texturas/FX/Generic_Candle_Flame_01.png.import
+Texturas/FX/Generic_Circle_01.png.import
+Texturas/FX/Generic_Circle_Soft_01.png.import
+Texturas/FX/Generic_Leaf_01.png.import
+Texturas/FX/Generic_Sun_Beam_01.png.import
+Texturas/FX/Lens_Flare_01.png.import
+Texturas/FX/Missile_Texture.png.import
+Texturas/FX/Plain_White.png.import
+Texturas/FX/Sparkle_Texture.png.import
+Texturas/FX/SunBeam_Texture_01.png.import
+Texturas/Normals/PolygonMech_Texture_A_01_Normal.png.import
+Texturas/Normals/PolygonTown_Texture_Metallic.roughness.png.import
+Texturas/Normals/PolygonTown_Texture_Metallic.tga.import
+Texturas/Normals/PolygonTown_Texture_Normal.png.import
+Texturas/Normals/PolygonTown_Texture_Normal_A.png.import
+Texturas/Normals/PolygonTown_Texture_Normal_B.png.import
+Texturas/Normals/PolygonTown_Texture_Normal_C.png.import
+Texturas/ui/arrow.png.import
+Texturas/ui/arrow_long.png.import
+Texturas/ui/audio.png.import
+Texturas/ui/camera.png.import
+Texturas/ui/circle.png.import
+Texturas/ui/controller.png.import
+Texturas/ui/gauge.png.import
+Texturas/ui/glow_ring.png.import
+Texturas/ui/heart.png.import
+Texturas/ui/home.png.import
+Texturas/ui/player.png.import
+Texturas/ui/power.png.import
+Texturas/ui/selection_ring.png.import
+Texturas/ui/star_empty.png.import
+Texturas/ui/star_filled.png.import
+Texturas/ui/switch_button.png.import
+Texturas/ui/tick.png.import
+Texturas/ui/warning.png.import
+Texturas/ui/watch.png.import
+Texturas/BillboardAds.png.import
+Texturas/Emissive_01.png.import
+Texturas/Emissive_02.png.import
+Texturas/Emissive_03.png.import
+Texturas/Emissive_04.png.import
+Texturas/Emissive_05.png.import
+Texturas/grass.png.import
+Texturas/ground.png.import
+Texturas/Polygon_Plane_Texture_01.png.import
+Texturas/Polygon_Plane_Texture_02.png.import
+Texturas/Polygon_Plane_Texture_03.png.import
+Texturas/Polygon_Plane_Texture_04.png.import
+Texturas/Polygon_Quadbike_Texture_01.png.import
+Texturas/Polygon_Quadbike_Texture_02.png.import
+Texturas/Polygon_Quadbike_Texture_03.png.import
+Texturas/Polygon_Quadbike_Texture_04.png.import
+Texturas/Polygon_Quadbike_Texture_Emissive_01.png.import
+Texturas/Polygon_Texture_01_A.png.import
+Texturas/Polygon_Texture_01_B.png.import
+Texturas/Polygon_Texture_01_C.png.import
+Texturas/Polygon_Texture_02_A.png.import
+Texturas/Polygon_Texture_02_B.png.import
+Texturas/Polygon_Texture_02_C.png.import
+Texturas/Polygon_Texture_03_A.png.import
+Texturas/Polygon_Texture_03_B.png.import
+Texturas/Polygon_Texture_03_C.png.import
+Texturas/Polygon_Texture_04_A.png.import
+Texturas/Polygon_Texture_04_B.png.import
+Texturas/Polygon_Texture_04_C.png.import
+Texturas/PolygonCity_Texture.png.import
+Texturas/PolygonCity_Texture_01_A.png.import
+Texturas/PolygonCity_Texture_01_B.png.import
+Texturas/PolygonCity_Texture_01_C.png.import
+Texturas/PolygonCity_Texture_02_A.png.import
+Texturas/PolygonCity_Texture_02_B.png.import
+Texturas/PolygonCity_Texture_02_C.png.import
+Texturas/PolygonCity_Texture_03_A.png.import
+Texturas/PolygonCity_Texture_03_B.png.import
+Texturas/PolygonCity_Texture_03_C.png.import
+Texturas/PolygonCity_Texture_04_A.png.import
+Texturas/PolygonCity_Texture_04_B.png.import
+Texturas/PolygonCity_Texture_04_C.png.import
+Texturas/PolygonCity_Texture_Metallic.tga.import
+Texturas/PolygonCity_Texture_Normal.png.import
+Texturas/PolygonCity_Texture_Skyline.tga.import
+Texturas/PolygonConstruction_Texture_01_A.png.import
+Texturas/PolygonConstruction_Texture_01_B.png.import
+Texturas/PolygonConstruction_Texture_01_C.png.import
+Texturas/PolygonConstruction_Texture_02_A.png.import
+Texturas/PolygonConstruction_Texture_02_B.png.import
+Texturas/PolygonConstruction_Texture_02_C.png.import
+Texturas/PolygonConstruction_Texture_03_A.png.import
+Texturas/PolygonConstruction_Texture_03_B.png.import
+Texturas/PolygonConstruction_Texture_03_C.png.import
+Texturas/PolygonConstruction_Texture_04_A.png.import
+Texturas/PolygonConstruction_Texture_04_B.png.import
+Texturas/PolygonConstruction_Texture_04_C.png.import
+Texturas/PolygonFarm_Texture_01_A.png.import
+Texturas/PolygonFarm_Texture_02_A.png.import
+Texturas/PolygonFarm_Texture_03_A.png.import
+Texturas/PolygonFarm_Texture_04_A.png.import
+Texturas/PolygonMech_Texture_01_A.png.import
+Texturas/PolygonMech_Texture_01_B.png.import
+Texturas/PolygonMech_Texture_01_C.png.import
+Texturas/PolygonMech_Texture_02_A.png.import
+Texturas/PolygonMech_Texture_02_B.png.import
+Texturas/PolygonMech_Texture_02_C.png.import
+Texturas/PolygonMech_Texture_03_A.png.import
+Texturas/PolygonMech_Texture_03_B.png.import
+Texturas/PolygonMech_Texture_03_C.png.import
+Texturas/PolygonMech_Texture_04_A.png.import
+Texturas/PolygonMech_Texture_04_B.png.import
+Texturas/PolygonMech_Texture_04_C.png.import
+Texturas/PolygonMech_Texture_05_A.png.import
+Texturas/PolygonMech_Texture_05_B.png.import
+Texturas/PolygonMech_Texture_05_C.png.import
+Texturas/PolygonMech_Texture_06_A.png.import
+Texturas/PolygonMech_Texture_06_B.png.import
+Texturas/PolygonSciFiWorlds_Texture_01_C.png.import
+Texturas/PolygonSciFiWorlds_Texture_02_C.png.import
+Texturas/PolygonSciFiWorlds_Texture_03_A.png.import
+Texturas/PolygonSciFiWorlds_Texture_03_B.png.import
+Texturas/PolygonSciFiWorlds_Texture_04_A.png.import
+Texturas/PolygonSciFiWorlds_Texture_04_C.png.import
+Texturas/PolygonTown_Texture_01_A.png.import
+Texturas/PolygonTown_Texture_01_B.png.import
+Texturas/PolygonTown_Texture_01_C.png.import
+Texturas/PolygonTown_Texture_02_A.png.import
+Texturas/PolygonTown_Texture_02_B.png.import
+Texturas/PolygonTown_Texture_02_C.png.import
+Texturas/PolygonTown_Texture_03_A.png.import
+Texturas/PolygonTown_Texture_03_B.png.import
+Texturas/PolygonTown_Texture_03_C.png.import
+Texturas/PolygonTown_Texture_04_A.png.import
+Texturas/PolygonTown_Texture_04_B.png.import
+Texturas/PolygonTown_Texture_04_C.png.import
+Texturas/PolygonXmasGnomes_Emissive_01_A.png.import
+Texturas/PolygonXmasGnomes_Texture_01.png.import
+Texturas/rockyCliff.png.import
