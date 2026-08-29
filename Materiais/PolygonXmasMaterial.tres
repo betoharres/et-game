@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cwleo4pr4skn4"]
+
+[ext_resource type="Texture2D" uid="uid://d0ax4l2x23b0g" path="res://PolygonXmas/Textures/Polygon_Xmas_Texture_01.png" id="1_40vb0"]
+[ext_resource type="Texture2D" uid="uid://b1gtw710037yh" path="res://PolygonXmas/Textures/Polygon_Xmas_Texture_01_Emmision.png" id="2_yf2kd"]
+
+[resource]
+albedo_texture = ExtResource("1_40vb0")
+emission_enabled = true
+emission_texture = ExtResource("2_yf2kd")

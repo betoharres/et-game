@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://couowd6wegplm"]
 
-[ext_resource type="PackedScene" uid="uid://dbhvishwudhdw" path="res://PolygonCity/FBX/SM_Veh_Car_Police_01.fbx" id="1_f8hie"]
 [ext_resource type="Script" uid="uid://cgekmg1pnkfpj" path="res://scripts/cops_car.gd" id="1_ve12k"]
-[ext_resource type="Texture2D" uid="uid://b6katdfst6l0o" path="res://PolygonCity/Textures/PolygonCity_Texture_02_A.png" id="2_ve12k"]
+[ext_resource type="PackedScene" uid="uid://b30wsy1qlus3u" path="res://PolygonCity/FBX/Veh/SM_Veh_Car_Police_01.fbx" id="2_k4pfu"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="3_10wgm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdds8"]
 size = Vector3(1.9258448, 1.0543126, 5.247453)
@@ -10,55 +10,44 @@ size = Vector3(1.9258448, 1.0543126, 5.247453)
 [sub_resource type="BoxShape3D" id="BoxShape3D_io7wd"]
 size = Vector3(1.9258448, 0.5000284, 2.614733)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3p2d"]
-albedo_texture = ExtResource("2_ve12k")
-
 [node name="CopsCar" type="Node3D" unique_id=917484143]
 script = ExtResource("1_ve12k")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=95646162]
+[node name="SM_Veh_Car_Police_01" parent="." unique_id=360745988 instance=ExtResource("2_k4pfu")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=85894890]
+[node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=960086563]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=1724867041]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=35453555]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=1561165720]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=1956318343]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=130807941]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=598239694]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=1103651844]
+surface_material_override/0 = ExtResource("3_10wgm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Car_Police_01" unique_id=95646162]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Car_Police_01/StaticBody3D" unique_id=85894890]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1411648e-05, 0.53082395, 0.15558529)
 shape = SubResource("BoxShape3D_vdds8")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=774090712]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SM_Veh_Car_Police_01/StaticBody3D" unique_id=774090712]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1411648e-05, 1.2944816, -0.25337017)
 shape = SubResource("BoxShape3D_io7wd")
-
-[node name="SM_Veh_Car_Police_01" parent="." unique_id=191159772 instance=ExtResource("1_f8hie")]
-
-[node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=1866918940]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=1744624098]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=1863357074]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=2053954340]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=641937306]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=705890241]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=1359590043]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
-
-[node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=639457389]
-layers = 8
-surface_material_override/0 = SubResource("StandardMaterial3D_i3p2d")
 
 [node name="ArmRed3" type="Node3D" parent="." unique_id=1158455866]
 transform = Transform3D(-0.6785794, 0, 0.73452705, 0, 1, 0, -0.73452705, 0, -0.6785794, -0.431, 1.781, -0.194)
