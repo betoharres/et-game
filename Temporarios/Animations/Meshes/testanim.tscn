@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://cd82jglk8vjgr"]
+
+[ext_resource type="PackedScene" uid="uid://coghhuwbp06mh" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="1_htm0r"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_342cg"]
+[ext_resource type="Script" uid="uid://bc8un6hk3hv1g" path="res://Temporarios/Animations/Meshes/testanim_animation_controller.gd" id="3_controller"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
+radius = 0.18457031
+height = 1.7901611
+
+[sub_resource type="Animation" id="Animation_reset"]
+resource_name = "RESET"
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_empty"]
+_data = {
+&"RESET": SubResource("Animation_reset")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_enter"]
+animation = &"CrouchEnter"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_exit"]
+animation = &"CrouchExit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_idle"]
+animation = &"CrouchIdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_crouch_walk"]
+animation = &"CrouchWalk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_fall"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle_to_run"]
+animation = &"IdleToRun"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_idle_to_walk"]
+animation = &"IdleToWalk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_jump"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_land"]
+animation = &"Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_run"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_run_to_idle"]
+animation = &"RunToIdle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_crouch_90_l"]
+animation = &"TurnCrouch90L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_crouch_90_r"]
+animation = &"TurnCrouch90R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_180_l"]
+animation = &"TurnStand180L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_180_r"]
+animation = &"TurnStand180R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_90_l"]
+animation = &"TurnStand90L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_turn_stand_90_r"]
+animation = &"TurnStand90R"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_walk"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNode_walk_to_idle"]
+animation = &"WalkToIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_auto"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_crossfade"]
+xfade_time = 0.15
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_at_end"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Transition_crossfade_fast"]
+xfade_time = 0.08
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_locomotion"]
+states/CrouchEnter/node = SubResource("AnimationNode_crouch_enter")
+states/CrouchEnter/position = Vector2(190, -220)
+states/CrouchExit/node = SubResource("AnimationNode_crouch_exit")
+states/CrouchExit/position = Vector2(430, -90)
+states/CrouchIdle/node = SubResource("AnimationNode_crouch_idle")
+states/CrouchIdle/position = Vector2(430, -220)
+states/CrouchWalk/node = SubResource("AnimationNode_crouch_walk")
+states/CrouchWalk/position = Vector2(680, -220)
+states/End/position = Vector2(1110, 80)
+states/Fall/node = SubResource("AnimationNode_fall")
+states/Fall/position = Vector2(430, 220)
+states/Idle/node = SubResource("AnimationNode_idle")
+states/Idle/position = Vector2(-520, 80)
+states/IdleToRun/node = SubResource("AnimationNode_idle_to_run")
+states/IdleToRun/position = Vector2(-300, 240)
+states/IdleToWalk/node = SubResource("AnimationNode_idle_to_walk")
+states/IdleToWalk/position = Vector2(-300, -80)
+states/Jump/node = SubResource("AnimationNode_jump")
+states/Jump/position = Vector2(190, 220)
+states/Land/node = SubResource("AnimationNode_land")
+states/Land/position = Vector2(680, 220)
+states/Run/node = SubResource("AnimationNode_run")
+states/Run/position = Vector2(-60, 240)
+states/RunToIdle/node = SubResource("AnimationNode_run_to_idle")
+states/RunToIdle/position = Vector2(-300, 150)
+states/Start/position = Vector2(-740, 80)
+states/TurnCrouch90L/node = SubResource("AnimationNode_turn_crouch_90_l")
+states/TurnCrouch90L/position = Vector2(680, -350)
+states/TurnCrouch90R/node = SubResource("AnimationNode_turn_crouch_90_r")
+states/TurnCrouch90R/position = Vector2(430, -350)
+states/TurnStand180L/node = SubResource("AnimationNode_turn_stand_180_l")
+states/TurnStand180L/position = Vector2(-520, 390)
+states/TurnStand180R/node = SubResource("AnimationNode_turn_stand_180_r")
+states/TurnStand180R/position = Vector2(-300, 390)
+states/TurnStand90L/node = SubResource("AnimationNode_turn_stand_90_l")
+states/TurnStand90L/position = Vector2(-740, -80)
+states/TurnStand90R/node = SubResource("AnimationNode_turn_stand_90_r")
+states/TurnStand90R/position = Vector2(-740, 240)
+states/Walk/node = SubResource("AnimationNode_walk")
+states/Walk/position = Vector2(-60, -80)
+states/WalkToIdle/node = SubResource("AnimationNode_walk_to_idle")
+states/WalkToIdle/position = Vector2(-300, 10)
+transitions = ["Start", "Idle", SubResource("Transition_auto"), "Idle", "IdleToWalk", SubResource("Transition_crossfade"), "IdleToWalk", "Walk", SubResource("Transition_at_end"), "Walk", "WalkToIdle", SubResource("Transition_crossfade"), "WalkToIdle", "Idle", SubResource("Transition_at_end"), "Idle", "IdleToRun", SubResource("Transition_crossfade"), "IdleToRun", "Run", SubResource("Transition_at_end"), "Run", "RunToIdle", SubResource("Transition_crossfade"), "RunToIdle", "Idle", SubResource("Transition_at_end"), "Walk", "Run", SubResource("Transition_crossfade"), "Run", "Walk", SubResource("Transition_crossfade"), "Idle", "CrouchEnter", SubResource("Transition_crossfade"), "Walk", "CrouchEnter", SubResource("Transition_crossfade"), "Run", "CrouchEnter", SubResource("Transition_crossfade"), "CrouchEnter", "CrouchIdle", SubResource("Transition_at_end"), "CrouchIdle", "CrouchWalk", SubResource("Transition_crossfade"), "CrouchWalk", "CrouchIdle", SubResource("Transition_crossfade"), "CrouchIdle", "CrouchExit", SubResource("Transition_crossfade"), "CrouchWalk", "CrouchExit", SubResource("Transition_crossfade"), "CrouchExit", "Idle", SubResource("Transition_at_end"), "Idle", "Jump", SubResource("Transition_crossfade_fast"), "Walk", "Jump", SubResource("Transition_crossfade_fast"), "Run", "Jump", SubResource("Transition_crossfade_fast"), "CrouchEnter", "Jump", SubResource("Transition_crossfade_fast"), "CrouchIdle", "Jump", SubResource("Transition_crossfade_fast"), "CrouchWalk", "Jump", SubResource("Transition_crossfade_fast"), "CrouchExit", "Jump", SubResource("Transition_crossfade_fast"), "Jump", "Fall", SubResource("Transition_crossfade_fast"), "Fall", "Land", SubResource("Transition_crossfade_fast"), "Land", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand90L", SubResource("Transition_crossfade"), "TurnStand90L", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand90R", SubResource("Transition_crossfade"), "TurnStand90R", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand180L", SubResource("Transition_crossfade"), "TurnStand180L", "Idle", SubResource("Transition_at_end"), "Idle", "TurnStand180R", SubResource("Transition_crossfade"), "TurnStand180R", "Idle", SubResource("Transition_at_end"), "CrouchIdle", "TurnCrouch90L", SubResource("Transition_crossfade"), "TurnCrouch90L", "CrouchIdle", SubResource("Transition_at_end"), "CrouchIdle", "TurnCrouch90R", SubResource("Transition_crossfade"), "TurnCrouch90R", "CrouchIdle", SubResource("Transition_at_end"), "TurnStand90L", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand90L", "Run", SubResource("Transition_crossfade_fast"), "TurnStand90L", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand90L", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Run", SubResource("Transition_crossfade_fast"), "TurnStand90R", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand90R", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Run", SubResource("Transition_crossfade_fast"), "TurnStand180L", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand180L", "Jump", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Walk", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Run", SubResource("Transition_crossfade_fast"), "TurnStand180R", "CrouchEnter", SubResource("Transition_crossfade_fast"), "TurnStand180R", "Jump", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "CrouchWalk", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "CrouchExit", SubResource("Transition_crossfade_fast"), "TurnCrouch90L", "Jump", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "CrouchWalk", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "CrouchExit", SubResource("Transition_crossfade_fast"), "TurnCrouch90R", "Jump", SubResource("Transition_crossfade_fast")]
+graph_offset = Vector2(-445, -243)
+
+[node name="Testanim" type="CharacterBody3D" unique_id=1309890923]
+script = ExtResource("3_controller")
+jump_velocity = 10.0
+
+[node name="PolygonSyntyCharacter" parent="." unique_id=2019152796 instance=ExtResource("1_htm0r")]
+
+[node name="PolygonSyntyCharacterMesh" parent="PolygonSyntyCharacter/Skeleton3D" parent_id_path=PackedInt32Array(2019152796, 1933300360) index="0" unique_id=758000179]
+surface_material_override/0 = ExtResource("2_342cg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2018115268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925171, 0)
+shape = SubResource("CapsuleShape3D_ec6vt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1729037425]
+root_node = NodePath("../PolygonSyntyCharacter")
+libraries/ = SubResource("AnimationLibrary_empty")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1445294448]
+active = false
+root_node = NodePath("../PolygonSyntyCharacter")
+tree_root = SubResource("AnimationNodeStateMachine_locomotion")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CameraArm" type="Node3D" parent="." unique_id=2042086362]
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraArm" unique_id=2099022003]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3474889, 2.065173)
+current = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=52311211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.78894, -0.5426682, -4.9353027)
+use_collision = true
+size = Vector3(39.703857, 1, 35.39502)
+
+[editable path="PolygonSyntyCharacter"]
