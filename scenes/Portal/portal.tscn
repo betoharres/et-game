@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtbt3o64oa2bl"]
 
-[ext_resource type="Script" uid="uid://dpilhxqaj8kha" path="res://scenes/Portal/portal.gd" id="1_24q13"]
+[ext_resource type="Script" uid="uid://dpilhxqaj8kha" path="res://scripts/portal/portal.gd" id="1_24q13"]
 [ext_resource type="Material" uid="uid://bmulrfdvdmgy6" path="res://Materiais/TeleportPortalMaterial.tres" id="2_0jopo"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_emb0l"]
