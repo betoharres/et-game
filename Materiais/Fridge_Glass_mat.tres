@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://8wrgxhntfoa0"]
+
+[resource]
+resource_name = "Fridge_Glass_mat"
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.18285038, 0.51782167, 0.6544118, 0.503)
+roughness = 0.5
+uv1_scale = Vector3(1, 1, 0)
