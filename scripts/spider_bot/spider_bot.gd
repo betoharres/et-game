@@ -511,9 +511,13 @@ func _fade_beam_after_hold(beam : ArrivalBeam) -> void:
 
 
 func _set_terrestrial_processing(active : bool) -> void:
+<<<<<<< HEAD
 	var target_process_mode : Node.ProcessMode = (
 		Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
 	)
+=======
+	var target_process_mode : Node.ProcessMode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+>>>>>>> 9b9eb8b9aa8876813ed5bd6464baca4633b3adcb
 	if active and step_target_container.has_method("reset_motion"):
 		step_target_container.call("reset_motion")
 	step_target_container.process_mode = target_process_mode

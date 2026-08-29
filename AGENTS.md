@@ -43,7 +43,7 @@
 
 ## Gameplay e cenas
 
-- `scenes/main_menu.tscn` é a cena principal configurada; ela inicia
+- `scenes/Menu/main_menu.tscn` é a cena principal configurada; ela inicia
   `scenes/world.tscn`.
 - `world.tscn` deve compor o mapa. Comportamentos reutilizáveis devem permanecer
   nas cenas próprias em vez de serem duplicados no mundo.

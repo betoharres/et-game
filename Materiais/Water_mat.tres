@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://c1o8ew6ymaaqt"]
-
-[resource]
-resource_name = "Water_mat"
-transparency = 1
-depth_draw_mode = 1
-albedo_color = Color(0.3867863, 0.6653382, 0.7205882, 0.409)
-uv1_scale = Vector3(1, 1, 0)

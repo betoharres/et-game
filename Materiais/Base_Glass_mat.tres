@@ -1,9 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://bfeiyfp8x7wnn"]
-
-[resource]
-resource_name = "Base_Glass_mat"
-transparency = 1
-depth_draw_mode = 1
-albedo_color = Color(1, 1, 1, 0.17254902)
-roughness = 0.5
-uv1_scale = Vector3(1, 1, 0)
