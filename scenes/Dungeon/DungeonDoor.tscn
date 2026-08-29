@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://pr0wmkbti6tn"]
+
+[ext_resource type="Script" uid="uid://dhda4h8ibnu7j" path="res://scripts/dungeon/dungeon_door.gd" id="1_door"]
+[ext_resource type="PackedScene" uid="uid://c646tj0i371e0" path="res://scenes/SICS Columns/tem_broken_pillar_01a.tscn" id="2_twkbo"]
+[ext_resource type="PackedScene" uid="uid://6fgd6u7ytn41" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="3_mhc1s"]
+[ext_resource type="PackedScene" uid="uid://b2b0m73pe2msr" path="res://scenes/SICS Rocks/tem_rock_small_04a.tscn" id="4_jclrx"]
+[ext_resource type="PackedScene" uid="uid://cohe7jqrl2tg3" path="res://scenes/SICS Rocks/tem_rock_small_01a.tscn" id="5_4ig7x"]
+[ext_resource type="PackedScene" uid="uid://boloit6cip0ik" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="6_tqb7l"]
+
+[sub_resource type="BoxShape3D" id="Shape_DoorTrigger"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Portal"]
+albedo_color = Color(0.25, 0.9, 0.55, 1)
+emission_enabled = true
+emission = Color(0.2, 0.95, 0.5, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_ec6vt"]
+material = SubResource("Mat_Portal")
+size = Vector2(2, 2.5)
+
+[node name="DungeonDoor" type="Area3D" unique_id=761210432]
+script = ExtResource("1_door")
+
+[node name="PortalLight" type="OmniLight3D" parent="." unique_id=1247374332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+layers = 4
+light_color = Color(0.4, 1, 0.65, 1)
+light_energy = 1.6
+omni_range = 4.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1452423226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("Shape_DoorTrigger")
+
+[node name="EntryPrompt" type="Label3D" parent="." unique_id=1608569605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+visible = false
+billboard = 1
+modulate = Color(0.55, 1, 0.7, 1)
+outline_modulate = Color(0, 0.15, 0.05, 1)
+text = "PRESSIONE E PARA ENTRAR NA MASMORRA"
+
+[node name="TEM_Broken_Pillar_01A" parent="." unique_id=1842880316 instance=ExtResource("2_twkbo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="TEM_Broken_Pillar_01A3" parent="." unique_id=1443139920 instance=ExtResource("2_twkbo")]
+transform = Transform3D(-4.371139e-08, 0.535, 0, -1, -2.3385594e-08, 0, 0, 0, 1, 0, 2.487, 0)
+
+[node name="TEM_Broken_Pillar_01A4" parent="." unique_id=803924241 instance=ExtResource("2_twkbo")]
+transform = Transform3D(4.371139e-08, -0.535, 8.742278e-08, -0.84161997, 5.57794e-09, 0.5400702, -0.5400702, -5.199343e-08, -0.84161997, 0, 2.487, 0)
+
+[node name="TEM_Broken_Pillar_01A2" parent="." unique_id=1089247389 instance=ExtResource("2_twkbo")]
+transform = Transform3D(-0.670903, 0, 0.7415451, 0, 1, 0, -0.7415451, 0, -0.670903, 1, 0, 0)
+
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=850087082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.06027198)
+layers = 4
+mesh = SubResource("QuadMesh_ec6vt")
+
+[node name="Portal2" type="MeshInstance3D" parent="." unique_id=1482657280]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.25, -0.06)
+layers = 4
+mesh = SubResource("QuadMesh_ec6vt")
+
+[node name="TEM_Rock_Small_03A" parent="." unique_id=2118840381 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4328613, 0, 0.4564209)
+
+[node name="TEM_Rock_Small_04A" parent="." unique_id=566431628 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.49426296, 0, 0.86931247, 0, 1, 0, -0.86931247, 0, 0.49426296, -1.4269118, 0, 1.2974979)
+
+[node name="TEM_Rock_Small_04A2" parent="." unique_id=1818093856 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.42371672, 0, -0.90579474, 0, 1, 0, 0.90579474, 0, 0.42371672, -1.0701294, 0, 0.6801758)
+
+[node name="TEM_Rock_Small_03A2" parent="." unique_id=567293381 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(0.6047451, 0, 0.7964191, 0, 1, 0, -0.7964191, 0, 0.6047451, 1.0020866, 0, 0.44864833)
+
+[node name="TEM_Rock_Small_03A3" parent="." unique_id=861139110 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(-0.080631055, 0, -0.99674404, 0, 1, 0, 0.99674404, 0, -0.080631055, 1.2743983, 0, -0.810457)
+
+[node name="TEM_Rock_Small_03A4" parent="." unique_id=21234781 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(-0.1971036, 0, 0.9803827, 0, 1, 0, -0.9803827, 0, -0.1971036, -0.88294554, 0, -0.67619306)
+
+[node name="TEM_Rock_Small_04A3" parent="." unique_id=1224858502 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.28768274, 0, 0.95772576, 0, 1, 0, -0.95772576, 0, 0.28768274, 1.3584952, 0, 1.1492463)
+
+[node name="TEM_Rock_Small_04A4" parent="." unique_id=860832397 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.85053486, 0, -0.5259187, 0, 1, 0, 0.5259187, 0, 0.85053486, -1.261693, 0, -0.7755367)
+
+[node name="TEM_Rock_Small_01A" parent="." unique_id=563153403 instance=ExtResource("5_4ig7x")]
+transform = Transform3D(0.9021908, 0, -0.43133712, 0, 1, 0, 0.43133712, 0, 0.9021908, 2.3953943, 0, 1.0871564)
+
+[node name="TEM_Rock_Small_02A" parent="." unique_id=892192500 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.8957186, 0, 0.44462138, 0, 1, 0, -0.44462138, 0, 0.8957186, 2.0907009, 0, -0.19909513)
+
+[node name="TEM_Rock_Small_01A2" parent="." unique_id=1992282958 instance=ExtResource("5_4ig7x")]
+transform = Transform3D(-0.9950291, 0, -0.099584855, 0, 1, 0, 0.099584855, 0, -0.9950291, -2.3777068, 0, -0.03252565)
+
+[node name="TEM_Rock_Small_02A2" parent="." unique_id=1842689924 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.8659739, 0, 0.5000892, 0, 1, 0, -0.5000892, 0, 0.8659739, -2.1676843, 0, 1.242093)
+
+[node name="TEM_Rock_Small_02A3" parent="." unique_id=235573504 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.87914205, 0, 0.47655982, 0, 1, 0, -0.47655982, 0, 0.87914205, -2.298043, 0, -1.0898799)

@@ -41,8 +41,7 @@ scenes/
   WheatField.tscn      Trigo com vento e reação a personagens e veículos
   SunflowersPatch.tscn Girassóis com vento e reação ao movimento
   SICSVegetationInstances.tscn Instâncias editáveis copiadas da vegetação Terrain3D
-  DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
-  Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
+  Dungeon/              Masmorra modular, conectores X/T/L/U/H e portal de volta
   interior_space_ship_room_1.tscn Teste isolado de caminhada com gravidade radial
   Portal/portal.tscn  Par visual de portais com renderização cruzada por SubViewport
 scripts/
@@ -64,8 +63,7 @@ scripts/
   debug_menu.gd        Alterna fontes de luz e atmosfera durante a partida
   smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
   photographer.gd      Visão, perseguição e captura de fotos do ET
-  dungeon_door.gd       Porta da masmorra: gera o layout uma vez e teleporta
-  dungeon.gd             Geração procedural da masmorra e portal de retorno
+  dungeon/              Geração modular, máscaras de conexão e porta da masmorra
   photo_alert_system.gd Contador global e redução das estrelas
   GlobalScore.gd       Pontuação e inventário globais
   audio/               Passos, ambiente rural e som sintetizado da espingarda
@@ -97,7 +95,7 @@ README.md              Visão geral, execução e arquitetura
 ## Executar
 
 Abra `project.godot` no Godot 4.7 e pressione `F5`. A cena inicial é
-`scenes/main_menu.tscn`; o botão de jogar carrega `scenes/world.tscn`.
+`scenes/Menu/main_menu.tscn`; o botão de jogar carrega `scenes/world.tscn`.
 
 Se o executável do Godot estiver disponível no `PATH`, também é possível usar
 o PowerShell:
@@ -281,19 +279,17 @@ pulo normal, até 1,5 m   nada
   em posições e intervalos variados ao redor da fazenda.
 - Os passos acompanham o movimento do ET, variam amostra e afinação e tentam
   distinguir terra, pedra e madeira pelo objeto sob o personagem.
-- Uma porta (`DungeonDoor.tscn`) na fazenda dá acesso a um porão de madeira
-  gerado proceduralmente num `GridMap`: salas retangulares sem sobreposição,
-  conectadas em sequência por corredores, com paredes de altura inteira nas
-  bordas de cada célula de chão e teto fechado sobre toda a área caminhável.
-  Piso, paredes e teto usam materiais de madeira em tons diferentes, e cada
-  sala recebe uma lâmpada quente presa ao teto. A masmorra é construída
-  apenas uma vez por sessão,
-  na primeira vez que a porta é tocada; os toques seguintes só teleportam
-  para o layout já existente. Dentro da masmorra, destroços coletáveis
-  (`spaceship_scraps.tscn`) aparecem em algumas das salas geradas e seguem o
-  mesmo fluxo de coleta e entrega do restante do jogo. Um portal de retorno
-  aparece na sala de entrada e teleporta o jogador de volta à posição da
-  porta na fazenda.
+- Uma porta (`scenes/Dungeon/DungeonDoor.tscn`) na fazenda dá acesso a uma
+  masmorra procedural plana. Um labirinto conexo é criado numa grade XZ e cada
+  célula instancia uma cena modular de 2 × 2 × 2 m. As máscaras usam Norte
+  `+Z`, Sul `-Z`, Leste `+X` e Oeste `-X`; o gerador escolhe e gira X, T, L, U
+  ou H para que toda abertura encontre uma abertura recíproca na célula
+  vizinha. Não há geração de caixas, `GridMap` nem variação de altura.
+  A masmorra é construída apenas uma vez por sessão, na primeira vez que a
+  porta é usada; as entradas seguintes reutilizam o layout. Destroços
+  coletáveis aparecem nos becos sem saída mais distantes e seguem o mesmo
+  fluxo de coleta e entrega do restante do jogo. O portal de retorno permanece
+  na célula de entrada e teleporta o jogador de volta à porta da fazenda.
 - `interior_space_ship_room_1.tscn` é uma cena de teste isolada: uma `Area3D`
   aplica gravidade constante em direção ao centro da esfera, enquanto o
   jogador adapta seu eixo vertical, movimento, salto, câmera e animações à
@@ -573,8 +569,9 @@ pode ser ligada ou desligada com `set_interference_enabled()`.
   atravessar geometria fina se o ragdoll escorregar para dentro dela; ao
   levantar não há verificação de espaço livre acima da cabeça.
 - A masmorra procedural não tem objetivo além de coletar os destroços que
-  aparecem nela; não há inimigos, iluminação atmosférica dedicada nem
-  variação visual entre salas além dos materiais reaproveitados da fazenda.
+  aparecem nela; não há inimigos, iluminação atmosférica dedicada, salas
+  especiais nem variação vertical. A variedade atual vem das conexões e
+  rotações dos cinco módulos de corredor.
 
 ## Qualidade e validação
 

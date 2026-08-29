@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="9_animation"]
 [ext_resource type="Script" uid="uid://bttmbvxpmu3e6" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
 [ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
-[ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://Materiais/default.material" id="10_o4126"]
+[ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://PolygonTown/Models/Vehicles/extracted/default.material" id="10_o4126"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_p7iby"]

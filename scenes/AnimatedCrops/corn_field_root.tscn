@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="1_0pt5b"]
 [ext_resource type="Script" uid="uid://dmfjgy2ul0wbu" path="res://scripts/corn_field_root.gd" id="1_f342q"]
 [ext_resource type="Script" uid="uid://ddokxatimv323" path="res://scripts/fog_zone.gd" id="2_f342q"]
-[ext_resource type="ArrayMesh" uid="uid://bhy805ylytnv3" path="res://3dModelos/SM_Env_Plant_Corn_01.res" id="2_pn53a"]
+[ext_resource type="ArrayMesh" uid="uid://bhy805ylytnv3" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Plant_Corn_01.res" id="2_pn53a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fn4o"]
 size = Vector3(2.0783691, 2, 5.154663)
