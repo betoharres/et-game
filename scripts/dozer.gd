@@ -1,6 +1,6 @@
 extends Node3D
 
-
+# Keep files only while subscrition is active
 @onready var trackL : MeshInstance3D = $SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01_Track_l
 @onready var trackR : MeshInstance3D = $SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01/SM_Veh_Bulldozer_01_Track_r
 

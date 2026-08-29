@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bft6m1wdkcnij"]
 
-[ext_resource type="PackedScene" uid="uid://cjdswofehfhyg" path="res://3dModelos/SM_Veh_Car_Muscle_01.fbx" id="1_bjgt7"]
+[ext_resource type="PackedScene" uid="uid://cjdswofehfhyg" path="res://PolygonCity/FBX/SM_Veh_Car_Muscle_01.fbx" id="1_bjgt7"]
 [ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="2_vamu1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hh4ji"]

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dkmrtm8xjx3fq"]
 
-[ext_resource type="ArrayMesh" uid="uid://dooy1nc7yj84u" path="res://3dModelos/SM_Veh_SchoolBus_01.res" id="1_0o65d"]
+[ext_resource type="ArrayMesh" uid="uid://dooy1nc7yj84u" path="res://PolygonTown/FBX/SM_Veh_SchoolBus_01.res" id="1_0o65d"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_nwpnc"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_53t64"]

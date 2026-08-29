@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://fg3q7duj7t2r"]
 
-[ext_resource type="PackedScene" uid="uid://e1yla8d5yqrp" path="res://3dModelos/SM_Bld_Cafe_01.fbx" id="1_a6vgn"]
+[ext_resource type="PackedScene" uid="uid://e1yla8d5yqrp" path="res://PolygonCafe/FBX/SM_Bld_Cafe_01.fbx" id="1_a6vgn"]
 [ext_resource type="Material" uid="uid://cp2cq8hf6lxw5" path="res://Materiais/Cafe1.tres" id="2_de0wi"]
 [ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Materiais/Window_Glass_mat.tres" id="3_qifwr"]
 

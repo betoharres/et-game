@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bt7agmpqpyapt"]
 
-[ext_resource type="PackedScene" uid="uid://cx1ovle5o2phw" path="res://3dModelos/SM_Veh_QuadBike_01.fbx" id="1_3sbrf"]
+[ext_resource type="PackedScene" uid="uid://cx1ovle5o2phw" path="res://PolygonQuadbike/SM_Veh_QuadBike_01.fbx" id="1_3sbrf"]
 [ext_resource type="Material" uid="uid://440dsxswjpq4" path="res://Materiais/QuadBike.tres" id="2_3sbrf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3sbrf"]
