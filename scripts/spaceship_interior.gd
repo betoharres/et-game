@@ -5,8 +5,8 @@ extends Node3D
 
 const EXIT_SCENE_PATH : String = "res://scenes/world.tscn"
 
-@onready var descend_trigger : Area3D = $CentralHall/DescendPad/DescendTrigger
-@onready var descend_prompt : Label3D = $CentralHall/DescendPad/DescendPrompt
+@onready var descend_trigger : Area3D = $DescendPad/DescendTrigger
+@onready var descend_prompt : Label3D = $DescendPad/DescendPrompt
 
 var _characters_on_pad : Array[CharacterBody3D] = []
 

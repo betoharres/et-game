@@ -1,0 +1,40 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://bubfaqibysqev"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbon4"]
+resource_name = "Default-Skybox"
+sky_horizon_color = Color(0.5813013, 0.5896106, 0.60623425, 1)
+sky_curve = 0.11471069
+ground_bottom_color = Color(0.454902, 0.470588, 0.490196, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_kihif"]
+sky_material = SubResource("ProceduralSkyMaterial_hbon4")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_kihif")
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.972667, 0.96, 1)
+ambient_light_energy = 0.46
+tonemap_exposure = 1.35
+ssao_enabled = true
+ssao_radius = 6.33
+ssao_intensity = 2.32
+ssao_power = 0.3498869
+ssao_detail = 0.97
+ssao_horizon = 0.0
+ssao_sharpness = 1.0
+ssil_radius = 2.01
+ssil_intensity = 0.88
+ssil_sharpness = 0.64
+glow_intensity = 0.45
+glow_strength = 0.51
+glow_bloom = 0.11
+fog_enabled = true
+fog_light_color = Color(0.8346142, 0.83461434, 0.8346141, 1)
+fog_light_energy = 0.66
+fog_density = 0.005
+adjustment_enabled = true
+adjustment_brightness = 0.98
+adjustment_contrast = 0.8
+adjustment_saturation = 1.4

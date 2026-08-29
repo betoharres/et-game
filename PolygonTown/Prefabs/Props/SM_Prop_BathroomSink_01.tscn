@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddtjchbkdtfvn"]
+
+[ext_resource type="ArrayMesh" uid="uid://bug23coegcff" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BathroomSink_01.res" id="1_h68yg"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_al3l3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m8kib"]
+points = PackedVector3Array(-0.38541836, 0.39338297, -0.30087322, -0.32221976, 0.36418724, 0.18967855, -0.03053978, 0.62401646, -0.27402452, 0.38595176, 0.39655906, -0.30329826, 0.37892973, 0.2924807, -0.31311393, -0.30364525, 0.17545372, -0.31311393, -0.108537555, -0.6239458, -0.15698728, -0.36208698, 0.2924807, 0.018366516, -0.13496467, 0.37420416, 0.26618296, 0.027901947, 0.60447127, -0.13752918, -0.03053978, -0.6239458, 0.037882358, 0.32735908, 0.37298262, 0.19429767, 0.33996856, 0.27281332, 0.19395125, 0.10589972, -0.6239458, -0.020549655, 0.10589972, -0.6239458, -0.15698728, -0.010002106, 0.29504603, 0.2767492)
+
+[node name="SM_Prop_BathroomSink_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_h68yg")
+surface_material_override/0 = ExtResource("2_al3l3")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_m8kib")

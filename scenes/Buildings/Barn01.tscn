@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuhqg4r05ypho" path="res://scripts/barn_01.gd" id="1_gspiu"]
 [ext_resource type="PackedScene" uid="uid://bu2mr1puyrxlu" path="res://3dModelos/SM_Bld_Barn_01.fbx" id="1_j7ge2"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_cl8lt"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_cl8lt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_griqf"]
 size = Vector3(11.66531, 4.549764, 0.43188477)

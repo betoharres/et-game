@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://mbqcvcy8xecw"]
+
+[ext_resource type="ArrayMesh" uid="uid://d2pnoeto7yrw1" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BathroomRug_01.res" id="1_s1ex0"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gso4m"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gwdns"]
+points = PackedVector3Array(0.76608706, -0.013180211, -0.47220808, 0.7130772, 0.065901056, -0.419547, 0.7923442, -0.013180211, -0.44573823, -0.76294154, -0.013180211, -0.44573823, -0.60457253, 0.065901056, -0.41936123, 0.7923442, 0.065901056, 0.31845117, 0.84518886, -0.013180211, -0.36670017, -0.8418783, -0.013180211, -0.26119226, -0.8154559, 0.065901056, -0.34032318, 0.84518886, -0.013180211, 0.34482813, 0.7130772, 0.065901056, 0.4238662, 0.76608706, -0.013180211, 0.4501503, -0.8418783, -0.013180211, 0.3711123, -0.73651916, 0.065901056, 0.4238662, -0.4463687, 0.065901056, 0.45005745, -0.7890336, -0.013180211, 0.4766202)
+
+[node name="SM_Prop_BathroomRug_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_s1ex0")
+surface_material_override/0 = ExtResource("2_gso4m")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_gwdns")

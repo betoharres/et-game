@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://74xhe577xg1p"]
+
+[ext_resource type="ArrayMesh" uid="uid://btjxu3x8qiiml" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Book_Group_04.res" id="1_l8ktn"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_60roo"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kw2lh"]
+points = PackedVector3Array(-0.14856453, 0.06402471, -0.15732548, -0.15766735, -1.3877788e-17, -0.13166954, -0.14399727, 0.12855475, -0.15255512, -0.10244785, 0.06402471, -0.15732548, 0.14282055, -1.3877788e-17, -0.14643928, -0.14777161, -1.3877788e-17, 0.14412412, -0.16010956, 0.12906007, 0.13140318, 0.15982093, 0.12894638, -0.13347371, -0.09870524, 0.12816311, -0.15163775, 0.16391243, 0.06402471, -0.13683742, 0.15268458, -1.3877788e-17, 0.13430819, -0.14288718, -1.3877788e-17, 0.14907795, -0.14856453, 0.0691285, 0.15507147, 0.09879722, 0.12826419, 0.1495978, 0.14446984, 0.12879477, 0.15085155, -0.054206133, -1.3877788e-17, 0.14907795)
+
+[node name="SM_Prop_Book_Group_04" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_l8ktn")
+surface_material_override/0 = ExtResource("2_60roo")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_kw2lh")

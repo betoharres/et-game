@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://xiadm0my82od"]
+
+[ext_resource type="ArrayMesh" uid="uid://bvf400tdfg44u" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_InternalWall_Garage_Door_01.res" id="1_q4kld"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_2fo2p"]
+[ext_resource type="ArrayMesh" uid="uid://d0v3bcxi752qv" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_InternalWall_Garage_Door_02.res" id="3_2fo2p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nb0ko"]
+size = Vector3(0.7444396, 3.9427848, 0.2206723)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hj1qc"]
+size = Vector3(0.73642135, 3.9427848, 0.2206723)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gwyce"]
+size = Vector3(2.4999998, 0.60800695, 0.2206723)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xnycu"]
+size = Vector3(2.4999998, 1.0158987, 0.2206723)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h04co"]
+size = Vector3(1.0500414, 2.2724009, 0.23754597)
+
+[node name="SM_Bld_House_InternalWall_Garage_Door_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_q4kld")
+surface_material_override/0 = ExtResource("2_2fo2p")
+
+[node name="BoxCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1277797, 0.92860746, -0.090329506)
+shape = SubResource("BoxShape3D_nb0ko")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36821043, 0.92860746, -0.090329506)
+shape = SubResource("BoxShape3D_hj1qc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2499996, 2.5959964, -0.090329506)
+shape = SubResource("BoxShape3D_gwyce")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2499996, -0.5348356, -0.090329506)
+shape = SubResource("BoxShape3D_xnycu")
+
+[node name="SM_Bld_House_InternalWall_Garage_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7508223, 0.01190729, 0.070114106)
+gi_mode = 2
+mesh = ExtResource("3_2fo2p")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_2fo2p")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_House_InternalWall_Garage_Door_02"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_House_InternalWall_Garage_Door_02/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5250206, 1.1362004, -0.06464119)
+shape = SubResource("BoxShape3D_h04co")

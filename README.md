@@ -43,6 +43,8 @@ scenes/
   SICSVegetationInstances.tscn Instâncias editáveis copiadas da vegetação Terrain3D
   DungeonDoor.tscn      Porta na fazenda que dá acesso à masmorra
   Dungeon.tscn          Porão de madeira procedural (GridMap) e portal de volta
+  interior_space_ship_room_1.tscn Teste isolado de caminhada com gravidade radial
+  Portal/portal.tscn  Par visual de portais com renderização cruzada por SubViewport
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Presets de atmosfera, névoa híbrida e eventos alienígenas
@@ -79,6 +81,7 @@ tools/test_player_jump_stamina.gd Smoke test do impulso e consumo de stamina
 tools/test_player_reversal.gd Smoke test de freada e pivô em reversões bruscas
 tools/test_player_ragdoll.gd Smoke test do ragdoll e da recuperação
 tools/test_cinematic_camera.gd Smoke test do enquadramento e colisão da câmera
+tools/test_portal_teleportation.gd Smoke test da travessia, velocidade e recorte dos portais
 tools/test_player_debug_modes.gd Smoke test dos modos Deus e Voo
 tools/test_alien_interference.gd Smoke test do filtro alienígena dinâmico
 tools/test_atmosphere_presets.gd Smoke test dos presets de névoa e do evento ET
@@ -291,6 +294,16 @@ pulo normal, até 1,5 m   nada
   mesmo fluxo de coleta e entrega do restante do jogo. Um portal de retorno
   aparece na sala de entrada e teleporta o jogador de volta à posição da
   porta na fazenda.
+- `interior_space_ship_room_1.tscn` é uma cena de teste isolada: uma `Area3D`
+  aplica gravidade constante em direção ao centro da esfera, enquanto o
+  jogador adapta seu eixo vertical, movimento, salto, câmera e animações à
+  normal radial da superfície.
+- `Portal/portal.tscn` contém um par fechado de superfícies: cada portal exibe
+  em tempo real a vista da câmera posicionada no portal oposto. Personagens
+  que atravessam uma superfície reaparecem no outro portal, preservando a
+  posição relativa, a orientação e a velocidade. As câmeras internas usam um
+  frustum assimétrico alinhado à saída, fazendo o plano de corte coincidir com
+  o portal sem alterar a câmera principal do jogador.
 
 ## Controles
 

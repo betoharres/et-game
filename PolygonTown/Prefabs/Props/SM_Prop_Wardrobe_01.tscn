@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5hfqrpgkige1"]
+
+[ext_resource type="ArrayMesh" uid="uid://2ssa0voujk52" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01.res" id="1_umq7x"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mkonu"]
+[ext_resource type="ArrayMesh" uid="uid://bxoovfcsv4ph8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_01.res" id="3_mkonu"]
+[ext_resource type="ArrayMesh" uid="uid://cs86r2s1kw8e8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_02.res" id="4_40xlg"]
+[ext_resource type="ArrayMesh" uid="uid://c8d1er1lqtmwc" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_01.res" id="5_kr1pv"]
+[ext_resource type="ArrayMesh" uid="uid://bg4x0ri661itd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_02.res" id="6_idr52"]
+[ext_resource type="ArrayMesh" uid="uid://cc665in2f34ao" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_03.res" id="7_e80pn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_umq7x"]
+size = Vector3(1.234314, 1.9003906, 0.538208)
+
+[node name="SM_Prop_Wardrobe_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_umq7x")
+surface_material_override/0 = ExtResource("2_mkonu")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028381348, 0.9472656, -0.026306152)
+shape = SubResource("BoxShape3D_umq7x")
+
+[node name="SM_Prop_Wardrobe_01_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60097355, 0.13378994, 0.21569628)
+gi_mode = 2
+mesh = ExtResource("3_mkonu")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mkonu")
+
+[node name="SM_Prop_Wardrobe_01_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6009742, 0.8983316, 0.21569471)
+gi_mode = 2
+mesh = ExtResource("4_40xlg")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mkonu")
+
+[node name="SM_Prop_Wardrobe_01_Drawer_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30048674, 0.64117336, 0.21569471)
+gi_mode = 2
+mesh = ExtResource("5_kr1pv")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mkonu")
+
+[node name="SM_Prop_Wardrobe_01_Drawer_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30048674, 0.3909486, 0.21569471)
+gi_mode = 2
+mesh = ExtResource("6_idr52")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mkonu")
+
+[node name="SM_Prop_Wardrobe_01_Drawer_03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30048674, 0.13379039, 0.21569471)
+gi_mode = 2
+mesh = ExtResource("7_e80pn")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mkonu")

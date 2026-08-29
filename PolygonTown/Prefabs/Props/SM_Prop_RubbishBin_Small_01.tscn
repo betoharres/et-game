@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://vbsagpcg3pj1"]
+
+[ext_resource type="ArrayMesh" uid="uid://ds08led2nbmem" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_RubbishBin_Small_01.res" id="1_l664c"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_wy4wm"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sdyss"]
+points = PackedVector3Array(-0.1903539, 0.42238083, 0.003958255, -0.097405635, 0.42238083, -0.16496946, -0.08049918, 0.008596712, -0.13111919, -0.15151374, 0.049991027, 0.011983946, -0.08061089, 0.008172698, 0.13081586, -0.09755459, 0.42253983, 0.16469848, -0.09721944, 0.54852486, 0.0039259046, 0.08014938, 0.0076956833, -0.13150755, 0.0543056, 0.5476238, -0.08005254, 0.097093076, 0.42275184, -0.16542253, 0.080298334, 0.0073246714, 0.13123655, 0.09724206, 0.42296386, 0.1651839, 0.079553574, 0.48889795, 0.13845322, 0.046075806, 0.54878986, 0.08832502, 0.19004136, 0.42253983, -0.00445576, 0.15380791, 0.012200826, -0.0043910444)
+
+[node name="SM_Prop_RubbishBin_Small_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_l664c")
+surface_material_override/0 = ExtResource("2_wy4wm")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_sdyss")

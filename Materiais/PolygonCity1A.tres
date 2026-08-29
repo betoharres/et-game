@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cr62r3ush18xv"]
+
+[ext_resource type="Texture2D" uid="uid://b6katdfst6l0o" path="res://PolygonCity/Textures/PolygonCity_Texture_02_A.png" id="1_w7lb0"]
+[ext_resource type="Texture2D" uid="uid://bln8qsoockmnn" path="res://PolygonCity/Textures/Emissive_01.png" id="2_evfdv"]
+[ext_resource type="Texture2D" uid="uid://cc7jv2yy4sntk" path="res://PolygonCity/Textures/PolygonCity_Texture_Metallic.tga" id="3_dcmwg"]
+[ext_resource type="Texture2D" uid="uid://cwjyoln63mfvw" path="res://PolygonCity/Textures/PolygonCity_Texture_Normal.png" id="4_67i6q"]
+
+[resource]
+albedo_texture = ExtResource("1_w7lb0")
+metallic = 1.0
+metallic_texture = ExtResource("3_dcmwg")
+metallic_texture_channel = 4
+emission_enabled = true
+emission_texture = ExtResource("2_evfdv")
+normal_enabled = true
+normal_texture = ExtResource("4_67i6q")

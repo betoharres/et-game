@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bda41p5p7l6xs"]
+
+[ext_resource type="ArrayMesh" uid="uid://dran03cw2na2g" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_ExteriorWall_GroundFloor_01.res" id="1_233ng"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_x6jtd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vj67k"]
+size = Vector3(2.5, 3.9427848, 0.20000029)
+
+[node name="SM_Bld_House_ExteriorWall_GroundFloor_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_233ng")
+surface_material_override/0 = ExtResource("2_x6jtd")
+surface_material_override/1 = ExtResource("2_x6jtd")
+
+[node name="BoxCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.92860746, 0.1000008)
+shape = SubResource("BoxShape3D_vj67k")

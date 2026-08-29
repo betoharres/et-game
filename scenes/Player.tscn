@@ -36,7 +36,7 @@ radius = 0.22
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(1, 1.1122437, 0.9169922)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player", "players"]]
 script = ExtResource("1_p0vlq")
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]

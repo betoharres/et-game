@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cr8gr3tk4sdx3" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Textures/TEM_Atlas_Vegetation_1A.tga" id="1_p2ppn"]
 
 [resource]
-transparency = 1
+transparency = 4
 diffuse_mode = 3
 specular_mode = 1
 disable_fog = true

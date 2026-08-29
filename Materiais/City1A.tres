@@ -1,6 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://cr62r3ush18xv"]
-
-[ext_resource type="Texture2D" uid="uid://brwqdnoc7jiqs" path="res://Texturas/PolygonCity_Texture_01_A.png" id="1_bboot"]
-
-[resource]
-albedo_texture = ExtResource("1_bboot")

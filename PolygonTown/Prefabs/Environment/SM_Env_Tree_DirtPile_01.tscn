@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsfs43xhqvei"]
+
+[ext_resource type="ArrayMesh" uid="uid://jax553i0av8j" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_DirtPile_01.res" id="1_8cckq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_scbwx"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lshe3"]
+points = PackedVector3Array(0.07069194, -0.0088415025, -0.4954908, -0.31872427, -0.0088415025, -0.35371843, 0.066474795, 0.013067102, -0.4663595, 0.1320619, 0.12371662, -0.27846256, 0.4427958, -0.00885731, -0.24738917, -0.56686753, -0.0088415025, 0.018191278, -0.42503968, 0.13280569, 0.018191278, 0.10187626, 0.15262777, 0.073346496, 0.5490002, 0.026597958, -0.017154723, -0.07091397, 0.15062027, 0.04304999, 0.5668674, -0.00885731, 0.053634346, 0.4250396, -0.00885731, 0.39010096, -0.31872427, -0.0088415025, 0.39019805, -0.371771, 0.13280569, 0.10675043, 0.09710431, 0.12828487, 0.32455552, 0.12384963, -0.0088415025, 0.4965273)
+
+[node name="SM_Env_Tree_DirtPile_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_8cckq")
+surface_material_override/0 = ExtResource("2_scbwx")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_lshe3")

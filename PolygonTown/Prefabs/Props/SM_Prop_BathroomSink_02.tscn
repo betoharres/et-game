@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds5hjhiojqc6k"]
+
+[ext_resource type="ArrayMesh" uid="uid://cjua4s6i31sp0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BathroomSink_02.res" id="1_52g58"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_3kkf0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_52g58"]
+size = Vector3(0.9378662, 0.9735718, 0.63049316)
+
+[node name="SM_Prop_BathroomSink_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_52g58")
+surface_material_override/0 = ExtResource("2_3kkf0")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002746582, 0.48965454, -0.019836426)
+shape = SubResource("BoxShape3D_52g58")

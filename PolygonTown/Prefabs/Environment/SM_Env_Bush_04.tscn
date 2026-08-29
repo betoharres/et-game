@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://1xxjpe14vk5c"]
+
+[ext_resource type="ArrayMesh" uid="uid://bi1shnleij4ax" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Bush_04.res" id="1_y76er"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_l5f6g"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o6p7u"]
+points = PackedVector3Array(-0.03201562, 0.21110389, -0.70511615, -0.54680896, 0.013907231, -0.15676618, -0.71392363, 0.37009472, -0.38716412, -0.32561094, 0.5284003, -0.677258, 0.3512894, 0.34799364, -0.5652571, -0.009981692, 0.14488624, -0.65508527, -0.83081806, 0.32400793, 0.18165302, 0.44028366, 0.010309378, -0.023160934, -0.46053314, 0.010309378, 0.404518, -0.63723403, 0.7516386, 0.044068098, 0.19032705, 0.88544446, -0.17922324, 0.6308631, 0.6206596, -0.1380046, -0.5246319, 0.5276294, 0.5580218, 0.44228673, 0.41566753, 0.56427574, 0.058409452, 0.37035173, 0.7469169, 0.122222066, 0.70520914, 0.66675377)
+
+[node name="SM_Env_Bush_04" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_y76er")
+surface_material_override/0 = ExtResource("2_l5f6g")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_o6p7u")

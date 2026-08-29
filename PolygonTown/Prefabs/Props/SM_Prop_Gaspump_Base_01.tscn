@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bic8sregfw1xc"]
+
+[ext_resource type="ArrayMesh" uid="uid://jitsu2nlffh3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Gaspump_Base_01.res" id="1_fwp63"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rusv6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fwp63"]
+size = Vector3(4.704712, 0.17382813, 1.9707031)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rusv6"]
+size = Vector3(0.26763916, 1.277832, 0.24341583)
+
+[node name="SM_Prop_Gaspump_Base_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_fwp63")
+surface_material_override/0 = ExtResource("2_rusv6")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056762695, 0.078125, -0.0009765625)
+shape = SubResource("BoxShape3D_fwp63")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.139557, 0.6345215, 0.8891411)
+shape = SubResource("BoxShape3D_rusv6")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1010184, 0.6345215, -0.9834205)
+shape = SubResource("BoxShape3D_rusv6")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1449103, 0.6345215, -0.8942846)
+shape = SubResource("BoxShape3D_rusv6")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1141992, 0.6345215, 0.9791541)
+shape = SubResource("BoxShape3D_rusv6")
