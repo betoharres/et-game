@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgekmg1pnkfpj" path="res://scripts/cops_car.gd" id="1_ve12k"]
 [ext_resource type="PackedScene" uid="uid://b30wsy1qlus3u" path="res://PolygonCity/FBX/Veh/SM_Veh_Car_Police_01.fbx" id="2_k4pfu"]
-[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="3_10wgm"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="3_10wgm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdds8"]
 size = Vector3(1.9258448, 1.0543126, 5.247453)
