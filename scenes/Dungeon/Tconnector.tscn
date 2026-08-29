@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://chxchtev3uta0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8jihv"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pbb0e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ksby"]
+size = Vector3(0.1, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nf72h"]
+size = Vector3(0.1, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xdmfw"]
+size = Vector3(2, 2, 0.1)
+
+[node name="Tconnector" type="Node3D" unique_id=1460121400]
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=548817272]
+mesh = SubResource("PlaneMesh_8jihv")
+
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1800625722]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 2, 0)
+mesh = SubResource("PlaneMesh_pbb0e")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=757095583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1, 0.95)
+mesh = SubResource("BoxMesh_8ksby")
+
+[node name="Wall2" type="MeshInstance3D" parent="." unique_id=798534269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1, 0.95)
+mesh = SubResource("BoxMesh_nf72h")
+
+[node name="Wall3" type="MeshInstance3D" parent="." unique_id=1352784844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.95)
+mesh = SubResource("BoxMesh_xdmfw")

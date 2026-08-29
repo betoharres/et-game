@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp7cwp8x14let"]
+
+[ext_resource type="ArrayMesh" uid="uid://d1k5w6nou71a1" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Window_Curtains_Closed_01.res" id="1_wk3er"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_bi7j8"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wndtj"]
+points = PackedVector3Array(0.49023318, 2.3012452, -0.18932295, 0.5250829, 2.2662647, -0.050430596, 1.9833864, 2.3012452, -0.050430596, 0.55978304, 2.3012452, -0.25880483, 0.5250829, 0.25277424, -0.29352197, 0.5250829, 0.25277424, -0.18932295, 0.7684326, 0.18344526, -0.11993626, 1.6013857, 0.14846468, -0.08517152, 2.0182362, 2.3012452, -0.11988866, 2.0182362, 0.21800438, -0.18932295, 1.9833864, 2.3012452, -0.25880483, 0.5944832, 1.9539682, -0.29352197, 1.8445858, 0.18344526, -0.29352197, 1.0114832, 0.14846468, -0.25880483, 2.0182362, 0.21800438, -0.29352197, 1.9485366, 1.5717105, -0.29352197)
+
+[node name="SM_Bld_House_Window_Curtains_Closed_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_wk3er")
+surface_material_override/0 = ExtResource("2_bi7j8")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_wndtj")

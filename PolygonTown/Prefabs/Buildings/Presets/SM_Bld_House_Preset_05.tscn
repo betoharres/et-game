@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxfnhrbummeky"]
+
+[ext_resource type="ArrayMesh" uid="uid://c7irjwvw7topa" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_05.res" id="1_ypp87"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0yur2"]
+[ext_resource type="Material" uid="uid://d3l5ij48pohbn" path="res://Assets/PolygonTown/Materials/Misc/Window_Glass_Opaque_mat.tres" id="3_hn0iy"]
+[ext_resource type="Shape3D" uid="uid://c13l551eal2cb" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Preset_05_COLLISION.res" id="4_0yur2"]
+
+[node name="SM_Bld_House_Preset_05" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_ypp87")
+surface_material_override/0 = ExtResource("2_0yur2")
+surface_material_override/1 = ExtResource("2_0yur2")
+surface_material_override/2 = ExtResource("3_hn0iy")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = ExtResource("4_0yur2")

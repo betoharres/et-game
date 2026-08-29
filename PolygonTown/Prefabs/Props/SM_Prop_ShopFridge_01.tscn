@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://camjcjmm4k8mb"]
+
+[ext_resource type="ArrayMesh" uid="uid://bkeabyw4y62yk" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_01.res" id="1_d0c5v"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ehx0n"]
+[ext_resource type="ArrayMesh" uid="uid://fw57sylxvkvh" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_01_Door_01.res" id="3_ehx0n"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://Assets/PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_f532g"]
+[ext_resource type="ArrayMesh" uid="uid://cb54syivf7xkj" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_01_Door_02.res" id="5_tp458"]
+[ext_resource type="ArrayMesh" uid="uid://dc7qeud70e3b3" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_01_Door_03.res" id="6_f532g"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gg20k"]
+points = PackedVector3Array(1.8898301, 2.2790163, -0.527605, 1.8800361, 2.214113, 0.47389644, 2.0010886, -0.031266928, 0.5040572, 1.8898301, 0.03454086, -0.527605, -1.8902194, 2.2790163, -0.527605, 1.8416443, 2.1351888, 0.52192646, -1.8804256, 2.214113, 0.47389644, 1.8616238, 0.1679656, 0.52750415, -2.0010862, -0.031266928, 0.5040572, -1.8902194, 0.03454086, -0.527605, -1.8420335, 2.1351888, 0.52192646, -1.862013, 0.1679656, 0.52750415)
+
+[node name="SM_Prop_ShopFridge_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_d0c5v")
+surface_material_override/0 = ExtResource("2_ehx0n")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_gg20k")
+
+[node name="SM_Prop_ShopFridge_01_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8304675, 0.30799076, 0.5014392)
+gi_mode = 2
+mesh = ExtResource("3_ehx0n")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_f532g")
+surface_material_override/1 = ExtResource("2_ehx0n")
+
+[node name="SM_Prop_ShopFridge_01_Door_02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.583385, 0.30799076, 0.5014392)
+gi_mode = 2
+mesh = ExtResource("5_tp458")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_f532g")
+surface_material_override/1 = ExtResource("2_ehx0n")
+
+[node name="SM_Prop_ShopFridge_01_Door_03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64486206, 0.30799076, 0.5014392)
+gi_mode = 2
+mesh = ExtResource("6_f532g")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_f532g")
+surface_material_override/1 = ExtResource("2_ehx0n")

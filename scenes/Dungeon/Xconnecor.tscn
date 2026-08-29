@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c4nnidhmlceo7"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_emb0l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7kp1o"]
+size = Vector3(0.1, 2, 0.1)
+
+[node name="Xconnecor" type="Node3D" unique_id=1770585276]
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=712845393]
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1358775006]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 2, 0)
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=1094726180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1, 0.95)
+mesh = SubResource("BoxMesh_7kp1o")
+
+[node name="Wall2" type="MeshInstance3D" parent="." unique_id=1551862910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1, 0.95)
+mesh = SubResource("BoxMesh_7kp1o")
+
+[node name="Wall3" type="MeshInstance3D" parent="." unique_id=2036111033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1, -0.95)
+mesh = SubResource("BoxMesh_7kp1o")
+
+[node name="Wall4" type="MeshInstance3D" parent="." unique_id=502752986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1, -0.95)
+mesh = SubResource("BoxMesh_7kp1o")

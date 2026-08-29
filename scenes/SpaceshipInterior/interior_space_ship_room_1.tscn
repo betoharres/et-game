@@ -1,8 +1,35 @@
 [gd_scene format=3 uid="uid://bixo4kcrc64uu"]
 
+[ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="1_bykrk"]
+
 [sub_resource type="SphereMesh" id="SphereMesh_emb0l"]
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e5okt"]
+radius = 100.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_emb0l"]
+radius = 600.0
 
 [node name="InteriorSpaceShipRoom1" type="Node3D" unique_id=1674949823]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1197941778]
+[node name="SphereMesh" type="MeshInstance3D" parent="." unique_id=1197941778]
 mesh = SubResource("SphereMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SphereMesh" unique_id=1310219257]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SphereMesh/StaticBody3D" unique_id=208746413]
+shape = SubResource("SphereShape3D_e5okt")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1555114099]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=65405639]
+shape = SubResource("SphereShape3D_emb0l")
+
+[node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("1_bykrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.053285122, 101.84733, -0.045230865)

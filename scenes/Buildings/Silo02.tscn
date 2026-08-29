@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx1ao3wlr47dc"]
 
 [ext_resource type="ArrayMesh" uid="uid://dctpd77fdd1ft" path="res://3dModelos/SM_Bld_Silo_02.fbx" id="1_seu31"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_x6dlb"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_x6dlb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_x6dlb"]
 height = 18.59276

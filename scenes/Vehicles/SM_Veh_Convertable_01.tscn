@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dywbetky8hvxx"]
 
-[ext_resource type="ArrayMesh" uid="uid://mw4c8v0q1boj" path="res://3dModelos/SM_Veh_Convertable_01.res" id="1_wfmmt"]
+[ext_resource type="ArrayMesh" uid="uid://mw4c8v0q1boj" path="res://PolygonTown/FBX/SM_Veh_Convertable_01.res" id="1_wfmmt"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="2_reo8i"]
-[ext_resource type="ArrayMesh" uid="uid://dxv7lkdbuorrh" path="res://3dModelos/SM_Veh_Convertable_Glass.res" id="3_glvvf"]
-[ext_resource type="ArrayMesh" uid="uid://cp4mnpxu3vg2p" path="res://3dModelos/SM_Veh_Convertable_SteeringW.res" id="4_reo8i"]
-[ext_resource type="ArrayMesh" uid="uid://bvfe1u5s3v7lt" path="res://3dModelos/SM_Veh_Convertable_Wheel_fl.res" id="5_ovif8"]
-[ext_resource type="ArrayMesh" uid="uid://jbleibauyicx" path="res://3dModelos/SM_Veh_Convertable_Wheel_fr.res" id="6_x4b4h"]
-[ext_resource type="ArrayMesh" uid="uid://bmiesk8m3ox2k" path="res://3dModelos/SM_Veh_Convertable_Wheel_rl.res" id="7_n7p64"]
-[ext_resource type="ArrayMesh" uid="uid://ccj5iofig0vmg" path="res://3dModelos/SM_Veh_Convertable_Wheel_rr.res" id="8_84m58"]
+[ext_resource type="ArrayMesh" uid="uid://dxv7lkdbuorrh" path="res://PolygonTown/FBX/SM_Veh_Convertable_Glass.res" id="3_glvvf"]
+[ext_resource type="ArrayMesh" uid="uid://cp4mnpxu3vg2p" path="res://PolygonTown/FBX/SM_Veh_Convertable_SteeringW.res" id="4_reo8i"]
+[ext_resource type="ArrayMesh" uid="uid://bvfe1u5s3v7lt" path="res://PolygonTown/FBX/SM_Veh_Convertable_Wheel_fl.res" id="5_ovif8"]
+[ext_resource type="ArrayMesh" uid="uid://jbleibauyicx" path="res://PolygonTown/FBX/SM_Veh_Convertable_Wheel_fr.res" id="6_x4b4h"]
+[ext_resource type="ArrayMesh" uid="uid://bmiesk8m3ox2k" path="res://PolygonTown/FBX/SM_Veh_Convertable_Wheel_rl.res" id="7_n7p64"]
+[ext_resource type="ArrayMesh" uid="uid://ccj5iofig0vmg" path="res://PolygonTown/FBX/SM_Veh_Convertable_Wheel_rr.res" id="8_84m58"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv2jx"]
 size = Vector3(2.1135793, 0.97652704, 5.1057415)

@@ -18,11 +18,12 @@
 - Não introduza multiplayer, backend, persistência ou uma arquitetura de
   servidor sem solicitação explícita.
 - Faça a menor alteração necessária e evite reorganizações sem benefício claro.
-- Mantenha compatibilidade com Godot 4.7 e com o preset Windows existente.
+- Mantenha compatibilidade com Godot 4.7, Godot 4.8 e com o preset Windows existente.
 
 ## Godot
 
 - Prefira recursos nativos do Godot e GDScript tipado.
+- Sempre use vars, funções e retornos com tipos explícitos (var x: int = 0; func foo(delta: float) -> void:).
 - Use ações do Input Map em vez de adicionar teclas hard-coded. Ao criar uma
   nova ação, registre-a em `project.godot`, documente o controle no README e
   adicione-a ao menu de controles do ESC (`REBIND_ACTIONS`/`REBIND_LABELS` e

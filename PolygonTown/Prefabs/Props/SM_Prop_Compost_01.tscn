@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxxtkn1dicb15"]
+
+[ext_resource type="ArrayMesh" uid="uid://81f67pg1wa45" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Compost_01.res" id="1_lcw3h"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_d5l62"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lcw3h"]
+size = Vector3(0.81695557, 1.100647, 0.8110962)
+
+[node name="SM_Prop_Compost_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_lcw3h")
+surface_material_override/0 = ExtResource("2_d5l62")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0030822754, 0.54745483, 0.005706787)
+shape = SubResource("BoxShape3D_lcw3h")

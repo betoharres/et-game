@@ -38,6 +38,8 @@ extends Node3D
 
 var _target_position : Vector3
 var _target_yaw : float = 0.0
+var _target_basis : Basis = Basis.IDENTITY
+var _target_up_direction : Vector3 = Vector3.UP
 var _target_pitch : float = 0.0
 var _target_crouch_drop : float = 0.0
 var _target_speed : float = 0.0
@@ -67,7 +69,7 @@ var _fov_offset_target : float = 0.0
 
 var binos_active : bool = false
 var current_fov : float = 60.0
-var _xray_overrides : Dictionary = {}
+var _xray_states : Array[Dictionary] = []
 
 func _ready() -> void:
 	top_level = true
@@ -79,6 +81,8 @@ func _ready() -> void:
 
 	_target_position = global_position
 	_target_yaw = global_rotation.y
+	_target_basis = global_basis.orthonormalized()
+	_target_up_direction = _target_basis.y.normalized()
 	_target_pitch = pitch_pivot.rotation.x
 
 	## XRAY Stuff
@@ -108,10 +112,17 @@ func set_target_pose(
 	crouch_drop : float,
 	horizontal_speed : float,
 	grounded : bool,
-	snap : bool = false
+	snap : bool = false,
+	up_direction_in : Vector3 = Vector3.UP
 ) -> void:
 	_target_position = position_in
 	_target_yaw = yaw
+	_target_up_direction = (
+		up_direction_in.normalized()
+		if up_direction_in.length_squared() > 0.0001
+		else Vector3.UP
+	)
+	_target_basis = _basis_for_yaw(_target_yaw, _target_up_direction)
 	_target_pitch = pitch
 	_target_crouch_drop = crouch_drop
 	_target_speed = horizontal_speed
@@ -155,7 +166,10 @@ func _process(delta : float) -> void:
 			_target_position + follow_offset.normalized() * maximum_follow_lag
 		)
 
-	rotation.y = lerp_angle(rotation.y, _target_yaw, rotation_weight)
+	global_basis = global_basis.orthonormalized().slerp(
+		_target_basis,
+		rotation_weight
+	).orthonormalized()
 	pitch_pivot.rotation.x = lerp_angle(
 		pitch_pivot.rotation.x,
 		_target_pitch,
@@ -167,7 +181,7 @@ func _process(delta : float) -> void:
 
 func _snap_to_target() -> void:
 	global_position = _target_position
-	rotation = Vector3(0.0, _target_yaw, 0.0)
+	global_basis = _target_basis
 	pitch_pivot.rotation.x = _target_pitch
 
 
@@ -195,7 +209,12 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 		0.0
 	)
 
-	var yaw_lag : float = wrapf(_target_yaw - rotation.y, -PI, PI)
+	var current_forward : Vector3 = -global_basis.z
+	var target_forward : Vector3 = -_target_basis.z
+	var yaw_lag : float = current_forward.signed_angle_to(
+		target_forward,
+		_target_up_direction
+	)
 	var parallax : float = clampf(
 		yaw_lag * turn_parallax_amount,
 		-turn_parallax_amount,
@@ -217,6 +236,7 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 	)
 
 
+<<<<<<< HEAD
 ## Impact response
 ##
 ## Used by scripted moments (the fase arrival, hard landings) to punch the
@@ -275,6 +295,16 @@ func _update_impact(delta : float) -> void:
 	camera.rotation.z += (
 		deg_to_rad(shake_rotation_degrees) * falloff * sin(_shake_phase * TAU * 0.77)
 	)
+=======
+func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
+	var reference_forward : Vector3 = Vector3.FORWARD.slide(up)
+	if reference_forward.length_squared() <= 0.0001:
+		reference_forward = Vector3.UP.slide(up)
+	reference_forward = reference_forward.normalized()
+
+	var forward : Vector3 = reference_forward.rotated(up, yaw).normalized()
+	return Basis.looking_at(forward, up).orthonormalized()
+>>>>>>> 61bb5fdeb041f7c11a1ef641457374fe00485b7c
 
 
 ## XRAY Stuff
@@ -357,15 +387,56 @@ func _apply_xray_materials() -> void:
 		var geometry : GeometryInstance3D = node as GeometryInstance3D
 		if geometry == null:
 			continue
-		_xray_overrides[geometry] = geometry.material_override
+
+		var state : Dictionary = {
+			"geometry": weakref(geometry),
+			"material_override": geometry.material_override,
+			"surface_overrides": [],
+		}
+		if geometry is MeshInstance3D:
+			var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
+			var surface_overrides : Array[Material] = []
+			if mesh_instance.mesh != null:
+				for surface_index : int in range(mesh_instance.mesh.get_surface_count()):
+					surface_overrides.append(
+						mesh_instance.get_surface_override_material(surface_index)
+					)
+					mesh_instance.set_surface_override_material(
+						surface_index,
+						xray_material
+					)
+			state["surface_overrides"] = surface_overrides
+
+		_xray_states.append(state)
 		geometry.material_override = xray_material
 
 
 func _restore_materials() -> void:
-	for geometry : GeometryInstance3D in _xray_overrides:
-		if not is_instance_valid(geometry):
+	for state : Dictionary in _xray_states:
+		var geometry_reference : WeakRef = state["geometry"] as WeakRef
+		var geometry : GeometryInstance3D = (
+			geometry_reference.get_ref() as GeometryInstance3D
+		)
+		if geometry == null:
 			continue
 
-		var original_override : Material = _xray_overrides[geometry]
+		if geometry is MeshInstance3D:
+			var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
+			var surface_overrides : Array = state["surface_overrides"]
+			var surface_count : int = 0
+			if mesh_instance.mesh != null:
+				surface_count = mini(
+					surface_overrides.size(),
+					mesh_instance.mesh.get_surface_count()
+				)
+			for surface_index : int in range(surface_count):
+				var original_surface_override : Material = surface_overrides[surface_index]
+				mesh_instance.set_surface_override_material(
+					surface_index,
+					original_surface_override
+				)
+
+		var original_override : Material = state["material_override"] as Material
 		geometry.material_override = original_override
-	_xray_overrides.clear()
+
+	_xray_states.clear()

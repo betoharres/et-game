@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dhda4h8ibnu7j" path="res://scripts/dungeon_door.gd" id="1_door"]
 [ext_resource type="PackedScene" uid="uid://c646tj0i371e0" path="res://scenes/SICS Columns/tem_broken_pillar_01a.tscn" id="2_twkbo"]
-[ext_resource type="ArrayMesh" uid="uid://cwyid5idue345" path="res://3dModelos/SM_Generic_Small_Rocks_01.fbx" id="3_ud3ly"]
-[ext_resource type="Material" uid="uid://s85g563cqhp3" path="res://Materiais/PolygonConstruction1.tres" id="4_8hhl8"]
-[ext_resource type="ArrayMesh" uid="uid://bcgw5jsjiysl2" path="res://3dModelos/SM_Generic_Small_Rocks_02.fbx" id="5_58ie1"]
+[ext_resource type="PackedScene" uid="uid://6fgd6u7ytn41" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="3_mhc1s"]
+[ext_resource type="PackedScene" uid="uid://b2b0m73pe2msr" path="res://scenes/SICS Rocks/tem_rock_small_04a.tscn" id="4_jclrx"]
+[ext_resource type="PackedScene" uid="uid://cohe7jqrl2tg3" path="res://scenes/SICS Rocks/tem_rock_small_01a.tscn" id="5_4ig7x"]
+[ext_resource type="PackedScene" uid="uid://boloit6cip0ik" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="6_tqb7l"]
 
 [sub_resource type="BoxShape3D" id="Shape_DoorTrigger"]
 size = Vector3(3, 3, 3)
@@ -63,20 +64,41 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1
 layers = 4
 mesh = SubResource("QuadMesh_ec6vt")
 
-[node name="SmGenericSmallRocks01" type="MeshInstance3D" parent="." unique_id=17059829]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2280931, 0, 0.4006148)
-layers = 128
-mesh = ExtResource("3_ud3ly")
-surface_material_override/0 = ExtResource("4_8hhl8")
+[node name="TEM_Rock_Small_03A" parent="." unique_id=2118840381 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4328613, 0, 0.4564209)
 
-[node name="SmGenericSmallRocks02" type="MeshInstance3D" parent="." unique_id=40046360]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1204925, 0, 0.9000878)
-layers = 128
-mesh = ExtResource("5_58ie1")
-surface_material_override/0 = ExtResource("4_8hhl8")
+[node name="TEM_Rock_Small_04A" parent="." unique_id=566431628 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.49426296, 0, 0.86931247, 0, 1, 0, -0.86931247, 0, 0.49426296, -1.4269118, 0, 1.2974979)
 
-[node name="SmGenericSmallRocks03" type="MeshInstance3D" parent="." unique_id=29360199]
-transform = Transform3D(0.7097982, 0, 0.70440507, 0, 1, 0, -0.70440507, 0, 0.7097982, 0.46161368, 0, -0.9383979)
-layers = 128
-mesh = ExtResource("5_58ie1")
-surface_material_override/0 = ExtResource("4_8hhl8")
+[node name="TEM_Rock_Small_04A2" parent="." unique_id=1818093856 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.42371672, 0, -0.90579474, 0, 1, 0, 0.90579474, 0, 0.42371672, -1.0701294, 0, 0.6801758)
+
+[node name="TEM_Rock_Small_03A2" parent="." unique_id=567293381 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(0.6047451, 0, 0.7964191, 0, 1, 0, -0.7964191, 0, 0.6047451, 1.0020866, 0, 0.44864833)
+
+[node name="TEM_Rock_Small_03A3" parent="." unique_id=861139110 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(-0.080631055, 0, -0.99674404, 0, 1, 0, 0.99674404, 0, -0.080631055, 1.2743983, 0, -0.810457)
+
+[node name="TEM_Rock_Small_03A4" parent="." unique_id=21234781 instance=ExtResource("3_mhc1s")]
+transform = Transform3D(-0.1971036, 0, 0.9803827, 0, 1, 0, -0.9803827, 0, -0.1971036, -0.88294554, 0, -0.67619306)
+
+[node name="TEM_Rock_Small_04A3" parent="." unique_id=1224858502 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.28768274, 0, 0.95772576, 0, 1, 0, -0.95772576, 0, 0.28768274, 1.3584952, 0, 1.1492463)
+
+[node name="TEM_Rock_Small_04A4" parent="." unique_id=860832397 instance=ExtResource("4_jclrx")]
+transform = Transform3D(0.85053486, 0, -0.5259187, 0, 1, 0, 0.5259187, 0, 0.85053486, -1.261693, 0, -0.7755367)
+
+[node name="TEM_Rock_Small_01A" parent="." unique_id=563153403 instance=ExtResource("5_4ig7x")]
+transform = Transform3D(0.9021908, 0, -0.43133712, 0, 1, 0, 0.43133712, 0, 0.9021908, 2.3953943, 0, 1.0871564)
+
+[node name="TEM_Rock_Small_02A" parent="." unique_id=892192500 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.8957186, 0, 0.44462138, 0, 1, 0, -0.44462138, 0, 0.8957186, 2.0907009, 0, -0.19909513)
+
+[node name="TEM_Rock_Small_01A2" parent="." unique_id=1992282958 instance=ExtResource("5_4ig7x")]
+transform = Transform3D(-0.9950291, 0, -0.099584855, 0, 1, 0, 0.099584855, 0, -0.9950291, -2.3777068, 0, -0.03252565)
+
+[node name="TEM_Rock_Small_02A2" parent="." unique_id=1842689924 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.8659739, 0, 0.5000892, 0, 1, 0, -0.5000892, 0, 0.8659739, -2.1676843, 0, 1.242093)
+
+[node name="TEM_Rock_Small_02A3" parent="." unique_id=235573504 instance=ExtResource("6_tqb7l")]
+transform = Transform3D(0.87914205, 0, 0.47655982, 0, 1, 0, -0.47655982, 0, 0.87914205, -2.298043, 0, -1.0898799)

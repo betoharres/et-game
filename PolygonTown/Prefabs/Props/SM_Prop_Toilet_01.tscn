@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxa7kca3d2nv2"]
+
+[ext_resource type="ArrayMesh" uid="uid://bdx723o2dsp7r" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01.res" id="1_kruv1"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qn8nt"]
+[ext_resource type="ArrayMesh" uid="uid://ck7irtisfphxr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01_Lid.res" id="3_qn8nt"]
+[ext_resource type="ArrayMesh" uid="uid://c7sm5pc75rgww" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01_Seat.res" id="4_sfd1e"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g4gw8"]
+points = PackedVector3Array(0.030489713, 0.48226476, 0.44251642, 0.25944117, 1.0214846, -0.12967888, -0.0021467805, 0.48226476, 0.44251642, 0.1491318, 0.030630328, 0.16747954, 0.22670549, 0.48226476, 0.26257703, 0.23523661, 1.0211823, -0.3944601, -0.2472677, 1.0214846, -0.12967888, 0.21559519, 0.5439475, -0.34716564, -0.2146312, 0.48226476, 0.26257703, -0.13586713, 0.03919737, 0.16451308, -0.11652331, -0.0081733465, -0.09687787, 0.11391613, 0.05048571, -0.085944206, 0.029299319, 1.0179571, -0.42336228, 0.059604645, 0.12900016, -0.369372, -0.2472677, 0.97250134, -0.40742794, -0.21076244, 0.559469, -0.3564889)
+
+[node name="SM_Prop_Toilet_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_kruv1")
+surface_material_override/0 = ExtResource("2_qn8nt")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_g4gw8")
+
+[node name="SM_Prop_Toilet_01_Lid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007525661, 0.52527446, -0.08876669)
+gi_mode = 2
+mesh = ExtResource("3_qn8nt")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_qn8nt")
+
+[node name="SM_Prop_Toilet_01_Seat" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007525661, 0.49988905, -0.098251656)
+gi_mode = 2
+mesh = ExtResource("4_sfd1e")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_qn8nt")

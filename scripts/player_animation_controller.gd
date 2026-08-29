@@ -138,8 +138,6 @@ func set_motion_state(world_velocity : Vector3, on_floor : bool,
 	is_sprinting : bool, is_crouching : bool, jump_state : int) -> void:
 	_previous_horizontal_speed = _horizontal_speed
 	_previous_sprinting = _is_sprinting
-	_horizontal_speed = Vector2(world_velocity.x, world_velocity.z).length()
-	_vertical_velocity = world_velocity.y
 	_on_floor = on_floor
 	_is_sprinting = is_sprinting
 	_is_crouching = is_crouching
@@ -151,6 +149,9 @@ func set_motion_state(world_velocity : Vector3, on_floor : bool,
 		)
 	else:
 		_local_velocity = world_velocity
+
+	_horizontal_speed = Vector2(_local_velocity.x, _local_velocity.z).length()
+	_vertical_velocity = _local_velocity.y
 
 
 func trigger_turn(turn_delta : float) -> void:

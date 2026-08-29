@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://b738lhysiw784"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsbjhqmtbbe47" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_03.res" id="1_8nivn"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_77j1d"]
+[ext_resource type="ArrayMesh" uid="uid://dd5p4i22kicih" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_03_Door_01.res" id="3_77j1d"]
+[ext_resource type="ArrayMesh" uid="uid://k1en4dolw8g8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_03_Flag.res" id="4_c2en7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgubu"]
+points = PackedVector3Array(-0.10479843, 0.00061551394, -0.20978011, 0.10479843, 0.0008192251, -0.20945156, -0.10479843, 0.00061551394, 0.20978008, -0.10176198, 0.20806983, -0.20370191, -0.07088461, 0.26075462, -0.20645353, 0.071028225, 0.26075462, -0.20645353, 0.10180301, 0.20796797, -0.2034555, 0.10479843, 0.0008192251, 0.20941047, 0.071028225, 0.26075462, 0.20641245, -0.07088461, 0.26075462, 0.20641245, -0.10176198, 0.20806983, 0.20366083, -0.076813884, 0.2534465, -0.20509826, 0.07687544, 0.25331917, -0.20485184, 0.10180301, 0.20796797, 0.20341443, 0.07687544, 0.25331917, 0.20481075, -0.076813884, 0.2534465, 0.20505716)
+
+[node name="SM_Prop_LetterBox_03" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_8nivn")
+surface_material_override/0 = ExtResource("2_77j1d")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_kgubu")
+
+[node name="SM_Prop_LetterBox_03_Door_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6293944e-08, -0.0040735626, 0.21279125)
+gi_mode = 2
+mesh = ExtResource("3_77j1d")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_77j1d")
+
+[node name="MeshRenderer" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11589801, 0.13106272, 0.015331396)
+gi_mode = 2
+mesh = ExtResource("4_c2en7")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_77j1d")

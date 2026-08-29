@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://mo41gw2rd6w7"]
 
-[ext_resource type="ArrayMesh" uid="uid://cscen4d15brtx" path="res://3dModelos/SM_Generic_Tree_01.res" id="1_polq3"]
-[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="2_nhamm"]
+[ext_resource type="ArrayMesh" uid="uid://cscen4d15brtx" path="res://PolygonTown/Models/Generic/extracted/SM_Generic_Tree_01.res" id="1_polq3"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="2_nhamm"]
 
 [node name="Tree1" type="Node3D" unique_id=1747667852]
 

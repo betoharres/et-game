@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjr04o2k0u5j8"]
+
+[ext_resource type="ArrayMesh" uid="uid://cymitxq7spjvr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Bed_Single_03.res" id="1_deayq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_5dyr2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deayq"]
+size = Vector3(1.4133301, 1.2629395, 0.21459961)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5dyr2"]
+size = Vector3(1.4140015, 0.9152832, 2.4101563)
+
+[node name="SM_Prop_Bed_Single_03" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_deayq")
+surface_material_override/0 = ExtResource("2_5dyr2")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0059814453, 0.6287842, -1.2081299)
+shape = SubResource("BoxShape3D_deayq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1552734e-05, 0.44909668, 0.07519531)
+shape = SubResource("BoxShape3D_5dyr2")

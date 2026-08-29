@@ -3,11 +3,22 @@
 [ext_resource type="PackedScene" uid="uid://y63e1ykg817f" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Tree_06A.fbx" id="1_nxt1o"]
 [ext_resource type="Material" uid="uid://b44p7ahr7372s" path="res://Materiais/SICS_TEM_Trees.tres" id="2_c3b3i"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_om61y"]
+height = 2.2296612
+radius = 0.19091797
+
 [node name="TEM_Tree_06A" unique_id=1706607209 instance=ExtResource("1_nxt1o")]
 
 [node name="TEM_Tree_06A_LOD0" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(2059577702) index="0" unique_id=1945294234]
 layers = 2
 surface_material_override/0 = ExtResource("2_c3b3i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TEM_Tree_06A/TEM_Tree_06A_LOD0" index="0" unique_id=2016442691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.053411484, 3.1208832, -0.14176846)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TEM_Tree_06A/TEM_Tree_06A_LOD0/StaticBody3D" index="0" unique_id=183284050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.171349, 0.13830972)
+shape = SubResource("CylinderShape3D_om61y")
 
 [node name="TEM_Tree_06A_LOD1" parent="TEM_Tree_06A" parent_id_path=PackedInt32Array(2059577702) index="1" unique_id=1489220691]
 visible = false

@@ -4,9 +4,20 @@
 [ext_resource type="Material" uid="uid://lvoqa3g1761n" path="res://3dModelos/SICS Trees/trunk1a.tres" id="2_qpe8v"]
 [ext_resource type="Material" uid="uid://cfrhjf8lk4hb6" path="res://3dModelos/SICS Trees/leaves.tres" id="3_0wimx"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_210g4"]
+height = 2.192195
+radius = 0.14941406
+
 [node name="Forest_Tree_1D" unique_id=245262191 instance=ExtResource("1_n30he")]
 
 [node name="Forest_Tree_1D" parent="." index="0" unique_id=1337733660]
 layers = 2
 surface_material_override/0 = ExtResource("2_qpe8v")
 surface_material_override/1 = ExtResource("3_0wimx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Forest_Tree_1D" index="0" unique_id=1513400473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03756106, 3.0748644, 0.40421522)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Forest_Tree_1D/StaticBody3D" index="0" unique_id=1747650614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024287224, -2.4735389, -0.4171291)
+shape = SubResource("CylinderShape3D_210g4")

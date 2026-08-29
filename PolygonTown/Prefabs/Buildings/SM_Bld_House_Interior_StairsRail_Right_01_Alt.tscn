@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb4taa4xnpxgp"]
+
+[ext_resource type="ArrayMesh" uid="uid://bu57fes2pmjao" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_StairsRail_Right_01_Alt.res" id="1_qolrm"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4c5x2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1gfqi"]
+points = PackedVector3Array(-4, -1.0681152e-06, -0.07304044, -0.3569486, 1.4050329, -0.091641665, 0.08097553, 1.072753, -0.08883746, -0.0014183521, 0.2746173, -0.079938784, 0.20868635, 0.26217237, -0.079938784, -0.04797101, -1.0681152e-06, -0.07304044, 0.10074997, -1.0681152e-06, 0.07300258, -1.6612458, 1.5332158, 0.08893046, -3.3214853, 2.7913995, 0.09345457, -4, 3.3149166, 0.09532404, -4, 4.1765213, -0.086220205, -3.7486982, 3.9670317, -0.091641665, -3.6844308, 3.9736688, -0.09195948, -2.0246034, 2.7150705, -0.09195948, -0.34500146, 1.4332414, -0.091641665, 0.20868635, 1.0632118, -0.08883746, 0.20868635, 0.26217237, 0.07991961, 0.16336966, -1.0681152e-06, -2.3841858e-07, 0.10074997, -1.0681152e-06, -0.07302174, -0.0014183521, 0.2746173, 0.07991961, 0.08097553, 1.072753, 0.0888183, -1.6200488, 2.3832054, 0.095623165, -3.3008869, 3.6654491, 0.099006906, -4, 3.3597186, 0.09532404, -4, 4.230035, -0.08509852, -3.736751, 4.010589, -0.091641665, 0.20868635, 1.1096729, -0.08883746, -0.23418164, 1.3747501, -0.09108082, 0.20868635, 1.0632118, 0.0888183, -1.6101615, 2.4292517, 0.095623165, -3.2959433, 3.710666, 0.099006906, -4, 4.2379165, 0.0743112, -3.2959433, 3.710666, -0.07182528, 0.20868635, 1.1096729, 0.0888183)
+
+[node name="SM_Bld_House_Interior_StairsRail_Right_01_Alt" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_qolrm")
+surface_material_override/0 = ExtResource("2_4c5x2")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_1gfqi")
