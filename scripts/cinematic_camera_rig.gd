@@ -22,6 +22,13 @@ extends Node3D
 @export_range(0.0, 2.0, 0.05) var idle_breath_frequency : float = 0.22
 @export_range(0.0, 0.2, 0.005) var turn_parallax_amount : float = 0.11
 
+@export_group("Impact")
+@export_range(0.5, 20.0, 0.1) var shake_decay : float = 3.6
+@export_range(0.0, 1.0, 0.01) var shake_translation_amount : float = 0.16
+@export_range(0.0, 6.0, 0.05) var shake_rotation_degrees : float = 1.4
+@export_range(1.0, 60.0, 0.5) var shake_frequency : float = 27.0
+@export_range(1.0, 30.0, 0.5) var fov_response : float = 6.0
+
 @onready var pitch_pivot : Node3D = $PitchPivot
 @onready var shoulder : Node3D = $PitchPivot/ShoulderOffset
 @onready var spring_arm : SpringArm3D = $PitchPivot/ShoulderOffset/SpringArm3D
@@ -41,6 +48,10 @@ var _motion_blend : float = 0.0
 var _sway_phase : float = 0.0
 var _elapsed : float = 0.0
 var _has_target : bool = false
+var _shake_strength : float = 0.0
+var _shake_phase : float = 0.0
+var _fov_offset : float = 0.0
+var _fov_offset_target : float = 0.0
 
 ## XRAY stuff
 @export var null_material : StandardMaterial3D
@@ -166,6 +177,7 @@ func _process(delta : float) -> void:
 	)
 
 	_update_organic_motion(delta, position_weight, rotation_weight)
+	_update_impact(delta)
 
 func _snap_to_target() -> void:
 	global_position = _target_position
@@ -224,6 +236,66 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 	)
 
 
+<<<<<<< HEAD
+## Impact response
+##
+## Used by scripted moments (the fase arrival, hard landings) to punch the
+## camera without touching the movement code. Shake and FOV are applied on top
+## of the organic motion, so they never fight the follow behaviour.
+
+## Adds an impulse to the camera shake. Strength is normalized: 1.0 is a hard
+## landing. Calls stack instead of overriding, so several hits read as one.
+func add_shake(strength : float) -> void:
+	_shake_strength = clampf(_shake_strength + strength, 0.0, 2.0)
+
+
+## Snaps the field of view to an offset and lets it settle back to zero. A
+## positive offset widens the lens, which reads as speed; a negative one snaps
+## in, which reads as impact.
+func kick_fov(offset : float) -> void:
+	_fov_offset = offset
+	_fov_offset_target = 0.0
+
+
+## Holds a field-of-view offset until changed again. Used while the arrival
+## descent is in progress; kick_fov() takes over on landing.
+func set_fov_offset(offset : float) -> void:
+	_fov_offset_target = offset
+
+
+func _update_impact(delta : float) -> void:
+	if not is_zero_approx(_fov_offset_target - _fov_offset):
+		_fov_offset = lerpf(
+			_fov_offset,
+			_fov_offset_target,
+			1.0 - exp(-fov_response * delta)
+		)
+
+	if not binos_active:
+		camera.fov = normal_fov + _fov_offset
+
+	if _shake_strength <= 0.0001:
+		return
+
+	_shake_strength = maxf(_shake_strength - shake_decay * delta * _shake_strength, 0.0)
+	if _shake_strength <= 0.0001:
+		_shake_strength = 0.0
+		return
+
+	_shake_phase += delta * shake_frequency
+
+	# Two incommensurate frequencies per axis so the motion never loops audibly
+	# into a visible wobble.
+	var falloff : float = _shake_strength * _shake_strength
+	var offset_x : float = sin(_shake_phase * TAU) * sin(_shake_phase * 0.63)
+	var offset_y : float = cos(_shake_phase * TAU * 1.31) * sin(_shake_phase * 0.41)
+
+	pitch_pivot.position.x += offset_x * shake_translation_amount * falloff
+	pitch_pivot.position.y += offset_y * shake_translation_amount * falloff
+	camera.rotation.z += (
+		deg_to_rad(shake_rotation_degrees) * falloff * sin(_shake_phase * TAU * 0.77)
+	)
+=======
 func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
 	var reference_forward : Vector3 = Vector3.FORWARD.slide(up)
 	if reference_forward.length_squared() <= 0.0001:
@@ -232,6 +304,7 @@ func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
 
 	var forward : Vector3 = reference_forward.rotated(up, yaw).normalized()
 	return Basis.looking_at(forward, up).orthonormalized()
+>>>>>>> 61bb5fdeb041f7c11a1ef641457374fe00485b7c
 
 
 ## XRAY Stuff
