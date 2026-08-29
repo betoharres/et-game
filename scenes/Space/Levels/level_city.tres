@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+display_name = "CIDADE"
+briefing = ""
+scene_path = ""
+available = false
+locked_reason = "Sinal ainda nao mapeado"

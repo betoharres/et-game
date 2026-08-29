@@ -9,6 +9,9 @@ extends Node3D
 const MAX_ZONES : int = 6
 const ZONE_FLOATS : int = 4
 const ZONE_GROUP : StringName = &"fog_zones"
+## Grupo usado por cutscenes para chamar pin_ground_height()/unpin_ground_height()
+## sem precisar de uma referencia direta a este no.
+const CONTROL_GROUP : StringName = &"ground_fog_layer"
 ## Folga entre o fim do fade e a borda geometrica dos planos.
 const RADIUS_MARGIN : float = 6.0
 
@@ -56,12 +59,14 @@ var _alien_target : float = 0.0
 var _alien_current : float = 0.0
 var _ground_height : float = 0.0
 var _ground_height_ready : bool = false
+var _ground_height_pinned : bool = false
 var _probe_timer : float = 0.0
 var _zone_timer : float = 0.0
 var _fog_enabled : bool = true
 
 
 func _ready() -> void:
+	add_to_group(CONTROL_GROUP)
 	_zone_data.resize(MAX_ZONES * ZONE_FLOATS)
 	for child : Node in get_children():
 		var layer : MeshInstance3D = child as MeshInstance3D
@@ -144,6 +149,22 @@ func apply_quality(config : Dictionary) -> void:
 	_refresh_layer_visibility()
 	_apply_opacity()
 	_update_zones()
+
+
+## Trava a altura da nevoa num valor conhecido e ignora a sondagem por
+## raycast ate unpin_ground_height() ser chamado. Necessario quando a camera
+## fica em pe sobre algo que tem sua propria colisao entre ela e o chao real
+## -- a plataforma de chegada descendo do ceu, por exemplo -- e o raio para
+## baixo bateria nesse objeto em vez de alcancar o terreno, fazendo a nevoa
+## "grudar" nele e descer junto.
+func pin_ground_height(height : float) -> void:
+	_ground_height = height
+	_ground_height_ready = true
+	_ground_height_pinned = true
+
+
+func unpin_ground_height() -> void:
+	_ground_height_pinned = false
 
 
 func set_fog_enabled(value : bool) -> void:
@@ -235,10 +256,12 @@ func _follow_camera() -> void:
 	else:
 		forward = Vector3.FORWARD
 
-	if not _ground_height_ready:
-		_ground_height = camera_position.y
-		_ground_height_ready = true
-
+	# _ground_height only comes from _probe_ground_height()'s raycast, never
+	# from the camera's own altitude: a camera far above the terrain (the ET
+	# riding a platform down from the sky, say) would otherwise seed the fog
+	# at that height, and it would visibly snap down once the probe finally
+	# catches up. Until the first hit lands, the fog just stays at its
+	# initial (typically near-ground) height instead.
 	var center : Vector3 = camera_position + forward * _forward_offset
 	global_position = Vector3(center.x, _ground_height, center.z)
 
@@ -252,6 +275,9 @@ func _follow_camera() -> void:
 
 
 func _probe_ground_height() -> void:
+	if _ground_height_pinned:
+		return
+
 	var camera : Camera3D = get_viewport().get_camera_3d()
 	var world : World3D = get_world_3d()
 	if camera == null or world == null:

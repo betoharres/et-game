@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelCatalog" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/levels/level_definition.gd" id="2_definition"]
+[ext_resource type="Resource" path="res://scenes/Space/Levels/level_farm.tres" id="3_farm"]
+[ext_resource type="Resource" path="res://scenes/Space/Levels/level_city.tres" id="4_city"]
+[ext_resource type="Resource" path="res://scenes/Space/Levels/level_desert.tres" id="5_desert"]
+
+[resource]
+script = ExtResource("1_catalog")
+levels = Array[ExtResource("2_definition")]([ExtResource("3_farm"), ExtResource("4_city"), ExtResource("5_desert")])

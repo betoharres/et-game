@@ -23,6 +23,12 @@ export_presets.cfg     Exportação para Windows Desktop
 scenes/
   MenuAtmosphere.tscn   Fundo noturno extraterrestre animado do menu
   NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
+  Space/
+    Orbit.tscn          A órbita jogável: ambiente, Terra, nave e terminal
+    Saucer.tscn         A nave: disco de 4 m com pad de descida, guarda-corpos e anel de luzes
+    ConsoleButton.tscn  Console de proximidade reutilizável
+    MissionSelectUI.tscn Terminal 2D que lista o catálogo e o modo de chegada
+    Levels/             Catálogo de fases (LevelDefinition/LevelCatalog .tres)
   GroundFogLayer.tscn  Névoa rasteira otimizada em camadas de planos com shader
   FogZone.tscn         Marcador que adensa a névoa rasteira em uma área
   main_menu.tscn       Menu principal, opções e remapeamento de movimento
@@ -47,6 +53,17 @@ scenes/
 scripts/
   menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
   night_environment.gd Presets de atmosfera, névoa híbrida e eventos alienígenas
+  space/
+    orbit.gd          Fluxo do terminal, aproximação da Terra e troca de cena
+    saucer.gd         Rede de segurança, spawn e pad de descida da nave
+    saucer_lights.gd  Anel de luzes coloridas girando na borda da nave
+    console_button.gd Interação de proximidade reutilizável
+    mission_select_ui.gd Terminal 2D: catálogo, briefing e modo de chegada
+    orbital_earth.gd  Rotação e iluminação da Terra
+  levels/
+    level_definition.gd Recurso de uma fase do catálogo (cena e disponibilidade)
+    level_catalog.gd  Lista ordenada de LevelDefinition mostrada no terminal
+    mission_flow.gd   Estado estático que atravessa a troca para a fase escolhida
   ground_fog_layer.gd  Camadas de névoa rasteira que seguem a câmera e o chão
   fog_zone.gd          Reforço local de névoa em campos, milharais e estradas
   cinematic_camera_rig.gd Seguimento, enquadramento e colisão da câmera do ET
@@ -71,7 +88,7 @@ scripts/
 assets/audio/          Vento, grilos, cães, passos e registro de origem
 assets/ui/             Ícones leves derivados dos meshes low-poly do pacote visual
 animations/mixamo/     Rig visual único, fontes FBX, GLB gerado e mapeamento
-shaders/night_sky.gdshader Céu procedural estrelado e Lua
+shaders/night_sky.gdshader Céu procedural estrelado e Lua, usado na fazenda e na órbita
 shaders/ground_fog.gdshader Névoa rasteira animada, com zonas e soft depth
 tools/build_mixamo_character.py Gera o GLB in-place usado pelo Player
 tools/test_player_animation.gd Smoke test dos estados visuais do Player
@@ -95,7 +112,8 @@ README.md              Visão geral, execução e arquitetura
 ## Executar
 
 Abra `project.godot` no Godot 4.7 e pressione `F5`. A cena inicial é
-`scenes/Menu/main_menu.tscn`; o botão de jogar carrega `scenes/world.tscn`.
+`scenes/Menu/main_menu.tscn`; o botão de jogar carrega a órbita em
+`scenes/Space/Orbit.tscn`.
 
 Se o executável do Godot estiver disponível no `PATH`, também é possível usar
 o PowerShell:
@@ -125,10 +143,28 @@ sem iniciar o editor do Godot.
 ## Fluxo atual
 
 ```text
-Menu -> fazenda -> localizar destroços -> coletar -> área de entrega -> pontos
+Menu -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
 ```
 
-- O jogador começa no mapa rural com câmera em terceira pessoa.
+- O jogador começa a bordo da nave, em órbita da Terra, com câmera em terceira
+  pessoa. Um terminal de missão (`scenes/Space/Orbit.tscn`, console
+  único) lista o catálogo de fases (`scripts/levels/level_catalog.gd`); hoje
+  só a Fazenda está disponível, com duas entradas de exemplo bloqueadas para
+  quando novas fases existirem. Selecionar uma fase disponível habilita o
+  botão "Ir": a Terra cresce em direção à câmera por um instante e a íris de
+  `SceneTransition.warp_to()` fecha antes da troca de cena. Adicionar uma fase
+  nova não exige mexer em script: basta um `LevelDefinition.tres` apontando
+  para a cena e listado em `level_catalog.tres`.
+- Ao chegar na fase pelo terminal, o ET nasce de pé sobre a nave
+  (`scenes/Space/Saucer.tscn`, a mesma cena da órbita, sem escala nenhuma:
+  são 4 m de diâmetro nas duas pontas), que desce do céu e estaciona à mesma
+  altura da nave que já patrulha o mapa, bem acima do ponto de chegada
+  original. Pisar no pad central e apertar `E` aciona a cutscene de descida
+  pelo feixe já existente em `world.gd` — como a nave fica centrada exatamente
+  acima do ponto de chegada, o feixe desce numa coluna reta e pousa no lugar
+  certo. Abrir
+  `world.tscn` direto no editor pula esse passo e mantém a cutscene automática
+  de sempre.
 - A câmera usa enquadramento sobre o ombro com FOV de 60 graus, seguimento e
   rotação suavizados, colisão volumétrica contra o cenário e movimentos
   orgânicos discretos ao caminhar, girar ou permanecer parado.
@@ -311,6 +347,8 @@ pulo normal, até 1,5 m   nada
 - Agachar: segure `C`.
 - Câmera: mouse.
 - Coletar ou largar item: `E`.
+- Acionar o terminal da nave ou o pad de descida: `E` quando a luz do objeto
+  acender e começar a pulsar.
 - Solicitar a abdução de um item solto na área de entrega: segure `E` por 3
   segundos.
 - Acender ou apagar gradualmente a luz local dos olhos do ET: `F`.
@@ -349,6 +387,7 @@ a fazenda, a nave, vegetação, objetos, jogador, inimigo, veículo, destroços 
 
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
+MainMenu -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> Saucer descendo do céu -> pad de descida -> feixe de chegada
 SmellyFarmer -> visão/linha de visão -> perseguição/disparo -> vida do Player
 Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
 Player -> grupo characters -> vegetação e detecção do inimigo
@@ -530,6 +569,14 @@ pode ser ligada ou desligada com `set_interference_enabled()`.
 
 ## Estado do protótipo e pendências
 
+- A nave que desce no céu da fazenda (instanciada por
+  `world.gd._spawn_on_saucer()`) e a `SpaceShip` que já existia na cena
+  flutuam à mesma altura sem ocupar o mesmo lugar — são dois objetos
+  temporariamente redundantes; consolidá-los em um só é trabalho futuro. Não
+  existe ainda um caminho de volta à órbita a partir dela.
+- O catálogo de fases (`scripts/levels/level_catalog.gd`) tem hoje apenas a
+  Fazenda disponível; Cidade e Deserto são exemplos bloqueados sem cena
+  própria, para validar a lista antes de existir uma segunda fase de verdade.
 - O disparo atual usa dano instantâneo, clarão provisório e empurrão no alvo;
   ainda não há projétil físico ou animação final de disparo.
 - Polícia, van de reportagem, fotógrafos adicionais e MIB ainda não possuem

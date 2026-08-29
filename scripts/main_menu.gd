@@ -11,6 +11,11 @@ const PROCEDURAL_SFX = preload("res://scripts/audio/procedural_sfx.gd")
 const TUNE_IN_STEPS : Array[float] = [0.0, 0.55, 0.12, 0.85, 0.3, 1.0]
 const TUNE_IN_WEIGHTS : Array[float] = [0.0, 0.22, 0.12, 0.26, 0.14, 0.26]
 
+var rebinding_action : String = ""
+var rebinding_button : Button = null
+var transition_started : bool = false
+var button_base_positions : Dictionary = {}
+
 @onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
 @onready var menu_button_3 : Button = $ColorRect/MenuBar/VSeparator/MenuButton3
@@ -28,24 +33,26 @@ const TUNE_IN_WEIGHTS : Array[float] = [0.0, 0.22, 0.12, 0.26, 0.14, 0.26]
 
 @onready var options_panel : Control = $ColorRect/MenuBar/OptionsPanel
 
-@onready var resolution_button : OptionButton = $ColorRect/MenuBar/OptionsPanel/VBoxContainer/ResolutionButton
+@onready var resolution_button : OptionButton = (
+	$ColorRect/MenuBar/OptionsPanel/VBoxContainer/ResolutionButton
+)
 @onready var vsync_check_box : CheckBox = $ColorRect/MenuBar/OptionsPanel/VBoxContainer/VSyncButton
-@onready var window_mode_button : Button = $ColorRect/MenuBar/OptionsPanel/VBoxContainer/WindowModeButton
+@onready var window_mode_button : Button = (
+	$ColorRect/MenuBar/OptionsPanel/VBoxContainer/WindowModeButton
+)
 @onready var keybinds_button : Button = $ColorRect/MenuBar/OptionsPanel/VBoxContainer/KeybindsButton
 @onready var options_back_button : Button = $ColorRect/MenuBar/OptionsPanel/VBoxContainer/BackButton
 
 @onready var keybinds_panel : Control = $ColorRect/MenuBar/KeybindsPanel
 @onready var forward_button : Button = $ColorRect/MenuBar/KeybindsPanel/VBoxContainer/ForwardButton
-@onready var backward_button : Button = $ColorRect/MenuBar/KeybindsPanel/VBoxContainer/BackwardButton
+@onready var backward_button : Button = (
+	$ColorRect/MenuBar/KeybindsPanel/VBoxContainer/BackwardButton
+)
 @onready var left_button : Button = $ColorRect/MenuBar/KeybindsPanel/VBoxContainer/LeftButton
 @onready var right_button : Button = $ColorRect/MenuBar/KeybindsPanel/VBoxContainer/RightButton
-@onready var keybinds_back_button : Button = $ColorRect/MenuBar/KeybindsPanel/VBoxContainer/BackButton
-
-
-var rebinding_action : String = ""
-var rebinding_button : Button = null
-var transition_started : bool = false
-var button_base_positions : Dictionary = {}
+@onready var keybinds_back_button : Button = (
+	$ColorRect/MenuBar/KeybindsPanel/VBoxContainer/BackButton
+)
 
 
 func _process(delta : float) -> void:
@@ -107,7 +114,7 @@ func _on_play_pressed() -> void:
 	var music_tween : Tween = create_tween()
 	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.45)
 	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.abduction_warp_to("res://scenes/world.tscn")
+	scene_transition.abduction_warp_to("res://scenes/Space/Orbit.tscn")
 
 func _on_options_pressed() -> void:
 	_play_click()

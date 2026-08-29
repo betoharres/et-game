@@ -13,6 +13,12 @@ extends CanvasLayer
 ##   scene is already animating, so the arrival never reads as a slide change.
 
 const MAX_RADIUS : float = 1.5
+## The shader's edge_softness (0.07 by default) blends the iris over a small
+## band around the radius. Closing to exactly 0.0 leaves that band centered on
+## screen at half opacity forever, since the center point is always distance 0
+## from itself -- the wipe never actually finishes covering the screen. Closing
+## past -edge_softness instead guarantees full opacity everywhere.
+const MIN_RADIUS : float = -0.15
 const CLOSE_DURATION : float = 0.6
 const HOLD_DURATION : float = 0.12
 const OPEN_DURATION : float = 0.85
@@ -58,14 +64,16 @@ func _ready() -> void:
 	add_child(_flash_overlay)
 
 
-func warp_to(scene_path : String) -> void:
+func warp_to(scene_path : String, wipe_color : Color = WIPE_COLOR) -> void:
 	if _busy:
 		return
 	_busy = true
 
+	_material.set_shader_parameter("wipe_color", wipe_color)
+
 	var close_tween : Tween = create_tween()
 	close_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	close_tween.tween_property(_material, "shader_parameter/radius", 0.0, CLOSE_DURATION)
+	close_tween.tween_property(_material, "shader_parameter/radius", MIN_RADIUS, CLOSE_DURATION)
 	await close_tween.finished
 
 	await get_tree().create_timer(HOLD_DURATION).timeout

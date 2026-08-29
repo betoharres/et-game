@@ -1,0 +1,138 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/space/saucer.gd" id="0_script"]
+[ext_resource type="Script" path="res://scripts/space/saucer_lights.gd" id="1_saucer_lights"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_disc"]
+albedo_color = Color(0.07, 0.08, 0.1, 1)
+metallic = 0.75
+roughness = 0.42
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_disc"]
+material = SubResource("StandardMaterial3D_disc")
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.15
+radial_segments = 32
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_disc"]
+height = 0.15
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pad"]
+albedo_color = Color(0.03, 0.06, 0.08, 1)
+metallic_specular = 0.0
+emission_enabled = true
+emission = Color(0.16, 0.92, 0.78, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pad"]
+material = SubResource("StandardMaterial3D_pad")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.02
+radial_segments = 32
+rings = 0
+cap_bottom = false
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guard_east_west"]
+size = Vector3(0.1, 1.5, 4.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guard_north_south"]
+size = Vector3(4.1, 1.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fall_guard"]
+size = Vector3(40, 2, 40)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pad_trigger"]
+height = 1.2
+radius = 0.6
+
+[node name="Saucer" type="Node3D"]
+script = ExtResource("0_script")
+
+[node name="Hull" type="Node3D" parent="." unique_id=181005006]
+
+[node name="Disc" type="MeshInstance3D" parent="Hull" unique_id=181005040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 0)
+cast_shadow = 1
+mesh = SubResource("CylinderMesh_disc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Hull/Disc" unique_id=181005038]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hull/Disc/StaticBody3D" unique_id=181005039]
+shape = SubResource("CylinderShape3D_disc")
+
+[node name="Pad" type="MeshInstance3D" parent="Hull" unique_id=181005041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_pad")
+
+[node name="PadTrigger" type="Area3D" parent="Hull/Pad" unique_id=181005043]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hull/Pad/PadTrigger" unique_id=181005044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_pad_trigger")
+
+[node name="Guards" type="StaticBody3D" parent="Hull" unique_id=181005070]
+
+[node name="GuardNorth" type="CollisionShape3D" parent="Hull/Guards" unique_id=181005071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1.95)
+shape = SubResource("BoxShape3D_guard_north_south")
+
+[node name="GuardSouth" type="CollisionShape3D" parent="Hull/Guards" unique_id=181005072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 1.95)
+shape = SubResource("BoxShape3D_guard_north_south")
+
+[node name="GuardEast" type="CollisionShape3D" parent="Hull/Guards" unique_id=181005073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95, 0.75, 0)
+shape = SubResource("BoxShape3D_guard_east_west")
+
+[node name="GuardWest" type="CollisionShape3D" parent="Hull/Guards" unique_id=181005074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 0.75, 0)
+shape = SubResource("BoxShape3D_guard_east_west")
+
+[node name="SaucerLights" type="Node3D" parent="." unique_id=181005090]
+script = ExtResource("1_saucer_lights")
+ring_radius = 2.02
+ring_height = -0.11
+bulb_radius = 0.075
+light_range = 1.1
+
+[node name="HullLights" type="Node3D" parent="." unique_id=181005080]
+
+[node name="HullLightWest" type="OmniLight3D" parent="HullLights" unique_id=181005081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 0.72, 0.32)
+light_color = Color(0.5, 0.86, 1, 1)
+light_energy = 1.6
+shadow_enabled = false
+omni_range = 4.0
+omni_attenuation = 1.1
+
+[node name="HullLightEast" type="OmniLight3D" parent="HullLights" unique_id=181005082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 0.72, 0.32)
+light_color = Color(0.5, 0.86, 1, 1)
+light_energy = 1.6
+shadow_enabled = false
+omni_range = 4.0
+omni_attenuation = 1.1
+
+[node name="PadLight" type="OmniLight3D" parent="HullLights" unique_id=181005083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+light_color = Color(0.16, 0.92, 0.78, 1)
+light_energy = 1.6
+shadow_enabled = false
+omni_range = 1.7
+omni_attenuation = 1.35
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=181005096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.05)
+
+[node name="FallGuard" type="Area3D" parent="." unique_id=181005097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallGuard" unique_id=181005098]
+shape = SubResource("BoxShape3D_fall_guard")

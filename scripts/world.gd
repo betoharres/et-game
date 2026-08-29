@@ -7,9 +7,11 @@ extends Node3D
 ## during the descent, but the player can still look around within a limited
 ## turn range (see LOOK_YAW_LIMIT_DEGREES).
 ##
-## The sequence deliberately never holds a static frame: it already starts
-## moving on _ready(), while SceneTransition's whiteout is still burning off,
-## and it is cut into three beats with different curves —
+## The sequence deliberately never holds a static frame: it starts moving the
+## instant it runs, and it is cut into three beats with different curves —
+## whether that is on _ready() (opening the fase directly) or later, when the
+## player steps on the descend pad on the saucer (see _spawn_on_saucer())
+## after coming from the orbital terminal —
 ##
 ##   1. PULL: the beam yanks the ET down fast, the lens is wide, the world
 ##      rushes up. The ET rotates slowly inside the beam.
@@ -23,6 +25,22 @@ const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/FX/ArrivalBeam.ts
 ## the project is launched straight from the command line.
 const PROCEDURAL_SFX = preload("res://scripts/audio/procedural_sfx.gd")
 const BEAM_TRAVEL_AUDIO = preload("res://scripts/audio/beam_travel_audio.gd")
+const MISSION_FLOW = preload("res://scripts/levels/mission_flow.gd")
+const SAUCER_SCENE : PackedScene = preload("res://scenes/Space/Saucer.tscn")
+
+## How far above its resting height the saucer starts, and how long it
+## takes to settle into place -- sold as the ship coming down from higher up
+## and parking, rather than appearing already parked.
+const SAUCER_APPROACH_HEIGHT : float = 45.0
+const SAUCER_APPROACH_DURATION : float = 3.4
+const SAUCER_LANDING_SHAKE : float = 0.35
+## NightEnvironment.FogProfile, by value: night_environment.gd is not reachable
+## by class_name from here, and the group call takes a plain int anyway.
+const FOG_PROFILE_GROUND : int = 0
+const FOG_PROFILE_FLIGHT : int = 1
+
+## Height above the fase's ground spawn under which the ET counts as arrived.
+const GROUND_ARRIVAL_HEIGHT : float = 5.0
 
 const DESCEND_SPEED : float = 10.0
 const MIN_DESCEND_HEIGHT : float = 10.0
@@ -46,9 +64,6 @@ const ARRIVAL_YAW_SWING_DEGREES : float = 42.0
 
 const IMPACT_VOLUME_DB : float = -4.0
 
-@onready var player : CharacterBody3D = $CharacterBody3D
-@onready var spaceship : Node3D = $SpaceShip
-
 var _look_tween : Tween
 var _beam_audio : BEAM_TRAVEL_AUDIO
 var _impact_player : AudioStreamPlayer
@@ -60,12 +75,32 @@ var _impact_player : AudioStreamPlayer
 var _travel_start_height : float = 0.0
 var _travel_end_height : float = 0.0
 
+## The fase's authored ground-level arrival point, captured before anything
+## moves the player. _play_arrival_intro() always lands here regardless of
+## where the player currently is when it runs -- on the ground already (the
+## default path) or up on the saucer (the orbital terminal path).
+var _ground_spawn_position : Vector3
+var _saucer : Saucer
+var _airborne_atmosphere : bool = false
+
+@onready var player : CharacterBody3D = $CharacterBody3D
+@onready var spaceship : Node3D = $SpaceShip
+
 
 func _ready() -> void:
-	_play_arrival_intro()
+	_ground_spawn_position = player.global_position
+
+	var arrived_from_orbit : bool = MISSION_FLOW.arrived_from_orbit
+	MISSION_FLOW.arrived_from_orbit = false
+	if arrived_from_orbit:
+		_spawn_on_saucer()
+	else:
+		_play_arrival_intro()
 
 
 func _process(_delta : float) -> void:
+	_update_airborne_atmosphere()
+
 	if _beam_audio == null or not _beam_audio.playing:
 		return
 	_beam_audio.set_progress(
@@ -86,8 +121,116 @@ func _unhandled_input(event : InputEvent) -> void:
 	_look_tween = null
 
 
+## Arrival via the orbital terminal: the ET rides the saucer down from higher
+## up and parks directly above the ground spawn point, at the same height as
+## the fase's SpaceShip, so the descend pad always drops the beam in a straight
+## column onto the exact spot the fase was designed to receive the player.
+##
+## The saucer is spawned from code rather than authored in world.tscn: it only
+## exists for this one arrival path, and appending a node by hand to a scene
+## this size is easy to get wrong. SpaceShip and the saucer now float at the
+## same height without occupying the same footprint; consolidating them into
+## a single object is follow-up work.
+func _spawn_on_saucer() -> void:
+	_saucer = SAUCER_SCENE.instantiate() as Saucer
+	add_child(_saucer)
+	# The saucer's safety net exists for Orbit.tscn, where stepping off the
+	# edge is an endless fall through empty space. Here there is a fase right
+	# below, so jumping off is a legitimate way down -- the ET takes the fall
+	# it earned (see player.gd's landing_ragdoll_speed) instead of being
+	# teleported back up. This also covers the tractor beam, whose column runs
+	# straight down through the saucer's own footprint.
+	_saucer.set_fall_guard_enabled(false)
+
+	var rest_height : float = spaceship.global_position.y
+	var start_height : float = rest_height + SAUCER_APPROACH_HEIGHT
+	_saucer.global_position = Vector3(
+		_ground_spawn_position.x, start_height, _ground_spawn_position.z
+	)
+
+	player.set_movement_locked(true)
+	_place_player_on_saucer()
+
+	_enter_airborne_atmosphere()
+
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_method(
+		_set_saucer_height, start_height, rest_height, SAUCER_APPROACH_DURATION
+	)
+	await tween.finished
+
+	player.camera_pivot.add_shake(SAUCER_LANDING_SHAKE)
+	player.set_movement_locked(false)
+
+	_saucer.descend_requested.connect(_on_descend_requested)
+	_saucer.set_descend_trigger_enabled(true)
+
+
+## The fase's atmosphere is calibrated for an ET standing on the ground, and
+## the whole orbital arrival happens well above it -- on the saucer, then inside
+## the beam. Both of its fog systems have to be told, or they read as bugs:
+##
+##   1. GroundFogLayer finds its height with a raycast straight down from the
+##      camera. Standing on the saucer, that ray hits the saucer's own floor, so
+##      the fog would sit at the ET's feet in mid-air and ride the saucer down.
+##      Pinning it to the real ground height keeps the mat where it belongs.
+##   2. The Environment's depth fog closes opaque at 400 m, which on foot is
+##      hidden behind terrain and buildings. From up here the view reaches the
+##      whole map, so that wall becomes a visible sheet whenever you turn
+##      toward open distance and vanishes when you face the sky. This is the
+##      same problem the plane has, so it uses the same fix: the FLIGHT
+##      profile, which opens the fog out to 950 m (see night_environment.gd).
+##
+## Both are undone once the ET reaches the ground -- by whatever route, see
+## _update_airborne_atmosphere().
+func _enter_airborne_atmosphere() -> void:
+	_airborne_atmosphere = true
+	get_tree().call_group(
+		&"ground_fog_layer", &"pin_ground_height", _ground_spawn_position.y
+	)
+	get_tree().call_group(&"night_environment", &"set_fog_profile", FOG_PROFILE_FLIGHT)
+
+
+func _exit_airborne_atmosphere() -> void:
+	if not _airborne_atmosphere:
+		return
+	_airborne_atmosphere = false
+	get_tree().call_group(&"ground_fog_layer", &"unpin_ground_height")
+	get_tree().call_group(&"night_environment", &"set_fog_profile", FOG_PROFILE_GROUND)
+
+
+## Restoring the ground atmosphere is driven by the ET's height, not by the
+## tractor beam finishing: jumping off the saucer is a valid way down too, and
+## keying this to the beam alone would leave a player who jumped with the
+## flight fog profile for the rest of the fase.
+func _update_airborne_atmosphere() -> void:
+	if not _airborne_atmosphere:
+		return
+	if player.global_position.y > _ground_spawn_position.y + GROUND_ARRIVAL_HEIGHT:
+		return
+	_exit_airborne_atmosphere()
+
+
+## Drives the saucer's descent from a tween: keeps the player standing on the
+## saucer's spawn point in sync every step, since the player is not an actual
+## child of the saucer.
+func _set_saucer_height(height : float) -> void:
+	_saucer.global_position.y = height
+	_place_player_on_saucer()
+
+
+func _place_player_on_saucer() -> void:
+	player.global_position = _saucer.spawn_point.global_position
+	player.camera_pivot.global_position = player.global_position
+
+
+func _on_descend_requested() -> void:
+	_play_arrival_intro()
+
+
 func _play_arrival_intro() -> void:
-	var spawn_position : Vector3 = player.global_position
+	var spawn_position : Vector3 = _ground_spawn_position
 	var descend_height : float = maxf(
 		spaceship.global_position.y - spawn_position.y,
 		MIN_DESCEND_HEIGHT
@@ -164,6 +307,9 @@ func _play_arrival_intro() -> void:
 
 func _on_touchdown(beam : ArrivalBeam) -> void:
 	_look_tween = null
+	# Only meaningful on the orbital path, where the atmosphere was switched to
+	# its airborne settings; on the direct path both calls are already no-ops.
+	_exit_airborne_atmosphere()
 	player.camera_pivot.add_shake(LANDING_SHAKE)
 	player.camera_pivot.kick_fov(LANDING_FOV_KICK)
 	player.set_movement_locked(false)
