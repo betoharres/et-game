@@ -17,7 +17,7 @@ albedo_texture = ExtResource("9_v4ul4")
 emission_enabled = true
 emission_texture = ExtResource("3_fjx14")
 
-[node name="Node3D" type="Node3D" unique_id=1193136171]
+[node name="GnomeRoot" type="Node3D" unique_id=1193136171]
 
 [node name="SmPropGnomeBasalt01" type="MeshInstance3D" parent="." unique_id=1657585593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0266001, 0, 0.057494164)

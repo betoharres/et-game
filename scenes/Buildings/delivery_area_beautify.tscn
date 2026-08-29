@@ -1,108 +1,113 @@
 [gd_scene format=3 uid="uid://bp3k15xlgpu2t"]
 
-[ext_resource type="ArrayMesh" uid="uid://cc818v3cy8mkb" path="res://3dModelos/SM_Env_Dirt_Rock_01.fbx" id="1_je5pk"]
-[ext_resource type="Texture2D" uid="uid://b8ye6vmrn5mtf" path="res://Texturas/PolygonConstruction_Texture_03_A.png" id="2_37myx"]
-[ext_resource type="ArrayMesh" uid="uid://dp1ayuk47xkjo" path="res://3dModelos/SM_Env_Dirt_Rocks_01.fbx" id="3_bqev6"]
-[ext_resource type="ArrayMesh" uid="uid://cnyiocfamfxyo" path="res://3dModelos/SM_Env_Dirt_Rocks_02.fbx" id="4_5wg2k"]
-[ext_resource type="ArrayMesh" uid="uid://cekv5y57e0aj2" path="res://3dModelos/SM_Env_Dirt_Rocks_04.fbx" id="5_bf432"]
-[ext_resource type="ArrayMesh" uid="uid://dpq34hcolno6x" path="res://3dModelos/SM_Prop_TireStack_02.fbx" id="6_je5pk"]
-[ext_resource type="ArrayMesh" uid="uid://33ouag08o7sl" path="res://3dModelos/SM_Prop_TireStack_03.fbx" id="7_37myx"]
-[ext_resource type="ArrayMesh" uid="uid://4hq682onsdkl" path="res://3dModelos/SM_Prop_TireStack_01.fbx" id="8_bqev6"]
-[ext_resource type="ArrayMesh" uid="uid://ckhuynxtej4mx" path="res://3dModelos/SM_Prop_Tire_01.fbx" id="9_5wg2k"]
+[ext_resource type="PackedScene" uid="uid://52whfmeeihoc" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_01A.fbx" id="2_7a8qm"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_4omdm"]
+[ext_resource type="PackedScene" uid="uid://bap1uv8srme0n" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_02A.fbx" id="3_pgedw"]
+[ext_resource type="PackedScene" uid="uid://0qkg3xja1glc" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_03A.fbx" id="4_4omdm"]
 [ext_resource type="PackedScene" uid="uid://c2u4qnqo7lx0i" path="res://scenes/FX/FX_Fog_01.tscn" id="10_37myx"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4pe3y"]
-albedo_texture = ExtResource("2_37myx")
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7a8qm"]
+height = 12.493605
+radius = 0.8807578
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ec1xr"]
-albedo_color = Color(0.14044744, 0.14044744, 0.14044744, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pgedw"]
+height = 12.072659
+radius = 0.8807579
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1i70"]
-albedo_color = Color(0.18359044, 0.18359044, 0.18359044, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4omdm"]
+height = 12.0
+radius = 0.88075787
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bf432"]
-albedo_texture = ExtResource("2_37myx")
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1qo5f"]
+height = 12.072659
+radius = 0.8807579
 
 [node name="DeliveryAreaBeautify" type="Node3D" unique_id=1567989076]
 
-[node name="SmEnvDirtRock01" type="MeshInstance3D" parent="." unique_id=1389530662]
-transform = Transform3D(0.9918383, 0, 0.12750234, 0, 1, 0, -0.12750234, 0, 0.9918383, -1.3606281, 0.18784726, -3.3473892)
-mesh = ExtResource("1_je5pk")
-surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
-
-[node name="SmEnvDirtRocks01" type="MeshInstance3D" parent="." unique_id=65649398]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1178045, -0.14248225, -2.226095)
-mesh = ExtResource("3_bqev6")
-surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
-
-[node name="SmEnvDirtRocks02" type="MeshInstance3D" parent="." unique_id=1852819339]
-transform = Transform3D(0.9952411, 0, -0.09744278, 0, 1, 0, 0.09744278, 0, 0.9952411, -5.030775, -0.063489735, 0.88172865)
-mesh = ExtResource("4_5wg2k")
-surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
-
-[node name="SmEnvDirtRock02" type="MeshInstance3D" parent="." unique_id=596336209]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1041355, 0.19062823, 4.4037876)
-mesh = ExtResource("1_je5pk")
-surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
-
-[node name="SmEnvDirtRocks04" type="MeshInstance3D" parent="." unique_id=2019489177]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6319535, -0.18591732, 2.822953)
-mesh = ExtResource("5_bf432")
-surface_material_override/0 = SubResource("StandardMaterial3D_4pe3y")
-
-[node name="SmPropTireStack02" type="MeshInstance3D" parent="." unique_id=666125408]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4131844, 0, 4.320926)
-layers = 512
-mesh = ExtResource("6_je5pk")
-surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
-
-[node name="SmPropTireStack03" type="MeshInstance3D" parent="." unique_id=961527842]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5245624, 0, 4.2750597)
-layers = 512
-mesh = ExtResource("7_37myx")
-surface_material_override/0 = SubResource("StandardMaterial3D_g1i70")
-
-[node name="SmPropTireStack01" type="MeshInstance3D" parent="." unique_id=1341317613]
-transform = Transform3D(0.9458388, 0, -0.32463658, 0, 1, 0, 0.32463658, 0, 0.9458388, -3.788268, 0, 3.0348427)
-layers = 512
-mesh = ExtResource("8_bqev6")
-surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
-
-[node name="SmPropTireStack04" type="MeshInstance3D" parent="." unique_id=1667394845]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0658436, 0, -2.8749816)
-layers = 512
-mesh = ExtResource("7_37myx")
-surface_material_override/0 = SubResource("StandardMaterial3D_g1i70")
-
-[node name="SmPropTireStack06" type="MeshInstance3D" parent="." unique_id=70530008]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254776, 0, -3.3070068)
-layers = 512
-mesh = ExtResource("6_je5pk")
-surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
-
-[node name="SmPropTireStack07" type="MeshInstance3D" parent="." unique_id=691184924]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4682465, 0, 1.2778807)
-layers = 512
-mesh = ExtResource("6_je5pk")
-surface_material_override/0 = SubResource("StandardMaterial3D_ec1xr")
-
-[node name="SmPropTire02" type="MeshInstance3D" parent="." unique_id=2091166700]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4964742, 0, 3.3543112)
-layers = 512
-mesh = ExtResource("9_5wg2k")
-surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
-
-[node name="SmPropTireStack05" type="MeshInstance3D" parent="." unique_id=1430252364]
-transform = Transform3D(0.4638495, 0, 0.885914, 0, 1, 0, -0.885914, 0, 0.4638495, 3.3604846, 0, -0.30817544)
-layers = 512
-mesh = ExtResource("8_bqev6")
-surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
-
-[node name="SmPropTire01" type="MeshInstance3D" parent="." unique_id=1650318625]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3206787, 0, -1.5853271)
-layers = 512
-mesh = ExtResource("9_5wg2k")
-surface_material_override/0 = SubResource("StandardMaterial3D_bf432")
-
 [node name="FX_Fog_01" parent="." unique_id=65490421 instance=ExtResource("10_37myx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8674097, 0.5557697, 0.61229706)
+
+[node name="TEM_Broken_Pillar_01A" parent="." unique_id=689250039 instance=ExtResource("2_7a8qm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.784631, 0, 6.856079)
+
+[node name="TEM_Broken_Pillar_01A_LOD0" parent="TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A" parent_id_path=PackedInt32Array(689250039, 1661978407) index="0" unique_id=773990933]
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A_LOD0" index="0" unique_id=257861000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7881393e-07, 6.2468023, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A_LOD0/StaticBody3D" unique_id=478159455]
+shape = SubResource("CylinderShape3D_7a8qm")
+
+[node name="TEM_Broken_Pillar_01A_LOD1" parent="TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A" parent_id_path=PackedInt32Array(689250039, 1661978407) index="1" unique_id=31140446]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_01A_LOD2" parent="TEM_Broken_Pillar_01A/TEM_Broken_Pillar_01A" parent_id_path=PackedInt32Array(689250039, 1661978407) index="2" unique_id=1161862843]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_02A" parent="." unique_id=529886032 instance=ExtResource("3_pgedw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.813388, 0, -6.823461)
+
+[node name="TEM_Broken_Pillar_02A_LOD0" parent="TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(529886032, 277645853) index="0" unique_id=9260375]
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A_LOD0" index="0" unique_id=1192561302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 6.0363293, -9.536743e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A_LOD0/StaticBody3D" unique_id=626394541]
+shape = SubResource("CylinderShape3D_pgedw")
+
+[node name="TEM_Broken_Pillar_02A_LOD1" parent="TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(529886032, 277645853) index="1" unique_id=208463488]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_02A_LOD2" parent="TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(529886032, 277645853) index="2" unique_id=1906981289]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_03A" parent="." unique_id=21317196 instance=ExtResource("4_4omdm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.753111, 0, 6.776781)
+
+[node name="TEM_Broken_Pillar_03A_LOD0" parent="TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A" parent_id_path=PackedInt32Array(21317196, 993027606) index="0" unique_id=902571369]
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A_LOD0" index="0" unique_id=1592583699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7881393e-07, 6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A_LOD0/StaticBody3D" unique_id=1626532958]
+shape = SubResource("CylinderShape3D_4omdm")
+
+[node name="TEM_Broken_Pillar_03A_LOD1" parent="TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A" parent_id_path=PackedInt32Array(21317196, 993027606) index="1" unique_id=1080528747]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_03A_LOD2" parent="TEM_Broken_Pillar_03A/TEM_Broken_Pillar_03A" parent_id_path=PackedInt32Array(21317196, 993027606) index="2" unique_id=1317084576]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_02A2" parent="." unique_id=1611880325 instance=ExtResource("3_pgedw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9005375, 0, -6.8233666)
+
+[node name="TEM_Broken_Pillar_02A_LOD0" parent="TEM_Broken_Pillar_02A2/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(1611880325, 277645853) index="0" unique_id=9260375]
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TEM_Broken_Pillar_02A2/TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A_LOD0" index="0" unique_id=1349775614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 6.0363293, -9.536743e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TEM_Broken_Pillar_02A2/TEM_Broken_Pillar_02A/TEM_Broken_Pillar_02A_LOD0/StaticBody3D" unique_id=1925938788]
+shape = SubResource("CylinderShape3D_1qo5f")
+
+[node name="TEM_Broken_Pillar_02A_LOD1" parent="TEM_Broken_Pillar_02A2/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(1611880325, 277645853) index="1" unique_id=208463488]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[node name="TEM_Broken_Pillar_02A_LOD2" parent="TEM_Broken_Pillar_02A2/TEM_Broken_Pillar_02A" parent_id_path=PackedInt32Array(1611880325, 277645853) index="2" unique_id=1906981289]
+visible = false
+surface_material_override/0 = ExtResource("3_4omdm")
+
+[editable path="TEM_Broken_Pillar_01A"]
+[editable path="TEM_Broken_Pillar_02A"]
+[editable path="TEM_Broken_Pillar_03A"]
+[editable path="TEM_Broken_Pillar_02A2"]

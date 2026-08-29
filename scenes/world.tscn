@@ -128,10 +128,8 @@
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Materiais/PolygonTown_01_A_mat.tres" id="131_7m83x"]
 [ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="131_l8ik4"]
 [ext_resource type="PackedScene" uid="uid://karjnsnc4cje" path="res://scenes/Buildings/Barn01.tscn" id="132_8bem1"]
-[ext_resource type="Texture2D" uid="uid://bhrmykp42xmrv" path="res://Texturas/PolygonConstruction_Texture_01_A.png" id="133_70d8d"]
 [ext_resource type="PackedScene" uid="uid://datwxktpja0bw" path="res://scenes/Buildings/Dungeon.tscn" id="133_dungeon"]
 [ext_resource type="ArrayMesh" uid="uid://cwqpsuhsgabuy" path="res://3dModelos/SM_Bld_House_Preset_01.res" id="133_l8ik4"]
-[ext_resource type="Material" uid="uid://s85g563cqhp3" path="res://Materiais/PolygonConstruction1.tres" id="133_sjp3e"]
 [ext_resource type="ArrayMesh" uid="uid://c7uka26qrhsav" path="res://3dModelos/SM_Bld_House_Preset_02.res" id="134_70d8d"]
 [ext_resource type="PackedScene" uid="uid://pr0wmkbti6tn" path="res://scenes/Buildings/DungeonDoor.tscn" id="134_dungeon_door"]
 [ext_resource type="PackedScene" uid="uid://bt7agmpqpyapt" path="res://scenes/Vehicles/QuadBike.tscn" id="134_qn65p"]
@@ -147,12 +145,6 @@
 [ext_resource type="ArrayMesh" uid="uid://b5uwo0mny4m7o" path="res://3dModelos/SM_Bld_House_Preset_11.res" id="143_e5kln"]
 [ext_resource type="ArrayMesh" uid="uid://by4u0c6gkbsme" path="res://3dModelos/SM_Prop_LetterBox_01.res" id="147_e5kln"]
 [ext_resource type="ArrayMesh" uid="uid://ypclsncl04t0" path="res://3dModelos/SM_Prop_LetterBox_02.res" id="148_t1by1"]
-[ext_resource type="ArrayMesh" uid="uid://b7idepitq2dbg" path="res://3dModelos/SM_Prop_Junk_Stack_01.fbx" id="149_tq137"]
-[ext_resource type="ArrayMesh" uid="uid://ccdnahy45xd2t" path="res://3dModelos/SM_Prop_Junk_Stack_02.fbx" id="150_kloan"]
-[ext_resource type="ArrayMesh" uid="uid://rms18ca3yo1f" path="res://3dModelos/SM_Prop_Junk_Stack_04.fbx" id="151_sonb8"]
-[ext_resource type="ArrayMesh" uid="uid://c2e1qp1orhs88" path="res://3dModelos/SM_Prop_Junk_Stack_06.fbx" id="152_fahuw"]
-[ext_resource type="ArrayMesh" uid="uid://bck7686gtd0jd" path="res://3dModelos/SM_Prop_Junk_Stack_07.fbx" id="153_i688p"]
-[ext_resource type="ArrayMesh" uid="uid://bgfehgox7qyot" path="res://3dModelos/SM_Prop_Junk_Stack_08.fbx" id="154_yhtv1"]
 [ext_resource type="PackedScene" uid="uid://dhy2th4yxy1hj" path="res://scenes/Props/Gnomes.tscn" id="155_t1by1"]
 [ext_resource type="PackedScene" uid="uid://dc8tgbh2pmvfq" path="res://scenes/Vehicles/SM_Veh_Truck_01.tscn" id="156_kloan"]
 [ext_resource type="ArrayMesh" uid="uid://bskubnjn35plb" path="res://3dModelos/SM_Bld_GardenShed_01.res" id="159_i688p"]
@@ -174,13 +166,9 @@
 [ext_resource type="ArrayMesh" uid="uid://x7m7l0aa3dfy" path="res://3dModelos/SM_Bld_Church_Door_02.res" id="175_edwmm"]
 [ext_resource type="ArrayMesh" uid="uid://dxbkjxfsgld4w" path="res://3dModelos/SM_Bld_Church_Door_01.res" id="176_cagmf"]
 [ext_resource type="ArrayMesh" uid="uid://cn85tex3w0u2t" path="res://3dModelos/SM_Prop_Church_Stand_01.res" id="177_8j4su"]
-[ext_resource type="ArrayMesh" uid="uid://brh002qxj44ri" path="res://3dModelos/SM_Prop_Trestle_Table_01.fbx" id="177_cagmf"]
-[ext_resource type="ArrayMesh" uid="uid://c2sspfy8v67pn" path="res://3dModelos/SM_Prop_Wood_Frame_01.fbx" id="178_befh3"]
 [ext_resource type="PackedScene" uid="uid://cl8gvqtu4l83d" path="res://scenes/Vegetation/tem_grass_patch_01a.tscn" id="178_crjim"]
-[ext_resource type="ArrayMesh" uid="uid://cpovf3kvrsu3q" path="res://3dModelos/SM_Tool_Circular_Saw_01.fbx" id="179_a43o0"]
 [ext_resource type="PackedScene" uid="uid://nvpwpybbuwg0" path="res://scenes/Vegetation/tem_tree_06a.tscn" id="179_mvdav"]
 [ext_resource type="PackedScene" uid="uid://brsej5612bvcs" path="res://scenes/Vegetation/tem_tree_02a.tscn" id="180_pq1gm"]
-[ext_resource type="ArrayMesh" uid="uid://d4gpkktxvw51a" path="res://3dModelos/SM_Tool_Hammer_Claw.fbx" id="180_qk8ru"]
 [ext_resource type="PackedScene" uid="uid://rnecgc0pdjmt" path="res://scenes/Vegetation/tem_tree_01a.tscn" id="181_6k861"]
 [ext_resource type="PackedScene" uid="uid://3ooscp81xku" path="res://scenes/Vegetation/tem_tree_05a.tscn" id="182_onucu"]
 [ext_resource type="PackedScene" uid="uid://bnl1hqe3mxrk8" path="res://scenes/Vegetation/tem_tree_04a.tscn" id="183_byr1c"]
@@ -373,21 +361,6 @@ size = Vector3(0.39526367, 4.1068115, 0.31500244)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mfrgv"]
 size = Vector3(14.022949, 0.38085938, 3.5630188)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6w7b"]
-albedo_texture = ExtResource("133_70d8d")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_befh3"]
-size = Vector3(0.8109969, 0.06845704, 3.0914922)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_so2em"]
-albedo_texture = ExtResource("133_70d8d")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0480k"]
-albedo_texture = ExtResource("133_70d8d")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6th7"]
-albedo_texture = ExtResource("133_70d8d")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5aihc"]
 points = PackedVector3Array(1.12, 1.17, 1.24, 1.12, 1.17, -1.24, -1.135, 1.17, 1.24, -1.135, 1.17, -1.24, 1.12, 1.265, 1.24, 1.12, 1.265, -1.24, -1.135, 1.265, 1.24, -1.135, 1.265, -1.24, 0, 1.89, 1.24, 0, 1.89, -1.24)
@@ -1279,36 +1252,6 @@ transform = Transform3D(0.15102005, 0, -0.9885307, 0, 1, 0, 0.9885307, 0, 0.1510
 mesh = ExtResource("53_mvg0v")
 surface_material_override/0 = ExtResource("131_7m83x")
 
-[node name="SmPropJunkStack01" type="MeshInstance3D" parent="PropsHolder" unique_id=995438221]
-transform = Transform3D(0.9441674, 0, -0.32946622, 0, 1, 0, 0.32946622, 0, 0.9441674, 194.89746, -0.010251164, -57.214706)
-mesh = ExtResource("149_tq137")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
-[node name="SmPropJunkStack02" type="MeshInstance3D" parent="PropsHolder" unique_id=1556135068]
-transform = Transform3D(0.4132168, 0, -0.91063267, 0, 1, 0, 0.91063267, 0, 0.4132168, 198.39256, -0.023983836, -59.599407)
-mesh = ExtResource("150_kloan")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
-[node name="SmPropJunkStack04" type="MeshInstance3D" parent="PropsHolder" unique_id=1185087907]
-transform = Transform3D(0.9655322, 0, -0.2602837, 0, 1, 0, 0.2602837, 0, 0.9655322, 198.24562, 0.10246229, -54.84446)
-mesh = ExtResource("151_sonb8")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
-[node name="SmPropJunkStack06" type="MeshInstance3D" parent="PropsHolder" unique_id=1494916659]
-transform = Transform3D(0.46283197, 0, 0.886446, 0, 1, 0, -0.886446, 0, 0.46283197, 202.20139, 0.0041252375, -58.761044)
-mesh = ExtResource("152_fahuw")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
-[node name="SmPropJunkStack07" type="MeshInstance3D" parent="PropsHolder" unique_id=2145646150]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.70287, 0.019390702, -50.935135)
-mesh = ExtResource("153_i688p")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
-[node name="SmPropJunkStack08" type="MeshInstance3D" parent="PropsHolder" unique_id=1155033969]
-transform = Transform3D(0.59262943, 0, -0.80547523, 0, 1, 0, 0.80547523, 0, 0.59262943, 207.32692, -0.060266018, -60.03733)
-mesh = ExtResource("154_yhtv1")
-surface_material_override/0 = ExtResource("133_sjp3e")
-
 [node name="SmEnvHedge01" type="MeshInstance3D" parent="PropsHolder" unique_id=1548632835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206.49976, -0.022174954, 23.297365)
 mesh = ExtResource("162_7n6r0")
@@ -1394,33 +1337,6 @@ surface_material_override/0 = ExtResource("131_l8ik4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.96022, 2.725842e-17, -8.247703)
 mesh = ExtResource("165_edwmm")
 surface_material_override/0 = ExtResource("131_l8ik4")
-
-[node name="SmPropTrestleTable01" type="MeshInstance3D" parent="PropsHolder" unique_id=774802233]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.347164, 0, -5.385423)
-material_override = SubResource("StandardMaterial3D_u6w7b")
-mesh = ExtResource("177_cagmf")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="PropsHolder/SmPropTrestleTable01" unique_id=302404556]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.022870779)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PropsHolder/SmPropTrestleTable01/StaticBody3D" unique_id=636173593]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00034713745, 0.3657715, 0)
-shape = SubResource("BoxShape3D_befh3")
-
-[node name="SmPropWoodFrame01" type="MeshInstance3D" parent="PropsHolder" unique_id=1789356800]
-transform = Transform3D(0.69014853, 0, 0.72366774, 0, 1, 0, -0.72366774, 0, 0.69014853, -59.575478, 0, -5.362346)
-material_override = SubResource("StandardMaterial3D_so2em")
-mesh = ExtResource("178_befh3")
-
-[node name="SmToolCircularSaw01" type="MeshInstance3D" parent="PropsHolder" unique_id=78152506]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -56.55371, 0.8864486, -5.0833883)
-material_override = SubResource("StandardMaterial3D_0480k")
-mesh = ExtResource("179_a43o0")
-
-[node name="SmToolHammerClaw" type="MeshInstance3D" parent="PropsHolder" unique_id=1550155501]
-transform = Transform3D(-4.223098e-08, -0.96613216, -0.25804776, 1, -4.371139e-08, 0, -1.1279626e-08, -0.25804776, 0.96613216, -56.520134, 0.832867, -4.5587697)
-material_override = SubResource("StandardMaterial3D_t6th7")
-mesh = ExtResource("180_qk8ru")
 
 [node name="BuildingsHolder" type="Node3D" parent="." unique_id=635885780]
 
