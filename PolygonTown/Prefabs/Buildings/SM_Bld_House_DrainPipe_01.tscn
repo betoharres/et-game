@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhlm4h6jtp5p"]
+
+[ext_resource type="ArrayMesh" uid="uid://c3g578pmmcme5" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_DrainPipe_01.res" id="1_4ejng"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_jc3at"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_25efc"]
+points = PackedVector3Array(0.052950993, 0.014081001, 0.47525716, 0.07601109, 0.014081001, 0.36008066, -0.062191665, 0.014081001, 0.47525716, -0.03917892, -3.786049, 0.15277198, 0.05296679, -3.786049, 0.12972766, 0.07601109, -3.786049, 0.083639026, -0.08523598, 0.014081001, 0.36008066, 0.07601109, -0.49366927, 0.060594704, 0.052950993, -0.47023463, 0.014551163, -0.062191665, -0.40104675, 0.03764058, -0.08523598, -3.786049, 0.10668334, 0.05296679, -3.786049, 0.014551163, -0.08523598, -1.0464289, 0.060594704, -0.062207453, -0.60898256, 0.014551163, -0.08523598, -3.786049, 0.060594704, -0.062207453, -3.786049, 0.014551163)
+
+[node name="SM_Bld_House_DrainPipe_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_4ejng")
+surface_material_override/0 = ExtResource("2_jc3at")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_25efc")

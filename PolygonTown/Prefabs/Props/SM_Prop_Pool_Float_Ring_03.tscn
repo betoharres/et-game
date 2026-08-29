@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7ojv5ns301nt"]
+
+[ext_resource type="ArrayMesh" uid="uid://ck2vvs68gco4m" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Pool_Float_Ring_03.res" id="1_r2bv1"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_n74cg"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y1b5t"]
+points = PackedVector3Array(0.57056147, 0.25391176, 0.19799483, 0.47578734, 0.014877636, -0.16179085, 0.57056147, 0.25391176, -0.13909143, 0.04902613, 1.082087, 0.7501582, 0.110357106, 0.62198967, 0.90375745, 0.16302174, 0.006974786, 0.5053828, -0.18296486, 0.015960217, -0.44742513, 0.18835407, 0.017692348, -0.44629014, 0.048803926, 0.46869606, -1.0287193, -0.0429703, 1.1129407, 0.78080237, -0.0124159455, 0.4993331, -1.0287193, -0.07363579, 0.5914608, 0.90375745, -0.32907033, 0.011196856, 0.4145851, -0.5329513, 0.067382865, 0.21331704, -0.56450564, 0.25391176, -0.16973561, -0.56450564, 0.25391176, 0.22882831)
+
+[node name="SM_Prop_Pool_Float_Ring_03" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_r2bv1")
+surface_material_override/0 = ExtResource("2_n74cg")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_y1b5t")

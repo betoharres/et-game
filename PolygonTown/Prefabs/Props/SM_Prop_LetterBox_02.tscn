@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmorfgmxxx3mp"]
+
+[ext_resource type="ArrayMesh" uid="uid://ypclsncl04t0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_02.res" id="1_c17xs"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_as22k"]
+[ext_resource type="ArrayMesh" uid="uid://bbh1gnfv02kto" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_02_Door.res" id="3_as22k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c17xs"]
+size = Vector3(0.07421875, 0.94241333, 0.074157715)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_as22k"]
+size = Vector3(0.2590332, 0.28961182, 0.32757568)
+
+[node name="SM_Prop_LetterBox_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_c17xs")
+surface_material_override/0 = ExtResource("2_as22k")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001953125, 0.468338, 0.007965088)
+shape = SubResource("BoxShape3D_c17xs")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00012207031, 1.0838318, 0.011138916)
+shape = SubResource("BoxShape3D_as22k")
+
+[node name="SM_Prop_LetterBox_02_Door" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4245775e-17, 1.2311757, -0.14466862)
+gi_mode = 2
+mesh = ExtResource("3_as22k")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_as22k")

@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 GlobalScore="*res://scripts/GlobalScore.gd"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
-GdPAIAutoload="*res://addons/GdPlanningAI/gdpai_autoload.gd"
 
 [display]
 

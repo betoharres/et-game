@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://swqh3ryeytq5"]
+
+[ext_resource type="ArrayMesh" uid="uid://d454cbbe5wia" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Toothbrush_Cup_01.res" id="1_ncotj"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_gqh3r"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7h1ni"]
+points = PackedVector3Array(0.0221214, 0.3277308, 0.07666015, 0.043433487, 0.3384417, 0.05530954, -0.06847537, 0.32239145, -0.02993178, -0.046714183, 0.14886215, 0.0445171, -0.05279752, 0.07037997, 0.04565931, 0.0008093193, 0.018851906, 0.06147457, 0.044930503, 0.010842862, 0.041046523, 0.07055672, 0.058285993, -0.003119059, 0.05901607, 0.21151926, -0.007878281, 0.043705672, 0.20601906, -0.045922767, -0.052484505, 0.32239145, -0.051253095, -0.043461572, 0.010328225, -0.047357857, -0.058458965, 0.009845752, -0.012959663, 0.044685535, 0.011711312, -0.04694783, 0.025183484, 0.050791584, -0.06162088, 0.0008093193, 0.058157332, -0.072940506)
+
+[node name="SM_Item_Toothbrush_Cup_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_ncotj")
+surface_material_override/0 = ExtResource("2_gqh3r")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_7h1ni")

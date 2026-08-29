@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://n446radwm3kv"]
+
+[ext_resource type="ArrayMesh" uid="uid://cwkcwb1nj2n7h" path="res://assets/PolygonTown/Models/Generic/extracted/SM_Generic_Cloud_04.res" id="1_mrtav"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c53kb"]
+
+[node name="SM_Generic_Cloud_04" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_mrtav")
+surface_material_override/0 = ExtResource("2_c53kb")

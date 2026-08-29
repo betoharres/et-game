@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3n34m43ixvq5"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctwh8oqccw7qa" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Mirror_01.res" id="1_rioxm"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_w5cln"]
+[ext_resource type="ArrayMesh" uid="uid://cmdo0mwexv0r4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Mirror_01_Glass.res" id="3_w5cln"]
+[ext_resource type="Material" uid="uid://c2yptqf18rkgh" path="res://Assets/PolygonTown/Materials/Misc/Mirror_Glass_mat.tres" id="4_kbaf7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_so78k"]
+points = PackedVector3Array(-0.45408168, -0.61058176, -0.009532869, -0.45408168, -0.61058176, 0.066782385, -0.45408168, 0.43869126, -0.009532869, 0.4615613, -0.61058176, -0.009532869, 0.4615613, -0.61058176, 0.066782385, -0.45408168, 0.43869126, 0.066782385, -0.3396263, 0.55320525, -0.009532869, 0.4615613, 0.4195658, -0.009532869, 0.4615613, 0.4195658, 0.066782385, -0.3015343, 0.5720917, 0.066782385, -0.07271317, 0.61058176, -0.009532869, 0.28974375, 0.5720917, -0.009532869, 0.3279254, 0.55320525, 0.066782385, 0.060833007, 0.61058176, 0.066782385, 0.28974375, 0.5720917, 0.066782385)
+
+[node name="SM_Prop_Mirror_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_rioxm")
+surface_material_override/0 = ExtResource("2_w5cln")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_so78k")
+
+[node name="SM_Prop_Mirror_01_Glass" type="MeshInstance3D" parent="."]
+gi_mode = 2
+mesh = ExtResource("3_w5cln")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("4_kbaf7")

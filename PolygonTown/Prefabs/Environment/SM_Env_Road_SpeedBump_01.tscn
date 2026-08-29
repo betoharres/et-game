@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbx5jrw1h2une"]
+
+[ext_resource type="ArrayMesh" uid="uid://d2o2v3aonch3" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Road_SpeedBump_01.res" id="1_kqsam"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_rb27a"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4s8my"]
+points = PackedVector3Array(0.2894609, 0.08114676, 4.354423, 0.1270985, 0.13526225, 4.354423, 0.18121931, -0.027052447, 4.4627814, 0.2894609, -0.027052447, 4.354423, 0.2894609, 0.08114676, -4.3561697, -0.25163049, 0.13526225, 4.1918855, -0.25163049, 0.08114676, 4.408602, 0.1270985, 0.13526225, -4.3561697, -0.30569303, -0.027052447, 4.300244, 0.2894609, -0.027052447, -4.3561697, 0.18121931, -0.027052447, -4.463654, -0.30569303, 0.08114676, 4.300244, -0.25163049, 0.13526225, -4.2469378, -0.25163049, 0.08114676, -4.410349, -0.30569303, -0.027052447, -4.3019905, -0.30569303, 0.08114676, -4.3019905)
+
+[node name="SM_Env_Road_SpeedBump_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_kqsam")
+surface_material_override/0 = ExtResource("2_rb27a")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_4s8my")
