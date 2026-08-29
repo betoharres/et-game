@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bft6m1wdkcnij"]
 
 [ext_resource type="PackedScene" uid="uid://144pjk7csl2t" path="res://PolygonCity/FBX/Veh/SM_Veh_Car_Muscle_01.fbx" id="1_1p5i4"]
-[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/City1A.tres" id="2_vamu1"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="2_vamu1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hh4ji"]
 size = Vector3(2.1963022, 1.1155696, 5.642582)

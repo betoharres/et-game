@@ -1,7 +1,7 @@
-[gd_scene load_steps=34 format=4 uid="uid://dkmrtm8xjx3fq"]
+[gd_scene format=4 uid="uid://dkmrtm8xjx3fq"]
 
-[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://Assets/PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="2_53t64"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yud60"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="2_53t64"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yud60"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_baq1e"]
 resource_name = "Default-Line"
@@ -314,119 +314,107 @@ blend_shape_mode = 0
 [sub_resource type="SphereShape3D" id="SphereShape3D_pmqw2"]
 radius = 0.5385136
 
-[node name="SM_Veh_SchoolBus_01" type="MeshInstance3D"]
+[node name="SM_Veh_SchoolBus_01" type="MeshInstance3D" unique_id=1237584294]
 gi_mode = 2
 mesh = SubResource("ArrayMesh_ie6aj")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="MeshCollider" type="StaticBody3D" parent="."]
+[node name="MeshCollider" type="StaticBody3D" parent="." unique_id=2021152493]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider" unique_id=1299234958]
 shape = SubResource("ConvexPolygonShape3D_c2y64")
 
-[node name="SM_Veh_SchoolBus_Door_01" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Door_01" type="MeshInstance3D" parent="." unique_id=73721615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.334098, 1.4887782, 1.2793583)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_53t64")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SM_Veh_SchoolBus_Door_01_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_01"]
+[node name="SM_Veh_SchoolBus_Door_01_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_01" unique_id=684993702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019581318, 0.025211453, 0.18042219)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_kv2fu")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_53t64")
 
-[node name="SM_Veh_SchoolBus_Door_02" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Door_02" type="MeshInstance3D" parent="." unique_id=1386114403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.334098, 1.4887782, 2.0985005)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_xjpwd")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SM_Veh_SchoolBus_Door_02_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_02"]
+[node name="SM_Veh_SchoolBus_Door_02_Glass" type="MeshInstance3D" parent="SM_Veh_SchoolBus_Door_02" unique_id=287742562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019581318, 0.025211453, -0.18405032)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_qdwoc")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_53t64")
 
-[node name="SM_Veh_SchoolBus_Glass" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Glass" type="MeshInstance3D" parent="." unique_id=1621344411]
 gi_mode = 2
 mesh = SubResource("ArrayMesh_0n3kd")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_53t64")
 
-[node name="SM_Veh_SchoolBus_Sign_l" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Sign_l" type="MeshInstance3D" parent="." unique_id=1044216693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4815731, 1.6472168, 1.3908942)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_f6hbg")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SM_Veh_SchoolBus_Sign_r" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Sign_r" type="MeshInstance3D" parent="." unique_id=768915628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4726994, 1.6472168, 0.7591128)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_3y5g2")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SM_Veh_SchoolBus_SteeringW" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_SteeringW" type="MeshInstance3D" parent="." unique_id=2040508800]
 transform = Transform3D(1, 0, 0, 0, 0.75437146, -0.65644777, 0, 0.65644777, 0.75437146, 0.955616, 1.9932941, 2.0919166)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_yud60")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SM_Veh_SchoolBus_Wheel_fl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Wheel_fl" type="MeshInstance3D" parent="." unique_id=748520466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0514299, 0.52868664, 3.1693573)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_3j3v8")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_fl"]
+[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_fl" unique_id=30842871]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_fl/SphereCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_fl/SphereCollider" unique_id=644050510]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14116986, 5.9604645e-08, 6.854534e-07)
 shape = SubResource("SphereShape3D_3y5g2")
 
-[node name="SM_Veh_SchoolBus_Wheel_fr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1999456164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0629039, 0.52868664, 3.1693573)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_ed4p2")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_fr"]
+[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_fr" unique_id=432160163]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_fr/SphereCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_fr/SphereCollider" unique_id=1649206413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12969537, 5.9604645e-08, 6.854534e-07)
 shape = SubResource("SphereShape3D_egv34")
 
-[node name="SM_Veh_SchoolBus_Wheel_rl" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Wheel_rl" type="MeshInstance3D" parent="." unique_id=344321875]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0076474, 0.5268964, -1.8532443)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_svdsd")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_rl"]
+[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_rl" unique_id=619680114]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_rl/SphereCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_rl/SphereCollider" unique_id=148828865]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1292439e-07, 1.1920929e-07, 0)
 shape = SubResource("SphereShape3D_yud60")
 
-[node name="SM_Veh_SchoolBus_Wheel_rr" type="MeshInstance3D" parent="."]
+[node name="SM_Veh_SchoolBus_Wheel_rr" type="MeshInstance3D" parent="." unique_id=1966554316]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0076474, 0.5268964, -1.8532443)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_6hr23")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_yud60")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_rr"]
+[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_SchoolBus_Wheel_rr" unique_id=1843202912]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_rr/SphereCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_SchoolBus_Wheel_rr/SphereCollider" unique_id=1935797499]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1292439e-07, 1.1920929e-07, 0)
 shape = SubResource("SphereShape3D_pmqw2")

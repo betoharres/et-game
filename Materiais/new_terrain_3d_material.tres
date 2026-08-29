@@ -1,10 +1,10 @@
 [gd_resource type="Terrain3DMaterial" format=3 uid="uid://bhsomirq7jyr5"]
 
-[sub_resource type="Gradient" id="Gradient_onucu"]
+[sub_resource type="Gradient" id="Gradient_7ytg0"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_byr1c"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ble8"]
 noise_type = 2
 frequency = 0.03
 cellular_jitter = 3.0
@@ -16,9 +16,9 @@ domain_warp_fractal_type = 2
 domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4khmu"]
-noise = SubResource("FastNoiseLite_byr1c")
-color_ramp = SubResource("Gradient_onucu")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0we2m"]
+noise = SubResource("FastNoiseLite_8ble8")
+color_ramp = SubResource("Gradient_7ytg0")
 seamless = true
 
 [resource]
@@ -28,29 +28,29 @@ _shader_parameters = {
 &"auto_overlay_texture": null,
 &"auto_slope": null,
 &"bias_distance": null,
-&"blend_sharpness": 0.0,
-&"depth_blur": 0.0,
+&"blend_sharpness": null,
+&"depth_blur": null,
 &"enable_macro_variation": null,
 &"enable_projection": null,
 &"flat_terrain_normals": null,
 &"macro_variation1": null,
 &"macro_variation2": null,
 &"macro_variation_slope": null,
-&"mipmap_bias": 0.5,
+&"mipmap_bias": null,
 &"noise1_angle": null,
 &"noise1_offset": null,
-&"noise1_scale": 0.0010000000475,
+&"noise1_scale": null,
 &"noise2_scale": null,
-&"noise_texture": SubResource("NoiseTexture2D_4khmu"),
-&"projection_threshold": 0.0,
-&"world_noise_fragment_normals": false,
-&"world_noise_height": 0.35,
-&"world_noise_lod_distance": 400.0,
-&"world_noise_max_octaves": 3,
-&"world_noise_min_octaves": 1,
-&"world_noise_offset": Vector3(0, 0, 0),
-&"world_noise_region_blend": 0.9,
-&"world_noise_scale": 8.0
+&"noise_texture": SubResource("NoiseTexture2D_0we2m"),
+&"projection_threshold": null,
+&"world_noise_fragment_normals": null,
+&"world_noise_height": null,
+&"world_noise_lod_distance": null,
+&"world_noise_max_octaves": null,
+&"world_noise_min_octaves": null,
+&"world_noise_offset": null,
+&"world_noise_region_blend": null,
+&"world_noise_scale": null
 }
 world_background = 2
 auto_shader = true

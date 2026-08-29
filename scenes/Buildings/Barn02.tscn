@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ehjc8hntub78"]
 
 [ext_resource type="PackedScene" uid="uid://b70x4xpyi61aa" path="res://3dModelos/SM_Bld_Barn_02.fbx" id="1_wcc3u"]
-[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/text1AFarm.tres" id="2_gllro"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_gllro"]
 
 [node name="Barn2" unique_id=1112714426 instance=ExtResource("1_wcc3u")]
 
