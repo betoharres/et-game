@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1dpav48qe8yh"]
 
-[ext_resource type="ArrayMesh" uid="uid://ch2gtvxxi7ov3" path="res://3dModelos/SM_Veh_Harvester_01.fbx" id="1_h6a0k"]
+[ext_resource type="ArrayMesh" uid="uid://djm7k6eb8m1eo" path="res://3dModelos/SM_Veh_Harvester_01.fbx" id="1_h6a0k"]
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_icei6"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="3_cwemq"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="4_jfp7x"]

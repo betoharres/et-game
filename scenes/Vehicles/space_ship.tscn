@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqub6i2xmuro5"]
 
 [ext_resource type="Script" uid="uid://l7yncpk64gr6" path="res://scripts/space_ship.gd" id="1_bt5oy"]
-[ext_resource type="ArrayMesh" uid="uid://vd8v470k8rmc" path="res://3dModelos/ET_Alien_Space_Ship.glb" id="1_dp8cb"]
+[ext_resource type="ArrayMesh" uid="uid://jbko44hxsgpw" path="res://3dModelos/ET_Alien_Space_Ship.glb" id="1_dp8cb"]
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="2_beam_shader"]
 [ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="3_interference"]
 

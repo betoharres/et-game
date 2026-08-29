@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brxgcx53ho257"]
 
-[ext_resource type="PackedScene" uid="uid://bl2q1ktthcs8a" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="1_jp4om"]
+[ext_resource type="PackedScene" uid="uid://jnkrjpkd7sgg" path="res://3dModelos/SM_Bld_Barn_03.fbx" id="1_jp4om"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_ys434"]
 
 [node name="SM_Bld_Barn_03" unique_id=997954030 instance=ExtResource("1_jp4om")]

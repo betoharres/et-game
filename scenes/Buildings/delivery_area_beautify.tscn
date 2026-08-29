@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bp3k15xlgpu2t"]
 
 [ext_resource type="PackedScene" uid="uid://52whfmeeihoc" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_01A.fbx" id="2_7a8qm"]
-[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_4omdm"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://PolygonTown/Materials/Misc/Ground_mat.tres" id="3_4omdm"]
 [ext_resource type="PackedScene" uid="uid://bap1uv8srme0n" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_02A.fbx" id="3_pgedw"]
 [ext_resource type="PackedScene" uid="uid://0qkg3xja1glc" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Broken_Pillar_03A.fbx" id="4_4omdm"]
 [ext_resource type="PackedScene" uid="uid://c2u4qnqo7lx0i" path="res://scenes/FX/FX_Fog_01.tscn" id="10_37myx"]

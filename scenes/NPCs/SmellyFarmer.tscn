@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
-[ext_resource type="PackedScene" uid="uid://bfynk4mk33ass" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
-[ext_resource type="ArrayMesh" uid="uid://cuoybk3cadt8b" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
+[ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
+[ext_resource type="ArrayMesh" uid="uid://d3irt6sfulsdc" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
 [ext_resource type="Script" uid="uid://c7b1g0wjyngyp" path="res://scripts/IKsmelly.gd" id="4_vfalg"]
 [ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 

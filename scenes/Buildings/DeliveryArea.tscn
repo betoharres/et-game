@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://coiorvs17f4oe"]
 
 [ext_resource type="Script" uid="uid://deeub3siqrmmb" path="res://scripts/delivery_area.gd" id="1_trv2r"]
-[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_isfyg"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://PolygonTown/Materials/Misc/Ground_mat.tres" id="3_isfyg"]
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="4_beam_shader"]
 [ext_resource type="Theme" uid="uid://ds6ac3raauq3j" path="res://Materiais/hud_theme.tres" id="5_hud_theme"]
 [ext_resource type="Texture2D" uid="uid://b3b1wfkvyx5cj" path="res://Texturas/ui/switch_button.png" id="6_switch_icon"]

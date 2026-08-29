@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cvt6cslof6kw4"]
 
-[ext_resource type="ArrayMesh" uid="uid://5fb6kvhicapv" path="res://3dModelos/SM_Prop_Windmill_01.fbx" id="1_nxy7k"]
+[ext_resource type="ArrayMesh" uid="uid://bapi4pmu2r0bn" path="res://3dModelos/SM_Prop_Windmill_01.fbx" id="1_nxy7k"]
 [ext_resource type="Script" uid="uid://bf2f7d6pj3s35" path="res://scripts/windmill.gd" id="1_x5wes"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_x5wes"]
-[ext_resource type="ArrayMesh" uid="uid://5wjvs177x3nq" path="res://3dModelos/SM_Prop_Windmill_02.fbx" id="4_uhf38"]
-[ext_resource type="ArrayMesh" uid="uid://dwepp6wg5tom4" path="res://3dModelos/SM_Prop_Windmill_03.fbx" id="5_odav2"]
+[ext_resource type="ArrayMesh" uid="uid://di6ilsb2k03x" path="res://3dModelos/SM_Prop_Windmill_02.fbx" id="4_uhf38"]
+[ext_resource type="ArrayMesh" uid="uid://d2frslrhemnu6" path="res://3dModelos/SM_Prop_Windmill_03.fbx" id="5_odav2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_odav2"]
 height = 2.9521484

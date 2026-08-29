@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c7554dwiw4quj" path="res://scripts/spider_bot/start_ik.gd" id="1_n6l5c"]
 [ext_resource type="PackedScene" uid="uid://dwxqs8sgwo3kl" path="res://3dModelos/spider_bot_model.gltf" id="1_vovvw"]
 [ext_resource type="Script" uid="uid://cfvm5ylrw0kqf" path="res://scripts/spider_bot/spider_bot.gd" id="2_kfpvc"]
-[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="3_0f8hv"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://PolygonTown/Materials/Misc/Ground_mat.tres" id="3_0f8hv"]
 [ext_resource type="Script" uid="uid://1g3w36rtmt44" path="res://scripts/spider_bot/step_ray.gd" id="4_8a6ki"]
 [ext_resource type="Shader" uid="uid://tax2k4kitkxn" path="res://shaders/body_glass.gdshader" id="4_fvotl"]
 [ext_resource type="Script" uid="uid://cvppf16by64p3" path="res://scripts/spider_bot/ik_target.gd" id="4_p25cf"]

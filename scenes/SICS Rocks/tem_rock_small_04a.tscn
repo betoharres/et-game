@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2b0m73pe2msr"]
 
 [ext_resource type="PackedScene" uid="uid://bf4m26a65jwnq" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Rock_Small_04A.fbx" id="1_a3tye"]
-[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="2_2svcg"]
+[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://PolygonTown/Materials/Misc/Ground_mat.tres" id="2_2svcg"]
 
 [node name="TEM_Rock_Small_04A" unique_id=566431628 instance=ExtResource("1_a3tye")]
 

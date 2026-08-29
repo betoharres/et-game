@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c50tukg86jx2u"]
 
-[ext_resource type="PackedScene" uid="uid://b8qwdxev0xkwi" path="res://3dModelos/SM_Veh_Pickup_03.fbx" id="1_jngmu"]
+[ext_resource type="PackedScene" uid="uid://coygyabdi20is" path="res://3dModelos/SM_Veh_Pickup_03.fbx" id="1_jngmu"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_i1sut"]
 [ext_resource type="Script" uid="uid://3bi3v2yyqmc5" path="res://scripts/engine_truck.gd" id="2_ioe6r"]
 

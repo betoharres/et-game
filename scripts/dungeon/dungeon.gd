@@ -96,6 +96,7 @@ func ensure_generated(farm_return_position : Vector3) -> void:
 		return
 
 	_seed_random()
+	@warning_ignore("integer_division")
 	_entry_cell = Vector2i(0, grid_depth / 2)
 	_connection_masks = _generate_connection_masks()
 

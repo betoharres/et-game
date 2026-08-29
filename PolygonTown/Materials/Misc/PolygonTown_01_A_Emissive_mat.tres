@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://scbwiw832483" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="1_slets"]
 [ext_resource type="Texture2D" uid="uid://e10kniinn1f3" path="res://PolygonTown/Textures/Misc/PolygonTown_Emissive_01.png" id="2_775yu"]
-[ext_resource type="Texture2D" uid="uid://bto1hukfonov6" path="res://PolygonTown/Textures/Misc/PolygonTown_Texture_Metallic.tga" id="3_8vtx5"]
-[ext_resource type="Texture2D" uid="uid://s6cq0wv03r1e" path="res://PolygonTown/Textures/Misc/PolygonTown_Texture_Normal_A.png" id="4_acibq"]
+[ext_resource type="Texture2D" uid="uid://5awjw50oaowv" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.tga" id="3_8vtx5"]
+[ext_resource type="Texture2D" uid="uid://t7fvp2u3wow1" path="res://PolygonTown/Textures/PolygonTown_Texture_Normal_A.png" id="4_acibq"]
 
 [resource]
 resource_name = "PolygonTown_01_A_Emissive_mat"

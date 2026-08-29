@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brxka78dthcxn"]
 
 [ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://PolygonTown/Models/Vehicles/extracted/default.material" id="1_ue016"]
-[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Materiais/Window_Glass_mat.tres" id="2_0msnc"]
+[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="2_0msnc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_mc7o6"]
 [ext_resource type="PackedScene" uid="uid://ceowor0c8oace" path="res://PolygonTown/Prefabs/Props/SM_Prop_Heater_01.tscn" id="3_clpg8"]
 [ext_resource type="PackedScene" uid="uid://nvpwpybbuwg0" path="res://scenes/Vegetation/tem_tree_06a.tscn" id="3_futj8"]
