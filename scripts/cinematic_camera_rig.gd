@@ -236,7 +236,6 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 	)
 
 
-<<<<<<< HEAD
 ## Impact response
 ##
 ## Used by scripted moments (the fase arrival, hard landings) to punch the
@@ -295,7 +294,8 @@ func _update_impact(delta : float) -> void:
 	camera.rotation.z += (
 		deg_to_rad(shake_rotation_degrees) * falloff * sin(_shake_phase * TAU * 0.77)
 	)
-=======
+
+
 func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
 	var reference_forward : Vector3 = Vector3.FORWARD.slide(up)
 	if reference_forward.length_squared() <= 0.0001:
@@ -304,7 +304,6 @@ func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:
 
 	var forward : Vector3 = reference_forward.rotated(up, yaw).normalized()
 	return Basis.looking_at(forward, up).orthonormalized()
->>>>>>> 61bb5fdeb041f7c11a1ef641457374fe00485b7c
 
 
 ## XRAY Stuff

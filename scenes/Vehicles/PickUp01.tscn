@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cut8qchy5b2rx"]
 
-[ext_resource type="ArrayMesh" uid="uid://ct7jiaiue2e26" path="res://3dModelos/SM_Veh_Pickup_01.fbx" id="1_6oqar"]
+[ext_resource type="ArrayMesh" uid="uid://3js53fy6cwsk" path="res://3dModelos/SM_Veh_Pickup_01.fbx" id="1_6oqar"]
 [ext_resource type="Material" uid="uid://dpvrh0fvoa2cq" path="res://Materiais/text3A.tres" id="2_6oqar"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]

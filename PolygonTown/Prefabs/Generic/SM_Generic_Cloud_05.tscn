@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cs7rmc02qafsf"]
 
-[ext_resource type="ArrayMesh" uid="uid://bifr2i45h1lgo" path="res://assets/PolygonTown/Models/Generic/extracted/SM_Generic_Cloud_05.res" id="1_x5x5n"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fxhth"]
+[ext_resource type="ArrayMesh" uid="uid://bifr2i45h1lgo" path="res://PolygonTown/Models/Generic/extracted/SM_Generic_Cloud_05.res" id="1_x5x5n"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_fxhth"]
 
 [node name="SM_Generic_Cloud_05" type="MeshInstance3D"]
 gi_mode = 2

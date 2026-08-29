@@ -146,7 +146,9 @@ func _capture_fallen_global_poses() -> Array[Transform3D]:
 	var fallen_globals : Array[Transform3D] = []
 	fallen_globals.resize(bone_count)
 
-	var reference : Node3D = _simulator if _simulator != null else _skeleton
+	var reference : Node3D = (
+		_simulator as Node3D if _simulator != null else _skeleton as Node3D
+	)
 	var reference_inverse : Transform3D = (
 		reference.global_transform.affine_inverse()
 	)

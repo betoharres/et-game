@@ -1,9 +1,9 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dg062jyvxx573"]
 
-[ext_resource type="Texture2D" uid="uid://dp4qos27rg21l" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="1_j7utu"]
-[ext_resource type="Texture2D" uid="uid://p8cv62xu4by6" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.roughness.png" id="2_h3xws"]
-[ext_resource type="Texture2D" uid="uid://cwliaym4pannv" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.tga" id="2_ukd1g"]
-[ext_resource type="Texture2D" uid="uid://5skylvyv7fvo" path="res://PolygonTown/Textures/PolygonTown_Texture_Normal_A.png" id="3_aesgp"]
+[ext_resource type="Texture2D" uid="uid://scbwiw832483" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="1_j7utu"]
+[ext_resource type="Texture2D" uid="uid://dr4mhrbh65bp6" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.roughness.png" id="2_h3xws"]
+[ext_resource type="Texture2D" uid="uid://5awjw50oaowv" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.tga" id="2_ukd1g"]
+[ext_resource type="Texture2D" uid="uid://t7fvp2u3wow1" path="res://PolygonTown/Textures/PolygonTown_Texture_Normal_A.png" id="3_aesgp"]
 
 [resource]
 resource_name = "PolygonTown_01_A_mat"

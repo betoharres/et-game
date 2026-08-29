@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dlp4tsqmskolk"]
 
-[ext_resource type="ArrayMesh" uid="uid://br0c25j7tymo8" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Box_01.res" id="1_eicr0"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_5dvty"]
-[ext_resource type="ArrayMesh" uid="uid://ql4hgoa413gn" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_01.res" id="3_5dvty"]
-[ext_resource type="ArrayMesh" uid="uid://2kl5vcncds2v" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Lid_e01.res" id="4_tskqq"]
-[ext_resource type="ArrayMesh" uid="uid://no6523kb7c8q" path="res://assets/PolygonTown/Models/Items/extracted/SM_Item_Pizza_Slice_01.res" id="5_p0shd"]
+[ext_resource type="ArrayMesh" uid="uid://br0c25j7tymo8" path="res://PolygonTown/Models/Items/extracted/SM_Item_Pizza_Box_01.res" id="1_eicr0"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_5dvty"]
+[ext_resource type="ArrayMesh" uid="uid://ql4hgoa413gn" path="res://PolygonTown/Models/Items/extracted/SM_Item_Pizza_01.res" id="3_5dvty"]
+[ext_resource type="ArrayMesh" uid="uid://2kl5vcncds2v" path="res://PolygonTown/Models/Items/extracted/SM_Item_Pizza_Lid_e01.res" id="4_tskqq"]
+[ext_resource type="ArrayMesh" uid="uid://no6523kb7c8q" path="res://PolygonTown/Models/Items/extracted/SM_Item_Pizza_Slice_01.res" id="5_p0shd"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w85x0"]
 points = PackedVector3Array(0.28465998, 0.05804906, 0.08685416, 0.28465998, -0.0044653118, -0.09175137, 0.26676112, 0.05804906, -0.27024502, 0.26676112, 0.05804906, 0.26540375, 0.26676112, -0.0044653118, 0.26540375, 0.26676112, -0.0044653118, -0.27024502, 0.0703145, 0.05804906, -0.2881447, -0.063568816, 0.05804906, 0.28330344, 0.0703145, -0.0044653118, 0.28330344, -0.06362389, -0.0044653118, -0.2881447, -0.2601256, 0.05804906, -0.27030092, -0.2601256, 0.05804906, 0.26534778, -0.2601256, -0.0044653118, 0.26534778, -0.2601256, -0.0044653118, -0.27030092, -0.27796936, 0.05804906, 0.0869101, -0.27796936, -0.0044653118, 0.0869101)

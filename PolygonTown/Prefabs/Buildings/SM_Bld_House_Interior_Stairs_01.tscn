@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8ny0x2px7jsh"]
 
-[ext_resource type="ArrayMesh" uid="uid://du7biwye5usqq" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Stairs_01.res" id="1_pxwn7"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_i0icj"]
-[ext_resource type="Shape3D" uid="uid://6nmfw070nl8l" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Interior_Stairs_01_COLLISION.res" id="3_i0icj"]
+[ext_resource type="ArrayMesh" uid="uid://du7biwye5usqq" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Stairs_01.res" id="1_pxwn7"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_i0icj"]
+[ext_resource type="Shape3D" uid="uid://6nmfw070nl8l" path="res://PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Interior_Stairs_01_COLLISION.res" id="3_i0icj"]
 
 [node name="SM_Bld_House_Interior_Stairs_01" type="MeshInstance3D"]
 gi_mode = 2

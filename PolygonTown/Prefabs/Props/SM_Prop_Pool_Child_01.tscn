@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://jjit5tic04vj"]
 
-[ext_resource type="ArrayMesh" uid="uid://cq7wdyf5j50y8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Pool_Child_01.res" id="1_i354c"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vy7"]
-[ext_resource type="ArrayMesh" uid="uid://b2pdfy8vl216b" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Pool_Child_Water_01.res" id="3_c6vy7"]
-[ext_resource type="Material" uid="uid://c1o8ew6ymaaqt" path="res://Assets/PolygonTown/Materials/Misc/Water_mat.tres" id="4_2iuf6"]
+[ext_resource type="ArrayMesh" uid="uid://cq7wdyf5j50y8" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Pool_Child_01.res" id="1_i354c"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vy7"]
+[ext_resource type="ArrayMesh" uid="uid://b2pdfy8vl216b" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Pool_Child_Water_01.res" id="3_c6vy7"]
+[ext_resource type="Material" uid="uid://c1o8ew6ymaaqt" path="res://PolygonTown/Materials/Misc/Water_mat.tres" id="4_2iuf6"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dr8cn"]
 points = PackedVector3Array(0.39036667, 0.62443495, -1.026329, 0.85210073, 0.6921585, -0.44366556, 0.88327086, 0.037000794, -0.5408441, 0.3899511, 0.07140437, -1.0257179, -0.329664, 0.6943257, -0.9409668, 0.7053932, 0.599919, 0.822507, 1.0738244, 0.09625891, 0.08297253, -0.6239103, 0.6927003, 0.7051594, 0.62206495, 0.0040194225, 0.70332587, -0.3288328, 0.0024617806, -0.93852204, -0.9759253, 0.60032535, -0.5225085, 0.0668205, 0.5992418, 1.0549612, -0.70578396, 0.59998673, 0.8223033, -0.09796578, 0.004764382, 0.89747906, -1.0490713, 0.06923721, 0.113939285, -0.7001733, 0.09781656, 0.815784)

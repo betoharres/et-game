@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cpofagegjjej0"]
 
-[ext_resource type="ArrayMesh" uid="uid://0xvxarh70u2p" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02.res" id="1_0ko2e"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_86xby"]
-[ext_resource type="ArrayMesh" uid="uid://cuiwcynbwiffd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_01.res" id="3_86xby"]
-[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://Assets/PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_yyrxf"]
-[ext_resource type="ArrayMesh" uid="uid://crbh2ajwrx1lu" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_02.res" id="5_lv5xo"]
+[ext_resource type="ArrayMesh" uid="uid://0xvxarh70u2p" path="res://PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02.res" id="1_0ko2e"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_86xby"]
+[ext_resource type="ArrayMesh" uid="uid://cuiwcynbwiffd" path="res://PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_01.res" id="3_86xby"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="4_yyrxf"]
+[ext_resource type="ArrayMesh" uid="uid://crbh2ajwrx1lu" path="res://PolygonTown/Models/Props/extracted/SM_Prop_ShopFridge_02_Door_02.res" id="5_lv5xo"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fl3yv"]
 points = PackedVector3Array(0.68585455, 2.2793236, -0.527605, 0.68920267, 2.24069, 0.45767993, 0.68585455, 0.02401076, -0.527605, -1.9387941, 2.2793236, -0.527605, 0.6704017, 2.1846163, 0.49176568, 0.6585547, 2.0548077, 0.52750415, 0.6585547, 0.16794811, 0.52750415, -1.9418846, 2.24069, 0.45767993, 0.65417635, 0.051164586, 0.44559497, -1.9387941, 0.02401076, -0.527605, -1.9233414, 2.1846163, 0.49176568, 0.61837757, 2.0949867, 0.52750415, -1.8713171, 0.16794811, 0.52750415, -1.9114943, 0.20790619, 0.52750415, -1.9114943, 2.0949867, 0.52750415, -1.9071159, 0.051164586, 0.44559497)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bsov3lg653j57"]
 
-[ext_resource type="ArrayMesh" uid="uid://cyrhnbfu652ku" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Barrel_01.res" id="1_k26bq"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_kuifh"]
+[ext_resource type="ArrayMesh" uid="uid://cyrhnbfu652ku" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Barrel_01.res" id="1_k26bq"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_kuifh"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mkggw"]
 points = PackedVector3Array(-0.33288887, 1.0224289, 0.08864507, -0.013892382, 1.1915634, 0.29499745, -0.04846376, 0.9070733, -0.30297625, -0.2426943, 0.90856403, -0.19863226, -0.31241643, 0.028032638, 0.030570984, -0.20541903, 0.032045998, 0.24001646, 0.0039405227, 0.6934478, 0.32062578, 0.03806123, 0.6932185, 0.31986833, 0.1549086, 1.1915634, 0.25743866, 0.21272066, 0.9039773, -0.23044676, 0.0042624176, 0.2536982, -0.32424903, -0.22524768, 0.025968624, -0.21643323, 0.23615453, 0.020120583, 0.20933819, 0.29937443, 0.903748, -0.056666374, 0.32480398, 0.2528955, -0.04038039, 0.17963001, 0.029637981, -0.25007832)

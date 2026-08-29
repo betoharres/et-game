@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://bnqjoifiqqhi"]
 
-[ext_resource type="ArrayMesh" uid="uid://beokphgupnjhs" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02.res" id="1_ms2nk"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vi3"]
-[ext_resource type="ArrayMesh" uid="uid://pknakib1wkn6" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_01.res" id="3_c6vi3"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_c5j12"]
-[ext_resource type="ArrayMesh" uid="uid://by0tc7ffe02np" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_02.res" id="5_c0l3l"]
+[ext_resource type="ArrayMesh" uid="uid://beokphgupnjhs" path="res://PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02.res" id="1_ms2nk"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_c6vi3"]
+[ext_resource type="ArrayMesh" uid="uid://pknakib1wkn6" path="res://PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_01.res" id="3_c6vi3"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_c5j12"]
+[ext_resource type="ArrayMesh" uid="uid://by0tc7ffe02np" path="res://PolygonTown/Models/Props/extracted/SM_Prop_TVCabinet_02_Door_02.res" id="5_c0l3l"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j76ee"]
 points = PackedVector3Array(0.81534994, 0.7434841, 0.2902699, 0.85484564, 0.68118745, 0.30440348, 0.81534994, 0.7434841, -0.29582307, -0.81551737, 0.7434841, -0.29582307, -0.81233764, 0.74202853, 0.26368672, -0.7802056, 0.7388991, 0.28666133, -0.8330896, 0.72528994, 0.2965849, 0.73033404, 0.020959614, 0.25286096, 0.7736788, -5.551115e-17, -0.24782902, 0.85484564, 0.68118745, -0.30995667, -0.85484564, 0.68118745, 0.30440348, -0.85484564, 0.68118745, -0.30995667, -0.7305014, 0.020959614, 0.25286096, -0.77384615, -5.551115e-17, -0.24782902)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://60st50wp0wlt"]
 
-[ext_resource type="ArrayMesh" uid="uid://cqu0nrxs0pyad" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Television_Flat_Wall_01.res" id="1_fr1hp"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_uroa6"]
-[ext_resource type="Material" uid="uid://dnq4qajrumwse" path="res://Assets/PolygonTown/Materials/Misc/TelevisionScreen_mat.tres" id="3_nqpiq"]
+[ext_resource type="ArrayMesh" uid="uid://cqu0nrxs0pyad" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Television_Flat_Wall_01.res" id="1_fr1hp"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_uroa6"]
+[ext_resource type="Material" uid="uid://dnq4qajrumwse" path="res://PolygonTown/Materials/Misc/TelevisionScreen_mat.tres" id="3_nqpiq"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_syvph"]
 points = PackedVector3Array(0.75792897, 0.30178457, 0.15893266, 0.78243756, 0.27722812, 0.15893266, 0.75792897, 0.30178457, 0.085564755, -0.7580824, 0.30178457, 0.15893266, 0.78243756, 0.27722812, 0.085564755, 0.78243756, -0.62736017, 0.15893266, 0.2512132, 0.08859789, -1.3877788e-17, -0.20954883, 0.13052583, -1.3877788e-17, -0.7580824, 0.30178457, 0.085564755, -0.7824378, 0.27722812, 0.15893266, 0.78243756, -0.62736017, 0.085564755, -0.7824378, -0.62736017, 0.15893266, 0.20939541, -0.2047157, -1.3877788e-17, -0.2515198, -0.1627878, -1.3877788e-17, -0.7824378, 0.27722812, 0.085564755, -0.7824378, -0.62736017, 0.085564755)

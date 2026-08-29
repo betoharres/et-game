@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://uuaevk4534cu"]
 
-[ext_resource type="Texture2D" uid="uid://cmibxrjvmgi01" path="res://Assets/PolygonTown/Textures/Misc/PolygonTown_Window_Normal.png" id="1_t8ivs"]
+[ext_resource type="Texture2D" uid="uid://bqiavrexp5qg6" path="res://PolygonTown/Textures/Misc/PolygonTown_Window_Normal.png" id="1_t8ivs"]
 
 [resource]
 resource_name = "Mirror_mat"

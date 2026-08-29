@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7kd003ulr700"]
 
-[ext_resource type="ArrayMesh" uid="uid://xewbhahd35pk" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_Angled_Gutter_04.res" id="1_hai6j"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_hai6j"]
+[ext_resource type="ArrayMesh" uid="uid://xewbhahd35pk" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_Angled_Gutter_04.res" id="1_hai6j"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_hai6j"]
 
 [node name="SM_Bld_House_Roof_Angled_Gutter_04" type="MeshInstance3D"]
 gi_mode = 2

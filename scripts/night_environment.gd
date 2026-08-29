@@ -407,6 +407,7 @@ func _apply_quality_level() -> void:
 	shooting_stars.visible = use_particles
 	atmospheric_particles.visible = use_particles
 	atmospheric_particles.emitting = use_particles
+	@warning_ignore("integer_division")
 	atmospheric_particles.amount = (
 		atmospheric_particle_amount
 		if quality_level == QualityLevel.HIGH

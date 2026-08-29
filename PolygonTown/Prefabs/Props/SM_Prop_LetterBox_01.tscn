@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://gskxxd5jroai"]
 
-[ext_resource type="ArrayMesh" uid="uid://by4u0c6gkbsme" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01.res" id="1_yxsw6"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ybcdh"]
-[ext_resource type="ArrayMesh" uid="uid://bbgji1vtkiycw" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Door_01.res" id="3_ybcdh"]
-[ext_resource type="ArrayMesh" uid="uid://bekgb3p7xkpm6" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Flag.res" id="4_4e44g"]
+[ext_resource type="ArrayMesh" uid="uid://by4u0c6gkbsme" path="res://PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01.res" id="1_yxsw6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ybcdh"]
+[ext_resource type="ArrayMesh" uid="uid://bbgji1vtkiycw" path="res://PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Door_01.res" id="3_ybcdh"]
+[ext_resource type="ArrayMesh" uid="uid://bekgb3p7xkpm6" path="res://PolygonTown/Models/Props/extracted/SM_Prop_LetterBox_01_Flag.res" id="4_4e44g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxsw6"]
 size = Vector3(0.1159668, 0.95022583, 0.10961914)

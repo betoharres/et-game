@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://dxpbjwyrsb8k1"]
 
-[ext_resource type="ArrayMesh" uid="uid://b4skvcto150ae" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Church_01.res" id="1_e0eda"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_wbgec"]
-[ext_resource type="Shape3D" uid="uid://kjr6c4jy5ouv" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_Church_01_COLLISION.res" id="3_mec4p"]
-[ext_resource type="ArrayMesh" uid="uid://dxbkjxfsgld4w" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_01.res" id="3_wbgec"]
-[ext_resource type="ArrayMesh" uid="uid://x7m7l0aa3dfy" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_02.res" id="4_mec4p"]
-[ext_resource type="ArrayMesh" uid="uid://dplrrqggbxfls" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Glass_01.res" id="5_u2pbs"]
-[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Assets/PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="6_wyib2"]
+[ext_resource type="ArrayMesh" uid="uid://b4skvcto150ae" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_01.res" id="1_e0eda"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_wbgec"]
+[ext_resource type="Shape3D" uid="uid://kjr6c4jy5ouv" path="res://PolygonTown/Models/CollisionCustom/extracted/SM_Bld_Church_01_COLLISION.res" id="3_mec4p"]
+[ext_resource type="ArrayMesh" uid="uid://dxbkjxfsgld4w" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_01.res" id="3_wbgec"]
+[ext_resource type="ArrayMesh" uid="uid://x7m7l0aa3dfy" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_02.res" id="4_mec4p"]
+[ext_resource type="ArrayMesh" uid="uid://dplrrqggbxfls" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Glass_01.res" id="5_u2pbs"]
+[ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="6_wyib2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ux4dq"]
 size = Vector3(0.9146359, 2.5725393, 0.17081359)

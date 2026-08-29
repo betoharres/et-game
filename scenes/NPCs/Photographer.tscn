@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ctlyi6tcv6xdp"]
 
 [ext_resource type="Script" uid="uid://be7v6q604sshy" path="res://scripts/photographer.gd" id="1_photographer"]
-[ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_farmer_model"]
+[ext_resource type="PackedScene" uid="uid://bfynk4mk33ass" path="res://3dModelos/FarmerOld2.glb" id="2_farmer_model"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_farmer_material"]
 
 [sub_resource type="CapsuleShape3D" id="CapsulePhotographer"]

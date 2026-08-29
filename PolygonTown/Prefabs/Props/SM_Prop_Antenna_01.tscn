@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://wrtwr3wr0k2i"]
 
-[ext_resource type="ArrayMesh" uid="uid://bqlfw1m8lcrvq" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Antenna_01.res" id="1_pem2o"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yq1co"]
+[ext_resource type="ArrayMesh" uid="uid://bqlfw1m8lcrvq" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Antenna_01.res" id="1_pem2o"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_yq1co"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pem2o"]
 size = Vector3(1.1752167, 0.06825256, 0.40142822)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpgyeeddoi52d"]
 
-[ext_resource type="PackedScene" uid="uid://pvvk2g5gda6o" path="res://3dModelos/SICS Trees/Forest_Tree_1D.fbx" id="1_n30he"]
+[ext_resource type="PackedScene" uid="uid://rdqcyhbb84l5" path="res://3dModelos/SICS Trees/Forest_Tree_1D.fbx" id="1_n30he"]
 [ext_resource type="Material" uid="uid://lvoqa3g1761n" path="res://3dModelos/SICS Trees/trunk1a.tres" id="2_qpe8v"]
 [ext_resource type="Material" uid="uid://cfrhjf8lk4hb6" path="res://3dModelos/SICS Trees/leaves.tres" id="3_0wimx"]
 

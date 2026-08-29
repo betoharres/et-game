@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cfunam74j6v0"]
 
-[ext_resource type="ArrayMesh" uid="uid://cwbokw62u2gs" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02.res" id="1_jbvr6"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_wguox"]
-[ext_resource type="ArrayMesh" uid="uid://b65e6417oe32h" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02_Lid.res" id="3_wguox"]
-[ext_resource type="ArrayMesh" uid="uid://hi4sj126fwhs" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02_Seat.res" id="4_gaixt"]
+[ext_resource type="ArrayMesh" uid="uid://cwbokw62u2gs" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02.res" id="1_jbvr6"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_wguox"]
+[ext_resource type="ArrayMesh" uid="uid://b65e6417oe32h" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02_Lid.res" id="3_wguox"]
+[ext_resource type="ArrayMesh" uid="uid://hi4sj126fwhs" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_02_Seat.res" id="4_gaixt"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_74tww"]
 points = PackedVector3Array(0.033778146, 0.43517646, 0.425354, -0.02938521, 0.43517646, 0.425354, 0.0021515489, 0.014044788, 0.28571647, 0.10633065, 0.052059628, 0.23605835, 0.19635867, 0.15499654, 0.19218409, 0.22376241, 0.43517646, 0.25109625, 0.22376241, 0.98921645, -0.20780727, -0.23518275, 0.98921645, -0.20780727, -0.21936944, 0.43517646, 0.25109625, -0.20679069, 0.18515946, 0.19201887, -0.11972768, 0.010980619, -0.41354546, 0.12263812, 0.016534425, -0.4088358, 0.20848818, 0.21857804, -0.39999482, 0.21823673, 0.97695976, -0.41875088, -0.22489512, 0.967863, -0.41081882, -0.20679069, 0.18515946, -0.40511763)

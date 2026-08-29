@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0mx8pri0c0lg"]
 
-[ext_resource type="ArrayMesh" uid="uid://d7ljy55bl1vo" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Church_Pew_01.res" id="1_7tpqh"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_nqare"]
+[ext_resource type="ArrayMesh" uid="uid://d7ljy55bl1vo" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Church_Pew_01.res" id="1_7tpqh"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_nqare"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lkijj"]
 points = PackedVector3Array(1.5717161, 1.1542395, -0.16651645, 1.5717161, 0.8595401, 0.22626713, 1.5717161, -0.024558306, -0.26488423, 1.428637, 1.1005844, -0.24034518, -1.5717161, 1.1542395, -0.26488423, -1.5717161, 1.1542395, -0.16651645, 1.5717161, 0.81038505, 0.27539814, -1.5717161, 0.8595401, 0.22626713, 1.5717161, -0.024558306, 0.27539814, -1.5717161, -0.024558306, -0.26488423, -1.5717161, 0.81038505, 0.27539814, -1.5717161, -0.024558306, 0.27539814)

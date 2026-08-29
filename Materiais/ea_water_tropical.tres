@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bjywkgft0gcns"]
 
 [ext_resource type="Shader" uid="uid://cekuxppkvycey" path="res://shaders/ea_coolwater.gdshader" id="1_shader"]
-[ext_resource type="Texture2D" uid="uid://ddwo6aqh6a3sy" path="res://Texturas/ea_water_normal.tres" id="2_nmap"]
-[ext_resource type="Texture2D" uid="uid://d1gos1jovexqi" path="res://Texturas/ea_foam_voronoi.tres" id="3_foam"]
+[ext_resource type="Texture2D" uid="uid://sarajcytxpgx" path="res://Texturas/ea_water_normal.tres" id="2_nmap"]
+[ext_resource type="Texture2D" uid="uid://byd17awl1gpfy" path="res://Texturas/ea_foam_voronoi.tres" id="3_foam"]
 
 [resource]
 render_priority = 0

@@ -163,6 +163,7 @@ func _place_rooms() -> Array[Rect2i]:
 
 
 func _room_center(room : Rect2i) -> Vector2i:
+	@warning_ignore("integer_division")
 	return Vector2i(room.position.x + room.size.x / 2,
 		room.position.y + room.size.y / 2)
 
@@ -210,6 +211,7 @@ func _spawn_scraps(rooms : Array[Rect2i]) -> void:
 	var scrap_room_indices : Array[int] = [rooms.size() - 1]
 
 	if rooms.size() >= 4:
+		@warning_ignore("integer_division")
 		scrap_room_indices.append(rooms.size() / 2)
 
 	for room_index : int in scrap_room_indices:

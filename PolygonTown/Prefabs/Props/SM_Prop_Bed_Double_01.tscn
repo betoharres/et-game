@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqgj3324p4c0n"]
 
-[ext_resource type="ArrayMesh" uid="uid://b174igu2nxb7s" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Bed_Double_01.res" id="1_hkyj3"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ki42j"]
+[ext_resource type="ArrayMesh" uid="uid://b174igu2nxb7s" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Bed_Double_01.res" id="1_hkyj3"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ki42j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hkyj3"]
 size = Vector3(1.9929199, 1.2224121, 0.20263672)

@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://b5hfqrpgkige1"]
 
-[ext_resource type="ArrayMesh" uid="uid://2ssa0voujk52" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01.res" id="1_umq7x"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mkonu"]
-[ext_resource type="ArrayMesh" uid="uid://bxoovfcsv4ph8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_01.res" id="3_mkonu"]
-[ext_resource type="ArrayMesh" uid="uid://cs86r2s1kw8e8" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_02.res" id="4_40xlg"]
-[ext_resource type="ArrayMesh" uid="uid://c8d1er1lqtmwc" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_01.res" id="5_kr1pv"]
-[ext_resource type="ArrayMesh" uid="uid://bg4x0ri661itd" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_02.res" id="6_idr52"]
-[ext_resource type="ArrayMesh" uid="uid://cc665in2f34ao" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_03.res" id="7_e80pn"]
+[ext_resource type="ArrayMesh" uid="uid://2ssa0voujk52" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01.res" id="1_umq7x"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mkonu"]
+[ext_resource type="ArrayMesh" uid="uid://bxoovfcsv4ph8" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_01.res" id="3_mkonu"]
+[ext_resource type="ArrayMesh" uid="uid://cs86r2s1kw8e8" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Door_02.res" id="4_40xlg"]
+[ext_resource type="ArrayMesh" uid="uid://c8d1er1lqtmwc" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_01.res" id="5_kr1pv"]
+[ext_resource type="ArrayMesh" uid="uid://bg4x0ri661itd" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_02.res" id="6_idr52"]
+[ext_resource type="ArrayMesh" uid="uid://cc665in2f34ao" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Wardrobe_01_Drawer_03.res" id="7_e80pn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_umq7x"]
 size = Vector3(1.234314, 1.9003906, 0.538208)

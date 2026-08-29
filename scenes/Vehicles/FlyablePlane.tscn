@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bo7i75ihupee6"]
 
-[ext_resource type="PackedScene" uid="uid://7e3weoing483" path="res://PolygonPlane/FBX/SM_Veh_Plane_Stunt_01.fbx" id="1_p12p3"]
+[ext_resource type="PackedScene" uid="uid://cc2ei6vpm7br5" path="res://PolygonPlane/FBX/SM_Veh_Plane_Stunt_01.fbx" id="1_p12p3"]
 [ext_resource type="Script" uid="uid://2gyfd4tvakfa" path="res://scripts/plane/flyable_plane.gd" id="1_ry867"]
-[ext_resource type="Texture2D" uid="uid://bq87l36fpivij" path="res://PolygonPlane/Textures/Polygon_Plane_Texture_01.png" id="2_6ljb2"]
+[ext_resource type="Texture2D" uid="uid://cqkvme8m0d5qh" path="res://PolygonPlane/Textures/Polygon_Plane_Texture_01.png" id="2_6ljb2"]
 [ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://Materiais/Window_Glass_mat.tres" id="4_c41vj"]
 [ext_resource type="Script" uid="uid://dtsxxbkeadpn" path="res://scripts/plane/aim_target_arm.gd" id="4_rwfsk"]
 [ext_resource type="Script" uid="uid://c4c0hbjy50qx" path="res://scripts/plane/camera_arm.gd" id="5_06hpb"]

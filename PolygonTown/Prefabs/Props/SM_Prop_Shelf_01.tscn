@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://d148p7kq1l2te"]
 
-[ext_resource type="ArrayMesh" uid="uid://cenl0rjwf8o1i" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01.res" id="1_gppyt"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_r3usg"]
-[ext_resource type="ArrayMesh" uid="uid://cttl4pf4s4q3r" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Door_01.res" id="3_r3usg"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_jdvx6"]
-[ext_resource type="ArrayMesh" uid="uid://bbwipgidldie4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_01.res" id="5_i5gk6"]
-[ext_resource type="ArrayMesh" uid="uid://dmp27fdtjwdqb" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_02.res" id="6_jdvx6"]
-[ext_resource type="ArrayMesh" uid="uid://xeb38xgh7n65" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_03.res" id="7_2glf6"]
+[ext_resource type="ArrayMesh" uid="uid://cenl0rjwf8o1i" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01.res" id="1_gppyt"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_r3usg"]
+[ext_resource type="ArrayMesh" uid="uid://cttl4pf4s4q3r" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Door_01.res" id="3_r3usg"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="4_jdvx6"]
+[ext_resource type="ArrayMesh" uid="uid://bbwipgidldie4" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_01.res" id="5_i5gk6"]
+[ext_resource type="ArrayMesh" uid="uid://dmp27fdtjwdqb" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_02.res" id="6_jdvx6"]
+[ext_resource type="ArrayMesh" uid="uid://xeb38xgh7n65" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Shelf_01_Drawer_03.res" id="7_2glf6"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ac5pk"]
 points = PackedVector3Array(-0.581506, -0.014643788, 0.22197087, -0.542627, 0.04755521, -0.20264281, 0.55104184, 0.04755521, -0.20264281, 0.53834426, 0.06773777, 0.20260225, 0.560593, 1.8597661, 0.22197087, -0.581506, 1.8597661, 0.22197087, -0.542627, 1.7973837, -0.20264281, 0.55104184, 1.7973837, -0.20264281, 0.56632376, 1.8219696, 0.18502085)

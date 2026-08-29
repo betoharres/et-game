@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bt6ng2ncsw8od"]
 
-[ext_resource type="ArrayMesh" uid="uid://eq5yhle186dr" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_01.res" id="1_nsl76"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_24eds"]
-[ext_resource type="ArrayMesh" uid="uid://o3dfthhutavm" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_Lid_01.res" id="3_24eds"]
+[ext_resource type="ArrayMesh" uid="uid://eq5yhle186dr" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_01.res" id="1_nsl76"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_24eds"]
+[ext_resource type="ArrayMesh" uid="uid://o3dfthhutavm" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Barbeque_Lid_01.res" id="3_24eds"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cniwn"]
 points = PackedVector3Array(-0.35042685, 1.0021931, 0.28187108, -0.89509046, 0.9089978, -0.298787, -0.84111476, 0.96344346, 0.33023995, -0.4015986, 0.9450987, 0.4414807, 0.8410686, 0.96344346, 0.33023995, 0.34757674, 0.99836713, -0.22750653, -0.89509046, 0.7972615, 0.37243742, 0.89521945, 0.9090958, -0.298787, 0.4288907, 0.087897904, -0.28204688, -0.42893693, 0.087996006, -0.28196976, -0.34289128, 0.8330681, 0.4893096, 0.36615276, 0.8306156, 0.48645526, 0.89521945, 0.7972615, 0.37243742, -0.37723947, 0.00510122, 0.33579433, 0.4288907, 0.087897904, 0.3883289, 0.32654727, 2.3841857e-09, -0.23336942)

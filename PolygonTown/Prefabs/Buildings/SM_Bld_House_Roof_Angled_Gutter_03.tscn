@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ck12h3tduqshb"]
 
-[ext_resource type="ArrayMesh" uid="uid://xnxes4cvevbn" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_Angled_Gutter_03.res" id="1_nhm65"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0pkkh"]
+[ext_resource type="ArrayMesh" uid="uid://xnxes4cvevbn" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_Angled_Gutter_03.res" id="1_nhm65"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_0pkkh"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1kxd3"]
 points = PackedVector3Array(-0.006568699, 2.8927002, 0.5002694, 0.022630278, 2.8927002, 0.67568254, -0.021172475, 2.8927002, 0.67568254, -0.006572987, 2.9369116, 0.41271877, 0.022630278, 3.0824695, 0.67568254, -0.006572987, 3.6082456, -0.84352505, -0.006572987, 4.498256, -2.5073004, 0.022630278, 3.0824695, 0.5149131, -0.021172475, 3.0824695, 0.67568254, -0.021172475, 4.6297007, -2.4636807, -0.006572987, 4.6297007, -2.5073004)

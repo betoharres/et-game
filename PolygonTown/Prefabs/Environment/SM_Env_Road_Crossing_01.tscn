@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b085fs1p026vv"]
 
-[ext_resource type="ArrayMesh" uid="uid://dlx1uxdoy2vpm" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Road_Crossing_01.res" id="1_bq5jv"]
-[ext_resource type="Material" uid="uid://c34v7epm3njh5" path="res://Assets/PolygonTown/Materials/Misc/PolygonTown_Road_mat.tres" id="2_0s4di"]
+[ext_resource type="ArrayMesh" uid="uid://dlx1uxdoy2vpm" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Road_Crossing_01.res" id="1_bq5jv"]
+[ext_resource type="Material" uid="uid://c34v7epm3njh5" path="res://PolygonTown/Materials/Misc/PolygonTown_Road_mat.tres" id="2_0s4di"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hyf6f"]
 size = Vector3(5, 3.2857068e-07, 5)

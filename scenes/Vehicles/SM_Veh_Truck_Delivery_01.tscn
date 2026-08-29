@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dw22qthj6mycg"]
 
 [ext_resource type="ArrayMesh" uid="uid://bxoelyxgfurw4" path="res://PolygonTown/FBX/SM_Veh_Truck_01.res" id="1_qkh0s"]
-[ext_resource type="Texture2D" uid="uid://dp4qos27rg21l" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="2_vrign"]
+[ext_resource type="Texture2D" uid="uid://scbwiw832483" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="2_vrign"]
 [ext_resource type="ArrayMesh" uid="uid://5bvvdv6n3pr2" path="res://PolygonTown/FBX/SM_Veh_Truck_Attachment_Delivery_01.res" id="3_thics"]
 [ext_resource type="ArrayMesh" uid="uid://bkeu54w61kov4" path="res://PolygonTown/FBX/SM_Veh_Truck_Attachment_Delivery_Door_L.res" id="4_33nbd"]
 [ext_resource type="ArrayMesh" uid="uid://bpd4lqck5h3fm" path="res://PolygonTown/FBX/SM_Veh_Truck_Attachment_Delivery_Door_R.res" id="5_vpxbi"]

@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://ikygaljd7sbo"]
 
-[ext_resource type="ArrayMesh" uid="uid://cw7vyhf2owbyn" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02.res" id="1_mbxpv"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4fmhq"]
-[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="3_jkr4h"]
-[ext_resource type="ArrayMesh" uid="uid://cssduryqumyo" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_L.res" id="4_4fmhq"]
-[ext_resource type="Shape3D" uid="uid://btjv62yrahfn6" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_Shop_02_COLLISION.res" id="4_jkr4h"]
-[ext_resource type="ArrayMesh" uid="uid://vy2nubfi04v8" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_R.res" id="5_jkr4h"]
-[ext_resource type="ArrayMesh" uid="uid://cd8tur6f31wcm" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_Rear.res" id="6_axosj"]
+[ext_resource type="ArrayMesh" uid="uid://cw7vyhf2owbyn" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02.res" id="1_mbxpv"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_4fmhq"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="3_jkr4h"]
+[ext_resource type="ArrayMesh" uid="uid://cssduryqumyo" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_L.res" id="4_4fmhq"]
+[ext_resource type="Shape3D" uid="uid://btjv62yrahfn6" path="res://PolygonTown/Models/CollisionCustom/extracted/SM_Bld_Shop_02_COLLISION.res" id="4_jkr4h"]
+[ext_resource type="ArrayMesh" uid="uid://vy2nubfi04v8" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_R.res" id="5_jkr4h"]
+[ext_resource type="ArrayMesh" uid="uid://cd8tur6f31wcm" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_02_Door_Rear.res" id="6_axosj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pbjno"]
 size = Vector3(1.1756202, 2.2474434, 0.104321286)

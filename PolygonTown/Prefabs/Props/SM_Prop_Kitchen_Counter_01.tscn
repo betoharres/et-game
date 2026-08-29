@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c8ke4s7wn3a3e"]
 
-[ext_resource type="ArrayMesh" uid="uid://ckiinqlk6pgvc" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01.res" id="1_bmwfk"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_f5rtv"]
-[ext_resource type="ArrayMesh" uid="uid://cl2lrjp4kkmht" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Door_01.res" id="3_f5rtv"]
-[ext_resource type="ArrayMesh" uid="uid://bctyklb0rmpw4" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Door_02.res" id="4_8hflu"]
-[ext_resource type="ArrayMesh" uid="uid://b2awd00fyle74" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Drawer_01.res" id="5_hl3po"]
+[ext_resource type="ArrayMesh" uid="uid://ckiinqlk6pgvc" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01.res" id="1_bmwfk"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_f5rtv"]
+[ext_resource type="ArrayMesh" uid="uid://cl2lrjp4kkmht" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Door_01.res" id="3_f5rtv"]
+[ext_resource type="ArrayMesh" uid="uid://bctyklb0rmpw4" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Door_02.res" id="4_8hflu"]
+[ext_resource type="ArrayMesh" uid="uid://b2awd00fyle74" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Kitchen_Counter_01_Drawer_01.res" id="5_hl3po"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ahemu"]
 points = PackedVector3Array(-1, 0.04656774, -5.551115e-17, -0.9997063, 2.013334e-12, 0.00039017276, -1, 0.030952213, 0.89047176, -0.9966719, 0.949573, 0.9965012, -0.9966719, 0.949573, 0.0035115548, -0.9843383, 0.6245283, -5.551115e-17, 0, 0.6246212, 0.00019508638, -0.00048941374, 2.013334e-12, 0.00039017276, -0.9997063, 2.013334e-12, 0.89017916, -0.99637824, 0.09620282, 0.9651899, -0.0034260154, 0.949573, 0.9965012, -0.0034260154, 0.949573, 0.0035115548, -0.0003915429, 0.6244353, 0.96811616, -0.00048941374, 2.013334e-12, 0.89017916, -0.0037196279, 0.09620282, 0.9651899)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://c1x5qmgypy00v"]
 
-[ext_resource type="ArrayMesh" uid="uid://jjwhu2owdsgv" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Large_01.res" id="1_d62if"]
-[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ositd"]
-[ext_resource type="ArrayMesh" uid="uid://m0ktm54bt1wl" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_House_01.res" id="3_ositd"]
-[ext_resource type="ArrayMesh" uid="uid://dxjw12xmdaa03" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Leaves_01.res" id="4_i463e"]
-[ext_resource type="ArrayMesh" uid="uid://b112aqc3ud8fo" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Tree_Swing_01.res" id="5_6xquj"]
+[ext_resource type="ArrayMesh" uid="uid://jjwhu2owdsgv" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Tree_Large_01.res" id="1_d62if"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ositd"]
+[ext_resource type="ArrayMesh" uid="uid://m0ktm54bt1wl" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Tree_House_01.res" id="3_ositd"]
+[ext_resource type="ArrayMesh" uid="uid://dxjw12xmdaa03" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Tree_Leaves_01.res" id="4_i463e"]
+[ext_resource type="ArrayMesh" uid="uid://b112aqc3ud8fo" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Tree_Swing_01.res" id="5_6xquj"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ujjp2"]
 points = PackedVector3Array(-2.0301385, 3.0754948, -1.2497199, -2.1888173, 3.5509214, -1.091013, -2.3470309, 3.0754948, -1.091013, -3.9314923, 2.5998974, -3.1511757, -2.0301385, 3.8674743, -2.9927018, -2.0301385, 4.184539, -2.5175123, -3.6146002, 4.184539, -2.2005641, -2.5057096, 3.5509214, -1.091013, -4.4070635, 2.5998974, -2.9929345, -4.2483845, 2.5998974, -3.4683566, -2.1888173, 4.0260067, -3.3101153, -2.1888173, 4.343242, -2.9927018, -3.6146002, 4.025836, -2.0418572, -2.3470309, 4.343242, -3.3101153, -4.2483845, 3.7087712, -3.3098826, -4.2483845, 2.7586005, -3.4683566)
