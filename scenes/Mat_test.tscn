@@ -25,6 +25,7 @@
 [ext_resource type="ArrayMesh" uid="uid://t21xndjyecpp" path="res://PolygonScifiCity/FBX/SM_Veh_Future_Cop_01.fbx" id="23_2fgu0"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="24_cf3vh"]
 [ext_resource type="PackedScene" uid="uid://dtbt3o64oa2bl" path="res://scenes/Portal/portal.tscn" id="25_cf3vh"]
+[ext_resource type="ArrayMesh" uid="uid://b2oed1f18luvq" path="res://PolygonScifiCity/FBX/SM_Prop_Pad_01.fbx" id="26_6cr0w"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mc7o6"]
 points = PackedVector3Array(1, 0, 0, -1, 0, 0, 1, -4, 8, -1, -4, 8)
@@ -271,7 +272,6 @@ shape = SubResource("ConcavePolygonShape3D_q2eua")
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=518570464]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3499999, 16)
-visible = false
 mesh = SubResource("PlaneMesh_tp7lh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2130604763]
@@ -560,13 +560,11 @@ shape = SubResource("ConcavePolygonShape3D_0msnc")
 
 [node name="Top1" type="MeshInstance3D" parent="BuildingHolder" unique_id=1268837165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 0)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top13" type="MeshInstance3D" parent="BuildingHolder" unique_id=419524333]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 17, 16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
@@ -652,13 +650,11 @@ surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top15" type="MeshInstance3D" parent="BuildingHolder" unique_id=1791844162]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 17, 0)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top14" type="MeshInstance3D" parent="BuildingHolder" unique_id=1679308781]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 17, 16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
@@ -669,61 +665,51 @@ surface_material_override/0 = ExtResource("2_0msnc")
 
 [node name="Top12" type="MeshInstance3D" parent="BuildingHolder" unique_id=185662376]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 17, 0)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top5" type="MeshInstance3D" parent="BuildingHolder" unique_id=1552365438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, -16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top7" type="MeshInstance3D" parent="BuildingHolder" unique_id=1489733966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 17, -16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top6" type="MeshInstance3D" parent="BuildingHolder" unique_id=950320169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 17, -16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top4" type="MeshInstance3D" parent="BuildingHolder" unique_id=236956018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 17, -16)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top11" type="MeshInstance3D" parent="BuildingHolder" unique_id=503788228]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 17, 32)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top10" type="MeshInstance3D" parent="BuildingHolder" unique_id=1792180838]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 17, 32)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top9" type="MeshInstance3D" parent="BuildingHolder" unique_id=1733472208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 17, 32)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top8" type="MeshInstance3D" parent="BuildingHolder" unique_id=1474579250]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 32)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
 [node name="Top3" type="MeshInstance3D" parent="BuildingHolder" unique_id=64305141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 17, 0)
-visible = false
 mesh = SubResource("PlaneMesh_b1pon")
 surface_material_override/0 = ExtResource("1_ue016")
 
@@ -962,8 +948,15 @@ transform = Transform3D(0.037890974, 0, -0.9992819, 0, 1, 0, 0.9992819, 0, 0.037
 mesh = ExtResource("23_2fgu0")
 surface_material_override/0 = ExtResource("24_cf3vh")
 
-[node name="PortalPair1" parent="." unique_id=182802936 node_paths=PackedStringArray("player_camera") instance=ExtResource("25_cf3vh")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.9363465, 0, 5.731724)
-player_camera = NodePath("../CharacterBody3D/CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D")
+[node name="SmPropPad01" type="MeshInstance3D" parent="." unique_id=1680121263]
+transform = Transform3D(-3.258684e-07, 0, 12.89, 0, 12.89, 0, -7.455, 0, -5.634398e-07, -6.987307, 0.9861503, 5.7304845)
+mesh = ExtResource("26_6cr0w")
+surface_material_override/0 = ExtResource("24_cf3vh")
 
-[editable path="PortalPair1"]
+[node name="SmPropPad02" type="MeshInstance3D" parent="." unique_id=1268385411]
+transform = Transform3D(-3.258684e-07, 0, 12.89, 0, 12.89, 0, -7.455, 0, -5.634398e-07, -6.987307, 0.9861503, -0.33838117)
+mesh = ExtResource("26_6cr0w")
+surface_material_override/0 = ExtResource("24_cf3vh")
+
+[node name="PortalPair" parent="." unique_id=182802936 instance=ExtResource("25_cf3vh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.9626274, 0, 5.7240276)

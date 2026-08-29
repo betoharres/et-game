@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://jdih45m42t7q"]
 
-[ext_resource type="Script" uid="uid://dvgok1v3vg1dh" path="res://scripts/spaceship_interior.gd" id="1_interior"]
 [ext_resource type="ArrayMesh" uid="uid://gst7srp7d1a3" path="res://PolygonScifiCity/FBX/SM_Env_Ground_Tile_Base_01.fbx" id="2_ayccm"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="3_n5mk1"]
 [ext_resource type="ArrayMesh" uid="uid://bnbtati3ftloh" path="res://PolygonScifiCity/FBX/SM_Prop_AirConditioningGrid_01.fbx" id="6_a1uwt"]
@@ -38,16 +37,10 @@
 [ext_resource type="ArrayMesh" uid="uid://bkb8awotveu0b" path="res://3dModelos/SM_Prop_Crate_03.fbx" id="36_kixd1"]
 [ext_resource type="ArrayMesh" uid="uid://cmnewog0mkuwf" path="res://3dModelos/SM_Prop_Crate_02.fbx" id="37_6xc45"]
 [ext_resource type="ArrayMesh" uid="uid://cu16k2wf1wwqq" path="res://3dModelos/SM_Prop_Crate_01.fbx" id="38_fwb1s"]
-[ext_resource type="PackedScene" uid="uid://dxa678lbppeb6" path="res://3dModelos/Interior.glb" id="39_c0k2y"]
-[ext_resource type="Material" uid="uid://c1m5xdf7xm47v" path="res://Materiais/Ground_mat.tres" id="40_1cid1"]
 [ext_resource type="ArrayMesh" uid="uid://dv8vgukjpwjyh" path="res://PolygonScifiCity/FBX/SM_Prop_Books_01.fbx" id="41_7gew1"]
-[ext_resource type="ArrayMesh" uid="uid://27e0s26xhobt" path="res://PolygonScifiCity/FBX/SM_Prop_Medical_Chair_01.fbx" id="41_sk3vf"]
 [ext_resource type="ArrayMesh" uid="uid://c877rqme88fhd" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Empty_01.fbx" id="42_20xm4"]
-[ext_resource type="ArrayMesh" uid="uid://l27pk8j5dws" path="res://PolygonScifiCity/FBX/SM_Prop_Medical_Machine_01.fbx" id="42_hhj3q"]
-[ext_resource type="ArrayMesh" uid="uid://bc2hd3rqe3cxj" path="res://PolygonScifiCity/FBX/SM_Prop_Medical_Stool_01.fbx" id="43_7msbs"]
 [ext_resource type="ArrayMesh" uid="uid://ev48gg4uh387" path="res://PolygonScifiCity/FBX/SM_Prop_Box_RobotParts_01.fbx" id="43_jpp0o"]
 [ext_resource type="ArrayMesh" uid="uid://ce8b7xq1qevy7" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Supplies_01.fbx" id="44_4jgph"]
-[ext_resource type="ArrayMesh" uid="uid://co07xedvd7x2n" path="res://PolygonScifiCity/FBX/SM_Prop_Medical_Table_01.fbx" id="44_6rqjn"]
 [ext_resource type="ArrayMesh" uid="uid://csuig8elvdacf" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_01.fbx" id="45_gn2qu"]
 [ext_resource type="ArrayMesh" uid="uid://g14tgktaixft" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_02.fbx" id="46_ucnum"]
 [ext_resource type="ArrayMesh" uid="uid://dmejupoobebah" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_03.fbx" id="47_s5yhy"]
@@ -61,10 +54,6 @@
 [ext_resource type="ArrayMesh" uid="uid://bd3rpsd74dx0r" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_02.fbx" id="55_jr0vc"]
 [ext_resource type="ArrayMesh" uid="uid://ces7enm6yj00p" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_03.fbx" id="56_sk3vf"]
 [ext_resource type="ArrayMesh" uid="uid://dpk2wfwuwo47t" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_04.fbx" id="57_hhj3q"]
-[ext_resource type="ArrayMesh" uid="uid://dtpdkpqnjgxb3" path="res://PolygonScifiCity/FBX/SM_Prop_Monitor_01.fbx" id="62_6iq0r"]
-[ext_resource type="ArrayMesh" uid="uid://bijyptvtorjx2" path="res://PolygonScifiCity/FBX/SM_Prop_Monitor_02.fbx" id="63_hqyed"]
-[ext_resource type="ArrayMesh" uid="uid://bsloe3tvjdrq3" path="res://PolygonScifiCity/FBX/SM_Prop_Monitor_03.fbx" id="64_6btrb"]
-[ext_resource type="ArrayMesh" uid="uid://hc4sqys2t8st" path="res://PolygonScifiCity/FBX/SM_Prop_StripClub_Chair_01.fbx" id="65_yqy78"]
 [ext_resource type="ArrayMesh" uid="uid://mr0ns1okyuw4" path="res://PolygonScifiCity/FBX/SM_Veh_Future_Taxi_01.fbx" id="66_hhj3q"]
 
 [sub_resource type="CylinderShape3D" id="Shape_DescendPad"]
@@ -135,7 +124,6 @@ size = Vector3(5, 0.16313496, 5)
 size = Vector3(5, 0.16313496, 5)
 
 [node name="SpaceShipInterior" type="Node3D" unique_id=1809059096]
-script = ExtResource("1_interior")
 
 [node name="DescendPad" type="Node3D" parent="." unique_id=1099926139]
 
@@ -543,25 +531,6 @@ transform = Transform3D(0.759359, 0, 0.6506719, 0, 1, 0, -0.6506719, 0, 0.759359
 mesh = ExtResource("57_hhj3q")
 surface_material_override/0 = ExtResource("3_n5mk1")
 
-[node name="SmPropMonitor01" type="MeshInstance3D" parent="Props" unique_id=1543875651]
-transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, -2.6731808, 1.1668086, -27.420887)
-mesh = ExtResource("62_6iq0r")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropMonitor02" type="MeshInstance3D" parent="Props" unique_id=212880192]
-transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, -1.7082899, 1.1668086, -29.113781)
-mesh = ExtResource("63_hqyed")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropMonitor03" type="MeshInstance3D" parent="Props" unique_id=1210276289]
-transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 1.1106033, 1.6951635, -30.243158)
-mesh = ExtResource("64_6btrb")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropStripClubChair01" type="MeshInstance3D" parent="Props" unique_id=1144158022]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.317081, 0, -15.254023)
-mesh = ExtResource("65_yqy78")
-
 [node name="SmVehFutureTaxi01" type="MeshInstance3D" parent="Props" unique_id=1968415412]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.696188, 0.18555327, -5.3500347)
 mesh = ExtResource("66_hhj3q")
@@ -646,26 +615,6 @@ surface_material_override/0 = ExtResource("33_o0da8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.367631, 0.16313508, 2.2744274)
 mesh = ExtResource("38_fwb1s")
 surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropMedicalChair01" type="MeshInstance3D" parent="Props" unique_id=43979852]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3440413, 2.3841858e-07, -18.38603)
-mesh = ExtResource("41_sk3vf")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropMedicalMachine01" type="MeshInstance3D" parent="Props" unique_id=1470218584]
-transform = Transform3D(-0.8172349, 0, -0.57630473, 0, 1, 0, 0.57630473, 0, -0.8172349, 8.025447, -2.3841858e-07, -16.42085)
-mesh = ExtResource("42_hhj3q")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropMedicalStool01" type="MeshInstance3D" parent="Props" unique_id=1310645484]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9755483, 0, -20.367525)
-mesh = ExtResource("43_7msbs")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropMedicalTable01" type="MeshInstance3D" parent="Props" unique_id=1976105082]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.404231, 0, -17.702744)
-mesh = ExtResource("44_6rqjn")
-surface_material_override/0 = ExtResource("3_n5mk1")
 
 [node name="Walls" type="Node3D" parent="." unique_id=988242633]
 
@@ -1027,93 +976,3 @@ shape = SubResource("BoxShape3D_e0qbu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 5.163414, 2.5)
 mesh = ExtResource("26_qrynd")
 surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="Interior" parent="." unique_id=427153828 instance=ExtResource("39_c0k2y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.65923, 0, -22.415495)
-
-[node name="Floor" parent="Interior" index="0" unique_id=1317329085]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.625, 0, 4.261)
-surface_material_override/0 = ExtResource("40_1cid1")
-
-[node name="SM_Prop_Door_01" parent="Interior/Floor" index="0" unique_id=1892942482]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_004" parent="Interior/Floor/SM_Prop_Door_01" index="0" unique_id=1013508349]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_005" parent="Interior/Floor/SM_Prop_Door_01" index="1" unique_id=1733937730]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_001" parent="Interior/Floor" index="1" unique_id=1659657959]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_008" parent="Interior/Floor/SM_Prop_Door_01_001" index="0" unique_id=392570769]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_009" parent="Interior/Floor/SM_Prop_Door_01_001" index="1" unique_id=1660804142]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_002" parent="Interior/Floor" index="2" unique_id=359485696]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_012" parent="Interior/Floor/SM_Prop_Door_01_002" index="0" unique_id=1999776568]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_013" parent="Interior/Floor/SM_Prop_Door_01_002" index="1" unique_id=1766111060]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_006" parent="Interior/Floor" index="3" unique_id=675707653]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_007" parent="Interior/Floor" index="4" unique_id=1533036687]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_010" parent="Interior/Floor" index="5" unique_id=460814571]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_003" parent="Interior/Floor/SM_Prop_Door_01_010" index="0" unique_id=2033055051]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_01_011" parent="Interior/Floor/SM_Prop_Door_01_010" index="1" unique_id=1825670611]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_02" parent="Interior/Floor" index="6" unique_id=1036750042]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_02_001" parent="Interior/Floor/SM_Prop_Door_02" index="0" unique_id=718803617]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_02_002" parent="Interior/Floor/SM_Prop_Door_02" index="1" unique_id=1725702035]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_001" parent="Interior/Floor" index="7" unique_id=1312414335]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_006" parent="Interior/Floor/SM_Prop_Door_04_001" index="0" unique_id=1378172063]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_002" parent="Interior/Floor" index="8" unique_id=1244757872]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_005" parent="Interior/Floor/SM_Prop_Door_04_002" index="0" unique_id=447949983]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_003" parent="Interior/Floor" index="9" unique_id=14524595]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_004" parent="Interior/Floor/SM_Prop_Door_04_003" index="0" unique_id=1987015356]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_007" parent="Interior/Floor" index="10" unique_id=855782443]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_009" parent="Interior/Floor/SM_Prop_Door_04_007" index="0" unique_id=1711683978]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SM_Prop_Door_04_008" parent="Interior/Floor" index="11" unique_id=535009737]
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="Walls" parent="Interior/Floor" index="12" unique_id=813389414]
-surface_material_override/0 = ExtResource("40_1cid1")
-
-[editable path="Interior"]
