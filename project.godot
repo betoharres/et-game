@@ -37,7 +37,7 @@ project/assembly_name="Novo Projeto de Jogo"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GdPlanningAI/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
 
 [file_customization]
 

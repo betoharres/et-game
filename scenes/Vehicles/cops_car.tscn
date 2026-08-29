@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://couowd6wegplm"]
 
-[ext_resource type="PackedScene" uid="uid://dbhvishwudhdw" path="res://3dModelos/SM_Veh_Car_Police_01.fbx" id="1_f8hie"]
+[ext_resource type="PackedScene" uid="uid://dbhvishwudhdw" path="res://PolygonCity/FBX/SM_Veh_Car_Police_01.fbx" id="1_f8hie"]
 [ext_resource type="Script" uid="uid://cgekmg1pnkfpj" path="res://scripts/cops_car.gd" id="1_ve12k"]
-[ext_resource type="Texture2D" uid="uid://b6katdfst6l0o" path="res://Texturas/PolygonCity_Texture_02_A.png" id="2_ve12k"]
+[ext_resource type="Texture2D" uid="uid://b6katdfst6l0o" path="res://PolygonCity/Textures/PolygonCity_Texture_02_A.png" id="2_ve12k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdds8"]
 size = Vector3(1.9258448, 1.0543126, 5.247453)

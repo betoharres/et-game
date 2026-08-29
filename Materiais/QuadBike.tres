@@ -1,6 +1,9 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://440dsxswjpq4"]
 
-[ext_resource type="Texture2D" uid="uid://b4vb1oe7tnxok" path="res://Texturas/Polygon_Quadbike_Texture_01.png" id="1_ygg3b"]
+[ext_resource type="Texture2D" uid="uid://b4vb1oe7tnxok" path="res://PolygonQuadbike/Polygon_Quadbike_Texture_01.png" id="1_ygg3b"]
+[ext_resource type="Texture2D" uid="uid://uwkq3glnljdy" path="res://PolygonQuadbike/Polygon_Quadbike_Texture_Emissive_01.png" id="2_vq07t"]
 
 [resource]
 albedo_texture = ExtResource("1_ygg3b")
+emission_enabled = true
+emission_texture = ExtResource("2_vq07t")

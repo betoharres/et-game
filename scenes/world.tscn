@@ -1383,7 +1383,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.60681, -0.051659226, 47.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 229.23051, -0.020438492, 53.021683)
 
 [node name="Gnomes" parent="PropsHolder" unique_id=1193136171 instance=ExtResource("155_t1by1")]
-transform = Transform3D(0.5810824, 0, -0.8138447, 0, 1, 0, 0.8138447, 0, 0.5810824, 204.3499, 0.000677824, 17.506823)
+transform = Transform3D(0.114414275, 0, -0.9934331, 0, 1, 0, 0.9934331, 0, 0.114414275, 203.4962, 0.00067830086, 18.068289)
 
 [node name="SmPropTrashBag01" type="MeshInstance3D" parent="PropsHolder" unique_id=1120828766]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.017, 0, -7.2012777)
