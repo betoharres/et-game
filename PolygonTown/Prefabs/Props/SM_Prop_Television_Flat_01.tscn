@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy38tjkc1ra0s"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsrbnl7w4a57j" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Television_Flat_01.res" id="1_8nobk"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_ldkg7"]
+[ext_resource type="Material" uid="uid://dnq4qajrumwse" path="res://Assets/PolygonTown/Materials/Misc/TelevisionScreen_mat.tres" id="3_vydys"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w7tde"]
+points = PackedVector3Array(0.6880264, 1.0212892, 0.07644291, 0.6880264, 0.13987322, 0.07644291, 0.6449238, 1.0212892, -0.009533033, -0.6880264, 1.0212892, 0.07644291, -0.2365259, 0.053802572, 0.14091803, 0.23639125, -0.010750413, 0.14091803, 0.6449238, 0.11835556, -0.009533033, 0.23639125, -0.010750413, -0.13853799, 0.38698125, 0.7631783, -0.07406287, -0.64505845, 1.0212892, -0.009533033, -0.6880264, 0.13987322, 0.07644291, -0.2365259, -0.010750413, 0.14091803, -0.2365259, -0.010750413, -0.13853799, -0.2365259, 0.053802572, -0.13853799, -0.38711587, 0.7631783, -0.07406287, -0.64505845, 0.11835556, -0.009533033)
+
+[node name="SM_Prop_Television_Flat_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_8nobk")
+surface_material_override/0 = ExtResource("2_ldkg7")
+surface_material_override/1 = ExtResource("3_vydys")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_w7tde")

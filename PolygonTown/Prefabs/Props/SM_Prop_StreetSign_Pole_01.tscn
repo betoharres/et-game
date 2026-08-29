@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccbgjol2ts7by"]
+
+[ext_resource type="ArrayMesh" uid="uid://b0by8gdk5a5ck" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_StreetSign_Pole_01.res" id="1_06u55"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qiup1"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lbbwk"]
+points = PackedVector3Array(-0.06481305, 2.429509, -0.012341689, -0.06481305, 2.429509, 0.015817694, 0.033773735, 2.57055, 0.029913925, -0.036632985, 2.429509, -0.054597303, -0.036632985, 0.41582787, -0.04049004, -0.050716814, 0.40169853, 0.015817694, -0.036632985, 2.429509, 0.05808434, 0.04785756, 2.429509, 0.0439881, 0.061953798, 2.3873732, 0.015817694, 0.061953798, 2.3873732, -0.012341689, 0.04785756, 2.429509, -0.0405121, 0.033761322, -0.0070426464, -0.04049004, -0.02254916, -0.0070426464, -0.04049004, -0.02254916, -0.0070426464, 0.043977074, 0.01968991, -0.0070426464, 0.043977074, 0.04785756, -0.0070426464, 0.015817694)
+
+[node name="SM_Prop_StreetSign_Pole_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_06u55")
+surface_material_override/0 = ExtResource("2_qiup1")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_lbbwk")

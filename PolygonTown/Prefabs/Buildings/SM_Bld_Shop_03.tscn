@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8tv4g3rrubtt"]
+
+[ext_resource type="ArrayMesh" uid="uid://dvka6aujoa0e0" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_03.res" id="1_57utn"]
+[ext_resource type="Material" uid="uid://bfeiyfp8x7wnn" path="res://Assets/PolygonTown/Materials/Misc/Base_Glass_mat.tres" id="2_hbe4d"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="3_15sag"]
+[ext_resource type="Shape3D" uid="uid://x2sp7rfeohr1" path="res://Assets/PolygonTown/Models/CollisionCustom/extracted/SM_Bld_Shop_03_COLLISION.res" id="4_15sag"]
+[ext_resource type="ArrayMesh" uid="uid://oebev2okkg6n" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_03_Door_L.res" id="4_hbe4d"]
+[ext_resource type="ArrayMesh" uid="uid://df62jb0ogno2i" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_03_Door_R.res" id="5_15sag"]
+[ext_resource type="ArrayMesh" uid="uid://bd1pq4f5gelil" path="res://Assets/PolygonTown/Models/Buildings/extracted/SM_Bld_Shop_03_Door_Rear.res" id="6_8iofm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yc0cs"]
+size = Vector3(1.1756176, 2.2474434, 0.104321286)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6u36d"]
+size = Vector3(1.1756177, 2.2474434, 0.104321286)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5qndy"]
+size = Vector3(1.0319273, 2.2243476, 0.33102292)
+
+[node name="SM_Bld_Shop_03" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_57utn")
+surface_material_override/0 = ExtResource("2_hbe4d")
+surface_material_override/1 = ExtResource("3_15sag")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = ExtResource("4_15sag")
+
+[node name="SM_Bld_Shop_03_Door_L" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4071813, 0.25168437, 0.74423015)
+gi_mode = 2
+mesh = ExtResource("4_hbe4d")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_hbe4d")
+surface_material_override/1 = ExtResource("3_15sag")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_Shop_03_Door_L"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Shop_03_Door_L/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5878077, 1.1237217, -0.05215747)
+shape = SubResource("BoxShape3D_yc0cs")
+
+[node name="SM_Bld_Shop_03_Door_R" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7584167, 0.25168437, 0.74423015)
+gi_mode = 2
+mesh = ExtResource("5_15sag")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_hbe4d")
+surface_material_override/1 = ExtResource("3_15sag")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_Shop_03_Door_R"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Shop_03_Door_R/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5878099, 1.1237217, -0.05215747)
+shape = SubResource("BoxShape3D_6u36d")
+
+[node name="SM_Bld_Shop_03_Door_Rear" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1373715, 0.23286277, -6.587597)
+gi_mode = 2
+mesh = ExtResource("6_8iofm")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_15sag")
+
+[node name="BoxCollider" type="StaticBody3D" parent="SM_Bld_Shop_03_Door_Rear"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Bld_Shop_03_Door_Rear/BoxCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5159626, 1.1121738, -0.057837393)
+shape = SubResource("BoxShape3D_5qndy")

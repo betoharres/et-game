@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://1ahchvsfuqad"]
+
+[ext_resource type="ArrayMesh" uid="uid://bf51i7s2376i6" path="res://assets/PolygonTown/Models/Generic/extracted/SM_Generic_Small_Rocks_04.res" id="1_damvw"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_loihw"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kkjx2"]
+points = PackedVector3Array(0.18434092, -0.005899936, 0.29492787, 0.14889917, 0.053072248, 0.2595695, 0.14889917, -0.005899936, 0.36571744, 0.14886338, -0.005899936, -0.3656778, 0.17241961, 0.0059151305, -0.24781644, 0.07812303, 0.064887315, 0.3302863, 0.08986536, 0.08847056, -0.08259225, 0.01912503, -0.005899936, 0.37757632, 0.08986536, 0.053081624, -0.34210554, -0.09883518, -0.005899936, -0.23595755, 0.0073111057, 0.053072248, 0.29492787, 0.006129727, 0.089895874, -0.13279247, -0.0800045, 0.08072513, -0.0766992, -0.18138942, 0.017702065, -0.07087889, -0.18138942, -0.005899936, -0.059019983, 0.0073111057, 0.053081624, -0.29496098)
+
+[node name="SM_Generic_Small_Rocks_04" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_damvw")
+surface_material_override/0 = ExtResource("2_loihw")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_kkjx2")

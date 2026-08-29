@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8o47mitrjim3"]
+
+[ext_resource type="ArrayMesh" uid="uid://bi5pt7bndt1dh" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Grass_Patch_02.res" id="1_7kvpu"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_hga2a"]
+
+[node name="SM_Env_Grass_Patch_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_7kvpu")
+surface_material_override/0 = ExtResource("2_hga2a")

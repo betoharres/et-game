@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhqad180yln13"]
+
+[ext_resource type="ArrayMesh" uid="uid://dnu2da23yqyo3" path="res://assets/PolygonTown/Models/Environment/extracted/SM_Env_Fence_Wood_Straight_01.res" id="1_1n1sd"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_8gemf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1n1sd"]
+size = Vector3(2.5126343, 2.1027832, 0.14648438)
+
+[node name="SM_Env_Fence_Wood_Straight_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_1n1sd")
+surface_material_override/0 = ExtResource("2_8gemf")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2435608, 1.0323486, -0.0078125)
+shape = SubResource("BoxShape3D_1n1sd")

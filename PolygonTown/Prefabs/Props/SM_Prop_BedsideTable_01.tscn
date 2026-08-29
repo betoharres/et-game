@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdfkl3n51qfkf"]
+
+[ext_resource type="ArrayMesh" uid="uid://b0e4m1lpwpa3g" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BedsideTable_01.res" id="1_f2tfa"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_mudju"]
+[ext_resource type="ArrayMesh" uid="uid://s5wmcua16q6y" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_BedsideTable_Drawer_01.res" id="3_mudju"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pau06"]
+points = PackedVector3Array(0.2024597, 0.41294593, 0.19976436, 0.2024597, 0.41294593, -0.20245908, 0.19883746, 0.4519656, 0.19614212, -0.19665337, 0.45250133, 0.19661458, -0.17495944, 0.0005607093, 0.17492066, 0.17497808, 0.003909079, 0.17228274, 0.18088388, -0.0035912693, 0.1279106, 0.19883746, 0.4519656, -0.19887623, 0.17497808, 0.003953724, -0.17501687, -0.19976375, 0.41294593, -0.20245908, -0.1961809, 0.4519656, -0.19887623, -0.17818794, -0.0035912693, 0.1279106, -0.17232153, 0.003953724, -0.17501687)
+
+[node name="SM_Prop_BedsideTable_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_f2tfa")
+surface_material_override/0 = ExtResource("2_mudju")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_pau06")
+
+[node name="SM_Prop_BedsideTable_Drawer_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0517577e-07, 0.35806847, 0.17497985)
+gi_mode = 2
+mesh = ExtResource("3_mudju")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_mudju")

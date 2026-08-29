@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxaclhftsfx8p"]
+
+[ext_resource type="ArrayMesh" uid="uid://cn85tex3w0u2t" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Church_Stand_01.res" id="1_eju5f"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_6h1md"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eju5f"]
+size = Vector3(5.393982, 0.41705322, 2.7232056)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6h1md"]
+size = Vector3(0.83447266, 1.0661621, 0.6314087)
+
+[node name="SM_Prop_Church_Stand_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_eju5f")
+surface_material_override/0 = ExtResource("2_6h1md")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0027770996, 0.19979858, -0.00015258789)
+shape = SubResource("BoxShape3D_eju5f")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1552734e-05, 0.9299011, 0.61102295)
+shape = SubResource("BoxShape3D_6h1md")

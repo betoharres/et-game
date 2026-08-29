@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpemalfyak8as"]
+
+[ext_resource type="ArrayMesh" uid="uid://5nh2tokoc2xl" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Stairs_Ceiling_01.res" id="1_dhgdv"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_n47e7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_be7b3"]
+points = PackedVector3Array(-0.079365015, 2.86062, -1.3097103, 2.5396826, 2.86062, -1.3097103, -0.079365015, 2.86062, 0.03968239, -0.079365015, 2.940288, -1.4693105, 2.5396826, 2.940288, -1.4693105, 2.5396826, 2.86062, 0.03968239, -0.079365015, 2.9396822, 0.03968239, -0.079365015, 5.796219, -5.0396824, 2.5396826, 5.796219, -5.0396824, 2.5396826, 2.9396822, 0.03968239, -0.079365015, 5.8755836, -4.801028, -0.079365015, 5.9552517, -5.0396824, 2.5396826, 5.9552517, -5.0396824, 2.5396826, 5.8755836, -4.801028, -0.079365015, 5.9552517, -4.9601307, 2.5396826, 5.9552517, -4.9601307)
+
+[node name="SM_Bld_House_Interior_Stairs_Ceiling_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_dhgdv")
+surface_material_override/0 = ExtResource("2_n47e7")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_be7b3")

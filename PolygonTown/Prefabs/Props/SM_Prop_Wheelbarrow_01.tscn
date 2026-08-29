@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dctp11new11n6"]
+
+[ext_resource type="ArrayMesh" uid="uid://de3rmbcsmyf6i" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wheelbarrow_01.res" id="1_kghli"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_hhlk1"]
+[ext_resource type="ArrayMesh" uid="uid://beha4j5ah5hv0" path="res://assets/PolygonTown/Models/Props/extracted/SM_Prop_Wheelbarrow_Wheel_01.res" id="3_hhlk1"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eexch"]
+points = PackedVector3Array(-0.22331098, -0.15862867, -0.66622776, -0.38360205, 0.7500551, -1.4950526, -0.20275444, -0.11269237, -0.80968773, 0.1928133, -0.1294959, -0.8159755, 0.20429835, -0.15862867, -0.66622776, -0.089568645, -0.024796933, 0.028403163, -0.33033815, 0.25032374, -0.04572606, -0.41880617, 0.5797328, 0.18013656, 0.3913878, 0.7500551, -1.4950526, -0.38360205, 0.8571403, -1.2544634, 0.3784047, 0.7882359, -1.4664267, 0.43141893, 0.58231795, 0.16309345, 0.33862326, 0.27488276, -0.019913197, 0.06656119, -0.0018287748, -0.012798071, 0.4083657, 0.5840082, 0.19535959, 0.3913878, 0.8571403, -1.2544634)
+
+[node name="SM_Prop_Wheelbarrow_01" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_kghli")
+surface_material_override/0 = ExtResource("2_hhlk1")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_eexch")
+
+[node name="SM_Prop_Wheelbarrow_Wheel_01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.340576e-07, 0.014997044, -0.014996643)
+gi_mode = 2
+mesh = ExtResource("3_hhlk1")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_hhlk1")

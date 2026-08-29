@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dnq4qajrumwse"]
+
+[resource]
+resource_name = "TelevisionScreen_mat"
+depth_draw_mode = 1
+albedo_color = Color(0.1102941, 0.1102941, 0.1102941, 1)
+roughness = 0.5
+uv1_scale = Vector3(1, 1, 0)

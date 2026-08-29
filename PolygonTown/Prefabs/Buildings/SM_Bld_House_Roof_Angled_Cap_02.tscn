@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d00fyhfrvx33n"]
+
+[ext_resource type="ArrayMesh" uid="uid://cgjueesn50i5s" path="res://assets/PolygonTown/Models/Buildings/extracted/SM_Bld_House_Roof_Angled_Cap_02.res" id="1_nlktl"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://Assets/PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="2_qsot3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0rmrh"]
+points = PackedVector3Array(-0.019851327, -0.049033463, -0.019467235, -0.019851327, -0.049033463, 2.5193472, -0.019851327, 0.03033565, 0.020050291, 1.3292936, -0.049033463, -0.019467235, -0.019851327, 0.18907388, 2.2019644, 2.5198326, -0.049033463, 2.5193472, 2.4798083, 0.03033565, 2.479333, -0.019851327, 0.18907388, 0.29791567, 2.4798083, 0.03033565, 0.020298827, 2.5198326, -0.049033463, -0.019218696, 0.13502564, 0.6216323, 1.3194064, 2.122572, 0.22885692, 2.1224322, 0.13577144, 0.62143534, 1.1802251, 2.122572, 0.22885692, 0.37744778, 1.2840487, 0.618875, 1.3186607, 1.2842972, 0.6186781, 1.1807222)
+
+[node name="SM_Bld_House_Roof_Angled_Cap_02" type="MeshInstance3D"]
+gi_mode = 2
+mesh = ExtResource("1_nlktl")
+surface_material_override/0 = ExtResource("2_qsot3")
+
+[node name="MeshCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollider"]
+shape = SubResource("ConvexPolygonShape3D_0rmrh")
