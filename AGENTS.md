@@ -66,42 +66,19 @@ para o Claude Code e o Codex seguirem as mesmas regras.
 
 ## Validação
 
-- Valide apenas o que for relevante para a alteração, mas não conclua sem uma
-  checagem proporcional ao risco.
-- Após mudar GDScript, cenas ou `project.godot`, execute, quando disponível:
-
-```powershell
-godot --headless --path . --editor --quit
-```
-
-- Mudanças visuais, de câmera, física, IK, navegação, interação ou gameplay
-  também exigem validação em uma janela normal do Godot.
-- Para coleta e entrega, teste pegar, largar e entregar um item solto e um item
-  carregado; confirme a atualização da pontuação no console.
-- Para o veículo, teste entrada, direção, troca de câmera, saída e devolução do
-  controle ao jogador.
-- Para o fazendeiro, teste patrulha, detecção, perseguição, perda do alvo e
-  estado de disparo.
-- Há verificações automatizadas em `tools/`, organizadas por sistema:
-
-```bash
-godot --headless --path . --script res://tools/<tool>.gd
-
-# omita --headless quando a checagem depender de rasterização de verdade
-# (render, screenshot, culling): o driver dummy não desenha nada
-godot --path . --script res://tools/<tool>.gd --resolution 1280x720
-```
-
-- No Windows, use o executável terminado em `_console.exe`: só ele manda
-  `print()` para o stdout.
-- Após a última edição relevante, rode uma vez somente as ferramentas dos
-  sistemas alterados. Repita apenas se o código mudar depois da checagem ou se
-  o ciclo rodar/medir fizer parte da depuração.
-- Uma verificação nova deve imprimir diagnóstico em texto e sair com `quit(1)`
-  ao falhar. Para falhas espaciais, informe coordenadas do mundo quando
-  aplicável. Use screenshot somente como inspeção visual final.
-- Se forem adicionados testes de unidade, prefira GUT e organize-os em
-  `test/unit` e `test/integration`.
+- Valide o que for relevante à alteração, proporcional ao risco, e apenas uma
+  vez, depois da última edição. Repita só se o código mudar após a checagem.
+- Rode a checagem headless do Godot quando a mudança puder quebrar parsing,
+  importação ou referências: script ou cena nova, recurso movido ou renomeado,
+  assinatura alterada, mudança em `project.godot`. Ajuste dentro de uma função
+  existente não exige.
+- Mudanças visuais, de câmera, física, IK, navegação ou gameplay precisam de
+  uma execução em janela normal. Quando o editor já estiver aberto na máquina
+  do usuário, diga o que ele deve conferir em vez de abrir o jogo por conta
+  própria.
+- Os comandos, o mapa de ferramentas de `tools/` por sistema, os roteiros de
+  teste manual e as regras para escrever uma verificação nova estão em
+  `tools/VALIDACAO.md`. Consulte-o antes de validar.
 - Nunca remova ou enfraqueça validações para ocultar falhas.
 - Nunca declare algo como testado sem ter executado a validação.
 

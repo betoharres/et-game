@@ -39,7 +39,8 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
 | `shaders/` | Céu procedural e névoa rasteira |
 | `tools/` | Checagens automatizadas e utilitários de build de asset |
 | `animations/mixamo/` | Rig visual único, FBX de origem, GLB gerado e mapeamento |
-| `assets/` | Áudio e ícones de HUD, cada um com seu `SOURCE.md` |
+| `assets/` | Áudio, fontes e música do menu |
+| `Texturas/ui/` | Ícones do HUD, gerados por `tools/render_prototype_icons.py` |
 | `3dModelos/`, `Texturas/`, `Materiais/` | Assets importados e materiais reutilizáveis |
 
 Cenas de entrada:
@@ -242,7 +243,8 @@ de tela; `set_quality_preset()` troca o preset em runtime. O grupo
   especiais nem variação vertical.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/`, do pacote
   `Polygon Prototype` e dos FBX Mixamo não estão confirmadas. Áudio, ícones e
-  animações têm procedência registrada nos respectivos `SOURCE.md`; confirme os
+  animações têm procedência registrada em `assets/audio/SOURCE.md`,
+  `Texturas/ui/SOURCE.md` e `animations/mixamo/SOURCE.md`; confirme os
   termos antes de redistribuir.
 
 ## Qualidade e validação
