@@ -21,28 +21,11 @@
 [ext_resource type="ArrayMesh" uid="uid://cit7v4cijd4ma" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_04.fbx" id="22_qjdjy"]
 [ext_resource type="ArrayMesh" uid="uid://byyrvxti5ekrd" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_02.fbx" id="23_w8fa1"]
 [ext_resource type="ArrayMesh" uid="uid://b32t264q633n4" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_05.fbx" id="24_ambed"]
-[ext_resource type="ArrayMesh" uid="uid://l6nhdragy4x1" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Large_01.fbx" id="24_cpsx8"]
 [ext_resource type="ArrayMesh" uid="uid://cj2vqbdvij0xm" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_06.fbx" id="25_1vefe"]
-[ext_resource type="ArrayMesh" uid="uid://c6jsfr2cj0ox4" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_01.fbx" id="25_wgggl"]
-[ext_resource type="ArrayMesh" uid="uid://dp00d3ct8m58q" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_02.fbx" id="26_co253"]
 [ext_resource type="ArrayMesh" uid="uid://cbq2a5vrgttl6" path="res://PolygonScifiCity/FBX/SM_Veh_Armored_Truck_Cannon_01.fbx" id="26_qjdjy"]
 [ext_resource type="ArrayMesh" uid="uid://dceeq7lju3tf7" path="res://PolygonScifiCity/FBX/SM_Env_Ground_Tile_Floating_Platform_01.fbx" id="26_qrynd"]
-[ext_resource type="ArrayMesh" uid="uid://m6agd2ipmalq" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_03.fbx" id="27_gamgk"]
-[ext_resource type="ArrayMesh" uid="uid://bc6rfgh4uehmx" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_03.fbx" id="28_ei0qx"]
-[ext_resource type="ArrayMesh" uid="uid://chvfr801w883l" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_02.fbx" id="29_ysnf6"]
-[ext_resource type="ArrayMesh" uid="uid://c8ve1c0vpftmw" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_01.fbx" id="30_f8bpr"]
-[ext_resource type="ArrayMesh" uid="uid://bc2psqijk1n4g" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_04.fbx" id="31_16v35"]
-[ext_resource type="ArrayMesh" uid="uid://c1h51jxj8a1f7" path="res://3dModelos/SM_Prop_Crate_Large_01.fbx" id="32_16v35"]
 [ext_resource type="Material" path="res://Materiais/ShipInteriorPlain.tres" id="33_o0da8"]
-[ext_resource type="ArrayMesh" uid="uid://px3ele1c8rvj" path="res://3dModelos/SM_Prop_Crate_Stack_01.fbx" id="34_c0k2y"]
-[ext_resource type="ArrayMesh" uid="uid://w8dkpuq4f4xf" path="res://3dModelos/SM_Prop_Crate_Stack_02_Tarp.fbx" id="35_1cid1"]
-[ext_resource type="ArrayMesh" uid="uid://bkb8awotveu0b" path="res://3dModelos/SM_Prop_Crate_03.fbx" id="36_kixd1"]
-[ext_resource type="ArrayMesh" uid="uid://cmnewog0mkuwf" path="res://3dModelos/SM_Prop_Crate_02.fbx" id="37_6xc45"]
-[ext_resource type="ArrayMesh" uid="uid://cu16k2wf1wwqq" path="res://3dModelos/SM_Prop_Crate_01.fbx" id="38_fwb1s"]
 [ext_resource type="ArrayMesh" uid="uid://dv8vgukjpwjyh" path="res://PolygonScifiCity/FBX/SM_Prop_Books_01.fbx" id="41_7gew1"]
-[ext_resource type="ArrayMesh" uid="uid://c877rqme88fhd" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Empty_01.fbx" id="42_20xm4"]
-[ext_resource type="ArrayMesh" uid="uid://ev48gg4uh387" path="res://PolygonScifiCity/FBX/SM_Prop_Box_RobotParts_01.fbx" id="43_jpp0o"]
-[ext_resource type="ArrayMesh" uid="uid://ce8b7xq1qevy7" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Supplies_01.fbx" id="44_4jgph"]
 [ext_resource type="ArrayMesh" uid="uid://csuig8elvdacf" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_01.fbx" id="45_gn2qu"]
 [ext_resource type="ArrayMesh" uid="uid://g14tgktaixft" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_02.fbx" id="46_ucnum"]
 [ext_resource type="ArrayMesh" uid="uid://dmejupoobebah" path="res://PolygonScifiCity/FBX/SM_Prop_Cage_03.fbx" id="47_s5yhy"]
@@ -57,21 +40,22 @@
 [ext_resource type="ArrayMesh" uid="uid://ces7enm6yj00p" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_03.fbx" id="56_sk3vf"]
 [ext_resource type="ArrayMesh" uid="uid://dpk2wfwuwo47t" path="res://PolygonScifiCity/FBX/SM_Prop_Jar_04.fbx" id="57_hhj3q"]
 [ext_resource type="ArrayMesh" uid="uid://mr0ns1okyuw4" path="res://PolygonScifiCity/FBX/SM_Veh_Future_Taxi_01.fbx" id="66_hhj3q"]
+[ext_resource type="Script" path="res://scripts/space/tapered_shell.gd" id="67_tapered_shell"]
 
 [sub_resource type="CylinderShape3D" id="Shape_DescendPad"]
 height = 1.5
-radius = 1.6
+radius = 0.4261
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ph3eq"]
 metallic_specular = 0.0
 emission_enabled = true
 emission = Color(0, 1, 1, 1)
-emission_energy_multiplier = 4.26
+emission_energy_multiplier = 1.1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_emb0l"]
 material = SubResource("StandardMaterial3D_ph3eq")
-top_radius = 1.6020508
-bottom_radius = 1.6020508
+top_radius = 0.4261
+bottom_radius = 0.4261
 height = 0.06616211
 radial_segments = 24
 rings = 0
@@ -206,7 +190,7 @@ outline_modulate = Color(0, 0.1, 0.15, 1)
 text = "PRESSIONE E PARA DESCER"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DescendPad" unique_id=93589289]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1595459, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
 mesh = SubResource("CylinderMesh_emb0l")
 
 [node name="HallLight" type="OmniLight3D" parent="." unique_id=978189636]
@@ -337,21 +321,6 @@ transform = Transform3D(0.813192, 0, 0.5819956, 0, 1, 0, -0.5819956, 0, 0.813192
 mesh = ExtResource("41_7gew1")
 surface_material_override/0 = ExtResource("3_n5mk1")
 
-[node name="SmPropBoxEmpty01" type="MeshInstance3D" parent="Props" unique_id=1983681190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8222, 0.0001, 3.9163)
-mesh = ExtResource("42_20xm4")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropBoxRobotParts01" type="MeshInstance3D" parent="Props" unique_id=816829702]
-transform = Transform3D(0.9648469, 0, -0.2628128, 0, 1, 0, 0.2628128, 0, 0.9648469, -6.4072, 0.0001, 3.1976)
-mesh = ExtResource("43_jpp0o")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropBoxSupplies01" type="MeshInstance3D" parent="Props" unique_id=1606200554]
-transform = Transform3D(0.8849344, 0, 0.4657157, 0, 1, 0, -0.4657157, 0, 0.8849344, -5.6825, 0.0001, 1.9423)
-mesh = ExtResource("44_4jgph")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
 [node name="SmPropCage01" type="MeshInstance3D" parent="Props" unique_id=994745105]
 transform = Transform3D(-0.660671, 0, 0.7506756, 0, 1, 0, -0.7506756, 0, -0.660671, -2.9588, 0.0001, 3.95)
 mesh = ExtResource("45_gn2qu")
@@ -422,87 +391,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2548, 0.0226, -2.2626)
 mesh = ExtResource("66_hhj3q")
 surface_material_override/0 = ExtResource("3_n5mk1")
 
-[node name="SmPropCrateLarge01" type="MeshInstance3D" parent="Props" unique_id=1252607868]
-transform = Transform3D(0.8010072, 0, 0.5986548, 0, 1, 0, -0.5986548, 0, 0.8010072, 6.2732, 0.0001, 2.9655)
-mesh = ExtResource("24_cpsx8")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrateMilitary01" type="MeshInstance3D" parent="Props" unique_id=644316938]
-transform = Transform3D(0.9317062, 0, -0.3632128, 0, 1, 0, 0.3632128, 0, 0.9317062, 5.5885, 0.0001, 3.95)
-mesh = ExtResource("25_wgggl")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrateMilitary02" type="MeshInstance3D" parent="Props" unique_id=777202259]
-transform = Transform3D(-0.258819, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.258819, 4.7476, 0.0001, 3.95)
-mesh = ExtResource("26_co253")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrateMilitary03" type="MeshInstance3D" parent="Props" unique_id=1806739004]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.369, 0.0001, 3.95)
-mesh = ExtResource("27_gamgk")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrateLarge02" type="MeshInstance3D" parent="Props" unique_id=1793903361]
-transform = Transform3D(0.8657103, 0, 0.5005454, 0, 1, 0, -0.5005454, 0, 0.8657103, 6.8265, 0.0001, 3.9238)
-mesh = ExtResource("24_cpsx8")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrate03" type="MeshInstance3D" parent="Props" unique_id=1629375407]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9479, 0.0001, 3.95)
-mesh = ExtResource("28_ei0qx")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrate02" type="MeshInstance3D" parent="Props" unique_id=1688920213]
-transform = Transform3D(0.1905603, 0, 0.9816755, 0, 1, 0, -0.9816755, 0, 0.1905603, 1.8484, 0.0001, 3.95)
-mesh = ExtResource("29_ysnf6")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrate01" type="MeshInstance3D" parent="Props" unique_id=772711528]
-transform = Transform3D(0.4890851, 0, 0.8722361, 0, 1, 0, -0.8722361, 0, 0.4890851, 1.4064, 0.0001, 3.95)
-mesh = ExtResource("30_f8bpr")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrate04" type="MeshInstance3D" parent="Props" unique_id=1505078492]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0204, 0.0001, 3.95)
-mesh = ExtResource("31_16v35")
-surface_material_override/0 = ExtResource("3_n5mk1")
-
-[node name="SmPropCrateLarge03" type="MeshInstance3D" parent="Props" unique_id=309535226]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7262, 0, 3.8467)
-mesh = ExtResource("32_16v35")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrateStack01" type="MeshInstance3D" parent="Props" unique_id=71784273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0704, 0.0001, 3.95)
-mesh = ExtResource("34_c0k2y")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrateStack02" type="MeshInstance3D" parent="Props" unique_id=73431483]
-transform = Transform3D(0.9657312, 0, 0.2595443, 0, 1, 0, -0.2595443, 0, 0.9657312, 1.9689, 0, 3.95)
-mesh = ExtResource("34_c0k2y")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrateStack02Tarp" type="MeshInstance3D" parent="Props" unique_id=1045550041]
-transform = Transform3D(0.9657312, 0, 0.2595443, 0, 1, 0, -0.2595443, 0, 0.9657312, 1.9689, 0, 3.95)
-mesh = ExtResource("35_1cid1")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrate05" type="MeshInstance3D" parent="Props" unique_id=1214128468]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8237, 0.0001, 3.0805)
-mesh = ExtResource("36_kixd1")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrate06" type="MeshInstance3D" parent="Props" unique_id=304083163]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4007, 0.0001, 3.1228)
-mesh = ExtResource("37_6xc45")
-surface_material_override/0 = ExtResource("33_o0da8")
-
-[node name="SmPropCrate07" type="MeshInstance3D" parent="Props" unique_id=883842683]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.746, 0.0001, 2.0524)
-mesh = ExtResource("38_fwb1s")
-surface_material_override/0 = ExtResource("33_o0da8")
-
 [node name="Shell" type="Node3D" parent="."]
+script = ExtResource("67_tapered_shell")
 
 [node name="Deck" type="MeshInstance3D" parent="Shell"]
 script = ExtResource("4_deck_script")

@@ -21,6 +21,7 @@ cast_shadow = 0
 mesh = ExtResource("2_hull")
 
 [node name="Interior" parent="." instance=ExtResource("3_interior")]
+scale = Vector3(1.76, 1.76, 1.76)
 
 [node name="CarryField" type="Area3D" parent="."]
 script = ExtResource("4_carry_script")

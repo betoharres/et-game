@@ -68,13 +68,16 @@ func _ready() -> void:
 
 	for nome : String in ["WallBack", "GlassRight", "GlassLeft"]:
 		var w : MeshInstance3D = shell.get_node(nome)
-		var box : BoxMesh = w.mesh as BoxMesh
-		var meio : float = box.size.x * 0.5
+		var mesh : Mesh = w.mesh
+		if mesh == null or mesh.get_surface_count() == 0:
+			continue
+		var bounds : AABB = mesh.get_aabb()
+		var meio : float = bounds.size.x * 0.5
 		var eixo : Vector3 = w.transform.basis.x.normalized()
 		var a : Vector3 = w.position - eixo * meio
 		var b : Vector3 = w.position + eixo * meio
 		print("[geo] %-11s de (%6.2f,%6.2f) a (%6.2f,%6.2f)  comp=%.2f esp=%.2f" % [
-			nome, a.x, a.z, b.x, b.z, box.size.x, box.size.z])
+			nome, a.x, a.z, b.x, b.z, bounds.size.x, bounds.size.z])
 
 	var pad : Node3D = ship.get_node("Interior/DescendPad")
 	print("[geo] DescendPad em (%.2f, %.2f, %.2f)" % [
