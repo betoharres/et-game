@@ -26,9 +26,9 @@ const ARRIVAL_BEAM_SCENE : PackedScene = preload("res://scenes/FX/ArrivalBeam.ts
 const PROCEDURAL_SFX = preload("res://scripts/audio/procedural_sfx.gd")
 const BEAM_TRAVEL_AUDIO = preload("res://scripts/audio/beam_travel_audio.gd")
 const MISSION_FLOW = preload("res://scripts/levels/mission_flow.gd")
-const SAUCER_SCENE : PackedScene = preload("res://scenes/Space/Saucer.tscn")
+const ALIEN_SHIP_SCENE : PackedScene = preload("res://scenes/Space/AlienShip.tscn")
 
-## How far above its resting height the saucer starts, and how long it
+## How far above its resting height the ship starts, and how long it
 ## takes to settle into place -- sold as the ship coming down from higher up
 ## and parking, rather than appearing already parked.
 const SAUCER_APPROACH_HEIGHT : float = 45.0
@@ -80,7 +80,7 @@ var _travel_end_height : float = 0.0
 ## where the player currently is when it runs -- on the ground already (the
 ## default path) or up on the saucer (the orbital terminal path).
 var _ground_spawn_position : Vector3
-var _saucer : Saucer
+var _saucer : AlienShip
 var _airborne_atmosphere : bool = false
 
 @onready var player : CharacterBody3D = $CharacterBody3D
@@ -121,26 +121,44 @@ func _unhandled_input(event : InputEvent) -> void:
 	_look_tween = null
 
 
-## Arrival via the orbital terminal: the ET rides the saucer down from higher
+## Arrival via the orbital terminal: the ET rides its own ship down from higher
 ## up and parks directly above the ground spawn point, at the same height as
 ## the fase's SpaceShip, so the descend pad always drops the beam in a straight
 ## column onto the exact spot the fase was designed to receive the player.
 ##
-## The saucer is spawned from code rather than authored in world.tscn: it only
+## The ship is spawned from code rather than authored in world.tscn: it only
 ## exists for this one arrival path, and appending a node by hand to a scene
-## this size is easy to get wrong. SpaceShip and the saucer now float at the
-## same height without occupying the same footprint; consolidating them into
-## a single object is follow-up work.
+## this size is easy to get wrong.
+##
+## It parks with spin_speed left at the scene default of 0. The ET walks around
+## inside it while it is parked, and a spinning deck up here would need the
+## ShipCarryField to fight the per-frame snap in _set_saucer_height() -- the
+## orbital platform is where the spin earns its keep, not the arrival deck.
 func _spawn_on_saucer() -> void:
-	_saucer = SAUCER_SCENE.instantiate() as Saucer
+	_saucer = ALIEN_SHIP_SCENE.instantiate() as AlienShip
 	add_child(_saucer)
-	# The saucer's safety net exists for Orbit.tscn, where stepping off the
+	# The ship's safety net exists for Orbit.tscn, where stepping off the
 	# edge is an endless fall through empty space. Here there is a fase right
 	# below, so jumping off is a legitimate way down -- the ET takes the fall
 	# it earned (see player.gd's landing_ragdoll_speed) instead of being
 	# teleported back up. This also covers the tractor beam, whose column runs
-	# straight down through the saucer's own footprint.
+	# straight down through the ship's own footprint.
 	_saucer.set_fall_guard_enabled(false)
+
+	# The ET rides down inside the ship, so the hull must not be drawn yet --
+	# from in there it would fill the panoramic window with its own hollow
+	# inside instead of the fase below. _on_touchdown() turns it back on once
+	# the ET is on the ground and the ship is something he looks UP at.
+	_saucer.set_hull_visible_to_player(player, false)
+
+	# The fase's ambient SpaceShip is the same triangular hull as the one the ET
+	# just arrived in, and both float at the same height -- leaving it visible
+	# puts two copies of the player's own ship in the sky at once. Hiding the
+	# whole node (rather than just its mesh) also takes its tractor beams with
+	# it, which would otherwise hang in the air pointing down from nothing.
+	# The node stays alive, so SpiderBot's ship_node NodePath and the
+	# spaceship.global_position.y read below both keep working.
+	spaceship.visible = false
 
 	var rest_height : float = spaceship.global_position.y
 	var start_height : float = rest_height + SAUCER_APPROACH_HEIGHT
@@ -307,6 +325,11 @@ func _play_arrival_intro() -> void:
 
 func _on_touchdown(beam : ArrivalBeam) -> void:
 	_look_tween = null
+	# The ET is outside now: the ship stops being the room he is standing in and
+	# becomes the silhouette parked overhead, so the hull goes back on. Null on
+	# the direct path, where no ship was ever spawned.
+	if _saucer != null:
+		_saucer.set_hull_visible_to_player(player, true)
 	# Only meaningful on the orbital path, where the atmosphere was switched to
 	# its airborne settings; on the direct path both calls are already no-ops.
 	_exit_airborne_atmosphere()

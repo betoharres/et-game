@@ -205,6 +205,33 @@ func is_active() -> bool:
 	return _active
 
 
+## Transporta a simulacao junto com uma plataforma em movimento -- o interior de
+## uma nave que gira. Os PhysicalBone3D sao simulados em espaco de mundo e sao
+## filhos do Skeleton3D, entao carregar o CharacterBody3D raiz nao os move: sem
+## isto o ET cai e desliza pelo convés enquanto a sala gira por baixo dele.
+##
+## Todos os ossos recebem o MESMO transform rigido, entao o erro dos joints
+## continua zero -- o conjunto inteiro e transportado, nao deformado.
+func apply_carry(carry_transform : Transform3D) -> void:
+	if not _active:
+		return
+
+	var carry_basis : Basis = carry_transform.basis
+
+	for bone_name : String in _physical_bones:
+		var physical_bone : PhysicalBone3D = _physical_bones[bone_name]
+		if not is_instance_valid(physical_bone):
+			continue
+
+		physical_bone.global_transform = (
+			carry_transform * physical_bone.global_transform
+		).orthonormalized()
+		# As velocidades tambem sao de mundo: sem gira-las o ragdoll continua
+		# caindo na direcao em que a sala estava.
+		physical_bone.linear_velocity = carry_basis * physical_bone.linear_velocity
+		physical_bone.angular_velocity = carry_basis * physical_bone.angular_velocity
+
+
 func is_recovering() -> bool:
 	return _recovering
 

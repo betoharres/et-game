@@ -133,6 +133,32 @@ func set_target_pose(
 		_snap_to_target()
 
 
+## Aplica na pose ja suavizada o mesmo transform rigido que a plataforma usou
+## para carregar o dono do rig -- o interior de uma nave que gira.
+##
+## Necessario porque top_level (ver _ready) desliga a heranca de transform: sem
+## isto o lerp de _process persegue um alvo que foge a velocidade constante e
+## estabiliza com um erro fixo de velocidade/position_response (0.26 m a
+## 1.8 u/s), visivel como o personagem permanentemente deslocado no
+## enquadramento. Carregando pose E alvo juntos, o erro passa a ser medido no
+## referencial da nave e vai a zero.
+func apply_carry(carry_transform : Transform3D, carry_yaw : float) -> void:
+	if not _has_target:
+		return
+
+	global_transform = (carry_transform * global_transform).orthonormalized()
+
+	# O dono reescreve o alvo neste mesmo tick via set_target_pose(), mas
+	# carrega-lo aqui mantem o par pose/alvo coerente enquanto ele estiver
+	# travado numa cutscene.
+	_target_position = carry_transform * _target_position
+	_target_basis = (carry_transform.basis * _target_basis).orthonormalized()
+	_target_yaw += carry_yaw
+	_target_up_direction = (
+		carry_transform.basis * _target_up_direction
+	).normalized()
+
+
 func get_camera() -> Camera3D:
 	return camera
 

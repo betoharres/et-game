@@ -220,6 +220,67 @@ func set_movement_locked(locked : bool, yaw_limit_degrees : float = 0.0) -> void
 		_look_yaw_limit = 0.0
 
 
+## Transporta o ET junto com uma plataforma que gira ou translada -- o interior
+## da nave. Chamado pelo ShipCarryField ANTES do _physics_process deste no (ver
+## ShipCarryField.CARRY_PHYSICS_PRIORITY), para que o move_and_slide() e o alvo
+## de camera do mesmo tick ja partam da pose corrigida.
+##
+## Regra geral: tudo que este script guarda em coordenadas de MUNDO precisa
+## andar junto, ou a sala gira por baixo do estado e o ET vira, anda ou levanta
+## apontando para o lugar errado.
+func apply_carry(carry_transform : Transform3D, carry_yaw : float) -> void:
+	var carry_basis : Basis = carry_transform.basis
+
+	# Uma multiplicacao move posicao e orientacao de uma vez. Nao usar
+	# "rotation.y += carry_yaw": no modo de gravidade em superficie
+	# (_uses_surface_up()) o up nao e Vector3.UP e rotation.y deixa de
+	# significar facing. O produto de basis esta certo nos dois modos, e
+	# _update_gravity_frame() preserva o forward resultante.
+	global_transform = (carry_transform * global_transform).orthonormalized()
+
+	# A velocidade e expressa em mundo. Sem gira-la, um pulo aponta para onde a
+	# sala estava e o ET aterrissa deslocado; andar em linha reta vira um arco.
+	velocity = carry_basis * velocity
+
+	# camera_yaw e um acumulador de mundo sem limite (ver _input, que nunca
+	# envolve). SOMAR o delta -- nunca atribuir um valor absoluto -- e o que
+	# impede o carry de brigar com o mouse: as duas fontes so incrementam, e
+	# soma e comutativa. Nao envolver com wrapf: tudo a jusante consome via
+	# rotated() e _basis_for_yaw(), que sao agnosticos a wrap.
+	camera_yaw += carry_yaw
+
+	# Sem isto a janela de olhar da cutscene fica parada no mundo enquanto o ET
+	# gira: com limite de 45 graus a 0.18 rad/s, ele fica cravado na borda do
+	# clamp de _input em 4.4 segundos.
+	_look_center_yaw += carry_yaw
+
+	# _update_moving_turn ATRIBUI rotation.y a partir destes dois angulos, e a
+	# velocidade a partir desta direcao. Sem avanca-los, a manobra de virada
+	# apaga a contribuicao do carry pelos ~0.4 s que ela dura.
+	_moving_turn_start_yaw += carry_yaw
+	_moving_turn_target_yaw += carry_yaw
+	_moving_turn_target_direction = carry_basis * _moving_turn_target_direction
+
+	_knockback_direction = carry_basis * _knockback_direction
+	_stumble_direction = carry_basis * _stumble_direction
+	_last_impact_normal = carry_basis * _last_impact_normal
+	_fall_impact_normal = carry_basis * _fall_impact_normal
+	_fall_target_position = carry_transform * _fall_target_position
+
+	# O rig e top_level e nao herda nada deste no. Sem carrega-lo, o lag de
+	# primeira ordem do _process dele persegue um alvo que foge a velocidade
+	# constante e estabiliza num offset PERMANENTE de
+	# velocidade/position_response -- 1.8/7.0 = 0.26 m, 36% do shoulder_offset,
+	# com o ET visivelmente fora do enquadramento para sempre.
+	camera_pivot.apply_carry(carry_transform, carry_yaw)
+
+	# Os PhysicalBone3D sao simulados em espaco de mundo e sao filhos do
+	# Skeleton3D: carregar este no nao os move. Sem isto o ET cai e desliza
+	# ~3 m pelo convés durante o 1.8 s de fall_recovery_delay.
+	if ragdoll.is_active():
+		ragdoll.apply_carry(carry_transform)
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

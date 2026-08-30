@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://shaders/earth_planet.gdshader" id="3_earth_surface"]
 [ext_resource type="Shader" path="res://shaders/planet_atmosphere.gdshader" id="4_earth_atmosphere"]
 [ext_resource type="Script" path="res://scripts/space/orbital_earth.gd" id="5_earth_script"]
-[ext_resource type="PackedScene" path="res://scenes/Space/Saucer.tscn" id="6_saucer"]
+[ext_resource type="PackedScene" path="res://scenes/Space/AlienShip.tscn" id="6_ship"]
 [ext_resource type="PackedScene" path="res://scenes/Space/ConsoleButton.tscn" id="7_console"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionSelectUI.tscn" id="8_mission_ui"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="9_player"]
@@ -110,7 +110,7 @@ light_angular_distance = 0.5
 shadow_enabled = true
 
 [node name="Earth" type="Node3D" parent="." node_paths=PackedStringArray("sun") unique_id=181005003]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -90, -320)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, -320)
 script = ExtResource("5_earth_script")
 sun = NodePath("../SunLight")
 rotation_speed = 0.006
@@ -124,15 +124,16 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_atmosphere")
 material_override = SubResource("ShaderMaterial_earth_atmosphere")
 
-[node name="Saucer" parent="." instance=ExtResource("6_saucer")]
+[node name="AlienShip" parent="." instance=ExtResource("6_ship")]
+spin_speed = 0.18
 
-[node name="Console" parent="." instance=ExtResource("7_console")]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, -1.25)
+[node name="Console" parent="AlienShip" instance=ExtResource("7_console")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, -6.2)
 accent_color = Color(0.42, 0.92, 1, 1)
 
 [node name="MissionSelectUI" parent="." instance=ExtResource("8_mission_ui")]
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("9_player")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.1, 1.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -2)
 
 [node name="PauseMenu" parent="." instance=ExtResource("10_pause_menu")]

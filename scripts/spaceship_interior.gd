@@ -2,12 +2,23 @@ extends Node3D
 
 ## Interior of the UFO: crew quarters, control room, and a central
 ## hatch/lift pad the player uses to descend back to the surface.
+##
+## The scene is pure geometry plus the pad: it does not decide where the pad
+## leads. Stepping on it only emits descend_requested, and whoever owns the
+## ship (see scripts/space/alien_ship.gd) runs the actual descent. That is what
+## lets the same interior serve both ends of the flow -- parked in orbit, where
+## the pad must stay inert until a mission is picked, and anchored above a fase,
+## where it fires the arrival beam.
+##
+## The pad follows the same "player" detection used everywhere else in the
+## project: group "characters" instead of a dedicated "player" group.
 
-const EXIT_SCENE_PATH : String = "res://scenes/world.tscn"
+signal descend_requested
 
 @onready var descend_trigger : Area3D = $DescendPad/DescendTrigger
 @onready var descend_prompt : Label3D = $DescendPad/DescendPrompt
 
+var _descend_trigger_enabled : bool = false
 var _characters_on_pad : Array[CharacterBody3D] = []
 
 
@@ -19,13 +30,25 @@ func _ready() -> void:
 
 func _process(_delta : float) -> void:
 	_cleanup_tracked_characters()
-	descend_prompt.visible = not _characters_on_pad.is_empty()
 
-	if _characters_on_pad.is_empty():
-		return
+	var character_on_pad : bool = (
+		_descend_trigger_enabled and not _characters_on_pad.is_empty()
+	)
+	descend_prompt.visible = character_on_pad
 
-	if Input.is_action_just_pressed("interact"):
-		SceneTransition.warp_to(EXIT_SCENE_PATH)
+	if character_on_pad and Input.is_action_just_pressed("interact"):
+		# Disarms immediately, like the Saucer's pad: while the descent plays
+		# out, a second press on the pad must not fire anything again.
+		set_descend_trigger_enabled(false)
+		descend_requested.emit()
+
+
+## Arms/disarms the pad. Starts disarmed so a ship parked in orbit can hold the
+## descent back until a mission has actually been chosen.
+func set_descend_trigger_enabled(enabled : bool) -> void:
+	_descend_trigger_enabled = enabled
+	if not enabled:
+		descend_prompt.visible = false
 
 
 func _on_pad_body_entered(body : Node3D) -> void:

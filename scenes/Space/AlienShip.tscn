@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/space/alien_ship.gd" id="1_ship_script"]
+[ext_resource type="ArrayMesh" uid="uid://jbko44hxsgpw" path="res://3dModelos/ET_Alien_Space_Ship.glb" id="2_hull"]
+[ext_resource type="PackedScene" uid="uid://jdih45m42t7q" path="res://scenes/SpaceshipInterior/SpaceShipInterior.tscn" id="3_interior"]
+[ext_resource type="Script" path="res://scripts/space/ship_carry_field.gd" id="4_carry_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_carry_field"]
+size = Vector3(20, 3.2, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fall_guard"]
+size = Vector3(80, 4, 80)
+
+[node name="AlienShip" type="Node3D"]
+script = ExtResource("1_ship_script")
+
+[node name="Exterior" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+layers = 2048
+cast_shadow = 0
+mesh = ExtResource("2_hull")
+
+[node name="Interior" parent="." instance=ExtResource("3_interior")]
+
+[node name="CarryField" type="Area3D" parent="."]
+script = ExtResource("4_carry_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarryField"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_carry_field")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 2.5)
+
+[node name="FallGuard" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallGuard"]
+shape = SubResource("BoxShape3D_fall_guard")
