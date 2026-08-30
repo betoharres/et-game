@@ -29,6 +29,11 @@ func _run() -> void:
 	var environment : Environment = world_environment.environment
 	var fog_volume : FogVolume = environment_node.get_node("GroundFog")
 	var fog_layer : Node3D = environment_node.get_node("GroundFogLayer")
+	var ship : AlienShip = (
+		load("res://scenes/Space/AlienShip.tscn") as PackedScene
+	).instantiate() as AlienShip
+	root.add_child(ship)
+	await process_frame
 
 	_check(
 		environment.fog_enabled and environment.fog_mode == Environment.FOG_MODE_DEPTH,
@@ -77,6 +82,33 @@ func _run() -> void:
 		_visible_layers(fog_layer) == 2,
 		"HIGH usa duas camadas de nevoa rasteira"
 	)
+
+	# O preset LOW precisa continuar valendo depois que outros controles da nave
+	# recalculam energia e visibilidade dos feixes.
+	environment_node.call("set_quality_preset", 0)
+	await process_frame
+	await process_frame
+	ship.set_alien_fog_intensity(1.0)
+	ship.set_debug_lighting_intensity(0.75)
+	_check(
+		_all_ship_beam_volumes_hidden(ship),
+		"LOW mantem os volumes dos feixes ocultos apos atualizar a nave"
+	)
+	var external_spotlight : SpotLight3D = SpotLight3D.new()
+	var external_ground_light : OmniLight3D = OmniLight3D.new()
+	var external_volume : MeshInstance3D = MeshInstance3D.new()
+	ship.configure_external_beam(
+		external_spotlight,
+		external_ground_light,
+		external_volume
+	)
+	_check(
+		not external_spotlight.shadow_enabled,
+		"LOW mantem as sombras do feixe externo desligadas"
+	)
+	environment_node.call("set_quality_preset", 2)
+	await process_frame
+	await process_frame
 
 	# O fog atmosferico pode ser desligado por quem quiser so a manta rasteira.
 	environment_node.set("atmospheric_fog_enabled", false)
@@ -238,6 +270,13 @@ func _visible_layers(fog_layer : Node3D) -> int:
 		if layer != null and layer.visible:
 			count += 1
 	return count
+
+
+func _all_ship_beam_volumes_hidden(ship : AlienShip) -> bool:
+	for volume : MeshInstance3D in ship.beam_volumes:
+		if volume.visible:
+			return false
+	return true
 
 
 ## Espera a transicao de perfil de nevoa estabilizar, com teto de frames.

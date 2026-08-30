@@ -50,7 +50,7 @@ radius = 0.4261
 metallic_specular = 0.0
 emission_enabled = true
 emission = Color(0, 1, 1, 1)
-emission_energy_multiplier = 1.1
+emission_energy_multiplier = 0.65
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_emb0l"]
 material = SubResource("StandardMaterial3D_ph3eq")
@@ -156,7 +156,7 @@ roughness = 0.75
 
 [sub_resource type="BoxMesh" id="BoxMesh_wall"]
 material = SubResource("StandardMaterial3D_frame")
-size = Vector3(16.281, 2.4, 0.2)
+size = Vector3(18.5, 2.7, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_glass"]
 material = SubResource("StandardMaterial3D_glass")
@@ -164,7 +164,11 @@ size = Vector3(16.281, 1.84, 0.06)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rail"]
 material = SubResource("StandardMaterial3D_frame")
-size = Vector3(16.281, 0.28, 0.34)
+size = Vector3(18.5, 0.44, 0.34)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sill"]
+material = SubResource("StandardMaterial3D_frame")
+size = Vector3(18.5, 0.9, 0.9)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mullion"]
 material = SubResource("StandardMaterial3D_frame")
@@ -196,8 +200,8 @@ mesh = SubResource("CylinderMesh_emb0l")
 [node name="HallLight" type="OmniLight3D" parent="." unique_id=978189636]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
 light_color = Color(0.72, 1, 0.88, 1)
-light_energy = 3.0
-omni_range = 6.0
+light_energy = 0.8
+omni_range = 5.0
 
 [node name="Props" type="Node3D" parent="." unique_id=1541429439]
 
@@ -396,14 +400,14 @@ script = ExtResource("67_tapered_shell")
 
 [node name="Deck" type="MeshInstance3D" parent="Shell"]
 script = ExtResource("4_deck_script")
-circumradius = 9.4
+circumradius = 9.9
 thickness = 0.05
 surface_material_override/0 = ExtResource("3_n5mk1")
 
 [node name="Roof" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, 0)
 script = ExtResource("4_deck_script")
-circumradius = 9.4
+circumradius = 9.9
 thickness = 0.05
 surface_material_override/0 = ExtResource("3_n5mk1")
 
@@ -433,11 +437,11 @@ transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, 4.0703
 mesh = SubResource("BoxMesh_glass")
 
 [node name="SillRight" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, 4.07032, 0.14, -2.35)
-mesh = SubResource("BoxMesh_rail")
+transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, 4.07032, 0.41, -2.35)
+mesh = SubResource("BoxMesh_sill")
 
 [node name="HeaderRight" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, 4.07032, 2.26, -2.35)
+transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, 4.07032, 2.34, -2.35)
 mesh = SubResource("BoxMesh_rail")
 
 [node name="MullionRight" type="MeshInstance3D" parent="Shell"]
@@ -453,11 +457,11 @@ transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -4.070
 mesh = SubResource("BoxMesh_glass")
 
 [node name="SillLeft" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -4.07032, 0.14, -2.35)
-mesh = SubResource("BoxMesh_rail")
+transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -4.07032, 0.41, -2.35)
+mesh = SubResource("BoxMesh_sill")
 
 [node name="HeaderLeft" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -4.07032, 2.26, -2.35)
+transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -4.07032, 2.34, -2.35)
 mesh = SubResource("BoxMesh_rail")
 
 [node name="MullionLeft" type="MeshInstance3D" parent="Shell"]
@@ -469,17 +473,17 @@ mesh = SubResource("BoxMesh_mullion")
 [node name="DeckLight1" type="OmniLight3D" parent="RoomLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000, 2.00, 3.000)
 light_color = Color(0.72, 1, 0.88, 1)
-light_energy = 1.5
-omni_range = 11.0
+light_energy = 0.55
+omni_range = 9.0
 
 [node name="DeckLight2" type="OmniLight3D" parent="RoomLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.598, 2.00, -1.500)
 light_color = Color(0.72, 1, 0.88, 1)
-light_energy = 1.5
-omni_range = 11.0
+light_energy = 0.55
+omni_range = 9.0
 
 [node name="DeckLight3" type="OmniLight3D" parent="RoomLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.598, 2.00, -1.500)
 light_color = Color(0.72, 1, 0.88, 1)
-light_energy = 1.5
-omni_range = 11.0
+light_energy = 0.55
+omni_range = 9.0

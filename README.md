@@ -25,7 +25,7 @@ scenes/
   NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
   Space/
     Orbit.tscn          A órbita jogável: ambiente, Terra, nave e terminal
-    Saucer.tscn         A nave: disco de 4 m com pad de descida, guarda-corpos e anel de luzes
+    AlienShip.tscn      Nave triangular reutilizável: interior, pad de descida, vidros e feixes
     ConsoleButton.tscn  Console de proximidade reutilizável
     MissionSelectUI.tscn Terminal 2D que lista o catálogo e o modo de chegada
     Levels/             Catálogo de fases (LevelDefinition/LevelCatalog .tres)
@@ -156,8 +156,8 @@ Menu -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no 
   nova não exige mexer em script: basta um `LevelDefinition.tres` apontando
   para a cena e listado em `level_catalog.tres`.
 - Ao chegar na fase pelo terminal, o ET nasce de pé sobre a nave
-  (`scenes/Space/Saucer.tscn`, a mesma cena da órbita, sem escala nenhuma:
-  são 4 m de diâmetro nas duas pontas), que desce do céu e estaciona à mesma
+  (`scenes/Space/AlienShip.tscn`, a mesma cena da órbita e do Barn), que desce
+  do céu e estaciona à mesma
   altura da nave que já patrulha o mapa, bem acima do ponto de chegada
   original. Pisar no pad central e apertar `E` aciona a cutscene de descida
   pelo feixe já existente em `world.gd` — como a nave fica centrada exatamente
@@ -387,7 +387,7 @@ a fazenda, a nave, vegetação, objetos, jogador, inimigo, veículo, destroços 
 
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
-MainMenu -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> Saucer descendo do céu -> pad de descida -> feixe de chegada
+MainMenu -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> AlienShip descendo do céu -> pad de descida -> feixe de chegada
 SmellyFarmer -> visão/linha de visão -> perseguição/disparo -> vida do Player
 Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
 Player -> grupo characters -> vegetação e detecção do inimigo
@@ -417,7 +417,7 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   do `IncidentPostProcess`.
 - Alcance, intensidade e pulso por nave/feixe/evento: exports de cada
   `AlienInterferenceSource` nas respectivas cenas.
-- Cores alienígenas: materiais e luzes em `space_ship.tscn`,
+- Cores alienígenas: materiais e luzes em `AlienShip.tscn`,
   `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn`.
 
 ### Névoa e presets de atmosfera

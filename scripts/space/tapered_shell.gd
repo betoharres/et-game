@@ -7,9 +7,21 @@ extends Node3D
 ## radialmente ate `top_radius_ratio` no teto.
 
 @export var height: float = 2.45
-@export_range(0.01, 1.0, 0.001) var top_radius_ratio: float = 0.133
+@export_range(0.01, 1.0, 0.001) var top_radius_ratio: float = 0.09
 
 var _deformed: bool = false
+
+
+## Fator radial da secao na altura `height_above_deck`.
+##
+## A reta NAO e travada fora de [0, height] de proposito. As pecas do casco se
+## sobrepoem mergulhando um pouco abaixo do piso e passando um pouco do teto,
+## para que nenhum encontro fique num encosto exato -- e um encosto exato abre
+## fresta, foi assim que a Terra aparecia na base da parede de fundo. Travar a
+## reta faria a face interna dessas pecas virar uma corda que corta para fora
+## do cone, reabrindo o vao justamente onde a sobreposicao deveria fechar.
+func radial_scale(height_above_deck: float) -> float:
+	return maxf(1.0 + (top_radius_ratio - 1.0) * height_above_deck / height, 0.001)
 
 
 func _ready() -> void:
@@ -38,23 +50,22 @@ func _deform_meshes() -> void:
 			for vertex_index: int in range(vertices.size()):
 				var vertex: Vector3 = vertices[vertex_index]
 				var shell_point: Vector3 = mesh_instance.transform * vertex
-				var vertical_ratio: float = clampf(shell_point.y / height, 0.0, 1.0)
-				var radial_scale: float = lerpf(1.0, top_radius_ratio, vertical_ratio)
+				var section_scale: float = radial_scale(shell_point.y)
 				var radial_gradient: float = (top_radius_ratio - 1.0) / height
 				if normals.size() == vertices.size():
 					var normal: Vector3 = mesh_instance.basis * normals[vertex_index]
 					var transformed_normal: Vector3 = Vector3(
-						normal.x / radial_scale,
+						normal.x / section_scale,
 						normal.y - radial_gradient * (
 							shell_point.x * normal.x + shell_point.z * normal.z
-						) / radial_scale,
-						normal.z / radial_scale
+						) / section_scale,
+						normal.z / section_scale
 					).normalized()
 					normals[vertex_index] = (
 						mesh_instance.basis.inverse() * transformed_normal
 					).normalized()
-				shell_point.x *= radial_scale
-				shell_point.z *= radial_scale
+				shell_point.x *= section_scale
+				shell_point.z *= section_scale
 				vertex = mesh_instance.transform.affine_inverse() * shell_point
 				vertices[vertex_index] = vertex
 
@@ -99,11 +110,13 @@ func _deform_collisions() -> void:
 			for y: float in [-half_size.y, half_size.y]:
 				for z: float in [-half_size.z, half_size.z]:
 					var shell_point: Vector3 = collision.transform * Vector3(x, y, z)
-					var vertical_ratio: float = clampf(shell_point.y / height, 0.0, 1.0)
-					var radial_scale: float = lerpf(1.0, top_radius_ratio, vertical_ratio)
-					shell_point.x *= radial_scale
-					shell_point.z *= radial_scale
-					points.append(shell_point)
+					var section_scale: float = radial_scale(shell_point.y)
+					shell_point.x *= section_scale
+					shell_point.z *= section_scale
+					# ConvexPolygonShape3D espera pontos no espaco local do
+					# CollisionShape3D. Manter `shell_point` aqui aplicaria o
+					# transform da parede uma segunda vez no servidor de fisica.
+					points.append(collision.transform.affine_inverse() * shell_point)
 
 		var tapered_shape: ConvexPolygonShape3D = ConvexPolygonShape3D.new()
 		tapered_shape.points = points
@@ -119,11 +132,10 @@ func _deform_roof_shape(collision: CollisionShape3D) -> void:
 	var points: PackedVector3Array = PackedVector3Array()
 	for point: Vector3 in convex.points:
 		var shell_point: Vector3 = collision.transform * point
-		var vertical_ratio: float = clampf(shell_point.y / height, 0.0, 1.0)
-		var radial_scale: float = lerpf(1.0, top_radius_ratio, vertical_ratio)
-		shell_point.x *= radial_scale
-		shell_point.z *= radial_scale
-		points.append(shell_point)
+		var section_scale: float = radial_scale(shell_point.y)
+		shell_point.x *= section_scale
+		shell_point.z *= section_scale
+		points.append(collision.transform.affine_inverse() * shell_point)
 
 	var tapered_shape: ConvexPolygonShape3D = ConvexPolygonShape3D.new()
 	tapered_shape.points = points

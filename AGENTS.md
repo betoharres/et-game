@@ -1,5 +1,8 @@
 # Instruções para agentes — ET Game
 
+Fonte única de instruções para agentes. `CLAUDE.md` apenas importa este arquivo,
+para o Claude Code e o Codex seguirem as mesmas regras.
+
 ## Antes de alterar
 
 - Leia `README.md` e `project.godot`.
@@ -43,8 +46,8 @@
 
 ## Gameplay e cenas
 
-- `scenes/Menu/main_menu.tscn` é a cena principal configurada; ela inicia
-  `scenes/world.tscn`.
+- `scenes/Menu/main_menu.tscn` é a cena principal configurada; o botão de jogar
+  inicia `scenes/Space/Orbit.tscn`, que leva à fase escolhida.
 - `world.tscn` deve compor o mapa. Comportamentos reutilizáveis devem permanecer
   nas cenas próprias em vez de serem duplicados no mundo.
 - Preserve o contrato de itens coletáveis: grupo `pickup_items`, métodos
@@ -54,7 +57,7 @@
 - Alterações no veículo devem considerar entrada, saída, câmera, visibilidade do
   jogador, congelamento da física e restauração dos processos do personagem.
 - Alterações no fazendeiro devem considerar navegação pronta, perda de visão,
-  transições entre estados e ausência atual de um sistema de dano.
+  transições entre estados, disparos, dano e morte do jogador.
 - Vegetação reativa deve continuar funcionando tanto para `characters` quanto
   para `vehicles`, sem custo desnecessário por instância.
 
@@ -76,8 +79,26 @@ godot --headless --path . --editor --quit
   controle ao jogador.
 - Para o fazendeiro, teste patrulha, detecção, perseguição, perda do alvo e
   estado de disparo.
-- Não há suíte automatizada no repositório atualmente. Se forem adicionados
-  testes, prefira GUT e organize-os em `test/unit` e `test/integration`.
+- Há verificações automatizadas em `tools/`, organizadas por sistema:
+
+```bash
+godot --headless --path . --script res://tools/<tool>.gd
+
+# omita --headless quando a checagem depender de rasterização de verdade
+# (render, screenshot, culling): o driver dummy não desenha nada
+godot --path . --script res://tools/<tool>.gd --resolution 1280x720
+```
+
+- No Windows, use o executável terminado em `_console.exe`: só ele manda
+  `print()` para o stdout.
+- Após a última edição relevante, rode uma vez somente as ferramentas dos
+  sistemas alterados. Repita apenas se o código mudar depois da checagem ou se
+  o ciclo rodar/medir fizer parte da depuração.
+- Uma verificação nova deve imprimir diagnóstico em texto e sair com `quit(1)`
+  ao falhar. Para falhas espaciais, informe coordenadas do mundo quando
+  aplicável. Use screenshot somente como inspeção visual final.
+- Se forem adicionados testes de unidade, prefira GUT e organize-os em
+  `test/unit` e `test/integration`.
 - Nunca remova ou enfraqueça validações para ocultar falhas.
 - Nunca declare algo como testado sem ter executado a validação.
 

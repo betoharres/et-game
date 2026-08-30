@@ -28,6 +28,9 @@ addons/*/bin/~*
 # Sistema operacional
 .DS_Store
 
+# Configuracao pessoal do Claude Code, especifica desta maquina
+/.claude/settings.local.json
+
 # ─────────────────────────────────────────────────────────────────────────────
 # NÃO ADICIONE AQUI  —  leia antes de mexer
 # ─────────────────────────────────────────────────────────────────────────────

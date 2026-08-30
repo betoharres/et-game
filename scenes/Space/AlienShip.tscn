@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/space/alien_ship.gd" id="1_ship_script"]
 [ext_resource type="ArrayMesh" uid="uid://jbko44hxsgpw" path="res://3dModelos/ET_Alien_Space_Ship.glb" id="2_hull"]
 [ext_resource type="PackedScene" uid="uid://jdih45m42t7q" path="res://scenes/SpaceshipInterior/SpaceShipInterior.tscn" id="3_interior"]
 [ext_resource type="Script" path="res://scripts/space/ship_carry_field.gd" id="4_carry_script"]
+[ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="5_beam_shader"]
+[ext_resource type="Script" path="res://scripts/alien_interference_source.gd" id="6_interference"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_carry_field"]
 size = Vector3(20, 3.2, 20)
@@ -11,8 +13,29 @@ size = Vector3(20, 3.2, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fall_guard"]
 size = Vector3(80, 4, 80)
 
-[node name="AlienShip" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_beam_volume"]
+shader = ExtResource("5_beam_shader")
+shader_parameter/beam_color = Color(0.03, 0.56, 0.43, 0.018)
+shader_parameter/emission_strength = 0.38
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_beam_volume"]
+material = SubResource("ShaderMaterial_beam_volume")
+top_radius = 0.18
+bottom_radius = 7.6
+height = 38.0
+radial_segments = 32
+
+[node name="AlienShip" type="Node3D" groups=["ufo_lighting"]]
 script = ExtResource("1_ship_script")
+
+[node name="AlienInterferenceSource" type="Node3D" parent="." groups=["alien_interference_sources"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("6_interference")
+full_strength_radius = 14.0
+fade_radius = 55.0
+intensity = 0.9
+pulse_amount = 0.07
+pulse_frequency = 0.3
 
 [node name="Exterior" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
@@ -21,7 +44,49 @@ cast_shadow = 0
 mesh = ExtResource("2_hull")
 
 [node name="Interior" parent="." instance=ExtResource("3_interior")]
+position = Vector3(0, 0.2, 0)
 scale = Vector3(1.76, 1.76, 1.76)
+
+[node name="BeamLights" type="Node3D" parent="."]
+
+[node name="BeamFront" type="SpotLight3D" parent="BeamLights" groups=["alien_volumetric_lights", "volumetric_lights"]]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -0.3, -13.5)
+light_color = Color(0.16, 0.88, 0.68, 1)
+light_energy = 5.2
+shadow_enabled = true
+spot_range = 52.0
+spot_attenuation = 0.45
+spot_angle = 13.0
+
+[node name="BeamFrontVolume" type="MeshInstance3D" parent="BeamLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19, -13.5)
+mesh = SubResource("CylinderMesh_beam_volume")
+
+[node name="BeamRight" type="SpotLight3D" parent="BeamLights" groups=["alien_volumetric_lights", "volumetric_lights"]]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 11.8, -0.3, 6.9)
+light_color = Color(0.16, 0.88, 0.68, 1)
+light_energy = 5.2
+shadow_enabled = true
+spot_range = 52.0
+spot_attenuation = 0.45
+spot_angle = 13.0
+
+[node name="BeamRightVolume" type="MeshInstance3D" parent="BeamLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8, -19, 6.9)
+mesh = SubResource("CylinderMesh_beam_volume")
+
+[node name="BeamLeft" type="SpotLight3D" parent="BeamLights" groups=["alien_volumetric_lights", "volumetric_lights"]]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -11.8, -0.3, 6.9)
+light_color = Color(0.16, 0.88, 0.68, 1)
+light_energy = 5.2
+shadow_enabled = true
+spot_range = 52.0
+spot_attenuation = 0.45
+spot_angle = 13.0
+
+[node name="BeamLeftVolume" type="MeshInstance3D" parent="BeamLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8, -19, 6.9)
+mesh = SubResource("CylinderMesh_beam_volume")
 
 [node name="CarryField" type="Area3D" parent="."]
 script = ExtResource("4_carry_script")
@@ -31,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("BoxShape3D_carry_field")
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 2.5)
 
 [node name="FallGuard" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)

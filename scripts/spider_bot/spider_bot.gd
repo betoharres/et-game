@@ -464,8 +464,14 @@ func _find_ground_below_ship() -> Vector3:
 		ground_collision_mask
 	)
 	query.collide_with_areas = false
+	var excluded_ship_colliders : Array[RID] = []
 	if ship_node is CollisionObject3D:
-		query.exclude = [(ship_node as CollisionObject3D).get_rid()]
+		excluded_ship_colliders.append((ship_node as CollisionObject3D).get_rid())
+	for node : Node in ship_node.find_children("*", "CollisionObject3D", true, false):
+		var collider : CollisionObject3D = node as CollisionObject3D
+		if collider != null:
+			excluded_ship_colliders.append(collider.get_rid())
+	query.exclude = excluded_ship_colliders
 	var space_state : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	if space_state == null:
 		return fallback

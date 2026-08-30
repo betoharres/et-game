@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://cqub6i2xmuro5" path="res://scenes/Vehicles/space_ship.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" path="res://scenes/Space/AlienShip.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://cabgrr2bvykhs" path="res://scenes/NPCs/spider_bot.tscn" id="3_spider"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/Vehicles/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/Vehicles/TractorOld.tscn" id="8_4mrxx"]

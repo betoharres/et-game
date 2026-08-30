@@ -46,12 +46,31 @@ const SPIN_PHYSICS_PRIORITY : int = -20
 ## dele, e a camera de quem esta a bordo simplesmente nao desenha essa layer:
 ## de dentro a janela mostra o espaco, e de fora a nave triangular esta inteira.
 const HULL_CULL_BIT : int = 1 << 11
+const BEAM_LIGHT_ENERGY : float = 5.2
+const BEAM_GROUND_LIGHT_ENERGY : float = 1.6
+const BEAM_GROUND_LIGHT_RANGE : float = 8.5
+const ALIEN_FOG_BEAM_BOOST : float = 0.6
 
 var _spin_active : bool = true
+var _debug_lighting_enabled : bool = true
+var _debug_lighting_intensity : float = 1.0
+var _alien_fog_intensity : float = 0.0
+var _atmosphere_quality_level : int = 2
+var _base_beam_energies : Array[float] = []
 
 @onready var interior : Node3D = $Interior
 @onready var spawn_point : Marker3D = $SpawnPoint
 @onready var fall_guard : Area3D = $FallGuard
+@onready var beam_lights : Array[SpotLight3D] = [
+	$BeamLights/BeamFront,
+	$BeamLights/BeamRight,
+	$BeamLights/BeamLeft,
+]
+@onready var beam_volumes : Array[MeshInstance3D] = [
+	$BeamLights/BeamFrontVolume,
+	$BeamLights/BeamRightVolume,
+	$BeamLights/BeamLeftVolume,
+]
 
 var _fall_guard_enabled : bool = true
 
@@ -60,6 +79,9 @@ func _ready() -> void:
 	process_physics_priority = SPIN_PHYSICS_PRIORITY
 	interior.descend_requested.connect(_on_interior_descend_requested)
 	fall_guard.body_entered.connect(_on_fall_guard_body_entered)
+	for beam_light : SpotLight3D in beam_lights:
+		_base_beam_energies.append(beam_light.light_energy)
+	_apply_debug_lighting()
 
 
 func _physics_process(delta : float) -> void:
@@ -126,6 +148,7 @@ func set_hull_visible_to_player(
 		return
 	set_hull_visible_to(rig.camera, hull_visible)
 	set_hull_visible_to(rig.xray_camera, hull_visible)
+	rig.set_interior_camera_mode(not hull_visible, interior)
 
 
 ## Arma/desarma o pad de descida do interior. Comeca desarmado: em orbita ele so
@@ -141,6 +164,84 @@ func set_descend_trigger_enabled(enabled : bool) -> void:
 ## devolve o personagem ao spawn no meio da animacao.
 func set_fall_guard_enabled(enabled : bool) -> void:
 	_fall_guard_enabled = enabled
+
+
+## Compatibilidade com a nave que existia no Barn: o menu de depuracao e os
+## eventos alienigenas usam este mesmo contrato em qualquer cena que tenha a
+## nave, agora sempre a instancia reutilizavel AlienShip.tscn.
+func set_debug_lighting_enabled(enabled : bool) -> void:
+	_debug_lighting_enabled = enabled
+	_apply_debug_lighting()
+
+
+func is_debug_lighting_enabled() -> bool:
+	return _debug_lighting_enabled
+
+
+func set_debug_lighting_intensity(intensity : float) -> void:
+	_debug_lighting_intensity = clampf(intensity, 0.0, 2.0)
+	_apply_debug_lighting()
+
+
+func get_debug_lighting_intensity() -> float:
+	return _debug_lighting_intensity
+
+
+func set_atmosphere_quality(quality_level : int, _particles_allowed : bool) -> void:
+	_atmosphere_quality_level = quality_level
+	for beam_light : SpotLight3D in beam_lights:
+		beam_light.shadow_enabled = _atmosphere_quality_level > 0
+	_apply_debug_lighting()
+
+
+func set_alien_fog_intensity(intensity : float) -> void:
+	_alien_fog_intensity = clampf(intensity, 0.0, 1.0)
+	_apply_debug_lighting()
+
+
+func begin_external_movement() -> void:
+	# A nave reutilizavel nao patrulha por conta propria; a entrega pode mover o
+	# proprio no sem disputar posicao com outro controlador.
+	pass
+
+
+func end_external_movement() -> void:
+	pass
+
+
+func configure_external_beam(
+	spotlight : SpotLight3D,
+	ground_light : OmniLight3D,
+	volume : MeshInstance3D
+) -> void:
+	spotlight.light_color = beam_lights[0].light_color
+	spotlight.light_energy = BEAM_LIGHT_ENERGY
+	spotlight.shadow_enabled = _atmosphere_quality_level > 0
+	spotlight.spot_angle = beam_lights[0].spot_angle
+	spotlight.spot_attenuation = beam_lights[0].spot_attenuation
+	ground_light.light_color = beam_lights[0].light_color
+	ground_light.light_energy = BEAM_GROUND_LIGHT_ENERGY
+	ground_light.omni_range = BEAM_GROUND_LIGHT_RANGE
+	ground_light.shadow_enabled = false
+	var source_material : Material = beam_volumes[0].get_active_material(0)
+	if source_material != null:
+		volume.material_override = source_material
+
+
+func _apply_debug_lighting() -> void:
+	var alien_scale : float = 1.0 + _alien_fog_intensity * ALIEN_FOG_BEAM_BOOST
+	for index : int in range(beam_lights.size()):
+		var beam_light : SpotLight3D = beam_lights[index]
+		beam_light.visible = _debug_lighting_enabled
+		beam_light.light_energy = (
+			_base_beam_energies[index]
+			* _debug_lighting_intensity
+			* alien_scale
+		)
+	for beam_volume : MeshInstance3D in beam_volumes:
+		beam_volume.visible = (
+			_debug_lighting_enabled and _atmosphere_quality_level > 0
+		)
 
 
 func _on_interior_descend_requested() -> void:
