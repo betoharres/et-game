@@ -132,7 +132,6 @@
 [ext_resource type="ArrayMesh" uid="uid://cwqpsuhsgabuy" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_01.res" id="133_l8ik4"]
 [ext_resource type="ArrayMesh" uid="uid://c7uka26qrhsav" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_02.res" id="134_70d8d"]
 [ext_resource type="PackedScene" uid="uid://pr0wmkbti6tn" path="res://scenes/Dungeon/DungeonDoor.tscn" id="134_dungeon_door"]
-[ext_resource type="PackedScene" uid="uid://bt7agmpqpyapt" path="res://scenes/Vehicles/QuadBike.tscn" id="134_qn65p"]
 [ext_resource type="ArrayMesh" uid="uid://o5t1ohhcdt6t" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_03.res" id="135_ctgs1"]
 [ext_resource type="PackedScene" uid="uid://couowd6wegplm" path="res://scenes/Vehicles/cops_car.tscn" id="135_ou5tn"]
 [ext_resource type="ArrayMesh" uid="uid://dcnc4bwfe22ql" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Preset_04.res" id="136_6li3m"]
@@ -165,7 +164,9 @@
 [ext_resource type="ArrayMesh" uid="uid://x7m7l0aa3dfy" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_02.res" id="175_edwmm"]
 [ext_resource type="ArrayMesh" uid="uid://dxbkjxfsgld4w" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_Church_Door_01.res" id="176_cagmf"]
 [ext_resource type="ArrayMesh" uid="uid://cn85tex3w0u2t" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Church_Stand_01.res" id="177_8j4su"]
+[ext_resource type="ArrayMesh" uid="uid://bmygou7aks887" path="res://PolygonQuadbike/SM_Veh_QuadBike_01.fbx" id="178_cagmf"]
 [ext_resource type="PackedScene" uid="uid://cl8gvqtu4l83d" path="res://scenes/Vegetation/tem_grass_patch_01a.tscn" id="178_crjim"]
+[ext_resource type="Material" uid="uid://440dsxswjpq4" path="res://Materiais/QuadBike.tres" id="179_befh3"]
 [ext_resource type="PackedScene" uid="uid://nvpwpybbuwg0" path="res://scenes/Vegetation/tem_tree_06a.tscn" id="179_mvdav"]
 [ext_resource type="PackedScene" uid="uid://brsej5612bvcs" path="res://scenes/Vegetation/tem_tree_02a.tscn" id="180_pq1gm"]
 [ext_resource type="PackedScene" uid="uid://rnecgc0pdjmt" path="res://scenes/Vegetation/tem_tree_01a.tscn" id="181_6k861"]
@@ -1213,9 +1214,6 @@ transform = Transform3D(-0.6928261, 0, 0.72110474, 0, 1, 0, -0.72110474, 0, -0.6
 [node name="SM_Prop_Wardrobe_01" parent="PropsHolder" unique_id=404136038 instance=ExtResource("121_fnm1x")]
 transform = Transform3D(-0.71094805, 0, -0.70324457, 0, 1, 0, 0.70324457, 0, -0.71094805, -3.6531775, 3.9941905, -16.579424)
 
-[node name="SM_Veh_Pickup_01" parent="PropsHolder" unique_id=1156033494 instance=ExtResource("113_bbgx3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.611904, 0.002077967, -50.623016)
-
 [node name="SM_Prop_WorkShelf_01" parent="PropsHolder" unique_id=987326914 instance=ExtResource("114_o7bbu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.772528, -0.02581317, -54.27594)
 
@@ -1305,21 +1303,6 @@ surface_material_override/0 = ExtResource("12_munwf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206.49976, -0.022174954, 6.4162273)
 mesh = ExtResource("162_7n6r0")
 surface_material_override/0 = ExtResource("12_munwf")
-
-[node name="QuadBike" parent="PropsHolder" unique_id=828080506 instance=ExtResource("134_qn65p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.698716, 0, -49.823498)
-
-[node name="CopsCar" parent="PropsHolder" unique_id=317003562 instance=ExtResource("135_ou5tn")]
-transform = Transform3D(-0.31591427, 0, -0.94878775, 0, 1, 0, 0.94878775, 0, -0.31591427, 82.61513, -0.003667891, 19.109613)
-
-[node name="QuadBike2" parent="PropsHolder" unique_id=1548747028 instance=ExtResource("134_qn65p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 247.35466, -0.09755674, -0.80191386)
-
-[node name="Pickup" parent="PropsHolder" unique_id=884918906 instance=ExtResource("4_qfnet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.06639, -0.041374683, -28.361532)
-
-[node name="CopsCar2" parent="PropsHolder" unique_id=917484143 instance=ExtResource("135_ou5tn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.60681, -0.051659226, 47.29546)
 
 [node name="Gnomes" parent="PropsHolder" unique_id=1193136171 instance=ExtResource("155_t1by1")]
 transform = Transform3D(0.114414275, 0, -0.9934331, 0, 1, 0, 0.9934331, 0, 0.114414275, 203.4962, 0.00067830086, 18.068289)
@@ -1551,7 +1534,7 @@ surface_material_override/2 = ExtResource("129_sonb8")
 [node name="Barn2" parent="BuildingsHolder" unique_id=1112714426 instance=ExtResource("168_3r8ca")]
 transform = Transform3D(0.29395762, 0, -0.9558184, 0, 1, 0, 0.9558184, 0, 0.29395762, 51.062424, 0, -52.53492)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1560334774) index="6" unique_id=1019813264]
+[node name="StaticBody3D" type="StaticBody3D" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 93393189) index="6" unique_id=1019813264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5526824, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/StaticBody3D" unique_id=1139145137]
@@ -1561,7 +1544,7 @@ shape = SubResource("BoxShape3D_3r8ca")
 [node name="Barn3" parent="BuildingsHolder" unique_id=997954030 instance=ExtResource("168_3fb5j")]
 transform = Transform3D(0.732647, 0, 0.6806088, 0, 1, 0, -0.6806088, 0, 0.732647, -42.23614, 0, 45.51762)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 672382015) index="6" unique_id=1130262061]
+[node name="StaticBody3D" type="StaticBody3D" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1700752909) index="6" unique_id=1130262061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-06, 4.5526824, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/StaticBody3D" unique_id=643692222]
@@ -10303,6 +10286,18 @@ transform = Transform3D(-0.4817358, 0, -0.8763165, 0, 1, 0, 0.8763165, 0, -0.481
 [node name="Root5" parent="VehiclesHolder" unique_id=1402539885 instance=ExtResource("8_4mrxx")]
 transform = Transform3D(-0.63640845, 0, -0.77135223, 0, 1, 0, 0.77135223, 0, -0.63640845, 0.433, 0, 12.195)
 
+[node name="CopsCar" parent="VehiclesHolder" unique_id=317003562 instance=ExtResource("135_ou5tn")]
+transform = Transform3D(-0.31591427, 0, -0.94878775, 0, 1, 0, 0.94878775, 0, -0.31591427, 82.61513, -0.003667891, 19.109613)
+
+[node name="Pickup" parent="VehiclesHolder" unique_id=884918906 instance=ExtResource("4_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.06639, -0.041374683, -28.361532)
+
+[node name="CopsCar2" parent="VehiclesHolder" unique_id=917484143 instance=ExtResource("135_ou5tn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.60681, -0.051659226, 47.29546)
+
+[node name="SM_Veh_Pickup_01" parent="VehiclesHolder" unique_id=1156033494 instance=ExtResource("113_bbgx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.611904, 0.002077967, -50.623016)
+
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -64.25314, 0.1560452, -13.301771)
 
@@ -10365,6 +10360,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
 
 [node name="SpaceshipScraps9" parent="." unique_id=1704994491 instance=ExtResource("187_u6w7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
+
+[node name="SmVehQuadBike01" type="MeshInstance3D" parent="." unique_id=1915495492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.089257, 0, -49.567795)
+mesh = ExtResource("178_cagmf")
+surface_material_override/0 = ExtResource("179_befh3")
+surface_material_override/1 = ExtResource("179_befh3")
+surface_material_override/2 = ExtResource("179_befh3")
+surface_material_override/3 = ExtResource("179_befh3")
+surface_material_override/4 = ExtResource("179_befh3")
 
 [editable path="PropsHolder/Root3"]
 [editable path="BuildingsHolder/Barn2"]
