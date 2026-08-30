@@ -66,19 +66,19 @@ para o Claude Code e o Codex seguirem as mesmas regras.
 
 ## Validação
 
-- Valide o que for relevante à alteração, proporcional ao risco, e apenas uma
-  vez, depois da última edição. Repita só se o código mudar após a checagem.
-- Rode a checagem headless do Godot quando a mudança puder quebrar parsing,
-  importação ou referências: script ou cena nova, recurso movido ou renomeado,
-  assinatura alterada, mudança em `project.godot`. Ajuste dentro de uma função
-  existente não exige.
-- Mudanças visuais, de câmera, física, IK, navegação ou gameplay precisam de
-  uma execução em janela normal. Quando o editor já estiver aberto na máquina
-  do usuário, diga o que ele deve conferir em vez de abrir o jogo por conta
-  própria.
-- Os comandos, o mapa de ferramentas de `tools/` por sistema, os roteiros de
-  teste manual e as regras para escrever uma verificação nova estão em
-  `tools/VALIDACAO.md`. Consulte-o antes de validar.
+- O padrão é não validar. Mudança no corpo de uma função, em valores, textos,
+  comentários ou documentação vai direto, com um resumo do que mudou.
+- Rode a checagem headless do Godot apenas nestes casos: script ou cena nova,
+  arquivo movido ou renomeado, alteração em `project.godot`, ou quando o
+  editor já estiver acusando erro. Uma vez, depois da última edição.
+- Rode uma ferramenta de `tools/` só ao mexer no comportamento que ela cobre —
+  a do sistema alterado, nunca a bateria inteira.
+- Não abra o jogo para julgar resultado visual, de física ou de gameplay. Quem
+  confere isso é o usuário, no editor que ele já tem aberto: diga em uma frase
+  o que ele deve olhar.
+- Os comandos, o mapa de ferramentas de `tools/` por sistema, os roteiros do
+  que pedir ao usuário e as regras para escrever uma verificação nova estão em
+  `tools/VALIDACAO.md`.
 - Nunca remova ou enfraqueça validações para ocultar falhas.
 - Nunca declare algo como testado sem ter executado a validação.
 

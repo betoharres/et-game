@@ -4,9 +4,10 @@ Procedimento de validação do projeto, válido para qualquer agente ou pessoa.
 As regras de política ficam em `AGENTS.md`, na seção Validação; aqui está o
 como fazer.
 
-Valide o que for relevante à mudança, proporcional ao risco. Rode uma vez,
-depois da última edição; repita só se o código mudar depois da checagem, ou se
-o ciclo rodar/medir fizer parte da depuração.
+O padrão é não validar: a maior parte das mudanças vai direto. Rode algo
+apenas nos casos listados em `AGENTS.md`, uma vez, depois da última edição, e
+repita só se o código mudar depois da checagem ou se o ciclo rodar/medir fizer
+parte da depuração.
 
 ## Comandos
 
@@ -60,9 +61,9 @@ utilitários de geração de asset, não checagens.
 
 ## Roteiros manuais
 
-Mudanças visuais, de câmera, física, IK, navegação, interação ou gameplay
-exigem uma execução em janela normal. Se o editor já estiver aberto na máquina
-do usuário, descreva o que ele deve conferir em vez de abrir o jogo.
+Resultado visual, de câmera, física, IK, navegação, interação ou gameplay quem
+julga é o usuário, no editor que ele já tem aberto. Não abra o jogo para isso;
+diga o que ele deve conferir, usando os roteiros abaixo.
 
 - **Coleta e entrega:** pegue, largue e entregue um item solto e um item
   carregado; confirme a pontuação no console.
