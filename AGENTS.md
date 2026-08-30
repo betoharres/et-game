@@ -5,7 +5,10 @@ para o Claude Code e o Codex seguirem as mesmas regras.
 
 ## Antes de alterar
 
-- Leia `README.md` e `project.godot`.
+- Consulte no `README.md` a seção relevante à mudança (índice no topo);
+  leia-o inteiro apenas ao alterar fluxo ou arquitetura.
+- Consulte em `project.godot` as chaves relevantes: autoloads, Input Map,
+  camadas de física e configuração de render.
 - Analise as cenas e os scripts envolvidos antes de editar.
 - Verifique referências entre cenas, scripts, recursos, grupos, sinais,
   autoloads, materiais e modelos importados.
@@ -106,6 +109,8 @@ godot --path . --script res://tools/<tool>.gd --resolution 1280x720
 
 - Atualize `README.md` quando mudar o fluxo, controles, cena principal,
   arquitetura, dependências, comandos de execução ou limitações conhecidas.
+- Ao adicionar, remover ou renomear uma seção do `README.md`, atualize o
+  índice no topo dele.
 - Atualize `AGENTS.md` somente quando surgir uma regra permanente nova.
 - Ao concluir, informe os arquivos alterados, as validações executadas e as
   limitações que permaneceram.

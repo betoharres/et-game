@@ -2,143 +2,68 @@
 
 Protótipo 3D single-player em Godot no qual um extraterrestre explora uma
 fazenda, coleta destroços de uma nave e os leva até uma área de entrega. O
-cenário inclui vegetação reativa, uma caminhonete dirigível e um fazendeiro que
-patrulha o mapa, persegue o jogador e causa dano com a espingarda.
+cenário inclui vegetação reativa, uma caminhonete dirigível, um fazendeiro que
+persegue o jogador e um fotógrafo que o expõe.
+
+Este README descreve **o que existe e onde fica**. Valores de ajuste
+— velocidades, tempos, distâncias, parâmetros de névoa e de câmera — ficam nos
+exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
+
+## Índice
+
+- [Tecnologias e ambiente](#tecnologias-e-ambiente) — versão do Godot, renderer, física e formatos de asset.
+- [Estrutura principal](#estrutura-principal) — pastas do projeto e cenas de entrada.
+- [Executar](#executar) — abrir no editor e rodar pelo PowerShell.
+- [Fluxo atual](#fluxo-atual) — menu, órbita, missão, coleta e entrega.
+- [Controles](#controles) — teclas e ações do Input Map.
+- [Arquitetura](#arquitetura) — cenas, autoloads, grupos e cadeias de interação.
+- [Onde ajustar o visual](#onde-ajustar-o-visual) — em que cena ou script mora cada parâmetro.
+- [Limitações conhecidas](#limitações-conhecidas) — o que ainda não existe ou é provisório.
+- [Qualidade e validação](#qualidade-e-validação) — checagem no editor e ferramentas de `tools/`.
 
 ## Tecnologias e ambiente
 
-- Godot `4.7`, conforme configurado em `project.godot`.
-- GDScript e cenas `.tscn`.
-- Renderer `Forward Plus` com Direct3D 12 no Windows.
-- Inicialização em tela cheia, com resolução-base Full HD (`1920×1080`).
+- Godot `4.7` com GDScript e cenas `.tscn`.
+- Renderer `Forward Plus` com Direct3D 12 no Windows, em tela cheia com
+  resolução-base `1920×1080`.
 - Física 3D com Jolt Physics.
-- Modelos `.fbx` e `.glb`, texturas e materiais para o ambiente rural.
-- Export preset para Windows Desktop `x86_64` em `export_presets.cfg`.
+- Terreno com Terrain3D; modelos `.fbx`/`.glb`, com texturas e materiais rurais.
+- Export para Windows Desktop `x86_64` em `export_presets.cfg`.
 
 ## Estrutura principal
 
-```text
-project.godot          Configuração, Input Map, cena principal e autoload
-export_presets.cfg     Exportação para Windows Desktop
-scenes/
-  MenuAtmosphere.tscn   Fundo noturno extraterrestre animado do menu
-  NightEnvironment.tscn Céu, Lua, névoa, partículas e iluminação da fazenda
-  Space/
-    Orbit.tscn          A órbita jogável: ambiente, Terra, nave e terminal
-    AlienShip.tscn      Nave triangular reutilizável: interior, pad de descida, vidros e feixes
-    ConsoleButton.tscn  Console de proximidade reutilizável
-    MissionSelectUI.tscn Terminal 2D que lista o catálogo e o modo de chegada
-    Levels/             Catálogo de fases (LevelDefinition/LevelCatalog .tres)
-  GroundFogLayer.tscn  Névoa rasteira otimizada em camadas de planos com shader
-  FogZone.tscn         Marcador que adensa a névoa rasteira em uma área
-  main_menu.tscn       Menu principal, opções e remapeamento de movimento
-  world.tscn           Mapa jogável e composição do cenário
-  Player.tscn          Jogador ET, câmera, rig Mixamo, AnimationTree e IK de ação
-  PlayerHUD.tscn       HUD de vida e stamina do ET
-  PhotoAlertHUD.tscn   HUD das 0–3 estrelas de exposição fotográfica
-  DebugMenu.tscn       Menu F4 com ferramentas de inspeção da iluminação
-  DriveableTruck.tscn  Caminhonete controlável
-  FlyablePlane.tscn    Protótipo separado de avião controlável
-  VisionDebugMap.tscn  Radar circular opcional de objetivos e ameaças
-  SmellyFarmer.tscn    Fazendeiro, navegação e IK
-  Photographer.tscn    NPC fotógrafo e câmera provisória
-  spaceship_scraps.tscn Item coletável e entregável
-  DeliveryArea.tscn    Área que converte itens entregues em pontos
-  WheatField.tscn      Trigo com vento e reação a personagens e veículos
-  SunflowersPatch.tscn Girassóis com vento e reação ao movimento
-  SICSVegetationInstances.tscn Instâncias editáveis copiadas da vegetação Terrain3D
-  Dungeon/              Masmorra modular, conectores X/T/L/U/H e portal de volta
-  interior_space_ship_room_1.tscn Teste isolado de caminhada com gravidade radial
-  Portal/portal.tscn  Par visual de portais com renderização cruzada por SubViewport
-scripts/
-  menu_atmosphere.gd   Estrelas, nave, fachos, terreno e atmosfera do menu
-  night_environment.gd Presets de atmosfera, névoa híbrida e eventos alienígenas
-  space/
-    orbit.gd          Fluxo do terminal, aproximação da Terra e troca de cena
-    saucer.gd         Rede de segurança, spawn e pad de descida da nave
-    saucer_lights.gd  Anel de luzes coloridas girando na borda da nave
-    console_button.gd Interação de proximidade reutilizável
-    mission_select_ui.gd Terminal 2D: catálogo, briefing e modo de chegada
-    orbital_earth.gd  Rotação e iluminação da Terra
-  levels/
-    level_definition.gd Recurso de uma fase do catálogo (cena e disponibilidade)
-    level_catalog.gd  Lista ordenada de LevelDefinition mostrada no terminal
-    mission_flow.gd   Estado estático que atravessa a troca para a fase escolhida
-  ground_fog_layer.gd  Camadas de névoa rasteira que seguem a câmera e o chão
-  fog_zone.gd          Reforço local de névoa em campos, milharais e estradas
-  cinematic_camera_rig.gd Seguimento, enquadramento e colisão da câmera do ET
-  alien_incident_post_process.gd Mistura o filtro normal e a interferência ET
-  alien_interference_source.gd Fonte espacial reutilizável de interferência
-  house_lights.gd      Oscilação discreta das luzes quentes da casa
-  player.gd            Movimento, vida, stamina, equilíbrio, coleta e entrega
-  player_animation_controller.gd Estado visual central e transições do AnimationTree
-  player_ragdoll.gd    Queda física do ET: morte definitiva e tombo reversível
-  ragdoll_recovery_modifier.gd Alinha brevemente o ragdoll ao início do get-up
-  ik_target_container.gd IK do braço direito apenas para ações específicas
-  driveable_truck.gd   Direção, entrada, saída e câmeras do veículo
-  vision_debug_map.gd  Radar circular com ícones e cones de visão discretos
-  debug_menu.gd        Alterna fontes de luz e atmosfera durante a partida
-  smelly_farmer.gd     Patrulha, visão, perseguição, disparo e dano
-  photographer.gd      Visão, perseguição e captura de fotos do ET
-  dungeon/              Geração modular, máscaras de conexão e porta da masmorra
-  photo_alert_system.gd Contador global e redução das estrelas
-  GlobalScore.gd       Pontuação e inventário globais
-  audio/               Passos, ambiente rural e som sintetizado da espingarda
-  *_field.gd           Comportamento da vegetação
-assets/audio/          Vento, grilos, cães, passos e registro de origem
-assets/ui/             Ícones leves derivados dos meshes low-poly do pacote visual
-animations/mixamo/     Rig visual único, fontes FBX, GLB gerado e mapeamento
-shaders/night_sky.gdshader Céu procedural estrelado e Lua, usado na fazenda e na órbita
-shaders/ground_fog.gdshader Névoa rasteira animada, com zonas e soft depth
-tools/build_mixamo_character.py Gera o GLB in-place usado pelo Player
-tools/test_player_animation.gd Smoke test dos estados visuais do Player
-tools/test_player_jump_stamina.gd Smoke test do impulso e consumo de stamina
-tools/test_player_reversal.gd Smoke test de freada e pivô em reversões bruscas
-tools/test_player_ragdoll.gd Smoke test do ragdoll e da recuperação
-tools/test_cinematic_camera.gd Smoke test do enquadramento e colisão da câmera
-tools/test_portal_teleportation.gd Smoke test da travessia, velocidade e recorte dos portais
-tools/test_player_debug_modes.gd Smoke test dos modos Deus e Voo
-tools/test_alien_interference.gd Smoke test do filtro alienígena dinâmico
-tools/test_atmosphere_presets.gd Smoke test dos presets de névoa e do evento ET
-tools/measure_atmosphere_cost.gd Mede FPS e tempo de render por preset
-tools/render_prototype_icons.py Utilitário para regenerar os ícones do HUD
-3dModelos/             Modelos 3D importados
-Texturas/              Texturas do cenário e dos modelos
-Materiais/             Materiais reutilizáveis do Godot
-AGENTS.md              Instruções para agentes que alterarem o projeto
-README.md              Visão geral, execução e arquitetura
-```
+| Pasta | Conteúdo |
+| --- | --- |
+| `scenes/` | Todas as cenas do jogo, incluindo `Space/`, `Dungeon/` e `Portal/` |
+| `scripts/` | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `dungeon/`, `audio/`) |
+| `shaders/` | Céu procedural e névoa rasteira |
+| `tools/` | Checagens automatizadas e utilitários de build de asset |
+| `animations/mixamo/` | Rig visual único, FBX de origem, GLB gerado e mapeamento |
+| `assets/` | Áudio e ícones de HUD, cada um com seu `SOURCE.md` |
+| `3dModelos/`, `Texturas/`, `Materiais/` | Assets importados e materiais reutilizáveis |
+
+Cenas de entrada:
+
+| Cena | Papel |
+| --- | --- |
+| `scenes/Menu/main_menu.tscn` | Cena principal do projeto: menu, opções e remapeamento |
+| `scenes/Space/Orbit.tscn` | Órbita jogável com o terminal de seleção de missão |
+| `scenes/world.tscn` | Mapa da fazenda, onde a partida acontece |
+| `scenes/Player.tscn` | ET, câmera, rig Mixamo, `AnimationTree` e IK de ação |
+| `scenes/Space/AlienShip.tscn` | Nave reutilizada na órbita, na fazenda e no Barn |
+| `scenes/NightEnvironment.tscn` | Céu, Lua, névoa, iluminação e filtro de tela da fazenda |
 
 ## Executar
 
-Abra `project.godot` no Godot 4.7 e pressione `F5`. A cena inicial é
-`scenes/Menu/main_menu.tscn`; o botão de jogar carrega a órbita em
-`scenes/Space/Orbit.tscn`.
-
-Se o executável do Godot estiver disponível no `PATH`, também é possível usar
-o PowerShell:
+Abra `project.godot` no Godot 4.7 e pressione `F5`. Pelo PowerShell, com o
+Godot no `PATH`:
 
 ```powershell
-godot --path "C:\dev\etnovo\et-game"
+godot --path .            # rodar o jogo
+godot --editor --path .   # abrir o editor
 ```
 
-Para abrir o editor:
-
-```powershell
-godot --editor --path "C:\dev\etnovo\et-game"
-```
-
-Também é possível executar com a instalação portátil disponível nesta máquina,
-sem configurar variáveis de ambiente:
-
-Comando recomendado para iniciar o jogo diretamente pelo PowerShell:
-
-```powershell
-& "C:\Godot_v4.7.1\Godot_v4.7.1-stable_win64.exe" --path "C:\dev\etnovo\et-game"
-```
-
-Depois de exportado, o jogo pode ser aberto diretamente por `build/ETs.exe`,
-sem iniciar o editor do Godot.
+Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
 
 ## Fluxo atual
 
@@ -146,244 +71,80 @@ sem iniciar o editor do Godot.
 Menu -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
 ```
 
-- O jogador começa a bordo da nave, em órbita da Terra, com câmera em terceira
-  pessoa. Um terminal de missão (`scenes/Space/Orbit.tscn`, console
-  único) lista o catálogo de fases (`scripts/levels/level_catalog.gd`); hoje
-  só a Fazenda está disponível, com duas entradas de exemplo bloqueadas para
-  quando novas fases existirem. Selecionar uma fase disponível habilita o
-  botão "Ir": a Terra cresce em direção à câmera por um instante e a íris de
-  `SceneTransition.warp_to()` fecha antes da troca de cena. Adicionar uma fase
-  nova não exige mexer em script: basta um `LevelDefinition.tres` apontando
-  para a cena e listado em `level_catalog.tres`.
-- Ao chegar na fase pelo terminal, o ET nasce de pé sobre a nave
-  (`scenes/Space/AlienShip.tscn`, a mesma cena da órbita e do Barn), que desce
-  do céu e estaciona à mesma
-  altura da nave que já patrulha o mapa, bem acima do ponto de chegada
-  original. Pisar no pad central e apertar `E` aciona a cutscene de descida
-  pelo feixe já existente em `world.gd` — como a nave fica centrada exatamente
-  acima do ponto de chegada, o feixe desce numa coluna reta e pousa no lugar
-  certo. Abrir
-  `world.tscn` direto no editor pula esse passo e mantém a cutscene automática
-  de sempre.
-- A câmera usa enquadramento sobre o ombro com FOV de 60 graus, seguimento e
-  rotação suavizados, colisão volumétrica contra o cenário e movimentos
-  orgânicos discretos ao caminhar, girar ou permanecer parado.
-- A fazenda possui céu procedural estrelado, Lua fixa, estrelas cadentes,
-  névoa baixa e iluminação ambiente azulada configurável por qualidade.
-- A névoa tem duas camadas. Perto, uma manta rente ao chão feita de planos com
-  shader que seguem a câmera e a altura do terreno; campos e milharais a
-  adensam por meio de `FogZone`. Longe, o fog atmosférico do `Environment` em
-  modo Depth, que fecha opaco entre 350 m e 400 m e serve de orçamento de
-  renderização: é ele que esconde a borda do mapa. O volumetric fog continua
-  desligado em todos os presets, por custo.
-- Atenção ao mexer no fog em modo Depth do Godot 4.7: `Environment.fog_density`
-  deixa de ser densidade e passa a multiplicar a rampa de profundidade. Um
-  valor de modo exponencial (0.01) reduz a névoa a 1% e ela some. O controle
-  correto é `atmospheric_fog_opacity` em `night_environment.gd`, que fica em
-  1.0. `fog_height_density` também multiplica o depth fog, e por isso está em
-  0.0: quem faz a névoa de perto é o `GroundFogLayer`.
-- Alcance visual: as câmeras do jogador e do caminhão têm `far` 450 m, à frente
-  dos 400 m onde a névoa já está opaca. Ao pilotar, o avião troca para um
-  perfil de névoa mais aberto (550 m a 950 m) com `far` 1200 m, para que dê
-  para enxergar a fazenda inteira do alto. A troca é automática, feita por
-  `NightEnvironment.set_fog_profile()` a partir de `flyable_plane.gd`, e é
-  suave. Não há controle novo para o jogador.
-- O terreno usa fundo procedural (`world_background = Noise` no
-  `Terrain3DMaterial`) com relevo baixo, casado com as bordas planas das
-  regiões, e `auto_shader` ligado para que o fundo receba a mesma grama do
-  mapa. As 20 regiões cobrem 640 x 512 m; fora delas o Terrain3D continua
-  gerando terreno até o plano distante da câmera, e a névoa fecha antes.
-- O tratamento visual combina sombras azul-petróleo, luzes humanas âmbar e
-  emissões alienígenas ciano-esverdeadas. Um filtro sutil acrescenta grão,
-  vinheta, aberração cromática periférica e eleva levemente os pretos; o glow
-  do ambiente fornece bloom/halation sem comprometer a leitura do gameplay.
-- Nave, feixe de chegada e abdução funcionam como fontes espaciais de
-  interferência. Ao se aproximar, o filtro aumenta suavemente grão e separação
-  cromática, introduz microdistorção e uma oscilação mínima de exposição. A
-  sequência de abdução também dispara um pulso curto, sem afetar a HUD.
-- Destroços próximos podem ser carregados e largados.
-- Para entregar um destroço, o jogador deve largá-lo na plataforma. Um aviso
-  piscante aparece na HUD; próximo ao item, segure `E` por 3 segundos para
-  completar o sinal de intervenção alienígena.
-- Enquanto o sinal carrega, o ET leva a mão direita à cabeça e a nave se
-  posiciona sobre a plataforma. Soltar `E` antes do fim cancela a chamada. Ao
-  completar o sinal, um feixe ciano com o mesmo material dos fachos da nave,
-  reforçado por um núcleo cilíndrico emissivo, suga o item por 10 segundos;
-  somente ao
-  chegar à nave ele desaparece e soma seu `score_value` ao `GlobalScore`.
-- O spider bot permanece oculto e acompanha a nave. Quando detecta um destroço
-  dentro do raio configurado, desce até o terreno pelo mesmo feixe da chegada
-  do jogador, coleta o item e o transporta até a plataforma. Depois que a
-  entrega confirma a pontuação, ele retorna à posição atual da nave, sobe pelo
-  feixe e volta a ficar oculto.
-- A pontuação atual é exibida apenas no console de depuração.
-- A caminhonete pode ser usada para atravessar o mapa e possui câmeras externa
-  e interna.
-- A visão X-ray dos binóculos usa um passe separado sobre os mesmos meshes, com
-  material temporário e máscara de câmera completa, sem duplicar a geometria.
-- O fazendeiro escolhe destinos aleatórios na malha de navegação. Ao enxergar
-  o jogador, passa a persegui-lo e entra no estado de disparo quando está
-  próximo. Cada tiro causa dano, emite som e exibe um clarão provisório no
-  cano da espingarda. A precisão varia com distância, movimento, camuflagem e
-  acertos consecutivos; tiros errados seguem um raycast desviado e colidem com
-  o cenário.
-- O ET possui 100 pontos de vida e 100 pontos de stamina. Correr consome
-  stamina; ao esgotá-la por completo, a recuperação fica bloqueada por 3
-  segundos antes de voltar gradualmente.
-- A locomoção usa 3 m/s ao caminhar, 5,5 m/s ao correr e 1,6 m/s agachado.
-  Os ciclos Mixamo acompanham essas velocidades com playback calibrado por
-  tipo de movimento para reduzir o deslizamento dos pés sem deixar os passos
-  rápidos demais.
-- A HUD compacta no canto inferior esquerdo mantém a vida visível; a stamina
-  aparece somente durante uso ou recuperação. Dano pulsa a barra e produz uma
-  vinheta vermelha breve.
-- Um fotógrafo patrulha a fazenda, aproxima-se do ET quando o enxerga e tira
-  fotos após focar a câmera. O rastreador compacto no canto superior direito
-  mostra de zero a três registros, emite um som breve ao atualizar e reduz a
-  opacidade depois de alguns segundos sem mudança.
-- Cada estrela representa uma foto. Sem ser visto por nenhum fotógrafo, uma
-  estrela é removida após 30 segundos contínuos; ser visto reinicia o tempo.
-- O radar circular começa visível no canto inferior direito, mostra a indicação
-  `F3` abaixo do círculo e pode ser ocultado ou exibido novamente pela tecla.
-- Uma, duas e três estrelas solicitam, respectivamente, respostas futuras da
-  polícia, imprensa e MIB. Essas respostas existem somente como métodos e
-  sinais: nenhum veículo, agente ou fotógrafo adicional é criado atualmente.
-- Os disparos empurram o ET por aproximadamente 0,5 m. Ao chegar a zero de
-  vida, os controles são desativados, o corpo entra em ragdoll e um pequeno
-  menu permite recomeçar a cena atual.
-- Parado no chão, o ET reproduz um idle autoral do Mixamo e escolhe entre duas
-  variações em intervalos aleatórios. A entrada e a saída dessas variações usam
-  0,4 segundo de mistura para não trocar a pose bruscamente. Cabeça e torso
-  ainda acompanham o `HeadTarget` com influência pequena, como ajuste sobre a
-  animação base.
-  Durante o sinal de intervenção ou ao carregar um item, somente o braço
-  direito passa gradualmente para o IK específico da ação.
-- Bater em obstáculos enquanto se movimenta consome equilíbrio. A perda é
-  proporcional à velocidade com que o ET entra na superfície, e não ao simples
-  contato: encostar ou empurrar uma parede não gasta equilíbrio nenhum, andar
-  contra ela quase não gasta, e correr contra ela provoca um tropeço visível.
-- Enquanto tropeça, o ET toca uma reação Mixamo coerente com a direção do
-  impacto, ganha um empurrão residual, perde parte do controle de movimento e
-  da velocidade de giro e vai se recuperando aos poucos. Novos impactos ainda
-  somam ao desequilíbrio anterior.
-- Ao inverter bruscamente a direção enquanto já está em movimento, o ET não
-  troca mais a velocidade de forma instantânea. A velocidade anterior freia,
-  um pivot Mixamo de 180° gira o corpo e a aceleração no novo sentido só começa
-  depois do apoio do pé. Caminhada e corrida usam clips e durações próprios;
-  pulo, crouch, hit, stumble e ragdoll podem interromper a manobra.
-- Pedir a direção oposta partindo do idle usa o mesmo princípio: o personagem
-  planta os pés e completa um único giro de 180° antes de começar a caminhar.
-  O yaw interno dos clips de turn é removido na geração do GLB para não se
-  somar à rotação física do `CharacterBody3D`.
-- Mudanças menores de direção, inclusive soltar a frente e apertar um lado,
-  permanecem em uma animação de locomoção enquanto o corpo gira. Apenas uma
-  reversão ampla aciona o pivô que planta os pés antes de voltar a andar.
-- Cair de altura também derruba. A velocidade vertical no instante em que o ET
-  toca o chão é comparada com `min_landing_speed` e `landing_ragdoll_speed`:
+- O jogador começa a bordo da nave, em órbita da Terra. Um terminal de missão
+  lista o catálogo de fases; hoje só a Fazenda está disponível, com entradas de
+  exemplo bloqueadas. Adicionar uma fase não exige mexer em script: basta um
+  `LevelDefinition.tres` apontando para a cena e listado em
+  `level_catalog.tres`.
+- Ao chegar na fase, o ET nasce sobre a nave, que desce do céu e estaciona
+  acima do ponto de chegada. Pisar no pad central e interagir aciona a cutscene
+  de descida pelo feixe. Abrir `world.tscn` direto no editor pula esse passo.
+- Destroços próximos podem ser carregados e largados. Para entregar, o jogador
+  larga o item na plataforma e sustenta o sinal de intervenção alienígena; um
+  feixe suga o item até a nave e só então soma o `score_value` ao
+  `GlobalScore`. Soltar o botão antes do fim cancela a chamada.
+- Um spider bot acompanha a nave, desce pelo feixe quando detecta um destroço
+  ao alcance, leva o item até a plataforma e volta a ficar oculto.
+- A caminhonete atravessa o mapa e tem câmeras externa e interna. Os binóculos
+  têm zoom e uma visão X-ray feita com um passe separado sobre os mesmos
+  meshes, sem duplicar geometria.
+- O fazendeiro patrulha a malha de navegação, persegue o ET ao avistá-lo e
+  passa a atirar de perto. A precisão varia com distância, movimento,
+  camuflagem e acertos consecutivos.
+- Um fotógrafo persegue e fotografa o ET. Cada foto acende uma estrela, até
+  três; ficar sem ser visto por tempo suficiente remove uma estrela. As
+  estrelas solicitam respostas futuras de polícia, imprensa e MIB.
+- Trigo e girassóis oscilam com o vento, inclinam-se perto de personagens e
+  veículos e escondem parcialmente o ET, reduzindo o alcance de detecção do
+  fazendeiro. Agachar na vegetação aumenta a camuflagem.
+- O ET tem vida e stamina. Correr consome stamina e esgotá-la bloqueia a
+  recuperação por alguns segundos. Colidir correndo ou cair de altura consome
+  equilíbrio, provoca tropeço e, no limite, um ragdoll do qual ele se levanta
+  sozinho. Zerar a vida entra em ragdoll definitivo, com menu para reiniciar.
+- Uma porta na fazenda leva a uma masmorra procedural plana, montada a partir
+  de módulos de corredor. Ela é gerada uma vez por sessão e guarda destroços
+  nos becos sem saída, que seguem o mesmo fluxo de coleta e entrega.
+- A pontuação atual aparece apenas no console de depuração.
 
-```text
-pulo normal, até 1,5 m   nada
-1,8 m a 2,2 m            cambaleia ao pousar, cada vez mais
-2,4 m em diante          cai no chão
-```
-
-  O tombo cresce com a altura: por volta de 2,5 m o ET desaba praticamente no
-  lugar e fica pouco tempo caído, enquanto uma queda de 12 m é o tombo completo.
-  Um pulo em terreno plano toca o chão a cerca de 5,5 m/s e nunca custa nada,
-  mas pular de uma beirada soma o impulso do pulo à altura da queda.
-- Se o equilíbrio zerar, ou se um único impacto for forte demais, o ET cai num
-  ragdoll exagerado: os pés são varridos para trás, o tronco e a cabeça vão
-  para a frente e os braços se agitam. A queda não causa dano. Um tropeço deixa
-  o ET cerca de 0,9 segundo no chão e um tombo de altura cerca de 1,8; em
-  seguida ele escolhe uma animação de levantar de costas ou de bruços conforme
-  a orientação final do ragdoll e recupera o controle ao terminar. Não é
-  preciso apertar nada. O controle é liberado 0,25 segundo antes do fim do clip,
-  durante o trecho em que o ET já está visualmente de pé.
-- A queda tem intensidade. Bater correndo, ou ficar sem equilíbrio, produz uma
-  queda pequena: o ET tropeça e desaba praticamente no lugar, ficando pouco
-  tempo no chão. Só o tombo de altura usa a força total, que joga o corpo
-  longe. A mesma intensidade controla o impulso do ragdoll e o tempo caído.
-- Correr é limitado a `sprint_speed` (5,5 m/s) e `fall_impact_speed` é 5,15 m/s,
-  logo bater de frente numa parede em velocidade máxima derruba; chegar de
-  raspão, ou apenas andando, continua sendo tropeço ou nada.
-- Trigo e girassóis escondem parcialmente o ET: reduzem o alcance e tornam a
-  detecção do fazendeiro mais lenta. Agachar dentro da vegetação aumenta a
-  camuflagem.
-- Trigo e girassóis oscilam com vento e se inclinam perto do jogador ou de
-  veículos.
-- Vento e grilos formam a camada ambiente contínua. Latidos são reproduzidos
-  em posições e intervalos variados ao redor da fazenda.
-- Os passos acompanham o movimento do ET, variam amostra e afinação e tentam
-  distinguir terra, pedra e madeira pelo objeto sob o personagem.
-- Uma porta (`scenes/Dungeon/DungeonDoor.tscn`) na fazenda dá acesso a uma
-  masmorra procedural plana. Um labirinto conexo é criado numa grade XZ e cada
-  célula instancia uma cena modular de 2 × 2 × 2 m. As máscaras usam Norte
-  `+Z`, Sul `-Z`, Leste `+X` e Oeste `-X`; o gerador escolhe e gira X, T, L, U
-  ou H para que toda abertura encontre uma abertura recíproca na célula
-  vizinha. Não há geração de caixas, `GridMap` nem variação de altura.
-  A masmorra é construída apenas uma vez por sessão, na primeira vez que a
-  porta é usada; as entradas seguintes reutilizam o layout. Destroços
-  coletáveis aparecem nos becos sem saída mais distantes e seguem o mesmo
-  fluxo de coleta e entrega do restante do jogo. O portal de retorno permanece
-  na célula de entrada e teleporta o jogador de volta à porta da fazenda.
-- `interior_space_ship_room_1.tscn` é uma cena de teste isolada: uma `Area3D`
-  aplica gravidade constante em direção ao centro da esfera, enquanto o
-  jogador adapta seu eixo vertical, movimento, salto, câmera e animações à
-  normal radial da superfície.
-- `Portal/portal.tscn` contém um par fechado de superfícies: cada portal exibe
-  em tempo real a vista da câmera posicionada no portal oposto. Personagens
-  que atravessam uma superfície reaparecem no outro portal, preservando a
-  posição relativa, a orientação e a velocidade. As câmeras internas usam um
-  frustum assimétrico alinhado à saída, fazendo o plano de corte coincidir com
-  o portal sem alterar a câmera principal do jogador.
+Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial
+dentro de uma esfera), `Portal/portal.tscn` (par de portais com renderização
+cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 
 ## Controles
 
-- Movimento do jogador e direção da caminhonete: `WASD`.
-- Correr: segure `Shift` enquanto se movimenta; a corrida consome stamina e é
-  bloqueada enquanto o ET estiver no ar.
-- Pular: `Espaço`. O impulso físico é imediato e entra diretamente no clip de
-  subida, sem agachamento automático, atraso ou uma segunda abertura dos braços.
-- Agachar: segure `C`.
-- Câmera: mouse.
-- Coletar ou largar item: `E`.
-- Acionar o terminal da nave ou o pad de descida: `E` quando a luz do objeto
-  acender e começar a pulsar.
-- Solicitar a abdução de um item solto na área de entrega: segure `E` por 3
-  segundos.
-- Acender ou apagar gradualmente a luz local dos olhos do ET: `F`.
-- Entrar ou sair da caminhonete: `E`.
-- Alternar câmera externa/interna da caminhonete: `G`.
-- Avião: o mouse move o alvo que orienta o voo. Ao compor o avião com o
-  jogador, `E` assume ou devolve o controle perto da cabine. Ao executar
-  `FlyablePlane.tscn` isoladamente, o controle é ativado automaticamente.
-- Abrir ou fechar o menu de pausa: `Esc`.
-- Ativar ou desativar os binóculos: `B`. Com os binóculos ativos, `+`/`-` do
-  teclado numérico ajustam o zoom.
-- Mostrar ou ocultar o radar circular: `F3`.
-- Abrir ou fechar o menu de debug: `F4`. No submenu de iluminação é possível
-  trocar o preset de atmosfera entre Baixo, Médio e Alto, alternar Lua, céu, luz
-  ambiente, neblina, casa e nave/feixes, além de regular cada intensidade entre
-  0% e 200%.
-- No painel principal do `F4`, `Modo Deus` torna o ET imortal, mantém a stamina
-  cheia e multiplica velocidade e aceleração por cinco. `Modo Voo` remove a
-  gravidade: use `WASD` para deslocar, `Espaço` para subir e `C` para descer.
-  Os dois modos são independentes e podem permanecer ativos ao mesmo tempo.
-- No menu inicial, o botão de áudio no canto inferior esquerdo silencia ou
-  reativa a música do menu.
+| Ação | Tecla |
+| --- | --- |
+| Mover o ET / dirigir a caminhonete | `WASD` |
+| Câmera | Mouse |
+| Correr | `Shift` (consome stamina; bloqueado no ar) |
+| Pular / agachar | `Espaço` / segure `C` |
+| Coletar ou largar item | `E` |
+| Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E` |
+| Solicitar a abdução de um item na área de entrega | Segure `E` |
+| Luz dos olhos do ET | `F` |
+| Alternar câmera da caminhonete | `G` |
+| Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
+| Radar circular | `F3` |
+| Menu de debug | `F4` |
+| Menu de pausa | `Esc` |
 
-As interações usam uma ação própria para que `Espaço` possa ser reservado ao
-pulo. No menu de opções, as quatro teclas de movimento podem ser remapeadas.
-Durante a partida, o menu de pausa permite remapear movimento, corrida, pulo,
-agachamento, interação, chamada da nave, luz dos olhos, radar, binóculos
-(ativar e os dois zooms) e o menu de debug. Os remapeamentos duram pela sessão
-atual.
+No avião, o mouse move o alvo que orienta o voo; `E` assume ou devolve o
+controle perto da cabine.
+
+O menu `F4` traz o preset de atmosfera, o controle de cada fonte de luz, o
+`Modo Deus` (imortalidade, stamina cheia e mais velocidade) e o `Modo Voo`
+(sem gravidade, subindo com `Espaço` e descendo com `C`).
+
+As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
+O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia
+movimento, corrida, pulo, agachamento, interação, chamada da nave, luz dos
+olhos, radar, binóculos e menu de debug. Os remapeamentos duram a sessão.
 
 ## Arquitetura
 
-O projeto é organizado em cenas reutilizáveis. `world.tscn` compõe o terreno,
-a fazenda, a nave, vegetação, objetos, jogador, inimigo, veículo, destroços e
-área de entrega.
+O projeto é composto por cenas reutilizáveis. `world.tscn` monta terreno,
+fazenda, nave, vegetação, objetos, jogador, inimigos, veículo, destroços e área
+de entrega.
 
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
@@ -398,261 +159,119 @@ Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo
 Mixamo -> LookAt/IK de ação -> reação -> ragdoll (prioridade crescente)
 Player -> CinematicCameraRig -> SpringArm3D -> Camera3D
 NightEnvironment -> AgX/glow/névoa -> filtro de incidente alienígena
-NightEnvironment -> preset -> fog atmosférico + GroundFogLayer + volumetric fog
 FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
-Evento ET -> set_alien_fog_intensity() -> névoa/scattering/feixes/interferência
 Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
 
-## Ajustes de câmera e visual
+- **Autoloads:** `GlobalScore` (pontuação e inventário) e `PhotoAlertSystem`
+  (estrelas, observadores e sinais para respostas futuras). Só estado
+  realmente global entra aqui.
+- **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
+  `pickup_items`, `fog_zones` e `volumetric_lights`.
+- **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
+  `drop()` e propriedade `score_value`. Um item em abdução deixa o grupo
+  temporariamente para não ser recolhido antes da entrega.
+- **Jogador:** `player.gd` cuida de input, física, equilíbrio e decisões, e
+  envia o estado ao `PlayerAnimationController`, que centraliza a máquina de
+  estados do `AnimationTree`. O rig é um único `Skeleton3D` Mixamo com as
+  animações in-place — o `CharacterBody3D` é a única autoridade de
+  deslocamento. Sobre a animação base atuam apenas dois `LookAtModifier3D` de
+  influência limitada e um `TwoBoneIK3D` no braço direito, que só entra ao
+  carregar um item ou executar o sinal.
+- **Ragdoll reversível:** `player_ragdoll.gd` gera os corpos físicos e é usado
+  tanto pela morte quanto pela queda por desequilíbrio; ao sair, a orientação
+  do peito decide entre levantar de costas ou de bruços.
+- **Veículo:** desativa processamento e câmera do jogador, exibe o ET no banco
+  e restaura o personagem na saída.
+- **Fazendeiro:** estados `WANDERING`, `CHASING` e `SHOOTING`, com memória
+  curta da última posição vista e checagem de obstáculos.
+- **Masmorra:** isolada das `NavigationRegion3D` da fazenda, não participa da
+  navegação dos NPCs. O estado "já gerada" vive em memória no próprio nó e se
+  perde ao recarregar a cena.
+- **HUDs** reutilizam o tema `Materiais/hud_theme.tres` e uma família única de
+  ícones gerada dos meshes low-poly `Polygon Prototype`.
 
-- FOV, distância e colisão: `Camera3D.fov` e `SpringArm3D` em
-  `scenes/Player.tscn`.
-- Offset, smoothing, sway e respiração: exports de
-  `scripts/cinematic_camera_rig.gd`.
-- Grain, vignette, aberração, contraste e black lift: grupo `Base Look` do
-  `IncidentPostProcess` em `scenes/NightEnvironment.tscn`.
-- Bloom/halation: propriedades `glow_*` do `Environment` na mesma cena.
-- Intensidade e resposta global da interferência: grupo `Alien Interference`
-  do `IncidentPostProcess`.
-- Alcance, intensidade e pulso por nave/feixe/evento: exports de cada
-  `AlienInterferenceSource` nas respectivas cenas.
-- Cores alienígenas: materiais e luzes em `AlienShip.tscn`,
-  `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn`.
+## Onde ajustar o visual
 
-### Névoa e presets de atmosfera
+| Para mudar | Vá em |
+| --- | --- |
+| FOV, distância e colisão da câmera | `Camera3D` e `SpringArm3D` em `scenes/Player.tscn` |
+| Seguimento, offset, sway e respiração | Exports de `scripts/cinematic_camera_rig.gd` |
+| Grão, vinheta, aberração, contraste, black lift | `IncidentPostProcess` em `scenes/NightEnvironment.tscn` |
+| Bloom e halation | Propriedades `glow_*` do `Environment` na mesma cena |
+| Presets de qualidade, névoa e evento alienígena | Exports do `NightEnvironment` e `QUALITY_PRESETS` em `scripts/night_environment.gd` |
+| Forma e movimento da névoa rasteira | `scenes/FX/GroundFogLayer.tscn` e `shaders/ground_fog.gdshader` |
+| Névoa mais densa em um lugar | Instancie `scenes/FX/FogZone.tscn` e ajuste raio e força |
+| Interferência por nave, feixe ou evento | Exports de cada `AlienInterferenceSource` |
+| Cores alienígenas | Materiais e luzes de `AlienShip.tscn`, `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn` |
 
-O `NightEnvironment` controla três fontes de névoa independentes. Hoje só a
-primeira está ligada; as outras duas ficam prontas para serem religadas:
+A névoa tem duas escalas: uma manta rasteira de planos com shader, que segue a
+câmera, e o fog atmosférico do `Environment`, que fecha ao longe e esconde a
+borda do mapa. O volumetric fog está desligado em todos os presets, por custo,
+e pode ser religado nos presets de `night_environment.gd`.
 
-| Fonte | O que é | Estado | Custo |
-| --- | --- | --- | --- |
-| Névoa rasteira | Planos com `shaders/ground_fog.gdshader` que seguem a câmera | Ativa | Fill-rate |
-| Fog atmosférico | `fog_*` do `Environment`, de tela cheia | Desligado | Quase nulo |
-| Volumetric fog | `volumetric_fog_*` e o `FogVolume` rasteiro | Desligado | O mais caro |
+Armadilha do Godot 4.7: no fog em modo Depth, `Environment.fog_density` deixa
+de ser densidade e passa a multiplicar a rampa de profundidade — um valor de
+modo exponencial faz a névoa sumir. O controle certo é
+`atmospheric_fog_opacity`, em `night_environment.gd`.
 
-Para religar o fog atmosférico, marque `atmospheric_fog_enabled` no Inspector do
-`NightEnvironment`. Para religar a volumetria — e com ela os cones de luz da nave
-e da abdução visíveis no ar —, ponha `volumetric_enabled` como `true` no preset
-desejado dentro de `QUALITY_PRESETS`, no topo de
-`scripts/night_environment.gd`; `fog_volume_enabled` faz o mesmo com o
-`FogVolume` rasteiro. Todos os parâmetros de cada preset (`length`, resolução do
-froxel grid, filtro, densidade) continuam lá.
+Por código, `NightEnvironment.set_alien_fog_intensity()` recebe de 0 a 1 e
+interpola densidade, tonalidade, scattering, energia dos feixes e interferência
+de tela; `set_quality_preset()` troca o preset em runtime. O grupo
+`alien_post_process` expõe interferência manual e pulso.
 
-Os presets diferem na qualidade e no alcance da manta rasteira:
+## Limitações conhecidas
 
-- **Baixo** — uma camada, alcance de 46 m, sem soft depth, sem detalhe fino, sem
-  domain warp, sem zonas, sem partículas atmosféricas e sem sombra nos feixes da
-  nave.
-- **Médio** — uma camada com soft depth, detalhe parcial e até quatro zonas;
-  alcance de 55 m.
-- **Alto** — duas camadas, detalhe completo e até seis zonas; alcance de 64 m.
-
-Se a volumetria for religada, fora do preset Alto só a alimentam as luzes do grupo
-`volumetric_lights` (Lua, holofotes da nave, feixe de abdução e feixe de
-chegada). As demais têm `light_volumetric_fog_energy` zerado e restaurado quando
-o preset volta a Alto; o valor original de cada luz fica guardado em metadata.
-
-Ajustes disponíveis no Inspector do `NightEnvironment`:
-
-- grupo `Quality`: `quality_level`, `particles_enabled`, `ground_fog_enabled`;
-- grupo `Fog and Atmosphere`: `atmospheric_fog_enabled` (liga o fog de tela
-  cheia), `fog_color` (fog atmosférico e volumetria), `ground_fog_color`
-  (névoa rasteira, propositalmente mais clara), `atmospheric_fog_density`,
-  `atmospheric_fog_height`, `atmospheric_fog_height_density` e
-  `ground_fog_density` (só o `FogVolume`);
-- grupo `Alien Atmosphere`: `alien_fog_color`, `alien_fog_response` (velocidade
-  da transição), `alien_volumetric_density_boost`, `alien_fog_density_boost`,
-  `alien_anisotropy`, `alien_emission_energy`, `alien_beam_fog_boost` e
-  `alien_interference`.
-
-A altura da manta vem de `layer_heights`, no `GroundFogLayer`: por padrão
-0,25 m, 0,7 m e 1,4 m, ou seja, névoa rente ao chão. Suba esses valores para
-uma névoa mais alta. No mesmo nó é possível ajustar `layer_noise_scales`,
-`layer_opacities`, `forward_bias`, os intervalos de sondagem do terreno e das
-zonas, e o comportamento alienígena (`alien_response`, `alien_drift_boost`,
-`alien_opacity_boost`). Forma, movimento e cor da névoa ficam nos parâmetros do
-`ShaderMaterial` compartilhado pelas três camadas em `scenes/GroundFogLayer.tscn`
-(`noise_scale`, `coverage`, `softness`, `drift_speed`, `near_fade`, `far_fade_*`,
-`height_fade_*` e `soft_depth`).
-
-Cada camada é um plano, então perto do seu horizonte o desvanecimento por
-distância se comprimiria em poucos pixels e apareceria como uma linha reta. Para
-evitar isso, o shader também desvanece pela inclinação do raio de visão
-(`horizon_fade`, em radianos aproximados, e `horizon_min_height`, a separação
-mínima considerada para a névoa não sumir com a câmera dentro dela), o que
-distribui o degradê de forma uniforme na tela. O raio dos planos é derivado de
-`far_fade_end` para que o fade sempre termine antes da borda geométrica, e o
-shader ainda zera o alfa na moldura do plano como garantia. Por isso
-`forward_bias` fica em 0: deslocar o centro obriga a ampliar o plano na mesma
-proporção, sem ganho.
-
-Para adensar a névoa em um lugar específico — estrada, campo aberto, beira de
-mata — basta instanciar `scenes/FogZone.tscn` na posição desejada e ajustar
-`radius` e `strength`. `WheatField.tscn` e `SunflowersPatch.tscn` já trazem a sua
-própria zona. O `GroundFogLayer` envia ao shader apenas as zonas mais próximas
-da câmera, respeitando o limite do preset.
-
-Por código, `NightEnvironment.set_alien_fog_intensity(valor)` recebe de 0 a 1 e
-interpola suavemente densidade, tonalidade ciano-esverdeada, scattering,
-velocidade da névoa, energia dos feixes no ar e interferência do filtro de tela.
-Chame com `0.0` para voltar ao normal e use `get_alien_fog_intensity()` para ler
-o valor atual. `set_quality_preset(nivel)` troca o preset em runtime.
-
-Por código, o grupo `alien_post_process` expõe `set_manual_interference()`,
-`clear_manual_interference()` e `pulse_interference()`. Cada fonte espacial
-pode ser ligada ou desligada com `set_interference_enabled()`.
-
-- `GlobalScore` é um autoload e mantém pontuação e uma lista simples de itens.
-- `PhotoAlertSystem` é um autoload e mantém as estrelas, observadores ativos,
-  contagem de tempo oculto e sinais para respostas futuras.
-- Grupos do Godot conectam sistemas sem referências diretas: `characters`,
-  `vehicles` e `pickup_items`.
-- Os HUDs reutilizam o tema `Materiais/hud_theme.tres`, com tipografia Oxanium,
-  margens seguras e painéis responsivos ancorados à tela.
-- Menu, vida, stamina, fotografias, intervenção e radar usam uma família única
-  de ícones 2D gerada dos meshes low-poly `Polygon Prototype`. A origem e o
-  processo de geração estão registrados em
-  `assets/ui/prototype_icons/SOURCE.md`.
-- O jogador procura o item coletável mais próximo dentro de dois metros. Um
-  item em abdução deixa temporariamente o grupo `pickup_items` para não poder
-  ser recolhido antes da conclusão da entrega.
-- O veículo desativa temporariamente o processamento e a câmera do jogador,
-  exibe o ET no banco do motorista e restaura o personagem na saída.
-- O fazendeiro usa os estados `WANDERING`, `CHASING` e `SHOOTING`, mantém a
-  última posição vista por um curto período e respeita obstáculos entre seus
-  olhos e o ET.
-- Dano, intervalo entre tiros, alcance, precisão, dispersão, tempo de detecção
-  e perda de visão são parâmetros exportados no fazendeiro.
-- O ET usa um único `Skeleton3D` Mixamo de 49 ossos. O GLB reúne o mesh e 31
-  clips nomeados; as translações horizontais do quadril foram removidas para
-  que todas as animações sejam in-place e `CharacterBody3D` continue sendo a
-  única autoridade de deslocamento e colisão.
-- `PlayerAnimationController` constrói e centraliza a máquina de estados do
-  `AnimationTree`: idle e variações, walk/run, strafes, agachamento, turn,
-  pivôs móveis de 180°, run-stop, salto/queda/pouso, hit, stumble e duas
-  orientações de get-up. A velocidade de reprodução da locomoção acompanha a
-  velocidade física.
-- `player.gd` continua cuidando de input, gravidade, colisão, impacto,
-  equilíbrio, knockback e da decisão entre reação e queda. Ele apenas envia o
-  estado físico ao controlador visual e dispara ações pontuais.
-- Sobre a animação base permanecem dois `LookAtModifier3D`, com influência
-  limitada, para cabeça e torso. O único `TwoBoneIK3D` do Player controla o
-  braço direito e começa com influência zero; ele só entra ao carregar um item
-  ou executar o sinal de intervenção. Pernas, quadril e movimento principal
-  não são gerados por código.
-- A entrada em ragdoll foi extraída para `_enter_ragdoll()`, sem os efeitos
-  colaterais de morte. `_die()` chama essa função e acrescenta cursor visível,
-  desligamento dos processos e o sinal `died`; a queda por desequilíbrio chama
-  a mesma função e apenas conta o tempo até levantar.
-- `player_ragdoll.gd` gera corpos físicos para a hierarquia Mixamo e é
-  reversível. Ao entrar em queda, o `AnimationTree` e os modifiers visuais são
-  suspensos; ao sair, a orientação do peito escolhe `get_up_back` ou
-  `get_up_front` e a simulação entrega a pose final ao controlador.
-- `RagdollRecoveryModifier`, último nó da pilha do esqueleto, mantém a pose
-  caída somente por `ragdoll_pose_blend_duration` (0,25 s por padrão) e a
-  dissolve sobre o começo do clip autoral. Ele serve para alinhamento curto,
-  não para fabricar matematicamente o movimento de levantar.
-- A pose caída também não pode ser lida do esqueleto, pelo mesmo motivo. Ela é
-  reconstruída a partir do `global_transform` de cada `PhysicalBone3D`,
-  corrigido pelo `body_offset`, antes de a simulação parar.
-- Enquanto está caído, o `CharacterBody3D` acompanha a posição do quadril
-  projetada no chão por raycast, para que a câmera siga o corpo. A cápsula de
-  colisão fica desabilitada nesse período, já que os ossos físicos colidem com
-  a máscara 1 e empurrariam o próprio personagem.
-- A masmorra fica isolada, longe das duas `NavigationRegion3D` da fazenda, e
-  não possui `NavigationRegion3D` própria: ela não participa da navegação do
-  fazendeiro nem do fotógrafo, que continuam restritos à fazenda. O estado
-  "já gerada" vive apenas em memória, como variável do próprio nó
-  `Dungeon.tscn` (sem autoload dedicado), e é perdido ao recarregar a cena
-  atual — por exemplo, ao reiniciar após a morte do ET.
-
-## Estado do protótipo e pendências
-
-- A nave que desce no céu da fazenda (instanciada por
-  `world.gd._spawn_on_saucer()`) e a `SpaceShip` que já existia na cena
-  flutuam à mesma altura sem ocupar o mesmo lugar — são dois objetos
-  temporariamente redundantes; consolidá-los em um só é trabalho futuro. Não
-  existe ainda um caminho de volta à órbita a partir dela.
-- O catálogo de fases (`scripts/levels/level_catalog.gd`) tem hoje apenas a
-  Fazenda disponível; Cidade e Deserto são exemplos bloqueados sem cena
-  própria, para validar a lista antes de existir uma segunda fase de verdade.
-- O disparo atual usa dano instantâneo, clarão provisório e empurrão no alvo;
-  ainda não há projétil físico ou animação final de disparo.
-- Polícia, van de reportagem, fotógrafos adicionais e MIB ainda não possuem
-  cenas ou spawn; os respectivos métodos apenas emitem sinais e mensagens de
-  placeholder.
-- A pontuação não possui HUD, objetivo final nem persistência.
-- O inventário do autoload existe, mas não está integrado ao fluxo atual de
-  coleta e entrega.
-- As opções e os remapeamentos feitos no menu não são salvos entre execuções.
-- O projeto não possui multiplayer nem arquitetura de servidor.
-- Há smoke tests automatizados dos estados de animação, do salto e da stamina,
-  da reversão física, do ciclo reversível de ragdoll e dos presets de atmosfera
-  em `tools/test_player_animation.gd`, `tools/test_player_jump_stamina.gd`,
-  `tools/test_player_reversal.gd`, `tools/test_player_ragdoll.gd` e
-  `tools/test_atmosphere_presets.gd`.
-- A névoa rasteira é uma aproximação em camadas planas: ela não recebe luz das
-  fontes do mapa. Com o volumetric fog desligado, feixes e holofotes não
-  aparecem como cones de luz no ar.
-- A origem e a licença dos assets em `3dModelos/` e `Texturas/` não estão
-  documentadas no repositório; confirme-as antes de redistribuir o projeto.
-- A biblioteca usada para gerar os ícones da interface não continha uma licença
-  específica ao lado de `_SourceFiles`; confirme a licença original do pacote
-  `Polygon Prototype` antes de redistribuir os PNGs derivados.
-- Os áudios foram fornecidos pelo usuário sem licença anexada. A procedência e
-  o uso de cada arquivo estão registrados em `assets/audio/SOURCE.md`.
-- Os FBX Mixamo foram fornecidos pelo usuário sem licença anexada. Inventário,
-  seleção, mapeamento e processo de geração estão registrados em
-  `animations/mixamo/SOURCE.md`; confirme os termos antes de redistribuí-los.
-- O clip de levantar de bruços é consideravelmente mais longo que o de costas.
-  Ele começa a 3,2× para tirar os braços do chão sem demora e desacelera
-  suavemente até 1,9× antes da parte de erguer o corpo, equilibrando o ritmo.
-  O alinhamento inicial é uma mistura curta da pose física; ainda não há
-  correção dinâmica de mãos e pés para terrenos inclinados.
-- A queda não causa dano nem é registrada por nenhum sistema: fazendeiro,
-  fotógrafo e vegetação continuam tratando o ET caído como um alvo normal.
-- Durante a queda a cápsula de colisão fica desabilitada, então o ET pode
-  atravessar geometria fina se o ragdoll escorregar para dentro dela; ao
-  levantar não há verificação de espaço livre acima da cabeça.
-- A masmorra procedural não tem objetivo além de coletar os destroços que
-  aparecem nela; não há inimigos, iluminação atmosférica dedicada, salas
-  especiais nem variação vertical. A variedade atual vem das conexões e
-  rotações dos cinco módulos de corredor.
+- A nave que desce na fazenda e a `SpaceShip` que já existia na cena são
+  redundantes; consolidá-las é trabalho futuro. Não há caminho de volta à
+  órbita.
+- O catálogo tem só a Fazenda; Cidade e Deserto são exemplos bloqueados.
+- O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
+- Polícia, imprensa e MIB existem apenas como sinais e mensagens de
+  placeholder, sem cenas nem spawn.
+- A pontuação não tem HUD, objetivo final nem persistência, e o inventário do
+  autoload não está integrado ao fluxo de coleta.
+- Opções e remapeamentos não são salvos entre execuções.
+- Não há multiplayer nem arquitetura de servidor.
+- A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
+  desligada, feixes e holofotes não formam cones de luz no ar.
+- A queda não causa dano nem é percebida pelos NPCs. Durante o ragdoll a
+  cápsula de colisão fica desabilitada, então o ET pode atravessar geometria
+  fina, e não há verificação de espaço livre ao levantar.
+- A masmorra não tem objetivo além dos destroços: sem inimigos, salas
+  especiais nem variação vertical.
+- A origem e a licença dos assets em `3dModelos/` e `Texturas/`, do pacote
+  `Polygon Prototype` e dos FBX Mixamo não estão confirmadas. Áudio, ícones e
+  animações têm procedência registrada nos respectivos `SOURCE.md`; confirme os
+  termos antes de redistribuir.
 
 ## Qualidade e validação
 
-Depois de alterar GDScript, cenas ou `project.godot`, abra o projeto no Godot e
-verifique se não existem erros de importação, parsing ou referências ausentes.
-Uma validação básica sem interface pode ser executada quando o Godot estiver no
-`PATH`:
+Depois de alterar GDScript, cenas ou `project.godot`, abra o projeto no editor
+e confirme que não há erros de importação, parsing ou referências ausentes. Uma
+checagem sem interface:
 
 ```powershell
 godot --headless --path . --editor --quit
 ```
 
-Os smoke tests dos presets de névoa e do evento alienígena rodam sem interface:
+As verificações automatizadas ficam em `tools/`, uma por sistema (animação,
+salto e stamina, reversão, ragdoll, câmera, portais, modos de debug,
+interferência e presets de atmosfera). Rode a do sistema que você alterou:
 
 ```powershell
-godot --headless --path . --script res://tools/test_atmosphere_presets.gd
+godot --headless --path . --script res://tools/<tool>.gd
 ```
 
-Para conferir o custo da atmosfera antes e depois de mexer na névoa, use o
-medidor, que percorre os presets em `world.tscn` e imprime FPS, tempo de GPU e
-tempo de CPU de renderização por frame:
+Omita `--headless` quando a checagem depender de rasterização de verdade, como
+render, screenshot ou culling. No Windows, use o executável terminado em
+`_console.exe`: só ele manda `print()` para o stdout.
 
-```powershell
-godot --path . --script res://tools/measure_atmosphere_cost.gd
-```
+Para medir o custo da atmosfera antes e depois de mexer na névoa,
+`tools/measure_atmosphere_cost.gd` percorre os presets e imprime FPS e tempo de
+render por frame. Ele mede a referência sem névoa no início e no fim, porque a
+nave gira e muda quantos feixes aparecem em tela.
 
-Ele mede a referência sem névoa no início e no fim, porque a nave gira e muda
-quantos feixes aparecem em tela: compare as duas para saber se a deriva entre as
-amostras é pequena o bastante. Os números medidos com o volumetric fog ainda
-ativo ficaram em +0,20 ms de GPU no preset Baixo, +0,57 ms no Médio e +0,86 ms
-no Alto, sobre uma referência de ~6,5 ms por frame; com a volumetria desligada e
-a manta mais baixa e curta, o custo atual é menor que isso — rode o medidor para
-confirmar na sua máquina.
-
-Mudanças de gameplay, câmera, física, veículo, navegação, IK ou vegetação devem
-ser conferidas também em uma execução normal. Não inclua senhas, tokens,
+Mudanças de gameplay, câmera, física, veículo, navegação, IK ou vegetação
+também devem ser conferidas em uma execução normal. Não inclua senhas, tokens,
 credenciais ou chaves nos arquivos do projeto.

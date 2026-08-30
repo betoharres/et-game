@@ -2,10 +2,25 @@
   "mcpServers": {
     "godot": {
       "command": "node",
-      "args": ["C:\\tools\\godot-mcp\\build\\index.js"],
+      "args": [
+        "C:\\tools\\godot-mcp\\build\\index.js"
+      ],
       "env": {
         "GODOT_PATH": "C:\\Godot_v4.7.1\\Godot_v4.7.1-stable_win64.exe"
       }
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "C:\\dev\\etnovo\\et-game"
+      ]
     }
   }
 }
