@@ -33,7 +33,7 @@ const APPROACH_SUN_ENERGY : float = 4.2
 ## Raio da esfera da Terra em Surface/SphereMesh, antes da escala.
 const EARTH_RADIUS : float = 110.0
 ## Folga que sobra entre a camera e a superficie no fim da aproximacao.
-const APPROACH_SURFACE_CLEARANCE : float = 55.0
+const APPROACH_SURFACE_CLEARANCE : float = 70.0
 
 var _earth_home_scale : Vector3
 var _traveling : bool = false

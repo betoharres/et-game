@@ -1,11 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://duf0kjdsouqft"]
 
-[ext_resource type="Script" path="res://scripts/space/orbit.gd" id="1_orbit_script"]
+[ext_resource type="Script" uid="uid://dqphh8yd7ftp1" path="res://scripts/space/orbit.gd" id="1_orbit_script"]
 [ext_resource type="Shader" uid="uid://cge75rbpo8nsw" path="res://shaders/night_sky.gdshader" id="2_night_sky"]
-[ext_resource type="Shader" path="res://shaders/earth_planet.gdshader" id="3_earth_surface"]
-[ext_resource type="Shader" path="res://shaders/planet_atmosphere.gdshader" id="4_earth_atmosphere"]
-[ext_resource type="Script" path="res://scripts/space/orbital_earth.gd" id="5_earth_script"]
-[ext_resource type="PackedScene" path="res://scenes/Space/AlienShip.tscn" id="6_ship"]
+[ext_resource type="Shader" uid="uid://bfyjgsqafa2o3" path="res://shaders/earth_planet.gdshader" id="3_earth_surface"]
+[ext_resource type="Shader" uid="uid://cj3ga6hdytjqm" path="res://shaders/planet_atmosphere.gdshader" id="4_earth_atmosphere"]
+[ext_resource type="Script" uid="uid://dv4esnl121dfq" path="res://scripts/space/orbital_earth.gd" id="5_earth_script"]
+[ext_resource type="PackedScene" uid="uid://bhp4ucmofsbp1" path="res://scenes/Space/AlienShip.tscn" id="6_ship"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionSelectUI.tscn" id="8_mission_ui"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="9_player"]
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="10_pause_menu"]
@@ -55,6 +55,7 @@ glow_hdr_threshold = 0.9
 glow_hdr_scale = 1.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_surface"]
+render_priority = 0
 shader = ExtResource("3_earth_surface")
 shader_parameter/sun_direction = Vector3(-0.879, 0.31, 0.362)
 shader_parameter/ocean_deep = Color(0.012, 0.055, 0.16, 1)
@@ -81,6 +82,7 @@ radial_segments = 96
 rings = 48
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_atmosphere"]
+render_priority = 0
 shader = ExtResource("4_earth_atmosphere")
 shader_parameter/atmosphere_color = Color(0.28, 0.55, 1, 1)
 shader_parameter/sun_direction = Vector3(-0.879, 0.31, 0.362)
@@ -92,43 +94,40 @@ shader_parameter/night_intensity = 0.18
 material = SubResource("ShaderMaterial_earth_atmosphere")
 radius = 115.0
 height = 230.0
-radial_segments = 64
-rings = 32
 
-[node name="Orbit" type="Node3D"]
+[node name="Orbit" type="Node3D" unique_id=1388629007]
 script = ExtResource("1_orbit_script")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=181005001]
 environment = SubResource("Environment_space")
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=181005002]
-transform = Transform3D(0.381, 0, 0.924, 0.2864, 0.9501, -0.1181, -0.879, 0.31, 0.362, 0, 14, 0)
+transform = Transform3D(0.381033, 0.00014539808, 0.92456144, 0.2864248, 0.9507847, -0.118191764, -0.879076, 0.30985227, 0.3622387, 0, 14, 0)
 light_color = Color(1, 0.97, 0.92, 1)
 light_energy = 1.35
 light_angular_distance = 0.5
 shadow_enabled = true
 
-[node name="Earth" type="Node3D" parent="." node_paths=PackedStringArray("sun") unique_id=181005003]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, -320)
+[node name="Earth" type="Node3D" parent="." unique_id=181005003 node_paths=PackedStringArray("sun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.438316, -274.22003)
 script = ExtResource("5_earth_script")
 sun = NodePath("../SunLight")
-rotation_speed = 0.006
 
 [node name="Surface" type="MeshInstance3D" parent="Earth" unique_id=181005004]
-mesh = SubResource("SphereMesh_earth")
 material_override = SubResource("ShaderMaterial_earth_surface")
+mesh = SubResource("SphereMesh_earth")
 
 [node name="Atmosphere" type="MeshInstance3D" parent="Earth" unique_id=181005005]
+material_override = SubResource("ShaderMaterial_earth_atmosphere")
 cast_shadow = 0
 mesh = SubResource("SphereMesh_atmosphere")
-material_override = SubResource("ShaderMaterial_earth_atmosphere")
 
-[node name="AlienShip" parent="." instance=ExtResource("6_ship")]
+[node name="AlienShip" parent="." unique_id=349197007 instance=ExtResource("6_ship")]
 spin_speed = 0.18
 
-[node name="MissionSelectUI" parent="." instance=ExtResource("8_mission_ui")]
+[node name="MissionSelectUI" parent="." unique_id=782099217 instance=ExtResource("8_mission_ui")]
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("9_player")]
+[node name="CharacterBody3D" parent="." unique_id=50976619 instance=ExtResource("9_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2)
 
-[node name="PauseMenu" parent="." instance=ExtResource("10_pause_menu")]
+[node name="PauseMenu" parent="." unique_id=1646783495 instance=ExtResource("10_pause_menu")]
