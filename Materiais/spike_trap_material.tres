@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b3jnjvmmo1y83"]
+
+[ext_resource type="Texture2D" uid="uid://uvdah4o4of5q" path="res://Texturas/ground.png" id="1_dk5j8"]
+
+[resource]
+render_priority = 1
+transparency = 1
+albedo_texture = ExtResource("1_dk5j8")
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 2

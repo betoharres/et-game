@@ -145,11 +145,10 @@ func _spawn_on_saucer() -> void:
 	# straight down through the ship's own footprint.
 	_saucer.set_fall_guard_enabled(false)
 
-	# The ET rides down inside the ship, so the hull must not be drawn yet --
-	# from in there it would fill the panoramic window with its own hollow
-	# inside instead of the fase below. _on_touchdown() turns it back on once
-	# the ET is on the ground and the ship is something he looks UP at.
-	_saucer.set_hull_visible_to_player(player, false)
+	# The ET rides down inside the ship, so use the tighter camera behavior for
+	# enclosed spaces. The authored model remains visible because its exterior
+	# and interior are now the same mesh.
+	_saucer.set_player_inside(player, true)
 
 	# The fase's ambient SpaceShip is the same triangular hull as the one the ET
 	# just arrived in, and both float at the same height -- leaving it visible
@@ -325,11 +324,10 @@ func _play_arrival_intro() -> void:
 
 func _on_touchdown(beam : ArrivalBeam) -> void:
 	_look_tween = null
-	# The ET is outside now: the ship stops being the room he is standing in and
-	# becomes the silhouette parked overhead, so the hull goes back on. Null on
-	# the direct path, where no ship was ever spawned.
+	# The ET is outside now, so restore the normal camera behavior. Null on the
+	# direct path, where no ship was ever spawned.
 	if _saucer != null:
-		_saucer.set_hull_visible_to_player(player, true)
+		_saucer.set_player_inside(player, false)
 	# Only meaningful on the orbital path, where the atmosphere was switched to
 	# its airborne settings; on the direct path both calls are already no-ops.
 	_exit_airborne_atmosphere()

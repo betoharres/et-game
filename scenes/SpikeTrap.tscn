@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://leihvqqhah5u"]
+
+[ext_resource type="Material" uid="uid://bl57nqbiuesfo" path="res://Materiais/portal_material.tres" id="1_3xmhk"]
+[ext_resource type="Material" uid="uid://b3jnjvmmo1y83" path="res://Materiais/spike_trap_material.tres" id="2_o2erx"]
+[ext_resource type="PackedScene" uid="uid://bsui201eehmom" path="res://scenes/Vegetation/tem_grass_patch_02a.tscn" id="3_eaxei"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_emb0l"]
+material = ExtResource("1_3xmhk")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uowjm"]
+size = Vector2(1, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eaxei"]
+data = PackedVector3Array(0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, -0.5, 0.5, 0, -0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_emb0l"]
+material = ExtResource("2_o2erx")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uud73"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qkxa7"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_onegg"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_57arr"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_emb0l"]
+top_radius = 0.0
+bottom_radius = 0.041503906
+height = 0.78430176
+radial_segments = 4
+rings = 0
+
+[node name="SpikeTrap" type="Node3D" unique_id=1272794300]
+
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=1395109645]
+transparency = 1.0
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1001722358]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_uowjm")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=478880280]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=639438057]
+shape = SubResource("ConcavePolygonShape3D_eaxei")
+
+[node name="Wall1" type="MeshInstance3D" parent="." unique_id=1434350578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
+mesh = SubResource("QuadMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall1" unique_id=1058837507]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1/StaticBody3D" unique_id=1988749284]
+shape = SubResource("ConcavePolygonShape3D_uud73")
+
+[node name="Wall2" type="MeshInstance3D" parent="." unique_id=1767794712]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5, 0.5)
+mesh = SubResource("QuadMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2" unique_id=1697463858]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D" unique_id=855280515]
+shape = SubResource("ConcavePolygonShape3D_qkxa7")
+
+[node name="Wall3" type="MeshInstance3D" parent="." unique_id=638200718]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.5, -0.5, 0)
+mesh = SubResource("QuadMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall3" unique_id=746980501]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3/StaticBody3D" unique_id=1989749102]
+shape = SubResource("ConcavePolygonShape3D_onegg")
+
+[node name="Wall4" type="MeshInstance3D" parent="." unique_id=1153671882]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.5, -0.5, 0)
+mesh = SubResource("QuadMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall4" unique_id=2067425292]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4/StaticBody3D" unique_id=404179686]
+shape = SubResource("ConcavePolygonShape3D_57arr")
+
+[node name="Spike1" type="MeshInstance3D" parent="." unique_id=1686587706]
+transform = Transform3D(0.998226, -0.059539244, 0, 0.058610827, 0.9826603, -0.17590778, 0.010473416, 0.17559572, 0.98440665, 0, -0.72770476, 0)
+mesh = SubResource("CylinderMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="Spike2" type="MeshInstance3D" parent="." unique_id=532494631]
+transform = Transform3D(0.8644895, 0.19334297, 0.463979, -0.13899678, 0.97902167, -0.14898452, -0.48305055, 0.064303964, 0.87322795, -0.17498195, -0.72770476, -0.19019777)
+mesh = SubResource("CylinderMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="Spike3" type="MeshInstance3D" parent="." unique_id=397952184]
+transform = Transform3D(0.8817649, -0.11506269, 0.45744008, -0.0387436, 0.94884646, 0.31335157, -0.47009546, -0.2940252, 0.8322015, -0.07607913, -0.72770476, 0.21302144)
+mesh = SubResource("CylinderMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="Spike4" type="MeshInstance3D" parent="." unique_id=1457339925]
+transform = Transform3D(0.9607455, 0.08748633, -0.26327586, -0.009476557, 0.9587723, 0.28401732, 0.27726927, -0.27037337, 0.92196536, 0.1724459, -0.72770476, -0.1496222)
+mesh = SubResource("CylinderMesh_emb0l")
+surface_material_override/0 = ExtResource("2_o2erx")
+
+[node name="TEM_Grass_Patch_02A" parent="." unique_id=1887605295 instance=ExtResource("3_eaxei")]
+visible = false

@@ -19,6 +19,7 @@ signal descend_requested
 @onready var descend_prompt : Label3D = $DescendPad/DescendPrompt
 
 var _descend_trigger_enabled : bool = false
+var _activate_on_enter : bool = false
 var _characters_on_pad : Array[CharacterBody3D] = []
 
 
@@ -34,21 +35,28 @@ func _process(_delta : float) -> void:
 	var character_on_pad : bool = (
 		_descend_trigger_enabled and not _characters_on_pad.is_empty()
 	)
-	descend_prompt.visible = character_on_pad
+	descend_prompt.visible = character_on_pad and not _activate_on_enter
 
-	if character_on_pad and Input.is_action_just_pressed("interact"):
-		# Disarms immediately, like the Saucer's pad: while the descent plays
-		# out, a second press on the pad must not fire anything again.
-		set_descend_trigger_enabled(false)
-		descend_requested.emit()
+	if (
+		character_on_pad
+		and not _activate_on_enter
+		and Input.is_action_just_pressed("interact")
+	):
+		_request_descend()
 
 
-## Arms/disarms the pad. Starts disarmed so a ship parked in orbit can hold the
-## descent back until a mission has actually been chosen.
-func set_descend_trigger_enabled(enabled : bool) -> void:
+## Arms/disarms the pad. `activate_on_enter` is used by the orbital transport
+## beam, while a ship parked above a fase keeps the explicit interaction.
+func set_descend_trigger_enabled(
+	enabled : bool,
+	activate_on_enter : bool = false
+) -> void:
 	_descend_trigger_enabled = enabled
+	_activate_on_enter = enabled and activate_on_enter
 	if not enabled:
 		descend_prompt.visible = false
+	elif _activate_on_enter:
+		call_deferred("_request_descend_if_character_present")
 
 
 func _on_pad_body_entered(body : Node3D) -> void:
@@ -56,6 +64,8 @@ func _on_pad_body_entered(body : Node3D) -> void:
 		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_on_pad.has(character):
 			_characters_on_pad.append(character)
+		if _descend_trigger_enabled and _activate_on_enter:
+			_request_descend()
 
 
 func _on_pad_body_exited(body : Node3D) -> void:
@@ -67,3 +77,16 @@ func _cleanup_tracked_characters() -> void:
 	for index : int in range(_characters_on_pad.size() - 1, -1, -1):
 		if not is_instance_valid(_characters_on_pad[index]):
 			_characters_on_pad.remove_at(index)
+
+
+func _request_descend_if_character_present() -> void:
+	_cleanup_tracked_characters()
+	if _descend_trigger_enabled and not _characters_on_pad.is_empty():
+		_request_descend()
+
+
+func _request_descend() -> void:
+	# Disarms immediately: while the owner changes scene or plays the descent,
+	# remaining inside the pad must not fire a second request.
+	set_descend_trigger_enabled(false)
+	descend_requested.emit()

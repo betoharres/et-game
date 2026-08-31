@@ -1,5 +1,7 @@
 [gd_resource type="Terrain3DMaterial" format=3 uid="uid://bhsomirq7jyr5"]
 
+[ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="1_8ble8"]
+
 [sub_resource type="Gradient" id="Gradient_7ytg0"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -54,3 +56,4 @@ _shader_parameters = {
 }
 world_background = 2
 auto_shader = true
+shader_override = ExtResource("1_8ble8")

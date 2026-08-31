@@ -5,11 +5,10 @@ extends Node3D
 ## o jogador junto com o convés e o ShipCarryField dentro de AlienShip.tscn.
 ##
 ## O terminal de missao lista o catalogo de fases
-## (scripts/levels/level_catalog.gd); escolher uma fase fecha o terminal, para o
-## giro alinhando a janela com a Terra, puxa a Terra para perto num breve
-## arremesso e entrega a cena escolhida com a iris calma de warp_to() -- o ET
-## chega parado, de pe na mesma nave, que world.gd traz descendo pelo ceu da
-## fase, e decide por conta propria quando acionar o pad de descida por la.
+## (scripts/levels/level_catalog.gd). Confirmar uma fase apenas arma o feixe
+## central; a aproximacao e a troca de cena so comecam quando o ET entra nele.
+## Na fase, o ET chega parado, de pe na mesma nave, que world.gd traz descendo
+## pelo ceu, e decide por conta propria quando acionar o pad de descida por la.
 
 const MISSION_FLOW = preload("res://scripts/levels/mission_flow.gd")
 
@@ -38,10 +37,11 @@ const APPROACH_SURFACE_CLEARANCE : float = 55.0
 
 var _earth_home_scale : Vector3
 var _traveling : bool = false
+var _pending_level : LevelDefinition = null
 
 ## O console e mobilia parafusada no convés, entao mora dentro da nave: como
 ## irmao dela ficaria parado no espaco enquanto a sala gira por baixo dele.
-@onready var console : ConsoleButton = $AlienShip/Console
+@onready var console : ConsoleButton = $AlienShip/ConsoleButton
 @onready var ship : AlienShip = $AlienShip
 @onready var mission_ui : MissionSelectUI = $MissionSelectUI
 @onready var player : CharacterBody3D = $CharacterBody3D
@@ -52,44 +52,13 @@ var _traveling : bool = false
 func _ready() -> void:
 	_earth_home_scale = earth.scale
 
-	# Aqui o ET nunca sai da nave, entao o casco nunca precisa ser desenhado:
-	# sem isto a janela panoramica mostra o interior oco do casco em vez da
-	# Terra (ver AlienShip.HULL_CULL_BIT).
-	ship.set_hull_visible_to_player(player, false)
-
-	var shell : Node3D = ship.get_node("Interior/Shell")
-	var deck : MeshInstance3D = shell.get_node("Deck")
-	var seen : Array[Vector2] = []
-	for v : Vector3 in deck.mesh.get_faces():
-		var xz : Vector2 = Vector2(snappedf(v.x, 0.01), snappedf(v.z, 0.01))
-		if not seen.has(xz):
-			seen.append(xz)
-	print("[geo] PISO vertices: ", seen)
-
-	for nome : String in ["WallBack", "GlassRight", "GlassLeft"]:
-		var w : MeshInstance3D = shell.get_node(nome)
-		var mesh : Mesh = w.mesh
-		if mesh == null or mesh.get_surface_count() == 0:
-			continue
-		var bounds : AABB = mesh.get_aabb()
-		var meio : float = bounds.size.x * 0.5
-		var eixo : Vector3 = w.transform.basis.x.normalized()
-		var a : Vector3 = w.position - eixo * meio
-		var b : Vector3 = w.position + eixo * meio
-		print("[geo] %-11s de (%6.2f,%6.2f) a (%6.2f,%6.2f)  comp=%.2f esp=%.2f" % [
-			nome, a.x, a.z, b.x, b.z, bounds.size.x, bounds.size.z])
-
-	var pad : Node3D = ship.get_node("Interior/DescendPad")
-	print("[geo] DescendPad em (%.2f, %.2f, %.2f)" % [
-		pad.position.x, pad.position.y, pad.position.z])
-	var roof : Node3D = shell.get_node("Roof")
-	print("[geo] Roof y=%.2f rot_y=%.1f  |  Deck y=%.2f rot_y=%.1f" % [
-		roof.position.y, rad_to_deg(roof.rotation.y),
-		deck.position.y, rad_to_deg(deck.rotation.y)])
+	ship.set_player_inside(player, true)
 
 	console.activated.connect(_on_console_activated)
 	mission_ui.level_chosen.connect(_on_level_chosen)
 	mission_ui.closed.connect(_on_mission_ui_closed)
+	ship.descend_requested.connect(_on_transport_beam_entered)
+	ship.set_transport_beam_enabled(false)
 
 
 func _on_console_activated() -> void:
@@ -107,10 +76,21 @@ func _on_mission_ui_closed() -> void:
 func _on_level_chosen(level : LevelDefinition) -> void:
 	if _traveling or not level.can_launch():
 		return
-	_traveling = true
-	MISSION_FLOW.arrived_from_orbit = true
+	_pending_level = level
 	mission_ui.close()
-	_play_approach(level)
+	ship.set_transport_beam_enabled(true)
+
+
+func _on_transport_beam_entered() -> void:
+	if _traveling or _pending_level == null or not _pending_level.can_launch():
+		return
+	var destination : LevelDefinition = _pending_level
+	_pending_level = null
+	_traveling = true
+	console.set_armed(false)
+	ship.set_transport_beam_enabled(false)
+	MISSION_FLOW.arrived_from_orbit = true
+	_play_approach(destination)
 
 
 ## Arremesso curto em direcao a Terra: nada aqui precisa ser fisicamente

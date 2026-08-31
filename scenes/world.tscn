@@ -4,8 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
-[ext_resource type="PackedScene" path="res://scenes/Space/AlienShip.tscn" id="3_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://cabgrr2bvykhs" path="res://scenes/NPCs/spider_bot.tscn" id="3_spider"]
+[ext_resource type="PackedScene" uid="uid://bhp4ucmofsbp1" path="res://scenes/Space/AlienShip.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/Vehicles/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/Vehicles/TractorOld.tscn" id="8_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://1dpav48qe8yh" path="res://scenes/Vehicles/Harvester01.tscn" id="9_7r4gi"]
@@ -414,12 +413,7 @@ script = ExtResource("80_audio")
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 32.947754, -8.647179)
-
-[node name="SpiderBot" parent="." unique_id=614909317 node_paths=PackedStringArray("ship_node", "delivery_area") instance=ExtResource("3_spider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2577915, 36.85962, -8.605088)
-ship_node = NodePath("../SpaceShip")
-delivery_area = NodePath("../DeliveryArea")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 129.23634, -8.647179)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
@@ -429,6 +423,7 @@ data_directory = "res://scenes"
 material = ExtResource("168_sjp3e")
 assets = ExtResource("169_sjp3e")
 mesh_lods = 5
+render_layers = 2147483680
 cull_margin = 64.0
 top_level = true
 metadata/_edit_lock_ = true
@@ -10298,6 +10293,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.60681, -0.051659226, 47.2
 [node name="SM_Veh_Pickup_01" parent="VehiclesHolder" unique_id=1156033494 instance=ExtResource("113_bbgx3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.611904, 0.002077967, -50.623016)
 
+[node name="SmVehQuadBike01" type="MeshInstance3D" parent="VehiclesHolder" unique_id=1915495492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.089257, 0, -49.567795)
+mesh = ExtResource("178_cagmf")
+surface_material_override/0 = ExtResource("179_befh3")
+surface_material_override/1 = ExtResource("179_befh3")
+surface_material_override/2 = ExtResource("179_befh3")
+surface_material_override/3 = ExtResource("179_befh3")
+surface_material_override/4 = ExtResource("179_befh3")
+
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -64.25314, 0.1560452, -13.301771)
 
@@ -10360,15 +10364,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
 
 [node name="SpaceshipScraps9" parent="." unique_id=1704994491 instance=ExtResource("187_u6w7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
-
-[node name="SmVehQuadBike01" type="MeshInstance3D" parent="." unique_id=1915495492]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.089257, 0, -49.567795)
-mesh = ExtResource("178_cagmf")
-surface_material_override/0 = ExtResource("179_befh3")
-surface_material_override/1 = ExtResource("179_befh3")
-surface_material_override/2 = ExtResource("179_befh3")
-surface_material_override/3 = ExtResource("179_befh3")
-surface_material_override/4 = ExtResource("179_befh3")
 
 [editable path="PropsHolder/Root3"]
 [editable path="BuildingsHolder/Barn2"]

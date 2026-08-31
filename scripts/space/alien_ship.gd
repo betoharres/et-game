@@ -1,16 +1,7 @@
 class_name AlienShip
 extends Node3D
 
-## A nave triangular do ET, habitavel por dentro. Substitui o Saucer nas duas
-## pontas do fluxo -- parada em orbita (Orbit.tscn) e ancorada no ceu de uma
-## fase (world.gd) -- expondo a mesma API que o disco expunha, para que os dois
-## consumidores nao precisem saber qual nave esta em cena:
-##
-##   descend_requested / set_descend_trigger_enabled() / set_fall_guard_enabled()
-##   / spawn_point
-##
-## A diferenca real e que aqui o ET fica DENTRO: o pad de descida vem do
-## interior (ver scripts/spaceship_interior.gd), e a nave pode girar sem levar
+## o pad de descida vem do interior (ver scripts/spaceship_interior.gd), e a nave pode girar sem levar
 ## o jogador junto para o lado errado, porque o ShipCarryField filho transporta
 ## quem esta a bordo.
 
@@ -30,22 +21,6 @@ signal descend_requested
 ## da nave precisa estar atualizado antes de qualquer um medir o delta dele.
 const SPIN_PHYSICS_PRIORITY : int = -20
 
-## Bit da render layer 12, exclusiva do casco (ver project.godot).
-##
-## Layer 12 e nao 11: a 11 ja e da mira do aviao (FlyablePlane.tscn), que as
-## duas cameras do ET excluem de proposito. Reaproveita-la faria a mira brotar
-## no ar toda vez que o casco fosse religado depois do pouso.
-##
-## O ET_Alien_Space_Ship.glb nao tem janela modelada, e a forma dele e uma placa
-## triangular chata com um unico pico no meio -- a altura interna cai de ~5
-## unidades no centro para zero nas bordas. Nenhuma escala faz uma sala de
-## 20x20x5 caber la dentro E deixar ver para fora: o casco sempre aparece na
-## frente da janela, e o bico oco fica bem no eixo dela.
-##
-## A saida e o casco existir so para quem esta de FORA. Ele fica numa layer so
-## dele, e a camera de quem esta a bordo simplesmente nao desenha essa layer:
-## de dentro a janela mostra o espaco, e de fora a nave triangular esta inteira.
-const HULL_CULL_BIT : int = 1 << 11
 const BEAM_LIGHT_ENERGY : float = 5.2
 const BEAM_GROUND_LIGHT_ENERGY : float = 1.6
 const BEAM_GROUND_LIGHT_RANGE : float = 8.5
@@ -61,6 +36,7 @@ var _base_beam_energies : Array[float] = []
 @onready var interior : Node3D = $Interior
 @onready var spawn_point : Marker3D = $SpawnPoint
 @onready var fall_guard : Area3D = $FallGuard
+@onready var transport_beam : MeshInstance3D = $Props/TransportBeam
 @onready var beam_lights : Array[SpotLight3D] = [
 	$BeamLights/BeamFront,
 	$BeamLights/BeamRight,
@@ -79,6 +55,7 @@ func _ready() -> void:
 	process_physics_priority = SPIN_PHYSICS_PRIORITY
 	interior.descend_requested.connect(_on_interior_descend_requested)
 	fall_guard.body_entered.connect(_on_fall_guard_body_entered)
+	transport_beam.visible = false
 	for beam_light : SpotLight3D in beam_lights:
 		_base_beam_energies.append(beam_light.light_energy)
 	_apply_debug_lighting()
@@ -126,36 +103,30 @@ func stop_spin_facing(target_global_position : Vector3, duration : float) -> Twe
 	return tween
 
 
-## Liga/desliga o desenho do casco para uma camera. Ver HULL_CULL_BIT.
-func set_hull_visible_to(camera : Camera3D, hull_visible : bool) -> void:
-	if camera == null:
-		return
-	if hull_visible:
-		camera.cull_mask |= HULL_CULL_BIT
-	else:
-		camera.cull_mask &= ~HULL_CULL_BIT
-
-
-## Conveniencia para os dois consumidores: o rig do ET carrega duas cameras (a
-## normal e a do XRAY), e esquecer a segunda faz o casco reaparecer no instante
-## em que o jogador levanta os binoculos dentro da nave.
-func set_hull_visible_to_player(
-	player : CharacterBody3D,
-	hull_visible : bool
-) -> void:
+## Ajusta a camera para o espaco fechado sem esconder partes do modelo. Como o
+## exterior e o interior agora compartilham o mesmo mesh, culling por layer
+## removeria tambem o interior que o jogador precisa enxergar.
+func set_player_inside(player : CharacterBody3D, inside : bool) -> void:
 	var rig : CinematicCameraRig = player.camera_pivot
 	if rig == null:
 		return
-	set_hull_visible_to(rig.camera, hull_visible)
-	set_hull_visible_to(rig.xray_camera, hull_visible)
-	rig.set_interior_camera_mode(not hull_visible, interior)
+	rig.set_interior_camera_mode(inside)
 
 
 ## Arma/desarma o pad de descida do interior. Comeca desarmado: em orbita ele so
 ## deve responder depois que uma missao foi escolhida, e numa fase so depois que
 ## o deck termina de pousar.
 func set_descend_trigger_enabled(enabled : bool) -> void:
+	transport_beam.visible = enabled
 	interior.set_descend_trigger_enabled(enabled)
+
+
+## Arms the same central beam as a walk-in teleporter. Orbit uses this mode
+## after a mission is confirmed; entering its volume emits descend_requested
+## without requiring a second interaction key press.
+func set_transport_beam_enabled(enabled : bool) -> void:
+	transport_beam.visible = enabled
+	interior.set_descend_trigger_enabled(enabled, true)
 
 
 ## Desliga a rede de seguranca. Necessario quando algo mais faz o personagem

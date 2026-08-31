@@ -56,15 +56,9 @@ var _interior_camera_mode : bool = false
 var _normal_spring_margin : float = 0.14
 var _normal_spring_shape : Shape3D
 var _interior_spring_shape : SphereShape3D
-var _interior_space : Node3D = null
-
-const INTERIOR_HEIGHT : float = 2.45
-const INTERIOR_FRONT_Z : float = -9.4
-const INTERIOR_BACK_Z : float = 4.7
-const INTERIOR_BACK_HALF_WIDTH : float = 8.141
-const INTERIOR_BOUNDARY_MARGIN : float = 0.12
 
 ## XRAY stuff
+@export_group("FarSight Glasses")
 @export var null_material : StandardMaterial3D
 @onready var xray_camera : Camera3D = $PitchPivot/ShoulderOffset/SpringArm3D/XRAYCamera
 @onready var binos_mesh : MeshInstance3D = $"../ET/ETArmature/Skeleton3D/ET/FarSightGoggles"
@@ -183,12 +177,8 @@ func get_camera() -> Camera3D:
 
 ## Evita que o deslocamento de ombro comece a camera do lado de fora das
 ## paredes quando o jogador esta dentro de um espaco estreito.
-func set_interior_camera_mode(
-	enabled : bool,
-	interior_space : Node3D = null
-) -> void:
+func set_interior_camera_mode(enabled : bool) -> void:
 	_interior_camera_mode = enabled
-	_interior_space = interior_space if enabled else null
 	if enabled:
 		spring_arm.margin = _normal_spring_margin + 0.12
 		spring_arm.shape = _interior_spring_shape
@@ -247,7 +237,6 @@ func _process(delta : float) -> void:
 
 	_update_organic_motion(delta, position_weight, rotation_weight)
 	_update_impact(delta)
-	_clamp_camera_to_interior()
 
 func _snap_to_target() -> void:
 	global_position = _target_position
@@ -367,52 +356,6 @@ func _update_impact(delta : float) -> void:
 	camera.rotation.z += (
 		deg_to_rad(shake_rotation_degrees) * falloff * sin(_shake_phase * TAU * 0.77)
 	)
-
-
-## Mantem a camera dentro do triangulo do interior mesmo quando o SpringArm
-## comeca quase sobre uma parede e a varredura encontra o canto por um angulo
-## muito obliquo. O espaco e consultado em coordenadas locais para acompanhar
-## a escala, a posicao e a rotacao da nave automaticamente.
-func _clamp_camera_to_interior() -> void:
-	if (
-		not _interior_camera_mode
-		or _interior_space == null
-		or not is_instance_valid(_interior_space)
-	):
-		return
-
-	var local_camera : Vector3 = _interior_space.to_local(camera.global_position)
-	var clamped_y : float = clampf(local_camera.y, 0.08, INTERIOR_HEIGHT - 0.08)
-	var radial_scale : float = lerpf(
-		1.0,
-		0.09,
-		clampf(clamped_y / INTERIOR_HEIGHT, 0.0, 1.0)
-	)
-	var base_x : float = local_camera.x / radial_scale
-	var base_z : float = local_camera.z / radial_scale
-	var margin : float = INTERIOR_BOUNDARY_MARGIN
-	base_z = clampf(
-		base_z,
-		INTERIOR_FRONT_Z + margin,
-		INTERIOR_BACK_Z - margin
-	)
-	var half_width : float = maxf(
-		(base_z - INTERIOR_FRONT_Z)
-		/ (INTERIOR_BACK_Z - INTERIOR_FRONT_Z)
-		* INTERIOR_BACK_HALF_WIDTH
-		- margin,
-		0.0
-	)
-	base_x = clampf(base_x, -half_width, half_width)
-
-	var clamped_local : Vector3 = Vector3(
-		base_x * radial_scale,
-		clamped_y,
-		base_z * radial_scale
-	)
-	if local_camera.distance_to(clamped_local) <= 0.0001:
-		return
-	camera.global_position = _interior_space.to_global(clamped_local)
 
 
 func _basis_for_yaw(yaw : float, up : Vector3) -> Basis:

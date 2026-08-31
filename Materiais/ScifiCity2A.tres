@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cyo07gdcuxwo7"]
+
+[ext_resource type="Texture2D" uid="uid://647fwnfiu7xp" path="res://PolygonScifiCity/Textures/PolygonScifi_02_A.png" id="1_3hgt5"]
+[ext_resource type="Texture2D" uid="uid://c4f7vo1vsheqp" path="res://PolygonScifiCity/Textures/PolygonScifi_Emissive_02.png" id="2_3hgt5"]
+[ext_resource type="Texture2D" uid="uid://ca6w6ch0xbl7f" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Metallic.tga" id="3_cpa7j"]
+[ext_resource type="Texture2D" uid="uid://dhnkrdc0wv8tf" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Normal.png" id="4_1rxs4"]
+
+[resource]
+albedo_texture = ExtResource("1_3hgt5")
+metallic = 1.0
+metallic_texture = ExtResource("3_cpa7j")
+emission_enabled = true
+emission_texture = ExtResource("2_3hgt5")
+normal_enabled = true
+normal_texture = ExtResource("4_1rxs4")
