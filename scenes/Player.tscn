@@ -101,26 +101,16 @@ bone_name = "mixamorig_Head"
 bone_idx = 31
 
 [node name="EyeAreaLight" type="SpotLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007476]
-transform = Transform3D(-1, 1.0974415e-07, -8.146101e-08, 1.0231025e-07, 0.99627477, 0.08623806, 9.0621654e-08, 0.08623801, -0.99627477, -2.0290639e-08, 0.064058006, 0.109894976)
-layers = 32
+transform = Transform3D(-1, 1.0974415e-07, -8.146101e-08, 1.0231025e-07, 0.99627477, 0.08623806, 9.0621654e-08, 0.08623801, -0.99627477, 0, 0.064058006, 0.24)
 light_color = Color(0.52, 0.76, 0.88, 1)
 light_energy = 0.0
 light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.03
-light_cull_mask = 1
+light_volumetric_fog_energy = 0.09
+light_cull_mask = 1048319
 shadow_enabled = true
-spot_range = 25.867836
-spot_angle = 17.842344
-
-[node name="EyeGlowLight" type="OmniLight3D" parent="ET/ETArmature/Skeleton3D/EyeLightAttachment" unique_id=2020007477]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.064058006, 0.109894976)
-layers = 32
-light_color = Color(0.2, 0.92, 0.7, 1)
-light_energy = 0.0
-light_indirect_energy = 0.6
-light_volumetric_fog_energy = 0.6
-omni_range = 4.5
-omni_attenuation = 1.6
+spot_range = 12.0
+spot_attenuation = 0.9
+spot_angle = 32.0
 
 [node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="5" unique_id=197484809]
 unique_name_in_owner = false

@@ -6,7 +6,15 @@
 [ext_resource type="Script" uid="uid://7pdxyeu35h64" path="res://scripts/space/ship_carry_field.gd" id="4_carry_script"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="4_l2t7y"]
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="5_beam_shader"]
+[ext_resource type="Shader" path="res://shaders/ship_floor_cutout.gdshader" id="5_floor_cutout"]
+[ext_resource type="Shader" path="res://shaders/ship_floor_glass.gdshader" id="5_floor_glass"]
 [ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="5_vqjj0"]
+[ext_resource type="Texture2D" uid="uid://bvhyvkrbljyrx" path="res://PolygonScifiCity/Textures/PolygonScifi_04_A.png" id="5_scifi_albedo"]
+[ext_resource type="Texture2D" uid="uid://cmrwav8ldxoab" path="res://PolygonScifiCity/Textures/PolygonScifi_Emissive_04.png" id="5_scifi_emission"]
+[ext_resource type="Texture2D" uid="uid://ca6w6ch0xbl7f" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Metallic.tga" id="5_scifi_metallic"]
+[ext_resource type="Texture2D" uid="uid://dhnkrdc0wv8tf" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Normal.png" id="5_scifi_normal"]
+[ext_resource type="Texture2D" uid="uid://scbwiw832483" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="5_town_albedo"]
+[ext_resource type="Texture2D" uid="uid://dr4mhrbh65bp6" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.roughness.png" id="5_town_metallic"]
 [ext_resource type="Shape3D" uid="uid://dniwr4di2p6lq" path="res://Materiais/AlienShipExteriorCollision.tres" id="6_emjsk"]
 [ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="6_interference"]
 [ext_resource type="ArrayMesh" uid="uid://bmy58corl4x13" path="res://PolygonScifiCity/FBX/SM_Bld_LandingPad_01.fbx" id="10_eqe6m"]
@@ -134,6 +142,64 @@ top_radius = 0.0
 bottom_radius = 50.05788
 height = 232.1731
 radial_segments = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_exterior_cutout"]
+shader = ExtResource("5_floor_cutout")
+shader_parameter/albedo_texture = ExtResource("5_scifi_albedo")
+shader_parameter/metallic_roughness_texture = ExtResource("5_scifi_metallic")
+shader_parameter/normal_texture = ExtResource("5_scifi_normal")
+shader_parameter/emission_texture = ExtResource("5_scifi_emission")
+shader_parameter/use_normal = true
+shader_parameter/use_emission = true
+shader_parameter/emission_multiplier = 1.0
+shader_parameter/inner_radius = 5.25
+shader_parameter/outer_radius = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_interior_cutout"]
+shader = ExtResource("5_floor_cutout")
+shader_parameter/albedo_texture = ExtResource("5_town_albedo")
+shader_parameter/metallic_roughness_texture = ExtResource("5_town_metallic")
+shader_parameter/use_normal = false
+shader_parameter/use_emission = false
+shader_parameter/emission_multiplier = 1.0
+shader_parameter/inner_radius = 5.25
+shader_parameter/outer_radius = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_floor_glass"]
+render_priority = 1
+shader = ExtResource("5_floor_glass")
+shader_parameter/glass_color = Color(0.05, 0.46, 0.58, 0.24)
+shader_parameter/edge_color = Vector3(0.06, 0.7, 0.76)
+shader_parameter/inner_radius = 5.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_floor_glass_ring"]
+material = SubResource("ShaderMaterial_floor_glass")
+top_radius = 10.0
+bottom_radius = 10.0
+height = 0.06
+radial_segments = 96
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial_floor_glass_frame"]
+shading_mode = 0
+albedo_color = Color(0.1, 0.82, 0.78, 1)
+emission_enabled = true
+emission = Color(0.025, 0.62, 0.58, 1)
+emission_energy_multiplier = 1.7
+
+[sub_resource type="TorusMesh" id="TorusMesh_floor_glass_inner_frame"]
+material = SubResource("StandardMaterial_floor_glass_frame")
+inner_radius = 5.18
+outer_radius = 5.32
+rings = 24
+ring_segments = 64
+
+[sub_resource type="TorusMesh" id="TorusMesh_floor_glass_outer_frame"]
+material = SubResource("StandardMaterial_floor_glass_frame")
+inner_radius = 9.92
+outer_radius = 10.08
+rings = 32
+ring_segments = 96
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_carry_field"]
 size = Vector3(116, 3.2, 100)
@@ -377,8 +443,8 @@ pulse_frequency = 0.3
 layers = 8
 cast_shadow = 0
 mesh = ExtResource("2_hull")
-surface_material_override/0 = ExtResource("18_vqjj0")
-surface_material_override/2 = ExtResource("4_l2t7y")
+surface_material_override/0 = SubResource("ShaderMaterial_ship_exterior_cutout")
+surface_material_override/2 = SubResource("ShaderMaterial_ship_interior_cutout")
 surface_material_override/3 = ExtResource("5_vqjj0")
 
 [node name="AuthoredCollision" type="StaticBody3D" parent="." unique_id=1987846883]
@@ -470,6 +536,26 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FallGuard" unique_id=1580194350]
 shape = SubResource("BoxShape3D_fall_guard")
+
+[node name="GlassFloorRing" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
+
+[node name="Glass" type="MeshInstance3D" parent="GlassFloorRing"]
+layers = 512
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_floor_glass_ring")
+
+[node name="InnerFrame" type="MeshInstance3D" parent="GlassFloorRing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
+layers = 512
+cast_shadow = 0
+mesh = SubResource("TorusMesh_floor_glass_inner_frame")
+
+[node name="OuterFrame" type="MeshInstance3D" parent="GlassFloorRing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
+layers = 512
+cast_shadow = 0
+mesh = SubResource("TorusMesh_floor_glass_outer_frame")
 
 [node name="Props" type="Node3D" parent="." unique_id=471547840]
 

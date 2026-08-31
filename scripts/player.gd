@@ -100,13 +100,11 @@ enum ImpactReaction {
 @export_range(1.0, 100.0, 1.0) var flight_acceleration : float = 30.0
 
 @export_category("Eye Light")
-@export_range(0.0, 2.0, 0.05) var eye_light_energy : float = 0.55
-@export_range(0.5, 8.0, 0.1) var eye_light_range : float = 4.0
+@export_range(0.0, 2.0, 0.05) var eye_light_energy : float = 1.8
+@export_range(0.5, 30.0, 0.1) var eye_light_range : float = 12.0
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_on_duration : float = 1.2
 @export_range(0.1, 3.0, 0.1) var eye_light_turn_off_duration : float = 1.6
-@export_color_no_alpha var active_eye_color : Color = Color(0.2, 0.92, 0.7)
-@export_range(0.0, 8.0, 0.05) var eye_glow_energy : float = 1.6
-@export_range(0.5, 12.0, 0.1) var eye_glow_range : float = 4.5
+@export_color_no_alpha var active_eye_color : Color = Color(0.12, 0.72, 0.88)
 @export_range(0.0, 30.0, 0.1) var eye_light_energy_cost_per_second : float = 3.5
 
 @onready var camera_pivot : CinematicCameraRig = $CameraHolder
@@ -121,9 +119,6 @@ enum ImpactReaction {
 )
 @onready var eye_area_light : SpotLight3D = (
 	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
-)
-@onready var eye_glow_light : OmniLight3D = (
-	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeGlowLight
 )
 @onready var energy_pool : EnergyPool = $EnergyPool
 
@@ -977,7 +972,6 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		_eye_light_tween.kill()
 
 	var target_energy : float = eye_light_energy if enabled else 0.0
-	var target_glow_energy : float = eye_glow_energy if enabled else 0.0
 	var target_albedo : Color = active_eye_color * 0.42 if enabled else Color.BLACK
 	target_albedo.a = 1.0
 	var target_emission : Color = active_eye_color if enabled else Color.BLACK
@@ -990,7 +984,6 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 
 	if immediate:
 		eye_area_light.light_energy = target_energy
-		eye_glow_light.light_energy = target_glow_energy
 		if _eye_material != null:
 			_eye_material.albedo_color = target_albedo
 			_eye_material.emission = target_emission
@@ -1005,12 +998,6 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		eye_area_light,
 		"light_energy",
 		target_energy,
-		duration
-	)
-	_eye_light_tween.tween_property(
-		eye_glow_light,
-		"light_energy",
-		target_glow_energy,
 		duration
 	)
 	if _eye_material != null:
@@ -1040,9 +1027,6 @@ func is_eye_light_enabled() -> bool:
 
 func _setup_eye_light() -> void:
 	eye_area_light.spot_range = eye_light_range
-	eye_glow_light.omni_range = eye_glow_range
-	eye_glow_light.light_color = active_eye_color
-	character_mesh.layers = 2
 	var source_material : StandardMaterial3D = character_mesh.get_active_material(1)
 	if source_material is StandardMaterial3D:
 		_eye_material = source_material.duplicate() as StandardMaterial3D
