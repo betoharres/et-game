@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bmy8waaagsot" path="res://scripts/debug_menu.gd" id="1_debug_menu"]
 [ext_resource type="Theme" path="res://Materiais/hud_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://chonlgyphsml3" path="res://Texturas/ui/gauge.png" id="3_lighting_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxDebugPanel"]
 bg_color = Color(0.018, 0.028, 0.06, 0.96)
@@ -64,54 +63,45 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 34
 theme_override_constants/margin_bottom = 30
 
-[node name="MainPanel" type="VBoxContainer" parent="Overlay/CenterContainer/MenuPanel/MarginContainer"]
+[node name="PlayerPanel" type="VBoxContainer" parent="Overlay/CenterContainer/MenuPanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="Title" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 30
-text = "MENU DE DEBUG"
+text = "DEBUG DO JOGADOR"
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="Description" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.7, 0.8, 1)
-text = "Ferramentas de desenvolvimento"
+text = "Ferramentas de desenvolvimento do personagem"
 horizontal_alignment = 1
 
-[node name="Separator" type="HSeparator" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="Separator" type="HSeparator" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 layout_mode = 2
 
-[node name="PlayerSection" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="PlayerSection" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.86, 0.7, 1)
 theme_override_font_sizes/font_size = 17
 text = "JOGADOR"
 
-[node name="GodModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="GodModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 tooltip_text = "Imortalidade, stamina infinita e velocidade multiplicada por 5"
 text = "Modo Deus — imortal, stamina infinita, velocidade 5×"
 
-[node name="FlightModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="FlightModeToggle" type="CheckButton" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 tooltip_text = "WASD move, Espaço sobe e C desce; pode ser combinado com Modo Deus"
 text = "Modo Voo — WASD + Espaço/C"
 
-[node name="LightingButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
-custom_minimum_size = Vector2(0, 54)
-layout_mode = 2
-text = "Iluminação"
-icon = ExtResource("3_lighting_icon")
-expand_icon = true
-icon_max_width = 26
-theme_override_colors/icon_normal_color = Color(0.35, 0.9, 1, 1)
-
-[node name="CloseButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel"]
+[node name="CloseButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Fechar  [F4]"
@@ -306,13 +296,13 @@ custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 text = "Restaurar tudo em 100%"
 
-[node name="BackButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel"]
+[node name="CloseButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel"]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
-text = "Voltar"
+text = "Fechar  [F6]"
 
 [node name="Hint" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.56, 0.68, 1)
-text = "F4 fecha o menu"
+text = "F6 fecha o menu"
 horizontal_alignment = 1

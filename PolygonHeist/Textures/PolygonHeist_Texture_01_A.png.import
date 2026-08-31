@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7t15s6a083w1"
-path.s3tc="res://.godot/imported/PolygonHeist_Texture_01_A.png-9a09f14d2b10f59ec2f80812782a0194.s3tc.ctex"
+path.s3tc="res://.godot/imported/PolygonHeist_Texture_01_A.png-25d820fd7e5316c7eaa668c98e6d6408.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,14 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://PolygonHeist/textures/PolygonHeist_Texture_01_A.png"
-dest_files=["res://.godot/imported/PolygonHeist_Texture_01_A.png-9a09f14d2b10f59ec2f80812782a0194.s3tc.ctex"]
+source_file="res://PolygonHeist/Textures/PolygonHeist_Texture_01_A.png"
+dest_files=["res://.godot/imported/PolygonHeist_Texture_01_A.png-25d820fd7e5316c7eaa668c98e6d6408.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

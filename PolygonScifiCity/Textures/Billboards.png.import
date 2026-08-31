@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbfkxetpq13x5"
-path.s3tc="res://.godot/imported/Billboards.png-6dd0584a390b8ddf1b0717ccd0ac4d2a.s3tc.ctex"
+path.s3tc="res://.godot/imported/Billboards.png-0714ab1a783a10859ddc38d223d6143e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,14 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://PolygonScifiCity/textures/Billboards.png"
-dest_files=["res://.godot/imported/Billboards.png-6dd0584a390b8ddf1b0717ccd0ac4d2a.s3tc.ctex"]
+source_file="res://PolygonScifiCity/Textures/Billboards.png"
+dest_files=["res://.godot/imported/Billboards.png-0714ab1a783a10859ddc38d223d6143e.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

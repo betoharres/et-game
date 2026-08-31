@@ -7,26 +7,23 @@ const DELIVERY_GROUP : StringName = &"debug_delivery_lighting"
 const PLAYER_GROUP : StringName = &"debug_player"
 
 @onready var overlay : Control = $Overlay
-@onready var main_panel : VBoxContainer = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel
+@onready var player_panel : VBoxContainer = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel
 )
 @onready var lighting_panel : VBoxContainer = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel
 )
-@onready var lighting_button : Button = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/LightingButton
-)
 @onready var close_button : Button = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/CloseButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/CloseButton
 )
 @onready var god_mode_toggle : CheckButton = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/GodModeToggle
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/GodModeToggle
 )
 @onready var flight_mode_toggle : CheckButton = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/FlightModeToggle
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/FlightModeToggle
 )
-@onready var back_button : Button = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/BackButton
+@onready var lighting_close_button : Button = (
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/CloseButton
 )
 @onready var reset_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/ResetButton
@@ -96,13 +93,12 @@ var _previous_mouse_mode : Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	overlay.visible = false
-	_show_main_panel()
+	_show_player_panel()
 
-	lighting_button.pressed.connect(_show_lighting_panel)
 	close_button.pressed.connect(_close_menu)
 	god_mode_toggle.toggled.connect(_set_god_mode_enabled)
 	flight_mode_toggle.toggled.connect(_set_flight_mode_enabled)
-	back_button.pressed.connect(_show_main_panel)
+	lighting_close_button.pressed.connect(_close_menu)
 	reset_button.pressed.connect(_enable_all_lighting)
 	_populate_quality_preset()
 	quality_preset.item_selected.connect(_set_quality_preset)
@@ -120,10 +116,33 @@ func _ready() -> void:
 	ufo_intensity.value_changed.connect(_set_ufo_intensity)
 
 
-func _input(event : InputEvent) -> void:
-	if event.is_action_pressed("debug_menu") and not event.is_echo():
-		_set_menu_visible(not overlay.visible)
+func _unhandled_input(event : InputEvent) -> void:
+	if event.is_echo():
+		return
+
+	if event.is_action_pressed("debug_player_menu"):
+		_toggle_menu(false)
 		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("debug_lighting_menu"):
+		_toggle_menu(true)
+		get_viewport().set_input_as_handled()
+
+
+func _toggle_menu(show_lighting : bool) -> void:
+	var requested_panel_is_open : bool = (
+		overlay.visible and lighting_panel.visible == show_lighting
+	)
+	if requested_panel_is_open:
+		_set_menu_visible(false)
+		return
+
+	if not overlay.visible:
+		_set_menu_visible(true)
+
+	if show_lighting:
+		_show_lighting_panel()
+	else:
+		_show_player_panel()
 
 
 func _set_menu_visible(should_show : bool) -> void:
@@ -136,9 +155,6 @@ func _set_menu_visible(should_show : bool) -> void:
 		_previous_mouse_mode = Input.mouse_mode
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		_show_main_panel()
-		_sync_toggles_from_world()
-		lighting_button.grab_focus()
 	else:
 		get_tree().paused = _tree_was_paused
 		Input.mouse_mode = _previous_mouse_mode
@@ -148,24 +164,29 @@ func _close_menu() -> void:
 	_set_menu_visible(false)
 
 
-func _show_main_panel() -> void:
-	main_panel.visible = true
+func _show_player_panel() -> void:
+	player_panel.visible = true
 	lighting_panel.visible = false
+	_sync_player_controls()
 	if overlay.visible:
-		lighting_button.grab_focus()
+		if god_mode_toggle.disabled:
+			close_button.grab_focus()
+		else:
+			god_mode_toggle.grab_focus()
 
 
 func _show_lighting_panel() -> void:
-	main_panel.visible = false
+	player_panel.visible = false
 	lighting_panel.visible = true
-	_sync_toggles_from_world()
-	moon_toggle.grab_focus()
+	_sync_lighting_controls()
+	if moon_toggle.disabled:
+		lighting_close_button.grab_focus()
+	else:
+		moon_toggle.grab_focus()
 
 
-func _sync_toggles_from_world() -> void:
-	var environment : Node = _get_first_target(ENVIRONMENT_GROUP)
+func _sync_player_controls() -> void:
 	var player : Node = _get_first_target(PLAYER_GROUP)
-	_sync_quality_preset(environment)
 	_sync_method_toggle(
 		god_mode_toggle,
 		player,
@@ -176,6 +197,11 @@ func _sync_toggles_from_world() -> void:
 		player,
 		&"is_debug_flight_enabled"
 	)
+
+
+func _sync_lighting_controls() -> void:
+	var environment : Node = _get_first_target(ENVIRONMENT_GROUP)
+	_sync_quality_preset(environment)
 	_sync_method_toggle(
 		moon_toggle,
 		environment,
@@ -415,7 +441,7 @@ func _sync_quality_preset(environment : Node) -> void:
 
 func _set_quality_preset(index : int) -> void:
 	_set_environment_option(&"set_quality_preset", index)
-	_sync_toggles_from_world()
+	_sync_lighting_controls()
 
 
 func _set_fog_enabled(enabled : bool) -> void:
@@ -483,4 +509,4 @@ func _enable_all_lighting() -> void:
 	_set_fog_intensity(1.0)
 	_set_house_intensity(1.0)
 	_set_ufo_intensity(1.0)
-	_sync_toggles_from_world()
+	_sync_lighting_controls()

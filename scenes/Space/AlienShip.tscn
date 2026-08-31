@@ -74,6 +74,10 @@
 [ext_resource type="ArrayMesh" uid="uid://b32t264q633n4" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_05.fbx" id="68_5ndol"]
 [ext_resource type="ArrayMesh" uid="uid://dmb8x3b6m2qqf" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Vent_01.fbx" id="69_jh5s5"]
 [ext_resource type="PackedScene" uid="uid://dqv27hgdfchu2" path="res://scenes/Space/ConsoleButton.tscn" id="70_hioj5"]
+[ext_resource type="AudioStream" path="res://assets/audio/spaceship/freesound_community-industrial-ambience-67112.mp3" id="120_ship_ambience"]
+[ext_resource type="AudioStream" path="res://assets/audio/spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" id="121_circuits_hum"]
+[ext_resource type="AudioStream" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="122_heavy_engine"]
+[ext_resource type="AudioStream" path="res://assets/audio/spaceship/spaceship-security-alert-433830.mp3" id="123_security_alert"]
 [ext_resource type="ArrayMesh" uid="uid://b2esgq5mn1kyk" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_01.fbx" id="72_khik5"]
 [ext_resource type="ArrayMesh" uid="uid://cum1d8qmjdwlk" path="res://PolygonScifiCity/Characters/SK_Character_Android_Female_01.fbx" id="73_uc6yn"]
 [ext_resource type="ArrayMesh" uid="uid://dln6u26hvrq56" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_02.fbx" id="74_5s2q1"]
@@ -384,6 +388,24 @@ shape = ExtResource("6_emjsk")
 
 [node name="Interior" parent="." unique_id=842449527 instance=ExtResource("3_interior")]
 transform = Transform3D(1.76, 0, 0, 0, 1.76, 0, 0, 0, 1.76, 0, 0, 0)
+
+[node name="ShipAudio" type="Node" parent="."]
+
+[node name="InteriorAmbience" type="AudioStreamPlayer" parent="ShipAudio"]
+stream = ExtResource("120_ship_ambience")
+volume_db = -20.0
+
+[node name="MovementHum" type="AudioStreamPlayer" parent="ShipAudio"]
+stream = ExtResource("121_circuits_hum")
+volume_db = -10.0
+
+[node name="HeavyEngine" type="AudioStreamPlayer" parent="ShipAudio"]
+stream = ExtResource("122_heavy_engine")
+volume_db = -24.0
+
+[node name="SecurityAlert" type="AudioStreamPlayer" parent="ShipAudio"]
+stream = ExtResource("123_security_alert")
+volume_db = -13.0
 
 [node name="BeamLights" type="Node3D" parent="." unique_id=575176457]
 

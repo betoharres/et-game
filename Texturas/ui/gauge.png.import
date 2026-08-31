@@ -17,7 +17,6 @@ dest_files=["res://.godot/imported/gauge.png-5fbdf3d4171a7bab142d8866f78054ee.ct
 
 compress/mode=0
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -15,7 +15,8 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"binos",
 	&"binos_zoom_in",
 	&"binos_zoom_out",
-	&"debug_menu"
+	&"debug_player_menu",
+	&"debug_lighting_menu"
 ]
 
 const REBIND_LABELS : Array[String] = [
@@ -33,7 +34,8 @@ const REBIND_LABELS : Array[String] = [
 	"Binóculos",
 	"Zoom binóculos +",
 	"Zoom binóculos -",
-	"Menu de debug"
+	"Debug do jogador",
+	"Debug de iluminação"
 ]
 
 @onready var overlay : Control = $Overlay
@@ -73,7 +75,8 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomInButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomOutButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMenuButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/PlayerDebugMenuButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/LightingDebugMenuButton
 ]
 
 var rebinding_action : StringName = &""

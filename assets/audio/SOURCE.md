@@ -16,3 +16,19 @@ Uso atual:
   concreto ou estrada;
 - `footsteps/wood/`: passos sobre superfícies identificadas como madeira ou
   construções rurais.
+
+## Nave espacial
+
+Os quatro arquivos abaixo foram copiados de `C:\dev\assets\new`, fornecido
+pelo usuário. Os nomes sugerem origem em bibliotecas de efeitos sonoros, mas a
+pasta não contém licença, URL de origem nem confirmação de autoria. Confirme
+esses dados antes de distribuir o jogo.
+
+- `spaceship/freesound_community-industrial-ambience-67112.mp3`: ambiente do
+  interior, em loop enquanto o ET está a bordo;
+- `spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3`:
+  hum disparado quando a nave começa a se deslocar;
+- `spaceship/huge-vehicle-sound-76368.mp3`: camada pesada do motor durante a
+  aproximação orbital e a descida da nave na fase;
+- `spaceship/spaceship-security-alert-433830.mp3`: alerta ao confirmar uma
+  missão no terminal.

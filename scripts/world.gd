@@ -169,6 +169,7 @@ func _spawn_on_saucer() -> void:
 	_place_player_on_saucer()
 
 	_enter_airborne_atmosphere()
+	_saucer.begin_approach_audio(SAUCER_APPROACH_DURATION)
 
 	var tween : Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -178,6 +179,7 @@ func _spawn_on_saucer() -> void:
 	await tween.finished
 
 	player.camera_pivot.add_shake(SAUCER_LANDING_SHAKE)
+	_saucer.end_approach_audio(0.8)
 	player.set_movement_locked(false)
 
 	_saucer.descend_requested.connect(_on_descend_requested)

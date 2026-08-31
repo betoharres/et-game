@@ -17,7 +17,6 @@ dest_files=["res://.godot/imported/selection_ring.png-e4de87dd97b6c8c6d4b1d0b595
 
 compress/mode=0
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

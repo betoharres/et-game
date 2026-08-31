@@ -84,7 +84,6 @@
 [ext_resource type="PackedScene" uid="uid://cdfkl3n51qfkf" path="res://PolygonTown/Prefabs/Props/SM_Prop_BedsideTable_01.tscn" id="84_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
 [ext_resource type="PackedScene" uid="uid://br05hptvyc4vo" path="res://PolygonTown/Prefabs/Props/SM_Prop_Bed_Double_02.tscn" id="85_n6seq"]
-[ext_resource type="PackedScene" path="res://scenes/Menu/DebugMenu.tscn" id="86_debug_menu"]
 [ext_resource type="PackedScene" uid="uid://bo7i75ihupee6" path="res://scenes/Vehicles/FlyablePlane.tscn" id="89_5p8eo"]
 [ext_resource type="PackedScene" uid="uid://caxfubawl5yb3" path="res://PolygonTown/Prefabs/Props/SM_Prop_Art_03.tscn" id="90_frq1x"]
 [ext_resource type="PackedScene" uid="uid://ckiy24ab3ekb5" path="res://PolygonTown/Prefabs/Props/SM_Prop_Art_01.tscn" id="91_mlb8o"]
@@ -407,8 +406,6 @@ script = ExtResource("80_audio")
 [node name="NightEnvironment" parent="." unique_id=40418275 instance=ExtResource("81_night_environment")]
 
 [node name="PauseMenu" parent="." unique_id=1267712706 instance=ExtResource("82_pause_menu")]
-
-[node name="DebugMenu" parent="." unique_id=24532835 instance=ExtResource("86_debug_menu")]
 
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
 

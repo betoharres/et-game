@@ -17,7 +17,6 @@ dest_files=["res://.godot/imported/LineTex 2.png-43e658861cb6b4be58b487160911086
 
 compress/mode=0
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

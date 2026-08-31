@@ -25,6 +25,8 @@ const BEAM_LIGHT_ENERGY : float = 5.2
 const BEAM_GROUND_LIGHT_ENERGY : float = 1.6
 const BEAM_GROUND_LIGHT_RANGE : float = 8.5
 const ALIEN_FOG_BEAM_BOOST : float = 0.6
+const ENGINE_IDLE_VOLUME_DB : float = -24.0
+const ENGINE_APPROACH_VOLUME_DB : float = -5.0
 
 var _spin_active : bool = true
 var _debug_lighting_enabled : bool = true
@@ -32,11 +34,17 @@ var _debug_lighting_intensity : float = 1.0
 var _alien_fog_intensity : float = 0.0
 var _atmosphere_quality_level : int = 2
 var _base_beam_energies : Array[float] = []
+var _player_inside : bool = false
+var _approach_audio_started : bool = false
 
 @onready var interior : Node3D = $Interior
 @onready var spawn_point : Marker3D = $SpawnPoint
 @onready var fall_guard : Area3D = $FallGuard
 @onready var transport_beam : MeshInstance3D = $Props/TransportBeam
+@onready var interior_ambience : AudioStreamPlayer = $ShipAudio/InteriorAmbience
+@onready var movement_hum : AudioStreamPlayer = $ShipAudio/MovementHum
+@onready var heavy_engine : AudioStreamPlayer = $ShipAudio/HeavyEngine
+@onready var security_alert : AudioStreamPlayer = $ShipAudio/SecurityAlert
 @onready var beam_lights : Array[SpotLight3D] = [
 	$BeamLights/BeamFront,
 	$BeamLights/BeamRight,
@@ -58,6 +66,8 @@ func _ready() -> void:
 	transport_beam.visible = false
 	for beam_light : SpotLight3D in beam_lights:
 		_base_beam_energies.append(beam_light.light_energy)
+	_set_mp3_loop_enabled(interior_ambience.stream, true)
+	_update_interior_audio()
 	_apply_debug_lighting()
 
 
@@ -107,10 +117,54 @@ func stop_spin_facing(target_global_position : Vector3, duration : float) -> Twe
 ## exterior e o interior agora compartilham o mesmo mesh, culling por layer
 ## removeria tambem o interior que o jogador precisa enxergar.
 func set_player_inside(player : CharacterBody3D, inside : bool) -> void:
+	_player_inside = inside
+	_update_interior_audio()
 	var rig : CinematicCameraRig = player.camera_pivot
 	if rig == null:
 		return
 	rig.set_interior_camera_mode(inside)
+
+
+## Alerta curto usado quando o terminal confirma uma missao. Fica na nave
+## reutilizavel para continuar sendo uma propriedade do interior, nao da UI.
+func play_security_alert() -> void:
+	if not _player_inside:
+		return
+	security_alert.stop()
+	security_alert.play()
+
+
+## Dispara o hum de partida e traz a camada pesada do motor para frente durante
+## o deslocamento. Ambos sao one-shots; a troca de cena encerra suas caudas.
+func begin_approach_audio(ramp_duration : float) -> void:
+	if not _player_inside or _approach_audio_started:
+		return
+	_approach_audio_started = true
+	movement_hum.stop()
+	movement_hum.play()
+	heavy_engine.play()
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property(
+		heavy_engine,
+		"volume_db",
+		ENGINE_APPROACH_VOLUME_DB,
+		maxf(ramp_duration, 0.1)
+	)
+
+
+func end_approach_audio(fade_duration : float) -> void:
+	if not heavy_engine.playing:
+		return
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+		heavy_engine,
+		"volume_db",
+		ENGINE_IDLE_VOLUME_DB,
+		maxf(fade_duration, 0.1)
+	)
+	tween.tween_callback(heavy_engine.stop)
 
 
 ## Arma/desarma o pad de descida do interior. Comeca desarmado: em orbita ele so
@@ -213,6 +267,26 @@ func _apply_debug_lighting() -> void:
 		beam_volume.visible = (
 			_debug_lighting_enabled and _atmosphere_quality_level > 0
 		)
+
+
+func _set_mp3_loop_enabled(stream : AudioStream, enabled : bool) -> void:
+	var mp3_stream : AudioStreamMP3 = stream as AudioStreamMP3
+	if mp3_stream != null:
+		mp3_stream.loop = enabled
+
+
+func _update_interior_audio() -> void:
+	if _player_inside:
+		if not interior_ambience.playing:
+			interior_ambience.play()
+		return
+
+	interior_ambience.stop()
+	movement_hum.stop()
+	heavy_engine.stop()
+	heavy_engine.volume_db = ENGINE_IDLE_VOLUME_DB
+	security_alert.stop()
+	_approach_audio_started = false
 
 
 func _on_interior_descend_requested() -> void:

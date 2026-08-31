@@ -78,6 +78,7 @@ func _on_level_chosen(level : LevelDefinition) -> void:
 		return
 	_pending_level = level
 	mission_ui.close()
+	ship.play_security_alert()
 	ship.set_transport_beam_enabled(true)
 
 
@@ -90,6 +91,7 @@ func _on_transport_beam_entered() -> void:
 	console.set_armed(false)
 	ship.set_transport_beam_enabled(false)
 	MISSION_FLOW.arrived_from_orbit = true
+	ship.begin_approach_audio(WINDOW_ALIGN_DURATION + APPROACH_DURATION)
 	_play_approach(destination)
 
 

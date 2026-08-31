@@ -126,20 +126,24 @@ cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 | Alternar câmera da caminhonete | `G` |
 | Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
 | Radar circular | `F3` |
-| Menu de debug | `F4` |
+| Debug do jogador | `F4` |
+| Debug de iluminação | `F6` |
 | Menu de pausa | `Esc` |
 
 No avião, o mouse move o alvo que orienta o voo; `E` assume ou devolve o
 controle perto da cabine.
 
-O menu `F4` traz o preset de atmosfera, o controle de cada fonte de luz, o
-`Modo Deus` (imortalidade, stamina cheia e mais velocidade) e o `Modo Voo`
-(sem gravidade, subindo com `Espaço` e descendo com `C`).
+O menu `F4` reúne somente o `Modo Deus` (imortalidade, stamina cheia e mais
+velocidade) e o `Modo Voo` (sem gravidade, subindo com `Espaço` e descendo com
+`C`). O menu `F6`, disponível globalmente durante o jogo mesmo após trocar de
+mapa, traz o preset de atmosfera e o controle de cada fonte de luz disponível
+na cena atual.
 
 As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
 O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia
 movimento, corrida, pulo, agachamento, interação, chamada da nave, luz dos
-olhos, radar, binóculos e menu de debug. Os remapeamentos duram a sessão.
+olhos, radar, binóculos, debug do jogador e debug de iluminação. Os
+remapeamentos duram a sessão.
 
 ## Arquitetura
 
@@ -164,9 +168,10 @@ FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
 Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
 
-- **Autoloads:** `GlobalScore` (pontuação e inventário) e `PhotoAlertSystem`
-  (estrelas, observadores e sinais para respostas futuras). Só estado
-  realmente global entra aqui.
+- **Autoloads:** `GlobalScore` mantém pontuação e inventário;
+  `PhotoAlertSystem`, estrelas e observadores; `SceneTransition`, as transições
+  entre cenas; e `DebugMenus`, os painéis globais de debug do jogador (`F4`) e
+  de iluminação (`F6`).
 - **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
   `pickup_items`, `fog_zones` e `volumetric_lights`.
 - **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
