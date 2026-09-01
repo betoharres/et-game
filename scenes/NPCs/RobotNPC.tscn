@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d1c716mk728b8"]
+
+[ext_resource type="PackedScene" uid="uid://dtlm416whch3i" path="res://scenes/NPCs/GenericNPC.tscn" id="1_tybh4"]
+[ext_resource type="Material" uid="uid://ceu6bnmpuniu6" path="res://Materiais/ScifiCity3A.tres" id="2_2q5dr"]
+
+[node name="GenericNPC" unique_id=1189888404 instance=ExtResource("1_tybh4")]
+patrol_wait_time = 1.0
+
+[node name="CharacterMesh" parent="VisualRoot/Skeleton3D" parent_id_path=PackedInt32Array(1120817432) index="0" unique_id=3690575]
+surface_material_override/0 = ExtResource("2_2q5dr")

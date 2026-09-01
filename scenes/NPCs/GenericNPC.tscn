@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtlm416whch3i"]
+[gd_scene format=3 uid="uid://dtlm416whch3i"]
 
 [ext_resource type="Script" uid="uid://bn1x68tgd708" path="res://scripts/generic_NPC.gd" id="1_17vkm"]
 [ext_resource type="ArrayMesh" uid="uid://bkcxfig4x03y3" path="res://PolygonScifiCity/Characters/SK_Character_Robot_01.fbx" id="2_robot"]
@@ -7,37 +7,39 @@
 radius = 0.22
 height = 1.8
 
-[node name="GenericNPC" type="CharacterBody3D" groups=["ship_passengers"]]
+[node name="GenericNPC" type="CharacterBody3D" unique_id=1822833899]
 script = ExtResource("1_17vkm")
+behavior = 1
+patrol_wait_time = 1.1
+navigation_enabled = true
 
-[node name="VisualRoot" type="Node3D" parent="."]
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1950609194]
 
-[node name="CharacterMesh" type="MeshInstance3D" parent="VisualRoot"]
+[node name="Skeleton3D" type="Skeleton3D" parent="VisualRoot" unique_id=1120817432]
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="VisualRoot/Skeleton3D" unique_id=3690575]
 layers = 16
 mesh = ExtResource("2_robot")
 
-[node name="Skeleton3D" type="Skeleton3D" parent="VisualRoot"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VisualRoot" unique_id=1978634976]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VisualRoot"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1765677034]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9055176, 0)
 shape = SubResource("CapsuleShape3D_npc")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1411304874]
 path_desired_distance = 0.15
 target_desired_distance = 0.2
-avoidance_enabled = false
 
-[node name="Behaviors" type="Node" parent="."]
+[node name="Behaviors" type="Node" parent="." unique_id=1338030895]
 
-[node name="Idle" type="Node" parent="Behaviors"]
+[node name="Idle" type="Node" parent="Behaviors" unique_id=209496784]
 
-[node name="Patrol" type="Node3D" parent="Behaviors"]
+[node name="Patrol" type="Node3D" parent="Behaviors" unique_id=1077605122]
 
-[node name="Points" type="Node3D" parent="Behaviors/Patrol"]
+[node name="Points" type="Node3D" parent="Behaviors/Patrol" unique_id=480555288]
 
-[node name="PointA" type="Marker3D" parent="Behaviors/Patrol/Points"]
+[node name="PointA" type="Marker3D" parent="Behaviors/Patrol/Points" unique_id=1984335953]
 
-[node name="PointB" type="Marker3D" parent="Behaviors/Patrol/Points"]
-position = Vector3(0, 0, -3)
+[node name="PointB" type="Marker3D" parent="Behaviors/Patrol/Points" unique_id=302223693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)

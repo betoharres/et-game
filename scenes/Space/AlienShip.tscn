@@ -128,6 +128,7 @@
 [ext_resource type="AudioStream" uid="uid://dt2pumb7gs2sv" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="122_heavy_engine"]
 [ext_resource type="AudioStream" uid="uid://d2d7t5jc51wuw" path="res://assets/audio/spaceship/spaceship-security-alert-433830.mp3" id="123_security_alert"]
 [ext_resource type="PackedScene" uid="uid://bajm8sj7vjvm5" path="res://scenes/NPCs/SpyCam.tscn" id="129_l5fvs"]
+[ext_resource type="PackedScene" uid="uid://d1c716mk728b8" path="res://scenes/NPCs/RobotNPC.tscn" id="130_0njuh"]
 [ext_resource type="PackedScene" uid="uid://bdkvum0fkikds" path="res://scenes/NPCs/Drone02.tscn" id="130_uy02l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_exterior_cutout"]
@@ -423,6 +424,16 @@ height = 8.587891
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1mw1"]
 height = 8.587891
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_emb0l"]
+vertices = PackedVector3Array(-4.5, 1.283, -52.19333, -4.5, 1.283, -13.193329, 4.5, 1.283, -13.193329, 4.5, 1.283, -52.19333, -39.5, 1.283, 10.556671, -39.5, 1.283, 29.556671, 39.5, 1.283, 29.556671, 39.5, 1.283, 10.556671)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5)]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_emb0l"]
+size = Vector2(10, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uy02l"]
+size = Vector2(80, 20)
+
 [node name="AlienShip" type="Node3D" unique_id=1948300356 groups=["ufo_lighting"]]
 script = ExtResource("1_ship_script")
 
@@ -585,12 +596,6 @@ layers = 16
 material_override = ExtResource("13_vqjj0")
 mesh = ExtResource("75_hi178")
 surface_material_override/0 = ExtResource("18_vqjj0")
-
-[node name="SkCharacterRobot02" type="MeshInstance3D" parent="Props" unique_id=634264596]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48511434, 0.7872586, -50.383667)
-layers = 16
-mesh = ExtResource("76_vqjj0")
-surface_material_override/0 = ExtResource("11_hi178")
 
 [node name="SkCharacterAlienMale01" type="MeshInstance3D" parent="Props" unique_id=560657285]
 transform = Transform3D(-0.8084216, 0, 0.58860385, 0, 1, 0, -0.58860385, 0, -0.8084216, -1.3371907, 0.7863785, -5.658604)
@@ -1730,5 +1735,31 @@ pos1 = Vector3(32, 0, 19)
 pos2 = Vector3(-32, 0, 19)
 pos3 = Vector3(0, 0, -41)
 
+[node name="GenericNPC" parent="." unique_id=1189888404 groups=["ship_passengers"] instance=ExtResource("130_0njuh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9613172, 0.7872579, -50.187576)
+behavior = 0
+patrol_wait_time = 2.0
+navigation_enabled = false
+
+[node name="PointA" parent="GenericNPC/Behaviors/Patrol/Points" parent_id_path=PackedInt32Array(1189888404, 480555288) index="0" unique_id=1984335953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.397094, 4.7683716e-07, -49.38177)
+
+[node name="PointB" parent="GenericNPC/Behaviors/Patrol/Points" parent_id_path=PackedInt32Array(1189888404, 480555288) index="1" unique_id=302223693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2514343, -1.4305115e-06, -48.44033)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=76123588]
+navigation_mesh = SubResource("NavigationMesh_emb0l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1356892713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7833986, -32.69333)
+visible = false
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=947113829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783, 20.084)
+visible = false
+mesh = SubResource("PlaneMesh_uy02l")
+
 [editable path="Interior"]
 [editable path="Drone04"]
+[editable path="GenericNPC"]
