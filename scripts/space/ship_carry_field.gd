@@ -109,6 +109,10 @@ func _carry_passenger(
 	carry : Transform3D,
 	carry_yaw : float
 ) -> void:
+	# Also guard here in case a registered passenger was reparented beneath the
+	# ship after entering the area.
+	if ship != null and ship.is_ancestor_of(passenger):
+		return
 	# O player sabe carregar o proprio estado derivado: camera_yaw, o rig
 	# top_level, o ragdoll e os angulos de mundo da manobra de virada. Quem nao
 	# souber leva so o transform rigido, que ja resolve um NPC simples.
@@ -146,6 +150,12 @@ func _signed_yaw_between(
 func _on_body_entered(body : Node3D) -> void:
 	var character : CharacterBody3D = body as CharacterBody3D
 	if character == null:
+		return
+	# A body parented anywhere below the ship already inherits its transform.
+	# Registering it here would apply the same movement a second time. The
+	# passenger groups are only needed for bodies outside the ship hierarchy,
+	# such as the player in Orbit.tscn.
+	if ship != null and ship.is_ancestor_of(character):
 		return
 	if (
 		not character.is_in_group("characters")

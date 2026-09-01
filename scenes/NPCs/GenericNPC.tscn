@@ -7,13 +7,13 @@
 radius = 0.22
 height = 1.8
 
-[node name="GenericNPC" type="CharacterBody3D" unique_id=1822833899]
+[node name="GenericNPC" type="CharacterBody3D" unique_id=1822833899 groups=["ship_passengers"]]
 script = ExtResource("1_17vkm")
 behavior = 1
 patrol_wait_time = 1.1
-navigation_enabled = true
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=1950609194]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="VisualRoot" unique_id=1120817432]
 
@@ -28,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9055176, 0)
 shape = SubResource("CapsuleShape3D_npc")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1411304874]
-path_desired_distance = 0.15
+path_desired_distance = 0.6
 target_desired_distance = 0.2
 
 [node name="Behaviors" type="Node" parent="." unique_id=1338030895]
@@ -36,10 +36,3 @@ target_desired_distance = 0.2
 [node name="Idle" type="Node" parent="Behaviors" unique_id=209496784]
 
 [node name="Patrol" type="Node3D" parent="Behaviors" unique_id=1077605122]
-
-[node name="Points" type="Node3D" parent="Behaviors/Patrol" unique_id=480555288]
-
-[node name="PointA" type="Marker3D" parent="Behaviors/Patrol/Points" unique_id=1984335953]
-
-[node name="PointB" type="Marker3D" parent="Behaviors/Patrol/Points" unique_id=302223693]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)

@@ -55,6 +55,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
+| Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
 
 `tools/build_mixamo_character.py` e `tools/render_prototype_icons.py` são

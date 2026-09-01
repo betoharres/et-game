@@ -194,9 +194,10 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   curta da última posição vista e checagem de obstáculos.
 - **NPC genérico da nave:** `GenericNPC.tscn` usa o mesmo corpo e cápsula para
   personagens Polygon. O comportamento exportado alterna entre `IDLE` e
-  `PATROL`; a patrulha percorre os marcadores em `Behaviors/Patrol/Points`.
-  Ela funciona diretamente no interior da nave e pode usar o
-  `NavigationAgent3D` quando uma malha de navegação for adicionada à nave.
+  `PATROL`; a patrulha escolhe destinos aleatórios diretamente na
+  `NavigationRegion3D` indicada em `navigation_region_path`. NPCs filhos da
+  nave acompanham-na pela hierarquia; `ship_passengers` reserva o transporte
+  manual para corpos que estejam fora dessa hierarquia.
 - **Masmorra:** isolada das `NavigationRegion3D` da fazenda, não participa da
   navegação dos NPCs. O estado "já gerada" vive em memória no próprio nó e se
   perde ao recarregar a cena.
