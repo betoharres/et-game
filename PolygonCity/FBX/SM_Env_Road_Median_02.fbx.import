@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://cwa8kp80t1nyr"
-path="res://.godot/imported/SM_Env_Road_Median_02.fbx-4d7fc5ae81d4281fdf2e5dc71adbaf67.scn"
+path="res://.godot/imported/SM_Env_Road_Median_02.fbx-4d7fc5ae81d4281fdf2e5dc71adbaf67.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Env_Road_Median_02.fbx"
-dest_files=["res://.godot/imported/SM_Env_Road_Median_02.fbx-4d7fc5ae81d4281fdf2e5dc71adbaf67.scn"]
+dest_files=["res://.godot/imported/SM_Env_Road_Median_02.fbx-4d7fc5ae81d4281fdf2e5dc71adbaf67.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

@@ -145,7 +145,12 @@ func _signed_yaw_between(
 
 func _on_body_entered(body : Node3D) -> void:
 	var character : CharacterBody3D = body as CharacterBody3D
-	if character == null or not character.is_in_group("characters"):
+	if character == null:
+		return
+	if (
+		not character.is_in_group("characters")
+		and not character.is_in_group("ship_passengers")
+	):
 		return
 	if not _passengers.has(character):
 		_passengers.append(character)

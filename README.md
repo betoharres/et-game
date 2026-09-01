@@ -56,12 +56,13 @@ Cenas de entrada:
 
 ## Executar
 
-Abra `project.godot` no Godot 4.7 e pressione `F5`. Pelo PowerShell, com o
-Godot no `PATH`:
+Abra `project.godot` no Godot 4.7 ou 4.8 e pressione `F5`. Pelo PowerShell, use
+o wrapper do projeto, que procura a instalação antiga 4.7, a instalação 4.8 em
+`D:\Program Files\Godot\Godot_v4.8` e, por último, o Godot no `PATH`:
 
 ```powershell
-godot --path .            # rodar o jogo
-godot --editor --path .   # abrir o editor
+.\tools\godot.cmd --path .            # rodar o jogo
+.\tools\godot.cmd --editor --path .   # abrir o editor
 ```
 
 Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
@@ -173,7 +174,7 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   entre cenas; e `DebugMenus`, os painéis globais de debug do jogador (`F4`) e
   de iluminação (`F6`).
 - **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
-  `pickup_items`, `fog_zones` e `volumetric_lights`.
+  `pickup_items`, `ship_passengers`, `fog_zones` e `volumetric_lights`.
 - **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
   `drop()` e propriedade `score_value`. Um item em abdução deixa o grupo
   temporariamente para não ser recolhido antes da entrega.
@@ -191,6 +192,11 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   e restaura o personagem na saída.
 - **Fazendeiro:** estados `WANDERING`, `CHASING` e `SHOOTING`, com memória
   curta da última posição vista e checagem de obstáculos.
+- **NPC genérico da nave:** `GenericNPC.tscn` usa o mesmo corpo e cápsula para
+  personagens Polygon. O comportamento exportado alterna entre `IDLE` e
+  `PATROL`; a patrulha percorre os marcadores em `Behaviors/Patrol/Points`.
+  Ela funciona diretamente no interior da nave e pode usar o
+  `NavigationAgent3D` quando uma malha de navegação for adicionada à nave.
 - **Masmorra:** isolada das `NavigationRegion3D` da fazenda, não participa da
   navegação dos NPCs. O estado "já gerada" vive em memória no próprio nó e se
   perde ao recarregar a cena.
@@ -259,7 +265,7 @@ e confirme que não há erros de importação, parsing ou referências ausentes.
 checagem sem interface:
 
 ```powershell
-godot --headless --path . --editor --quit
+.\tools\godot.cmd --headless --path . --editor --quit
 ```
 
 As verificações automatizadas ficam em `tools/`, uma por sistema (animação,
@@ -267,7 +273,7 @@ salto e stamina, reversão, ragdoll, câmera, portais, modos de debug,
 interferência e presets de atmosfera). Rode a do sistema que você alterou:
 
 ```powershell
-godot --headless --path . --script res://tools/<tool>.gd
+.\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
 
 Omita `--headless` quando a checagem depender de rasterização de verdade, como

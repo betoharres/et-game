@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/Lens_Flare_01.png-cf20d5643eb2c1253eb95c36d1e
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://5hesgg1i11su"]
 
-[ext_resource type="Texture2D" uid="uid://f5uiwyjg2ra6" path="res://PolygonHeist/Textures/PolygonHeist_Texture_01_A.png" id="1_6fpxv"]
+[ext_resource type="Texture2D" uid="uid://xbsjgyqnsdgk" path="res://PolygonHeist/Textures/PolygonHeist_Texture_01_A.png" id="1_6fpxv"]
 [ext_resource type="Texture2D" uid="uid://b0ik1fe6g74yb" path="res://PolygonHeist/Textures/Emissive_01.png" id="2_kgo47"]
 [ext_resource type="Texture2D" uid="uid://cm4do4rfwl2i" path="res://PolygonHeist/Textures/PolygonHeist_Texture_Metallic.tga" id="3_6555r"]
 

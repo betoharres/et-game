@@ -18,6 +18,7 @@ dest_files=["res://.godot/imported/Emissive_01.png-9ee292d3603b3d6b5223ce06bfd32
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

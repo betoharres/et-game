@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://crvgyl58kd6dm"
-path="res://.godot/imported/SM_Xmas_Cookie_Plate.fbx-4dea80173a6b0d923eb0feb10b39b079.scn"
+path="res://.godot/imported/SM_Xmas_Cookie_Plate.fbx-4dea80173a6b0d923eb0feb10b39b079.res"
 
 [deps]
 
 source_file="res://PolygonXmas/FBX/SM_Xmas_Cookie_Plate.fbx"
-dest_files=["res://.godot/imported/SM_Xmas_Cookie_Plate.fbx-4dea80173a6b0d923eb0feb10b39b079.scn"]
+dest_files=["res://.godot/imported/SM_Xmas_Cookie_Plate.fbx-4dea80173a6b0d923eb0feb10b39b079.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://bt4ebr14f50qq"
-path="res://.godot/imported/SM_Env_Wall_Glass_DoorFrame_Panels_01.fbx-87eb86ff469341e17760a504c17d25c0.scn"
+path="res://.godot/imported/SM_Env_Wall_Glass_DoorFrame_Panels_01.fbx-87eb86ff469341e17760a504c17d25c0.res"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/SM_Env_Wall_Glass_DoorFrame_Panels_01.fbx"
-dest_files=["res://.godot/imported/SM_Env_Wall_Glass_DoorFrame_Panels_01.fbx-87eb86ff469341e17760a504c17d25c0.scn"]
+dest_files=["res://.godot/imported/SM_Env_Wall_Glass_DoorFrame_Panels_01.fbx-87eb86ff469341e17760a504c17d25c0.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

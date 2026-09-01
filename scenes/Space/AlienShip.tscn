@@ -6,15 +6,15 @@
 [ext_resource type="Script" uid="uid://7pdxyeu35h64" path="res://scripts/space/ship_carry_field.gd" id="4_carry_script"]
 [ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="4_l2t7y"]
 [ext_resource type="Shader" uid="uid://g2rhpg4gsatb" path="res://shaders/ufo_beam.gdshader" id="5_beam_shader"]
-[ext_resource type="Shader" path="res://shaders/ship_floor_cutout.gdshader" id="5_floor_cutout"]
-[ext_resource type="Shader" path="res://shaders/ship_floor_glass.gdshader" id="5_floor_glass"]
-[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="5_vqjj0"]
+[ext_resource type="Shader" uid="uid://cmo20upkbalku" path="res://shaders/ship_floor_cutout.gdshader" id="5_floor_cutout"]
+[ext_resource type="Shader" uid="uid://d34j08cu8e4j4" path="res://shaders/ship_floor_glass.gdshader" id="5_floor_glass"]
 [ext_resource type="Texture2D" uid="uid://bvhyvkrbljyrx" path="res://PolygonScifiCity/Textures/PolygonScifi_04_A.png" id="5_scifi_albedo"]
 [ext_resource type="Texture2D" uid="uid://cmrwav8ldxoab" path="res://PolygonScifiCity/Textures/PolygonScifi_Emissive_04.png" id="5_scifi_emission"]
 [ext_resource type="Texture2D" uid="uid://ca6w6ch0xbl7f" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Metallic.tga" id="5_scifi_metallic"]
 [ext_resource type="Texture2D" uid="uid://dhnkrdc0wv8tf" path="res://PolygonScifiCity/Textures/PolygonSciFiCity_Texture_Normal.png" id="5_scifi_normal"]
 [ext_resource type="Texture2D" uid="uid://scbwiw832483" path="res://PolygonTown/Textures/PolygonTown_Texture_01_A.png" id="5_town_albedo"]
 [ext_resource type="Texture2D" uid="uid://dr4mhrbh65bp6" path="res://PolygonTown/Textures/PolygonTown_Texture_Metallic.roughness.png" id="5_town_metallic"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="5_vqjj0"]
 [ext_resource type="Shape3D" uid="uid://dniwr4di2p6lq" path="res://Materiais/AlienShipExteriorCollision.tres" id="6_emjsk"]
 [ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="6_interference"]
 [ext_resource type="ArrayMesh" uid="uid://bmy58corl4x13" path="res://PolygonScifiCity/FBX/SM_Bld_LandingPad_01.fbx" id="10_eqe6m"]
@@ -28,7 +28,6 @@
 [ext_resource type="ArrayMesh" uid="uid://c451q7hvk0gh8" path="res://PolygonScifiCity/FBX/SM_Prop_Detail_01.fbx" id="19_ximtu"]
 [ext_resource type="ArrayMesh" uid="uid://dx8bpaq4r0cly" path="res://PolygonScifiCity/FBX/SM_Prop_Disc_01.fbx" id="20_f26jj"]
 [ext_resource type="ArrayMesh" uid="uid://c3bkdgu7ugnin" path="res://PolygonScifiCity/FBX/SM_Prop_Drone_01.fbx" id="21_hdi1a"]
-[ext_resource type="ArrayMesh" uid="uid://kfxjncj3evet" path="res://PolygonScifiCity/FBX/SM_Prop_Drone_02.fbx" id="22_08geh"]
 [ext_resource type="ArrayMesh" uid="uid://bud6bfvxftx8q" path="res://PolygonScifiCity/FBX/SM_Prop_MarketLights_01.fbx" id="24_7fxdy"]
 [ext_resource type="ArrayMesh" uid="uid://c71mrbmgse80r" path="res://PolygonScifiCity/FBX/SM_Prop_MarketTable_01.fbx" id="24_c87yt"]
 [ext_resource type="ArrayMesh" uid="uid://dhks10hre8rsq" path="res://PolygonScifiCity/FBX/SM_Prop_MarketTable_02.fbx" id="25_g4b2d"]
@@ -82,10 +81,6 @@
 [ext_resource type="ArrayMesh" uid="uid://b32t264q633n4" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_05.fbx" id="68_5ndol"]
 [ext_resource type="ArrayMesh" uid="uid://dmb8x3b6m2qqf" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Vent_01.fbx" id="69_jh5s5"]
 [ext_resource type="PackedScene" uid="uid://dqv27hgdfchu2" path="res://scenes/Space/ConsoleButton.tscn" id="70_hioj5"]
-[ext_resource type="AudioStream" path="res://assets/audio/spaceship/freesound_community-industrial-ambience-67112.mp3" id="120_ship_ambience"]
-[ext_resource type="AudioStream" path="res://assets/audio/spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" id="121_circuits_hum"]
-[ext_resource type="AudioStream" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="122_heavy_engine"]
-[ext_resource type="AudioStream" path="res://assets/audio/spaceship/spaceship-security-alert-433830.mp3" id="123_security_alert"]
 [ext_resource type="ArrayMesh" uid="uid://b2esgq5mn1kyk" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_01.fbx" id="72_khik5"]
 [ext_resource type="ArrayMesh" uid="uid://cum1d8qmjdwlk" path="res://PolygonScifiCity/Characters/SK_Character_Android_Female_01.fbx" id="73_uc6yn"]
 [ext_resource type="ArrayMesh" uid="uid://dln6u26hvrq56" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_02.fbx" id="74_5s2q1"]
@@ -128,7 +123,36 @@
 [ext_resource type="ArrayMesh" uid="uid://bdx723o2dsp7r" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01.res" id="114_jg7tg"]
 [ext_resource type="ArrayMesh" uid="uid://ck7irtisfphxr" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01_Lid.res" id="115_2fu8a"]
 [ext_resource type="ArrayMesh" uid="uid://c7sm5pc75rgww" path="res://PolygonTown/Models/Props/extracted/SM_Prop_Toilet_01_Seat.res" id="116_o8yfj"]
-[ext_resource type="ArrayMesh" uid="uid://prmjiktfw2kg" path="res://PolygonScifiCity/FBX/SM_Env_Ground_Tile_06.fbx" id="117_fw07l"]
+[ext_resource type="AudioStream" uid="uid://kmgc5qgqytum" path="res://assets/audio/spaceship/freesound_community-industrial-ambience-67112.mp3" id="120_ship_ambience"]
+[ext_resource type="AudioStream" uid="uid://bapufg1g0ohfg" path="res://assets/audio/spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" id="121_circuits_hum"]
+[ext_resource type="AudioStream" uid="uid://dt2pumb7gs2sv" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="122_heavy_engine"]
+[ext_resource type="AudioStream" uid="uid://d2d7t5jc51wuw" path="res://assets/audio/spaceship/spaceship-security-alert-433830.mp3" id="123_security_alert"]
+[ext_resource type="PackedScene" uid="uid://bajm8sj7vjvm5" path="res://scenes/NPCs/SpyCam.tscn" id="129_l5fvs"]
+[ext_resource type="PackedScene" uid="uid://bdkvum0fkikds" path="res://scenes/NPCs/Drone02.tscn" id="130_uy02l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_exterior_cutout"]
+render_priority = 0
+shader = ExtResource("5_floor_cutout")
+shader_parameter/albedo_texture = ExtResource("5_scifi_albedo")
+shader_parameter/metallic_roughness_texture = ExtResource("5_scifi_metallic")
+shader_parameter/normal_texture = ExtResource("5_scifi_normal")
+shader_parameter/emission_texture = ExtResource("5_scifi_emission")
+shader_parameter/use_normal = true
+shader_parameter/use_emission = true
+shader_parameter/emission_multiplier = 1.0
+shader_parameter/inner_radius = 5.25
+shader_parameter/outer_radius = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_interior_cutout"]
+render_priority = 0
+shader = ExtResource("5_floor_cutout")
+shader_parameter/albedo_texture = ExtResource("5_town_albedo")
+shader_parameter/metallic_roughness_texture = ExtResource("5_town_metallic")
+shader_parameter/use_normal = false
+shader_parameter/use_emission = false
+shader_parameter/emission_multiplier = 1.0
+shader_parameter/inner_radius = 5.25
+shader_parameter/outer_radius = 10.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_beam_volume"]
 render_priority = 0
@@ -143,27 +167,11 @@ bottom_radius = 50.05788
 height = 232.1731
 radial_segments = 32
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_exterior_cutout"]
-shader = ExtResource("5_floor_cutout")
-shader_parameter/albedo_texture = ExtResource("5_scifi_albedo")
-shader_parameter/metallic_roughness_texture = ExtResource("5_scifi_metallic")
-shader_parameter/normal_texture = ExtResource("5_scifi_normal")
-shader_parameter/emission_texture = ExtResource("5_scifi_emission")
-shader_parameter/use_normal = true
-shader_parameter/use_emission = true
-shader_parameter/emission_multiplier = 1.0
-shader_parameter/inner_radius = 5.25
-shader_parameter/outer_radius = 10.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_carry_field"]
+size = Vector3(116, 26.283594, 100)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_interior_cutout"]
-shader = ExtResource("5_floor_cutout")
-shader_parameter/albedo_texture = ExtResource("5_town_albedo")
-shader_parameter/metallic_roughness_texture = ExtResource("5_town_metallic")
-shader_parameter/use_normal = false
-shader_parameter/use_emission = false
-shader_parameter/emission_multiplier = 1.0
-shader_parameter/inner_radius = 5.25
-shader_parameter/outer_radius = 10.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_fall_guard"]
+size = Vector3(140, 4, 140)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_floor_glass"]
 render_priority = 1
@@ -183,9 +191,6 @@ rings = 1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_floor_glass_frame"]
 shading_mode = 0
 albedo_color = Color(0.1, 0.82, 0.78, 1)
-emission_enabled = true
-emission = Color(0.025, 0.62, 0.58, 1)
-emission_energy_multiplier = 1.7
 
 [sub_resource type="TorusMesh" id="TorusMesh_floor_glass_inner_frame"]
 material = SubResource("StandardMaterial_floor_glass_frame")
@@ -200,12 +205,6 @@ inner_radius = 9.92
 outer_radius = 10.08
 rings = 32
 ring_segments = 96
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_carry_field"]
-size = Vector3(116, 3.2, 100)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fall_guard"]
-size = Vector3(140, 4, 140)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3lysk"]
 size = Vector3(1.4457932, 1.9096752, 0.38443565)
@@ -424,9 +423,6 @@ height = 8.587891
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1mw1"]
 height = 8.587891
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0xnh4"]
-size = Vector3(4.9999943, 0.19538233, 5.0000057)
-
 [node name="AlienShip" type="Node3D" unique_id=1948300356 groups=["ufo_lighting"]]
 script = ExtResource("1_ship_script")
 
@@ -455,21 +451,21 @@ shape = ExtResource("6_emjsk")
 [node name="Interior" parent="." unique_id=842449527 instance=ExtResource("3_interior")]
 transform = Transform3D(1.76, 0, 0, 0, 1.76, 0, 0, 0, 1.76, 0, 0, 0)
 
-[node name="ShipAudio" type="Node" parent="."]
+[node name="ShipAudio" type="Node" parent="." unique_id=281891310]
 
-[node name="InteriorAmbience" type="AudioStreamPlayer" parent="ShipAudio"]
+[node name="InteriorAmbience" type="AudioStreamPlayer" parent="ShipAudio" unique_id=697613188]
 stream = ExtResource("120_ship_ambience")
 volume_db = -20.0
 
-[node name="MovementHum" type="AudioStreamPlayer" parent="ShipAudio"]
+[node name="MovementHum" type="AudioStreamPlayer" parent="ShipAudio" unique_id=1017479120]
 stream = ExtResource("121_circuits_hum")
 volume_db = -10.0
 
-[node name="HeavyEngine" type="AudioStreamPlayer" parent="ShipAudio"]
+[node name="HeavyEngine" type="AudioStreamPlayer" parent="ShipAudio" unique_id=1429102762]
 stream = ExtResource("122_heavy_engine")
 volume_db = -24.0
 
-[node name="SecurityAlert" type="AudioStreamPlayer" parent="ShipAudio"]
+[node name="SecurityAlert" type="AudioStreamPlayer" parent="ShipAudio" unique_id=132692853]
 stream = ExtResource("123_security_alert")
 volume_db = -13.0
 
@@ -524,11 +520,11 @@ mesh = SubResource("CylinderMesh_beam_volume")
 script = ExtResource("4_carry_script")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CarryField" unique_id=672980250]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.7417965, -15)
 shape = SubResource("BoxShape3D_carry_field")
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=941575460]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -8.108172)
 
 [node name="FallGuard" type="Area3D" parent="." unique_id=88007326]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
@@ -537,21 +533,21 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FallGuard" unique_id=1580194350]
 shape = SubResource("BoxShape3D_fall_guard")
 
-[node name="GlassFloorRing" type="Node3D" parent="."]
+[node name="GlassFloorRing" type="Node3D" parent="." unique_id=358487293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
 
-[node name="Glass" type="MeshInstance3D" parent="GlassFloorRing"]
+[node name="Glass" type="MeshInstance3D" parent="GlassFloorRing" unique_id=1229180868]
 layers = 512
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_floor_glass_ring")
 
-[node name="InnerFrame" type="MeshInstance3D" parent="GlassFloorRing"]
+[node name="InnerFrame" type="MeshInstance3D" parent="GlassFloorRing" unique_id=1532318386]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
 layers = 512
 cast_shadow = 0
 mesh = SubResource("TorusMesh_floor_glass_inner_frame")
 
-[node name="OuterFrame" type="MeshInstance3D" parent="GlassFloorRing"]
+[node name="OuterFrame" type="MeshInstance3D" parent="GlassFloorRing" unique_id=1965111802]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
 layers = 512
 cast_shadow = 0
@@ -824,7 +820,7 @@ mesh = ExtResource("27_nlryu")
 surface_material_override/0 = ExtResource("11_ximtu")
 
 [node name="SmBldPower04" type="MeshInstance3D" parent="Props" unique_id=1927545452]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.156389, 0.7833986, 4.0683618)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4799604, 0.7833986, 10.055445)
 layers = 512
 mesh = ExtResource("11_0pk4n")
 surface_material_override/0 = ExtResource("11_ximtu")
@@ -836,7 +832,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.722046e-06, 2.7309353, 0)
 shape = SubResource("CylinderShape3D_fw07l")
 
 [node name="SmBldPower05" type="MeshInstance3D" parent="Props" unique_id=87025489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.118165, 0.7833986, -4.4176483)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.005608, 0.7833986, -9.953)
 layers = 512
 mesh = ExtResource("11_0pk4n")
 surface_material_override/0 = ExtResource("11_ximtu")
@@ -1056,18 +1052,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8444996e-06, 0.10703954, 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/SmPropDisc01/StaticBody3D" unique_id=374882436]
 shape = SubResource("CylinderShape3D_alfmw")
-
-[node name="SmPropDrone01" type="MeshInstance3D" parent="Props" unique_id=1948692427]
-transform = Transform3D(-0.9927773, 0, 0.11997208, 0, 1, 0, -0.11997208, 0, -0.9927773, 0.8318753, 4.5470843, 5.7509823)
-layers = 512
-mesh = ExtResource("21_hdi1a")
-surface_material_override/0 = ExtResource("11_ximtu")
-
-[node name="SmPropDrone02" type="MeshInstance3D" parent="Props" unique_id=2144390635]
-transform = Transform3D(0.8089203, 0, 0.5879183, 0, 1, 0, -0.5879183, 0, 0.8089203, -3.494402, 3.89286, -5.2570553)
-layers = 512
-mesh = ExtResource("22_08geh")
-surface_material_override/0 = ExtResource("11_ximtu")
 
 [node name="SmPropFoodTray01" type="MeshInstance3D" parent="Props" unique_id=902676147]
 transform = Transform3D(0.20963684, 0, 0.9777793, 0, 1, 0, -0.9777793, 0, 0.20963684, -33.63459, 1.5551468, 19.69194)
@@ -1668,7 +1652,7 @@ mesh = ExtResource("116_o8yfj")
 surface_material_override/0 = ExtResource("4_l2t7y")
 
 [node name="ConsoleButton" parent="." unique_id=181004001 instance=ExtResource("70_hioj5")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.7703531, -5.207)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.7703531, -4.6690755)
 
 [node name="2ndFloor" type="MeshInstance3D" parent="." unique_id=1135981713]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.366285, 6.703)
@@ -1722,24 +1706,29 @@ omni_range = 21.607758
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.161102, 6.479477, 16.574814)
 omni_range = 21.607758
 
-[node name="ElevatorPlatform" type="Node3D" parent="." unique_id=1753345117]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.161102, 6.479477, 16.574814)
+[node name="Drone02" parent="." unique_id=289050439 instance=ExtResource("130_uy02l")]
+transform = Transform3D(-0.17843984, 0, 0.98395085, 0, 1, 0, -0.98395085, 0, -0.17843984, -0.63264704, 0.7833986, -43.460285)
 
-[node name="SmEnvGroundTile06" type="MeshInstance3D" parent="ElevatorPlatform" unique_id=2073132068]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.42306, -4.305976, -21.525757)
-mesh = ExtResource("117_fw07l")
-surface_material_override/0 = ExtResource("11_ximtu")
+[node name="Drone03" parent="." unique_id=944710883 instance=ExtResource("130_uy02l")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.38115597, 0.7833986, 11.362998)
+patrol_distance = 5.0
+patrol_speed = 2.5
+stop_duration = 1.2
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ElevatorPlatform/SmEnvGroundTile06" unique_id=2110733790]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4999933, 0.026437009, -2.4999857)
+[node name="Drone04" parent="." unique_id=1812198821 instance=ExtResource("130_uy02l")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.39772418, 0.78339815, -12.986923)
+patrol_distance = 7.0
+patrol_speed = 1.0
+stop_duration = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorPlatform/SmEnvGroundTile06/StaticBody3D" unique_id=176577127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07125425, 0)
-shape = SubResource("BoxShape3D_0xnh4")
+[node name="SmPropDrone02" parent="Drone04" index="0" unique_id=116077415]
+mesh = ExtResource("21_hdi1a")
 
-[node name="SmEnvGroundTile07" type="MeshInstance3D" parent="ElevatorPlatform" unique_id=265621010]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 41.42306, -4.305976, -21.525757)
-mesh = ExtResource("117_fw07l")
-surface_material_override/0 = ExtResource("11_ximtu")
+[node name="SpyCam" parent="." unique_id=1809257072 instance=ExtResource("129_l5fvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0.865, 19)
+pos1 = Vector3(32, 0, 19)
+pos2 = Vector3(-32, 0, 19)
+pos3 = Vector3(0, 0, -41)
 
 [editable path="Interior"]
+[editable path="Drone04"]

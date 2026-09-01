@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://eio1purionok"
-path="res://.godot/imported/SM_Prop_Sign_Bustop_02.fbx-8fa6ee5eeacab4734cf0de03829327c3.scn"
+path="res://.godot/imported/SM_Prop_Sign_Bustop_02.fbx-8fa6ee5eeacab4734cf0de03829327c3.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Prop_Sign_Bustop_02.fbx"
-dest_files=["res://.godot/imported/SM_Prop_Sign_Bustop_02.fbx-8fa6ee5eeacab4734cf0de03829327c3.scn"]
+dest_files=["res://.godot/imported/SM_Prop_Sign_Bustop_02.fbx-8fa6ee5eeacab4734cf0de03829327c3.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

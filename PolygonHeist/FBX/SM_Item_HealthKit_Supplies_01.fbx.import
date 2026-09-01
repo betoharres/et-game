@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://cpnt8u04hdv5j"
-path="res://.godot/imported/SM_Item_HealthKit_Supplies_01.fbx-ad44b907faf6b7c1bc019b4fc59f6623.scn"
+path="res://.godot/imported/SM_Item_HealthKit_Supplies_01.fbx-ad44b907faf6b7c1bc019b4fc59f6623.res"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/SM_Item_HealthKit_Supplies_01.fbx"
-dest_files=["res://.godot/imported/SM_Item_HealthKit_Supplies_01.fbx-ad44b907faf6b7c1bc019b4fc59f6623.scn"]
+dest_files=["res://.godot/imported/SM_Item_HealthKit_Supplies_01.fbx-ad44b907faf6b7c1bc019b4fc59f6623.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

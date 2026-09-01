@@ -21,7 +21,7 @@
 [ext_resource type="ArrayMesh" uid="uid://tki4n72w1lau" path="res://PolygonScifiCity/FBX/SM_Wep_DrumMag_01.fbx" id="21_1ktxf"]
 [ext_resource type="Material" uid="uid://bl57nqbiuesfo" path="res://Materiais/portal_material.tres" id="21_j1du8"]
 [ext_resource type="Material" uid="uid://crx5fgn36vnk2" path="res://Materiais/portal_obj_material.tres" id="22_pn348"]
-[ext_resource type="ArrayMesh" uid="uid://t21xndjyecpp" path="res://PolygonScifiCity/FBX/SM_Veh_Future_Cop_01.fbx" id="23_2fgu0"]
+[ext_resource type="PackedScene" uid="uid://t21xndjyecpp" path="res://PolygonScifiCity/FBX/SM_Veh_Future_Cop_01.fbx" id="23_2fgu0"]
 [ext_resource type="ArrayMesh" uid="uid://btva5ay4p2jhi" path="res://PolygonScifiCity/FBX/SM_Wep_Grenade_Ball_01.fbx" id="23_7c7ll"]
 [ext_resource type="ArrayMesh" uid="uid://bs73qeoufn52l" path="res://PolygonScifiCity/FBX/SM_Wep_Grenade_HE_01.fbx" id="24_0y5vf"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="24_cf3vh"]
@@ -251,9 +251,6 @@ data = PackedVector3Array(4, 0, 1, -4, 0, 1, 4, 0, -1, -4, 0, 1, -4, 0, -1, 4, 0
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fixpl"]
 data = PackedVector3Array(4, 0, 1, -4, 0, 1, 4, 0, -1, -4, 0, 1, -4, 0, -1, 4, 0, -1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6cr0w"]
-size = Vector3(2.7387462, 1.5684148, 5.1970296)
 
 [node name="MatTest" type="Node3D" unique_id=1259615411]
 
@@ -1212,18 +1209,6 @@ surface_material_override/0 = ExtResource("1_ue016")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingHolder/Roof7/StaticBody3D" unique_id=1623488523]
 shape = SubResource("ConcavePolygonShape3D_fixpl")
 
-[node name="SmVehFutureCop01" type="MeshInstance3D" parent="." unique_id=561583821]
-transform = Transform3D(0.037890974, 0, -0.9992819, 0, 1, 0, 0.9992819, 0, 0.037890974, 0.012572765, 0.022417951, -5.6735873)
-mesh = ExtResource("23_2fgu0")
-surface_material_override/0 = ExtResource("24_cf3vh")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SmVehFutureCop01" unique_id=1091180102]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001199007, 1.1005623, -0.07926607)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SmVehFutureCop01/StaticBody3D" unique_id=1571768904]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.33877283, 0.019413233)
-shape = SubResource("BoxShape3D_6cr0w")
-
 [node name="SmPropPad01" type="MeshInstance3D" parent="." unique_id=1680121263]
 transform = Transform3D(-3.258684e-07, 0, 12.89, 0, 12.89, 0, -7.455, 0, -5.634398e-07, -6.987307, 0.9861503, 5.7304845)
 mesh = ExtResource("26_6cr0w")
@@ -1353,3 +1338,17 @@ surface_material_override/0 = ExtResource("75_477ao")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.608065, 8.07275, 6.192178)
 mesh = ExtResource("77_iui2k")
 surface_material_override/0 = ExtResource("75_477ao")
+
+[node name="SM_Veh_Future_Cop_01" parent="." unique_id=1752821515 instance=ExtResource("23_2fgu0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2283622, 0.022417951, -5.953096)
+
+[node name="SM_Veh_Future_Cop_01" parent="SM_Veh_Future_Cop_01" index="0" unique_id=635311023]
+surface_material_override/0 = ExtResource("24_cf3vh")
+
+[node name="SM_Veh_Future_Cop_01SteeringW" parent="SM_Veh_Future_Cop_01/SM_Veh_Future_Cop_01" index="0" unique_id=182901591]
+surface_material_override/0 = ExtResource("24_cf3vh")
+
+[node name="SM_Veh_Future_Cop_01_Glass" parent="SM_Veh_Future_Cop_01/SM_Veh_Future_Cop_01" index="1" unique_id=2009741929]
+surface_material_override/0 = ExtResource("24_cf3vh")
+
+[editable path="SM_Veh_Future_Cop_01"]

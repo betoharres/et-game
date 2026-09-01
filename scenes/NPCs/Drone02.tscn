@@ -1,12 +1,24 @@
 [gd_scene format=3 uid="uid://bdkvum0fkikds"]
 
 [ext_resource type="ArrayMesh" uid="uid://kfxjncj3evet" path="res://PolygonScifiCity/FBX/SM_Prop_Drone_02.fbx" id="1_33ntx"]
+[ext_resource type="Script" uid="uid://cmwva4nur17s2" path="res://scripts/drone_02.gd" id="1_magm2"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_elf1t"]
 
-[node name="Drone02" type="Node3D" unique_id=1519805945]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_magm2"]
+radius = 0.29589844
+height = 1.3951635
+
+[node name="Drone02" type="RigidBody3D" unique_id=289050439]
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_magm2")
 
 [node name="SmPropDrone02" type="MeshInstance3D" parent="." unique_id=116077415]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 layers = 16
 mesh = ExtResource("1_33ntx")
 surface_material_override/0 = ExtResource("2_elf1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=268265030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.536743e-07, 2.1154065, 0.0010384321)
+shape = SubResource("CapsuleShape3D_magm2")

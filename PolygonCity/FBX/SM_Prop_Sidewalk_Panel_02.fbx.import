@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://htr4to7pl3pb"
-path="res://.godot/imported/SM_Prop_Sidewalk_Panel_02.fbx-e68e6cd3231b07cd2f396e3ac26791eb.scn"
+path="res://.godot/imported/SM_Prop_Sidewalk_Panel_02.fbx-e68e6cd3231b07cd2f396e3ac26791eb.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Prop_Sidewalk_Panel_02.fbx"
-dest_files=["res://.godot/imported/SM_Prop_Sidewalk_Panel_02.fbx-e68e6cd3231b07cd2f396e3ac26791eb.scn"]
+dest_files=["res://.godot/imported/SM_Prop_Sidewalk_Panel_02.fbx-e68e6cd3231b07cd2f396e3ac26791eb.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
