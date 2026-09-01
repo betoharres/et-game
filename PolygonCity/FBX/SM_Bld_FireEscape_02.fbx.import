@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://c5jdmskiavmt2"
-path="res://.godot/imported/SM_Bld_FireEscape_02.fbx-a3a322e42d4799ae52567db216fcc30b.scn"
+path="res://.godot/imported/SM_Bld_FireEscape_02.fbx-a3a322e42d4799ae52567db216fcc30b.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Bld_FireEscape_02.fbx"
-dest_files=["res://.godot/imported/SM_Bld_FireEscape_02.fbx-a3a322e42d4799ae52567db216fcc30b.scn"]
+dest_files=["res://.godot/imported/SM_Bld_FireEscape_02.fbx-a3a322e42d4799ae52567db216fcc30b.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

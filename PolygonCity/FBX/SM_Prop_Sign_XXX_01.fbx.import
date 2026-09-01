@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://bquktau4by8x6"
-path="res://.godot/imported/SM_Prop_Sign_XXX_01.fbx-2bee433d245dcf69c9e78209c97aa211.scn"
+path="res://.godot/imported/SM_Prop_Sign_XXX_01.fbx-2bee433d245dcf69c9e78209c97aa211.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Prop_Sign_XXX_01.fbx"
-dest_files=["res://.godot/imported/SM_Prop_Sign_XXX_01.fbx-2bee433d245dcf69c9e78209c97aa211.scn"]
+dest_files=["res://.godot/imported/SM_Prop_Sign_XXX_01.fbx-2bee433d245dcf69c9e78209c97aa211.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

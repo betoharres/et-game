@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://cxldy1k382y1c"
-path="res://.godot/imported/SM_Env_Fence_01.fbx-b9fc4c5070af38b595cf5284db50f111.scn"
+path="res://.godot/imported/SM_Env_Fence_01.fbx-b9fc4c5070af38b595cf5284db50f111.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Env_Fence_01.fbx"
-dest_files=["res://.godot/imported/SM_Env_Fence_01.fbx-b9fc4c5070af38b595cf5284db50f111.scn"]
+dest_files=["res://.godot/imported/SM_Env_Fence_01.fbx-b9fc4c5070af38b595cf5284db50f111.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

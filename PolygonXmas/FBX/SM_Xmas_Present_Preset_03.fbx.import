@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://bobqju73cxqcg"
-path="res://.godot/imported/SM_Xmas_Present_Preset_03.fbx-8d10caf57aef8db5a1ee2341b3f94622.scn"
+path="res://.godot/imported/SM_Xmas_Present_Preset_03.fbx-8d10caf57aef8db5a1ee2341b3f94622.res"
 
 [deps]
 
 source_file="res://PolygonXmas/FBX/SM_Xmas_Present_Preset_03.fbx"
-dest_files=["res://.godot/imported/SM_Xmas_Present_Preset_03.fbx-8d10caf57aef8db5a1ee2341b3f94622.scn"]
+dest_files=["res://.godot/imported/SM_Xmas_Present_Preset_03.fbx-8d10caf57aef8db5a1ee2341b3f94622.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://bely7jl1y1ahy"
-path="res://.godot/imported/SM_Xmas_Present_02_Stripped_Base.fbx-f80d4eed43634059de74748490523339.scn"
+path="res://.godot/imported/SM_Xmas_Present_02_Stripped_Base.fbx-f80d4eed43634059de74748490523339.res"
 
 [deps]
 
 source_file="res://PolygonXmas/FBX/SM_Xmas_Present_02_Stripped_Base.fbx"
-dest_files=["res://.godot/imported/SM_Xmas_Present_02_Stripped_Base.fbx-f80d4eed43634059de74748490523339.scn"]
+dest_files=["res://.godot/imported/SM_Xmas_Present_02_Stripped_Base.fbx-f80d4eed43634059de74748490523339.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

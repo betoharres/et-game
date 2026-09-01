@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://dsbvmih3gx73j"
-path="res://.godot/imported/SM_Bld_Apartment_Corner_02.fbx-e3a5c762464b895444d3d7622c1adaad.scn"
+path="res://.godot/imported/SM_Bld_Apartment_Corner_02.fbx-e3a5c762464b895444d3d7622c1adaad.res"
 
 [deps]
 
 source_file="res://PolygonCity/FBX/SM_Bld_Apartment_Corner_02.fbx"
-dest_files=["res://.godot/imported/SM_Bld_Apartment_Corner_02.fbx-e3a5c762464b895444d3d7622c1adaad.scn"]
+dest_files=["res://.godot/imported/SM_Bld_Apartment_Corner_02.fbx-e3a5c762464b895444d3d7622c1adaad.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

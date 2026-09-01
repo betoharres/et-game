@@ -14,28 +14,29 @@ parte da depuração.
 Checagem de parsing, importação e referências ausentes:
 
 ```powershell
-godot --headless --path . --editor --quit
+.\tools\godot.cmd --headless --path . --editor --quit
 ```
 
 Uma ferramenta de `tools/`:
 
 ```powershell
-godot --headless --path . --script res://tools/<tool>.gd
+.\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
 
 Omita `--headless` quando a checagem depender de rasterização de verdade —
 render, screenshot, culling — porque o driver dummy não desenha nada:
 
 ```powershell
-godot --path . --script res://tools/<tool>.gd --resolution 1280x720
+.\tools\godot.cmd --path . --script res://tools/<tool>.gd --resolution 1280x720
 ```
 
 **No Windows, use o executável terminado em `_console.exe`**: só ele manda
-`print()` para o stdout. Nesta máquina:
+`print()` para o stdout. O wrapper `tools/godot.cmd` procura, nesta ordem:
 
-```powershell
-& "C:\Godot_v4.7.1\Godot_v4.7.1-stable_win64_console.exe" --headless --path . --script res://tools/<tool>.gd
-```
+1. `..\Godot_v4.7.1-stable_mono_win64_console.exe` (caminho antigo);
+2. `C:\Godot_v4.7.1\Godot_v4.7.1-stable_win64_console.exe` (legado);
+3. `D:\Program Files\Godot\Godot_v4.8\Godot_v4.8-dev3_mono_win64_console.exe`;
+4. `godot` disponível no `PATH`.
 
 Não rode uma segunda instância do Godot enquanto o editor estiver aberto no
 mesmo projeto: as duas concorrem pelo cache em `.godot/`.
@@ -55,6 +56,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
+| Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
 
 `tools/build_mixamo_character.py` e `tools/render_prototype_icons.py` são

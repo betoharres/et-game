@@ -1,17 +1,23 @@
 [gd_scene format=3 uid="uid://bajm8sj7vjvm5"]
 
 [ext_resource type="ArrayMesh" uid="uid://yvjc2dslw8y1" path="res://PolygonScifiCity/FBX/SM_Prop_Drone_Ball_01.fbx" id="1_6ihq6"]
+[ext_resource type="Script" uid="uid://qld3osxmuj4a" path="res://scripts/spy_cam.gd" id="1_ln1n8"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_ex6oy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_emb0l"]
 radius = 0.2936849
 
 [node name="SpyCam" type="RigidBody3D" unique_id=1809257072]
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_ln1n8")
 
 [node name="SmPropDroneBall01" type="MeshInstance3D" parent="." unique_id=614860634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 layers = 16
 mesh = ExtResource("1_6ihq6")
 surface_material_override/0 = ExtResource("2_ex6oy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=252299684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("SphereShape3D_emb0l")

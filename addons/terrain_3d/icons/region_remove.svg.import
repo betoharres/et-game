@@ -18,6 +18,7 @@ dest_files=["res://.godot/imported/region_remove.svg-5710e8aeb34f1eaa06e637634f4
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

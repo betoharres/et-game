@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://k310pwwrd6up"
-path="res://.godot/imported/SM_Prop_Money_Note_06.fbx-e93f445b2bedf15b0269a973a1a31fa1.scn"
+path="res://.godot/imported/SM_Prop_Money_Note_06.fbx-e93f445b2bedf15b0269a973a1a31fa1.res"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/SM_Prop_Money_Note_06.fbx"
-dest_files=["res://.godot/imported/SM_Prop_Money_Note_06.fbx-e93f445b2bedf15b0269a973a1a31fa1.scn"]
+dest_files=["res://.godot/imported/SM_Prop_Money_Note_06.fbx-e93f445b2bedf15b0269a973a1a31fa1.res"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
