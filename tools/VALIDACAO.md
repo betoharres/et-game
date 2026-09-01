@@ -48,6 +48,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
 | Freada e pivô em reversões bruscas | `tools/test_player_reversal.gd` |
 | Ragdoll e recuperação | `tools/test_player_ragdoll.gd` |
+| Tripulante da nave caído no chão | `tools/test_ship_crew_downed.gd` |
 | Modos Deus e Voo | `tools/test_player_debug_modes.gd` |
 | Enquadramento e colisão da câmera | `tools/test_cinematic_camera.gd` |
 | Travessia, velocidade e recorte dos portais | `tools/test_portal_teleportation.gd` |

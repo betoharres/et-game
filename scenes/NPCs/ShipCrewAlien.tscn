@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/space/ship_crew_alien.gd" id="1_crew_script"]
+[ext_resource type="PackedScene" uid="uid://cqx20hhqxy8s0" path="res://animations/mixamo/ET_animated.glb" id="2_alien_model"]
+[ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="3_animation_script"]
+[ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="4_ragdoll_script"]
+[ext_resource type="Script" uid="uid://ble30vc8ite7l" path="res://scripts/ragdoll_recovery_modifier.gd" id="5_recovery_script"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crew"]
+radius = 0.1
+height = 1.0
+
+[node name="ShipCrewAlien" type="CharacterBody3D" groups=["ship_crew"]]
+script = ExtResource("1_crew_script")
+
+[node name="ET" parent="." instance=ExtResource("2_alien_model")]
+
+[node name="ET" parent="ET/ETArmature/Skeleton3D" index="0"]
+layers = 16
+
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" index="1"]
+script = ExtResource("5_recovery_script")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../ET")
+anim_player = NodePath("../ET/AnimationPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_crew")
+
+[node name="PlayerAnimationController" type="Node" parent="."]
+script = ExtResource("3_animation_script")
+
+[node name="PlayerRagdoll" type="Node" parent="."]
+script = ExtResource("4_ragdoll_script")
+
+[editable path="ET"]

@@ -150,6 +150,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14912415, 0.47468626, -0.1
 [node name="ElbowR" type="Marker3D" parent="IKtargetContainer" unique_id=1830083975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.149, 0.781, -0.442)
 
+[node name="CarrySocket" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0.5, 0.28)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1887678891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ec6vt")

@@ -23,6 +23,8 @@ const LOOPING_ANIMATIONS : PackedStringArray = [
 	"crouch_left",
 	"crouch_right",
 	"fall",
+	"carry_idle",
+	"carry_walk",
 ]
 
 const STATE_ANIMATIONS := {
@@ -56,6 +58,10 @@ const STATE_ANIMATIONS := {
 	"StumbleBack": "stumble_back",
 	"GetUpBack": "get_up_back",
 	"GetUpFront": "get_up_front",
+	"PickUpGround": "pick_up_ground",
+	"CarryIdle": "carry_idle",
+	"CarryWalk": "carry_walk",
+	"CarryTurn": "carry_turn",
 }
 
 const LOCOMOTION_STATES : PackedStringArray = [
@@ -70,6 +76,8 @@ const LOCOMOTION_STATES : PackedStringArray = [
 	"CrouchWalk",
 	"CrouchLeft",
 	"CrouchRight",
+	"CarryIdle",
+	"CarryWalk",
 ]
 
 const IDLE_VARIANT_STATES : PackedStringArray = [
@@ -115,6 +123,8 @@ var _get_up_face_up : bool = true
 var _get_up_front_position : float = 0.0
 var _get_up_animation_length : float = 0.0
 var _ragdoll_active : bool = false
+var _pose_held : bool = false
+var _carry_mode : bool = false
 var _horizontal_speed : float = 0.0
 var _local_velocity : Vector3 = Vector3.ZERO
 var _on_floor : bool = true
@@ -156,6 +166,14 @@ func set_motion_state(world_velocity : Vector3, on_floor : bool,
 
 func trigger_turn(turn_delta : float) -> void:
 	if _ragdoll_active or _get_up_active or absf(turn_delta) < 0.01:
+		return
+
+	if _carry_mode:
+		_trigger_action(
+			&"CarryTurn",
+			minf(_animation_length_for_state(&"CarryTurn"), 0.9),
+			false
+		)
 		return
 
 	var is_wide_turn : bool = absf(turn_delta) >= deg_to_rad(100.0)
@@ -279,12 +297,67 @@ func is_get_up_ready_for_control() -> bool:
 	)
 
 
+## Carregar outro ET ocupa os dois bracos. Nao ha strafe, agachamento nem
+## corrida autorados para esse modo, entao ele reduz a locomocao a parado e
+## andando enquanto estiver ativo.
+func set_carry_mode(active : bool) -> void:
+	if _carry_mode == active:
+		return
+
+	_carry_mode = active
+	_action_state = &""
+	_action_timer = 0.0
+	animation_player.speed_scale = 1.0
+	_reset_idle_variant_timer()
+
+
+func trigger_pick_up_ground() -> float:
+	if _ragdoll_active or _get_up_active:
+		return 0.0
+
+	var duration : float = _animation_length_for_state(&"PickUpGround")
+	_trigger_action(&"PickUpGround", duration, false)
+	return duration
+
+
+## Freezes the visual on a single authored frame. The state machine only
+## describes motion, so a static pose bypasses it the same way ragdoll does.
+func hold_pose(animation_name : StringName, position : float) -> void:
+	if not animation_player.has_animation(animation_name):
+		push_warning("Pose animation missing: %s" % animation_name)
+		return
+
+	_action_state = &""
+	_action_timer = 0.0
+	_get_up_active = false
+	_pose_held = true
+	animation_tree.active = false
+	# Um AnimationPlayer pausado escreve a pose uma unica vez e o esqueleto
+	# volta para o repouso. Mantendo a reproducao viva com escala zero o frame
+	# escolhido continua sendo aplicado a cada quadro.
+	animation_player.speed_scale = 0.0
+	animation_player.play(animation_name)
+	animation_player.seek(position, true)
+
+
+func release_pose() -> void:
+	if not _pose_held:
+		return
+
+	_pose_held = false
+	animation_player.speed_scale = 1.0
+	animation_player.stop()
+	animation_tree.active = true
+	_current_state = &""
+	_travel(&"Idle")
+
+
 func get_current_state() -> StringName:
 	return _current_state
 
 
 func _physics_process(delta : float) -> void:
-	if _ragdoll_active or _playback == null:
+	if _ragdoll_active or _pose_held or _playback == null:
 		return
 
 	if not _action_state.is_empty():
@@ -425,6 +498,10 @@ func _update_air_state() -> void:
 
 
 func _update_locomotion(delta : float) -> void:
+	if _carry_mode:
+		_update_carry_locomotion()
+		return
+
 	if _horizontal_speed <= idle_speed_threshold:
 		animation_player.speed_scale = 1.0
 		if _is_crouching:
@@ -494,6 +571,20 @@ func _update_locomotion(delta : float) -> void:
 		)
 
 	_travel(state)
+
+
+func _update_carry_locomotion() -> void:
+	if _horizontal_speed <= idle_speed_threshold:
+		animation_player.speed_scale = 1.0
+		_travel(&"CarryIdle")
+		return
+
+	animation_player.speed_scale = clampf(
+		_horizontal_speed / maxf(walk_reference_speed, 0.1),
+		0.75,
+		1.8
+	)
+	_travel(&"CarryWalk")
 
 
 func _trigger_action(state : StringName, duration : float,

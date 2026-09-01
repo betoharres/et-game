@@ -120,6 +120,7 @@ cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 | Correr | `Shift` (consome stamina; bloqueado no ar) |
 | Pular / agachar | `Espaço` / segure `C` |
 | Coletar ou largar item | `E` |
+| Pegar no colo ou soltar um ET caído | `E` |
 | Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E` |
 | Solicitar a abdução de um item na área de entrega | Segure `E` |
 | Luz dos olhos do ET | `F` |

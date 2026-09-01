@@ -48,6 +48,17 @@ CLIPS = {
     "hit_side": "Hit On Side Of Body.fbx",
     "get_up_back": "Getting Up.fbx",
     "get_up_front": "Standing Up.fbx",
+    "pick_up_ground": "Kneeling Down.fbx",
+    "carry_walk": "Carrying.fbx",
+    "carry_turn": "Carrying Turn.fbx",
+    "carried_idle": "Being Carried.fbx",
+    "carried_from_ground": "Being Carried_grabing_on_ground.fbx",
+}
+
+# No carrying idle was authored, so the runtime one is a single frame of the
+# carrying walk held still. Source clip name and the frame to sample.
+STATIC_CLIPS = {
+    "carry_idle": ("carry_walk", 0.0),
 }
 
 ROOT_YAW_REMOVED_ANIMATIONS = {
@@ -58,6 +69,7 @@ ROOT_YAW_REMOVED_ANIMATIONS = {
     "walk_turn_180",
     "run_turn_180",
     "run_turn_right",
+    "carry_turn",
 }
 
 
@@ -133,6 +145,20 @@ def remove_root_yaw(action: bpy.types.Action) -> None:
             point.handle_left.y = value
             point.handle_right.y = value
             point.interpolation = "LINEAR"
+
+
+def freeze_action(action: bpy.types.Action, frame: float) -> None:
+    """Flatten every curve onto one authored frame, leaving a still pose.
+
+    The keyframes are kept and only their values are rewritten: removing them
+    one by one reallocates the curve on each call and never finishes.
+    """
+    for curve in iter_action_fcurves(action):
+        value = curve.evaluate(frame)
+        for keyframe in curve.keyframe_points:
+            keyframe.co.y = value
+            keyframe.handle_left.y = value
+            keyframe.handle_right.y = value
 
 
 def import_fbx(path: pathlib.Path) -> list[bpy.types.Object]:
@@ -218,6 +244,19 @@ def main() -> None:
         if source_action.name in bpy.data.actions:
             bpy.data.actions.remove(source_action)
 
+    for animation_name, (source_name, frame) in STATIC_CLIPS.items():
+        source_action = bpy.data.actions.get(source_name)
+        if source_action is None:
+            raise RuntimeError(
+                f"Missing source action {source_name} for {animation_name}"
+            )
+        action = source_action.copy()
+        action.name = animation_name
+        action.use_fake_user = True
+        freeze_action(action, frame)
+        base_armature.animation_data.action = action
+        base_armature.animation_data.action = None
+
     allowed_objects = {base_armature, *meshes}
     for obj in list(bpy.data.objects):
         if obj not in allowed_objects:
@@ -248,7 +287,7 @@ def main() -> None:
         "BUILT|%s|bones=%d|animations=%d" % (
             OUTPUT_PATH,
             len(base_armature.data.bones),
-            len(CLIPS),
+            len(CLIPS) + len(STATIC_CLIPS),
         )
     )
 

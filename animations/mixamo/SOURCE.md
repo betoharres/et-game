@@ -52,6 +52,20 @@ for movement. Vertical motion authored in the jump and landing clips is kept.
 | `hit_side` | `Hit On Side Of Body.fbx` | Side hit reaction |
 | `get_up_back` | `Getting Up.fbx` | Get up from a face-up/back fall |
 | `get_up_front` | `Standing Up.fbx` | Get up from a face-down/front fall |
+| `pick_up_ground` | `Kneeling Down.fbx` | Crouch down and lift from the floor |
+| `carry_walk` | `Carrying.fbx` | Walking while carrying in both arms |
+| `carry_idle` | `Carrying.fbx` (frame 0, held) | Standing still while carrying |
+| `carry_turn` | `Carrying Turn.fbx` | Turning in place while carrying |
+| `carried_from_ground` | `Being Carried_grabing_on_ground.fbx` | Frame 0 only: the downed pose held on the ship floor |
+
+`carried_idle` (`Being Carried.fbx`) is still built into the GLB but nothing
+plays it: a carried ET is a ragdoll pinned to the carrier's `CarrySocket`, so
+the body hangs limp instead of running an authored clip.
+
+`carry_idle` has no clip of its own: the build script freezes the first
+frame of `carry_walk` into a short looping action, because no carrying idle
+was supplied. Replacing it later only takes adding the real FBX to `CLIPS`
+and dropping the entry from `STATIC_CLIPS`.
 
 The complete source inventory also contained the following seven cover/roll
 clips, which were inspected but deliberately not copied into the project
@@ -64,3 +78,7 @@ because no current Player state uses them:
 - `left cover sneak.fbx`
 - `right cover sneak.fbx`
 - `falling to roll.fbx`
+
+`Pick Fruit_ground.fbx` and `Pick Fruit_one_many_ground.fbx` are also present
+but unused: they read as picking a plant, so `Kneeling Down.fbx` drives the
+floor lift instead.

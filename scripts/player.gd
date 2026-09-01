@@ -99,6 +99,9 @@ enum ImpactReaction {
 @export_range(1.0, 30.0, 0.5) var flight_speed : float = 6.0
 @export_range(1.0, 100.0, 1.0) var flight_acceleration : float = 30.0
 
+@export_category("Carry")
+@export var carry_character_distance : float = 2.0
+
 @export_category("Eye Light")
 @export_range(0.0, 2.0, 0.05) var eye_light_energy : float = 1.8
 @export_range(0.5, 30.0, 0.1) var eye_light_range : float = 12.0
@@ -121,6 +124,7 @@ enum ImpactReaction {
 	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
 )
 @onready var energy_pool : EnergyPool = $EnergyPool
+@onready var carry_socket : Marker3D = $CarrySocket
 
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
@@ -171,6 +175,10 @@ var _debug_flight_enabled : bool = false
 
 # Items
 var carried_item : RigidBody3D = null
+
+# Carregar outro ET
+var carried_character : Node3D = null
+var _carry_pickup_timer : float = 0.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -306,8 +314,12 @@ func _input(event: InputEvent) -> void:
 	# Items
 	if event.is_action_pressed("interact"):
 		
-		if carried_item == null:
+		if carried_character != null:
+			release_carried_character()
+		elif carried_item == null:
 			if _is_delivery_interaction_reserved():
+				return
+			if try_carry_character():
 				return
 			try_pickup()
 		else:
@@ -323,6 +335,7 @@ func _physics_process(delta: float) -> void:
 	if not _debug_flight_enabled:
 		_update_gravity_frame(get_gravity())
 	_update_camera_target()
+	_update_carry_pickup(delta)
 
 	if _fall_state != FallState.NONE:
 		return
@@ -1119,6 +1132,8 @@ func _enter_ragdoll(impact_direction : Vector3, comic : bool,
 		if ik_target_container.has_method("set_carrying"):
 			ik_target_container.call("set_carrying", false)
 
+	release_carried_character()
+
 	animation_controller.set_ragdoll_active(true)
 	collision_shape.set_deferred("disabled", true)
 
@@ -1538,6 +1553,76 @@ func try_pickup() -> void:
 		closest_item.pickup(self)
 		if ik_target_container.has_method("set_carrying"):
 			ik_target_container.call("set_carrying", true)
+
+
+## O ET caido nao e um RigidBody3D do grupo `pickup_items`: e um personagem
+## proprio, com animacao dos dois lados, entao a busca fica separada e o
+## contrato dos itens continua intacto.
+func try_carry_character() -> bool:
+	if carried_character != null or carried_item != null:
+		return false
+
+	var closest_character : Node3D = null
+	var closest_distance : float = carry_character_distance
+
+	for candidate : Node in get_tree().get_nodes_in_group("carriable_characters"):
+		var body : Node3D = candidate as Node3D
+		if body == null or not body.has_method("begin_carried"):
+			continue
+		if not bool(body.call("is_carriable")):
+			continue
+
+		var distance : float = global_position.distance_to(body.global_position)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_character = body
+
+	if closest_character == null:
+		return false
+
+	var lift_duration : float = animation_controller.trigger_pick_up_ground()
+	if lift_duration <= 0.0:
+		return false
+
+	if not bool(closest_character.call("begin_carried", self, lift_duration)):
+		return false
+
+	carried_character = closest_character
+	_carry_pickup_timer = lift_duration
+	set_movement_locked(true)
+	return true
+
+
+func release_carried_character() -> void:
+	if carried_character == null:
+		return
+
+	carried_character.call("release")
+	carried_character = null
+	animation_controller.set_carry_mode(false)
+	if _carry_pickup_timer > 0.0:
+		# Interrompido no meio da subida -- por um ragdoll, por exemplo. O
+		# travamento existe so pela duracao dela e precisa sair junto.
+		_carry_pickup_timer = 0.0
+		set_movement_locked(false)
+
+
+## O ET carregado sobe sozinho -- o ragdoll dele acompanha o CarrySocket. Aqui
+## so se destrava o movimento e entra o modo de carregar quando a animacao de
+## agachar termina.
+func _update_carry_pickup(delta : float) -> void:
+	if _carry_pickup_timer <= 0.0:
+		return
+
+	_carry_pickup_timer = maxf(_carry_pickup_timer - delta, 0.0)
+	if _carry_pickup_timer > 0.0:
+		return
+
+	set_movement_locked(false)
+	if carried_character == null:
+		return
+
+	animation_controller.set_carry_mode(true)
 
 
 func _is_delivery_interaction_reserved() -> bool:

@@ -86,6 +86,7 @@
 [ext_resource type="AudioStream" path="res://assets/audio/spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" id="121_circuits_hum"]
 [ext_resource type="AudioStream" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="122_heavy_engine"]
 [ext_resource type="AudioStream" path="res://assets/audio/spaceship/spaceship-security-alert-433830.mp3" id="123_security_alert"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/ShipCrewAlien.tscn" id="124_crew_alien"]
 [ext_resource type="ArrayMesh" uid="uid://b2esgq5mn1kyk" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_01.fbx" id="72_khik5"]
 [ext_resource type="ArrayMesh" uid="uid://cum1d8qmjdwlk" path="res://PolygonScifiCity/Characters/SK_Character_Android_Female_01.fbx" id="73_uc6yn"]
 [ext_resource type="ArrayMesh" uid="uid://dln6u26hvrq56" path="res://PolygonScifiCity/Characters/SK_Character_Alien_Male_02.fbx" id="74_5s2q1"]
@@ -454,6 +455,20 @@ shape = ExtResource("6_emjsk")
 
 [node name="Interior" parent="." unique_id=842449527 instance=ExtResource("3_interior")]
 transform = Transform3D(1.76, 0, 0, 0, 1.76, 0, 0, 0, 1.76, 0, 0, 0)
+
+[node name="Crew" type="Node3D" parent="."]
+
+[node name="CrewAlienLeft" parent="Crew" instance=ExtResource("124_crew_alien")]
+position = Vector3(-12, 0.8, 0)
+
+[node name="CrewAlienRight" parent="Crew" instance=ExtResource("124_crew_alien")]
+position = Vector3(12, 0.8, 0)
+movement_mode = 1
+running = true
+
+[node name="CrewAlienDowned" parent="Crew" instance=ExtResource("124_crew_alien")]
+position = Vector3(-10, 0.8, 3)
+movement_mode = 2
 
 [node name="ShipAudio" type="Node" parent="."]
 
