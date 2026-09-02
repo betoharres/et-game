@@ -131,6 +131,7 @@
 [ext_resource type="PackedScene" uid="uid://bajm8sj7vjvm5" path="res://scenes/NPCs/SpyCam.tscn" id="129_l5fvs"]
 [ext_resource type="PackedScene" uid="uid://d1c716mk728b8" path="res://scenes/NPCs/RobotNPC.tscn" id="130_0njuh"]
 [ext_resource type="PackedScene" uid="uid://bdkvum0fkikds" path="res://scenes/NPCs/Drone02.tscn" id="130_uy02l"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/LivingLight.tscn" id="131_living_light"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ship_exterior_cutout"]
 render_priority = 0
@@ -1755,6 +1756,18 @@ pos3 = Vector3(0, 0, -41)
 [node name="GenericNPC" parent="." unique_id=1189888404 instance=ExtResource("130_0njuh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.961, 0, -50.188)
 navigation_region_path = NodePath("../NavigationRegion3D")
+
+[node name="LivingLight" parent="." instance=ExtResource("131_living_light")]
+position = Vector3(-1.4, 1.75, -48.2)
+navigation_region_path = NodePath("../NavigationRegion3D")
+
+[node name="LivingLightRestPoints" type="Node3D" parent="."]
+
+[node name="ConsoleRestPoint" type="Marker3D" parent="LivingLightRestPoints" groups=["living_light_rest_points"]]
+position = Vector3(3.0, 0.5, -45.0)
+
+[node name="WindowRestPoint" type="Marker3D" parent="LivingLightRestPoints" groups=["living_light_rest_points"]]
+position = Vector3(-3.0, 0.5, -50.5)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=76123588]
 navigation_mesh = SubResource("NavigationMesh_emb0l")

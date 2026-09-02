@@ -193,14 +193,24 @@ func trigger_moving_turn(is_running : bool) -> float:
 	if _ragdoll_active or _get_up_active:
 		return 0.0
 
-	var state : StringName = &"RunTurn180" if is_running else &"WalkTurn180"
+	# Com os bracos ocupados o unico giro autorado e o de carregar; nao ha
+	# versao correndo dele, entao o pivo carregando sempre usa o mesmo clipe.
+	var state : StringName = &"CarryTurn"
+	if not _carry_mode:
+		state = &"RunTurn180" if is_running else &"WalkTurn180"
+
 	var duration : float = _animation_length_for_state(state)
 	_trigger_action(state, duration, false)
 	return duration
 
 
 func cancel_moving_turn() -> void:
-	if _action_state not in [&"WalkTurn180", &"RunTurn180", &"RunTurnRight"]:
+	if _action_state not in [
+		&"WalkTurn180",
+		&"RunTurn180",
+		&"RunTurnRight",
+		&"CarryTurn",
+	]:
 		return
 	_action_state = &""
 	_action_timer = 0.0

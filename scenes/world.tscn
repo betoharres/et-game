@@ -177,6 +177,7 @@
 [ext_resource type="PackedScene" uid="uid://c1706107vicuy" path="res://scenes/Spaceship_Scraps3.tscn" id="189_0480k"]
 [ext_resource type="PackedScene" uid="uid://bhbub6jjfp0a7" path="res://scenes/Spaceship_Scraps4.tscn" id="190_t6th7"]
 [ext_resource type="PackedScene" uid="uid://dhba55x082ju" path="res://scenes/Spaceship_Scraps6.tscn" id="191_47d22"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/LivingLight.tscn" id="192_living_light"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
@@ -10301,6 +10302,21 @@ surface_material_override/4 = ExtResource("179_befh3")
 
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -64.25314, 0.1560452, -13.301771)
+
+[node name="LivingLightFarm" parent="." instance=ExtResource("192_living_light")]
+position = Vector3(-61.75314, 1.4060452, -11.801771)
+navigation_region_path = NodePath("../NavigationRegion3D")
+wander_radius = 9.0
+normal_speed = 2.6
+rest_chance = 0.05
+
+[node name="LivingLightFarmRestPoints" type="Node3D" parent="."]
+
+[node name="LandingRestPoint" type="Marker3D" parent="LivingLightFarmRestPoints" groups=["living_light_rest_points"]]
+position = Vector3(-66.75, 0.156, -10.8)
+
+[node name="FieldRestPoint" type="Marker3D" parent="LivingLightFarmRestPoints" groups=["living_light_rest_points"]]
+position = Vector3(-59.75, 0.156, -16.3)
 
 [node name="VisionDebugMap" parent="." unique_id=972011175 instance=ExtResource("99_vision_debug")]
 

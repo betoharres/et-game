@@ -49,17 +49,15 @@ CLIPS = {
     "get_up_back": "Getting Up.fbx",
     "get_up_front": "Standing Up.fbx",
     "pick_up_ground": "Kneeling Down.fbx",
-    "carry_walk": "Carrying.fbx",
+    "carry_idle": "Carrying.fbx",
+    "carry_walk": "Box Walk Arc.fbx",
     "carry_turn": "Carrying Turn.fbx",
     "carried_idle": "Being Carried.fbx",
     "carried_from_ground": "Being Carried_grabing_on_ground.fbx",
 }
 
-# No carrying idle was authored, so the runtime one is a single frame of the
-# carrying walk held still. Source clip name and the frame to sample.
-STATIC_CLIPS = {
-    "carry_idle": ("carry_walk", 0.0),
-}
+# Poses without an authored clip: source clip name and the frame to sample.
+STATIC_CLIPS = {}
 
 ROOT_YAW_REMOVED_ANIMATIONS = {
     "turn_left",
@@ -70,6 +68,7 @@ ROOT_YAW_REMOVED_ANIMATIONS = {
     "run_turn_180",
     "run_turn_right",
     "carry_turn",
+    "carry_walk",
 }
 
 

@@ -23,7 +23,8 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
 
 ## Tecnologias e ambiente
 
-- Godot `4.7` com GDScript e cenas `.tscn`.
+- Godot `4.8 dev4` com GDScript e cenas `.tscn`; essa versão é necessária para
+  o `Trail3D` nativo da luz viva.
 - Renderer `Forward Plus` com Direct3D 12 no Windows, em tela cheia com
   resolução-base `1920×1080`.
 - Física 3D com Jolt Physics.
@@ -56,9 +57,9 @@ Cenas de entrada:
 
 ## Executar
 
-Abra `project.godot` no Godot 4.7 ou 4.8 e pressione `F5`. Pelo PowerShell, use
-o wrapper do projeto, que procura a instalação antiga 4.7, a instalação 4.8 em
-`D:\Program Files\Godot\Godot_v4.8` e, por último, o Godot no `PATH`:
+Abra `project.godot` no Godot 4.8 dev4 ou mais novo e pressione `F5`. Pelo
+PowerShell, use o wrapper do projeto, que procura primeiro o dev4 em
+`C:\Godot_v4.8`, depois o dev4 Mono legado e, por último, o Godot no `PATH`:
 
 ```powershell
 .\tools\godot.cmd --path .            # rodar o jogo
@@ -199,6 +200,23 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   `NavigationRegion3D` indicada em `navigation_region_path`. NPCs filhos da
   nave acompanham-na pela hierarquia; `ship_passengers` reserva o transporte
   manual para corpos que estejam fora dessa hierarquia.
+- **Luz viva da nave e da fazenda:** `LivingLight.tscn` compartilha a região de
+  navegação do NPC genérico e alterna entre `WANDER`, `CURIOUS`, `SCARED` e
+  `REST`. O script
+  controla diretamente dois `Trail3D` nativos do Godot 4.8 dev4 — um externo,
+  largo, com gradiente âmbar-esverdeado, e um interno, fino e quase branco —,
+  ambos com o material de `shaders/living_light_trail.gdshader`, que refaz o
+  billboard do rastro e faz a energia correr por dentro dele. Completam o
+  visual um halo billboard aditivo, motes orbitando o núcleo e uma pulsação
+  irregular de vagalume; marcadores no
+  grupo `living_light_rest_points` servem como pontos de descanso. Na fazenda,
+  uma instância começa perto do ponto onde o jogador desce da nave. Ela foge
+  continuamente enquanto o jogador permanece no raio de percepção, sem ficar
+  limitada ao círculo de passeio, e nunca sobe mais que
+  `maximum_height_above_navigation` acima da superfície abaixo dela. Onde a
+  `NavigationRegion3D` não tem malha bakeada — hoje, a fazenda inteira — o
+  script ignora a navegação, mira o destino em linha e tira a altura de
+  referência de uma sonda de raycast para baixo, feita cinco vezes por segundo.
 - **Masmorra:** isolada das `NavigationRegion3D` da fazenda, não participa da
   navegação dos NPCs. O estado "já gerada" vive em memória no próprio nó e se
   perde ao recarregar a cena.
@@ -218,6 +236,7 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 | Névoa mais densa em um lugar | Instancie `scenes/FX/FogZone.tscn` e ajuste raio e força |
 | Interferência por nave, feixe ou evento | Exports de cada `AlienInterferenceSource` |
 | Cores alienígenas | Materiais e luzes de `AlienShip.tscn`, `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn` |
+| Movimento, personalidade, luz e rastro da luz viva | Exports de `LivingLight` em `scenes/Space/AlienShip.tscn` |
 
 A névoa tem duas escalas: uma manta rasteira de planos com shader, que segue a
 câmera, e o fog atmosférico do `Environment`, que fecha ao longe e esconde a
@@ -254,6 +273,15 @@ de tela; `set_quality_preset()` troca o preset em runtime. O grupo
   fina, e não há verificação de espaço livre ao levantar.
 - A masmorra não tem objetivo além dos destroços: sem inimigos, salas
   especiais nem variação vertical.
+- A malha de navegação interna da nave cobre hoje apenas a plataforma de
+  `9×9 m` junto ao NPC genérico; a luz viva fica limitada a essa área até a
+  região ser rebakeada para o restante do interior. A `NavigationRegion3D` da
+  fazenda existe mas nunca foi bakeada, então ali a luz viva voa por sonda de
+  chão, sem desvio de obstáculo pela navegação — só a colisão do corpo a segura.
+  No Godot 4.8 dev4,
+  `Trail3D.color` é empacotado como RGBA8 e não aceita HDR overbright; o brilho
+  forte vem do uniforme `energy` do shader do rastro, e um `StandardMaterial3D`
+  em modo unshaded ignora a emissão, então núcleo e halo pulsam via albedo HDR.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/`, do pacote
   `Polygon Prototype` e dos FBX Mixamo não estão confirmadas. Áudio, ícones e
   animações têm procedência registrada em `assets/audio/SOURCE.md`,

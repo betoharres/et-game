@@ -33,10 +33,9 @@ render, screenshot, culling — porque o driver dummy não desenha nada:
 **No Windows, use o executável terminado em `_console.exe`**: só ele manda
 `print()` para o stdout. O wrapper `tools/godot.cmd` procura, nesta ordem:
 
-1. `..\Godot_v4.7.1-stable_mono_win64_console.exe` (caminho antigo);
-2. `C:\Godot_v4.7.1\Godot_v4.7.1-stable_win64_console.exe` (legado);
-3. `D:\Program Files\Godot\Godot_v4.8\Godot_v4.8-dev3_mono_win64_console.exe`;
-4. `godot` disponível no `PATH`.
+1. `C:\Godot_v4.8\Godot_v4.8-dev4_win64_console.exe`;
+2. `D:\Program Files\Godot\Godot_v4.8\Godot_v4.8-dev4_mono_win64_console.exe`;
+3. `godot` disponível no `PATH`.
 
 Não rode uma segunda instância do Godot enquanto o editor estiver aberto no
 mesmo projeto: as duas concorrem pelo cache em `.godot/`.
