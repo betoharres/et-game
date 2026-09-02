@@ -34,6 +34,7 @@ enum MovementMode {
 @export_category("Downed")
 @export var downed_pose_animation : StringName = &"carried_from_ground"
 @export var downed_pose_time : float = 0.0
+@export var carried_pose_animation : StringName = &"carried_idle"
 @export var downed_collision_height : float = 0.12
 @export var release_forward_distance : float = 0.6
 @export var minimum_lift_duration : float = 0.35
@@ -47,7 +48,7 @@ enum MovementMode {
 	$PlayerAnimationController
 )
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
-@onready var ragdoll : PlayerRagdoll = $PlayerRagdoll
+@onready var skeleton : Skeleton3D = $ET/ETArmature/Skeleton3D
 
 var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 var _anchor_position : Vector3 = Vector3.ZERO
@@ -150,9 +151,11 @@ func is_carriable() -> bool:
 	return movement_mode == MovementMode.DOWNED and _carrier == null
 
 
-## Levantado do chao: o corpo vira ragdoll e fica mole. Nenhum clipe toca no
-## ET carregado -- so o quadril e preso ao soquete do carregador, e o resto do
-## corpo pendura pelos joints da simulacao.
+## Levantado do chao: o corpo roda o par autorado de "ser carregado" em vez de
+## simular fisica. Um ragdoll preso pelo quadril deixa o resto dos ossos para
+## tras -- as juntas continuam sendo resolvidas contra um corpo teleportado e a
+## Skeleton3D transforma esse erro em translacao de osso, ou seja, malha
+## esticada. Com a pose autorada os comprimentos ficam intactos.
 func begin_carried(carrier : Node3D, lift_duration : float) -> bool:
 	if not is_carriable() or carrier == null:
 		return false
@@ -167,50 +170,72 @@ func begin_carried(carrier : Node3D, lift_duration : float) -> bool:
 	remove_from_group(CARRIABLE_GROUP)
 	velocity = Vector3.ZERO
 	collision_shape.disabled = true
-	animation_controller.release_pose()
-	animation_controller.set_ragdoll_active(true)
-	ragdoll.start_ragdoll()
-	ragdoll.set_world_collision(false)
 	_lift_duration = maxf(lift_duration, minimum_lift_duration)
 	_lift_timer = _lift_duration
 	_lift_start = Transform3D(
 		global_transform.basis,
-		ragdoll.get_body_global_position()
+		global_transform * _hips_local_offset()
 	)
+	animation_controller.play_pose(downed_pose_animation, _lift_duration)
 	return true
 
 
-## A subida interpola do chao ate os bracos: prender o quadril de uma vez so
-## teleportaria o corpo para o colo no primeiro quadro.
+## A subida leva o quadril do chao ate o soquete no tempo da animacao do
+## carregador; prende-lo de uma vez so teleportaria o corpo para o colo no
+## primeiro quadro. A pose autorada cuida do resto do corpo.
 func _update_carried(delta : float) -> void:
-	if not is_instance_valid(_carry_socket):
+	if not is_instance_valid(_carry_socket) or not is_instance_valid(_carrier):
 		release()
 		return
 
-	var target : Transform3D = _carry_socket.global_transform.orthonormalized()
+	var carried : Transform3D = Transform3D(
+		_carrier.global_transform.basis.orthonormalized(),
+		_carry_socket.global_position
+	)
 	if _lift_timer > 0.0:
 		_lift_timer = maxf(_lift_timer - delta, 0.0)
 		var progress : float = 1.0 - _lift_timer / maxf(_lift_duration, 0.001)
-		target = _lift_start.interpolate_with(
-			target,
+		carried = _lift_start.interpolate_with(
+			carried,
 			smoothstep(0.0, 1.0, progress)
 		)
+		if _lift_timer <= 0.0:
+			animation_controller.play_pose(carried_pose_animation, 0.0, true)
 
-	ragdoll.pin_bone_to(PlayerRagdoll.ROOT_BONE, target)
+	# O soquete marca onde o quadril precisa ficar, e nao a raiz: a raiz vai
+	# para onde a pose atual coloca esse osso.
+	global_transform = Transform3D(
+		carried.basis,
+		carried.origin - carried.basis * _hips_local_offset()
+	)
+
+
+## Posicao do quadril no espaco do proprio corpo. A pose e autorada e continua
+## avancando durante a subida, entao o deslocamento muda a cada quadro.
+func _hips_local_offset() -> Vector3:
+	var bone : int = skeleton.find_bone(PlayerRagdoll.ROOT_BONE)
+	if bone < 0:
+		return Vector3.ZERO
+
+	return to_local(
+		skeleton.to_global(skeleton.get_bone_global_pose(bone).origin)
+	)
 
 
 func release() -> void:
 	if _carrier == null:
 		return
 
-	var carrier_transform : Transform3D = _carrier.global_transform
-	var drop_transform : Transform3D = carrier_transform
-	drop_transform.origin += (
-		carrier_transform.basis.z.normalized() * release_forward_distance
-	)
-	ragdoll.stop_ragdoll()
-	animation_controller.set_ragdoll_active(false)
-	global_transform = drop_transform.orthonormalized()
+	# Soltar depois que o carregador foi liberado ainda precisa devolver o
+	# tripulante ao chao; so o ponto de queda depende dele.
+	if is_instance_valid(_carrier):
+		var carrier_transform : Transform3D = _carrier.global_transform
+		var drop_transform : Transform3D = carrier_transform
+		drop_transform.origin += (
+			carrier_transform.basis.z.normalized() * release_forward_distance
+		)
+		global_transform = drop_transform.orthonormalized()
+
 	_carrier = null
 	_carry_socket = null
 	_lift_timer = 0.0

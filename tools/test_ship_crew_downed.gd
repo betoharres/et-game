@@ -10,6 +10,7 @@ const SETTLE_FRAMES : int = 12
 const MAXIMUM_HEIGHT_RATIO : float = 0.6
 const PICKUP_FRAME_LIMIT : int = 3000
 const MAXIMUM_SOCKET_DISTANCE : float = 0.25
+const MAXIMUM_BONE_STRETCH : float = 0.01
 
 enum Step {
 	SETTLE,
@@ -101,8 +102,9 @@ func _check_downed_pose() -> bool:
 	return false
 
 
-## O corpo carregado nao e reparentado nem animado: e um ragdoll cujo quadril
-## e preso ao CarrySocket, entao o que se mede e a distancia entre os dois.
+## O corpo carregado nao e reparentado: e a pose autorada de ser carregado, com
+## a raiz alinhada para o quadril cair no CarrySocket. Mede-se a distancia entre
+## os dois e o comprimento dos ossos, que denuncia qualquer membro esticado.
 func _check_lift_finished() -> bool:
 	if float(_player.get("_carry_pickup_timer")) > 0.0:
 		if _frames >= PICKUP_FRAME_LIMIT:
@@ -111,30 +113,34 @@ func _check_lift_finished() -> bool:
 			)
 		return false
 
-	var ragdoll : PlayerRagdoll = _downed.get_node("PlayerRagdoll")
-	if not ragdoll.is_active():
-		return _fail("o tripulante carregado nao virou ragdoll")
-
 	var socket : Node3D = _player.get_node_or_null("CarrySocket") as Node3D
 	if socket == null:
 		return _fail("o carregador nao tem CarrySocket")
 
-	var hips_body : Node3D = _downed.find_child(
-		"Physical_" + HIPS_BONE,
-		true,
-		false
-	) as Node3D
-	if hips_body == null:
-		return _fail("o osso fisico do quadril nao foi criado")
+	var skeleton : Skeleton3D = _find_skeleton(_downed)
+	if skeleton == null:
+		return _fail("o esqueleto do tripulante nao foi encontrado")
 
-	var distance : float = hips_body.global_position.distance_to(
-		socket.global_position
-	)
-	print("OK: mole no colo, quadril a %.3f m do CarrySocket" % distance)
+	var hips : int = skeleton.find_bone(HIPS_BONE)
+	if hips < 0:
+		return _fail("o osso do quadril nao foi encontrado")
+
+	var distance : float = skeleton.to_global(
+		skeleton.get_bone_global_pose(hips).origin
+	).distance_to(socket.global_position)
+	print("OK: no colo, quadril a %.3f m do CarrySocket" % distance)
 	if distance > MAXIMUM_SOCKET_DISTANCE:
 		return _fail(
 			"o quadril parou a %.3f m do soquete (limite %.3f m)"
 			% [distance, MAXIMUM_SOCKET_DISTANCE]
+		)
+
+	var stretch : float = _worst_bone_stretch(skeleton)
+	print("maior desvio de comprimento de osso: %.4f m" % stretch)
+	if stretch > MAXIMUM_BONE_STRETCH:
+		return _fail(
+			"a malha esticou: um osso desviou %.4f m do repouso (limite %.4f m)"
+			% [stretch, MAXIMUM_BONE_STRETCH]
 		)
 
 	_player.call("release_carried_character")
@@ -142,11 +148,25 @@ func _check_lift_finished() -> bool:
 	return false
 
 
-func _check_release() -> bool:
-	var ragdoll : PlayerRagdoll = _downed.get_node("PlayerRagdoll")
-	if ragdoll.is_active():
-		return _fail("o ragdoll continuou ativo depois de release()")
+## Um osso so gira: a distancia ate o pai e o comprimento do repouso. Qualquer
+## desvio significa que alguma coisa escreveu translacao no esqueleto -- e uma
+## malha esticada. So vale enquanto a pose vier do AnimationPlayer: um
+## SkeletonModifier3D ativo escreve depois desta leitura.
+func _worst_bone_stretch(skeleton : Skeleton3D) -> float:
+	var worst : float = 0.0
+	for bone : int in skeleton.get_bone_count():
+		if skeleton.get_bone_parent(bone) < 0:
+			continue
 
+		worst = maxf(worst, absf(
+			skeleton.get_bone_pose_position(bone).length()
+			- skeleton.get_bone_rest(bone).origin.length()
+		))
+
+	return worst
+
+
+func _check_release() -> bool:
 	if not _downed.is_in_group("carriable_characters"):
 		return _fail("o tripulante solto nao voltou a ser carregavel")
 

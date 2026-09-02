@@ -232,35 +232,6 @@ func apply_carry(carry_transform : Transform3D) -> void:
 		physical_bone.angular_velocity = carry_basis * physical_bone.angular_velocity
 
 
-## Prende um osso da simulacao a um transform de mundo. E o que segura um ET
-## mole no colo: o quadril acompanha os bracos do carregador a cada quadro e o
-## resto do corpo continua pendurado pelos joints, sem clipe nenhum.
-func pin_bone_to(bone_name : String, target : Transform3D) -> void:
-	if not _active:
-		return
-
-	var physical_bone : PhysicalBone3D = _physical_bones.get(bone_name)
-	if not is_instance_valid(physical_bone):
-		return
-
-	physical_bone.global_transform = target.orthonormalized()
-	# Sem zerar as velocidades a gravidade acumula entre os quadros e o corpo
-	# passa a tremer contra o ponto preso.
-	physical_bone.linear_velocity = Vector3.ZERO
-	physical_bone.angular_velocity = Vector3.ZERO
-
-
-## Um ragdoll carregado no colo nao deve empurrar nem enganchar no cenario:
-## enquanto estiver preso as capsulas ficam apenas como volume visual.
-func set_world_collision(enabled : bool) -> void:
-	for bone_name : String in _physical_bones:
-		var physical_bone : PhysicalBone3D = _physical_bones[bone_name]
-		if not is_instance_valid(physical_bone):
-			continue
-
-		physical_bone.collision_mask = 1 if enabled else 0
-
-
 func is_recovering() -> bool:
 	return _recovering
 

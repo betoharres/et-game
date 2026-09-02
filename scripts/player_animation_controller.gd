@@ -340,6 +340,35 @@ func hold_pose(animation_name : StringName, position : float) -> void:
 	animation_player.seek(position, true)
 
 
+## Roda uma animacao autorada fora da state machine -- o par de "ser carregado"
+## e o caso atual. Diferente de hold_pose(), que congela um quadro, aqui a
+## animacao avanca; `duration` maior que zero ajusta a velocidade para casar
+## com a acao do carregador.
+func play_pose(animation_name : StringName, duration : float = 0.0,
+	loop : bool = false) -> void:
+	if not animation_player.has_animation(animation_name):
+		push_warning("Pose animation missing: %s" % animation_name)
+		return
+
+	_action_state = &""
+	_action_timer = 0.0
+	_get_up_active = false
+	_pose_held = true
+	animation_tree.active = false
+
+	var animation : Animation = animation_player.get_animation(animation_name)
+	animation.loop_mode = (
+		Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
+	)
+	animation_player.speed_scale = (
+		animation.length / duration
+		if duration > 0.0 and animation.length > 0.0
+		else 1.0
+	)
+	animation_player.play(animation_name)
+	animation_player.seek(0.0, true)
+
+
 func release_pose() -> void:
 	if not _pose_held:
 		return
