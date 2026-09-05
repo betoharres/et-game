@@ -61,15 +61,15 @@ var aim_progress : float = 0.0
 var consecutive_hits : int = 0
 
 @onready var gunshot_audio : Node = (
-	$IKcontainer/HandR/Shotgun/Muzzle/GunshotAudio
+	$IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/GunshotAudio
 )
 @onready var muzzle_flash : Node3D = (
-	$IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash
+	$IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/MuzzleFlash
 )
 @onready var muzzle_flash_timer : Timer = (
-	$IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlashTimer
+	$IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/MuzzleFlashTimer
 )
-@onready var muzzle : Node3D = $IKcontainer/HandR/Shotgun/Muzzle
+@onready var muzzle : Node3D = $IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle
 
 # IK anims
 @onready var target_marker : Marker3D = $IKcontainer/HeadTarget

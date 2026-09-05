@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dcnt7u4mqrfr"]
 
-[ext_resource type="ArrayMesh" uid="uid://dg8edtdp1dgjy" path="res://3dModelos/SM_Prop_ToolBox_01.fbx" id="1_bkbr5"]
 [ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_ihycg"]
+[ext_resource type="ArrayMesh" uid="uid://bg8kfbix0dg7r" path="res://PolygonFarm/Models/SM_Prop_ToolBox_01.fbx" id="2_27oar"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_ihycg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o1xo7"]
@@ -14,7 +14,7 @@ script = ExtResource("1_ihycg")
 
 [node name="SmPropToolBox01" type="MeshInstance3D" parent="." unique_id=1256562036]
 layers = 64
-mesh = ExtResource("1_bkbr5")
+mesh = ExtResource("2_27oar")
 surface_material_override/0 = ExtResource("2_ihycg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=247941762]
