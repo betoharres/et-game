@@ -105,16 +105,14 @@ func _on_play_pressed() -> void:
 	if transition_started:
 		return
 	transition_started = true
-	menu_atmosphere.begin_launch()
 	_play_click()
 	var photo_alert_system : Node = get_node_or_null("/root/PhotoAlertSystem")
 	if photo_alert_system != null:
 		photo_alert_system.reset()
-	_play_launch_charge()
 	var music_tween : Tween = create_tween()
 	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.45)
 	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.abduction_warp_to("res://scenes/Space/Orbit.tscn")
+	scene_transition.warp_to("res://scenes/Menu/CharacterCreator.tscn")
 
 func _on_options_pressed() -> void:
 	_play_click()

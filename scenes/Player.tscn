@@ -13,6 +13,7 @@
 [ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
 [ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://PolygonTown/Models/Vehicles/extracted/default.material" id="10_o4126"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
+[ext_resource type="Script" path="res://scripts/character_proportions.gd" id="12_proportions"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_p7iby"]
 material = ExtResource("5_lkdrv")
@@ -55,7 +56,10 @@ visible = false
 layers = 256
 mesh = SubResource("BoxMesh_p7iby")
 
-[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="1" unique_id=420108015]
+[node name="CharacterProportions" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="1"]
+script = ExtResource("12_proportions")
+
+[node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="2" unique_id=420108015]
 influence = 0.242
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Head"
@@ -68,7 +72,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.5707964
 secondary_damp_threshold = 1.0
 
-[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="2" unique_id=460716206]
+[node name="Torso" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="3" unique_id=460716206]
 influence = 0.2
 target_node = NodePath("../../../../CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D/Camera3D/HeadTarget")
 bone_name = "mixamorig_Spine2"
@@ -81,7 +85,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="3" unique_id=1183812581]
+[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="4" unique_id=1183812581]
 influence = 0.0
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
@@ -96,7 +100,7 @@ settings/0/end_bone = 36
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="4" unique_id=276298268]
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="5" unique_id=276298268]
 bone_name = "mixamorig_Head"
 bone_idx = 31
 
@@ -112,7 +116,7 @@ spot_range = 12.0
 spot_attenuation = 0.9
 spot_angle = 32.0
 
-[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="5" unique_id=197484809]
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="6" unique_id=197484809]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

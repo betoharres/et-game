@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+CharacterAppearance="*res://scripts/character_appearance.gd"
 GlobalScore="*res://scripts/GlobalScore.gd"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
 SceneTransition="*res://scripts/scene_transition.gd"

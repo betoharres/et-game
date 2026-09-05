@@ -10,6 +10,7 @@
 [ext_resource type="ArrayMesh" uid="uid://7j17vs7kcg6o" path="res://3dModelos/SM_Veh_Pickup_Wheel_rl.fbx" id="5_jdtfx"]
 [ext_resource type="ArrayMesh" uid="uid://44sig4r5st58" path="res://3dModelos/SM_Veh_Pickup_Wheel_fr.fbx" id="6_6y0hr"]
 [ext_resource type="ArrayMesh" uid="uid://bjke8inefi147" path="res://3dModelos/SM_Veh_Pickup_Steering_Wheel.fbx" id="9_dsrke"]
+[ext_resource type="Script" path="res://scripts/character_proportions.gd" id="10_proportions"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(2.125, 1.518, 5.4646444)
@@ -161,7 +162,11 @@ bones/24/rotation = Quaternion(0.058856, 0.124827, 0.199967, 0.998981)
 bones/28/rotation = Quaternion(-1.527082, 1.26, 0.945, 1.111991)
 bones/29/rotation = Quaternion(0.043856, 0.030173, -0.164967, 0.998981)
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="0" unique_id=1029484437]
+[node name="CharacterProportions" type="SkeletonModifier3D" parent="ET2/Armature/Skeleton3D" index="0"]
+script = ExtResource("10_proportions")
+keep_feet_grounded = false
+
+[node name="HandR" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="1" unique_id=1029484437]
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKContainer/SteeringWheelPivot/SteeringWheel/HandR")
 settings/0/pole_node = NodePath("../../../../IKContainer/ElbowR")
@@ -175,7 +180,7 @@ settings/0/end_bone = 17
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="HandL" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="1" unique_id=1769389730]
+[node name="HandL" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1769389730]
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKContainer/SteeringWheelPivot/SteeringWheel/HandL")
 settings/0/pole_node = NodePath("../../../../IKContainer/ElbowL")
@@ -189,7 +194,7 @@ settings/0/end_bone = 9
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="ET" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1189663179]
+[node name="ET" parent="ET2/Armature/Skeleton3D" index="3" unique_id=1189663179]
 layers = 256
 mesh = SubResource("ArrayMesh_oub4l")
 

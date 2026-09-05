@@ -15,6 +15,8 @@ const FLOOR_PROBE_DEPTH : float = 4.0
 const WALL_NORMAL_LIMIT : float = 0.7
 const NEW_CONTACT_NORMAL_LIMIT : float = 0.7
 const MIN_FALL_TIME_SCALE : float = 0.5
+const BASE_CAMERA_PIVOT_HEIGHT : float = 1.08
+const BASE_CARRY_SOCKET_HEIGHT : float = 0.5
 
 enum JumpState {
 	READY,
@@ -115,6 +117,9 @@ enum ImpactReaction {
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
 @onready var character_visual : Node3D = $ET
 @onready var character_mesh : MeshInstance3D = $ET/ETArmature/Skeleton3D/ET
+@onready var character_proportions : SkeletonModifier3D = (
+	$ET/ETArmature/Skeleton3D/CharacterProportions
+)
 @onready var ragdoll : PlayerRagdoll = $PlayerRagdoll
 @onready var ik_target_container : Node = $IKtargetContainer
 @onready var animation_controller : PlayerAnimationController = (
@@ -144,7 +149,7 @@ var _concealment_sources : Dictionary = {}
 var _vision_contacts : Dictionary = {}
 var _eye_light_enabled : bool = false
 var _eye_light_tween : Tween
-var _eye_material : StandardMaterial3D
+var _eye_material : Material
 var _movement_locked : bool = false
 var _look_yaw_limit : float = 0.0
 var _look_center_yaw : float = 0.0
@@ -172,6 +177,7 @@ var _stand_up_elapsed : float = 0.0
 var _is_dead : bool = false
 var _debug_god_mode_enabled : bool = false
 var _debug_flight_enabled : bool = false
+var _appearance_height_scale : float = 1.0
 
 # Items
 var carried_item : RigidBody3D = null
@@ -202,6 +208,7 @@ func _ready() -> void:
 
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
+	_apply_appearance_dimensions()
 
 	energy_pool.energy_changed.connect(_on_energy_changed)
 	energy_pool.depleted.connect(_on_energy_depleted)
@@ -212,6 +219,59 @@ func _ready() -> void:
 		energy_pool.get_energy(),
 		energy_pool.get_max_energy()
 	)
+
+
+func get_appearance_profile() -> Dictionary:
+	if character_proportions.has_method("get_profile"):
+		return character_proportions.call("get_profile") as Dictionary
+	return {}
+
+
+func get_appearance_replication_payload() -> Dictionary:
+	var appearance : Node = get_node_or_null("/root/CharacterAppearance")
+	if appearance != null and appearance.has_method("make_replication_payload"):
+		return appearance.call(
+			"make_replication_payload",
+			get_appearance_profile()
+		) as Dictionary
+	return {"version": 1, "features": get_appearance_profile()}
+
+
+## Entry point for a future multiplayer authority. The transport only needs to
+## relay this small normalized dictionary; models and animation state stay local.
+@rpc("authority", "call_local", "reliable")
+func sync_appearance(payload : Dictionary) -> void:
+	var profile : Dictionary = payload
+	var appearance : Node = get_node_or_null("/root/CharacterAppearance")
+	if appearance != null and appearance.has_method("profile_from_replication_payload"):
+		profile = appearance.call(
+			"profile_from_replication_payload",
+			payload
+		) as Dictionary
+	apply_appearance_profile(profile)
+
+
+func apply_appearance_profile(profile : Dictionary) -> void:
+	if character_proportions.has_method("set_profile"):
+		character_proportions.call("set_profile", profile, false)
+	_apply_appearance_dimensions()
+	_standing_visual_position = character_visual.position
+
+
+func _apply_appearance_dimensions() -> void:
+	_appearance_height_scale = 1.0
+	if character_proportions.has_method("get_collision_height_factor"):
+		_appearance_height_scale = float(
+			character_proportions.call("get_collision_height_factor")
+		)
+
+	var capsule : CapsuleShape3D = collision_shape.shape as CapsuleShape3D
+	if capsule != null:
+		capsule.height = STANDING_COLLISION_HEIGHT * _appearance_height_scale
+		collision_shape.position.y = capsule.height * 0.5
+	camera_pivot.pivot_height = BASE_CAMERA_PIVOT_HEIGHT * _appearance_height_scale
+	carry_socket.position.y = BASE_CARRY_SOCKET_HEIGHT * _appearance_height_scale
+
 
 func set_movement_locked(locked : bool, yaw_limit_degrees : float = 0.0) -> void:
 	_movement_locked = locked
@@ -430,7 +490,7 @@ func _update_camera_target() -> void:
 		global_position,
 		camera_yaw,
 		camera_pitch,
-		crouch_camera_drop * _crouch_amount,
+		crouch_camera_drop * _appearance_height_scale * _crouch_amount,
 		horizontal_speed,
 		is_on_floor(),
 		false,
@@ -951,8 +1011,8 @@ func set_debug_flight_enabled(enabled : bool) -> void:
 		_crouch_amount = 0.0
 		var capsule : CapsuleShape3D = collision_shape.shape as CapsuleShape3D
 		if capsule != null:
-			capsule.height = STANDING_COLLISION_HEIGHT
-			collision_shape.position.y = STANDING_COLLISION_HEIGHT * 0.5
+			capsule.height = STANDING_COLLISION_HEIGHT * _appearance_height_scale
+			collision_shape.position.y = capsule.height * 0.5
 
 
 func is_debug_flight_enabled() -> bool:
@@ -997,10 +1057,11 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 
 	if immediate:
 		eye_area_light.light_energy = target_energy
-		if _eye_material != null:
-			_eye_material.albedo_color = target_albedo
-			_eye_material.emission = target_emission
-			_eye_material.emission_energy_multiplier = target_emission_energy
+		_set_eye_material_light(
+			target_albedo,
+			target_emission,
+			target_emission_energy
+		)
 		return
 
 	_eye_light_tween = create_tween()
@@ -1013,7 +1074,7 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 		target_energy,
 		duration
 	)
-	if _eye_material != null:
+	if _eye_material is StandardMaterial3D:
 		_eye_light_tween.tween_property(
 			_eye_material,
 			"albedo_color",
@@ -1032,6 +1093,25 @@ func set_eye_light_enabled(enabled : bool, immediate : bool = false) -> void:
 			target_emission_energy,
 			duration
 		)
+	elif _eye_material is ShaderMaterial:
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"shader_parameter/eye_albedo",
+			target_albedo,
+			duration
+		)
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"shader_parameter/eye_emission",
+			target_emission,
+			duration
+		)
+		_eye_light_tween.tween_property(
+			_eye_material,
+			"shader_parameter/eye_emission_energy",
+			target_emission_energy,
+			duration
+		)
 
 
 func is_eye_light_enabled() -> bool:
@@ -1040,13 +1120,30 @@ func is_eye_light_enabled() -> bool:
 
 func _setup_eye_light() -> void:
 	eye_area_light.spot_range = eye_light_range
-	var source_material : StandardMaterial3D = character_mesh.get_active_material(1)
+	var source_material : Material = character_mesh.get_active_material(1)
 	if source_material is StandardMaterial3D:
 		_eye_material = source_material.duplicate() as StandardMaterial3D
 		_eye_material.resource_local_to_scene = true
-		_eye_material.emission_enabled = true
+		var standard_material : StandardMaterial3D = _eye_material as StandardMaterial3D
+		standard_material.emission_enabled = true
 		character_mesh.set_surface_override_material(1, _eye_material)
+	elif source_material is ShaderMaterial:
+		_eye_material = source_material
 	set_eye_light_enabled(false, true)
+
+
+func _set_eye_material_light(albedo : Color, emission : Color,
+	emission_energy : float) -> void:
+	if _eye_material is StandardMaterial3D:
+		var standard_material : StandardMaterial3D = _eye_material as StandardMaterial3D
+		standard_material.albedo_color = albedo
+		standard_material.emission = emission
+		standard_material.emission_energy_multiplier = emission_energy
+	elif _eye_material is ShaderMaterial:
+		var shader_material : ShaderMaterial = _eye_material as ShaderMaterial
+		shader_material.set_shader_parameter("eye_albedo", albedo)
+		shader_material.set_shader_parameter("eye_emission", emission)
+		shader_material.set_shader_parameter("eye_emission_energy", emission_energy)
 
 
 func set_vision_contact(source : Node, is_visible2 : bool) -> void:
@@ -1497,8 +1594,8 @@ func _update_crouch_state(delta : float) -> void:
 
 	if capsule != null:
 		capsule.height = lerpf(
-			STANDING_COLLISION_HEIGHT,
-			CROUCHING_COLLISION_HEIGHT,
+			STANDING_COLLISION_HEIGHT * _appearance_height_scale,
+			CROUCHING_COLLISION_HEIGHT * _appearance_height_scale,
 			_crouch_amount
 		)
 		collision_shape.position.y = capsule.height * 0.5
@@ -1510,13 +1607,13 @@ func _can_stand() -> bool:
 		return true
 
 	var standing_shape : CapsuleShape3D = capsule.duplicate() as CapsuleShape3D
-	standing_shape.height = STANDING_COLLISION_HEIGHT
+	standing_shape.height = STANDING_COLLISION_HEIGHT * _appearance_height_scale
 
 	var query : PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 	query.shape = standing_shape
 	query.transform = Transform3D(
 		global_basis,
-		global_position + up_direction * (STANDING_COLLISION_HEIGHT * 0.5)
+		global_position + up_direction * (standing_shape.height * 0.5)
 	)
 	query.collision_mask = collision_mask
 	query.exclude = [get_rid()]

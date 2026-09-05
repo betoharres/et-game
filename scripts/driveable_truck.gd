@@ -58,6 +58,9 @@ var first_person_camera : bool = false
 
 # Driver ET reference
 @onready var ET_driver : Node3D = $ET2
+@onready var driver_proportions : SkeletonModifier3D = (
+	$ET2/Armature/Skeleton3D/CharacterProportions
+)
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -281,6 +284,12 @@ func try_enter_vehicle() -> void:
 func enter_vehicle(player : CharacterBody3D) -> void:
 	current_player = player
 	vehicle_controlled = true
+	if player.has_method("get_appearance_profile"):
+		driver_proportions.call(
+			"set_profile",
+			player.call("get_appearance_profile") as Dictionary,
+			false
+		)
 
 	player.set_physics_process(false)
 	player.set_process_input(false)

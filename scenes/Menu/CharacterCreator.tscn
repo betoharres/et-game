@@ -1,0 +1,388 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_creator"]
+[ext_resource type="PackedScene" path="res://animations/mixamo/ET_animated.glb" id="2_et"]
+[ext_resource type="Script" path="res://scripts/character_proportions.gd" id="3_proportions"]
+[ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-Regular.ttf" id="4_font"]
+[ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-Bold.ttf" id="5_bold"]
+[ext_resource type="AudioStream" path="res://assets/menu/menu_music.mp3" id="6_music"]
+[ext_resource type="AudioStream" path="res://assets/menu/blip_click_menu.mp3" id="7_click"]
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.006, 0.012, 0.035, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.24, 0.42, 0.64, 1)
+ambient_light_energy = 0.72
+reflected_light_source = 2
+tonemap_mode = 3
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.035, 0.11, 0.17, 1)
+metallic = 0.55
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="Mesh_floor"]
+material = SubResource("Material_floor")
+top_radius = 0.66
+bottom_radius = 0.78
+height = 0.08
+radial_segments = 64
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.025, 0.045, 0.095, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.15, 0.52, 0.68, 0.72)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.48)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="Style_preview"]
+bg_color = Color(0.004, 0.01, 0.027, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12, 0.66, 0.82, 0.7)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="Style_button"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.055, 0.10, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.58, 0.73, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="Style_button_hover"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.08, 0.48, 0.62, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.96, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="Style_confirm"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
+bg_color = Color(0.07, 0.62, 0.66, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.66, 1, 0.94, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="Theme" id="Theme_creator"]
+default_font = ExtResource("4_font")
+default_font_size = 18
+Button/colors/font_color = Color(0.82, 0.95, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 17
+Button/styles/normal = SubResource("Style_button")
+Button/styles/hover = SubResource("Style_button_hover")
+Button/styles/pressed = SubResource("Style_button_hover")
+Button/styles/focus = SubResource("Style_button_hover")
+HSlider/colors/grabber_area = Color(0.08, 0.72, 0.8, 1)
+HSlider/colors/grabber_area_highlight = Color(0.3, 0.96, 1, 1)
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_creator")
+script = ExtResource("1_creator")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.009, 0.028, 1)
+
+[node name="GlowLeft" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 0.48
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.13, 0.2, 0.46)
+
+[node name="Margin" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = 38.0
+offset_right = -56.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="VBoxContainer" parent="Background/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="VBoxContainer" parent="Background/Margin/Main"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Eyebrow" type="Label" parent="Background/Margin/Main/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.78, 0.9, 1)
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 16
+text = "IDENTIFICAÇÃO BIOMÉTRICA // NOVO TRIPULANTE"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Background/Margin/Main/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.97, 1, 1)
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 38
+text = "CRIE SEU ET"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/Margin/Main/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.63, 0.74, 1)
+theme_override_font_sizes/font_size = 15
+text = "Ajuste as proporções e confira cada ângulo antes da abdução."
+horizontal_alignment = 1
+
+[node name="Content" type="HBoxContainer" parent="Background/Margin/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="AnimationPanel" type="PanelContainer" parent="Background/Margin/Main/Content"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Animations" type="VBoxContainer" parent="Background/Margin/Main/Content/AnimationPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="PanelTitle" type="Label" parent="Background/Margin/Main/Content/AnimationPanel/Animations"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 20
+text = "ANIMAÇÕES"
+
+[node name="PanelCopy" type="Label" parent="Background/Margin/Main/Content/AnimationPanel/Animations"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46, 0.61, 0.7, 1)
+theme_override_font_sizes/font_size = 13
+text = "Teste o corpo em movimento."
+autowrap_mode = 2
+
+[node name="AnimationStatus" type="Label" parent="Background/Margin/Main/Content/AnimationPanel/Animations"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 12
+text = "Agora: preparando prévia..."
+autowrap_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Background/Margin/Main/Content/AnimationPanel/Animations"]
+layout_mode = 2
+
+[node name="AnimationScroll" type="ScrollContainer" parent="Background/Margin/Main/Content/AnimationPanel/Animations"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AnimationButtons" type="VBoxContainer" parent="Background/Margin/Main/Content/AnimationPanel/Animations/AnimationScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="PreviewPanel" type="PanelContainer" parent="Background/Margin/Main/Content"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("Style_preview")
+
+[node name="PreviewStack" type="VBoxContainer" parent="Background/Margin/Main/Content/PreviewPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+mouse_filter = 0
+tooltip_text = "Arraste para girar. Use a roda do mouse para aproximar."
+
+[node name="PreviewViewport" type="SubViewport" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer"]
+handle_input_locally = false
+size = Vector2i(960, 820)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport"]
+environment = SubResource("Environment_preview")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport"]
+rotation_degrees = Vector3(-32, -28, 0)
+light_color = Color(0.62, 0.9, 1, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="RimLight" type="DirectionalLight3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport"]
+rotation_degrees = Vector3(-18, 150, 0)
+light_color = Color(0.55, 0.28, 1, 1)
+light_energy = 1.6
+
+[node name="PreviewPivot" type="Node3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport"]
+unique_name_in_owner = true
+
+[node name="Platform" type="MeshInstance3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport/PreviewPivot"]
+position = Vector3(0, -0.045, 0)
+mesh = SubResource("Mesh_floor")
+
+[node name="ET" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport/PreviewPivot" instance=ExtResource("2_et")]
+
+[node name="CharacterProportions" type="SkeletonModifier3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport/PreviewPivot/ET/ETArmature/Skeleton3D"]
+unique_name_in_owner = true
+script = ExtResource("3_proportions")
+use_saved_appearance = false
+
+[node name="PreviewCamera" type="Camera3D" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport"]
+unique_name_in_owner = true
+position = Vector3(0, 0.6, 2.25)
+current = true
+fov = 32.0
+
+[node name="Hint" type="Label" parent="Background/Margin/Main/Content/PreviewPanel/PreviewStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36, 0.7, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+text = "ARRASTE PARA GIRAR  •  RODA DO MOUSE PARA ZOOM"
+horizontal_alignment = 1
+
+[node name="SettingsPanel" type="PanelContainer" parent="Background/Margin/Main/Content"]
+custom_minimum_size = Vector2(535, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Settings" type="VBoxContainer" parent="Background/Margin/Main/Content/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PanelTitle" type="Label" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.95, 1, 1)
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 23
+text = "PROPORÇÕES"
+
+[node name="PanelCopy" type="Label" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46, 0.61, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "O centro é natural. Vá aos extremos para um resultado mais divertido."
+autowrap_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+layout_mode = 2
+
+[node name="Sliders" type="VBoxContainer" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="UtilityButtons" type="HBoxContainer" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResetButton" type="Button" parent="Background/Margin/Main/Content/SettingsPanel/Settings/UtilityButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PADRÃO"
+
+[node name="RandomButton" type="Button" parent="Background/Margin/Main/Content/SettingsPanel/Settings/UtilityButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SURPRESA"
+
+[node name="NavigationButtons" type="HBoxContainer" parent="Background/Margin/Main/Content/SettingsPanel/Settings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="Background/Margin/Main/Content/SettingsPanel/Settings/NavigationButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VOLTAR"
+
+[node name="ConfirmButton" type="Button" parent="Background/Margin/Main/Content/SettingsPanel/Settings/NavigationButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_styles/normal = SubResource("Style_confirm")
+theme_override_styles/hover = SubResource("Style_confirm")
+theme_override_styles/pressed = SubResource("Style_confirm")
+theme_override_styles/focus = SubResource("Style_confirm")
+text = "INICIAR JOGO"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_music")
+volume_db = -24.0
+
+[node name="MenuClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_click")
+volume_db = -8.0
+
+[editable path="Background/Margin/Main/Content/PreviewPanel/PreviewStack/PreviewContainer/PreviewViewport/PreviewPivot/ET"]

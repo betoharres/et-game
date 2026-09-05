@@ -49,6 +49,7 @@ Cenas de entrada:
 | Cena | Papel |
 | --- | --- |
 | `scenes/Menu/main_menu.tscn` | Cena principal do projeto: menu, opções e remapeamento |
+| `scenes/Menu/CharacterCreator.tscn` | Personalização 3D exibida entre Jogar e a órbita |
 | `scenes/Space/Orbit.tscn` | Órbita jogável com o terminal de seleção de missão |
 | `scenes/world.tscn` | Mapa da fazenda, onde a partida acontece |
 | `scenes/Player.tscn` | ET, câmera, rig Mixamo, `AnimationTree` e IK de ação |
@@ -71,9 +72,15 @@ Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
 ## Fluxo atual
 
 ```text
-Menu -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
+Menu -> criar ET -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
 ```
 
+- Depois de escolher `Jogar`, o jogador personaliza cabeça, barriga, pernas,
+  braços, ombros, altura e olhos em valores normalizados de `0` a `1`. O ET
+  animado pode ser girado com o mouse, aproximado com a roda e reproduzir uma
+  animação pelos botões agrupados à esquerda. O modo `Aleatório`, selecionado
+  por padrão, troca a animação automaticamente a cada 5 segundos; `Iniciar jogo` salva o perfil em
+  `user://character_appearance.cfg` e segue para a órbita.
 - O jogador começa a bordo da nave, em órbita da Terra. Um terminal de missão
   lista o catálogo de fases; hoje só a Fazenda está disponível, com entradas de
   exemplo bloqueadas. Adicionar uma fase não exige mexer em script: basta um
@@ -156,7 +163,8 @@ de entrega.
 
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
-MainMenu -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> AlienShip descendo do céu -> pad de descida -> feixe de chegada
+MainMenu -> CharacterCreator -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> AlienShip descendo do céu -> pad de descida -> feixe de chegada
+CharacterAppearance -> CharacterProportions -> Skeleton3D/olhos -> Player e ET do veículo
 SmellyFarmer -> visão/linha de visão -> perseguição/disparo -> vida do Player
 Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
 Player -> grupo characters -> vegetação e detecção do inimigo
@@ -171,7 +179,8 @@ FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
 Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
 
-- **Autoloads:** `GlobalScore` mantém pontuação e inventário;
+- **Autoloads:** `CharacterAppearance` mantém e persiste as sete características
+  normalizadas do ET; `GlobalScore` mantém pontuação e inventário;
   `PhotoAlertSystem`, estrelas e observadores; `SceneTransition`, as transições
   entre cenas; e `DebugMenus`, os painéis globais de debug do jogador (`F4`) e
   de iluminação (`F6`).
@@ -187,6 +196,25 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   deslocamento. Sobre a animação base atuam apenas dois `LookAtModifier3D` de
   influência limitada e um `TwoBoneIK3D` no braço direito, que só entra ao
   carregar um item ou executar o sinal.
+- **Proporções do ET:** o GLB atual não possui Blend Shapes. Por isso,
+  `CharacterProportions` usa escala de bones em um `SkeletonModifier3D`
+  pós-animação para cabeça, barriga, peito, quadril, membros e ombros, escala
+  visual para altura, um elipsoide abdominal procedural fechado preso ao bone,
+  shaders para as dobras/sombreamento e um shader restrito à superfície separada
+  dos olhos. A geometria arredondada é gerada em runtime e não altera nem adiciona
+  arquivos de modelo. O perfil da barriga continua normalizado de `0` a `1`,
+  mas o máximo visual corresponde ao antigo formato de `0.86`, evitando a
+  deformação instável do extremo anterior. A barriga procedural é fechada, tem
+  a traseira rasa embutida no tronco e usa normais suaves e a mesma cor/acabamento
+  da pele. Há compensações nos bones filhos para não transformar o ET em uma
+  esfera. O mesmo
+  modificador soma offsets pós-animação nos ombros, braços, cotovelos e mãos para
+  contornar a barriga, além de inclinar discretamente o tronco nos extremos; as
+  rotações autorais continuam sendo a base da pose. O perfil é um
+  dicionário pequeno e independente de transporte; `Player` expõe
+  `get_appearance_replication_payload()` e o RPC `sync_appearance()` para uma
+  futura camada multiplayer. Roupas skinnadas no mesmo esqueleto acompanham os
+  bones automaticamente; acessórios rígidos devem usar `BoneAttachment3D`.
 - **Ragdoll reversível:** `player_ragdoll.gd` gera os corpos físicos e é usado
   tanto pela morte quanto pela queda por desequilíbrio; ao sair, a orientação
   do peito decide entre levantar de costas ou de bruços.
@@ -265,7 +293,8 @@ de tela; `set_quality_preset()` troca o preset em runtime. O grupo
 - A pontuação não tem HUD, objetivo final nem persistência, e o inventário do
   autoload não está integrado ao fluxo de coleta.
 - Opções e remapeamentos não são salvos entre execuções.
-- Não há multiplayer nem arquitetura de servidor.
+- Não há sessão multiplayer nem arquitetura de servidor; apenas o payload e o
+  ponto de aplicação das proporções estão prontos para replicação futura.
 - A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
   desligada, feixes e holofotes não formam cones de luz no ar.
 - A queda não causa dano nem é percebida pelos NPCs. Durante o ragdoll a
