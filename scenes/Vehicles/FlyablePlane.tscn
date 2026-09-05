@@ -26,7 +26,7 @@ height = 9.780029
 size = Vector3(14.985291, 0.77575684, 2.0166016)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oovqr"]
-size = Vector3(4.675354, 0.1262207, 1.1621094)
+size = Vector3(4.5593414, 0.1262207, 1.078125)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_giik3"]
 size = Vector3(0.11755371, 1.5570679, 1.7009277)
@@ -54,55 +54,55 @@ roll_damping = 12000.0
 [node name="SM_Veh_Plane_Stunt_01" parent="." unique_id=733070751 instance=ExtResource("1_p12p3")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.0204499e-07, -0.6051767, -10.402577)
 
-[node name="SM_Veh_Plane_Stunt_01" parent="SM_Veh_Plane_Stunt_01" index="0" unique_id=185078700]
+[node name="SM_Veh_Plane_Stunt_01" parent="SM_Veh_Plane_Stunt_01" index="0" unique_id=172353325]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_giik3")
 
-[node name="SM_Veh_Plane_Stunt_01_Wheels" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="0" unique_id=184704489]
+[node name="SM_Veh_Plane_Stunt_01_Wheels" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="0" unique_id=1199769823]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_ry867")
 
-[node name="SM_Veh_Plane_Stunt_01_Prop" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="1" unique_id=1620791755]
+[node name="SM_Veh_Plane_Stunt_01_Prop" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="1" unique_id=1508895495]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_fr_02" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="2" unique_id=107863316]
+[node name="SM_Veh_Plane_Stunt_01_Flap_fr_02" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="2" unique_id=243345753]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Cockpit_Stick" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="3" unique_id=1460372297]
+[node name="SM_Veh_Plane_Stunt_01_Cockpit_Stick" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="3" unique_id=201547284]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_rl_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="4" unique_id=718546498]
+[node name="SM_Veh_Plane_Stunt_01_Flap_rl_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="4" unique_id=1331965092]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_rr_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="5" unique_id=781193052]
+[node name="SM_Veh_Plane_Stunt_01_Flap_rr_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="5" unique_id=524313113]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_fl_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="6" unique_id=1154881880]
+[node name="SM_Veh_Plane_Stunt_01_Flap_fl_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="6" unique_id=1911567333]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_fl_02" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="7" unique_id=786368086]
+[node name="SM_Veh_Plane_Stunt_01_Flap_fl_02" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="7" unique_id=387825703]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Crop_Duster" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="8" unique_id=2098323082]
+[node name="SM_Veh_Plane_Stunt_01_Crop_Duster" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="8" unique_id=2037081376]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Glass" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="9" unique_id=1525949460]
+[node name="SM_Veh_Plane_Stunt_01_Glass" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="9" unique_id=1831300046]
 layers = 8
 surface_material_override/0 = ExtResource("4_c41vj")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_fr_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="10" unique_id=1508133114]
+[node name="SM_Veh_Plane_Stunt_01_Flap_fr_01" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="10" unique_id=219891993]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
-[node name="SM_Veh_Plane_Stunt_01_Flap_Tail" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="11" unique_id=681615317]
+[node name="SM_Veh_Plane_Stunt_01_Flap_Tail" parent="SM_Veh_Plane_Stunt_01/SM_Veh_Plane_Stunt_01" index="11" unique_id=1734358573]
 layers = 8
 surface_material_override/0 = SubResource("StandardMaterial3D_rwfsk")
 
@@ -115,7 +115,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.15
 shape = SubResource("BoxShape3D_4qb2n")
 
 [node name="Elevator" type="CollisionShape3D" parent="." unique_id=134691222]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.0227355e-07, -0.18435395, -6.9966145)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.731, -6.916)
 shape = SubResource("BoxShape3D_oovqr")
 
 [node name="Rudder" type="CollisionShape3D" parent="." unique_id=1631467993]

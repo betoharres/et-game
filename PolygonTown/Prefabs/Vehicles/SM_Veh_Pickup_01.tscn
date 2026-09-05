@@ -13,17 +13,21 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wda2o"]
 points = PackedVector3Array(1.2119453, 1.5699589, 0.6036892, 0.6938735, 1.4840361, 2.4151855, 1.1255245, 0.5350849, 2.4151855, 0.98390317, 0.8196647, -2.6144593, 1.0388777, 1.4840361, -2.6742072, 0.52125835, 2.3468533, 0.43062615, -0.68591666, 1.4840361, 2.4151855, -0.5133015, 0.3626059, 2.5877333, 0.6938735, 0.1901269, 1.4664292, 0.6454599, 0.2654941, -1.5245742, -0.9836383, 0.65119684, -2.634547, -1.031147, 1.4840361, -2.6742072, -0.51352775, 2.3468533, 0.43062615, -1.0992429, 1.5437809, 0.70876336, -1.0528653, 0.5775185, 2.3564677, -0.6449686, 0.2538829, -1.5426015)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_or03s"]
-radius = 0.43986893
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ipurh"]
+height = 0.3707862
+radius = 0.4398682
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_0k2ry"]
-radius = 0.43986893
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7g8l2"]
+height = 0.3707862
+radius = 0.4398682
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wya7a"]
-radius = 0.43986845
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7rqhf"]
+height = 0.3707862
+radius = 0.4398682
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_d3gv8"]
-radius = 0.43986845
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fww3f"]
+height = 0.3707862
+radius = 0.4398682
 
 [node name="SM_Veh_Pickup_01" type="MeshInstance3D" unique_id=389864728]
 gi_mode = 2
@@ -52,11 +56,11 @@ gi_mode = 2
 mesh = ExtResource("5_wya7a")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fl" unique_id=1521966310]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fl" unique_id=1423213372]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.1232834, 1.4901161e-07, 8.046627e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fl/SphereCollider" unique_id=1466350875]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12328341, 1.4901161e-07, 8.046627e-07)
-shape = SubResource("SphereShape3D_or03s")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fl/StaticBody3D" unique_id=352501198]
+shape = SubResource("CylinderShape3D_ipurh")
 
 [node name="SM_Veh_Pickup_Wheel_fr" type="MeshInstance3D" parent="." unique_id=1948650562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7838671, 0.43986803, 1.6946212)
@@ -64,11 +68,11 @@ gi_mode = 2
 mesh = ExtResource("6_d3gv8")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fr" unique_id=1558066921]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_fr" unique_id=826440004]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.123283416, 1.4901161e-07, 8.046627e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fr/SphereCollider" unique_id=1497209357]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12328341, 1.4901161e-07, 8.046627e-07)
-shape = SubResource("SphereShape3D_0k2ry")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_fr/StaticBody3D" unique_id=257479893]
+shape = SubResource("CylinderShape3D_7g8l2")
 
 [node name="SM_Veh_Pickup_Wheel_rl" type="MeshInstance3D" parent="." unique_id=748358964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9071506, 0.43986803, -1.3831422)
@@ -76,11 +80,11 @@ gi_mode = 2
 mesh = ExtResource("7_10jv2")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rl" unique_id=381329575]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rl" unique_id=1470762639]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.4901161e-07, 1.4901161e-07, -7.4505806e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rl/SphereCollider" unique_id=316385996]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3411045e-07, 1.4901161e-07, -7.301569e-07)
-shape = SubResource("SphereShape3D_wya7a")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rl/StaticBody3D" unique_id=1251475099]
+shape = SubResource("CylinderShape3D_7rqhf")
 
 [node name="SM_Veh_Pickup_Wheel_rr" type="MeshInstance3D" parent="." unique_id=543886447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9071506, 0.43986803, -1.3831422)
@@ -88,8 +92,8 @@ gi_mode = 2
 mesh = ExtResource("8_auqax")
 surface_material_override/0 = ExtResource("2_0k2ry")
 
-[node name="SphereCollider" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rr" unique_id=358532552]
+[node name="StaticBody3D" type="StaticBody3D" parent="SM_Veh_Pickup_Wheel_rr" unique_id=542924026]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 1.3411045e-07, 1.4901161e-07, -7.4505806e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rr/SphereCollider" unique_id=1473597384]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3411045e-07, 1.4901161e-07, -7.301569e-07)
-shape = SubResource("SphereShape3D_d3gv8")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Veh_Pickup_Wheel_rr/StaticBody3D" unique_id=300566101]
+shape = SubResource("CylinderShape3D_fww3f")
