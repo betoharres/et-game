@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c4nnidhmlceo7"]
+
+[ext_resource type="Script" uid="uid://bqumnot40si0r" path="res://scripts/dungeon/dungeon_module_x.gd" id="1_x37l3"]
+[ext_resource type="ArrayMesh" uid="uid://dja3n7nxaxgr4" path="res://3dModelos/DungeonConnectorX.fbx" id="2_cqwvu"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_mejl7"]
+[ext_resource type="PackedScene" uid="uid://crotxhmaf12y" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lamp_Post_02A.fbx" id="4_vpx0u"]
+[ext_resource type="PackedScene" uid="uid://dqsd1teh3jxjx" path="res://scenes/FX/FX_Candle_Flame_01.tscn" id="5_mejl7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mejl7"]
+points = PackedVector3Array(2, 0, 2, 2, 0, -2, -2, 0, 2, -2, 0, -2)
+
+[node name="Xconnector" type="Node3D" unique_id=1770585276]
+script = ExtResource("1_x37l3")
+connection_mask = 15
+module_name = "X"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=964550910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9136882, 2.7225435, 0.9136885)
+layers = 4
+light_color = Color(0.9866083, 0.9274157, 0.6368135, 1)
+light_bake_mode = 1
+omni_range = 3.588
+
+[node name="DungeonConnectorX" type="MeshInstance3D" parent="." unique_id=1594801393]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("2_cqwvu")
+surface_material_override/0 = ExtResource("3_mejl7")
+
+[node name="TEM_Lamp_Post_02A" parent="." unique_id=1399777727 instance=ExtResource("4_vpx0u")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 1.7965678, 3.0262396, 1.799258)
+
+[node name="TEM_Lamp_Post_02A_LOD2" parent="TEM_Lamp_Post_02A/TEM_Lamp_Post_02A" parent_id_path=PackedInt32Array(1399777727, 1994615661) index="0" unique_id=1298751801]
+surface_material_override/0 = ExtResource("3_mejl7")
+
+[node name="TEM_Lamp_Post_02A_LOD1" parent="TEM_Lamp_Post_02A/TEM_Lamp_Post_02A" parent_id_path=PackedInt32Array(1399777727, 1994615661) index="1" unique_id=20947671]
+surface_material_override/0 = ExtResource("3_mejl7")
+
+[node name="TEM_Lamp_Post_02A_LOD0" parent="TEM_Lamp_Post_02A/TEM_Lamp_Post_02A" parent_id_path=PackedInt32Array(1399777727, 1994615661) index="2" unique_id=733827931]
+surface_material_override/0 = ExtResource("3_mejl7")
+
+[node name="FX_Candle_Flame_01" parent="." unique_id=71959969 instance=ExtResource("5_mejl7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.91181666, 2.6345499, 0.91902155)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=169331994]
+
+[node name="Floor" type="CollisionShape3D" parent="StaticBody3D" unique_id=1521480027]
+shape = SubResource("ConvexPolygonShape3D_mejl7")
+
+[node name="Ceiling" type="CollisionShape3D" parent="StaticBody3D" unique_id=2117227136]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 4, 0)
+shape = SubResource("ConvexPolygonShape3D_mejl7")
+
+[editable path="TEM_Lamp_Post_02A"]

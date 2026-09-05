@@ -1,68 +1,76 @@
 [gd_scene format=3 uid="uid://5f8laqmsrcvn"]
 
 [ext_resource type="Script" uid="uid://bwiw407r55jn3" path="res://scripts/dungeon/dungeon_module_h.gd" id="1_n0m3u"]
+[ext_resource type="ArrayMesh" uid="uid://cmd4we56pegsp" path="res://3dModelos/DungeonCorridor.fbx" id="2_gf43u"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_g7by2"]
+[ext_resource type="PackedScene" uid="uid://chehmq15yvdno" path="res://Temporarios/Assets/Toon Series/Toon Enchanted Meadow/Models/TEM_Lamp_01A.fbx" id="4_g7by2"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="5_dkvrv"]
+[ext_resource type="Material" uid="uid://cbm26hlaevly" path="res://PolygonTown/Materials/Misc/Veh_Glass_mat.tres" id="6_8d7xj"]
+[ext_resource type="PackedScene" uid="uid://dqsd1teh3jxjx" path="res://scenes/FX/FX_Candle_Flame_01.tscn" id="7_aireg"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_etafa"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_etafa"]
-data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_n0m3u"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_n0m3u"]
-data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_is4wa"]
-size = Vector3(2, 2, 0.1)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_is4wa"]
-data = PackedVector3Array(-1, 1, 0.049999997, 1, 1, 0.049999997, -1, -1, 0.049999997, 1, 1, 0.049999997, 1, -1, 0.049999997, -1, -1, 0.049999997, 1, 1, -0.049999997, -1, 1, -0.049999997, 1, -1, -0.049999997, -1, 1, -0.049999997, -1, -1, -0.049999997, 1, -1, -0.049999997, 1, 1, 0.049999997, 1, 1, -0.049999997, 1, -1, 0.049999997, 1, 1, -0.049999997, 1, -1, -0.049999997, 1, -1, 0.049999997, -1, 1, -0.049999997, -1, 1, 0.049999997, -1, -1, -0.049999997, -1, 1, 0.049999997, -1, -1, 0.049999997, -1, -1, -0.049999997, 1, 1, 0.049999997, -1, 1, 0.049999997, 1, 1, -0.049999997, -1, 1, 0.049999997, -1, 1, -0.049999997, 1, 1, -0.049999997, -1, -1, 0.049999997, 1, -1, 0.049999997, -1, -1, -0.049999997, 1, -1, 0.049999997, 1, -1, -0.049999997, -1, -1, -0.049999997)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gf43u"]
-data = PackedVector3Array(-1, 1, 0.049999997, 1, 1, 0.049999997, -1, -1, 0.049999997, 1, 1, 0.049999997, 1, -1, 0.049999997, -1, -1, 0.049999997, 1, 1, -0.049999997, -1, 1, -0.049999997, 1, -1, -0.049999997, -1, 1, -0.049999997, -1, -1, -0.049999997, 1, -1, -0.049999997, 1, 1, 0.049999997, 1, 1, -0.049999997, 1, -1, 0.049999997, 1, 1, -0.049999997, 1, -1, -0.049999997, 1, -1, 0.049999997, -1, 1, -0.049999997, -1, 1, 0.049999997, -1, -1, -0.049999997, -1, 1, 0.049999997, -1, -1, 0.049999997, -1, -1, -0.049999997, 1, 1, 0.049999997, -1, 1, 0.049999997, 1, 1, -0.049999997, -1, 1, 0.049999997, -1, 1, -0.049999997, 1, 1, -0.049999997, -1, -1, 0.049999997, 1, -1, 0.049999997, -1, -1, -0.049999997, 1, -1, 0.049999997, 1, -1, -0.049999997, -1, -1, -0.049999997)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_emb0l"]
+points = PackedVector3Array(2, 0, 2, 2, 0, -2, -2, 0, 2, -2, 0, -2)
 
 [node name="Hconnector" type="Node3D" unique_id=2117642180]
 script = ExtResource("1_n0m3u")
 connection_mask = 10
 module_name = "H"
 
-[node name="Floor" type="MeshInstance3D" parent="." unique_id=1182924588]
-mesh = SubResource("PlaneMesh_etafa")
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=639734862]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=639734862]
+[node name="Floor" type="CollisionShape3D" parent="StaticBody3D" unique_id=860482588]
+shape = SubResource("ConvexPolygonShape3D_emb0l")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1254696455]
-shape = SubResource("ConcavePolygonShape3D_etafa")
+[node name="NegZ" type="CollisionShape3D" parent="StaticBody3D" unique_id=1559741433]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2, -2)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
 
-[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1097421905]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("PlaneMesh_n0m3u")
+[node name="PosZ" type="CollisionShape3D" parent="StaticBody3D" unique_id=13363065]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2, 2)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Ceiling" unique_id=1146183894]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/StaticBody3D" unique_id=520886408]
-shape = SubResource("ConcavePolygonShape3D_n0m3u")
-
-[node name="Wall" type="MeshInstance3D" parent="." unique_id=1128189486]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.152582e-08, 1, -0.95)
-mesh = SubResource("BoxMesh_is4wa")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall" unique_id=88762062]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D" unique_id=1186491549]
-shape = SubResource("ConcavePolygonShape3D_is4wa")
-
-[node name="Wall2" type="MeshInstance3D" parent="." unique_id=512544920]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.152582e-08, 1, 0.95)
-mesh = SubResource("BoxMesh_is4wa")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall2" unique_id=648894924]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D" unique_id=614647500]
-shape = SubResource("ConcavePolygonShape3D_gf43u")
+[node name="Ceiling" type="CollisionShape3D" parent="StaticBody3D" unique_id=1905975604]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 4, 0)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1673590094]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4622569, 3.286095, 0)
 layers = 4
+light_color = Color(1, 1, 0.8117647, 1)
 light_bake_mode = 1
-omni_range = 2.5891142
+omni_range = 6.179
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1531697538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5417061, 3.343877, 0)
+layers = 4
+light_color = Color(1, 1, 0.8117647, 1)
+light_bake_mode = 1
+omni_range = 6.179
+
+[node name="DungeonCorridor" type="MeshInstance3D" parent="." unique_id=845502639]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("2_gf43u")
+surface_material_override/0 = ExtResource("3_g7by2")
+
+[node name="TEM_Lamp_01A" parent="." unique_id=1707888670 instance=ExtResource("4_g7by2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.046136856, 3.8845363, 0.005441934)
+
+[node name="TEM_Lamp_01A_LOD2" parent="TEM_Lamp_01A/TEM_Lamp_01A" parent_id_path=PackedInt32Array(1707888670, 192072681) index="0" unique_id=130401698]
+surface_material_override/0 = ExtResource("5_dkvrv")
+surface_material_override/1 = ExtResource("6_8d7xj")
+
+[node name="TEM_Lamp_01A_LOD1" parent="TEM_Lamp_01A/TEM_Lamp_01A" parent_id_path=PackedInt32Array(1707888670, 192072681) index="1" unique_id=159991998]
+surface_material_override/0 = ExtResource("5_dkvrv")
+surface_material_override/1 = ExtResource("6_8d7xj")
+
+[node name="TEM_Lamp_01A_LOD0" parent="TEM_Lamp_01A/TEM_Lamp_01A" parent_id_path=PackedInt32Array(1707888670, 192072681) index="2" unique_id=1652595544]
+surface_material_override/0 = ExtResource("5_dkvrv")
+surface_material_override/1 = ExtResource("6_8d7xj")
+
+[node name="FX_Candle_Flame_01" parent="." unique_id=71959969 instance=ExtResource("7_aireg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44899073, 3.2506886, 0.0023035407)
+
+[node name="FX_Candle_Flame_02" parent="." unique_id=1320393196 instance=ExtResource("7_aireg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5479715, 3.3278728, -0.0046480894)
+
+[editable path="TEM_Lamp_01A"]

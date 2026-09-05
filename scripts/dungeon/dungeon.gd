@@ -5,14 +5,14 @@ extends Node3D
 ## extra reciprocal links create loops. The module selected for each cell is
 ## driven entirely by its North/East/South/West connection mask.
 
-const CELL_SIZE : float = 2.0
+const CELL_SIZE : float = 4.0
 const DEFAULT_GRID_WIDTH : int = 12
 const DEFAULT_GRID_DEPTH : int = 12
 const EXTRA_CONNECTION_CHANCE : float = 0.12
 const SCRAP_COUNT : int = 2
 
 const X_MODULE_SCENE : PackedScene = preload(
-	"res://scenes/Dungeon/Xconnecor.tscn"
+	"res://scenes/Dungeon/Xconnector.tscn"
 )
 const T_MODULE_SCENE : PackedScene = preload(
 	"res://scenes/Dungeon/Tconnector.tscn"
