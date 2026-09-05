@@ -1,0 +1,247 @@
+[gd_scene format=3 uid="uid://dg3jy0i7k6hr8"]
+
+[ext_resource type="ArrayMesh" uid="uid://du7biwye5usqq" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Stairs_01.res" id="1_o1h6n"]
+[ext_resource type="ArrayMesh" uid="uid://ckvg7goqn3s53" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Interior_Stairs_03.res" id="2_eaurn"]
+[ext_resource type="Shape3D" uid="uid://6nmfw070nl8l" path="res://PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Interior_Stairs_01_COLLISION.res" id="2_wpkl8"]
+[ext_resource type="Shape3D" uid="uid://du1us6cpucenw" path="res://PolygonTown/Models/CollisionCustom/extracted/SM_Bld_House_Interior_Stairs_03_COLLISION.res" id="4_wpkl8"]
+[ext_resource type="ArrayMesh" uid="uid://br4mjd4wtwveh" path="res://PolygonCity/FBX/SM_Prop_Door_01.fbx" id="5_5u02y"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="6_b5nxg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_emb0l"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5u02y"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_b5nxg"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_emb0l"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yjsjs"]
+data = PackedVector3Array(5, -5, 0, -5, -5, 0, 5, 5, 0, -5, -5, 0, -5, 5, 0, 5, 5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xmq8l"]
+data = PackedVector3Array(5, -5, 0, -5, -5, 0, 5, 5, 0, -5, -5, 0, -5, 5, 0, 5, 5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_a3q5l"]
+data = PackedVector3Array(5, -5, 0, -5, -5, 0, 5, 5, 0, -5, -5, 0, -5, 5, 0, 5, 5, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_lfwm0"]
+data = PackedVector3Array(5, -5, 0, -5, -5, 0, 5, 5, 0, -5, -5, 0, -5, 5, 0, 5, 5, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eaurn"]
+size = Vector3(1.5, 0.27038574, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wpkl8"]
+size = Vector3(1.5, 0.27038574, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b5nxg"]
+size = Vector3(1.1742191, 0.27038574, 2.7844238)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yjsjs"]
+size = Vector3(1.1742191, 0.27038574, 2.7844238)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7u47c"]
+size = Vector3(1.1713867, 0.3397827, 7.5284424)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5u02y"]
+size = Vector3(1.1713867, 0.3397827, 7.5284424)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5u02y"]
+size = Vector3(1.171, 0.34, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b5nxg"]
+size = Vector3(1.18, 0.34675002, 10)
+
+[node name="EscherStairs" type="Node3D" unique_id=1166968109]
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1052590349]
+layers = 128
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=342376521]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1253553565]
+shape = SubResource("ConcavePolygonShape3D_5u02y")
+
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1774852848]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 10, 0)
+layers = 128
+mesh = SubResource("PlaneMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ceiling" unique_id=517297994]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/StaticBody3D" unique_id=1887933153]
+shape = SubResource("ConcavePolygonShape3D_b5nxg")
+
+[node name="WallN" type="MeshInstance3D" parent="." unique_id=1943499272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+layers = 128
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallN" unique_id=1599266134]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallN/StaticBody3D" unique_id=1367379380]
+shape = SubResource("ConcavePolygonShape3D_yjsjs")
+
+[node name="WallS" type="MeshInstance3D" parent="." unique_id=1467102992]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 5, 5)
+layers = 128
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallS" unique_id=732295250]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallS/StaticBody3D" unique_id=2107998225]
+shape = SubResource("ConcavePolygonShape3D_xmq8l")
+
+[node name="WallW" type="MeshInstance3D" parent="." unique_id=1746215239]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 5, 0)
+layers = 128
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallW" unique_id=355106089]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallW/StaticBody3D" unique_id=1600145151]
+shape = SubResource("ConcavePolygonShape3D_a3q5l")
+
+[node name="WallE" type="MeshInstance3D" parent="." unique_id=547370680]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 5, 5, 0)
+layers = 128
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallE" unique_id=1565327205]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallE/StaticBody3D" unique_id=1518485011]
+shape = SubResource("ConcavePolygonShape3D_lfwm0")
+
+[node name="SmBldHouseInteriorStairs01" type="MeshInstance3D" parent="." unique_id=784801420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
+mesh = ExtResource("1_o1h6n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs01" unique_id=1278877101]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs01/StaticBody3D" unique_id=478864450]
+shape = ExtResource("2_wpkl8")
+
+[node name="SmBldHouseInteriorStairs05" type="MeshInstance3D" parent="." unique_id=131650695]
+transform = Transform3D(4.371139e-08, 3.821371e-15, -1, 8.742278e-08, -1, 0, -1, -8.742278e-08, -4.371139e-08, -2.5, 10, 1.5)
+mesh = ExtResource("1_o1h6n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs05" unique_id=24275167]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs05/StaticBody3D" unique_id=1221659428]
+shape = ExtResource("2_wpkl8")
+
+[node name="SmBldHouseInteriorStairs04" type="MeshInstance3D" parent="." unique_id=1777075700]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -5, 7.0263433, -1)
+mesh = ExtResource("1_o1h6n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs04" unique_id=2087317474]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs04/StaticBody3D" unique_id=1441697627]
+shape = ExtResource("2_wpkl8")
+
+[node name="SmBldHouseInteriorStairs02" type="MeshInstance3D" parent="." unique_id=615016631]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.5, 0, -3.5)
+mesh = ExtResource("1_o1h6n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs02" unique_id=1988132003]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs02/StaticBody3D" unique_id=197639249]
+shape = ExtResource("2_wpkl8")
+
+[node name="SmBldHouseInteriorStairs03" type="MeshInstance3D" parent="." unique_id=821507638]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 2.5, 2.5, -5)
+mesh = ExtResource("2_eaurn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs03" unique_id=1937645875]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs03/StaticBody3D" unique_id=600470865]
+shape = ExtResource("4_wpkl8")
+
+[node name="SmBldHouseInteriorStairs06" type="MeshInstance3D" parent="." unique_id=490368405]
+transform = Transform3D(4.371139e-08, -1, 8.742278e-08, -1, -4.371139e-08, 0, 3.821371e-15, -8.742278e-08, -1, 5, 2.5, 2.5)
+mesh = ExtResource("2_eaurn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SmBldHouseInteriorStairs06" unique_id=682679246]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmBldHouseInteriorStairs06/StaticBody3D" unique_id=796151234]
+shape = ExtResource("4_wpkl8")
+
+[node name="Floor1" type="MeshInstance3D" parent="." unique_id=438558278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 2.8648071, -2.5)
+layers = 128
+mesh = SubResource("BoxMesh_eaurn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor1" unique_id=1342589060]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor1/StaticBody3D" unique_id=448024600]
+shape = SubResource("BoxShape3D_wpkl8")
+
+[node name="Floor4" type="MeshInstance3D" parent="." unique_id=1826016820]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 2.1342304, 0.5873232, 1.1051493)
+layers = 128
+mesh = SubResource("BoxMesh_b5nxg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor4" unique_id=1630026005]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor4/StaticBody3D" unique_id=1381311537]
+shape = SubResource("BoxShape3D_yjsjs")
+
+[node name="Floor2" type="MeshInstance3D" parent="." unique_id=149662394]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, -1.2642212, 0.584, -2.1736984)
+layers = 128
+mesh = SubResource("BoxMesh_7u47c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor2" unique_id=1891889542]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2/StaticBody3D" unique_id=1032179087]
+shape = SubResource("BoxShape3D_5u02y")
+
+[node name="Floor3" type="MeshInstance3D" parent="." unique_id=1463068785]
+transform = Transform3D(-1, 0, -3.821371e-15, 0, 1, -8.742278e-08, 3.821371e-15, -8.742278e-08, -1, 2.08422, 7.1696997, 0)
+layers = 128
+mesh = SubResource("BoxMesh_5u02y")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor3" unique_id=830479156]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor3/StaticBody3D" unique_id=1098589156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0014865398, 0.0021562576, -0.0066986084)
+shape = SubResource("BoxShape3D_b5nxg")
+
+[node name="SmPropDoor01" type="MeshInstance3D" parent="." unique_id=1621179361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.243785, 2.9782417, -5.2157044)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor05" type="MeshInstance3D" parent="." unique_id=706265838]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 2.0933566, 7.0526958, -5.2157044)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor06" type="MeshInstance3D" parent="." unique_id=1063351607]
+transform = Transform3D(1, -8.742278e-08, -8.742278e-08, -8.742278e-08, -1, 0, -8.742278e-08, 7.642742e-15, -1, 2.0933566, 7.0526958, 5.205515)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor07" type="MeshInstance3D" parent="." unique_id=1295150819]
+transform = Transform3D(-1, 1.7484555e-07, 8.742278e-08, 1.7484555e-07, 1, -7.642742e-15, -8.742278e-08, 7.642742e-15, -1, 2.0933566, 7.2841144, 5.205515)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor04" type="MeshInstance3D" parent="." unique_id=1294666468]
+transform = Transform3D(-4.371139e-08, 0, 1, 1, -4.371139e-08, 4.371139e-08, 4.371139e-08, 1, 1.9106855e-15, -5.218155, 6.276975, -1.0527505)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor03" type="MeshInstance3D" parent="." unique_id=1526130528]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -2.0447838, 6.2738304, -5.2226434)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")
+
+[node name="SmPropDoor02" type="MeshInstance3D" parent="." unique_id=1325636279]
+transform = Transform3D(-1, 2.6054018e-15, -8.742278e-08, -8.742278e-08, -2.9802322e-08, 1, 0, 1, 2.9802322e-08, -1.4687829, -0.19376731, -2.0690374)
+mesh = ExtResource("5_5u02y")
+surface_material_override/0 = ExtResource("6_b5nxg")

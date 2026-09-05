@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://cvt6cslof6kw4"]
 
-[ext_resource type="ArrayMesh" uid="uid://bapi4pmu2r0bn" path="res://3dModelos/SM_Prop_Windmill_01.fbx" id="1_nxy7k"]
 [ext_resource type="Script" uid="uid://bf2f7d6pj3s35" path="res://scripts/windmill.gd" id="1_x5wes"]
+[ext_resource type="PackedScene" uid="uid://c4imwwy3codri" path="res://PolygonFarm/Models/SM_Prop_Windmill_01.fbx" id="2_eim0l"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_x5wes"]
-[ext_resource type="ArrayMesh" uid="uid://di6ilsb2k03x" path="res://3dModelos/SM_Prop_Windmill_02.fbx" id="4_uhf38"]
-[ext_resource type="ArrayMesh" uid="uid://d2frslrhemnu6" path="res://3dModelos/SM_Prop_Windmill_03.fbx" id="5_odav2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_odav2"]
 height = 2.9521484
@@ -17,42 +15,38 @@ radius = 0.08886719
 [node name="Windmill" type="Node3D" unique_id=413465030]
 script = ExtResource("1_x5wes")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1202381114]
-layers = 128
-mesh = ExtResource("1_nxy7k")
-surface_material_override/0 = ExtResource("2_x5wes")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=461265713]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.593918, 0)
-layers = 128
-mesh = ExtResource("4_uhf38")
-surface_material_override/0 = ExtResource("2_x5wes")
-
-[node name="SmPropWindmill03" type="MeshInstance3D" parent="MeshInstance3D/MeshInstance3D2" unique_id=1650718726]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0074424744, 0.9628223)
-layers = 128
-mesh = ExtResource("5_odav2")
-surface_material_override/0 = ExtResource("2_x5wes")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=184181087]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=184181087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019638062, 5.6902585, -1.1376066)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1872700371]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1872700371]
 transform = Transform3D(0.9962969, 0.085980065, 0, -0.08560432, 0.9919429, 0.09338832, 0.008029534, -0.09304249, 0.9956298, -0.85677826, -4.273036, 2.0034196)
 shape = SubResource("CylinderShape3D_odav2")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=657330432]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=657330432]
 transform = Transform3D(0.008029663, -0.09304247, 0.9956298, -0.08560433, 0.9919429, 0.09338832, -0.9962969, -0.0859801, 1.2946114e-07, 0.8494852, -4.273036, 2.0034196)
 shape = SubResource("CylinderShape3D_odav2")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1022996381]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1022996381]
 transform = Transform3D(-0.9962969, -0.085980095, 8.589683e-08, -0.085604325, 0.9919429, 0.09338832, -0.008029622, 0.093042485, -0.9956298, 0.8853912, -4.273036, 0.26795435)
 shape = SubResource("CylinderShape3D_odav2")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1195477773]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1195477773]
 transform = Transform3D(-0.008029576, 0.09304248, -0.9956298, -0.085604325, 0.9919429, 0.09338832, 0.9962969, 0.08598008, -4.3755886e-08, -0.8208724, -4.273036, 0.26795435)
 shape = SubResource("CylinderShape3D_odav2")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1922647488]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" unique_id=1922647488]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011209965, -4.348755, 1.1474113)
 shape = SubResource("CylinderShape3D_ec6vt")
+
+[node name="SM_Prop_Windmill_01" parent="." unique_id=1601739180 instance=ExtResource("2_eim0l")]
+
+[node name="SM_Prop_Windmill_01" parent="SM_Prop_Windmill_01" index="0" unique_id=196386484]
+material_override = ExtResource("2_x5wes")
+
+[node name="SM_Prop_Windmill_Top_01" parent="SM_Prop_Windmill_01/SM_Prop_Windmill_01" index="0" unique_id=49975056]
+material_override = ExtResource("2_x5wes")
+
+[node name="SM_Prop_Windmill_Blades_01" parent="SM_Prop_Windmill_01/SM_Prop_Windmill_01/SM_Prop_Windmill_Top_01" index="0" unique_id=403845037]
+material_override = ExtResource("2_x5wes")
+
+[editable path="SM_Prop_Windmill_01"]

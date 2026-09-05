@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://q0rv67ea3v18"]
+
+[ext_resource type="PackedScene" uid="uid://b0vwsgqbolnbr" path="res://PolygonFarm/Models/SM_Prop_Well_01.fbx" id="1_sliwi"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_2223m"]
+
+[node name="WaterWell" type="Node3D" unique_id=1911915916]
+
+[node name="SM_Prop_Well_01" parent="." unique_id=430307915 instance=ExtResource("1_sliwi")]
+
+[node name="SM_Prop_Well_01" parent="SM_Prop_Well_01" index="0" unique_id=423831665]
+surface_material_override/0 = ExtResource("2_2223m")
+
+[node name="SM_Prop_Well_Handle_01" parent="SM_Prop_Well_01/SM_Prop_Well_01" index="0" unique_id=1863436977]
+surface_material_override/0 = ExtResource("2_2223m")
+
+[editable path="SM_Prop_Well_01"]

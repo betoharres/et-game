@@ -38,6 +38,7 @@ image = SubResource("Image_abnu2")
 name = "ground"
 albedo_texture = ExtResource("5_yr6fu")
 normal_texture = SubResource("ImageTexture_xlgic")
+resource_name = "ground"
 
 [sub_resource type="Image" id="Image_pwf8e"]
 data = {
@@ -56,6 +57,7 @@ name = "grass"
 id = 1
 albedo_texture = ExtResource("6_xlgic")
 normal_texture = SubResource("ImageTexture_v10sh")
+resource_name = "grass"
 
 [sub_resource type="Image" id="Image_daqf2"]
 data = {
@@ -74,6 +76,7 @@ name = "rockyCliff"
 id = 2
 albedo_texture = ExtResource("7_xlgic")
 normal_texture = SubResource("ImageTexture_lqpbd")
+resource_name = "rockyCliff"
 
 [resource]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_pwf8e")])

@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://cqw3m4kvw400k"
-path="res://.godot/imported/SK_Veh_Car_Police_Heist_01.fbx-d6e9128373d60c44dab3234923604587.res"
+path="res://.godot/imported/SK_Veh_Car_Police_Heist_01.fbx-d6e9128373d60c44dab3234923604587.scn"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/SkeletalVehicles/SK_Veh_Car_Police_Heist_01.fbx"
-dest_files=["res://.godot/imported/SK_Veh_Car_Police_Heist_01.fbx-d6e9128373d60c44dab3234923604587.res"]
+dest_files=["res://.godot/imported/SK_Veh_Car_Police_Heist_01.fbx-d6e9128373d60c44dab3234923604587.scn"]
 
 [params]
 
@@ -20,7 +20,7 @@ mesh_library/use_node_names_as_mesh_names=false
 mesh_library/create_categories_from_hierarchy=false
 array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=10.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

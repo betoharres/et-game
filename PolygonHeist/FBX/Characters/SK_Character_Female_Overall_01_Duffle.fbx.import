@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://dycebwodv7mvv"
-path="res://.godot/imported/SK_Character_Female_Overall_01_Duffle.fbx-646f1b4523a15e95d43d3493b88448c3.res"
+path="res://.godot/imported/SK_Character_Female_Overall_01_Duffle.fbx-646f1b4523a15e95d43d3493b88448c3.scn"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/Characters/SK_Character_Female_Overall_01_Duffle.fbx"
-dest_files=["res://.godot/imported/SK_Character_Female_Overall_01_Duffle.fbx-646f1b4523a15e95d43d3493b88448c3.res"]
+dest_files=["res://.godot/imported/SK_Character_Female_Overall_01_Duffle.fbx-646f1b4523a15e95d43d3493b88448c3.scn"]
 
 [params]
 

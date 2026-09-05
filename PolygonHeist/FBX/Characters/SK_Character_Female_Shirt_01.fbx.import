@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://dtfo0hlnmagyk"
-path="res://.godot/imported/SK_Character_Female_Shirt_01.fbx-30e5bf51b8da9c9341b0d862042fe961.res"
+path="res://.godot/imported/SK_Character_Female_Shirt_01.fbx-30e5bf51b8da9c9341b0d862042fe961.scn"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/Characters/SK_Character_Female_Shirt_01.fbx"
-dest_files=["res://.godot/imported/SK_Character_Female_Shirt_01.fbx-30e5bf51b8da9c9341b0d862042fe961.res"]
+dest_files=["res://.godot/imported/SK_Character_Female_Shirt_01.fbx-30e5bf51b8da9c9341b0d862042fe961.scn"]
 
 [params]
 

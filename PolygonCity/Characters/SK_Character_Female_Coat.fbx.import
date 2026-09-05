@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://cnblx7n1b7lhq"
-path="res://.godot/imported/SK_Character_Female_Coat.fbx-024b6110df32dc04d7162ab6e72b7859.res"
+path="res://.godot/imported/SK_Character_Female_Coat.fbx-024b6110df32dc04d7162ab6e72b7859.scn"
 
 [deps]
 
 source_file="res://PolygonCity/Characters/SK_Character_Female_Coat.fbx"
-dest_files=["res://.godot/imported/SK_Character_Female_Coat.fbx-024b6110df32dc04d7162ab6e72b7859.res"]
+dest_files=["res://.godot/imported/SK_Character_Female_Coat.fbx-024b6110df32dc04d7162ab6e72b7859.scn"]
 
 [params]
 

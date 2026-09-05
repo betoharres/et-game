@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://dmja5rh8um3np"
-path="res://.godot/imported/SK_Character_BusinessWoman.fbx-c462ab80c768bf690e723abfafcd5008.res"
+path="res://.godot/imported/SK_Character_BusinessWoman.fbx-c462ab80c768bf690e723abfafcd5008.scn"
 
 [deps]
 
 source_file="res://PolygonCity/Characters/SK_Character_BusinessWoman.fbx"
-dest_files=["res://.godot/imported/SK_Character_BusinessWoman.fbx-c462ab80c768bf690e723abfafcd5008.res"]
+dest_files=["res://.godot/imported/SK_Character_BusinessWoman.fbx-c462ab80c768bf690e723abfafcd5008.scn"]
 
 [params]
 

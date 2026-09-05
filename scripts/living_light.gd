@@ -1105,10 +1105,10 @@ func _add_debug_line(from : Vector3, to : Vector3) -> void:
 	_debug_immediate.surface_add_vertex(to)
 
 
-func _set_debug_visible(visible : bool) -> void:
-	debug_mesh.visible = visible
-	debug_label.visible = visible
-	if not visible and _debug_immediate != null:
+func _set_debug_visible(_visible : bool) -> void: #_visible shadowing
+	debug_mesh.visible = _visible
+	debug_label.visible = _visible
+	if not _visible and _debug_immediate != null: # check if visible or _visible bool
 		_debug_immediate.clear_surfaces()
 
 

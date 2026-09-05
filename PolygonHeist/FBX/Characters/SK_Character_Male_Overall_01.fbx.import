@@ -1,15 +1,15 @@
 [remap]
 
-importer="ArrayMesh"
+importer="scene"
 importer_version=1
-type="ArrayMesh"
+type="PackedScene"
 uid="uid://bdyaoeo103yam"
-path="res://.godot/imported/SK_Character_Male_Overall_01.fbx-944b5d4a03012b63dc1aaaf64af2e9ec.res"
+path="res://.godot/imported/SK_Character_Male_Overall_01.fbx-944b5d4a03012b63dc1aaaf64af2e9ec.scn"
 
 [deps]
 
 source_file="res://PolygonHeist/FBX/Characters/SK_Character_Male_Overall_01.fbx"
-dest_files=["res://.godot/imported/SK_Character_Male_Overall_01.fbx-944b5d4a03012b63dc1aaaf64af2e9ec.res"]
+dest_files=["res://.godot/imported/SK_Character_Male_Overall_01.fbx-944b5d4a03012b63dc1aaaf64af2e9ec.scn"]
 
 [params]
 

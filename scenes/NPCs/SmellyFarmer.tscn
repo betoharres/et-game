@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
-[ext_resource type="ArrayMesh" uid="uid://d3irt6sfulsdc" path="res://3dModelos/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
+[ext_resource type="PackedScene" uid="uid://8k1jwoir1oh0" path="res://PolygonFarm/Models/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
 [ext_resource type="Script" uid="uid://c7b1g0wjyngyp" path="res://scripts/IKsmelly.gd" id="4_vfalg"]
 [ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="6_jqnf7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.18603516
@@ -28,11 +29,61 @@ script = ExtResource("1_c8nde")
 
 [node name="FarmerOld2" parent="." unique_id=1811171003 instance=ExtResource("2_vfalg")]
 
-[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="0" unique_id=916395720]
+[node name="Skeleton3D" parent="FarmerOld2/Armature" parent_id_path=PackedInt32Array(1811171003, 1604409640) index="0" unique_id=66969602]
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+bones/3/skin_scale = Vector3(1, 1, 1)
+bones/4/skin_scale = Vector3(1, 1, 1)
+bones/5/skin_scale = Vector3(1, 1, 1)
+bones/6/skin_scale = Vector3(1, 1, 1)
+bones/7/skin_scale = Vector3(1, 1, 1)
+bones/8/skin_scale = Vector3(1, 1, 1)
+bones/9/skin_scale = Vector3(1, 1, 1)
+bones/10/skin_scale = Vector3(1, 1, 1)
+bones/11/skin_scale = Vector3(1, 1, 1)
+bones/12/skin_scale = Vector3(1, 1, 1)
+bones/13/skin_scale = Vector3(1, 1, 1)
+bones/14/skin_scale = Vector3(1, 1, 1)
+bones/15/skin_scale = Vector3(1, 1, 1)
+bones/16/skin_scale = Vector3(1, 1, 1)
+bones/17/skin_scale = Vector3(1, 1, 1)
+bones/18/skin_scale = Vector3(1, 1, 1)
+bones/19/skin_scale = Vector3(1, 1, 1)
+bones/20/skin_scale = Vector3(1, 1, 1)
+bones/21/skin_scale = Vector3(1, 1, 1)
+bones/22/skin_scale = Vector3(1, 1, 1)
+bones/23/skin_scale = Vector3(1, 1, 1)
+bones/24/skin_scale = Vector3(1, 1, 1)
+bones/25/skin_scale = Vector3(1, 1, 1)
+bones/26/skin_scale = Vector3(1, 1, 1)
+bones/27/skin_scale = Vector3(1, 1, 1)
+bones/28/skin_scale = Vector3(1, 1, 1)
+bones/29/skin_scale = Vector3(1, 1, 1)
+bones/30/skin_scale = Vector3(1, 1, 1)
+bones/31/skin_scale = Vector3(1, 1, 1)
+bones/32/skin_scale = Vector3(1, 1, 1)
+bones/33/skin_scale = Vector3(1, 1, 1)
+bones/34/skin_scale = Vector3(1, 1, 1)
+bones/35/skin_scale = Vector3(1, 1, 1)
+bones/36/skin_scale = Vector3(1, 1, 1)
+bones/37/skin_scale = Vector3(1, 1, 1)
+bones/38/skin_scale = Vector3(1, 1, 1)
+bones/39/skin_scale = Vector3(1, 1, 1)
+bones/40/skin_scale = Vector3(1, 1, 1)
+bones/41/skin_scale = Vector3(1, 1, 1)
+bones/42/skin_scale = Vector3(1, 1, 1)
+bones/43/skin_scale = Vector3(1, 1, 1)
+bones/44/skin_scale = Vector3(1, 1, 1)
+bones/45/skin_scale = Vector3(1, 1, 1)
+bones/46/skin_scale = Vector3(1, 1, 1)
+bones/47/skin_scale = Vector3(1, 1, 1)
+
+[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" index="0" unique_id=870920437]
 layers = 16
 surface_material_override/0 = ExtResource("2_88yto")
 
-[node name="Characters_Characters_Skeleton3D#HandR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="1" unique_id=1303654083]
+[node name="Characters_Characters_Skeleton3D#HandR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="1" unique_id=1303654083]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/HandR")
@@ -47,7 +98,7 @@ settings/0/end_bone = 22
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#FootR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="2" unique_id=1381833618]
+[node name="Characters_Characters_Skeleton3D#FootR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="2" unique_id=1381833618]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/FootR")
@@ -62,7 +113,7 @@ settings/0/end_bone = 45
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#FootL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="3" unique_id=1073337]
+[node name="Characters_Characters_Skeleton3D#FootL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="3" unique_id=1073337]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/FootL")
@@ -77,11 +128,11 @@ settings/0/end_bone = 40
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="4" unique_id=2124072261]
+[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="4" unique_id=2124072261]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
-settings/0/target_node = NodePath("../../../../IKcontainer/HandR/Shotgun/HandL")
-settings/0/pole_node = NodePath("../../../../IKcontainer/HandR/Shotgun/ElbowL")
+settings/0/target_node = NodePath("../../../../IKcontainer/HandR/SM_Wep_Shotgun_01/HandL")
+settings/0/pole_node = NodePath("../../../../IKcontainer/HandR/SM_Wep_Shotgun_01/ElbowL")
 settings/0/root_bone_name = "Shoulder_L"
 settings/0/root_bone = 5
 settings/0/middle_bone_name = "Elbow_L"
@@ -92,7 +143,7 @@ settings/0/end_bone = 7
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1811171003, 1712719073) index="5" unique_id=1712986502]
+[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" index="5" unique_id=1712986502]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 target_node = NodePath("../../../../IKcontainer/HeadTarget")
 bone_name = "Neck"
@@ -101,6 +152,7 @@ forward_axis = 0
 relative = true
 duration = 1.0
 use_angle_limitation = true
+use_rest_for_limitation = false
 symmetry_limitation = true
 primary_limit_angle = 0.5235988
 primary_damp_threshold = 1.0
@@ -123,43 +175,52 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3927444, 1.1762562, -0.433
 [node name="HandR" type="Marker3D" parent="IKcontainer" unique_id=705074117]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24059471, 1.1306759, 0.023785949)
 
-[node name="Shotgun" type="MeshInstance3D" parent="IKcontainer/HandR" unique_id=112335132]
+[node name="SM_Wep_Shotgun_01" parent="IKcontainer/HandR" unique_id=760494982 instance=ExtResource("3_88yto")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05236326, 0.053773046, 0.099586636)
-layers = 512
-mesh = ExtResource("3_88yto")
-surface_material_override/0 = ExtResource("2_88yto")
 
-[node name="Muzzle" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=964404474]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.92)
+[node name="SM_Wep_Shotgun_01" parent="IKcontainer/HandR/SM_Wep_Shotgun_01" index="0" unique_id=2012358751]
+surface_material_override/0 = ExtResource("6_jqnf7")
 
-[node name="MuzzleFlash" type="Node3D" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=96982296]
+[node name="SM_Wep_Shotgun_01_Trigger_01" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/SM_Wep_Shotgun_01" index="0" unique_id=1309419440]
+surface_material_override/0 = ExtResource("6_jqnf7")
+
+[node name="SM_Wep_Shotgun_01_Trigger_02" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/SM_Wep_Shotgun_01" index="1" unique_id=552914872]
+surface_material_override/0 = ExtResource("6_jqnf7")
+
+[node name="SM_Wep_Shotgun_01_Barrel" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/SM_Wep_Shotgun_01" index="2" unique_id=1307062190]
+surface_material_override/0 = ExtResource("6_jqnf7")
+
+[node name="Muzzle" type="Marker3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01" unique_id=964404474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.9200001)
+
+[node name="MuzzleFlash" type="Node3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle" unique_id=96982296]
 visible = false
 
-[node name="FlashMesh" type="MeshInstance3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash" unique_id=1639839150]
+[node name="FlashMesh" type="MeshInstance3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/MuzzleFlash" unique_id=1639839150]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 1.4, 0, 0, 0)
 layers = 4
 mesh = SubResource("SphereMeshMuzzleFlash")
 
-[node name="FlashLight" type="OmniLight3D" parent="IKcontainer/HandR/Shotgun/Muzzle/MuzzleFlash" unique_id=1151187736]
+[node name="FlashLight" type="OmniLight3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/MuzzleFlash" unique_id=1151187736]
 light_color = Color(1, 0.35, 0.08, 1)
 light_energy = 4.0
 shadow_enabled = true
 omni_range = 3.0
 
-[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=322138375]
+[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle" unique_id=322138375]
 unit_size = 4.0
 max_distance = 45.0
 max_polyphony = 3
 script = ExtResource("5_gunshot")
 
-[node name="MuzzleFlashTimer" type="Timer" parent="IKcontainer/HandR/Shotgun/Muzzle" unique_id=1544325410]
+[node name="MuzzleFlashTimer" type="Timer" parent="IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle" unique_id=1544325410]
 wait_time = 0.08
 one_shot = true
 
-[node name="ElbowL" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=1227882864]
+[node name="ElbowL" type="Marker3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01" unique_id=1227882864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5539022, -0.050064087, 0.19556722)
 
-[node name="HandL" type="Marker3D" parent="IKcontainer/HandR/Shotgun" unique_id=1250634967]
+[node name="HandL" type="Marker3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01" unique_id=1250634967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12149116, 0.009710908, 0.23479956)
 
 [node name="KneeR" type="Marker3D" parent="IKcontainer" unique_id=1273151338]
@@ -184,3 +245,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.02, 0.14)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493148, 6.7135515)
 
 [editable path="FarmerOld2"]
+[editable path="IKcontainer/HandR/SM_Wep_Shotgun_01"]

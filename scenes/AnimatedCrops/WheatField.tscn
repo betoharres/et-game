@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ccf5fvks4od7s"]
 
-[ext_resource type="ArrayMesh" uid="uid://bvo5uf1iy2dbh" path="res://3dModelos/SM_Prop_Plant_Wheat_04.fbx" id="1_1dqas"]
+[ext_resource type="ArrayMesh" uid="uid://cvooxfie8x8xu" path="res://PolygonFarm/Models/SM_Prop_Plant_Wheat_04.fbx" id="1_1dqas"]
 [ext_resource type="Script" uid="uid://cj1w7kwevyirr" path="res://scripts/wheat_field.gd" id="1_63ylk"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_nheqg"]
-[ext_resource type="ArrayMesh" uid="uid://cqswlmlp5j2ce" path="res://3dModelos/SM_Prop_Plant_Wheat_03.fbx" id="3_63ylk"]
-[ext_resource type="ArrayMesh" uid="uid://cldpx4ttprxy2" path="res://3dModelos/SM_Prop_Plant_Wheat_02.fbx" id="4_oqkts"]
-[ext_resource type="ArrayMesh" uid="uid://dtv3rmhtqgqou" path="res://3dModelos/SM_Prop_Plant_Wheat_01.fbx" id="5_nihgy"]
+[ext_resource type="ArrayMesh" uid="uid://c8p8mk4d1mqr6" path="res://PolygonFarm/Models/SM_Prop_Plant_Wheat_03.fbx" id="3_63ylk"]
+[ext_resource type="ArrayMesh" uid="uid://c1h3yp4lbus34" path="res://PolygonFarm/Models/SM_Prop_Plant_Wheat_02.fbx" id="4_oqkts"]
+[ext_resource type="ArrayMesh" uid="uid://c5iq880e2ehx1" path="res://PolygonFarm/Models/SM_Prop_Plant_Wheat_01.fbx" id="5_nihgy"]
 [ext_resource type="Script" uid="uid://b0tn3y0xkm5xa" path="res://scripts/vegetation_concealment.gd" id="6_concealment"]
 [ext_resource type="Script" uid="uid://ddokxatimv323" path="res://scripts/fog_zone.gd" id="7_fog_zone"]
 

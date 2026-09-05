@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dmfjgy2ul0wbu" path="res://scripts/corn_field_root.gd" id="1_f342q"]
 [ext_resource type="Script" uid="uid://ddokxatimv323" path="res://scripts/fog_zone.gd" id="2_f342q"]
 [ext_resource type="ArrayMesh" uid="uid://bhy805ylytnv3" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Plant_Corn_01.res" id="2_pn53a"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="3_oo5by"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fn4o"]
 size = Vector3(2.0783691, 2, 5.154663)
@@ -15,51 +16,61 @@ script = ExtResource("1_f342q")
 transform = Transform3D(0.6808522, 0, 0.7324208, 0, 1, 0, -0.7324208, 0, 0.6808522, -0.5246468, 0, -2.001941)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn2" type="MeshInstance3D" parent="." unique_id=1550624996]
 transform = Transform3D(-0.57684076, 0, 0.81685656, 0, 1, 0, -0.81685656, 0, -0.57684076, -0.5246468, 0, -1.0006499)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn3" type="MeshInstance3D" parent="." unique_id=229051911]
 transform = Transform3D(0.5778576, 0, 0.8161376, 0, 1, 0, -0.8161376, 0, 0.5778576, -0.5246468, 0, -0.01755625)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn4" type="MeshInstance3D" parent="." unique_id=1710805379]
 transform = Transform3D(-0.9952765, 0, 0.09708054, 0, 1, 0, -0.09708054, 0, -0.9952765, -0.5246468, 0, 1.0012546)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn5" type="MeshInstance3D" parent="." unique_id=1126831143]
 transform = Transform3D(-0.5228754, 0, 0.85240924, 0, 1, 0, -0.85240924, 0, -0.5228754, -0.5246468, 0, 2.0002284)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn15" type="MeshInstance3D" parent="." unique_id=1090405719]
 transform = Transform3D(0.83232486, 0, 0.5542881, 0, 1, 0, -0.5542881, 0, 0.83232486, 0.5096304, 0, 2.0002284)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn14" type="MeshInstance3D" parent="." unique_id=1166400517]
 transform = Transform3D(0.8943429, 0, 0.44738212, 0, 1, 0, -0.44738212, 0, 0.8943429, 0.5096304, 0, 1.0012546)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn13" type="MeshInstance3D" parent="." unique_id=662501830]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5096304, 0, -0.01755625)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn12" type="MeshInstance3D" parent="." unique_id=207155171]
 transform = Transform3D(-0.7648903, 0, -0.64416057, 0, 1, 0, 0.64416057, 0, -0.7648903, 0.5096304, 0, -1.0006499)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="Corn11" type="MeshInstance3D" parent="." unique_id=142094258]
 transform = Transform3D(0.24157622, 0, 0.97038186, 0, 1, 0, -0.97038186, 0, 0.24157622, 0.5096304, 0, -2.001941)
 layers = 2
 mesh = ExtResource("2_pn53a")
+surface_material_override/0 = ExtResource("3_oo5by")
 
 [node name="ConcealmentArea" type="Area3D" parent="." unique_id=2008365641 groups=["concealment_areas"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)

@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var windmill_prop : MeshInstance3D = $MeshInstance3D/MeshInstance3D2/SmPropWindmill03
-@onready var windmill_neck : MeshInstance3D = $MeshInstance3D/MeshInstance3D2
+@onready var windmill_prop : MeshInstance3D = $SM_Prop_Windmill_01/SM_Prop_Windmill_01/SM_Prop_Windmill_Top_01/SM_Prop_Windmill_Blades_01
+@onready var windmill_neck : MeshInstance3D = $SM_Prop_Windmill_01/SM_Prop_Windmill_01/SM_Prop_Windmill_Top_01
 
 @export var prop_speed : float = 1.0
 
