@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmpe8dqi7w223"
-path.s3tc="res://.godot/imported/PolygonFarm_Signs.png-ca70966b929db7fb9e9b5280b8f9af4c.s3tc.ctex"
+path.s3tc="res://.godot/imported/PolygonFarm_Signs.png-9eb9cfd2b2a48563138ee03f54a828c4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://PolygonFarm/textures/PolygonFarm_Signs.png"
-dest_files=["res://.godot/imported/PolygonFarm_Signs.png-ca70966b929db7fb9e9b5280b8f9af4c.s3tc.ctex"]
+source_file="res://PolygonFarm/Textures/PolygonFarm_Signs.png"
+dest_files=["res://.godot/imported/PolygonFarm_Signs.png-9eb9cfd2b2a48563138ee03f54a828c4.s3tc.ctex"]
 
 [params]
 

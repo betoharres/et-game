@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df2yinoskowol"
-path.s3tc="res://.godot/imported/PolygonFarm_Texture_01_A.png-2604d191126ba98d88e3b0251189a3e4.s3tc.ctex"
+path.s3tc="res://.godot/imported/PolygonFarm_Texture_01_A.png-fec8165e805d8ec59bad3189a0e4f988.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://PolygonFarm/textures/PolygonFarm_Texture_01_A.png"
-dest_files=["res://.godot/imported/PolygonFarm_Texture_01_A.png-2604d191126ba98d88e3b0251189a3e4.s3tc.ctex"]
+source_file="res://PolygonFarm/Textures/PolygonFarm_Texture_01_A.png"
+dest_files=["res://.godot/imported/PolygonFarm_Texture_01_A.png-fec8165e805d8ec59bad3189a0e4f988.s3tc.ctex"]
 
 [params]
 
