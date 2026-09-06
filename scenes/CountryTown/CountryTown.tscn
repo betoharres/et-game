@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/SecondaryPaths.tscn" id="20_secondary_paths"]
+
+[ext_resource type="Terrain3DMaterial" uid="uid://bhsomirq7jyr5" path="res://Materiais/new_terrain_3d_material.tres" id="1_terrain_material"]
+[ext_resource type="Terrain3DAssets" uid="uid://jx7r6cvf63u" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="2_terrain_assets"]
+[ext_resource type="PackedScene" uid="uid://b7kgyrrylgmhf" path="res://scenes/NightEnvironment.tscn" id="3_night_environment"]
+[ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="4_pause_menu"]
+[ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="5_player"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Layout/PointsOfInterest.tscn" id="6_points_of_interest"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/RoadNetwork.tscn" id="7_road_network"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/RiverDistrict.tscn" id="8_river_district"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/FarmDistrict.tscn" id="9_farm_district"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/TownDistrict.tscn" id="10_town_district"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/CrashSiteDistrict.tscn" id="11_crash_site_district"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/MinePortalSite.tscn" id="12_mine_portal_site"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/DeliveryYard.tscn" id="13_delivery_yard"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Fields.tscn" id="14_fields"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Vegetation.tscn" id="15_vegetation"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Detailing.tscn" id="16_detailing"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NightLights.tscn" id="17_night_lights"]
+[ext_resource type="Script" path="res://scripts/audio/farm_environment_audio.gd" id="18_environment_audio"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_country_town"]
+
+[node name="CountryTown" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_country_town")
+
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D"]
+data_directory = "res://scenes/CountryTown/Terrain"
+material = ExtResource("1_terrain_material")
+assets = ExtResource("2_terrain_assets")
+mesh_lods = 5
+render_layers = 2147483680
+cull_margin = 64.0
+top_level = true
+
+[node name="NightEnvironment" parent="." instance=ExtResource("3_night_environment")]
+atmospheric_fog_enabled = false
+ground_fog_enabled = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause_menu")]
+
+[node name="Player" parent="." instance=ExtResource("5_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 6, 48)
+
+[node name="PointsOfInterest" parent="." instance=ExtResource("6_points_of_interest")]
+
+[node name="RoadNetwork" parent="." instance=ExtResource("7_road_network")]
+
+[node name="SecondaryPaths" parent="." instance=ExtResource("20_secondary_paths")]
+
+[node name="RiverDistrict" parent="." instance=ExtResource("8_river_district")]
+
+[node name="FarmDistrict" parent="." instance=ExtResource("9_farm_district")]
+
+[node name="TownDistrict" parent="." instance=ExtResource("10_town_district")]
+
+[node name="CrashSiteDistrict" parent="." instance=ExtResource("11_crash_site_district")]
+
+[node name="MinePortalSite" parent="." instance=ExtResource("12_mine_portal_site")]
+
+[node name="DeliveryYard" parent="." instance=ExtResource("13_delivery_yard")]
+
+[node name="Fields" parent="." instance=ExtResource("14_fields")]
+
+[node name="Vegetation" parent="." instance=ExtResource("15_vegetation")]
+
+[node name="Detailing" parent="." instance=ExtResource("16_detailing")]
+
+[node name="NightLights" parent="." instance=ExtResource("17_night_lights")]
+
+[node name="EnvironmentAudio" type="Node" parent="."]
+script = ExtResource("18_environment_audio")

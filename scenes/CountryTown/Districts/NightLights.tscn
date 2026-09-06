@@ -1,0 +1,263 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_LampStanding_02.tscn" id="1_sm_prop_lampstanding_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_LampStanding_01.tscn" id="2_sm_prop_lampstanding_01"]
+[ext_resource type="Script" path="res://scripts/house_lights.gd" id="3_house_lights"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Outdoor_Light_02.tscn" id="4_sm_prop_outdoor_light_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Outdoor_Light_01.tscn" id="5_sm_prop_outdoor_light_01"]
+
+[node name="NightLights" type="Node3D"]
+
+[node name="Lamps" type="Node3D" parent="."]
+
+[node name="Lamp01" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(-0.4672, 0, -0.8841, 0, 1, 0, 0.8841, 0, -0.4672, 461, 6, 196)
+visibility_range_end = 180
+
+[node name="Lamp02" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(-0.943, 0, 0.3327, 0, 1, 0, -0.3327, 0, -0.943, 447, 6, 232)
+visibility_range_end = 180
+
+[node name="Lamp03" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(-0.9978, 0, 0.0669, 0, 1, 0, -0.0669, 0, -0.9978, 461, 6, 268)
+visibility_range_end = 180
+
+[node name="Lamp04" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(0.8228, 0, 0.5684, 0, 1, 0, -0.5684, 0, 0.8228, 447, 6, 304)
+visibility_range_end = 180
+
+[node name="Lamp05" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(0.7947, 0, -0.607, 0, 1, 0, 0.607, 0, 0.7947, 461, 6, 340)
+visibility_range_end = 180
+
+[node name="Lamp06" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(0.8822, 0, 0.4708, 0, 1, 0, -0.4708, 0, 0.8822, 462.5, 6, 219)
+visibility_range_end = 180
+
+[node name="Lamp07" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(-0.9198, 0, 0.3924, 0, 1, 0, -0.3924, 0, -0.9198, 478, 6, 233)
+visibility_range_end = 180
+
+[node name="Lamp08" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(0.8634, 0, -0.5045, 0, 1, 0, 0.5045, 0, 0.8634, 415, 6, 178)
+visibility_range_end = 180
+
+[node name="Lamp09" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(-0.189, 0, -0.982, 0, 1, 0, 0.982, 0, -0.189, 415, 6, 230)
+visibility_range_end = 180
+
+[node name="Lamp10" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(-0.9958, 0, 0.092, 0, 1, 0, -0.092, 0, -0.9958, 508, 6, 306)
+visibility_range_end = 180
+
+[node name="Lamp11" parent="Lamps" instance=ExtResource("1_sm_prop_lampstanding_02")]
+transform = Transform3D(0.4429, 0, 0.8966, 0, 1, 0, -0.8966, 0, 0.4429, 444, 6, 385)
+visibility_range_end = 180
+
+[node name="Lamp12" parent="Lamps" instance=ExtResource("2_sm_prop_lampstanding_01")]
+transform = Transform3D(-0.8989, 0, -0.4381, 0, 1, 0, 0.4381, 0, -0.8989, 486, 6, 385)
+visibility_range_end = 180
+
+[node name="LampLights" type="Node3D" parent="." groups=["debug_house_lighting"]]
+script = ExtResource("3_house_lights")
+window_light_color = Color(1, 0.86, 0.62, 1)
+window_light_energy = 0.9
+light_range = 11.0
+flicker_amount = 0.012
+shadow_light_indices = PackedInt32Array()
+
+[node name="LampLight01" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 461, 7.75, 196)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight02" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 447, 7.75, 232)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight03" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 461, 7.75, 268)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight04" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 447, 7.75, 304)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight05" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 461, 7.75, 340)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight06" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 462.5, 7.75, 219)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight07" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 478, 7.75, 233)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight08" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 415, 7.75, 178)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight09" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 415, 7.75, 230)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight10" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 508, 7.75, 306)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight11" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 444, 7.75, 385)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="LampLight12" type="OmniLight3D" parent="LampLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 486, 7.75, 385)
+light_color = Color(1, 0.86, 0.62, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 11
+
+[node name="Fixtures" type="Node3D" parent="."]
+
+[node name="Fixture01" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 384.6, 3.2, 209)
+visibility_range_end = 140
+
+[node name="Fixture02" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 384.6, 3.2, 232)
+visibility_range_end = 140
+
+[node name="Fixture03" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.5, 3.6, 296)
+visibility_range_end = 140
+
+[node name="Fixture04" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 198)
+visibility_range_end = 140
+
+[node name="Fixture05" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 262)
+visibility_range_end = 140
+
+[node name="Fixture06" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 194)
+visibility_range_end = 140
+
+[node name="Fixture07" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 256)
+visibility_range_end = 140
+
+[node name="Fixture08" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 357, 3, 372)
+visibility_range_end = 140
+
+[node name="WindowLights" type="Node3D" parent="." groups=["debug_house_lighting"]]
+script = ExtResource("3_house_lights")
+window_light_energy = 0.5
+light_range = 7.5
+shadow_light_indices = PackedInt32Array(0)
+
+[node name="WindowLight01" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 384.6, 3.2, 209)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight02" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 384.6, 3.2, 232)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight03" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.5, 3.6, 296)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight04" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 198)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight05" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 262)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight06" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 194)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight07" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 256)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="WindowLight08" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 357, 3, 372)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="FarmWindow01" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.2, 105)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="FarmWindow02" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 4.2, 119)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="FarmWindow03" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 3, 60)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5
+
+[node name="FarmWindow04" type="OmniLight3D" parent="WindowLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 363, 4, 374)
+light_energy = 0.5
+shadow_enabled = false
+omni_range = 7.5

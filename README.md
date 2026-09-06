@@ -18,6 +18,7 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
 - [Controles](#controles) — teclas e ações do Input Map.
 - [Arquitetura](#arquitetura) — cenas, autoloads, grupos e cadeias de interação.
 - [Onde ajustar o visual](#onde-ajustar-o-visual) — em que cena ou script mora cada parâmetro.
+- [Mapa Country Town](#mapa-country-town) — mapa novo em construção, fora do catálogo de fases.
 - [Limitações conhecidas](#limitações-conhecidas) — o que ainda não existe ou é provisório.
 - [Qualidade e validação](#qualidade-e-validação) — checagem no editor e ferramentas de `tools/`.
 
@@ -281,6 +282,166 @@ interpola densidade, tonalidade, scattering, energia dos feixes e interferência
 de tela; `set_quality_preset()` troca o preset em runtime. O grupo
 `alien_post_process` expõe interferência manual e pulso.
 
+## Mapa Country Town
+
+Mapa novo, em construção, com fazenda e cidade rural em `scenes/CountryTown/`.
+Ele **não entra no catálogo de fases**: `scenes/Space/Levels/` e
+`scripts/world.gd` não o conhecem, e por enquanto ele é aberto direto pelo
+editor, em `scenes/CountryTown/CountryTown.tscn`.
+
+| Arquivo | Papel |
+| --- | --- |
+| `CountryTown.tscn` | Cena mestre: só instancia terreno, ambiente, jogador e distritos |
+| `Terrain/` | `data_directory` exclusivo do Terrain3D deste mapa |
+| `Layout/PointsOfInterest.tscn` | Um `Marker3D` por ponto do mapa, todos no grupo `country_town_poi` |
+| `Districts/RoadNetwork.tscn` | Malha de estradas: um `MultiMeshInstance3D` por tipo de peça `SM_Env_Road_*`, mais o `RoadBed` |
+| `Districts/RiverWater.tscn` | Lâmina d'água do rio, barreira só visual, gerada por script |
+| `Districts/RiverDistrict.tscn` | Instancia a água, as duas pontes, o ancoradouro e a névoa do leito |
+| `Districts/Fields.tscn` | Milharal sobre sulcos, talhões de trigo e girassóis, gerada |
+| `Districts/Vegetation.tscn` | Árvores e arbustos de cena, juncos e seixos das margens |
+| `Districts/Detailing.tscn` | Cercas, fardos, caixas, placas, sebes e canteiros |
+| `Districts/NightLights.tscn` | Postes, luminárias de fachada e luzes de janela |
+| `Districts/UrbanInfill.tscn` | Construções adicionais, calçadas, quintais, cargas e postes, instanciada em `TownDistrict` |
+| `Districts/RuralInfill.tscn` | Pátios de trabalho, pomares, fardos, silos pequenos e manchas de margem, instanciada em `FarmDistrict` |
+| `Districts/SecondaryPaths.tscn` | Ruas locais e trilhas tesselladas sobre o relevo existente |
+| `Districts/*.tscn` restantes | Fazenda, cidade, queda, mina e pátio de entrega |
+| `Blocks/*.tscn` | Blocos reutilizáveis, cada um com a própria colisão dentro |
+
+O mapa mede `600 × 450 m`, com origem no canto noroeste, X para leste e Z para
+sul. Nem as estradas nem o relevo são feitos à mão:
+
+- `tools/build_country_town_layout.gd` guarda a grade das estradas (`ROAD_RUNS`)
+  e o traçado do rio (`RIVER_PATH`), e gera `RoadNetwork.tscn` e
+  `RiverWater.tscn`. **Não rode com `--headless`**: o buffer de um
+  `MultiMesh` mora no servidor de render e o driver dummy o devolve vazio.
+  As peças `SM_Env_Road_*` afinam nas pontas — de oito metros para meio metro
+  na costura —, e duas pontas vizinhas não se completam: entre uma peça e a
+  seguinte fica um entalhe por onde o terreno aparecia. Quem fecha esse entalhe
+  é o `RoadBed`, uma chapa contínua com a UV chapada da própria via, gerada
+  junto: o terreno fica em `GROUND_HEIGHT`, o leito três centímetros acima e as
+  peças mais três, para as três superfícies não brigarem pelo mesmo pixel.
+- `tools/build_country_town_terrain.gd` lê esses dados e os marcadores da cena
+  de POIs, gera o heightmap, achata as zonas construídas, abre uma clareira sob
+  cada marcador e sob cada peça de estrada, escava o canal do rio por último e
+  salva as regiões em `scenes/CountryTown/Terrain/`. O heightmap cobre
+  1280 × 1280 m a partir de `TERRAIN_ORIGIN` (−256 m em X e em Z, múltiplo do
+  `region_size` do Terrain3D): as colinas de borda começam para dentro do mapa
+  e só saturam bem depois dele, e sem essa folga negativa o terreno acabava no
+  meio da subida a oeste e ao norte — um precipício em vez de montanha.
+
+- `tools/build_country_town_fields.gd` planta o milharal, os talhões de trigo
+  e os canteiros de girassol, e gera `Districts/Fields.tscn`. Os talhões são
+  retângulos em `CROP_FIELDS`, no script de layout; o script poda o que cai
+  sobre estrada, rio ou prédio. Os 13 talhões compartilham essas áreas com
+  as cercas, o solo trabalhado e a exclusão da vegetação de fundo.
+  O que limita o tamanho de um talhão é a malha, não a área — um pé de milho
+  Synty tem 1438 triângulos e a cena `corn_field_root` empilha dez deles em
+  2,2 × 5,2 m —, então cada instância sai com `visibility_range` e
+  `active_radius` ajustados. Quem cuida disso é `scripts/reactive_crop.gd`,
+  base comum das três plantações: fora do raio ativo o talhão dorme e o
+  `_process` sai no primeiro `if`; além do alcance de visibilidade as plantas
+  derretem em vez de sumir de uma vez. Blocos de 20 m com hastes geométricas
+  simples assumem a silhueta à distância: os campos continuam compondo a
+  paisagem além do alcance das malhas reativas, sem sensores ou scripts nesses
+  blocos distantes. Os sulcos também amostram o terreno e evitam os corredores.
+- O talhÃ£o `CornField` Ã© propositalmente grande e usa `CORN_MAZE` como uma receita fixa: cÃ©lulas `#` recebem milho alto e `.` ficam como corredores. Para trocar depois por um labirinto aleatÃ³rio, substitua essa matriz mantendo a mesma grade.
+- As vias da cidade usam a famÃ­lia `asphalt_*` em `RoadNetwork.tscn`, incluindo o leito das avenidas e os caminhos urbanos secundÃ¡rios. As rotas rurais continuam em terra para preservar a transiÃ§Ã£o visual entre fazenda e cidade.
+- `tools/build_country_town_settlement.gd` monta os complementos urbanos e
+  rurais usando os assets locais PolygonTown/PolygonFarm e a malha da nave
+  existente. `LOTS` define 14 construções autorais; `_build_frontages` preenche
+  as frentes de rua usando a pegada real dos presets, com variação determinística
+  de casas e lojas. A composição atual tem 52 fachadas adicionais, totalizando
+  76 construções urbanas principais, além de bancas de feira e anexos. O
+  preenchimento reserva a praça, as colisões existentes e as faixas de
+  circulação. Ruas locais delimitam os quarteirões e a frente do rio; solo de
+  lote, calçadas e quintais conectam as fachadas. As propriedades rurais têm
+  seis pátios de trabalho, três pomares, galpões de colheita, tratores de cenário,
+  fardos, lenha e cercas com aberturas. O depósito de entrega ganhou limites e
+  alas de armazenamento. Não há geração procedural durante a partida.
+  `SECONDARY_PATHS`, no script de layout, guarda larguras e pontos das ruas,
+  becos e trilhas; `SETTLEMENT_CLEARINGS` reserva os pátios e a praça. As
+  faixas amostram a altura do terreno a cada metro, sem mudar as pontes ou
+  escavar novamente o rio. Campos e vegetação respeitam esses corredores.
+  O plantio de fundo também evita as colisões da decoração e dos campos,
+  deixando o núcleo urbano para os jardins montados nas cenas.
+  Os blocos `CargoStack`, `RuralWorkyard`, `FarmSilo`, `CrashedSaucer`,
+  `GrainMill` e `DockShelter` são reutilizáveis. O moinho de grãos usa torre
+  facetada e quatro velas, animadas por `AnimationPlayer`; substitui a bomba
+  eólica apenas neste mapa. O ancoradouro tem cobertura de madeira. A nave
+  inclinada da queda é cenário com colisão, sem scripts
+  da nave jogável ou coleta. Quatro postes adicionais usam `house_lights.gd`
+  e o grupo `debug_house_lighting`, com luzes sem sombra.
+  Alguns FBX rurais são importados como `PackedScene`, embora as cenas antigas
+  os solicitassem como `ArrayMesh`. O gerador extrai suas malhas para
+  `Blocks/Meshes/`, corrigindo abrigo, bebedouro, estufa, banca, banheiro e
+  silo apenas neste mapa, sem alterar os imports ou as cenas da fazenda antiga.
+- `tools/build_country_town_vegetation.gd` planta grama, arbustos e árvores de
+  fundo no instancer do Terrain3D, desviando de estrada, rio e de qualquer
+  colisão dos distritos. Cada espécie é um `Terrain3DMeshAsset` apontando para
+  uma cena de `scenes/Vegetation/` — ids 1, 2 e 3 —, com os alcances de LOD
+  apertados. O id 0 do `ArrayTrees.tres` é o cartão gerado que já existia, sem
+  textura no material: **não plante nele**, ele desenha uma cruz branca saindo
+  do chão.
+
+Mexeu no layout, rode na ordem:
+
+```powershell
+.\tools\godot.cmd --path . --script res://tools/build_country_town_layout.gd --resolution 320x240
+.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd
+.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_settlement.gd
+.\tools\godot.cmd --path . --script res://tools/build_country_town_fields.gd --resolution 320x240
+.\tools\godot.cmd --path . --script res://tools/build_country_town_vegetation.gd --resolution 320x240
+.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_layout.gd
+.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_clearance.gd
+.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_bridge.gd
+```
+
+A ordem importa: o build do terreno reimporta as regiões do zero e levaria a
+vegetação junto, então o plantio vem depois dele. O de vegetação também **não**
+roda com `--headless`, pelo mesmo motivo do layout.
+
+Se mudou apenas `LOTS`, as frentes de rua, `CROP_FIELDS`, a decoração gerada
+ou `SECONDARY_PATHS`, comece pelo
+build de settlement e depois rode campos e vegetação: não é necessário
+regenerar o terreno nem as estradas principais. Os três complementos e os
+seis blocos gerados são sobrescritos pelo build; para preservar ajustes
+entre gerações, edite as receitas no script. Os distritos manuais ficam
+intactos. Feche o editor antes dos comandos ou use uma cópia isolada do projeto,
+conforme `tools/VALIDACAO.md`.
+
+A vegetação de fundo — cerca de 12.000 tufos de grama, 310 arbustos e 920
+árvores — não gasta um nó sequer: vive no instancer, dentro das próprias
+regiões do terreno. Instâncias de cena ficam para o que tem comportamento ou o
+jogador encosta: as plantações de `scenes/AnimatedCrops/`, com
+`concealment_area` e `fog_zone` próprios, e as árvores dos quintais. É o
+oposto de `world.tscn`, que tem cerca de 7.500 linhas só de tufo de grama
+instanciado um a um.
+
+As duas travessias usam `Blocks/RiverBridge.tscn`, montada com módulos do
+PolygonCity. Cada módulo tem a sua própria cota de origem: o `Underside` entrega
+o piso no topo, o `Edge` entrega o piso um palmo abaixo do parapeito, e
+`Support` e `Pillar` são estrutura, que mora **sob** o tabuleiro. Errar a cota
+de um deles não quebra nada — só deixa um degrau ou uma viga furando o chão da
+ponte. `tools/check_country_town_bridge.gd` amostra a faixa de rolamento e cobra
+piso contínuo, plano e desobstruído, mais os dois parapeitos de ponta a ponta.
+A ponte tem 35 m, o tamanho exato do vão que a grade abre entre as duas peças
+de ponta da estrada, e os encontros fecham os 37 cm que sobram de cada lado.
+
+A ambientação segue a da fazenda: `NightEnvironment.tscn` sem alterar o preset,
+`FogZone` no leito do rio, no milharal e na cratera, e as luzes registradas no
+grupo `debug_house_lighting`, que o menu `F6` liga e desliga.
+
+O mapa é feito para rodar em máquina modesta: as 164 peças de estrada saem em
+8 draw calls e não projetam sombra, os planos de água só se sobrepõem o
+necessário para fechar o canto de cada curva, e o rio usa
+`Materiais/ea_water_countryTown.tres` — o mesmo `ea_coolwater`, com refração,
+cáusticas e brilhos desligados pelos interruptores `enable_refraction`,
+`enable_caustics` e `enable_foam` do shader, que existem para isso. A espuma de
+margem fica ligada, é ela que desenha a silhueta do rio contra a ribanceira.
+
+O terreno da fazenda continua em `res://scenes`, com os `terrain3d_*.res`
+soltos lá — os dois mapas nunca compartilham diretório.
+
 ## Limitações conhecidas
 
 - A nave que desce na fazenda e a `SpaceShip` que já existia na cena são
@@ -302,6 +463,16 @@ de tela; `set_quality_preset()` troca o preset em runtime. O grupo
   fina, e não há verificação de espaço livre ao levantar.
 - A masmorra não tem objetivo além dos destroços: sem inimigos, salas
   especiais nem variação vertical.
+- O cenário do mapa Country Town está fechado — terreno, rio, estradas, pontes,
+  edificações, vegetação e ambientação noturna — mas ele não tem lógica
+  nenhuma: sem NPC, armadilha, destroço coletável ou entrega funcional. A
+  sucata do local da queda é cenário, fora do grupo `pickup_items` e sem
+  `score_value`. O portal da mina é só a moldura da entrada, sem ligação com
+  `scenes/Dungeon/`. A `NavigationRegion3D` não foi bakeada e o mapa não é
+  alcançável pelo menu: abre direto pelo editor.
+- O áudio ambiente do Country Town reusa `farm_environment_audio.gd`, cujas
+  posições de latido de cachorro são fixas nas coordenadas da fazenda e caem
+  fora deste mapa. Vento e grilos, que não são posicionais, tocam normalmente.
 - A malha de navegação interna da nave cobre hoje apenas a plataforma de
   `9×9 m` junto ao NPC genérico; a luz viva fica limitada a essa área até a
   região ser rebakeada para o restante do interior. A `NavigationRegion3D` da

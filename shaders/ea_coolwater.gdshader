@@ -40,10 +40,16 @@ uniform float specular_hardness : hint_range(0.0, 1.0) = 0.85;
 uniform float specular_intensity : hint_range(0.0, 1.0) = 0.5;
 uniform float fresnel_power : hint_range(0.0, 3.0) = 1.0;
 // Screen-space refraction of everything under the surface.
+// Off skips the screen texture tap: the cheapest thing to drop on weak
+// GPUs, at the price of a flat surface with nothing showing through it.
+uniform bool enable_refraction = true;
 uniform float refraction_strength : hint_range(0.0, 0.1) = 0.02;
 group_uniforms;
 
 group_uniforms Foam_and_Shore;
+// Off skips the shore foam: four extra depth taps, four world-space
+// reconstructions and the whole foam pattern.
+uniform bool enable_foam = true;
 // Texture uses foam_texture below; the other four styles are procedural.
 uniform int foam_style : hint_enum("Texture", "Cloudy", "Blobs", "Scatter", "Cellular") = 4;
 uniform vec4 foam_color : source_color = vec4(0.972, 0.985, 1.0, 1.0);
@@ -73,6 +79,9 @@ uniform float foam_overlay : hint_range(0.0, 1.0) = 0.0;
 group_uniforms;
 
 group_uniforms Caustics;
+// Off skips the whole vein network - two to six procedural caustic
+// samples per pixel, the heaviest block in this shader.
+uniform bool enable_caustics = true;
 uniform vec4 caustics_tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float caustics_strength : hint_range(0.0, 0.5) = 0.25;
 uniform float caustics_scale : hint_range(0.0, 0.1) = 0.05;
@@ -368,12 +377,15 @@ void fragment() {
 	// constant across the surface -> no per-pixel variation -> no visible
 	// distortion. Hard-coded tiling keeps refraction working regardless of how
 	// the user sets the lighting normal.
-	vec2 ref_nm_uv = pos_ws.xz * 0.45 + TIME * wave_speed * vec2(0.06, 0.04);
-	vec3 ref_tn = texture(normal_map, ref_nm_uv).rgb * 2.0 - 1.0;
-	vec2 ref_off = ref_tn.xy * refraction_strength * 4.0 * (1.0 - depth_t * 0.3);
-	vec2 ref_uv = clamp(scr_uv + ref_off, vec2(0.001), vec2(0.999));
-	vec3 ref_col = texture(screen_texture, ref_uv).rgb;
-	col = mix(ref_col, col, clamp(depth_t * 0.9 - 0.1, 0.0, 1.0));
+
+	if (enable_refraction) {
+		vec2 ref_nm_uv = pos_ws.xz * 0.45 + TIME * wave_speed * vec2(0.06, 0.04);
+		vec3 ref_tn = texture(normal_map, ref_nm_uv).rgb * 2.0 - 1.0;
+		vec2 ref_off = ref_tn.xy * refraction_strength * 4.0 * (1.0 - depth_t * 0.3);
+		vec2 ref_uv = clamp(scr_uv + ref_off, vec2(0.001), vec2(0.999));
+		vec3 ref_col = texture(screen_texture, ref_uv).rgb;
+		col = mix(ref_col, col, clamp(depth_t * 0.9 - 0.1, 0.0, 1.0));
+	}
 
 	// -- Caustics - vein refraction network, projected on the floor -----------
 	// Sampled in scene_ws.xz (the ground beneath the water), NOT pos_ws.xz
@@ -381,43 +393,46 @@ void fragment() {
 	// light. Walk past a rock under the pool and the bright veins crawl over it
 	// instead of sliding off the rock edge.
 	// Slider caustics_scale remapped to density 0.5..2.5.
-	float caustic_zone = clamp(1.0 - smoothstep(0.30, 1.00, depth_t), 0.0, 1.0);
-	float c_scale = mix(0.5, 2.5, caustics_scale);
-	vec2 c_p = scene_ws.xz * c_scale;
-	float c_t = TIME * caustics_speed;
-	vec3 caustic_rgb;
-	if (chromatic_aberration) {
-		// Chromatic aberration: three offset samples -> visible rainbow fringe
-		// along caustic edges (like real underwater refraction).
-		vec2 c_off = vec2(0.28, 0.0);
-		caustic_rgb = vec3(
-			caustic_blend(c_p + c_off, c_t),
-			caustic_blend(c_p, c_t),
-			caustic_blend(c_p - c_off, c_t));
-	} else {
-		// No CA: one sample, no rainbow fringing, ~3x cheaper.
-		float c = caustic_blend(c_p, c_t);
-		caustic_rgb = vec3(c);
+
+	if (enable_caustics) {
+		float caustic_zone = clamp(1.0 - smoothstep(0.30, 1.00, depth_t), 0.0, 1.0);
+		float c_scale = mix(0.5, 2.5, caustics_scale);
+		vec2 c_p = scene_ws.xz * c_scale;
+		float c_t = TIME * caustics_speed;
+		vec3 caustic_rgb;
+		if (chromatic_aberration) {
+			// Chromatic aberration: three offset samples -> visible rainbow fringe
+			// along caustic edges (like real underwater refraction).
+			vec2 c_off = vec2(0.28, 0.0);
+			caustic_rgb = vec3(
+				caustic_blend(c_p + c_off, c_t),
+				caustic_blend(c_p, c_t),
+				caustic_blend(c_p - c_off, c_t));
+		} else {
+			// No CA: one sample, no rainbow fringing, ~3x cheaper.
+			float c = caustic_blend(c_p, c_t);
+			caustic_rgb = vec3(c);
+		}
+		// Toon step: hard levels instead of a photoreal soft glow. Uses the same
+		// step count as the depth bands so the whole surface stays one style.
+		caustic_rgb = floor(caustic_rgb * bands) / bands;
+		// Patchy mask: low-frequency vnoise (also in scene_ws), animated slowly ->
+		// some regions fully bright (1), others completely cut (0), soft
+		// transition. Without it the caustics cover the floor like a uniform film.
+		float caust_mask = smoothstep(0.35, 0.65, vnoise(scene_ws.xz * 0.30 + c_t * 0.18));
+		// Auto-color: blend Shallow <-> ShoreGlow (70% toward the glow, the
+		// brighter end) and boost luminance so the reflex stays clearly brighter
+		// than the water tint under it. caustics_tint remains as an optional
+		// modulator (default white = pure auto).
+		vec3 caust_auto_tint = mix(shallow_color.rgb, shore_glow_color.rgb, 0.7);
+		caust_auto_tint = clamp(caust_auto_tint * 1.55, 0.0, 1.0);
+		vec3 caust_effect = caust_auto_tint * caustics_tint.rgb * caustic_rgb
+				* caustic_zone * caust_mask * caustics_strength;
+		// Screen blend: 1 - (1-a)(1-b) - light that PENETRATES the water color
+		// instead of being painted on top. No over-saturation, no chalky film.
+		// Works on any water tint by construction.
+		col = 1.0 - (1.0 - col) * (1.0 - clamp(caust_effect, vec3(0.0), vec3(1.0)));
 	}
-	// Toon step: hard levels instead of a photoreal soft glow. Uses the same
-	// step count as the depth bands so the whole surface stays one style.
-	caustic_rgb = floor(caustic_rgb * bands) / bands;
-	// Patchy mask: low-frequency vnoise (also in scene_ws), animated slowly ->
-	// some regions fully bright (1), others completely cut (0), soft
-	// transition. Without it the caustics cover the floor like a uniform film.
-	float caust_mask = smoothstep(0.35, 0.65, vnoise(scene_ws.xz * 0.30 + c_t * 0.18));
-	// Auto-color: blend Shallow <-> ShoreGlow (70% toward the glow, the
-	// brighter end) and boost luminance so the reflex stays clearly brighter
-	// than the water tint under it. caustics_tint remains as an optional
-	// modulator (default white = pure auto).
-	vec3 caust_auto_tint = mix(shallow_color.rgb, shore_glow_color.rgb, 0.7);
-	caust_auto_tint = clamp(caust_auto_tint * 1.55, 0.0, 1.0);
-	vec3 caust_effect = caust_auto_tint * caustics_tint.rgb * caustic_rgb
-			* caustic_zone * caust_mask * caustics_strength;
-	// Screen blend: 1 - (1-a)(1-b) - light that PENETRATES the water color
-	// instead of being painted on top. No over-saturation, no chalky film.
-	// Works on any water tint by construction.
-	col = 1.0 - (1.0 - col) * (1.0 - clamp(caust_effect, vec3(0.0), vec3(1.0)));
 
 	// -- Fresnel - brightens the color at grazing angles ----------------------
 	vec3 view_dir_ws = normalize(CAMERA_POSITION_WORLD - pos_ws);
@@ -429,88 +444,91 @@ void fragment() {
 	alpha = clamp(alpha + fresnel * 0.3, 0.0, 1.0);
 
 	// -- FOAM -----------------------------------------------------------------
-	float foam_t = TIME * foam_speed * foam_anim;
+	float foam_mask = 0.0;
+	if (enable_foam) {
+		float foam_t = TIME * foam_speed * foam_anim;
 
-	// Projected foam - vertical world-Y at 4 diagonal taps (8 px).
-	// World-space Y is camera-independent -> the foam does NOT dance during
-	// camera rotation / tilt (eye-depth based foam did).
-	vec2 ts = 8.0 / VIEWPORT_SIZE;
-	vec2 fu0 = scr_uv + ts * vec2(1.0, 1.0);
-	vec2 fu1 = scr_uv + ts * vec2(-1.0, 1.0);
-	vec2 fu2 = scr_uv + ts * vec2(1.0, -1.0);
-	vec2 fu3 = scr_uv + ts * vec2(-1.0, -1.0);
-	vec3 fw0 = reconstruct_world_pos(fu0, texture(depth_texture, fu0).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
-	vec3 fw1 = reconstruct_world_pos(fu1, texture(depth_texture, fu1).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
-	vec3 fw2 = reconstruct_world_pos(fu2, texture(depth_texture, fu2).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
-	vec3 fw3 = reconstruct_world_pos(fu3, texture(depth_texture, fu3).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
-	// Above-water taps -> absolute huge sentinel (no foam contribution).
-	// Must NOT be tied to foam_depth - when foam_depth = 0 a relative sentinel
-	// collapsed to 0 and stamped a full foam ring around every protruding
-	// object (outline bug).
-	const float big_d = 1e6;
-	float fd0 = (fw0.y > pos_ws.y) ? big_d : (pos_ws.y - fw0.y);
-	float fd1 = (fw1.y > pos_ws.y) ? big_d : (pos_ws.y - fw1.y);
-	float fd2 = (fw2.y > pos_ws.y) ? big_d : (pos_ws.y - fw2.y);
-	float fd3 = (fw3.y > pos_ws.y) ? big_d : (pos_ws.y - fw3.y);
-	// Smallest vertical metres = shallowest tap = shore zone.
-	float proj_diff = min(min(fd0, fd1), min(fd2, fd3));
-	// proj_dist: 0 = at the object edge, 1 = a full foam_depth away
-	float proj_dist = clamp(proj_diff / max(0.001, foam_depth), 0.0, 1.0);
+		// Projected foam - vertical world-Y at 4 diagonal taps (8 px).
+		// World-space Y is camera-independent -> the foam does NOT dance during
+		// camera rotation / tilt (eye-depth based foam did).
+		vec2 ts = 8.0 / VIEWPORT_SIZE;
+		vec2 fu0 = scr_uv + ts * vec2(1.0, 1.0);
+		vec2 fu1 = scr_uv + ts * vec2(-1.0, 1.0);
+		vec2 fu2 = scr_uv + ts * vec2(1.0, -1.0);
+		vec2 fu3 = scr_uv + ts * vec2(-1.0, -1.0);
+		vec3 fw0 = reconstruct_world_pos(fu0, texture(depth_texture, fu0).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+		vec3 fw1 = reconstruct_world_pos(fu1, texture(depth_texture, fu1).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+		vec3 fw2 = reconstruct_world_pos(fu2, texture(depth_texture, fu2).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+		vec3 fw3 = reconstruct_world_pos(fu3, texture(depth_texture, fu3).r, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+		// Above-water taps -> absolute huge sentinel (no foam contribution).
+		// Must NOT be tied to foam_depth - when foam_depth = 0 a relative sentinel
+		// collapsed to 0 and stamped a full foam ring around every protruding
+		// object (outline bug).
+		const float big_d = 1e6;
+		float fd0 = (fw0.y > pos_ws.y) ? big_d : (pos_ws.y - fw0.y);
+		float fd1 = (fw1.y > pos_ws.y) ? big_d : (pos_ws.y - fw1.y);
+		float fd2 = (fw2.y > pos_ws.y) ? big_d : (pos_ws.y - fw2.y);
+		float fd3 = (fw3.y > pos_ws.y) ? big_d : (pos_ws.y - fw3.y);
+		// Smallest vertical metres = shallowest tap = shore zone.
+		float proj_diff = min(min(fd0, fd1), min(fd2, fd3));
+		// proj_dist: 0 = at the object edge, 1 = a full foam_depth away
+		float proj_dist = clamp(proj_diff / max(0.001, foam_depth), 0.0, 1.0);
 
-	// Foam pattern with UV distortion - sampled once, used for the tongues.
-	// Slider mapped linearly to an internal 0.05..2.0 tiling range: left end ->
-	// huge tongues, right end -> fine pattern.
-	float foam_tiling_x = mix(0.05, 2.0, foam_tiling);
-	vec2 foam_uv = distort_uv(pos_ws.xz * foam_tiling_x, 0.3, foam_t);
-	float foam_samp = sample_foam_styled(foam_uv, foam_t);
+		// Foam pattern with UV distortion - sampled once, used for the tongues.
+		// Slider mapped linearly to an internal 0.05..2.0 tiling range: left end ->
+		// huge tongues, right end -> fine pattern.
+		float foam_tiling_x = mix(0.05, 2.0, foam_tiling);
+		vec2 foam_uv = distort_uv(pos_ws.xz * foam_tiling_x, 0.3, foam_t);
+		float foam_samp = sample_foam_styled(foam_uv, foam_t);
 
-	// -- Projected foam - solid inner ring + wispy outer tongues --------------
-	// Thick GUARANTEED white band along the shoreline (inner_mask, no noise)
-	// + irregular outer patches breaking up farther from the edge
-	// (outer_mask, noise-modulated). foam_cutoff controls the total reach.
-	// Break-up noise at a FIXED high frequency (roughly half a metre per cell),
-	// deliberately independent of foam_tiling: the pattern tiling is metres
-	// wide, so a rock 1.5 m across would sit inside a single cell and get an
-	// even ribbon of foam around it no matter what the slider says.
-	// Two continuous octaves, NOT the toon foam pattern - the pattern is
-	// thresholded to 0/1, so it can only switch the band between two widths and
-	// both edges stay smooth arcs between the switches.
-	float bt = foam_t * 0.6;
-	float break_n = vnoise(pos_ws.xz * 1.9 + vec2(bt * 0.5, bt * 0.3)) * 0.62
-			+ vnoise(pos_ws.xz * 4.6 - vec2(bt * 0.4, bt * 0.6) + 5.3) * 0.38;
-	// Push the distance field itself around: every edge derived from it - inner
-	// and outer alike - picks up the same irregular wobble.
-	float pd = clamp(proj_dist + (break_n - 0.5) * foam_edge_break * 0.95, 0.0, 1.0);
-	float foam_break = smoothstep(0.35, 0.65, break_n);
-	float fw_aa = fwidth(pd) + 0.01;
-	// Half a pixel of blend to each side of the threshold = one pixel in total.
-	float pd_px = fwidth(pd) * 0.5;
-	float inner_reach = foam_cutoff * 0.30
-			* mix(1.0, 0.35 + foam_break * 1.30, foam_edge_break);
-	float inner_mask = 1.0 - foam_threshold(pd, inner_reach, fw_aa, pd_px);
-	// Outer tongues mix both scales: the wide pattern places the patches, the
-	// break-up sample tears their edges.
-	float outer_shape = mix(foam_samp, min(foam_samp, foam_break), foam_edge_break);
-	float shape_px = fwidth(outer_shape) * 0.5;
-	float outer_reach = foam_cutoff * (0.35 + outer_shape * 1.30);
-	float outer_mask = (1.0 - foam_threshold(pd, outer_reach, fw_aa, pd_px))
-			// gaps between patches
-			* foam_threshold(outer_shape, 0.425, 0.125, shape_px);
-	float proj_foam = max(inner_mask, outer_mask);
+		// -- Projected foam - solid inner ring + wispy outer tongues --------------
+		// Thick GUARANTEED white band along the shoreline (inner_mask, no noise)
+		// + irregular outer patches breaking up farther from the edge
+		// (outer_mask, noise-modulated). foam_cutoff controls the total reach.
+		// Break-up noise at a FIXED high frequency (roughly half a metre per cell),
+		// deliberately independent of foam_tiling: the pattern tiling is metres
+		// wide, so a rock 1.5 m across would sit inside a single cell and get an
+		// even ribbon of foam around it no matter what the slider says.
+		// Two continuous octaves, NOT the toon foam pattern - the pattern is
+		// thresholded to 0/1, so it can only switch the band between two widths and
+		// both edges stay smooth arcs between the switches.
+		float bt = foam_t * 0.6;
+		float break_n = vnoise(pos_ws.xz * 1.9 + vec2(bt * 0.5, bt * 0.3)) * 0.62
+				+ vnoise(pos_ws.xz * 4.6 - vec2(bt * 0.4, bt * 0.6) + 5.3) * 0.38;
+		// Push the distance field itself around: every edge derived from it - inner
+		// and outer alike - picks up the same irregular wobble.
+		float pd = clamp(proj_dist + (break_n - 0.5) * foam_edge_break * 0.95, 0.0, 1.0);
+		float foam_break = smoothstep(0.35, 0.65, break_n);
+		float fw_aa = fwidth(pd) + 0.01;
+		// Half a pixel of blend to each side of the threshold = one pixel in total.
+		float pd_px = fwidth(pd) * 0.5;
+		float inner_reach = foam_cutoff * 0.30
+				* mix(1.0, 0.35 + foam_break * 1.30, foam_edge_break);
+		float inner_mask = 1.0 - foam_threshold(pd, inner_reach, fw_aa, pd_px);
+		// Outer tongues mix both scales: the wide pattern places the patches, the
+		// break-up sample tears their edges.
+		float outer_shape = mix(foam_samp, min(foam_samp, foam_break), foam_edge_break);
+		float shape_px = fwidth(outer_shape) * 0.5;
+		float outer_reach = foam_cutoff * (0.35 + outer_shape * 1.30);
+		float outer_mask = (1.0 - foam_threshold(pd, outer_reach, fw_aa, pd_px))
+				// gaps between patches
+				* foam_threshold(outer_shape, 0.425, 0.125, shape_px);
+		float proj_foam = max(inner_mask, outer_mask);
 
-	// Surface foam islands: COLOR.r = 0 -> foam, 1 -> no foam.
-	// Modulated by the pattern so painted foam also gets broken edges.
-	float surf_weight = 1.0 - v_color.r;
-	float samp_px = fwidth(foam_samp) * 0.5;
-	float surf_foam = surf_weight * foam_threshold(foam_samp, 0.55, 0.15, samp_px);
+		// Surface foam islands: COLOR.r = 0 -> foam, 1 -> no foam.
+		// Modulated by the pattern so painted foam also gets broken edges.
+		float surf_weight = 1.0 - v_color.r;
+		float samp_px = fwidth(foam_samp) * 0.5;
+		float surf_foam = surf_weight * foam_threshold(foam_samp, 0.55, 0.15, samp_px);
 
-	float foam_mask = max(proj_foam, surf_foam);
+		foam_mask = max(proj_foam, surf_foam);
 
-	// Foam color: flat foam_color as before, or the same color pushed through
-	// overlay so the water below shows through it (foam_overlay).
-	vec3 foam_rgb = mix(foam_color.rgb, overlay_blend(col, foam_color.rgb), foam_overlay);
-	col = mix(col, foam_rgb, foam_mask * foam_color.a);
-	alpha = max(alpha, foam_mask * foam_color.a);
+		// Foam color: flat foam_color as before, or the same color pushed through
+		// overlay so the water below shows through it (foam_overlay).
+		vec3 foam_rgb = mix(foam_color.rgb, overlay_blend(col, foam_color.rgb), foam_overlay);
+		col = mix(col, foam_rgb, foam_mask * foam_color.a);
+		alpha = max(alpha, foam_mask * foam_color.a);
+	}
 
 	// -- Sparkle glints -------------------------------------------------------
 	// Placed here, not in light(), so the glints cover the whole surface

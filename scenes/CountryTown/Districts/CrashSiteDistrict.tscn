@@ -1,0 +1,154 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/CrashedSaucer.tscn" id="20_wreck"]
+
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="1_tem_rock_large_01a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="2_tem_rock_large_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_01a.tscn" id="3_tem_rock_medium_01a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="4_tem_rock_medium_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_03a.tscn" id="5_tem_rock_medium_03a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="6_tem_rock_small_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="7_tem_rock_small_03a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_04a.tscn" id="8_tem_rock_small_04a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_01a.tscn" id="9_tem_rock_small_01a"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Bld_Power_04.fbx" id="10_sm_bld_power_04"]
+[ext_resource type="Material" path="res://Materiais/ScifiCity1A.tres" id="11_scificity1a"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_AirConditioningUnit_01.fbx" id="12_sm_prop_airconditioningunit_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Box_RobotParts_01.fbx" id="13_sm_prop_box_robotparts_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Supplies_01.fbx" id="14_sm_prop_box_supplies_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_02.fbx" id="15_sm_prop_crate_military_02"]
+[ext_resource type="PackedScene" path="res://scenes/FX/FogZone.tscn" id="16_fogzone"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01"]
+size = Vector3(5, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_02"]
+size = Vector3(5, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_03"]
+size = Vector3(5, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04"]
+size = Vector3(5, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_05"]
+size = Vector3(5, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06"]
+size = Vector3(1.6, 0.9, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_07"]
+size = Vector3(1, 0.7, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_08"]
+size = Vector3(0.9, 0.7, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_09"]
+size = Vector3(0.9, 0.8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(1.1, 0.4, 0.8)
+
+[node name="CrashSiteDistrict" type="Node3D"]
+
+[node name="CrashedSaucer" parent="." instance=ExtResource("20_wreck")]
+position = Vector3(530, 6, 55)
+
+[node name="Rock01" parent="." instance=ExtResource("1_tem_rock_large_01a")]
+transform = Transform3D(0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, 0.6428, 534.4463, 4.5, 67.216)
+
+[node name="Rock02" parent="." instance=ExtResource("2_tem_rock_large_02a")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 536.5, 4.8, 43.7417)
+
+[node name="Rock03" parent="." instance=ExtResource("3_tem_rock_medium_01a")]
+transform = Transform3D(-0.4226, 0, -0.9063, 0, 1, 0, 0.9063, 0, -0.4226, 546.9353, 5, 56.4816)
+
+[node name="Rock04" parent="." instance=ExtResource("4_tem_rock_medium_02a")]
+transform = Transform3D(0.1736, 0, 0.9848, 0, 1, 0, -0.9848, 0, 0.1736, 517.784, 5, 50.5537)
+
+[node name="Rock05" parent="." instance=ExtResource("5_tem_rock_medium_03a")]
+transform = Transform3D(0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, 0.9397, 518.1263, 5.1, 64.9632)
+
+[node name="Pebble01" parent="." instance=ExtResource("6_tem_rock_small_02a")]
+transform = Transform3D(0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, 0.7071, 535.3033, 5.8, 60.3033)
+
+[node name="Pebble02" parent="." instance=ExtResource("7_tem_rock_small_03a")]
+transform = Transform3D(-0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, -0.6428, 535.7453, 5.8, 50.1791)
+
+[node name="Pebble03" parent="." instance=ExtResource("8_tem_rock_small_04a")]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 527.4348, 5.8, 47.9523)
+
+[node name="Pebble04" parent="." instance=ExtResource("9_tem_rock_small_01a")]
+transform = Transform3D(0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, 0.342, 522.9523, 5.8, 57.5652)
+
+[node name="ScrapPower" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9063, 0, -0.4226, 0, 1, 0, 0.4226, 0, 0.9063, 534, 6, 62)
+mesh = ExtResource("10_sm_bld_power_04")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapAirUnit" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 525, 6, 60)
+mesh = ExtResource("12_sm_prop_airconditioningunit_01")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapRobotParts" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, 0.342, 527.5, 6, 51)
+mesh = ExtResource("13_sm_prop_box_robotparts_01")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapSupplies" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6428, 0, 0.766, 0, 1, 0, -0.766, 0, 0.6428, 534.5, 6, 49.5)
+mesh = ExtResource("14_sm_prop_box_supplies_01")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapCrate" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, -0.766, 523, 6, 53)
+mesh = ExtResource("15_sm_prop_crate_military_02")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Rock01" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 534.4463, 7, 67.216)
+shape = SubResource("BoxShape3D_01")
+
+[node name="Rock02" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 536.5, 7, 43.7417)
+shape = SubResource("BoxShape3D_02")
+
+[node name="Rock03" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 546.9353, 7, 56.4816)
+shape = SubResource("BoxShape3D_03")
+
+[node name="Rock04" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 517.784, 7, 50.5537)
+shape = SubResource("BoxShape3D_04")
+
+[node name="Rock05" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 518.1263, 7, 64.9632)
+shape = SubResource("BoxShape3D_05")
+
+[node name="ScrapPower" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 534, 6.45, 62)
+shape = SubResource("BoxShape3D_06")
+
+[node name="ScrapAirUnit" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 525, 6.35, 60)
+shape = SubResource("BoxShape3D_07")
+
+[node name="ScrapRobotParts" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 527.5, 6.35, 51)
+shape = SubResource("BoxShape3D_08")
+
+[node name="ScrapSupplies" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 534.5, 6.4, 49.5)
+shape = SubResource("BoxShape3D_09")
+
+[node name="ScrapCrate" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 523, 6.2, 53)
+shape = SubResource("BoxShape3D_10")
+
+[node name="CraterFog" parent="." instance=ExtResource("16_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 530, 6.5, 55)
+radius = 22.0
+strength = 0.5

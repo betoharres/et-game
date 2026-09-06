@@ -1,0 +1,160 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Underside_01.fbx" id="1_sm_env_bridge_underside_01"]
+[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="2_polygoncity1a"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Edge_01.fbx" id="3_sm_env_bridge_edge_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Wall_01.fbx" id="4_sm_env_bridge_wall_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Support_01.fbx" id="5_sm_env_bridge_support_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Pillar_01.fbx" id="6_sm_env_bridge_pillar_01"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deck"]
+size = Vector3(36.4, 0.4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_parapet"]
+size = Vector3(35, 1.6, 0.7)
+
+[node name="RiverBridge" type="Node3D"]
+
+[node name="Deck01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck05" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck06" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Deck07" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.878, 2.5)
+mesh = ExtResource("1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -12.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -7.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -2.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 2.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 7.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 12.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeN07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 17.5, 0.5336, -2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -17.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -12.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -7.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -2.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 2.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 7.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="EdgeS07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 12.5, 0.5336, 2.036)
+mesh = ExtResource("3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="AbutmentW" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -18.053, 1.266, 2.5)
+mesh = ExtResource("4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="AbutmentE" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 18.053, 1.266, -2.5)
+mesh = ExtResource("4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Support" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 0)
+mesh = ExtResource("5_sm_env_bridge_support_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Pillar01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.03, 0)
+mesh = ExtResource("6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Pillar02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -6.03, 0)
+mesh = ExtResource("6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("2_polygoncity1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Deck" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("BoxShape3D_deck")
+
+[node name="ParapetNorth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2.85)
+shape = SubResource("BoxShape3D_parapet")
+
+[node name="ParapetSouth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2.85)
+shape = SubResource("BoxShape3D_parapet")

@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yv26m"]
+albedo_color = Color(0.23, 0.16, 0.1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_lod8u"]
+size = Vector3(4.8, 1.7, 5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tn23c"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ww88k"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vgjlq"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mjsoe"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[node name="DockShelter" type="Node3D" unique_id=477856216]
+
+[node name="GabledRoof" type="MeshInstance3D" parent="." unique_id=1228651889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 2.5)
+layers = 128
+material_override = SubResource("StandardMaterial3D_yv26m")
+mesh = SubResource("PrismMesh_lod8u")
+
+[node name="Post1" type="MeshInstance3D" parent="." unique_id=1037378140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("StandardMaterial3D_yv26m")
+mesh = SubResource("BoxMesh_tn23c")
+
+[node name="Post2" type="MeshInstance3D" parent="." unique_id=661520856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("StandardMaterial3D_yv26m")
+mesh = SubResource("BoxMesh_ww88k")
+
+[node name="Post3" type="MeshInstance3D" parent="." unique_id=306446238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("StandardMaterial3D_yv26m")
+mesh = SubResource("BoxMesh_vgjlq")
+
+[node name="Post4" type="MeshInstance3D" parent="." unique_id=785223127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("StandardMaterial3D_yv26m")
+mesh = SubResource("BoxMesh_mjsoe")

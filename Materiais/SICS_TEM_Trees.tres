@@ -4,6 +4,7 @@
 
 [resource]
 transparency = 4
+alpha_antialiasing_mode = 1
 diffuse_mode = 3
 specular_mode = 1
 disable_fog = true

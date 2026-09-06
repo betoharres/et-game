@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/RiverWater.tscn" id="1_riverwater"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/RiverBridge.tscn" id="2_riverbridge"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/WoodenDock.tscn" id="3_woodendock"]
+[ext_resource type="PackedScene" path="res://scenes/FX/FogZone.tscn" id="4_fogzone"]
+
+[node name="RiverDistrict" type="Node3D"]
+
+[node name="RiverWater" parent="." instance=ExtResource("1_riverwater")]
+
+[node name="BridgeNorth" parent="." instance=ExtResource("2_riverbridge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 312.1, 6.273, 167.46)
+
+[node name="BridgeSouth" parent="." instance=ExtResource("2_riverbridge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.9, 6.273, 298.48)
+
+[node name="Dock" parent="." instance=ExtResource("3_woodendock")]
+transform = Transform3D(0.5664, 0, -0.8241, 0, 1, 0, 0.8241, 0, 0.5664, 50, 6.15, 365)
+
+[node name="RiverFog" type="Node3D" parent="."]
+
+[node name="FogRiver01" parent="RiverFog" instance=ExtResource("4_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 344, 4.2, 55)
+radius = 34.0
+strength = 0.6
+
+[node name="FogRiver02" parent="RiverFog" instance=ExtResource("4_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 322, 4.2, 158)
+radius = 34.0
+strength = 0.6
+
+[node name="FogRiver03" parent="RiverFog" instance=ExtResource("4_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 238, 4.2, 245)
+radius = 34.0
+strength = 0.6
+
+[node name="FogRiver04" parent="RiverFog" instance=ExtResource("4_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188, 4.2, 322)
+radius = 34.0
+strength = 0.6
+
+[node name="FogRiver05" parent="RiverFog" instance=ExtResource("4_fogzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 4.2, 362)
+radius = 34.0
+strength = 0.6

@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Portal/portal.tscn" id="1_portal"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="2_tem_rock_large_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="3_tem_rock_large_01a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="4_tem_rock_medium_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="5_tem_rock_small_02a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01"]
+size = Vector3(4.5, 4, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_02"]
+size = Vector3(4.5, 4, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_03"]
+size = Vector3(8, 5, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04"]
+size = Vector3(3.5, 2.5, 6)
+
+[node name="MinePortalSite" type="Node3D"]
+
+[node name="Portal" parent="." instance=ExtResource("1_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 6, 16)
+
+[node name="RockLeft" parent="." instance=ExtResource("2_tem_rock_large_02a")]
+transform = Transform3D(0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, 0.342, 320, 5, 13)
+
+[node name="RockRight" parent="." instance=ExtResource("2_tem_rock_large_02a")]
+transform = Transform3D(-0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, -0.342, 333, 5, 13)
+
+[node name="RockTop" parent="." instance=ExtResource("3_tem_rock_large_01a")]
+transform = Transform3D(0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, 0.9659, 328, 3.5, 8)
+
+[node name="RockSide" parent="." instance=ExtResource("4_tem_rock_medium_02a")]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 314, 5.2, 10)
+
+[node name="Boulder" parent="." instance=ExtResource("5_tem_rock_small_02a")]
+transform = Transform3D(-0.5, 0, -0.866, 0, 1, 0, 0.866, 0, -0.5, 312, 5.8, 18)
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="RockLeft" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 320, 7.5, 13)
+shape = SubResource("BoxShape3D_01")
+
+[node name="RockRight" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 333, 7.5, 13)
+shape = SubResource("BoxShape3D_02")
+
+[node name="RockTop" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 7.5, 8)
+shape = SubResource("BoxShape3D_03")
+
+[node name="RockSide" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314, 7, 10)
+shape = SubResource("BoxShape3D_04")

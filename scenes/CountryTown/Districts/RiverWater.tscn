@@ -1,0 +1,159 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://Materiais/ea_water_countryTown.tres" id="1_x2fsn"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jy4bo"]
+size = Vector2(17, 25.89666)
+subdivide_width = 4
+subdivide_depth = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wud1u"]
+size = Vector2(17, 57.187046)
+subdivide_width = 4
+subdivide_depth = 9
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_masx7"]
+size = Vector2(17, 57.331398)
+subdivide_width = 4
+subdivide_depth = 9
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2mcnt"]
+size = Vector2(17, 54.51316)
+subdivide_width = 4
+subdivide_depth = 9
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rxmxx"]
+size = Vector2(17, 70.73008)
+subdivide_width = 4
+subdivide_depth = 11
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_agj7y"]
+size = Vector2(17, 61.107307)
+subdivide_width = 4
+subdivide_depth = 10
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_k4b7t"]
+size = Vector2(17, 51.157864)
+subdivide_width = 4
+subdivide_depth = 8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gmnu5"]
+size = Vector2(17, 45.57861)
+subdivide_width = 4
+subdivide_depth = 7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_otqal"]
+size = Vector2(17, 42.014683)
+subdivide_width = 4
+subdivide_depth = 7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dqn3g"]
+size = Vector2(17, 43.54211)
+subdivide_width = 4
+subdivide_depth = 7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wym1u"]
+size = Vector2(17, 42.94806)
+subdivide_width = 4
+subdivide_depth = 7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fw15c"]
+size = Vector2(17, 47.675396)
+subdivide_width = 4
+subdivide_depth = 7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bd6cr"]
+size = Vector2(17, 49.9004)
+subdivide_width = 4
+subdivide_depth = 8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0noq"]
+size = Vector2(17, 14.768775)
+subdivide_width = 4
+subdivide_depth = 4
+
+[node name="RiverWater" type="Node3D" unique_id=1404764556]
+
+[node name="WaterPlane01" type="MeshInstance3D" parent="." unique_id=1216083933]
+transform = Transform3D(0.999527, 0, -0.030754846, 0, 1, 0, 0.030754846, 0, 0.999527, 350.371, 3.6, 12.942204)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_jy4bo")
+
+[node name="WaterPlane02" type="MeshInstance3D" parent="." unique_id=508269470]
+transform = Transform3D(0.98386985, 0, -0.17888579, 0, 1, 0, 0.17888579, 0, 0.98386985, 345.04333, 3.6, 52.26175)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_wud1u")
+
+[node name="WaterPlane03" type="MeshInstance3D" parent="." unique_id=2121660988]
+transform = Transform3D(0.9895865, 0, -0.1439396, 0, 1, 0, 0.1439396, 0, 0.9895865, 335.93152, 3.6, 107.97084)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_masx7")
+
+[node name="WaterPlane04" type="MeshInstance3D" parent="." unique_id=832123872]
+transform = Transform3D(0.92015463, 0, -0.39155516, 0, 1, 0, 0.39155516, 0, 0.92015463, 321.85696, 3.6, 158.83612)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_2mcnt")
+
+[node name="WaterPlane05" type="MeshInstance3D" parent="." unique_id=1289243141]
+transform = Transform3D(0.6770565, 0, -0.73593104, 0, 1, 0, 0.73593104, 0, 0.6770565, 287.50647, 3.6, 204.53403)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_rxmxx")
+
+[node name="WaterPlane06" type="MeshInstance3D" parent="." unique_id=1993035739]
+transform = Transform3D(0.5943911, 0, -0.80417615, 0, 1, 0, 0.80417615, 0, 0.5943911, 237.9974, 3.6, 245.74103)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_agj7y")
+
+[node name="WaterPlane07" type="MeshInstance3D" parent="." unique_id=585700942]
+transform = Transform3D(0.9647638, 0, -0.26311743, 0, 1, 0, 0.26311743, 0, 0.9647638, 210.11163, 3.6, 283.5907)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_k4b7t")
+
+[node name="WaterPlane08" type="MeshInstance3D" parent="." unique_id=1844689473]
+transform = Transform3D(0.7310555, 0, -0.682318, 0, 1, 0, 0.682318, 0, 0.7310555, 190.05469, 3.6, 320.9414)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_gmnu5")
+
+[node name="WaterPlane09" type="MeshInstance3D" parent="." unique_id=1087025866]
+transform = Transform3D(0.36244616, 0, -0.9320047, 0, 1, 0, 0.9320047, 0, 0.36244616, 158.46295, 3.6, 342.81995)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_otqal")
+
+[node name="WaterPlane10" type="MeshInstance3D" parent="." unique_id=522586892]
+transform = Transform3D(0.14834024, 0, -0.98893636, 0, 1, 0, 0.98893636, 0, 0.14834024, 119.65397, 3.6, 353.0519)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_dqn3g")
+
+[node name="WaterPlane11" type="MeshInstance3D" parent="." unique_id=460193242]
+transform = Transform3D(0.5070197, 0, -0.8619345, 0, 1, 0, 0.8619345, 0, 0.5070197, 83.12607, 3.6, 365.92584)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_wym1u")
+
+[node name="WaterPlane12" type="MeshInstance3D" parent="." unique_id=243929519]
+transform = Transform3D(0.74983776, 0, -0.6616218, 0, 1, 0, 0.6616218, 0, 0.74983776, 51.29016, 3.6, 392.67114)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_fw15c")
+
+[node name="WaterPlane13" type="MeshInstance3D" parent="." unique_id=986864712]
+transform = Transform3D(0.81923205, 0, -0.5734622, 0, 1, 0, 0.5734622, 0, 0.81923205, 22.109245, 3.6, 429.84393)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_bd6cr")
+
+[node name="WaterPlane14" type="MeshInstance3D" parent="." unique_id=380905494]
+transform = Transform3D(0.8320501, 0, -0.5547005, 0, 1, 0, 0.5547005, 0, 0.8320501, 4.0961237, 3.6, 455.85583)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_j0noq")

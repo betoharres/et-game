@@ -23,6 +23,8 @@ Uma ferramenta de `tools/`:
 .\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
 
+Para o mapa Country Town, depois de alterar os geradores de layout, campos ou assentamento, regenere as cenas com o executÃ¡vel `_console.exe` sem `--headless`: esses scripts criam MultiMesh e precisam de rasterizaÃ§Ã£o real. A cena deve conter `AsphaltRoadBed`/`AsphaltStraight` para a cidade e `CornField` com os corredores de `CORN_MAZE`.
+
 Omita `--headless` quando a checagem depender de rasterização de verdade —
 render, screenshot, culling — porque o driver dummy não desenha nada:
 
@@ -57,9 +59,29 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
 | Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
+| Layout do mapa Country Town | `tools/check_country_town_layout.gd` |
+| Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
+| Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 
-`tools/build_mixamo_character.py` e `tools/render_prototype_icons.py` são
-utilitários de geração de asset, não checagens.
+`tools/build_mixamo_character.py`, `tools/render_prototype_icons.py`,
+`tools/build_country_town_layout.gd`, `tools/build_country_town_terrain.gd`,
+`tools/build_country_town_fields.gd`, `tools/build_country_town_settlement.gd`
+e `tools/build_country_town_vegetation.gd`
+são utilitários de geração de asset,
+não checagens. O de layout e o de vegetação precisam rodar **sem**
+`--headless`: o buffer de um `MultiMesh` mora no servidor de render e o driver
+dummy o devolve vazio, e o mesmo vale para o de plantações. O de vegetação e o
+de plantações vêm sempre depois do de terreno, que reimporta as regiões do zero.
+
+O settlement pode rodar com `--headless`: monta cenas e malhas nativas sem
+`MultiMesh`. Rode depois do terreno e antes dos campos/vegetação. Só mudanças
+em vias secundárias ou ocupação não exigem refazer o terreno ou as vias
+principais. O teste de passagem inclui as larguras específicas de cada via
+secundária e informa o caminho completo do objeto que obstrui a circulação.
+Os complementos gerados usam `country_town_composition` para identificar
+agrupamentos e `country_town_block` para identificar objetos: a altura é
+conferida por objeto, sem usar o centro do distrito inteiro como se fosse um
+prédio. Avisos de vãos pequenos entre móveis e cargas continuam sendo emitidos.
 
 ## Roteiros manuais
 
@@ -73,6 +95,9 @@ diga o que ele deve conferir, usando os roteiros abaixo.
   ao jogador.
 - **Fazendeiro:** patrulha, detecção, perseguição, perda do alvo e estado de
   disparo.
+- **Country Town:** confira fachadas e calçadas em volta da praça, percorra
+  as ruas locais e as trilhas do curral ao moinho/ancoradouro e observe o
+  assentamento dos pátios nas encostas, a silhueta do silo e da nave caída.
 
 ## Escrever uma verificação nova
 

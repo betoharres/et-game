@@ -1,0 +1,105 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/UrbanInfill.tscn" id="20_infill"]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/GeneralStore.tscn" id="1_generalstore"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/RuralChurch.tscn" id="2_ruralchurch"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_01.tscn" id="3_sm_bld_house_preset_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_02.tscn" id="4_sm_bld_house_preset_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_05.tscn" id="5_sm_bld_house_preset_05"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_06.tscn" id="6_sm_bld_house_preset_06"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_09.tscn" id="7_sm_bld_house_preset_09"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/Presets/SM_Bld_House_Preset_03.tscn" id="8_sm_bld_house_preset_03"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Sidewalk_01.fbx" id="9_sm_env_sidewalk_01"]
+[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="10_polygoncity1a"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Fountain_01.tscn" id="11_sm_prop_fountain_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_ParkBench_01.tscn" id="12_sm_prop_parkbench_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Sign_01.tscn" id="13_sm_prop_sign_01"]
+
+[node name="TownDistrict" type="Node3D"]
+
+[node name="UrbanInfill" parent="." instance=ExtResource("20_infill")]
+
+[node name="GeneralStore" parent="." instance=ExtResource("1_generalstore")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 390, 6, 215)
+
+[node name="Church" parent="." instance=ExtResource("2_ruralchurch")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 532, 6, 302)
+
+[node name="House01" parent="." instance=ExtResource("3_sm_bld_house_preset_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 436, 6, 198)
+
+[node name="House02" parent="." instance=ExtResource("4_sm_bld_house_preset_02")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 436, 6, 220)
+
+[node name="House03" parent="." instance=ExtResource("5_sm_bld_house_preset_05")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 492, 6, 194)
+
+[node name="House04" parent="." instance=ExtResource("6_sm_bld_house_preset_06")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 494, 6, 256)
+
+[node name="House05" parent="." instance=ExtResource("7_sm_bld_house_preset_09")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 434, 6, 262)
+
+[node name="House06" parent="." instance=ExtResource("8_sm_bld_house_preset_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 6, 332)
+
+[node name="House07" parent="." instance=ExtResource("4_sm_bld_house_preset_02")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 388, 6, 250)
+
+[node name="Sidewalk00" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 462.5, 6.02, 222.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 462.5, 6.02, 227.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 462.5, 6.02, 232.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 467.5, 6.02, 222.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 467.5, 6.02, 227.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 467.5, 6.02, 232.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk20" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 472.5, 6.02, 222.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk21" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 472.5, 6.02, 227.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Sidewalk22" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 472.5, 6.02, 232.5)
+mesh = ExtResource("9_sm_env_sidewalk_01")
+surface_material_override/0 = ExtResource("10_polygoncity1a")
+
+[node name="Fountain" parent="." instance=ExtResource("11_sm_prop_fountain_01")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 470, 6, 225)
+
+[node name="SquareBenchN" parent="." instance=ExtResource("12_sm_prop_parkbench_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 470, 6, 219.5)
+
+[node name="SquareBenchS" parent="." instance=ExtResource("12_sm_prop_parkbench_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 470, 6, 230.5)
+
+[node name="TownExitSign" parent="." instance=ExtResource("13_sm_prop_sign_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 520, 6, 386)

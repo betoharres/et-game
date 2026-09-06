@@ -1,0 +1,223 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_01.fbx" id="1_sm_prop_fence_wood_01"]
+[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="2_polygonfarm1a"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_02.fbx" id="3_sm_prop_fence_wood_02"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_03.fbx" id="4_sm_prop_fence_wood_03"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_Gate_01.fbx" id="5_sm_prop_fence_wood_gate_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_Pole_01.fbx" id="6_sm_prop_fence_wood_pole_01"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Prop_Trough_01.res" id="7_sm_prop_trough_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Chicken_Coop_01.fbx" id="8_sm_prop_chicken_coop_01"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01"]
+size = Vector3(20.2, 1.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_02"]
+size = Vector3(7.5, 1.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_03"]
+size = Vector3(7.4, 1.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04"]
+size = Vector3(0.2, 1.2, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_05"]
+size = Vector3(0.2, 1.2, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06"]
+size = Vector3(2.2, 2.4, 3.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_07"]
+size = Vector3(3.2, 0.5, 0.9)
+
+[node name="LivestockPen" type="Node3D"]
+
+[node name="FenceN01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -7.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -7.5)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -7.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN05" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN06" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -7.5)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN07" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -7.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceN08" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -7.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceS01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 7.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceS02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 7.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceS03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 7.5)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceS07" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceS08" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 7.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Gate" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 7.5)
+mesh = ExtResource("5_sm_prop_fence_wood_gate_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, -5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, -5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, -2.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, -2.5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, 0)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, 0)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, 2.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, 2.5)
+mesh = ExtResource("1_sm_prop_fence_wood_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, 5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, 5)
+mesh = ExtResource("3_sm_prop_fence_wood_02")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceW06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10, 0, 7.5)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="FenceE06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 0, 7.5)
+mesh = ExtResource("4_sm_prop_fence_wood_03")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Pole01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7.5)
+mesh = ExtResource("6_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Pole02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -7.5)
+mesh = ExtResource("6_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Pole03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 7.5)
+mesh = ExtResource("6_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Pole04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 7.5)
+mesh = ExtResource("6_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Trough" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+mesh = ExtResource("7_sm_prop_trough_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="ChickenCoop" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5.5, 0, -3)
+mesh = ExtResource("8_sm_prop_chicken_coop_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="FenceNorth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -7.5)
+shape = SubResource("BoxShape3D_01")
+
+[node name="FenceSouthW" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.25, 0.6, 7.5)
+shape = SubResource("BoxShape3D_02")
+
+[node name="FenceSouthE" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, 0.6, 7.5)
+shape = SubResource("BoxShape3D_03")
+
+[node name="FenceWest" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.6, 0)
+shape = SubResource("BoxShape3D_04")
+
+[node name="FenceEast" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 0)
+shape = SubResource("BoxShape3D_05")
+
+[node name="ChickenCoop" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.2, -3)
+shape = SubResource("BoxShape3D_06")
+
+[node name="Trough" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.2, 0)
+shape = SubResource("BoxShape3D_07")

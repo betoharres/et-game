@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_Shop_01.tscn" id="1_sm_bld_shop_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_Shop_02.tscn" id="2_sm_bld_shop_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_Shop_Sign_01.tscn" id="3_sm_bld_shop_sign_01"]
+
+[node name="GeneralStore" type="Node3D"]
+
+[node name="Shop01" parent="." instance=ExtResource("1_sm_bld_shop_01")]
+
+[node name="Shop02" parent="." instance=ExtResource("2_sm_bld_shop_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0, 0.3)
+
+[node name="Sign" parent="." instance=ExtResource("3_sm_bld_shop_sign_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, -5.35)

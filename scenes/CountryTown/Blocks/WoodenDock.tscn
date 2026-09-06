@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/DockShelter.tscn" id="20_shelter"]
+
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_01.tscn" id="1_sm_bld_house_deck_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_End_01.tscn" id="2_sm_bld_house_deck_end_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_02.tscn" id="3_sm_bld_house_deck_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_03.tscn" id="4_sm_bld_house_deck_03"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_Rail_01.tscn" id="5_sm_bld_house_deck_rail_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_Post_01.tscn" id="6_sm_bld_house_deck_post_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_DeckSteps_01.tscn" id="7_sm_bld_house_decksteps_01"]
+
+[node name="WoodenDock" type="Node3D"]
+
+[node name="DockShelter" parent="." instance=ExtResource("20_shelter")]
+
+[node name="Deck01" parent="." instance=ExtResource("1_sm_bld_house_deck_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
+
+[node name="DeckEndW01" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
+
+[node name="DeckEndE01" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 2.76)
+
+[node name="Deck02" parent="." instance=ExtResource("3_sm_bld_house_deck_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 2.55)
+
+[node name="DeckEndW02" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 2.55)
+
+[node name="DeckEndE02" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 5.31)
+
+[node name="Deck03" parent="." instance=ExtResource("4_sm_bld_house_deck_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 5.1)
+
+[node name="DeckEndW03" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 5.1)
+
+[node name="DeckEndE03" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 7.86)
+
+[node name="Deck04" parent="." instance=ExtResource("1_sm_bld_house_deck_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 7.65)
+
+[node name="DeckEndW04" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 7.65)
+
+[node name="DeckEndE04" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 10.41)
+
+[node name="Deck05" parent="." instance=ExtResource("3_sm_bld_house_deck_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 10.2)
+
+[node name="DeckEndW05" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 10.2)
+
+[node name="DeckEndE05" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 12.96)
+
+[node name="Deck06" parent="." instance=ExtResource("4_sm_bld_house_deck_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 12.75)
+
+[node name="DeckEndW06" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 12.75)
+
+[node name="DeckEndE06" parent="." instance=ExtResource("2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 15.51)
+
+[node name="RailE04" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 10.2)
+
+[node name="RailW04" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 7.77)
+
+[node name="RailE05" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 12.75)
+
+[node name="RailW05" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 10.32)
+
+[node name="RailE06" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 15.3)
+
+[node name="RailW06" parent="." instance=ExtResource("5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 12.87)
+
+[node name="PostE" parent="." instance=ExtResource("6_sm_bld_house_deck_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 0, 12.9)
+
+[node name="PostW" parent="." instance=ExtResource("6_sm_bld_house_deck_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0, 12.9)
+
+[node name="Steps" parent="." instance=ExtResource("7_sm_bld_house_decksteps_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, -0.15, -0.1)

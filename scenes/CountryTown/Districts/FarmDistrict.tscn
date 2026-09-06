@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/RuralInfill.tscn" id="20_infill"]
+
+[ext_resource type="PackedScene" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_farmhouse01"]
+[ext_resource type="PackedScene" path="res://scenes/Buildings/Barn01.tscn" id="2_barn01"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/FarmSilo.tscn" id="3_silo02"]
+[ext_resource type="PackedScene" path="res://scenes/Buildings/garage.tscn" id="4_garage"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/GrainMill.tscn" id="5_windmill"]
+[ext_resource type="PackedScene" path="res://scenes/water_well.tscn" id="6_water_well"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/LivestockPen.tscn" id="7_livestockpen"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/OldShed.tscn" id="8_oldshed"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Bld_WaterTower_01.fbx" id="9_sm_bld_watertower_01"]
+[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="10_polygonfarm1a"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Greenhouse_01.res" id="11_sm_bld_greenhouse_01"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_ProduceStand_01.res" id="12_sm_bld_producestand_01"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Outhouse_01.res" id="13_sm_bld_outhouse_01"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Shelter_01.res" id="14_sm_bld_shelter_01"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_01"]
+height = 8.4
+radius = 1.35
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_02"]
+size = Vector3(7.7, 5, 5.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_03"]
+size = Vector3(3.1, 3.3, 3.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04"]
+size = Vector3(2, 3.2, 2.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_05"]
+size = Vector3(3.6, 3.6, 4.9)
+
+[node name="FarmDistrict" type="Node3D"]
+
+[node name="RuralInfill" parent="." instance=ExtResource("20_infill")]
+
+[node name="Farmhouse" parent="." instance=ExtResource("1_farmhouse01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 50, 6, 40)
+
+[node name="Barn" parent="." instance=ExtResource("2_barn01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 78, 6, 112)
+
+[node name="Silo" parent="." instance=ExtResource("3_silo02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 6, 122)
+
+[node name="Garage" parent="." instance=ExtResource("4_garage")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 46, 6, 64)
+
+[node name="Windmill" parent="." instance=ExtResource("5_windmill")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 6, 288)
+
+[node name="WaterWell" parent="." instance=ExtResource("6_water_well")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 6, 55)
+
+[node name="LivestockPen" parent="." instance=ExtResource("7_livestockpen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182, 6, 184)
+
+[node name="OldShed" parent="." instance=ExtResource("8_oldshed")]
+transform = Transform3D(-0.866, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866, 40, 6, 230)
+
+[node name="WaterTower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 6, 107)
+mesh = ExtResource("9_sm_bld_watertower_01")
+surface_material_override/0 = ExtResource("10_polygonfarm1a")
+
+[node name="Greenhouse" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 46, 6, 84)
+mesh = ExtResource("11_sm_bld_greenhouse_01")
+surface_material_override/0 = ExtResource("10_polygonfarm1a")
+
+[node name="ProduceStand" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 72, 6, 88)
+mesh = ExtResource("12_sm_bld_producestand_01")
+surface_material_override/0 = ExtResource("10_polygonfarm1a")
+
+[node name="Outhouse" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 40, 6, 50)
+mesh = ExtResource("13_sm_bld_outhouse_01")
+surface_material_override/0 = ExtResource("10_polygonfarm1a")
+
+[node name="HayBarn" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 96, 6, 88)
+mesh = ExtResource("14_sm_bld_shelter_01")
+surface_material_override/0 = ExtResource("10_polygonfarm1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="WaterTower" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 10.2, 107)
+shape = SubResource("CylinderShape3D_01")
+
+[node name="Greenhouse" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 8.5, 84)
+shape = SubResource("BoxShape3D_02")
+
+[node name="ProduceStand" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 7.6, 88)
+shape = SubResource("BoxShape3D_03")
+
+[node name="Outhouse" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 7.6, 50)
+shape = SubResource("BoxShape3D_04")
+
+[node name="HayBarn" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 7.8, 88)
+shape = SubResource("BoxShape3D_05")

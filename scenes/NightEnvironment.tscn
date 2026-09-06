@@ -165,6 +165,7 @@ light_energy = 0.75
 light_indirect_energy = 0.12
 light_volumetric_fog_energy = 0.28
 shadow_enabled = true
+shadow_normal_bias = 4.0
 directional_shadow_blend_splits = true
 directional_shadow_fade_start = 0.78
 directional_shadow_max_distance = 80.0
