@@ -1,78 +1,105 @@
 @tool
 extends SceneTree
 
-## Gera as cenas de estrada e de rio do mapa Country Town, e guarda os dados de
-## layout que `tools/build_country_town_terrain.gd` consome.
-##
-## As estradas saem como um `MultiMeshInstance3D` por tipo de peca -- um punhado
-## de draw calls em vez de uma por peca -- mais o `RoadBed`, a chapa de terra
-## que fecha por baixo a costura entre duas pecas. Nenhum dos dois projeta
-## sombra: sao chapas no chao. A agua sai como planos com sobreposicao minima nos cotovelos,
-## calculada pelo angulo da curva: transparencia sobreposta paga o fragmento
-## duas vezes. So a lamina de agua e gerada: pontes e ancoradouro vivem em
-## `Districts/RiverDistrict.tscn`, que e montada a mao e instancia esta cena.
-##
-## Este script e a fonte da verdade do tracado. Editou `ROAD_RUNS` ou
-## `RIVER_PATH`, rode ele e logo depois o build do terreno, que refaz as
-## clareiras e o canal.
-##
-## NAO passe `--headless` aqui: o buffer de um `MultiMesh` mora no servidor de
-## render, e o driver dummy devolve ele vazio -- a cena sairia com as pecas
-## contadas e nenhuma transformacao. O build do terreno, esse sim, e headless.
-##
-##     .\tools\godot.cmd --path . --script res://tools/build_country_town_layout.gd --resolution 320x240
-##     .\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd
+## Offline road and river generator. The grid preserves the authored routes;
+## native convex footprints bake primary/local intersections without overlaps.
+## Asphalt, dirt, sidewalks, curbs and shoulders have separate shared materials.
+## No imported road meshes or runtime generation. This generator supports headless.
+
+const Surface: GDScript = preload("res://tools/country_town_road_surface.gd")
 
 const ROAD_SCENE_PATH: String = "res://scenes/CountryTown/Districts/RoadNetwork.tscn"
 const RIVER_SCENE_PATH: String = "res://scenes/CountryTown/Districts/RiverWater.tscn"
-const ROAD_MATERIAL_PATH: String = "res://Materiais/PolygonFarm1A.tres"
 const WATER_MATERIAL_PATH: String = "res://Materiais/ea_water_countryTown.tres"
 
-## Passo modular das pecas `SM_Env_Road_*`: elas encaixam em +-5.9553 m.
+## Historical grid spacing, retained to preserve POIs and bridge locations.
 const TILE: float = 11.9106
 ## Cruzamento de onde a grade parte: `x = 62 + i * TILE`, `z = 96 + j * TILE`.
 const GRID_ORIGIN: Vector2 = Vector2(62.0, 96.0)
 
+## Retangulo jogavel. O terreno passa dele para as colinas de borda fecharem o
+## horizonte, e o rio atravessa essa borda; composicao, nao.
+const MAP_SIZE: Vector2 = Vector2(600.0, 450.0)
+
+
+static func inside_map(point: Vector2) -> bool:
+	return point.x >= 0.0 and point.x <= MAP_SIZE.x \
+			and point.y >= 0.0 and point.y <= MAP_SIZE.y
+
 ## Cota do vale. Marcadores e platos vivem nela, e o terreno e achatado nela
 ## sob as estradas.
 const GROUND_HEIGHT: float = 6.0
-## As pecas de estrada pousam um palmo acima do vale, e o leito de terra fica
-## entre elas e o chao. Sem essa folga as tres superficies brigam pelo mesmo
-## pixel.
+## Pavement clearance above terrain; bridge landings use a graded elevation.
 const ROAD_PIECE_LIFT: float = 0.06
-const ROAD_BED_LIFT: float = 0.03
 ## Superficie da agua do rio.
 const WATER_LEVEL: float = 3.6
 
 ## Tracado do rio, do norte (x ~ 350) ao sudoeste. O canal do terreno e os
 ## planos de agua saem dos mesmos pontos.
+##
+## Da altura do ancoradouro em diante os pontos ficam mais juntos: a largura e
+## constante dentro de cada trecho, entao trecho curto e o que deixa o rio
+## abrir em degraus pequenos ate virar lago, em vez de dar um salto de largura
+## no meio da agua. As duas pontas nascem e morrem fora do retangulo jogavel,
+## dentro do terreno -- o rio some atras das colinas de borda em vez de acabar
+## num corte reto.
 const RIVER_PATH: Array[Vector2] = [
 	Vector2(352.0, -40.0), Vector2(350.0, 25.0), Vector2(340.0, 80.0),
 	Vector2(332.0, 135.0), Vector2(312.0, 182.0), Vector2(262.0, 228.0),
 	Vector2(216.0, 262.0), Vector2(204.0, 306.0), Vector2(176.0, 336.0),
 	Vector2(140.0, 350.0), Vector2(100.0, 356.0), Vector2(66.0, 376.0),
-	Vector2(36.0, 410.0), Vector2(8.0, 450.0), Vector2(-20.0, 492.0),
+	Vector2(48.0, 393.0), Vector2(36.0, 410.0), Vector2(22.0, 430.0),
+	Vector2(8.0, 450.0), Vector2(-6.0, 471.0), Vector2(-20.0, 492.0),
+	Vector2(-40.0, 520.0), Vector2(-62.0, 552.0), Vector2(-86.0, 586.0),
 ]
 const WATER_WIDTH: float = 17.0
+
+## O rio alarga trecho a trecho depois do ancoradouro e vira o lago da foz, no
+## canto sudoeste -- e por onde a agua sai da regiao jogavel. Chave e o indice
+## do trecho (RIVER_PATH[i] a RIVER_PATH[i+1]); fora daqui vale WATER_WIDTH.
+##
+## O teto de cada trecho ate o 11 e o ancoradouro: `RiversideDock` fica a ~19 m
+## do eixo, e o leito escavado mais a margem nao pode alcancar o marcador, ou
+## `check_country_town_layout.gd` reprova o POI por diferenca de altura.
+const RIVER_WIDTH_OVERRIDES: Dictionary = {
+	9: 19.0,
+	10: 22.0,
+	11: 26.0,
+	12: 32.0,
+	13: 45.0,
+	14: 60.0,
+	15: 80.0,
+	16: 105.0,
+	17: 140.0,
+	18: 180.0,
+	19: 230.0,
+}
+
+## Meia-largura do leito escavado, em fracao da largura da agua, e a faixa que
+## sobe do leito ate a cota do vale. `build_country_town_terrain.gd` escava com
+## os dois, e aqui eles dizem quanto o primeiro e o ultimo plano precisam passar
+## da ponta do tracado para a borda ficar enterrada.
+const RIVER_BED_RATIO: float = 0.353
+const RIVER_BANK_WIDTH: float = 9.0
 
 ## Vias locais e trilhas: largura total e pontos no plano X/Z. O gerador de
 ## settlement drapeja estas faixas no terreno existente, sem refazer o rio.
 const SECONDARY_PATHS: Array[Dictionary] = [
-	{"name": "RiverfrontStreet", "width": 5.0, "urban": true, "points": [Vector2(367, 167.46), Vector2(367, 298.48), Vector2(347.85, 298.48)]},
-	{"name": "NorthStreet", "width": 6.0, "urban": true, "points": [Vector2(455.05, 167.46), Vector2(553, 167.46)]},
-	{"name": "MarketStreet", "width": 5.0, "urban": true, "points": [Vector2(455.05, 211), Vector2(553, 211)]},
-	{"name": "SquareStreet", "width": 6.0, "urban": true, "points": [Vector2(455.05, 238.93), Vector2(553, 238.93)]},
-	{"name": "ChurchStreet", "width": 5.0, "urban": true, "points": [Vector2(455.05, 278), Vector2(553, 278)]},
-	{"name": "GardenStreet", "width": 5.0, "urban": true, "points": [Vector2(516, 167.46), Vector2(516, 298.48)]},
-	{"name": "EastStreet", "width": 5.0, "urban": true, "points": [Vector2(553, 167.46), Vector2(553, 318), Vector2(516, 318), Vector2(516, 298.48)]},
-	{"name": "StoreAlley", "width": 3.0, "urban": true, "points": [Vector2(408, 183), Vector2(424, 183), Vector2(424, 238.93)]},
+	{"name": "RiverfrontStreet", "width": 9.0, "urban": true, "points": [Vector2(367, 167.46), Vector2(367, 298.48), Vector2(347.85, 298.48)]},
+	{"name": "NorthStreet", "width": 9.0, "urban": true, "points": [Vector2(455.05, 167.46), Vector2(553, 167.46)]},
+	{"name": "MarketStreet", "width": 9.0, "urban": true, "points": [Vector2(455.05, 211), Vector2(553, 211)]},
+	{"name": "SquareStreet", "width": 9.0, "urban": true, "points": [Vector2(455.05, 238.93), Vector2(553, 238.93)]},
+	{"name": "ChurchStreet", "width": 9.0, "urban": true, "points": [Vector2(455.05, 278), Vector2(553, 278)]},
+	{"name": "GardenStreet", "width": 9.0, "urban": true, "points": [Vector2(516, 167.46), Vector2(516, 298.48)]},
+	{"name": "EastStreet", "width": 9.0, "urban": true, "points": [Vector2(553, 167.46), Vector2(553, 318), Vector2(516, 318), Vector2(516, 298.48)]},
+	{"name": "StoreAlley", "width": 9.0, "urban": true, "points": [Vector2(424, 167.4636), Vector2(424, 238.9272)]},
 	{"name": "FarmService", "width": 3.0, "urban": false, "points": [Vector2(110, 96), Vector2(110, 142), Vector2(152, 147), Vector2(169, 167.46)]},
 	{"name": "PenAccess", "width": 3.0, "urban": false, "points": [Vector2(206, 167.46), Vector2(206, 197), Vector2(185, 207)]},
 	{"name": "ShedAccess", "width": 2.8, "urban": false, "points": [Vector2(62, 223), Vector2(48, 223), Vector2(40, 225)]},
 	{"name": "MillTrail", "width": 3.0, "urban": false, "points": [Vector2(62, 242), Vector2(85, 246), Vector2(105, 259), Vector2(140, 259), Vector2(151, 274), Vector2(151, 298.48)]},
 	{"name": "DockTrail", "width": 3.0, "urban": false, "points": [Vector2(151, 298.48), Vector2(138, 315), Vector2(114, 329), Vector2(85, 344), Vector2(62, 352), Vector2(50, 359)]},
-	{"name": "CrashApproach", "width": 3.5, "urban": false, "points": [Vector2(516, 167.46), Vector2(511, 139), Vector2(500, 116), Vector2(508, 92), Vector2(522, 77)]},
-	{"name": "DeliveryAccess", "width": 5.0, "urban": true, "points": [Vector2(360, 358.03), Vector2(350, 365), Vector2(350, 375)]},
+	{"name": "CrashApproach", "width": 9.0, "urban": true, "points": [Vector2(516, 167.46), Vector2(511, 139), Vector2(500, 116), Vector2(508, 92), Vector2(522, 77)]},
+	{"name": "DeliveryAccess", "width": 9.0, "urban": true, "points": [Vector2(360, 358.03), Vector2(350, 365), Vector2(350, 375)]},
 ]
 
 ## Patios e praca ficam livres de vegetacao espalhada automaticamente.
@@ -136,50 +163,7 @@ static func on_secondary_path(point: Vector2, margin: float = 0.0) -> bool:
 				return true
 	return false
 
-const ROAD_MESHES: Dictionary = {
-	"dirt_straight": "res://PolygonFarm/Models/SM_Env_Road_Dirt_Straight_01.fbx",
-	"dirt_corner": "res://PolygonFarm/Models/SM_Env_Road_Dirt_Corner_01.fbx",
-	"dirt_t": "res://PolygonFarm/Models/SM_Env_Road_Dirt_T_Section_01.fbx",
-	"dirt_end": "res://PolygonFarm/Models/SM_Env_Road_Dirt_End_01.fbx",
-	"gravel_straight": "res://PolygonFarm/Models/SM_Env_Road_Gravel_Straight_01.fbx",
-	"gravel_corner": "res://PolygonFarm/Models/SM_Env_Road_Gravel_Corner_01.fbx",
-	"gravel_t": "res://PolygonFarm/Models/SM_Env_Road_Gravel_T_Section_01.fbx",
-	"gravel_end": "res://PolygonFarm/Models/SM_Env_Road_Gravel_End_01.fbx",
-	# O PolygonCity fornece a placa asfaltada lisa. Ela e um tile de 5 m;
-	# _city_asphalt_transform amplia e centraliza no mesmo modulo das pecas rurais.
-	"asphalt_straight": "res://PolygonCity/FBX/SM_Env_Road_01.fbx",
-	"asphalt_corner": "res://PolygonCity/FBX/SM_Env_Road_01.fbx",
-	"asphalt_t": "res://PolygonCity/FBX/SM_Env_Road_01.fbx",
-	"asphalt_end": "res://PolygonCity/FBX/SM_Env_Road_01.fbx",
-}
-
-const ROAD_NODE_NAMES: Dictionary = {
-	"dirt_straight": "DirtStraight",
-	"dirt_corner": "DirtCorner",
-	"dirt_t": "DirtTSection",
-	"dirt_end": "DirtEnd",
-	"gravel_straight": "GravelStraight",
-	"gravel_corner": "GravelCorner",
-	"gravel_t": "GravelTSection",
-	"gravel_end": "GravelEnd",
-	"asphalt_straight": "AsphaltStraight",
-	"asphalt_corner": "AsphaltCorner",
-	"asphalt_t": "AsphaltTSection",
-	"asphalt_end": "AsphaltEnd",
-}
-
-## As pecas de T tem a barra fora do centro do tile, em Z local; compensar isso
-## e o que alinha o T com as retas vizinhas.
-const T_AXIS_OFFSET: Dictionary = {
-	"dirt_t": 1.169,
-	"gravel_t": 1.383,
-	"asphalt_t": 1.383,
-}
-
-## Por onde cada formato de peca encosta na vizinha, em direcao local. Sai da
-## forma do modelo: `Corner` liga -X e -Z, `T_Section` tem a barra em X e o ramo
-## em -Z, `End` conecta so em +Z. E o que desenha o leito e o que
-## `tools/check_country_town_layout.gd` usa para cobrar continuidade da malha.
+## Local connectors: straight, bend, T and terminal, rotated onto the grid.
 const ROAD_CONNECTORS: Dictionary = {
 	"straight": [Vector2(0.0, 1.0), Vector2(0.0, -1.0)],
 	"corner": [Vector2(-1.0, 0.0), Vector2(0.0, -1.0)],
@@ -187,31 +171,9 @@ const ROAD_CONNECTORS: Dictionary = {
 	"end": [Vector2(0.0, 1.0)],
 }
 
-## Largura do leito de terra por familia, um palmo mais larga que a via: sobra
-## como acostamento e nao deixa a costura aparecer nem de vies.
-const ROAD_BED_WIDTH: Dictionary = {
-	"dirt": 8.0,
-	"gravel": 9.8,
-	"asphalt": 9.8,
-}
-
-## UV da superficie da via no atlas do PolygonFarm, medida no proprio modelo.
-## O atlas e de cor chapada, entao o leito sai exatamente da cor da estrada.
-const ROAD_BED_UV: Dictionary = {
-	"dirt": Vector2(0.05, 0.67),
-	"gravel": Vector2(0.15, 0.16),
-	"asphalt": Vector2(0.15, 0.16),
-}
-
-## Orientacao das pecas, em graus de rotacao em Y, a partir de como cada modelo
-## sai do FBX: `Corner` liga -X e -Z, `T_Section` tem a barra em X e o ramo em
-## -Z, `End` conecta em +Z e abre a clareira em -Z.
-##
-## Cada linha e um trecho reto da malha: [peca, eixo, fixo, de, ate, rotacao].
-## Com eixo "i" o trecho corre em X na linha `fixo`; com "j" corre em Z na
-## coluna `fixo`.
+## [kind, grid axis, fixed coordinate, first cell, last cell, yaw degrees].
 const ROAD_RUNS: Array[Array] = [
-	# Espinha da fazenda: Farmhouse ao sul, ate o ancoradouro do rio.
+	# Farm spine: dirt on the west bank.
 	["dirt_end", "j", 0, -5, -5, 0],
 	["dirt_straight", "j", 0, -4, -1, 0],
 	["dirt_t", "j", 0, 0, 0, 270],
@@ -229,8 +191,8 @@ const ROAD_RUNS: Array[Array] = [
 	["dirt_straight", "i", -6, 21, 21, 90],
 	["dirt_end", "i", -6, 22, 22, 270],
 	# Estrada da cidade, cortada no vao da travessia norte (BridgeNorth).
-	["asphalt_straight", "i", 6, 1, 18, 90],
-	["asphalt_end", "i", 6, 19, 19, 270],
+	["dirt_straight", "i", 6, 1, 18, 90],
+	["dirt_end", "i", 6, 19, 19, 270],
 	["asphalt_end", "i", 6, 23, 23, 90],
 	["asphalt_straight", "i", 6, 24, 28, 90],
 	["asphalt_t", "i", 6, 29, 29, 180],
@@ -262,10 +224,11 @@ const ROAD_RUNS: Array[Array] = [
 	["asphalt_end", "j", 24, 23, 23, 180],
 	["asphalt_straight", "i", 22, 25, 32, 90],
 	# Estrada do moinho, cortada no vao da travessia sul (BridgeSouth).
+	# Dirt west of BridgeSouth, asphalt east of the bridge.
 	["dirt_straight", "i", 17, 1, 9, 90],
 	["dirt_end", "i", 17, 10, 10, 270],
-	["dirt_end", "i", 17, 14, 14, 90],
-	["dirt_straight", "i", 17, 15, 23, 90],
+	["asphalt_end", "i", 17, 14, 14, 90],
+	["asphalt_straight", "i", 17, 15, 23, 90],
 ]
 
 
@@ -273,7 +236,7 @@ static func grid_position(i: int, j: int) -> Vector2:
 	return GRID_ORIGIN + Vector2(float(i) * TILE, float(j) * TILE)
 
 
-## Familia da peca -- `dirt`, `gravel` ou `asphalt` --, que decide material e leito.
+## Surface family: dirt on the farm bank, asphalt on the town bank.
 static func family_of(kind: String) -> String:
 	return kind.get_slice("_", 0)
 
@@ -316,49 +279,12 @@ static func road_pieces() -> Array[Dictionary]:
 		var cell: Vector2i = tile["cell"]
 		var angle: float = tile["angle"]
 		var flat: Vector2 = grid_position(cell.x, cell.y)
-		if T_AXIS_OFFSET.has(kind):
-			flat += rotate_local(Vector2(0.0, -1.0), angle) * float(T_AXIS_OFFSET[kind])
 		pieces.append({
 			"kind": kind,
 			"transform": Transform3D(Basis(Vector3.UP, angle),
 					Vector3(flat.x, GROUND_HEIGHT + ROAD_PIECE_LIFT, flat.y)),
 		})
 	return pieces
-
-
-## Chapas do leito, uma por trecho; terra na fazenda e asfalto na cidade:
-## `{ "family": String, "center": Vector2, "axis": Vector2, "half": Vector2 }`.
-##
-## As pontas das pecas Synty afinam de oito metros para meio metro na costura, e
-## duas pontas vizinhas nao se completam: entre uma peca e a seguinte fica um
-## entalhe por onde o terreno aparece. O leito e a chapa continua que fecha esse
-## entalhe por baixo, e sai da grade -- nao da geometria das pecas --, entao ele
-## segue o eixo da via mesmo onde o modelo esta deslocado, como no T.
-static func road_bed_quads() -> Array[Dictionary]:
-	var quads: Array[Dictionary] = []
-	for tile: Dictionary in road_tiles():
-		var family: String = family_of(tile["kind"])
-		var width: float = ROAD_BED_WIDTH[family]
-		var center: Vector2 = grid_position((tile["cell"] as Vector2i).x, (tile["cell"] as Vector2i).y)
-		var angle: float = tile["angle"]
-		quads.append({
-			"family": family,
-			"center": center,
-			"axis": Vector2(1.0, 0.0),
-			"half": Vector2(width * 0.5, width * 0.5),
-		})
-		var arm: float = TILE * 0.5 - width * 0.5
-		if arm <= 0.01:
-			continue
-		for direction: Vector2 in ROAD_CONNECTORS[shape_of(tile["kind"])]:
-			var axis: Vector2 = rotate_local(direction, angle)
-			quads.append({
-				"family": family,
-				"center": center + axis * (width * 0.5 + arm * 0.5),
-				"axis": axis,
-				"half": Vector2(arm * 0.5, width * 0.5),
-			})
-	return quads
 
 
 ## Eixo de cada trecho reto de estrada, ja esticado ate a borda das pecas das
@@ -378,52 +304,54 @@ static func road_segments() -> Array[Dictionary]:
 	return segments
 
 
-## Traços do rio recortados na regiao de terreno, ja com a folga de cada
-## cotovelo: `{ "start": Vector2, "end": Vector2 }`.
+## Largura da agua no trecho `i` de `RIVER_PATH` (`RIVER_PATH[i]` a
+## `RIVER_PATH[i+1]`): `WATER_WIDTH`, exceto nos trechos listados em
+## `RIVER_WIDTH_OVERRIDES`.
+static func river_width(index: int) -> float:
+	return float(RIVER_WIDTH_OVERRIDES.get(index, WATER_WIDTH))
+
+
+## Traços do rio, ja com a folga de cada cotovelo e o avanco das duas pontas:
+## `{ "start": Vector2, "end": Vector2, "width": float }`.
 static func water_segments() -> Array[Dictionary]:
-	var path: Array[Vector2] = _clipped_river_path()
+	var path: Array[Vector2] = RIVER_PATH
+	var last: int = path.size() - 2
 	var segments: Array[Dictionary] = []
 	for k: int in path.size() - 1:
 		var start: Vector2 = path[k]
 		var end: Vector2 = path[k + 1]
 		var direction: Vector2 = (end - start).normalized()
+		var width: float = river_width(k)
+		var head: float = _mouth_overshoot(width) if k == 0 else _corner_slack(path, k, width)
+		var tail: float = _mouth_overshoot(width) if k == last else _corner_slack(path, k + 1, width)
 		segments.append({
-			"start": start - direction * _corner_slack(path, k),
-			"end": end + direction * _corner_slack(path, k + 1),
+			"start": start - direction * head,
+			"end": end + direction * tail,
+			"width": width,
 		})
 	return segments
 
 
+## Quanto o primeiro e o ultimo plano passam da ponta do tracado.
+##
+## Alem da ponta, o escavador ainda rebaixa um disco de raio igual a meia
+## largura do leito, e o terreno so volta a subir acima da linha d'agua depois
+## da margem. Um plano que para na ponta deixa esse leito seco a mostra -- e o
+## corte reto no meio do nada. Passando disso, a borda do plano cai onde o
+## terreno ja subiu e some dentro dele.
+static func _mouth_overshoot(width: float) -> float:
+	return width * RIVER_BED_RATIO + RIVER_BANK_WIDTH + 4.0
+
+
 ## Quanto um plano precisa passar do vertice para fechar o canto externo da
 ## curva: meia largura vezes a tangente de meio angulo. Nas pontas, nada.
-static func _corner_slack(path: Array[Vector2], index: int) -> float:
+static func _corner_slack(path: Array[Vector2], index: int, width: float) -> float:
 	if index <= 0 or index >= path.size() - 1:
 		return 0.0
 	var incoming: Vector2 = (path[index] - path[index - 1]).normalized()
 	var outgoing: Vector2 = (path[index + 1] - path[index]).normalized()
 	var turn: float = absf(incoming.angle_to(outgoing))
-	return WATER_WIDTH * 0.5 * tan(turn * 0.5) + 0.25
-
-
-## O rio nasce e morre fora da regiao de terreno; o que fica de fora nao vira
-## plano de agua, seria uma lamina boiando no vazio.
-static func _clipped_river_path() -> Array[Vector2]:
-	var clipped: Array[Vector2] = []
-	for point: Vector2 in RIVER_PATH:
-		clipped.append(point)
-	while clipped.size() > 1 and clipped[0].y < 0.0:
-		var head: Vector2 = clipped[0]
-		var next: Vector2 = clipped[1]
-		clipped.remove_at(0)
-		if next.y > 0.0:
-			clipped.insert(0, head.lerp(next, (0.0 - head.y) / (next.y - head.y)))
-	while clipped.size() > 1 and clipped[clipped.size() - 1].x < 0.0:
-		var tail: Vector2 = clipped[clipped.size() - 1]
-		var previous: Vector2 = clipped[clipped.size() - 2]
-		clipped.remove_at(clipped.size() - 1)
-		if previous.x > 0.0:
-			clipped.append(tail.lerp(previous, (0.0 - tail.x) / (previous.x - tail.x)))
-	return clipped
+	return width * 0.5 * tan(turn * 0.5) + 0.25
 
 
 func _process(_delta: float) -> bool:
@@ -432,129 +360,87 @@ func _process(_delta: float) -> bool:
 	return true
 
 
+## Primary and local streets are baked together, so crossings have one surface.
 func _build_roads() -> bool:
-	var material: Material = load(ROAD_MATERIAL_PATH) as Material
-	if material == null:
-		push_error("Nao carregou %s" % ROAD_MATERIAL_PATH)
-		return false
-
-	var by_kind: Dictionary = {}
-	for piece: Dictionary in road_pieces():
-		var kind: String = piece["kind"]
-		if not by_kind.has(kind):
-			by_kind[kind] = ([] as Array[Transform3D])
-		var transform: Transform3D = piece["transform"]
-		if kind.begins_with("asphalt"):
-			transform = _city_asphalt_transform(transform)
-		by_kind[kind].append(transform)
-
 	var network: Node3D = Node3D.new()
 	network.name = "RoadNetwork"
-	var total: int = 0
-	for kind: String in ROAD_MESHES:
-		if not by_kind.has(kind):
+	var asphalt: Array[PackedVector2Array] = road_polygons(true)
+	var dirt: Array[PackedVector2Array] = road_polygons(false)
+	var all_roads: Array[PackedVector2Array] = asphalt + dirt
+	var empty: Array[PackedVector2Array] = []
+	Surface.build(network, "AsphaltRoadBed", asphalt, empty, GROUND_HEIGHT + ROAD_PIECE_LIFT,
+		Surface.material(Color(0.14, 0.15, 0.16)), true, road_height)
+	Surface.build(network, "DirtRoadBed", dirt, asphalt, GROUND_HEIGHT + ROAD_PIECE_LIFT,
+		Surface.material(Color(0.64, 0.42, 0.22)), true, road_height)
+	# Only the outer perimeter is paved: no sidewalk or curb crosses a junction.
+	var walks: Array[PackedVector2Array] = road_polygons(true, 2.1, true)
+	var curbs: Array[PackedVector2Array] = road_polygons(true, 0.24, true)
+	Surface.build(network, "Sidewalks", walks, all_roads + curbs, GROUND_HEIGHT + 0.13,
+		Surface.material(Color(0.30, 0.28, 0.24)))
+	Surface.build(network, "Curbs", curbs, all_roads, GROUND_HEIGHT + 0.13,
+		Surface.material(Color(0.38, 0.36, 0.31)))
+	var shoulders: Array[PackedVector2Array] = road_polygons(false, 1.1)
+	Surface.build(network, "RuralShoulders", shoulders, all_roads, GROUND_HEIGHT + 0.015,
+		Surface.material(Color(0.44, 0.34, 0.21)), false)
+	var markings: Array[PackedVector2Array] = []
+	for tile: Dictionary in road_tiles():
+		if tile["kind"] != "asphalt_straight":
 			continue
-		var transforms: Array[Transform3D] = by_kind[kind]
-		var mesh: Mesh = load(ROAD_MESHES[kind]) as Mesh
-		if mesh == null:
-			push_error("Nao carregou %s" % ROAD_MESHES[kind])
-			return false
-		var multi_mesh: MultiMesh = MultiMesh.new()
-		multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-		multi_mesh.mesh = mesh
-		multi_mesh.instance_count = transforms.size()
-		for index: int in transforms.size():
-			multi_mesh.set_instance_transform(index, transforms[index])
-		if multi_mesh.buffer.is_empty():
-			push_error("MultiMesh de %s voltou sem buffer: rode este script SEM --headless" % kind)
-			return false
-		var node: MultiMeshInstance3D = MultiMeshInstance3D.new()
-		node.name = ROAD_NODE_NAMES[kind]
-		node.multimesh = multi_mesh
-		# O asset da cidade ja traz a superficie asfaltada; o atlas da fazenda
-		# continua reservado para terra e cascalho rurais.
-		node.material_override = null if kind.begins_with("asphalt") else material
-		# Chapas no chao: a sombra que elas projetam nao aparece e custa.
-		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		network.add_child(node)
-		node.owner = network
-		total += transforms.size()
-		print("%s: %d pecas" % [node.name, transforms.size()])
-
-	if not _build_road_bed(network, material):
-		return false
-
-	var saved: bool = _save_scene(network, ROAD_SCENE_PATH)
-	print("Estradas: %d pecas em %d draw calls" % [total, network.get_child_count()])
-	return saved
-
-
-## Chapa de terra sob as pecas, uma malha so. O material sai do mesmo atlas das
-## estradas, com as duas faces desenhadas: a chapa e horizontal e vista sempre
-## de cima, mas assim ela nunca some por causa da ordem dos vertices.
-func _build_road_bed(network: Node3D, road_material: Material) -> bool:
-	var quads: Array[Dictionary] = road_bed_quads()
-	if quads.is_empty():
-		push_error("Leito de estrada vazio")
-		return false
-
-	var height: float = GROUND_HEIGHT + ROAD_BED_LIFT
-	for family: String in ["dirt", "gravel", "asphalt"]:
-		var family_quads: Array[Dictionary] = []
-		for quad: Dictionary in quads:
-			if quad["family"] == family:
-				family_quads.append(quad)
-		if family_quads.is_empty():
+		var cell: Vector2i = tile["cell"]
+		var center: Vector2 = grid_position(cell.x, cell.y)
+		if on_secondary_path(center, 5.0):
 			continue
-		var surface: SurfaceTool = SurfaceTool.new()
-		surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-		for quad: Dictionary in family_quads:
-			var center: Vector2 = quad["center"]
-			var axis: Vector2 = quad["axis"]
-			var side: Vector2 = Vector2(-axis.y, axis.x)
-			var half: Vector2 = quad["half"]
-			var corners: Array[Vector3] = []
-			for corner: Vector2 in [Vector2(-1.0, -1.0), Vector2(1.0, -1.0), Vector2(1.0, 1.0), Vector2(-1.0, 1.0)]:
-				var flat: Vector2 = center + axis * (corner.x * half.x) + side * (corner.y * half.y)
-				corners.append(Vector3(flat.x, height, flat.y))
-			surface.set_normal(Vector3.UP)
-			surface.set_uv(ROAD_BED_UV[family])
-			for index: int in [0, 1, 3, 1, 2, 3]:
-				surface.add_vertex(corners[index])
-		var mesh: ArrayMesh = surface.commit()
-		if mesh == null or mesh.get_surface_count() == 0:
-			push_error("Leito de estrada nao gerou malha")
-			return false
-		var bed_material: Material = _road_material(family + "_straight", road_material)
-		var node: MeshInstance3D = MeshInstance3D.new()
-		node.name = family.capitalize() + "RoadBed"
-		node.mesh = mesh
-		node.material_override = bed_material
-		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		network.add_child(node)
-		node.owner = network
-	print("RoadBed: %d chapas de terra sob as costuras" % quads.size())
-	return true
+		var axis: Vector2 = rotate_local(Vector2(0, 1), tile["angle"])
+		markings.append(Surface.rectangle(center - axis * 1.5, center + axis * 1.5, 0.13))
+	Surface.build(network, "MainRoadCenterLines", markings, empty, GROUND_HEIGHT + 0.075,
+		Surface.material(Color(0.65, 0.51, 0.22)), false)
+	return _save_scene(network, ROAD_SCENE_PATH)
 
 
-func _road_material(kind: String, fallback: Material) -> Material:
-	if not kind.begins_with("asphalt"):
-		return fallback
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.resource_name = "CountryTown_Asphalt"
-	material.albedo_color = Color(0.055, 0.062, 0.068)
-	material.roughness = 0.92
-	material.metallic = 0.0
-	material.cull_mode = BaseMaterial3D.CULL_DISABLED
-	return material
+## Match the existing bridge deck with a shallow ramp on each bank.
+static func road_height(point: Vector2) -> float:
+	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+		if absf(point.y - bridge.y) > 5.0:
+			continue
+		var distance: float = absf(point.x - bridge.x)
+		if distance < 24.0:
+			return lerpf(6.273, GROUND_HEIGHT + ROAD_PIECE_LIFT, clampf((distance - 17.8) / 6.2, 0.0, 1.0))
+	return GROUND_HEIGHT + ROAD_PIECE_LIFT
 
 
-func _city_asphalt_transform(base: Transform3D) -> Transform3D:
-	var scale: float = TILE / 5.0
-	var basis: Basis = base.basis.scaled(Vector3(scale, 1.0, scale))
-	# O tile PolygonCity ocupa x=[0,5], z=[-5,0]; centralize antes de girar.
-	var local_offset: Vector3 = Vector3(-2.5 * scale, 0.0, 2.5 * scale)
-	return Transform3D(basis, base.origin + base.basis * local_offset)
+## Convex footprints with round ends. Grid arms meet exactly at tile boundaries;
+## widened copies form curbs/shoulders, then the complete road union cuts them.
+static func road_polygons(urban: bool, margin: float = 0.0, built_only: bool = false) -> Array[PackedVector2Array]:
+	var polygons: Array[PackedVector2Array] = []
+	for tile: Dictionary in road_tiles():
+		if (family_of(tile["kind"]) == "asphalt") != urban:
+			continue
+		var cell: Vector2i = tile["cell"]
+		var center: Vector2 = grid_position(cell.x, cell.y)
+		if built_only and (center.x < 340 or center.y > 365):
+			continue
+		var width: float = (9.0 if urban else 8.0) + margin * 2.0
+		polygons.append(Surface.disk(center, width * 0.5))
+		for direction: Vector2 in ROAD_CONNECTORS[shape_of(tile["kind"])]:
+			var axis: Vector2 = rotate_local(direction, tile["angle"])
+			polygons.append(Surface.rectangle(center, center + axis * TILE * 0.5, width))
+		# Four bridge landings taper from the road to the existing 5 m deck.
+		if cell in [Vector2i(19, 6), Vector2i(23, 6), Vector2i(10, 17), Vector2i(14, 17)]:
+			var sign_x: float = 1.0 if cell.x in [19, 10] else -1.0
+			var landing: Vector2 = center + Vector2(sign_x * (TILE * 0.5 + 0.1), 0)
+			var taper: PackedVector2Array = PackedVector2Array([
+				center + Vector2(0, -width * 0.5), landing + Vector2(0, -2.5),
+				landing + Vector2(0, 2.5), center + Vector2(0, width * 0.5)])
+			if sign_x < 0:
+				taper.reverse()
+			polygons.append(taper)
+	for path: Dictionary in SECONDARY_PATHS:
+		if not path["urban"] or not urban:
+			continue # Rural trails follow the terrain in SecondaryPaths.
+		if built_only and path["name"] in ["CrashApproach", "DeliveryAccess"]:
+			continue
+		Surface.add_path(polygons, path["points"], float(path["width"]) + margin * 2.0)
+	return polygons
 
 
 func _build_river() -> bool:
@@ -569,12 +455,13 @@ func _build_river() -> bool:
 	for index: int in segments.size():
 		var start: Vector2 = segments[index]["start"]
 		var end: Vector2 = segments[index]["end"]
+		var width: float = segments[index]["width"]
 		var span: Vector2 = end - start
 		var length: float = span.length()
 
 		var plane: PlaneMesh = PlaneMesh.new()
-		plane.size = Vector2(WATER_WIDTH, length)
-		plane.subdivide_width = 4
+		plane.size = Vector2(width, length)
+		plane.subdivide_width = maxi(4, int(width / 8.0))
 		plane.subdivide_depth = maxi(4, int(length / 6.0))
 
 		var node: MeshInstance3D = MeshInstance3D.new()
@@ -602,4 +489,5 @@ func _save_scene(node: Node, path: String) -> bool:
 		push_error("Nao gravou %s" % path)
 		return false
 	print("Gravado %s" % path)
+	node.free()
 	return true

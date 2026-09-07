@@ -4,6 +4,23 @@
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/RiverBridge.tscn" id="2_riverbridge"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/WoodenDock.tscn" id="3_woodendock"]
 [ext_resource type="PackedScene" path="res://scenes/FX/FogZone.tscn" id="4_fogzone"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="5_rock_large_01"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="6_rock_large_02"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_01a.tscn" id="7_rock_medium_01"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="8_rock_medium_02"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_03a.tscn" id="9_rock_medium_03"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_01a.tscn" id="10_rock_small_01"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="11_rock_small_02"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="12_rock_small_03"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_river_rock_l"]
+size = Vector3(4, 3.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_river_rock_m"]
+size = Vector3(2.6, 2.2, 2.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_river_rock_s"]
+size = Vector3(1.8, 1.6, 1.8)
 
 [node name="RiverDistrict" type="Node3D"]
 
@@ -17,6 +34,171 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.9, 6.273, 298.48)
 
 [node name="Dock" parent="." instance=ExtResource("3_woodendock")]
 transform = Transform3D(0.5664, 0, -0.8241, 0, 1, 0, 0.8241, 0, 0.5664, 50, 6.15, 365)
+
+[node name="RiverRocks" type="Node3D" parent="."]
+
+[node name="Rock01" parent="RiverRocks" instance=ExtResource("5_rock_large_01")]
+transform = Transform3D(0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, 0.766, 358, 2.17, 30)
+
+[node name="Rock02" parent="RiverRocks" instance=ExtResource("7_rock_medium_01")]
+transform = Transform3D(0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, 0.342, 336, 3.22, 45)
+
+[node name="Rock03" parent="RiverRocks" instance=ExtResource("6_rock_large_02")]
+transform = Transform3D(-0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, -0.6428, 344, 1.85, 90)
+
+[node name="Rock04" parent="RiverRocks" instance=ExtResource("10_rock_small_01")]
+transform = Transform3D(0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, 0.9397, 328, 1.2, 130)
+
+[node name="Rock05" parent="RiverRocks" instance=ExtResource("8_rock_medium_02")]
+transform = Transform3D(-0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, -0.342, 314, 1.1, 168)
+
+[node name="Rock06" parent="RiverRocks" instance=ExtResource("9_rock_medium_03")]
+transform = Transform3D(0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, 0.6428, 300, 1.5, 195)
+
+[node name="Rock07" parent="RiverRocks" instance=ExtResource("5_rock_large_01")]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 250, 1.85, 235)
+
+[node name="Rock08" parent="RiverRocks" instance=ExtResource("11_rock_small_02")]
+transform = Transform3D(0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, 0.342, 222, 1.2, 265)
+
+[node name="Rock09" parent="RiverRocks" instance=ExtResource("6_rock_large_02")]
+transform = Transform3D(-0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, -0.766, 198, 1.91, 300)
+
+[node name="Rock10" parent="RiverRocks" instance=ExtResource("7_rock_medium_01")]
+transform = Transform3D(0.9848, 0, 0.1736, 0, 1, 0, -0.1736, 0, 0.9848, 176, 1.5, 330)
+
+[node name="Rock11" parent="RiverRocks" instance=ExtResource("12_rock_small_03")]
+transform = Transform3D(-0.5, 0, -0.866, 0, 1, 0, 0.866, 0, -0.5, 133, 1.2, 350)
+
+[node name="Rock12" parent="RiverRocks" instance=ExtResource("8_rock_medium_02")]
+transform = Transform3D(0.766, 0, 0.6428, 0, 1, 0, -0.6428, 0, 0.766, 95, 1.1, 362)
+
+[node name="Rock13" parent="RiverRocks" instance=ExtResource("5_rock_large_01")]
+transform = Transform3D(-0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, -0.342, 65, 1.85, 380)
+
+[node name="Rock14" parent="RiverRocks" instance=ExtResource("10_rock_small_01")]
+transform = Transform3D(0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, 0.9397, 38, 1.2, 405)
+
+[node name="Rock15" parent="RiverRocks" instance=ExtResource("6_rock_large_02")]
+transform = Transform3D(0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, 0.766, 20, 1.85, 420)
+
+[node name="Rock16" parent="RiverRocks" instance=ExtResource("9_rock_medium_03")]
+transform = Transform3D(0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, 0.6428, 55, 4.81, 420)
+
+[node name="Rock17" parent="RiverRocks" instance=ExtResource("8_rock_medium_02")]
+transform = Transform3D(-0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, -0.342, 2.2, 3.05, 416.2)
+
+[node name="Rock18" parent="RiverRocks" instance=ExtResource("12_rock_small_03")]
+transform = Transform3D(-0.5, 0, -0.866, 0, 1, 0, 0.866, 0, -0.5, 45, 3.99, 440)
+
+[node name="Rock19" parent="RiverRocks" instance=ExtResource("5_rock_large_01")]
+transform = Transform3D(-0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, -0.766, 12, 1.85, 458)
+
+[node name="Rock20" parent="RiverRocks" instance=ExtResource("11_rock_small_02")]
+transform = Transform3D(0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, 0.342, 58, 3.65, 408)
+
+[node name="Rock21" parent="RiverRocks" instance=ExtResource("5_rock_large_01")]
+transform = Transform3D(0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, 0.9397, -5, 5.94, 420)
+
+[node name="Rock22" parent="RiverRocks" instance=ExtResource("8_rock_medium_02")]
+transform = Transform3D(0.5, 0, -0.866, 0, 1, 0, 0.866, 0, 0.5, 35, 5.37, 470)
+
+[node name="Rock23" parent="RiverRocks" instance=ExtResource("6_rock_large_02")]
+transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, -50, 4.99, 450)
+
+[node name="Collision" type="StaticBody3D" parent="RiverRocks"]
+
+[node name="Rock01" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 358, 3.27, 30)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock03" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 344, 2.95, 90)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock07" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 2.95, 235)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock09" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198, 3.01, 300)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock13" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 2.95, 380)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock05" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314, 2.3, 168)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock12" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 2.3, 362)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock02" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 336, 4.02, 45)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock04" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 2.0, 130)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock06" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, 2.3, 195)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock08" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 222, 2.0, 265)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock10" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 176, 2.3, 330)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock11" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133, 2.0, 350)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock14" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 2.0, 405)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock15" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2.95, 420)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock19" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.95, 458)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock21" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.04, 420)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock23" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 6.09, 450)
+shape = SubResource("BoxShape3D_river_rock_l")
+
+[node name="Rock16" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6.01, 420)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock17" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 4.25, 416.2)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock22" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 6.57, 470)
+shape = SubResource("BoxShape3D_river_rock_m")
+
+[node name="Rock18" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 4.79, 440)
+shape = SubResource("BoxShape3D_river_rock_s")
+
+[node name="Rock20" type="CollisionShape3D" parent="RiverRocks/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 4.45, 408)
+shape = SubResource("BoxShape3D_river_rock_s")
 
 [node name="RiverFog" type="Node3D" parent="."]
 

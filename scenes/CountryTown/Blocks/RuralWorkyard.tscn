@@ -1,135 +1,151 @@
 [gd_scene format=3]
 
-[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="1_o4h33"]
-[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Shelter_01.res" id="2_ulny4"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Round_01.fbx" id="3_he66h"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Square_01.fbx" id="4_dsvko"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Wheelbarrow_01.fbx" id="5_y2wqg"]
-[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Prop_Trough_01.res" id="6_c0c3g"]
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/CargoStack.tscn" id="7_11mn1"]
-[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Environment/SM_Env_Fence_White_Straight_01.tscn" id="8_x2164"]
-[ext_resource type="ArrayMesh" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Fence_White_Straight_01.res" id="9_bwrix"]
-[ext_resource type="Material" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="10_fd7yt"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bwt8a"]
-size = Vector3(4.9327908, 3.6109107, 3.597463)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ucmnt"]
-size = Vector3(1.2622528, 1.5820062, 1.2188523)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3ofog"]
-size = Vector3(1.9094145, 0.94737583, 1.411694)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lgls5"]
-size = Vector3(0.7051776, 0.84617925, 2.0889096)
+[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="1_he66h"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Shelter_01.res" id="2_dsvko"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Round_01.fbx" id="3_y2wqg"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Square_01.fbx" id="4_c0c3g"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Wheelbarrow_01.fbx" id="5_11mn1"]
+[ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Prop_Trough_01.res" id="6_x2164"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/CargoStack.tscn" id="7_bwrix"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Environment/SM_Env_Fence_White_Straight_01.tscn" id="8_fd7yt"]
+[ext_resource type="ArrayMesh" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Fence_White_Straight_01.res" id="9_bwt8a"]
+[ext_resource type="Material" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="10_ucmnt"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Environment/SM_Env_Fence_White_Post_01.tscn" id="11_3ofog"]
+[ext_resource type="ArrayMesh" path="res://PolygonTown/Models/Environment/extracted/SM_Env_Fence_White_Post_01.res" id="12_lgls5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vrxnt"]
+size = Vector3(4.9327908, 3.6109107, 3.597463)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8hdrr"]
+size = Vector3(1.2622528, 1.5820062, 1.2188523)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ikgnw"]
+size = Vector3(1.9094145, 0.94737583, 1.411694)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gfy72"]
+size = Vector3(0.7051776, 0.84617925, 2.0889096)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m1q2o"]
 size = Vector3(3.2239432, 0.41964903, 0.9172232)
 
-[node name="RuralWorkyard" type="Node3D" unique_id=1633905407]
+[node name="RuralWorkyard" type="Node3D" unique_id=1747693576]
 
-[node name="Bld_Shelter_016" type="MeshInstance3D" parent="." unique_id=914419331]
+[node name="Bld_Shelter_016" type="MeshInstance3D" parent="." unique_id=1406101236]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 9.094947e-15, 1)
 layers = 512
-material_override = ExtResource("1_o4h33")
+material_override = ExtResource("1_he66h")
 visibility_range_end = 650.0
 visibility_range_end_margin = 30.0
-mesh = ExtResource("2_ulny4")
+mesh = ExtResource("2_dsvko")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@26" type="StaticBody3D" parent="Bld_Shelter_016" unique_id=49698908]
+[node name="@StaticBody3D@26" type="StaticBody3D" parent="Bld_Shelter_016" unique_id=507822716]
 
-[node name="@CollisionShape3D@25" type="CollisionShape3D" parent="Bld_Shelter_016/@StaticBody3D@26" unique_id=1291713950]
+[node name="@CollisionShape3D@25" type="CollisionShape3D" parent="Bld_Shelter_016/@StaticBody3D@26" unique_id=436627389]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3841858e-07, 1.8054553, 1.1920929e-07)
-shape = SubResource("BoxShape3D_bwt8a")
-
-[node name="Prop_Hay_Bale_Round_017" type="MeshInstance3D" parent="." unique_id=1871480509]
-transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -4, 0.7910031, 2)
-layers = 512
-material_override = ExtResource("1_o4h33")
-visibility_range_end = 230.0
-visibility_range_end_margin = 30.0
-mesh = ExtResource("3_he66h")
-metadata/country_town_block = true
-
-[node name="@StaticBody3D@28" type="StaticBody3D" parent="Prop_Hay_Bale_Round_017" unique_id=1154773605]
-
-[node name="@CollisionShape3D@27" type="CollisionShape3D" parent="Prop_Hay_Bale_Round_017/@StaticBody3D@28" unique_id=891775147]
-shape = SubResource("BoxShape3D_ucmnt")
-
-[node name="Prop_Hay_Bale_Square_018" type="MeshInstance3D" parent="." unique_id=1123919093]
-transform = Transform3D(0.9961947, 0, -0.08715574, 0, 1, 0, 0.08715574, 0, 0.9961947, -4, 0.47368795, 0)
-layers = 512
-material_override = ExtResource("1_o4h33")
-visibility_range_end = 230.0
-visibility_range_end_margin = 30.0
-mesh = ExtResource("4_dsvko")
-metadata/country_town_block = true
-
-[node name="@StaticBody3D@30" type="StaticBody3D" parent="Prop_Hay_Bale_Square_018" unique_id=2086758230]
-
-[node name="@CollisionShape3D@29" type="CollisionShape3D" parent="Prop_Hay_Bale_Square_018/@StaticBody3D@30" unique_id=1511151475]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, -2.9802322e-08, 1.7881393e-07)
-shape = SubResource("BoxShape3D_3ofog")
-
-[node name="Prop_Wheelbarrow_019" type="MeshInstance3D" parent="." unique_id=962038996]
-transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 4, 0.24835105, 1)
-layers = 512
-material_override = ExtResource("1_o4h33")
-visibility_range_end = 230.0
-visibility_range_end_margin = 30.0
-mesh = ExtResource("5_y2wqg")
-metadata/country_town_block = true
-
-[node name="@StaticBody3D@32" type="StaticBody3D" parent="Prop_Wheelbarrow_019" unique_id=2133953324]
-
-[node name="@CollisionShape3D@31" type="CollisionShape3D" parent="Prop_Wheelbarrow_019/@StaticBody3D@32" unique_id=1784101391]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17473857, -0.7965635)
-shape = SubResource("BoxShape3D_lgls5")
-
-[node name="Prop_Trough_0110" type="MeshInstance3D" parent="." unique_id=1681580638]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0.07360822, 3)
-layers = 512
-material_override = ExtResource("1_o4h33")
-visibility_range_end = 650.0
-visibility_range_end_margin = 30.0
-mesh = ExtResource("6_c0c3g")
-metadata/country_town_block = true
-
-[node name="@StaticBody3D@34" type="StaticBody3D" parent="Prop_Trough_0110" unique_id=1251554415]
-
-[node name="@CollisionShape3D@33" type="CollisionShape3D" parent="Prop_Trough_0110/@StaticBody3D@34" unique_id=1779679876]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1362163, 0)
 shape = SubResource("BoxShape3D_vrxnt")
 
-[node name="Supplies" type="Node3D" parent="." unique_id=179027663 instance=ExtResource("7_11mn1")]
+[node name="Prop_Hay_Bale_Round_017" type="MeshInstance3D" parent="." unique_id=1604480239]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -4, 0.7910031, 2)
+layers = 512
+material_override = ExtResource("1_he66h")
+visibility_range_end = 230.0
+visibility_range_end_margin = 30.0
+mesh = ExtResource("3_y2wqg")
+metadata/country_town_block = true
+
+[node name="@StaticBody3D@28" type="StaticBody3D" parent="Prop_Hay_Bale_Round_017" unique_id=1397736936]
+
+[node name="@CollisionShape3D@27" type="CollisionShape3D" parent="Prop_Hay_Bale_Round_017/@StaticBody3D@28" unique_id=1784617172]
+shape = SubResource("BoxShape3D_8hdrr")
+
+[node name="Prop_Hay_Bale_Square_018" type="MeshInstance3D" parent="." unique_id=1498231017]
+transform = Transform3D(0.9961947, 0, -0.08715574, 0, 1, 0, 0.08715574, 0, 0.9961947, -4, 0.47368795, 0)
+layers = 512
+material_override = ExtResource("1_he66h")
+visibility_range_end = 230.0
+visibility_range_end_margin = 30.0
+mesh = ExtResource("4_c0c3g")
+metadata/country_town_block = true
+
+[node name="@StaticBody3D@30" type="StaticBody3D" parent="Prop_Hay_Bale_Square_018" unique_id=939577043]
+
+[node name="@CollisionShape3D@29" type="CollisionShape3D" parent="Prop_Hay_Bale_Square_018/@StaticBody3D@30" unique_id=1363561511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, -2.9802322e-08, 1.7881393e-07)
+shape = SubResource("BoxShape3D_ikgnw")
+
+[node name="Prop_Wheelbarrow_019" type="MeshInstance3D" parent="." unique_id=171450214]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 4, 0.24835105, 1)
+layers = 512
+material_override = ExtResource("1_he66h")
+visibility_range_end = 230.0
+visibility_range_end_margin = 30.0
+mesh = ExtResource("5_11mn1")
+metadata/country_town_block = true
+
+[node name="@StaticBody3D@32" type="StaticBody3D" parent="Prop_Wheelbarrow_019" unique_id=1773373890]
+
+[node name="@CollisionShape3D@31" type="CollisionShape3D" parent="Prop_Wheelbarrow_019/@StaticBody3D@32" unique_id=1113850738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17473857, -0.7965635)
+shape = SubResource("BoxShape3D_gfy72")
+
+[node name="Prop_Trough_0110" type="MeshInstance3D" parent="." unique_id=1499638492]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0.07360822, 3)
+layers = 512
+material_override = ExtResource("1_he66h")
+visibility_range_end = 650.0
+visibility_range_end_margin = 30.0
+mesh = ExtResource("6_x2164")
+metadata/country_town_block = true
+
+[node name="@StaticBody3D@34" type="StaticBody3D" parent="Prop_Trough_0110" unique_id=1663741324]
+
+[node name="@CollisionShape3D@33" type="CollisionShape3D" parent="Prop_Trough_0110/@StaticBody3D@34" unique_id=1880943028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1362163, 0)
+shape = SubResource("BoxShape3D_m1q2o")
+
+[node name="Supplies" type="Node3D" parent="." unique_id=156762124 instance=ExtResource("7_bwrix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
 metadata/country_town_block = true
 
-[node name="BackFence0" type="MeshInstance3D" parent="." unique_id=800314403 instance=ExtResource("8_x2164")]
+[node name="BackFence0" type="MeshInstance3D" parent="." unique_id=149234026 instance=ExtResource("8_fd7yt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 gi_mode = 2
-mesh = ExtResource("9_bwrix")
-surface_material_override/0 = ExtResource("10_fd7yt")
+mesh = ExtResource("9_bwt8a")
+surface_material_override/0 = ExtResource("10_ucmnt")
 metadata/country_town_block = true
 
-[node name="BackFence1" type="MeshInstance3D" parent="." unique_id=706242924 instance=ExtResource("8_x2164")]
+[node name="BackFence1" type="MeshInstance3D" parent="." unique_id=1938450177 instance=ExtResource("8_fd7yt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
 gi_mode = 2
-mesh = ExtResource("9_bwrix")
-surface_material_override/0 = ExtResource("10_fd7yt")
+mesh = ExtResource("9_bwt8a")
+surface_material_override/0 = ExtResource("10_ucmnt")
 metadata/country_town_block = true
 
-[node name="BackFence2" type="MeshInstance3D" parent="." unique_id=1824707214 instance=ExtResource("8_x2164")]
+[node name="BackFence2" type="MeshInstance3D" parent="." unique_id=573382754 instance=ExtResource("8_fd7yt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 gi_mode = 2
-mesh = ExtResource("9_bwrix")
-surface_material_override/0 = ExtResource("10_fd7yt")
+mesh = ExtResource("9_bwt8a")
+surface_material_override/0 = ExtResource("10_ucmnt")
 metadata/country_town_block = true
 
-[node name="BackFence3" type="MeshInstance3D" parent="." unique_id=1751885093 instance=ExtResource("8_x2164")]
+[node name="BackFence3" type="MeshInstance3D" parent="." unique_id=971918390 instance=ExtResource("8_fd7yt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 gi_mode = 2
-mesh = ExtResource("9_bwrix")
-surface_material_override/0 = ExtResource("10_fd7yt")
+mesh = ExtResource("9_bwt8a")
+surface_material_override/0 = ExtResource("10_ucmnt")
+metadata/country_town_block = true
+
+[node name="BackFencePost10" type="MeshInstance3D" parent="." unique_id=1959593158 instance=ExtResource("11_3ofog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+gi_mode = 2
+mesh = ExtResource("12_lgls5")
+surface_material_override/0 = ExtResource("10_ucmnt")
+metadata/country_town_block = true
+
+[node name="BackFencePost11" type="MeshInstance3D" parent="." unique_id=1166074204 instance=ExtResource("11_3ofog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+gi_mode = 2
+mesh = ExtResource("12_lgls5")
+surface_material_override/0 = ExtResource("10_ucmnt")
 metadata/country_town_block = true

@@ -1,5 +1,9 @@
 extends SceneTree
 
+## Percorre o ciclo do F4 - desligado, velocidade, velocidade e voo, desligado -
+## acionando a acao do Input Map, e cobra que nenhum toque abra painel nem pause
+## o jogo: os modos agora sao um atalho direto, sem menu.
+
 var _failed : bool = false
 
 
@@ -18,30 +22,31 @@ func _run() -> void:
 	).instantiate()
 	root.add_child(debug_menu)
 	await process_frame
-	var god_toggle : CheckButton = debug_menu.get_node(
-		"Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/GodModeToggle"
-	) as CheckButton
-	var flight_toggle : CheckButton = debug_menu.get_node(
-		"Overlay/CenterContainer/MenuPanel/MarginContainer/MainPanel/FlightModeToggle"
-	) as CheckButton
+	var overlay : Control = debug_menu.get_node("Overlay") as Control
 
 	player.set("health", 42.0)
 	player.set("stamina", 3.0)
-	god_toggle.button_pressed = true
-	_check(bool(player.call("is_debug_god_mode_enabled")), "God mode enables")
+	await _press_modes_action()
+	_check(bool(player.call("is_debug_god_mode_enabled")), "First press enables speed mode")
+	_check(
+		not bool(player.call("is_debug_flight_enabled")),
+		"First press leaves flight off"
+	)
+	_check(not overlay.visible, "First press opens no menu")
+	_check(not paused, "First press does not pause the game")
 	_check(
 		is_equal_approx(
 			float(player.call("get_health")),
 			float(player.call("get_max_health"))
 		),
-		"God mode restores health"
+		"Speed mode restores health"
 	)
 	_check(
 		is_equal_approx(
 			float(player.call("get_stamina")),
 			float(player.call("get_max_stamina"))
 		),
-		"God mode restores stamina"
+		"Speed mode restores stamina"
 	)
 
 	player.call("take_damage", 999.0, Vector3.FORWARD, 5.0)
@@ -50,19 +55,19 @@ func _run() -> void:
 			float(player.call("get_health")),
 			float(player.call("get_max_health"))
 		),
-		"God mode blocks lethal damage"
+		"Speed mode blocks lethal damage"
 	)
 	_check(
 		is_equal_approx(
 			float(player.call("_get_movement_speed")),
 			float(player.get("speed")) * 5.0
 		),
-		"God mode multiplies movement speed by five"
+		"Speed mode multiplies movement speed by five"
 	)
 
-	flight_toggle.button_pressed = true
+	await _press_modes_action()
 	var body : CharacterBody3D = player as CharacterBody3D
-	_check(bool(player.call("is_debug_flight_enabled")), "Flight mode enables")
+	_check(bool(player.call("is_debug_flight_enabled")), "Second press enables flight")
 	_check(
 		body.motion_mode == CharacterBody3D.MOTION_MODE_FLOATING,
 		"Flight mode disables grounded motion"
@@ -70,8 +75,9 @@ func _run() -> void:
 	_check(
 		bool(player.call("is_debug_god_mode_enabled"))
 		and bool(player.call("is_debug_flight_enabled")),
-		"God and flight modes coexist"
+		"Speed and flight modes coexist"
 	)
+	_check(not overlay.visible, "Second press opens no menu")
 	var starting_height : float = body.global_position.y
 	Input.action_press("jump")
 	player.set_physics_process(true)
@@ -84,15 +90,15 @@ func _run() -> void:
 		"Flight mode moves upward without gravity"
 	)
 
-	player.call("set_debug_god_mode_enabled", false)
+	await _press_modes_action()
 	_check(
-		bool(player.call("is_debug_flight_enabled")),
-		"Disabling god mode keeps flight active"
+		not bool(player.call("is_debug_god_mode_enabled"))
+		and not bool(player.call("is_debug_flight_enabled")),
+		"Third press turns both modes off"
 	)
-	player.call("set_debug_flight_enabled", false)
 	_check(
 		body.motion_mode == CharacterBody3D.MOTION_MODE_GROUNDED,
-		"Disabling flight restores grounded motion"
+		"Leaving flight restores grounded motion"
 	)
 
 	player.call("take_damage", 10.0)
@@ -101,11 +107,25 @@ func _run() -> void:
 			float(player.call("get_health")),
 			float(player.call("get_max_health")) - 10.0
 		),
-		"Damage returns after god mode is disabled"
+		"Damage returns after the modes are off"
 	)
 
 	print("PLAYER_DEBUG_MODES_TEST|%s" % ["FAIL" if _failed else "PASS"])
 	quit(1 if _failed else 0)
+
+
+## Um toque na tecla dos modos, pelo mesmo caminho do jogo: a acao do Input Map
+## chega ao `_unhandled_input` do DebugMenu.
+func _press_modes_action() -> void:
+	var press : InputEventAction = InputEventAction.new()
+	press.action = &"debug_player_modes"
+	press.pressed = true
+	root.push_input(press)
+	var release : InputEventAction = InputEventAction.new()
+	release.action = &"debug_player_modes"
+	release.pressed = false
+	root.push_input(release)
+	await process_frame
 
 
 func _check(condition : bool, label : String) -> void:

@@ -1,13 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/Buildings/Barn02.tscn" id="1_barn02"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Bld_Warehouse_01.fbx" id="1_sm_bld_warehouse_01"]
+[ext_resource type="Material" path="res://Materiais/ScifiCity1A.tres" id="9_scificity1a"]
 [ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Shelter_01.res" id="2_sm_bld_shelter_01"]
 [ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="3_polygonfarm1a"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Square_01.fbx" id="4_sm_prop_hay_bale_square_01"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Square_02.fbx" id="5_sm_prop_hay_bale_square_02"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Box_Apple_01.fbx" id="6_sm_prop_box_apple_01"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Box_Potato_01.fbx" id="7_sm_prop_box_potato_01"]
-[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Barrel_01.fbx" id="8_sm_prop_barrel_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_01.fbx" id="4_sm_prop_crate_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_02.fbx" id="5_sm_prop_crate_02"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Large_01.fbx" id="6_sm_prop_crate_large_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_01.fbx" id="7_sm_prop_crate_military_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Pipes_01.fbx" id="8_sm_prop_pipes_01"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_warehouse"]
+size = Vector3(12, 8, 14)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_01"]
 size = Vector3(3.6, 3.6, 4.9)
@@ -20,8 +24,10 @@ size = Vector3(2.6, 1, 2.6)
 
 [node name="DeliveryYard" type="Node3D"]
 
-[node name="Warehouse" parent="." instance=ExtResource("1_barn02")]
+[node name="Warehouse" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 363, 6, 378)
+mesh = ExtResource("1_sm_bld_warehouse_01")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="LoadingShelter" type="MeshInstance3D" parent="."]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 336, 6, 372)
@@ -30,30 +36,34 @@ surface_material_override/0 = ExtResource("3_polygonfarm1a")
 
 [node name="CrateA" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, 0.9659, 357, 6, 368)
-mesh = ExtResource("4_sm_prop_hay_bale_square_01")
-surface_material_override/0 = ExtResource("3_polygonfarm1a")
+mesh = ExtResource("4_sm_prop_crate_01")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="CrateB" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 359.5, 6, 370.5)
-mesh = ExtResource("5_sm_prop_hay_bale_square_02")
-surface_material_override/0 = ExtResource("3_polygonfarm1a")
+mesh = ExtResource("5_sm_prop_crate_02")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="CrateC" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, 0.766, 356.5, 6, 384)
-mesh = ExtResource("6_sm_prop_box_apple_01")
-surface_material_override/0 = ExtResource("3_polygonfarm1a")
+mesh = ExtResource("6_sm_prop_crate_large_01")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="CrateD" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, 358, 6, 385.5)
-mesh = ExtResource("7_sm_prop_box_potato_01")
-surface_material_override/0 = ExtResource("3_polygonfarm1a")
+mesh = ExtResource("7_sm_prop_crate_military_01")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="BarrelA" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 336.5, 6, 377)
-mesh = ExtResource("8_sm_prop_barrel_01")
-surface_material_override/0 = ExtResource("3_polygonfarm1a")
+mesh = ExtResource("8_sm_prop_pipes_01")
+surface_material_override/0 = ExtResource("9_scificity1a")
 
 [node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Warehouse" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 363, 10, 378)
+shape = SubResource("BoxShape3D_warehouse")
 
 [node name="LoadingShelter" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 336, 7.8, 372)

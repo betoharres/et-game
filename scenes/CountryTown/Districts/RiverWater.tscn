@@ -3,9 +3,9 @@
 [ext_resource type="Material" path="res://Materiais/ea_water_countryTown.tres" id="1_x2fsn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jy4bo"]
-size = Vector2(17, 25.89666)
+size = Vector2(17, 84.91659)
 subdivide_width = 4
-subdivide_depth = 4
+subdivide_depth = 14
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wud1u"]
 size = Vector2(17, 57.187046)
@@ -48,112 +48,178 @@ subdivide_width = 4
 subdivide_depth = 7
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dqn3g"]
-size = Vector2(17, 43.54211)
+size = Vector2(19, 43.847355)
 subdivide_width = 4
 subdivide_depth = 7
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wym1u"]
-size = Vector2(17, 42.94806)
+size = Vector2(22, 43.32121)
 subdivide_width = 4
 subdivide_depth = 7
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fw15c"]
-size = Vector2(17, 47.675396)
-subdivide_width = 4
-subdivide_depth = 7
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bd6cr"]
-size = Vector2(17, 49.9004)
-subdivide_width = 4
-subdivide_depth = 8
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_j0noq"]
-size = Vector2(17, 14.768775)
+size = Vector2(26, 28.02801)
 subdivide_width = 4
 subdivide_depth = 4
 
-[node name="RiverWater" type="Node3D" unique_id=1404764556]
+[sub_resource type="PlaneMesh" id="PlaneMesh_bd6cr"]
+size = Vector2(32, 22.939846)
+subdivide_width = 4
+subdivide_depth = 4
 
-[node name="WaterPlane01" type="MeshInstance3D" parent="." unique_id=1216083933]
-transform = Transform3D(0.999527, 0, -0.030754846, 0, 1, 0, 0.030754846, 0, 0.999527, 350.371, 3.6, 12.942204)
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0noq"]
+size = Vector2(45, 24.957397)
+subdivide_width = 5
+subdivide_depth = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gex37"]
+size = Vector2(60, 25.253984)
+subdivide_width = 7
+subdivide_depth = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_b5ff4"]
+size = Vector2(80, 26.193352)
+subdivide_width = 10
+subdivide_depth = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r48io"]
+size = Vector2(105, 26.585405)
+subdivide_width = 13
+subdivide_depth = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7klxw"]
+size = Vector2(140, 36.666733)
+subdivide_width = 17
+subdivide_depth = 6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5tovh"]
+size = Vector2(180, 40.698174)
+subdivide_width = 22
+subdivide_depth = 6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_px15k"]
+size = Vector2(230, 136.76888)
+subdivide_width = 28
+subdivide_depth = 22
+
+[node name="RiverWater" type="Node3D" unique_id=1087427454]
+
+[node name="WaterPlane01" type="MeshInstance3D" parent="." unique_id=412539194]
+transform = Transform3D(0.999527, 0, -0.030754918, 0, 1, 0, 0.030754918, 0, 0.999527, 351.27856, 3.6, -16.553802)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_jy4bo")
 
-[node name="WaterPlane02" type="MeshInstance3D" parent="." unique_id=508269470]
+[node name="WaterPlane02" type="MeshInstance3D" parent="." unique_id=1508973168]
 transform = Transform3D(0.98386985, 0, -0.17888579, 0, 1, 0, 0.17888579, 0, 0.98386985, 345.04333, 3.6, 52.26175)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_wud1u")
 
-[node name="WaterPlane03" type="MeshInstance3D" parent="." unique_id=2121660988]
+[node name="WaterPlane03" type="MeshInstance3D" parent="." unique_id=1907269746]
 transform = Transform3D(0.9895865, 0, -0.1439396, 0, 1, 0, 0.1439396, 0, 0.9895865, 335.93152, 3.6, 107.97084)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_masx7")
 
-[node name="WaterPlane04" type="MeshInstance3D" parent="." unique_id=832123872]
+[node name="WaterPlane04" type="MeshInstance3D" parent="." unique_id=902378458]
 transform = Transform3D(0.92015463, 0, -0.39155516, 0, 1, 0, 0.39155516, 0, 0.92015463, 321.85696, 3.6, 158.83612)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_2mcnt")
 
-[node name="WaterPlane05" type="MeshInstance3D" parent="." unique_id=1289243141]
+[node name="WaterPlane05" type="MeshInstance3D" parent="." unique_id=775656441]
 transform = Transform3D(0.6770565, 0, -0.73593104, 0, 1, 0, 0.73593104, 0, 0.6770565, 287.50647, 3.6, 204.53403)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_rxmxx")
 
-[node name="WaterPlane06" type="MeshInstance3D" parent="." unique_id=1993035739]
+[node name="WaterPlane06" type="MeshInstance3D" parent="." unique_id=1954731536]
 transform = Transform3D(0.5943911, 0, -0.80417615, 0, 1, 0, 0.80417615, 0, 0.5943911, 237.9974, 3.6, 245.74103)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_agj7y")
 
-[node name="WaterPlane07" type="MeshInstance3D" parent="." unique_id=585700942]
+[node name="WaterPlane07" type="MeshInstance3D" parent="." unique_id=865822339]
 transform = Transform3D(0.9647638, 0, -0.26311743, 0, 1, 0, 0.26311743, 0, 0.9647638, 210.11163, 3.6, 283.5907)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_k4b7t")
 
-[node name="WaterPlane08" type="MeshInstance3D" parent="." unique_id=1844689473]
+[node name="WaterPlane08" type="MeshInstance3D" parent="." unique_id=2030011796]
 transform = Transform3D(0.7310555, 0, -0.682318, 0, 1, 0, 0.682318, 0, 0.7310555, 190.05469, 3.6, 320.9414)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_gmnu5")
 
-[node name="WaterPlane09" type="MeshInstance3D" parent="." unique_id=1087025866]
+[node name="WaterPlane09" type="MeshInstance3D" parent="." unique_id=270046717]
 transform = Transform3D(0.36244616, 0, -0.9320047, 0, 1, 0, 0.9320047, 0, 0.36244616, 158.46295, 3.6, 342.81995)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_otqal")
 
-[node name="WaterPlane10" type="MeshInstance3D" parent="." unique_id=522586892]
-transform = Transform3D(0.14834024, 0, -0.98893636, 0, 1, 0, 0.98893636, 0, 0.14834024, 119.65397, 3.6, 353.0519)
+[node name="WaterPlane10" type="MeshInstance3D" parent="." unique_id=30738739]
+transform = Transform3D(0.14834036, 0, -0.98893636, 0, 1, 0, 0.98893636, 0, 0.14834036, 119.61325, 3.6, 353.058)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_dqn3g")
 
-[node name="WaterPlane11" type="MeshInstance3D" parent="." unique_id=460193242]
-transform = Transform3D(0.5070197, 0, -0.8619345, 0, 1, 0, 0.8619345, 0, 0.5070197, 83.12607, 3.6, 365.92584)
+[node name="WaterPlane11" type="MeshInstance3D" parent="." unique_id=257621817]
+transform = Transform3D(0.50702, 0, -0.8619343, 0, 1, 0, 0.8619343, 0, 0.50702, 83.38284, 3.6, 365.7748)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_wym1u")
 
-[node name="WaterPlane12" type="MeshInstance3D" parent="." unique_id=243929519]
-transform = Transform3D(0.74983776, 0, -0.6616218, 0, 1, 0, 0.6616218, 0, 0.74983776, 51.29016, 3.6, 392.67114)
+[node name="WaterPlane12" type="MeshInstance3D" parent="." unique_id=1150918370]
+transform = Transform3D(0.6866235, 0, -0.7270132, 0, 1, 0, 0.7270132, 0, 0.6866235, 57.06168, 3.6, 384.44174)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_fw15c")
 
-[node name="WaterPlane13" type="MeshInstance3D" parent="." unique_id=986864712]
-transform = Transform3D(0.81923205, 0, -0.5734622, 0, 1, 0, 0.5734622, 0, 0.81923205, 22.109245, 3.6, 429.84393)
+[node name="WaterPlane13" type="MeshInstance3D" parent="." unique_id=1913770661]
+transform = Transform3D(0.816968, 0, -0.576683, 0, 1, 0, 0.576683, 0, 0.816968, 42.452175, 3.6, 400.85944)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_bd6cr")
 
-[node name="WaterPlane14" type="MeshInstance3D" parent="." unique_id=380905494]
-transform = Transform3D(0.8320501, 0, -0.5547005, 0, 1, 0, 0.5547005, 0, 0.8320501, 4.0961237, 3.6, 455.85583)
+[node name="WaterPlane14" type="MeshInstance3D" parent="." unique_id=1463508352]
+transform = Transform3D(0.8192318, 0, -0.57346255, 0, 1, 0, 0.57346255, 0, 0.8192318, 29.0127, 3.6, 419.98187)
 material_override = ExtResource("1_x2fsn")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_j0noq")
+
+[node name="WaterPlane15" type="MeshInstance3D" parent="." unique_id=1014018873]
+transform = Transform3D(0.81923205, 0, -0.5734622, 0, 1, 0, 0.5734622, 0, 0.81923205, 14.902264, 3.6, 440.13965)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_gex37")
+
+[node name="WaterPlane16" type="MeshInstance3D" parent="." unique_id=480629577]
+transform = Transform3D(0.83205044, 0, -0.5547, 0, 1, 0, 0.5547, 0, 0.83205044, 1.1260519, 3.6, 460.3109)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_b5ff4")
+
+[node name="WaterPlane17" type="MeshInstance3D" parent="." unique_id=1378005144]
+transform = Transform3D(0.8320502, 0, -0.5547004, 0, 1, 0, 0.5547004, 0, 0.8320502, -13.234793, 3.6, 481.85217)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_r48io")
+
+[node name="WaterPlane18" type="MeshInstance3D" parent="." unique_id=1513186910]
+transform = Transform3D(0.8137334, 0, -0.58123827, 0, 1, 0, 0.58123827, 0, 0.8137334, -29.854677, 3.6, 505.79657)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_7klxw")
+
+[node name="WaterPlane19" type="MeshInstance3D" parent="." unique_id=1447382087]
+transform = Transform3D(0.8240416, 0, -0.5665293, 0, 1, 0, 0.5665293, 0, 0.8240416, -50.928787, 3.6, 535.8964)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_5tovh")
+
+[node name="WaterPlane20" type="MeshInstance3D" parent="." unique_id=753061298]
+transform = Transform3D(0.81696784, 0, -0.5766832, 0, 1, 0, 0.5766832, 0, 0.81696784, -100.88162, 3.6, 607.0823)
+material_override = ExtResource("1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_px15k")

@@ -15,9 +15,9 @@ size = Vector3(0.7557361, 0.47673413, 0.45261496)
 [sub_resource type="BoxShape3D" id="BoxShape3D_duv33"]
 size = Vector3(0.7557361, 0.38513404, 0.45261443)
 
-[node name="CargoStack" type="Node3D" unique_id=179027663]
+[node name="CargoStack" type="Node3D" unique_id=156762124]
 
-[node name="Prop_Barrel_012" type="MeshInstance3D" parent="." unique_id=1002012913]
+[node name="Prop_Barrel_012" type="MeshInstance3D" parent="." unique_id=139826594]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, -1.4603138e-07, 0)
 layers = 512
 material_override = ExtResource("1_b30yy")
@@ -26,13 +26,13 @@ visibility_range_end_margin = 30.0
 mesh = ExtResource("2_vy5qv")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@20" type="StaticBody3D" parent="Prop_Barrel_012" unique_id=155039470]
+[node name="@StaticBody3D@20" type="StaticBody3D" parent="Prop_Barrel_012" unique_id=372182496]
 
-[node name="@CollisionShape3D@19" type="CollisionShape3D" parent="Prop_Barrel_012/@StaticBody3D@20" unique_id=989853606]
+[node name="@CollisionShape3D@19" type="CollisionShape3D" parent="Prop_Barrel_012/@StaticBody3D@20" unique_id=1795780197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5798423, 0)
 shape = SubResource("BoxShape3D_2b2gn")
 
-[node name="Prop_Box_Apple_013" type="MeshInstance3D" parent="." unique_id=1521311223]
+[node name="Prop_Box_Apple_013" type="MeshInstance3D" parent="." unique_id=1703860435]
 transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, 0.3, 0, 0.1)
 layers = 512
 material_override = ExtResource("1_b30yy")
@@ -41,13 +41,13 @@ visibility_range_end_margin = 30.0
 mesh = ExtResource("3_wncws")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@22" type="StaticBody3D" parent="Prop_Box_Apple_013" unique_id=1874987586]
+[node name="@StaticBody3D@22" type="StaticBody3D" parent="Prop_Box_Apple_013" unique_id=1942630832]
 
-[node name="@CollisionShape3D@21" type="CollisionShape3D" parent="Prop_Box_Apple_013/@StaticBody3D@22" unique_id=688472933]
+[node name="@CollisionShape3D@21" type="CollisionShape3D" parent="Prop_Box_Apple_013/@StaticBody3D@22" unique_id=1786231846]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23836707, 2.9802322e-08)
 shape = SubResource("BoxShape3D_d330t")
 
-[node name="Prop_Box_Potato_014" type="MeshInstance3D" parent="." unique_id=1347767720]
+[node name="Prop_Box_Potato_014" type="MeshInstance3D" parent="." unique_id=1605479136]
 transform = Transform3D(0.99026805, 0, -0.1391731, 0, 1, 0, 0.1391731, 0, 0.99026805, 1.1, 0, 0)
 layers = 512
 material_override = ExtResource("1_b30yy")
@@ -56,13 +56,13 @@ visibility_range_end_margin = 30.0
 mesh = ExtResource("4_kthpi")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@24" type="StaticBody3D" parent="Prop_Box_Potato_014" unique_id=551993405]
+[node name="@StaticBody3D@24" type="StaticBody3D" parent="Prop_Box_Potato_014" unique_id=2061327481]
 
-[node name="@CollisionShape3D@23" type="CollisionShape3D" parent="Prop_Box_Potato_014/@StaticBody3D@24" unique_id=1109838363]
+[node name="@CollisionShape3D@23" type="CollisionShape3D" parent="Prop_Box_Potato_014/@StaticBody3D@24" unique_id=815081479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19256702, 1.4901161e-07)
 shape = SubResource("BoxShape3D_duv33")
 
-[node name="Prop_Box_Apple_025" type="MeshInstance3D" parent="." unique_id=1153219536]
+[node name="Prop_Box_Apple_025" type="MeshInstance3D" parent="." unique_id=2121027930]
 transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 0.4, 0.6, 0.1)
 layers = 512
 material_override = ExtResource("1_b30yy")

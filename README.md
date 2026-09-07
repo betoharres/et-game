@@ -137,23 +137,25 @@ cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 | Alternar câmera da caminhonete | `G` |
 | Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
 | Radar circular | `F3` |
-| Debug do jogador | `F4` |
+| Velocidade e voo (a cada toque) | `F4` |
 | Debug de iluminação | `F6` |
 | Menu de pausa | `Esc` |
 
 No avião, o mouse move o alvo que orienta o voo; `E` assume ou devolve o
 controle perto da cabine.
 
-O menu `F4` reúne somente o `Modo Deus` (imortalidade, stamina cheia e mais
-velocidade) e o `Modo Voo` (sem gravidade, subindo com `Espaço` e descendo com
-`C`). O menu `F6`, disponível globalmente durante o jogo mesmo após trocar de
-mapa, traz o preset de atmosfera e o controle de cada fonte de luz disponível
-na cena atual.
+O `F4` não abre menu: cada toque avança um degrau do ciclo `desligado` ->
+`velocidade` (imortalidade, stamina cheia e velocidade 5×) -> `velocidade e
+voo` (sem gravidade, subindo com `Espaço` e descendo com `C`) -> `desligado`.
+O estado é lido do próprio jogador a cada toque, então continua correto depois
+de trocar de mapa, e o resultado sai no console. O menu `F6`, disponível
+globalmente durante o jogo mesmo após trocar de mapa, traz o preset de
+atmosfera e o controle de cada fonte de luz disponível na cena atual.
 
 As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
 O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia
 movimento, corrida, pulo, agachamento, interação, chamada da nave, luz dos
-olhos, radar, binóculos, debug do jogador e debug de iluminação. Os
+olhos, radar, binóculos, velocidade e voo, e debug de iluminação. Os
 remapeamentos duram a sessão.
 
 ## Arquitetura
@@ -183,8 +185,8 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 - **Autoloads:** `CharacterAppearance` mantém e persiste as sete características
   normalizadas do ET; `GlobalScore` mantém pontuação e inventário;
   `PhotoAlertSystem`, estrelas e observadores; `SceneTransition`, as transições
-  entre cenas; e `DebugMenus`, os painéis globais de debug do jogador (`F4`) e
-  de iluminação (`F6`).
+  entre cenas; e `DebugMenus`, o atalho global dos modos do jogador (`F4`) e o
+  painel de iluminação (`F6`).
 - **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
   `pickup_items`, `ship_passengers`, `fog_zones` e `volumetric_lights`.
 - **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
@@ -294,7 +296,7 @@ editor, em `scenes/CountryTown/CountryTown.tscn`.
 | `CountryTown.tscn` | Cena mestre: só instancia terreno, ambiente, jogador e distritos |
 | `Terrain/` | `data_directory` exclusivo do Terrain3D deste mapa |
 | `Layout/PointsOfInterest.tscn` | Um `Marker3D` por ponto do mapa, todos no grupo `country_town_poi` |
-| `Districts/RoadNetwork.tscn` | Malha de estradas: um `MultiMeshInstance3D` por tipo de peça `SM_Env_Road_*`, mais o `RoadBed` |
+| `Districts/RoadNetwork.tscn` | Malhas nativas de asfalto, terra, calçadas, meio-fio, acostamentos e sinalização |
 | `Districts/RiverWater.tscn` | Lâmina d'água do rio, barreira só visual, gerada por script |
 | `Districts/RiverDistrict.tscn` | Instancia a água, as duas pontes, o ancoradouro e a névoa do leito |
 | `Districts/Fields.tscn` | Milharal sobre sulcos, talhões de trigo e girassóis, gerada |
@@ -303,23 +305,27 @@ editor, em `scenes/CountryTown/CountryTown.tscn`.
 | `Districts/NightLights.tscn` | Postes, luminárias de fachada e luzes de janela |
 | `Districts/UrbanInfill.tscn` | Construções adicionais, calçadas, quintais, cargas e postes, instanciada em `TownDistrict` |
 | `Districts/RuralInfill.tscn` | Pátios de trabalho, pomares, fardos, silos pequenos e manchas de margem, instanciada em `FarmDistrict` |
-| `Districts/SecondaryPaths.tscn` | Ruas locais e trilhas tesselladas sobre o relevo existente |
+| `Districts/SecondaryPaths.tscn` | Trilhas rurais unificadas e acostamentos sobre o relevo existente |
 | `Districts/*.tscn` restantes | Fazenda, cidade, queda, mina e pátio de entrega |
 | `Blocks/*.tscn` | Blocos reutilizáveis, cada um com a própria colisão dentro |
 
 O mapa mede `600 × 450 m`, com origem no canto noroeste, X para leste e Z para
 sul. Nem as estradas nem o relevo são feitos à mão:
 
-- `tools/build_country_town_layout.gd` guarda a grade das estradas (`ROAD_RUNS`)
-  e o traçado do rio (`RIVER_PATH`), e gera `RoadNetwork.tscn` e
-  `RiverWater.tscn`. **Não rode com `--headless`**: o buffer de um
-  `MultiMesh` mora no servidor de render e o driver dummy o devolve vazio.
-  As peças `SM_Env_Road_*` afinam nas pontas — de oito metros para meio metro
-  na costura —, e duas pontas vizinhas não se completam: entre uma peça e a
-  seguinte fica um entalhe por onde o terreno aparecia. Quem fecha esse entalhe
-  é o `RoadBed`, uma chapa contínua com a UV chapada da própria via, gerada
-  junto: o terreno fica em `GROUND_HEIGHT`, o leito três centímetros acima e as
-  peças mais três, para as três superfícies não brigarem pelo mesmo pixel.
+- `tools/build_country_town_layout.gd` guarda a grade principal (`ROAD_RUNS`),
+  as ruas locais (`SECONDARY_PATHS`) e o rio (`RIVER_PATH`). Gera
+  `RoadNetwork.tscn` e `RiverWater.tscn`; agora aceita `--headless`.
+  `country_town_road_surface.gd` une as pegadas das vias antes de triangular:
+  cruzamentos em T e de quatro vias compartilham o piso; curvas e pontas usam
+  contornos arredondados. As ruas urbanas, inclusive o acesso da queda, usam
+  asfalto escuro texturizado de 9 m; as vias principais da fazenda usam terra
+  de 8 m, com trilhas menores. A troca de material acontece nas duas pontes.
+  Rampas de encontro acompanham o tabuleiro existente, de 5 m de largura.
+  O piso fica 6 cm acima do terreno; as ruas locais urbanas recebem o mesmo
+  aplainamento das principais. Calçadas de cerca de 2 m e meio-fio baixo
+  ficam somente fora da malha viária, com recortes nos cruzamentos. Faixas
+  centrais discretas identificam as vias principais. As malhas têm colisão
+  própria, materiais locais com ruído determinístico e nenhuma peça FBX de rua.
 - `tools/build_country_town_terrain.gd` lê esses dados e os marcadores da cena
   de POIs, gera o heightmap, achata as zonas construídas, abre uma clareira sob
   cada marcador e sob cada peça de estrada, escava o canal do rio por último e
@@ -345,13 +351,12 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   paisagem além do alcance das malhas reativas, sem sensores ou scripts nesses
   blocos distantes. Os sulcos também amostram o terreno e evitam os corredores.
 - O talhÃ£o `CornField` Ã© propositalmente grande e usa `CORN_MAZE` como uma receita fixa: cÃ©lulas `#` recebem milho alto e `.` ficam como corredores. Para trocar depois por um labirinto aleatÃ³rio, substitua essa matriz mantendo a mesma grade.
-- As vias da cidade usam a famÃ­lia `asphalt_*` em `RoadNetwork.tscn`, incluindo o leito das avenidas e os caminhos urbanos secundÃ¡rios. As rotas rurais continuam em terra para preservar a transiÃ§Ã£o visual entre fazenda e cidade.
 - `tools/build_country_town_settlement.gd` monta os complementos urbanos e
   rurais usando os assets locais PolygonTown/PolygonFarm e a malha da nave
   existente. `LOTS` define 14 construções autorais; `_build_frontages` preenche
   as frentes de rua usando a pegada real dos presets, com variação determinística
-  de casas e lojas. A composição atual tem 52 fachadas adicionais, totalizando
-  76 construções urbanas principais, além de bancas de feira e anexos. O
+  de casas e lojas. O número de fachadas depende das reservas de circulação e da pegada
+  dos assets; a geração informa o total no console. O
   preenchimento reserva a praça, as colisões existentes e as faixas de
   circulação. Ruas locais delimitam os quarteirões e a frente do rio; solo de
   lote, calçadas e quintais conectam as fachadas. As propriedades rurais têm
@@ -360,8 +365,9 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   alas de armazenamento. Não há geração procedural durante a partida.
   `SECONDARY_PATHS`, no script de layout, guarda larguras e pontos das ruas,
   becos e trilhas; `SETTLEMENT_CLEARINGS` reserva os pátios e a praça. As
-  faixas amostram a altura do terreno a cada metro, sem mudar as pontes ou
-  escavar novamente o rio. Campos e vegetação respeitam esses corredores.
+  trilhas rurais amostram o terreno e são unidas sem sobreposição visual, com
+  acostamentos e pontas arredondadas. As ruas urbanas integram `RoadNetwork`.
+  Campos e vegetação respeitam esses corredores.
   O plantio de fundo também evita as colisões da decoração e dos campos,
   deixando o núcleo urbano para os jardins montados nas cenas.
   Os blocos `CargoStack`, `RuralWorkyard`, `FarmSilo`, `CrashedSaucer`,
@@ -386,7 +392,7 @@ sul. Nem as estradas nem o relevo são feitos à mão:
 Mexeu no layout, rode na ordem:
 
 ```powershell
-.\tools\godot.cmd --path . --script res://tools/build_country_town_layout.gd --resolution 320x240
+.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_layout.gd
 .\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd
 .\tools\godot.cmd --headless --path . --script res://tools/build_country_town_settlement.gd
 .\tools\godot.cmd --path . --script res://tools/build_country_town_fields.gd --resolution 320x240
@@ -394,20 +400,25 @@ Mexeu no layout, rode na ordem:
 .\tools\godot.cmd --headless --path . --script res://tools/check_country_town_layout.gd
 .\tools\godot.cmd --headless --path . --script res://tools/check_country_town_clearance.gd
 .\tools\godot.cmd --headless --path . --script res://tools/check_country_town_bridge.gd
+.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_roads.gd
 ```
 
 A ordem importa: o build do terreno reimporta as regiões do zero e levaria a
-vegetação junto, então o plantio vem depois dele. O de vegetação também **não**
-roda com `--headless`, pelo mesmo motivo do layout.
+vegetação junto, então o plantio vem depois dele. O de vegetação **não**
+roda com `--headless`, pois grava buffers de `MultiMesh`.
 
-Se mudou apenas `LOTS`, as frentes de rua, `CROP_FIELDS`, a decoração gerada
-ou `SECONDARY_PATHS`, comece pelo
-build de settlement e depois rode campos e vegetação: não é necessário
-regenerar o terreno nem as estradas principais. Os três complementos e os
-seis blocos gerados são sobrescritos pelo build; para preservar ajustes
-entre gerações, edite as receitas no script. Os distritos manuais ficam
-intactos. Feche o editor antes dos comandos ou use uma cópia isolada do projeto,
-conforme `tools/VALIDACAO.md`.
+Se mudou apenas lotes ou decoração, rode settlement e depois campos e
+vegetação. Mudanças em ruas urbanas, larguras ou traçados exigem a sequência
+completa acima, pois piso, reservas e terreno precisam concordar.
+Edite as receitas para preservar ajustes entre gerações. Feche o editor antes
+dos comandos ou use uma cópia isolada, conforme `tools/VALIDACAO.md`.
+
+`check_country_town_roads.gd` verifica as colisões salvas por amostragem da
+largura das vias, as rampas das pontes, o material e a folga sobre o terreno.
+Para inspeção visual solicitada, `inspect_country_town_roads.gd`, sem
+`--headless`, grava sete vistas em `build/country-road-review/`, com iluminação
+diurna de inspeção e sem jogador. Acrescente `-- --scene-lighting` para conferir
+com a iluminação real do mapa. Não altera o ambiente salvo.
 
 A vegetação de fundo — cerca de 12.000 tufos de grama, 310 arbustos e 920
 árvores — não gasta um nó sequer: vive no instancer, dentro das próprias
@@ -431,13 +442,22 @@ A ambientação segue a da fazenda: `NightEnvironment.tscn` sem alterar o preset
 `FogZone` no leito do rio, no milharal e na cratera, e as luzes registradas no
 grupo `debug_house_lighting`, que o menu `F6` liga e desliga.
 
-O mapa é feito para rodar em máquina modesta: as 164 peças de estrada saem em
-8 draw calls e não projetam sombra, os planos de água só se sobrepõem o
+As ruas são malhas estáticas agrupadas por superfície e não projetam sombra;
+os planos de água só se sobrepõem o
 necessário para fechar o canto de cada curva, e o rio usa
 `Materiais/ea_water_countryTown.tres` — o mesmo `ea_coolwater`, com refração,
 cáusticas e brilhos desligados pelos interruptores `enable_refraction`,
 `enable_caustics` e `enable_foam` do shader, que existem para isso. A espuma de
 margem fica ligada, é ela que desenha a silhueta do rio contra a ribanceira.
+
+A água corre para a foz por conta dos uniformes `flow_speed` e `flow_stretch`
+do `ea_coolwater`. A direção não é configurada plano a plano: o shader lê o
+eixo `+Z` local da malha, que o gerador já deixa apontando para jusante em cada
+trecho, então as curvas acompanham sozinhas. `flow_speed = 0` devolve a água
+parada dos outros materiais (`lagoon`, `tropical`, `deepBlue`), que não
+declaram esses parâmetros. O custo é de dois produtos escalares por pixel: as
+normais, a espuma e os brilhos passam a ser amostrados nesse referencial em vez
+de um novo passe.
 
 O terreno da fazenda continua em `res://scenes`, com os `terrain3d_*.res`
 soltos lá — os dois mapas nunca compartilham diretório.

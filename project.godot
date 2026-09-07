@@ -312,7 +312,7 @@ debug_vision_map={
 "script": null
 )]
 }
-debug_player_menu={
+debug_player_modes={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,
 "resource_local_to_scene": false,

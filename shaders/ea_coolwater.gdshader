@@ -109,11 +109,25 @@ uniform float wave_speed : hint_range(0.0, 0.2) = 0.05;
 uniform float wave_height : hint_range(0.0, 0.3) = 0.04;
 group_uniforms;
 
+group_uniforms Flow;
+// Correnteza direcional. A direcao nao vem de um uniform: e o eixo +Z local da
+// malha projetado no plano XZ do mundo. Os planos do rio ja nascem com esse
+// eixo apontando para jusante, entao cada trecho corre no sentido certo sem
+// nenhum ajuste por instancia, inclusive nas curvas.
+// 0 = agua parada, exatamente o comportamento de lago dos outros materiais.
+uniform float flow_speed : hint_range(0.0, 3.0) = 0.0;
+// Estica o padrao ao longo da correnteza: 1 = ondulacao redonda de lago, valores
+// maiores alongam as ondas em fios na direcao do fluxo, como agua correndo.
+uniform float flow_stretch : hint_range(1.0, 6.0) = 2.5;
+group_uniforms;
+
 uniform sampler2D depth_texture : hint_depth_texture, filter_nearest, repeat_disable;
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear, repeat_disable;
 
 varying vec3 v_world_pos;
 varying vec4 v_color;
+// Constante por instancia - flat evita interpolar o mesmo vetor em cada pixel.
+varying flat vec2 v_flow;
 
 // -- Triple-sine UV warp ------------------------------------------------------
 vec2 distort_uv(vec2 uv, float amount, float t) {
@@ -293,6 +307,21 @@ float caustic_blend(vec2 p, float t) {
 	return max(ca, cb);
 }
 
+// -- Referencial da correnteza ------------------------------------------------
+// Reescreve uma posicao XZ do mundo nos eixos do fluxo: x atravessa o leito de
+// margem a margem, y corre rio abaixo e recua com o tempo, dividido por
+// flow_stretch para o padrao sair alongado em vez de redondo. A divisao nao
+// muda a velocidade aparente - o padrao esta esticado na mesma medida, entao
+// uma crista ainda anda flow_speed metros por segundo.
+// Com flow_speed = 0 devolve a posicao intacta e nada mais abaixo muda.
+vec2 flow_space(vec2 p, vec2 dir, float travel) {
+	if (flow_speed <= 0.0) {
+		return p;
+	}
+	vec2 side = vec2(dir.y, -dir.x);
+	return vec2(dot(p, side), (dot(p, dir) - travel) / max(0.05, flow_stretch));
+}
+
 // -- Vertex -------------------------------------------------------------------
 void vertex() {
 	v_color = COLOR;
@@ -300,7 +329,16 @@ void vertex() {
 	// COLOR.b = 0 (painted black) -> frozen (under bridges, ice, etc.)
 	float wave_anim = clamp(COLOR.b, 0.0, 1.0);
 	float t = TIME * wave_speed;
-	VERTEX.y += (sin(VERTEX.x * 2.0 + t) * 0.5 + sin(VERTEX.z * 1.7 + t * 0.8) * 0.5)
+	// Eixo +Z do no, achatado no plano do mundo: a direcao para onde a agua
+	// corre. Malha deitada de lado (Z local vertical) nao tem direcao no plano;
+	// nesse caso o fallback so evita normalizar um vetor nulo.
+	vec2 flow_axis = (MODEL_MATRIX * vec4(0.0, 0.0, 1.0, 0.0)).xz;
+	v_flow = length(flow_axis) > 0.0001 ? normalize(flow_axis) : vec2(0.0, 1.0);
+	// Em espaco local Z ja aponta rio abaixo, entao descontar a distancia
+	// percorrida da fase faz a crista viajar em vez de bater no mesmo lugar.
+	float travel = TIME * flow_speed;
+	VERTEX.y += (sin(VERTEX.x * 2.0 + t) * 0.5
+			+ sin((VERTEX.z - travel) * 1.7 + t * 0.8) * 0.5)
 			* wave_height * wave_anim;
 	v_world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
@@ -315,6 +353,10 @@ void fragment() {
 
 	vec3 pos_ws = v_world_pos;
 	vec2 scr_uv = SCREEN_UV;
+	// Uma unica conversao para o referencial da correnteza, reaproveitada pelas
+	// normais, pela refracao, pela espuma e pelos brilhos: assim tudo que se
+	// move na superficie desce o rio junto, em vez de cada camada seguir a sua.
+	vec2 flow_p = flow_space(pos_ws.xz, v_flow, TIME * flow_speed);
 
 	// COLOR.b = 1 (default) animates foam; 0 freezes it.
 	float foam_anim = clamp(v_color.b, 0.0, 1.0);
@@ -345,7 +387,7 @@ void fragment() {
 
 	// -- Wave normals (dual-layer scroll, world XZ projection) ----------------
 	float t = TIME * wave_speed;
-	vec2 nm_base = pos_ws.xz * normal_tiling;
+	vec2 nm_base = flow_p * normal_tiling;
 	vec3 tn_a = texture(normal_map, nm_base + t * vec2(0.07, 0.05)).rgb * 2.0 - 1.0;
 	vec3 tn_b = texture(normal_map, nm_base * 0.7 + t * vec2(-0.04, 0.08)).rgb * 2.0 - 1.0;
 	vec3 tn = normalize(tn_a + tn_b);
@@ -379,7 +421,7 @@ void fragment() {
 	// the user sets the lighting normal.
 
 	if (enable_refraction) {
-		vec2 ref_nm_uv = pos_ws.xz * 0.45 + TIME * wave_speed * vec2(0.06, 0.04);
+		vec2 ref_nm_uv = flow_p * 0.45 + TIME * wave_speed * vec2(0.06, 0.04);
 		vec3 ref_tn = texture(normal_map, ref_nm_uv).rgb * 2.0 - 1.0;
 		vec2 ref_off = ref_tn.xy * refraction_strength * 4.0 * (1.0 - depth_t * 0.3);
 		vec2 ref_uv = clamp(scr_uv + ref_off, vec2(0.001), vec2(0.999));
@@ -478,7 +520,7 @@ void fragment() {
 		// Slider mapped linearly to an internal 0.05..2.0 tiling range: left end ->
 		// huge tongues, right end -> fine pattern.
 		float foam_tiling_x = mix(0.05, 2.0, foam_tiling);
-		vec2 foam_uv = distort_uv(pos_ws.xz * foam_tiling_x, 0.3, foam_t);
+		vec2 foam_uv = distort_uv(flow_p * foam_tiling_x, 0.3, foam_t);
 		float foam_samp = sample_foam_styled(foam_uv, foam_t);
 
 		// -- Projected foam - solid inner ring + wispy outer tongues --------------
@@ -493,8 +535,8 @@ void fragment() {
 		// thresholded to 0/1, so it can only switch the band between two widths and
 		// both edges stay smooth arcs between the switches.
 		float bt = foam_t * 0.6;
-		float break_n = vnoise(pos_ws.xz * 1.9 + vec2(bt * 0.5, bt * 0.3)) * 0.62
-				+ vnoise(pos_ws.xz * 4.6 - vec2(bt * 0.4, bt * 0.6) + 5.3) * 0.38;
+		float break_n = vnoise(flow_p * 1.9 + vec2(bt * 0.5, bt * 0.3)) * 0.62
+				+ vnoise(flow_p * 4.6 - vec2(bt * 0.4, bt * 0.6) + 5.3) * 0.38;
 		// Push the distance field itself around: every edge derived from it - inner
 		// and outer alike - picks up the same irregular wobble.
 		float pd = clamp(proj_dist + (break_n - 0.5) * foam_edge_break * 0.95, 0.0, 1.0);
@@ -535,7 +577,7 @@ void fragment() {
 	// instead of living inside the specular highlight.
 	if (sparkle_boost > 0.0) {
 		float spk_t = TIME * (0.4 + wave_speed * 6.0);
-		vec2 spk_p = pos_ws.xz * mix(1.2, 5.5, sparkle_density);
+		vec2 spk_p = flow_p * mix(1.2, 5.5, sparkle_density);
 		float glint = sparkle_points(spk_p, spk_t,
 				mix(0.04, 0.45, sparkle_density), sparkle_size);
 		glint *= 1.0 - foam_mask; // foam is already white

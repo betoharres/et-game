@@ -5,6 +5,61 @@
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="3_tem_rock_large_01a"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="4_tem_rock_medium_02a"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="5_tem_rock_small_02a"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_idol_01a.tscn" id="6_tem_rock_idol_01a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_portal_glow"]
+albedo_color = Color(0.1, 0.25, 0.6, 1)
+emission_enabled = true
+emission = Color(0.25, 0.6, 1, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring_outer"]
+material = SubResource("StandardMaterial3D_portal_glow")
+inner_radius = 1.15
+outer_radius = 1.35
+rings = 6
+ring_segments = 24
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring_inner"]
+material = SubResource("StandardMaterial3D_portal_glow")
+inner_radius = 0.75
+outer_radius = 0.9
+rings = 6
+ring_segments = 24
+
+[sub_resource type="Animation" id="Animation_ring_spin"]
+resource_name = "spin"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RingOuter:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, 0, 6.2831855)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RingInner:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, 0, -6.2831855)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ring_spin"]
+_data = {
+&"spin": SubResource("Animation_ring_spin")
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_01"]
 size = Vector3(4.5, 4, 6)
@@ -22,6 +77,33 @@ size = Vector3(3.5, 2.5, 6)
 
 [node name="Portal" parent="." instance=ExtResource("1_portal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 6, 16)
+
+[node name="ArchPillarL" parent="." instance=ExtResource("6_tem_rock_idol_01a")]
+transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 325.3, 6, 16)
+
+[node name="ArchPillarR" parent="." instance=ExtResource("6_tem_rock_idol_01a")]
+transform = Transform3D(-0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 330.7, 6, 16)
+
+[node name="ArchLintel" parent="." instance=ExtResource("3_tem_rock_large_01a")]
+transform = Transform3D(0.62, 0, 0, 0, 0.35, 0, 0, 0, 0.5, 328, 9.6, 16)
+
+[node name="RingOuter" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.371139e-08, -1, 0, 1, 4.371139e-08, 328, 7, 16)
+mesh = SubResource("TorusMesh_ring_outer")
+
+[node name="RingInner" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 4.371139e-08, -1, 0, 1, 4.371139e-08, 328, 7, 16)
+mesh = SubResource("TorusMesh_ring_inner")
+
+[node name="PortalGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 7, 16)
+light_color = Color(0.35, 0.65, 1, 1)
+light_energy = 3.0
+omni_range = 14.0
+
+[node name="RingSpin" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("AnimationLibrary_ring_spin")
+autoplay = "spin"
 
 [node name="RockLeft" parent="." instance=ExtResource("2_tem_rock_large_02a")]
 transform = Transform3D(0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, 0.342, 320, 5, 13)

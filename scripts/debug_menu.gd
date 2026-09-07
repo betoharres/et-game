@@ -7,20 +7,8 @@ const DELIVERY_GROUP : StringName = &"debug_delivery_lighting"
 const PLAYER_GROUP : StringName = &"debug_player"
 
 @onready var overlay : Control = $Overlay
-@onready var player_panel : VBoxContainer = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel
-)
 @onready var lighting_panel : VBoxContainer = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel
-)
-@onready var close_button : Button = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/CloseButton
-)
-@onready var god_mode_toggle : CheckButton = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/GodModeToggle
-)
-@onready var flight_mode_toggle : CheckButton = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/PlayerPanel/FlightModeToggle
 )
 @onready var lighting_close_button : Button = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/LightingPanel/CloseButton
@@ -93,11 +81,7 @@ var _previous_mouse_mode : Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	overlay.visible = false
-	_show_player_panel()
 
-	close_button.pressed.connect(_close_menu)
-	god_mode_toggle.toggled.connect(_set_god_mode_enabled)
-	flight_mode_toggle.toggled.connect(_set_flight_mode_enabled)
 	lighting_close_button.pressed.connect(_close_menu)
 	reset_button.pressed.connect(_enable_all_lighting)
 	_populate_quality_preset()
@@ -120,29 +104,49 @@ func _unhandled_input(event : InputEvent) -> void:
 	if event.is_echo():
 		return
 
-	if event.is_action_pressed("debug_player_menu"):
-		_toggle_menu(false)
+	if event.is_action_pressed("debug_player_modes"):
+		cycle_player_modes()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("debug_lighting_menu"):
-		_toggle_menu(true)
+		_toggle_menu()
 		get_viewport().set_input_as_handled()
 
 
-func _toggle_menu(show_lighting : bool) -> void:
-	var requested_panel_is_open : bool = (
-		overlay.visible and lighting_panel.visible == show_lighting
-	)
-	if requested_panel_is_open:
-		_set_menu_visible(false)
+## Um toque avanca um degrau: desligado -> velocidade -> velocidade e voo ->
+## desligado. O estado sai do proprio jogador, nao de uma copia guardada aqui,
+## para continuar certo depois de trocar de mapa ou de morrer e renascer.
+func cycle_player_modes() -> void:
+	var player : Node = _get_first_target(PLAYER_GROUP)
+	if (
+		player == null
+		or not player.has_method(&"is_debug_god_mode_enabled")
+		or not player.has_method(&"is_debug_flight_enabled")
+	):
+		print("Modos de debug: nenhum jogador na cena")
 		return
 
-	if not overlay.visible:
-		_set_menu_visible(true)
+	var speed_on : bool = bool(player.call(&"is_debug_god_mode_enabled"))
+	var flight_on : bool = bool(player.call(&"is_debug_flight_enabled"))
+	var next_speed : bool = not speed_on or not flight_on
+	var next_flight : bool = speed_on and not flight_on
 
-	if show_lighting:
+	_set_player_option(&"set_debug_god_mode_enabled", next_speed)
+	_set_player_option(&"set_debug_flight_enabled", next_flight)
+	print("Modos de debug: %s" % _player_modes_label(next_speed, next_flight))
+
+
+func _player_modes_label(speed_on : bool, flight_on : bool) -> String:
+	if flight_on:
+		return "velocidade 5× e voo (Espaço sobe, C desce)"
+	if speed_on:
+		return "velocidade 5× e imortalidade"
+	return "desligados"
+
+
+func _toggle_menu() -> void:
+	_set_menu_visible(not overlay.visible)
+	if overlay.visible:
 		_show_lighting_panel()
-	else:
-		_show_player_panel()
 
 
 func _set_menu_visible(should_show : bool) -> void:
@@ -164,39 +168,13 @@ func _close_menu() -> void:
 	_set_menu_visible(false)
 
 
-func _show_player_panel() -> void:
-	player_panel.visible = true
-	lighting_panel.visible = false
-	_sync_player_controls()
-	if overlay.visible:
-		if god_mode_toggle.disabled:
-			close_button.grab_focus()
-		else:
-			god_mode_toggle.grab_focus()
-
-
 func _show_lighting_panel() -> void:
-	player_panel.visible = false
 	lighting_panel.visible = true
 	_sync_lighting_controls()
 	if moon_toggle.disabled:
 		lighting_close_button.grab_focus()
 	else:
 		moon_toggle.grab_focus()
-
-
-func _sync_player_controls() -> void:
-	var player : Node = _get_first_target(PLAYER_GROUP)
-	_sync_method_toggle(
-		god_mode_toggle,
-		player,
-		&"is_debug_god_mode_enabled"
-	)
-	_sync_method_toggle(
-		flight_mode_toggle,
-		player,
-		&"is_debug_flight_enabled"
-	)
 
 
 func _sync_lighting_controls() -> void:
@@ -391,14 +369,6 @@ func _set_player_option(method : StringName, value : Variant) -> void:
 	var player : Node = _get_first_target(PLAYER_GROUP)
 	if player != null and player.has_method(method):
 		player.call(method, value)
-
-
-func _set_god_mode_enabled(enabled : bool) -> void:
-	_set_player_option(&"set_debug_god_mode_enabled", enabled)
-
-
-func _set_flight_mode_enabled(enabled : bool) -> void:
-	_set_player_option(&"set_debug_flight_enabled", enabled)
 
 
 func _set_group_option(

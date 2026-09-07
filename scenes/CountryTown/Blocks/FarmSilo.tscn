@@ -6,9 +6,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vh60q"]
 size = Vector3(5.111867, 18.592762, 5.4727225)
 
-[node name="FarmSilo" type="Node3D" unique_id=1179120990]
+[node name="FarmSilo" type="Node3D" unique_id=676104863]
 
-[node name="Bld_Silo_021" type="MeshInstance3D" parent="." unique_id=1772445888]
+[node name="Bld_Silo_021" type="MeshInstance3D" parent="." unique_id=934883536]
 layers = 128
 material_override = ExtResource("1_rkobf")
 visibility_range_end = 420.0
@@ -16,8 +16,8 @@ visibility_range_end_margin = 30.0
 mesh = ExtResource("2_v7pka")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@16" type="StaticBody3D" parent="Bld_Silo_021" unique_id=811861205]
+[node name="@StaticBody3D@16" type="StaticBody3D" parent="Bld_Silo_021" unique_id=1195747275]
 
-[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Bld_Silo_021/@StaticBody3D@16" unique_id=1649827371]
+[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Bld_Silo_021/@StaticBody3D@16" unique_id=1475364327]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.296381, 2.3841858e-07)
 shape = SubResource("BoxShape3D_vh60q")

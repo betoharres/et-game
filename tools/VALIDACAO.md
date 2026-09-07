@@ -23,7 +23,10 @@ Uma ferramenta de `tools/`:
 .\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
 
-Para o mapa Country Town, depois de alterar os geradores de layout, campos ou assentamento, regenere as cenas com o executÃ¡vel `_console.exe` sem `--headless`: esses scripts criam MultiMesh e precisam de rasterizaÃ§Ã£o real. A cena deve conter `AsphaltRoadBed`/`AsphaltStraight` para a cidade e `CornField` com os corredores de `CORN_MAZE`.
+No Country Town, os geradores de layout e settlement usam malhas nativas e
+aceitam `--headless`. Campos e vegetação ainda usam `MultiMesh` e precisam de
+rasterização real. `RoadNetwork.tscn` deve conter `AsphaltRoadBed`,
+`DirtRoadBed`, `Sidewalks` e `Curbs`; as trilhas rurais ficam em `SecondaryPaths`.
 
 Omita `--headless` quando a checagem depender de rasterização de verdade —
 render, screenshot, culling — porque o driver dummy não desenha nada:
@@ -51,7 +54,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Freada e pivô em reversões bruscas | `tools/test_player_reversal.gd` |
 | Ragdoll e recuperação | `tools/test_player_ragdoll.gd` |
 | Tripulante da nave caído no chão | `tools/test_ship_crew_downed.gd` |
-| Modos Deus e Voo | `tools/test_player_debug_modes.gd` |
+| Ciclo de velocidade e voo do `F4` | `tools/test_player_debug_modes.gd` |
 | Enquadramento e colisão da câmera | `tools/test_cinematic_camera.gd` |
 | Travessia, velocidade e recorte dos portais | `tools/test_portal_teleportation.gd` |
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
@@ -62,22 +65,32 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Layout do mapa Country Town | `tools/check_country_town_layout.gd` |
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
+| Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
 
 `tools/build_mixamo_character.py`, `tools/render_prototype_icons.py`,
 `tools/build_country_town_layout.gd`, `tools/build_country_town_terrain.gd`,
 `tools/build_country_town_fields.gd`, `tools/build_country_town_settlement.gd`
 e `tools/build_country_town_vegetation.gd`
-são utilitários de geração de asset,
-não checagens. O de layout e o de vegetação precisam rodar **sem**
-`--headless`: o buffer de um `MultiMesh` mora no servidor de render e o driver
-dummy o devolve vazio, e o mesmo vale para o de plantações. O de vegetação e o
-de plantações vêm sempre depois do de terreno, que reimporta as regiões do zero.
+são utilitários de geração de asset, não checagens. Campos e vegetação precisam
+rodar sem `--headless`, porque o driver dummy não preserva buffers de MultiMesh.
+A ordem completa é layout, terreno, settlement, campos e vegetação. O terreno
+reimporta as regiões do zero, por isso o plantio vem depois.
 
-O settlement pode rodar com `--headless`: monta cenas e malhas nativas sem
-`MultiMesh`. Rode depois do terreno e antes dos campos/vegetação. Só mudanças
-em vias secundárias ou ocupação não exigem refazer o terreno ou as vias
-principais. O teste de passagem inclui as larguras específicas de cada via
-secundária e informa o caminho completo do objeto que obstrui a circulação.
+Alterações em vias urbanas ou larguras exigem regenerar layout e terreno.
+Alterações apenas em lotes e objetos começam pelo settlement. A checagem de
+passagem informa o caminho completo dos objetos que obstruem as vias.
+
+Quando o usuário solicitar inspeção visual, use uma cópia isolada e execute:
+
+```powershell
+.\tools\godot.cmd --path . --script res://tools/inspect_country_town_roads.gd --windowed --resolution 1600x1000
+```
+
+As sete capturas ficam em `build/country-road-review/`. O script usa iluminação
+de inspeção e remove o jogador apenas da instância temporária; não altera o
+ambiente salvo. Acrescente `-- --scene-lighting` para usar a iluminação real.
+Confira também a cor da terra na fazenda, além da cidade e das duas pontes.
+
 Os complementos gerados usam `country_town_composition` para identificar
 agrupamentos e `country_town_block` para identificar objetos: a altura é
 conferida por objeto, sem usar o centro do distrito inteiro como se fosse um

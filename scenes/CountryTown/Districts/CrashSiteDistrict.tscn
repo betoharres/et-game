@@ -18,6 +18,18 @@
 [ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Supplies_01.fbx" id="14_sm_prop_box_supplies_01"]
 [ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_Military_02.fbx" id="15_sm_prop_crate_military_02"]
 [ext_resource type="PackedScene" path="res://scenes/FX/FogZone.tscn" id="16_fogzone"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Pipes_02.fbx" id="17_sm_prop_pipes_02"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Pipes_03.fbx" id="18_sm_prop_pipes_03"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_03.fbx" id="19_sm_prop_crate_03"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_04.fbx" id="20_sm_prop_crate_04"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="21_rock_small_03"]
+[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_04a.tscn" id="22_rock_small_04"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wreck_glow"]
+albedo_color = Color(0.24, 0.08, 0.45, 1)
+emission_enabled = true
+emission = Color(0.32, 0.08, 0.72, 1)
+emission_energy_multiplier = 1.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_01"]
 size = Vector3(5, 4, 5)
@@ -105,6 +117,56 @@ surface_material_override/0 = ExtResource("11_scificity1a")
 transform = Transform3D(-0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, -0.766, 523, 6, 53)
 mesh = ExtResource("15_sm_prop_crate_military_02")
 surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapPipeA" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766, 0, 0.6428, 0, 1, 0, -0.6428, 0, 0.766, 540, 6, 58)
+mesh = ExtResource("17_sm_prop_pipes_02")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapPipeB" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0, 0.866, 0, 1, 0, -0.866, 0, -0.5, 521, 6, 45)
+mesh = ExtResource("18_sm_prop_pipes_03")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapCrateE" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, 0.342, 538, 6, 68)
+mesh = ExtResource("19_sm_prop_crate_03")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="ScrapCrateF" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, -0.9397, 516, 6, 62)
+mesh = ExtResource("20_sm_prop_crate_04")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="HullFragmentA" parent="." instance=ExtResource("21_rock_small_03")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 531, 5.6, 40)
+surface_material_override/0 = SubResource("StandardMaterial3D_wreck_glow")
+
+[node name="HullFragmentB" parent="." instance=ExtResource("22_rock_small_04")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 542, 5.6, 61)
+surface_material_override/0 = SubResource("StandardMaterial3D_wreck_glow")
+
+[node name="HullFragmentC" parent="." instance=ExtResource("21_rock_small_03")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 519, 5.6, 53)
+surface_material_override/0 = SubResource("StandardMaterial3D_wreck_glow")
+
+[node name="PurpleGlowA" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 531, 6.5, 40)
+light_color = Color(0.62, 0.25, 0.95, 1)
+light_energy = 1.6
+omni_range = 9.0
+
+[node name="PurpleGlowB" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542, 6.5, 61)
+light_color = Color(0.62, 0.25, 0.95, 1)
+light_energy = 1.4
+omni_range = 8.0
+
+[node name="PurpleGlowC" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 519, 6.5, 53)
+light_color = Color(0.62, 0.25, 0.95, 1)
+light_energy = 1.2
+omni_range = 7.0
 
 [node name="Collision" type="StaticBody3D" parent="."]
 

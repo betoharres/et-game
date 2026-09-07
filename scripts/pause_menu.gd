@@ -15,7 +15,7 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"binos",
 	&"binos_zoom_in",
 	&"binos_zoom_out",
-	&"debug_player_menu",
+	&"debug_player_modes",
 	&"debug_lighting_menu"
 ]
 
@@ -34,7 +34,7 @@ const REBIND_LABELS : Array[String] = [
 	"Binóculos",
 	"Zoom binóculos +",
 	"Zoom binóculos -",
-	"Debug do jogador",
+	"Velocidade e voo",
 	"Debug de iluminação"
 ]
 
@@ -75,7 +75,7 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomInButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomOutButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/PlayerDebugMenuButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/PlayerModesButton,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/LightingDebugMenuButton
 ]
 

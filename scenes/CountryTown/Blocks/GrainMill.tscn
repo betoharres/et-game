@@ -164,258 +164,258 @@ _data = {
 &"turn": SubResource("Animation_r55r1")
 }
 
-[node name="GrainMill" type="Node3D" unique_id=1728725859]
+[node name="GrainMill" type="Node3D" unique_id=941418752]
 metadata/country_town_block = true
 
-[node name="StoneTower" type="MeshInstance3D" parent="." unique_id=350885342]
+[node name="StoneTower" type="MeshInstance3D" parent="." unique_id=1289390687]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_hrm8y")
 mesh = SubResource("CylinderMesh_hwney")
 
-[node name="TimberRoof" type="MeshInstance3D" parent="." unique_id=1110484190]
+[node name="TimberRoof" type="MeshInstance3D" parent="." unique_id=913953322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("CylinderMesh_c5wgj")
 
-[node name="TimberBand0" type="MeshInstance3D" parent="." unique_id=266157956]
+[node name="TimberBand0" type="MeshInstance3D" parent="." unique_id=919668226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("CylinderMesh_1acnb")
 
-[node name="TimberBand1" type="MeshInstance3D" parent="." unique_id=1062577202]
+[node name="TimberBand1" type="MeshInstance3D" parent="." unique_id=1832118319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("CylinderMesh_b1sig")
 
-[node name="TimberBand2" type="MeshInstance3D" parent="." unique_id=326603083]
+[node name="TimberBand2" type="MeshInstance3D" parent="." unique_id=1518443242]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("CylinderMesh_wgjfh")
 
-[node name="MillDoor" type="MeshInstance3D" parent="." unique_id=1046841641 instance=ExtResource("1_vvwah")]
+[node name="MillDoor" type="MeshInstance3D" parent="." unique_id=1278736184 instance=ExtResource("1_vvwah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.8)
 gi_mode = 2
 mesh = ExtResource("2_f33sw")
 surface_material_override/0 = ExtResource("3_ba48a")
 metadata/country_town_block = true
 
-[node name="Rotor" type="Node3D" parent="." unique_id=1480893030]
+[node name="Rotor" type="Node3D" parent="." unique_id=1385300098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -3.85)
 
-[node name="Sail0" type="Node3D" parent="Rotor" unique_id=1532885719]
+[node name="Sail0" type="Node3D" parent="Rotor" unique_id=1827992999]
 
-[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1991540259]
+[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=396487881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("BoxMesh_uw2pv")
 
-[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1885793678]
+[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1811829510]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.2, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_gvjwr")
 
-[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1996917500]
+[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=670728694]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.73, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_02gcq")
 
-[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=571969299]
+[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1078028960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.26, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_6itum")
 
-[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=1607644156]
+[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=2049315977]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.79, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_kgskq")
 
-[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=156173350]
+[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=786391387]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.32, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_hlql0")
 
-[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=396578031]
+[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=745057867]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.85, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_tkqju")
 
-[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=638911044]
+[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail0" unique_id=334796367]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 5.38, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_4mlsq")
 
-[node name="Sail1" type="Node3D" parent="Rotor" unique_id=1678314398]
+[node name="Sail1" type="Node3D" parent="Rotor" unique_id=1449135719]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1953030307]
+[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=29419498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("BoxMesh_yl7mh")
 
-[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=142570697]
+[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1000277217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.2, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_gtyuh")
 
-[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=102443777]
+[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1654831343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.73, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_wqpy2")
 
-[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=419928141]
+[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=211124227]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.26, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_mlw24")
 
-[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=213685927]
+[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1871499454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.79, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_akol2")
 
-[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1097804309]
+[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=885177398]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.32, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_7w3uy")
 
-[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=896324103]
+[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1382202140]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.85, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_khan5")
 
-[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=1096772203]
+[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail1" unique_id=457026020]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 5.38, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_biieo")
 
-[node name="Sail2" type="Node3D" parent="Rotor" unique_id=351258840]
+[node name="Sail2" type="Node3D" parent="Rotor" unique_id=338055516]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1612247643]
+[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=807918868]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("BoxMesh_1b2ch")
 
-[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=176496551]
+[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1400505749]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.2, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_kujql")
 
-[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1821559624]
+[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1886616929]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.73, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_2mrai")
 
-[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=153824867]
+[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1725353228]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.26, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_xdx6f")
 
-[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1304259491]
+[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=514543205]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.79, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_o3fty")
 
-[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=859039100]
+[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=2084615287]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.32, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_10kse")
 
-[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1643759917]
+[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=596659299]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.85, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_emjjo")
 
-[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=459050817]
+[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail2" unique_id=1067686983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 5.38, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_evpw2")
 
-[node name="Sail3" type="Node3D" parent="Rotor" unique_id=774861535]
+[node name="Sail3" type="Node3D" parent="Rotor" unique_id=1247717987]
 transform = Transform3D(1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1489502771]
+[node name="Spar" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1246653275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("BoxMesh_f2ob1")
 
-[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1113705835]
+[node name="Canvas0" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1669032180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.2, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_1dic7")
 
-[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=311446424]
+[node name="Canvas1" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=2081605925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.73, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_m323g")
 
-[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1032977523]
+[node name="Canvas2" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=602673894]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.26, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_mc3qe")
 
-[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1712289203]
+[node name="Canvas3" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1432520524]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.79, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_xt6vc")
 
-[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=985747350]
+[node name="Canvas4" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=428706177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.32, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_gfyv4")
 
-[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=288494259]
+[node name="Canvas5" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=1772178708]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 4.85, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_560ia")
 
-[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=88057905]
+[node name="Canvas6" type="MeshInstance3D" parent="Rotor/Sail3" unique_id=34340891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 5.38, -0.15)
 layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_bx26a")
 
-[node name="@StaticBody3D@18" type="StaticBody3D" parent="." unique_id=1367787066]
+[node name="@StaticBody3D@18" type="StaticBody3D" parent="." unique_id=2101567249]
 
-[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="@StaticBody3D@18" unique_id=2052954003]
+[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="@StaticBody3D@18" unique_id=987083193]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 shape = SubResource("CylinderShape3D_mec5i")
 
-[node name="SailsAnimation" type="AnimationPlayer" parent="." unique_id=1978214373]
+[node name="SailsAnimation" type="AnimationPlayer" parent="." unique_id=1422495832]
 libraries/ = SubResource("AnimationLibrary_hxag4")
 autoplay = &"turn"

@@ -51,9 +51,11 @@ const GROUND_HEIGHT: float = Layout.GROUND_HEIGHT
 ## Superficie da agua do rio, igual ao y dos planos de `RiverDistrict.tscn`.
 const WATER_LEVEL: float = Layout.WATER_LEVEL
 const RIVER_BED_HEIGHT: float = 1.2
-## Meia largura do leito e largura da ribanceira que sobe do leito ao vale.
-const RIVER_HALF_WIDTH: float = 6.0
-const RIVER_BANK_WIDTH: float = 9.0
+## Meia largura do leito e largura da ribanceira que sobe do leito ao vale. As
+## duas moram no layout: os planos de agua precisam das mesmas medidas para
+## saber quanto avancar nas pontas do tracado.
+const RIVER_BED_RATIO: float = Layout.RIVER_BED_RATIO
+const RIVER_BANK_WIDTH: float = Layout.RIVER_BANK_WIDTH
 
 ## Ondulacao do terreno solto, fora de plato, estrada ou clareira.
 const ROLLING_AMPLITUDE: float = 0.55
@@ -108,6 +110,19 @@ func _build() -> bool:
 	_flatten_around(road_points, ROAD_CLEARING_RADIUS)
 	print("Corredor de estrada: %d pecas" % road_points.size())
 
+	# Local urban streets share the primary network elevation.
+	var local_points: PackedVector2Array = PackedVector2Array()
+	for path: Dictionary in Layout.SECONDARY_PATHS:
+		if not path["urban"]:
+			continue
+		var points: Array = path["points"]
+		for index: int in points.size() - 1:
+			var start: Vector2 = points[index]
+			var end: Vector2 = points[index + 1]
+			var steps: int = ceili(start.distance_to(end) / 2.0)
+			for step: int in steps + 1:
+				local_points.append(start.lerp(end, float(step) / steps))
+	_flatten_around(local_points, 7.5)
 	_carve_river()
 	return _save_terrain()
 
@@ -166,10 +181,16 @@ func _flatten_around(points: PackedVector2Array, radius: float) -> void:
 
 ## Escava o canal por ultimo, para o rio cortar plato, estrada e colina de
 ## borda: e assim que os vaos das pontes e a foz nas bordas ficam abertos.
+##
+## A meia-largura do leito acompanha `Layout.river_width()`: nos trechos que
+## alargam para o lago da foz, o leito alarga na mesma proporcao. A margem de
+## transicao fica fixa -- alarga-la junto faria o lago puxar o terreno para
+## baixo bem longe da agua, ate debaixo do ancoradouro.
 func _carve_river() -> void:
-	var reach: float = RIVER_HALF_WIDTH + RIVER_BANK_WIDTH
 	var river_path: Array[Vector2] = Layout.RIVER_PATH
 	for i: int in river_path.size() - 1:
+		var half_width: float = Layout.river_width(i) * RIVER_BED_RATIO
+		var reach: float = half_width + RIVER_BANK_WIDTH
 		var a: Vector2 = river_path[i]
 		var b: Vector2 = river_path[i + 1]
 		var x0: int = _pixel_of(minf(a.x, b.x) - reach)
@@ -184,8 +205,8 @@ func _carve_river() -> void:
 					continue
 				var index: int = pz * IMAGE_SIZE + px
 				var target: float = RIVER_BED_HEIGHT
-				if distance > RIVER_HALF_WIDTH:
-					var t: float = smoothstep(0.0, 1.0, (distance - RIVER_HALF_WIDTH) / RIVER_BANK_WIDTH)
+				if distance > half_width:
+					var t: float = smoothstep(0.0, 1.0, (distance - half_width) / RIVER_BANK_WIDTH)
 					target = lerpf(RIVER_BED_HEIGHT, _heights[index], t)
 				_heights[index] = minf(_heights[index], target)
 

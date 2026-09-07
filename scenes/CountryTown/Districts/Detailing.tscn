@@ -34,6 +34,9 @@
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Generic/SM_Generic_Small_Rocks_02.tscn" id="32_sm_generic_small_rocks_02"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Generic/SM_Generic_Small_Rocks_03.tscn" id="33_sm_generic_small_rocks_03"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_ParkBench_01.tscn" id="34_sm_prop_parkbench_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wood_Pole_01.fbx" id="35_sm_prop_fence_wood_pole_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonFarm/Models/SM_Prop_Fence_Wire_Pole_01.fbx" id="36_sm_prop_fence_wire_pole_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Environment/SM_Env_Fence_White_Post_01.tscn" id="37_sm_env_fence_white_post_01"]
 
 [node name="Detailing" type="Node3D"]
 
@@ -302,44 +305,38 @@ mesh = ExtResource("6_sm_prop_fence_wire_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW01" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 63)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 62)
 mesh = ExtResource("5_sm_prop_fence_wire_01")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW02" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 68)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 67)
 mesh = ExtResource("6_sm_prop_fence_wire_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW03" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 73)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 72)
 mesh = ExtResource("7_sm_prop_fence_wire_03")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW04" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 78)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 77)
 mesh = ExtResource("8_sm_prop_fence_wire_04")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW05" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 83)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 82)
 mesh = ExtResource("5_sm_prop_fence_wire_01")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="WireW06" type="MeshInstance3D" parent="FieldWire"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 184, 6, 88)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 185, 6, 87)
 mesh = ExtResource("6_sm_prop_fence_wire_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
 [node name="TownFences" type="Node3D" parent="."]
 
-[node name="WhiteFence01" parent="TownFences" instance=ExtResource("9_sm_env_fence_white_straight_01")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 428, 6, 190)
-visibility_range_end = 140
 
-[node name="WhiteFence02" parent="TownFences" instance=ExtResource("9_sm_env_fence_white_straight_01")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 430.5, 6, 190)
-visibility_range_end = 140
 
 [node name="WhiteFence03" parent="TownFences" instance=ExtResource("9_sm_env_fence_white_straight_01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 433, 6, 190)
@@ -419,6 +416,85 @@ visibility_range_end = 140
 
 [node name="WhiteFence22" parent="TownFences" instance=ExtResource("9_sm_env_fence_white_straight_01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 498.5, 6, 181)
+visibility_range_end = 140
+
+[node name="RoadPole01" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6, 44)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole02" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6, 74)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole03" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6, 108)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole04" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 6, 133)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole05" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 6, 50)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole06" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 6, 75)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole07" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 6, 196)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="RoadPole08" type="MeshInstance3D" parent="RoadFences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 6, 221)
+mesh = ExtResource("35_sm_prop_fence_wood_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="WirePole01" type="MeshInstance3D" parent="FieldWire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185, 6, 62)
+mesh = ExtResource("36_sm_prop_fence_wire_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="WirePole02" type="MeshInstance3D" parent="FieldWire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 235, 6, 62)
+mesh = ExtResource("36_sm_prop_fence_wire_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="WirePole03" type="MeshInstance3D" parent="FieldWire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185, 6, 92)
+mesh = ExtResource("36_sm_prop_fence_wire_pole_01")
+surface_material_override/0 = ExtResource("2_polygonfarm1a")
+
+[node name="TownPole01" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 433, 6, 190)
+visibility_range_end = 140
+
+[node name="TownPole02" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 448, 6, 190)
+visibility_range_end = 140
+
+[node name="TownPole03" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 428, 6, 254)
+visibility_range_end = 140
+
+[node name="TownPole04" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 448, 6, 254)
+visibility_range_end = 140
+
+[node name="TownPole05" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 486, 6, 181)
+visibility_range_end = 140
+
+[node name="TownPole06" parent="TownFences" instance=ExtResource("37_sm_env_fence_white_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 501, 6, 181)
 visibility_range_end = 140
 
 [node name="FarmProps" type="Node3D" parent="."]
@@ -512,11 +588,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 430, 6, 205)
 visibility_range_end = 140
 
 [node name="Hedge02" parent="TownGardens" instance=ExtResource("26_sm_env_hedge_03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 430, 6, 229)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 433, 6, 229)
 visibility_range_end = 140
 
 [node name="Hedge03" parent="TownGardens" instance=ExtResource("27_sm_env_hedge_01")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 507, 6, 205)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 507, 6, 201)
 visibility_range_end = 140
 
 [node name="Hedge04" parent="TownGardens" instance=ExtResource("25_sm_env_hedge_02")]
@@ -584,7 +660,7 @@ transform = Transform3D(-0.7357, 0, 0.6773, 0, 1, 0, -0.6773, 0, -0.7357, 467.75
 visibility_range_end = 90
 
 [node name="SquareRocks01" parent="TownGardens" instance=ExtResource("31_sm_generic_small_rocks_01")]
-transform = Transform3D(0.6368, 0, 0.771, 0, 1, 0, -0.771, 0, 0.6368, 473, 6, 233.8)
+transform = Transform3D(0.6368, 0, 0.771, 0, 1, 0, -0.771, 0, 0.6368, 473, 6, 232.0)
 visibility_range_end = 110
 
 [node name="SquareRocks02" parent="TownGardens" instance=ExtResource("32_sm_generic_small_rocks_02")]
@@ -596,7 +672,7 @@ transform = Transform3D(0.8307, 0, 0.5568, 0, 1, 0, -0.5568, 0, 0.8307, 482.2205
 visibility_range_end = 110
 
 [node name="SquareRocks04" parent="TownGardens" instance=ExtResource("31_sm_generic_small_rocks_01")]
-transform = Transform3D(-0.001, 0, 1, 0, 1, 0, -1, 0, -0.001, 473, 6, 216)
+transform = Transform3D(-0.001, 0, 1, 0, 1, 0, -1, 0, -0.001, 473, 6, 218)
 visibility_range_end = 110
 
 [node name="SquareRocks05" parent="TownGardens" instance=ExtResource("32_sm_generic_small_rocks_02")]

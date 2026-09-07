@@ -296,6 +296,10 @@ func _is_map_rim(point: Vector2) -> bool:
 
 
 func _is_free(point: Vector2, extra: float) -> bool:
+	# Keep crowns and reeds away from bridge decks, including the bank landings.
+	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+		if Rect2(bridge - Vector2(25, 6), Vector2(50, 12)).grow(extra).has_point(point):
+			return false
 	for field: Dictionary in Layout.CROP_FIELDS:
 		if (field["rect"] as Rect2).grow(2.0 + extra).has_point(point):
 			return false
@@ -321,12 +325,18 @@ func _is_free(point: Vector2, extra: float) -> bool:
 	return true
 
 
+## Distancia normalizada para a largura padrao do rio: nos trechos que alargam
+## para o lago da foz, desconta o quanto a meia-largura cresceu ali, senao
+## RIVER_CLEARANCE e a faixa de RIVERBANK_MIN/MAX -- calibradas para o rio
+## estreito -- deixariam vegetacao nascendo dentro da agua do lago.
 func _distance_to_river(point: Vector2) -> float:
 	var best: float = INF
 	for i: int in _river_path.size() - 1:
 		var closest: Vector2 = Geometry2D.get_closest_point_to_segment(
 				point, _river_path[i], _river_path[i + 1])
-		best = minf(best, point.distance_to(closest))
+		var raw: float = point.distance_to(closest)
+		var extra_half_width: float = (Layout.river_width(i) - Layout.WATER_WIDTH) * 0.5
+		best = minf(best, raw - extra_half_width)
 	return best
 
 
