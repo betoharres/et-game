@@ -24,6 +24,11 @@
 [ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Crate_04.fbx" id="20_sm_prop_crate_04"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="21_rock_small_03"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_04a.tscn" id="22_rock_small_04"]
+[ext_resource type="PackedScene" path="res://scenes/FX/FX_Fire_Medium_01.tscn" id="23_fx_fire_medium"]
+[ext_resource type="PackedScene" path="res://scenes/FX/FX_Smoke_01.tscn" id="24_fx_smoke"]
+[ext_resource type="PackedScene" path="res://scenes/FX/FX_Fire_Small_01.tscn" id="25_fx_fire_small"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_Cables_01.fbx" id="26_sm_prop_cables_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Prop_WallAttach_Electronics_02.fbx" id="27_sm_prop_wallattach_electronics_02"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wreck_glow"]
 albedo_color = Color(0.24, 0.08, 0.45, 1)
@@ -214,3 +219,22 @@ shape = SubResource("BoxShape3D_10")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 530, 6.5, 55)
 radius = 22.0
 strength = 0.5
+
+[node name="WreckFire" parent="." instance=ExtResource("23_fx_fire_medium")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542.3, 5.9, 60.7)
+
+[node name="WreckSmoke" parent="." instance=ExtResource("24_fx_smoke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542.3, 6.2, 60.7)
+
+[node name="PowerUnitFire" parent="." instance=ExtResource("25_fx_fire_small")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 534.6, 6.4, 62.4)
+
+[node name="BrokenCables" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9063, 0, -0.4226, 0, 1, 0, 0.4226, 0, 0.9063, 533, 6, 59.7)
+mesh = ExtResource("26_sm_prop_cables_01")
+surface_material_override/0 = ExtResource("11_scificity1a")
+
+[node name="BrokenElectronics" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, -0.6428, 535.8, 6, 63.2)
+mesh = ExtResource("27_sm_prop_wallattach_electronics_02")
+surface_material_override/0 = ExtResource("11_scificity1a")

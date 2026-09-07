@@ -384,10 +384,12 @@ sul. Nem as estradas nem o relevo são feitos à mão:
 - `tools/build_country_town_vegetation.gd` planta grama, arbustos e árvores de
   fundo no instancer do Terrain3D, desviando de estrada, rio e de qualquer
   colisão dos distritos. Cada espécie é um `Terrain3DMeshAsset` apontando para
-  uma cena de `scenes/Vegetation/` — ids 1, 2 e 3 —, com os alcances de LOD
-  apertados. O id 0 do `ArrayTrees.tres` é o cartão gerado que já existia, sem
-  textura no material: **não plante nele**, ele desenha uma cruz branca saindo
-  do chão.
+  uma cena de `scenes/Vegetation/` — ids 1 e 2 para arbusto/árvore e ids 3 a 7
+  para as cinco variantes de grama —, com os alcances de LOD apertados. A
+  escolha da variante é determinística e ponderada, então a geração permanece
+  estável sem repetir sempre o mesmo tufo. O id 0 do `ArrayTrees.tres` é o
+  cartão gerado que já existia, sem textura no material: **não plante nele**,
+  ele desenha uma cruz branca saindo do chão.
 
 Mexeu no layout, rode na ordem:
 
