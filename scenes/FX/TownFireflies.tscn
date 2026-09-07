@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ambient_particles.gd" id="2_distance"]
+
+[ext_resource type="Texture2D" path="res://Texturas/FX/Generic_Circle_Soft_01.png" id="1_soft"]
+
+[sub_resource type="StandardMaterial3D" id="DustMaterial"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.65, 0.85, 0.24, 0.8)
+albedo_texture = ExtResource("1_soft")
+billboard_mode = 3
+cull_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_0nfyd"]
+offsets = PackedFloat32Array(0, 0.5104895, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aihk2"]
+gradient = SubResource("Gradient_0nfyd")
+
+[sub_resource type="Curve" id="Curve_ysm38"]
+_data = [Vector2(0.003205128, 0), 0.0, 0.0, 0, 0, Vector2(0.2628205, 1), 0.0, 0.0, 0, 0, Vector2(0.7467949, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8di3t"]
+curve = SubResource("Curve_ysm38")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3t738"]
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(3, 0.6, 3)
+direction = Vector3(1, 0.08, 0.3)
+initial_velocity_min = 0.08
+initial_velocity_max = 0.18
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 0, 0)
+scale_min = 0.035
+scale_max = 0.075
+scale_curve = SubResource("CurveTexture_8di3t")
+color_ramp = SubResource("GradientTexture1D_aihk2")
+turbulence_enabled = false
+turbulence_noise_strength = 0.32
+turbulence_noise_scale = 1.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_4gs6t"]
+material = SubResource("DustMaterial")
+
+[node name="TownFireflies" type="GPUParticles3D"]
+layers = 32
+amount = 12
+lifetime = 4.0
+preprocess = 1.0
+fixed_fps = 30
+visibility_aabb = AABB(-10, -3, -8, 24, 10, 18)
+process_material = SubResource("ParticleProcessMaterial_3t738")
+draw_pass_1 = SubResource("QuadMesh_4gs6t")
+script = ExtResource("2_distance")
+cast_shadow = 0

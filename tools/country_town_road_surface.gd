@@ -111,6 +111,8 @@ static func build(parent: Node3D, label: String, polygons: Array[PackedVector2Ar
 	node.name = label
 	surface.index()
 	node.mesh = surface.commit()
+	if label == "Sidewalks" or label == "Curbs":
+		node.mesh = thicken_pavement(node.mesh, 0.25)
 	node.material_override = mat
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(node)
@@ -186,3 +188,43 @@ static func emit_triangle(surface: SurfaceTool, a: Vector2, b: Vector2, c: Vecto
 		var elevation: float = height_at.call(point) if height_at.is_valid() else height
 		surface.add_vertex(Vector3(point.x, snappedf(elevation, 0.0001), point.y))
 	return 3
+
+
+## Keep the walking surface in place; the concrete slab extends downwards.
+static func thicken_pavement(mesh: Mesh, depth: float) -> ArrayMesh:
+	var surface: SurfaceTool = SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	surface.append_from(mesh, 0, Transform3D.IDENTITY)
+	var faces: PackedVector3Array = mesh.get_faces()
+	var edges: Dictionary = {}
+	var down: Vector3 = Vector3.DOWN * depth
+	for index: int in range(0, faces.size(), 3):
+		for corner: int in [2, 1, 0]:
+			var point: Vector3 = faces[index + corner] + down
+			surface.set_normal(Vector3.DOWN)
+			surface.set_uv(Vector2(point.x, point.z) / 3.0)
+			surface.add_vertex(point)
+		for corner: int in 3:
+			var a: Vector3 = faces[index + corner]
+			var b: Vector3 = faces[index + (corner + 1) % 3]
+			var key_a: Vector3 = a.snapped(Vector3.ONE * 0.001)
+			var key_b: Vector3 = b.snapped(Vector3.ONE * 0.001)
+			var key: Array[Vector3] = [key_a, key_b]
+			if key_b < key_a:
+				key.reverse()
+			if edges.has(key):
+				edges[key]["count"] += 1
+			else:
+				edges[key] = {"a": a, "b": b, "count": 1}
+	for edge: Dictionary in edges.values():
+		if edge["count"] != 1:
+			continue
+		var a: Vector3 = edge["a"]
+		var b: Vector3 = edge["b"]
+		var normal: Vector3 = (b - a).cross(Vector3.DOWN).normalized()
+		for point: Vector3 in [a, a + down, b, b, a + down, b + down]:
+			surface.set_normal(normal)
+			surface.set_uv(Vector2((point - a).dot((b - a).normalized()), a.y - point.y) / 3.0)
+			surface.add_vertex(point)
+	surface.index()
+	return surface.commit()

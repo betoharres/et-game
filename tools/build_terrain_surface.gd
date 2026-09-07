@@ -27,16 +27,16 @@ func _initialize() -> void:
 	var segments: Array[Dictionary] = Layout.road_segments()
 	for i: int in segments.size():
 		var segment: Dictionary = segments[i]
-		if str(Layout.ROAD_RUNS[i][0]).begins_with("dirt"):
-			continue # Rural road meshes now carry the two tracks; keep grassy surroundings.
-		var half_width: float = 4.5
-		_stamp_segment(segment["start"], segment["end"], half_width + 0.5, 4.0, 0)
+		# A via de terra nao tem piso proprio: o desgaste que o terreno pinta e a
+		# estrada. Borda bem esfumada, para o pasto entrar nela sem emenda.
+		var dirt: bool = str(Layout.ROAD_RUNS[i][0]).begins_with("dirt")
+		_stamp_segment(segment["start"], segment["end"], 4.0 if dirt else 5.0, 6.5 if dirt else 4.0, 0)
 	for path: Dictionary in Layout.SECONDARY_PATHS:
-		if not path["urban"]:
-			continue
 		var points: Array = path["points"]
+		var radius: float = float(path["width"]) * (0.5 if path["urban"] else 0.42)
+		var feather: float = 3.0 if path["urban"] else 4.5
 		for i: int in points.size() - 1:
-			_stamp_segment(points[i], points[i + 1], float(path["width"]) * 0.5, 3.0, 0)
+			_stamp_segment(points[i], points[i + 1], radius, feather, 0)
 	for field: Dictionary in Layout.CROP_FIELDS:
 		_stamp_rect(field["rect"], 2.5, 1)
 	for clearing: Rect2 in Layout.SETTLEMENT_CLEARINGS:

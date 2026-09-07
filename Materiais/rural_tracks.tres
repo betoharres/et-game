@@ -2,13 +2,13 @@
 
 [ext_resource type="Shader" path="res://shaders/rural_tracks.gdshader" id="1"]
 [ext_resource type="Texture2D" path="res://Texturas/ground.png" id="2"]
-[ext_resource type="Texture2D" path="res://Texturas/grass.png" id="3"]
-[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/ground_normal_roughness.res" id="4"]
-[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/grass_normal_roughness.res" id="5"]
+[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/ground_normal_roughness.res" id="3"]
 
 [resource]
+render_priority = 1
 shader = ExtResource("1")
 shader_parameter/soil_texture = ExtResource("2")
-shader_parameter/grass_texture = ExtResource("3")
-shader_parameter/soil_normal = ExtResource("4")
-shader_parameter/grass_normal = ExtResource("5")
+shader_parameter/soil_normal = ExtResource("3")
+shader_parameter/soil_color = Color(0.46, 0.39, 0.29, 1)
+shader_parameter/rut_color = Color(0.33, 0.27, 0.2, 1)
+shader_parameter/soil_scale = 0.24

@@ -1,6 +1,8 @@
 extends SceneTree
 
 ## Checks the saved meshes/collisions, not just the layout recipe.
+## Urban roads have a paved floor of their own. Rural routes do not: the terrain
+## is the floor there, and the wheel tracks only sit on top of it.
 const Layout: GDScript = preload("res://tools/build_country_town_layout.gd")
 const Rural: GDScript = preload("res://tools/build_rural_roads.gd")
 var _rural_profile: Resource
@@ -21,7 +23,7 @@ func _process(_delta: float) -> bool:
 
 func _run() -> void:
 	_rural_profile = load(Rural.PRESET)
-	_rural_profile.configure(Rural.segments(), Rural.protected_zones())
+	_rural_profile.configure(Rural.BRIDGE_ZONES)
 	_main_footprints = Layout.road_polygons(false) + Layout.road_polygons(true)
 	var world: Node3D = Node3D.new()
 	root.add_child(world)
@@ -30,6 +32,9 @@ func _run() -> void:
 	_terrain = Terrain3D.new()
 	world.add_child(_terrain)
 	_terrain.data_directory = "res://scenes/CountryTown/Terrain"
+	# O terreno agora e o piso das vias rurais, e os raios saem por todo o mapa:
+	# sem colisao completa so existiria chao perto da camera.
+	_terrain.set("collision_mode", 3) # Full / Game
 	var camera: Camera3D = Camera3D.new()
 	world.add_child(camera)
 	camera.position = Vector3(300, 50, 220)
@@ -40,13 +45,14 @@ func _run() -> void:
 	for tile: Dictionary in Layout.road_tiles():
 		var cell: Vector2i = tile["cell"]
 		var center: Vector2 = Layout.grid_position(cell.x, cell.y)
+		var paved: bool = tile["kind"].begins_with("asphalt")
 		for direction: Vector2 in Layout.ROAD_CONNECTORS[Layout.shape_of(tile["kind"])]:
 			var axis: Vector2 = Layout.rotate_local(direction, tile["angle"])
-			_sample_segment(center, center + axis * Layout.TILE * 0.5, 4.0 if tile["kind"].begins_with("asphalt") else 3.5, true, not tile["kind"].begins_with("asphalt"))
+			_sample_segment(center, center + axis * Layout.TILE * 0.5, 4.0 if paved else 3.5, paved)
 	for path: Dictionary in Layout.SECONDARY_PATHS:
 		var points: Array = path["points"]
 		for index: int in points.size() - 1:
-			_sample_segment(points[index], points[index + 1], float(path["width"]) * 0.44, path["urban"], not path["urban"])
+			_sample_segment(points[index], points[index + 1], float(path["width"]) * 0.44, path["urban"])
 	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
 		_sample_segment(bridge - Vector2(25, 0), bridge + Vector2(25, 0), 2.0, true)
 	var roads: Node = world.get_node("RoadNetwork")
@@ -55,11 +61,16 @@ func _run() -> void:
 	if material == null or material.albedo_texture == null or material.albedo_color.v > 0.25:
 		_failures.append("Asphalt must have a dark, textured local material")
 	_check_surface_vertices(asphalt)
-	_check_surface_vertices(roads.get_node("DirtRoadBed") as MeshInstance3D)
-	_check_rural_collision(roads.get_node("DirtRoadBed") as MeshInstance3D)
-	_check_rural_collision(world.get_node("SecondaryPaths/RuralTrails") as MeshInstance3D)
+	_check_apron(roads.get_node_or_null("DirtRoadBed") as MeshInstance3D)
+	for label: String in Rural.RETIRED:
+		if roads.get_node_or_null(label) != null or world.get_node_or_null("SecondaryPaths/%s" % label) != null:
+			_failures.append("Rural dirt floor %s is back: the terrain is the floor now" % label)
+	var marks: int = _check_tire_tracks(roads.get_node_or_null("TireTracks"))
+	marks += _check_tire_tracks(world.get_node_or_null("SecondaryPaths/TireTracks"))
+	if marks == 0:
+		_failures.append("Missing rural tire tracks: run tools/build_tire_tracks.gd")
 	if _failures.is_empty():
-		print("Country Town roads OK: %d floor samples, textured asphalt, terrain below pavement, both bridge ramps." % _samples)
+		print("Country Town roads OK: %d floor samples, textured asphalt, %d tire tracks on the terrain, both bridge ramps." % [_samples, marks])
 	else:
 		for failure: String in _failures:
 			printerr(failure)
@@ -67,30 +78,34 @@ func _run() -> void:
 	quit(0 if _failures.is_empty() else 1)
 
 
-func _sample_segment(start: Vector2, end: Vector2, half_width: float, flat: bool, rural: bool = false) -> void:
+## Paved routes must land on their own floor. Rural ones only need continuous
+## ground: the terrain, or the graded apron next to a bridge.
+func _sample_segment(start: Vector2, end: Vector2, half_width: float, paved: bool) -> void:
 	var steps: int = maxi(1, ceili(start.distance_to(end)))
 	var side: Vector2 = (end - start).normalized().orthogonal()
 	for step: int in steps + 1:
 		var center: Vector2 = start.lerp(end, float(step) / steps)
 		for offset: float in [-half_width, 0.0, half_width]:
 			var point: Vector2 = center + side * offset
-			var expected: float = Layout.road_height(point) if flat else _terrain.data.get_height(Vector3(point.x, 0, point.y)) + Layout.ROAD_PIECE_LIFT
-			if not flat:
-				# Trail endpoints can overlap the main road's flattened platform.
-				# There the floor follows the main road, not the lower river-bank terrain.
+			var ground: float = _ground(point)
+			var expected: float = Layout.road_height(point) if paved else ground
+			var ceiling: float = expected + 0.045
+			var pit: float = expected - 0.045
+			if not paved:
+				# Bridge aprons keep a graded floor above the flattened terrain.
 				for polygon: PackedVector2Array in _main_footprints:
 					if Geometry2D.is_point_in_polygon(point, polygon):
-						expected = Layout.road_height(point)
+						ceiling = maxf(ceiling, Layout.road_height(point) + 0.05)
 						break
-			if rural:
-				expected += (_rural_profile.sample(point) as Vector3).z
-			var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(Vector3(point.x, expected + 1, point.y), Vector3(point.x, expected - 1, point.y))
+				ceiling = maxf(ceiling, ground + 0.09)
+				pit = ground - 0.03
+			var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(Vector3(point.x, ceiling + 1.5, point.y), Vector3(point.x, pit - 1.5, point.y))
 			var hit: Dictionary = _space.intersect_ray(query)
 			_samples += 1
 			if hit.is_empty():
 				_failures.append("Missing floor at %s" % point)
-			elif absf((hit["position"] as Vector3).y - expected) > 0.045:
-				_failures.append("Uneven floor at %s: expected %.3f, found %.3f" % [point, expected, (hit["position"] as Vector3).y])
+			elif (hit["position"] as Vector3).y > ceiling or (hit["position"] as Vector3).y < pit:
+				_failures.append("Floor out of range at %s: expected %.3f..%.3f, found %.3f" % [point, pit, ceiling, (hit["position"] as Vector3).y])
 
 
 func _check_surface_vertices(node: MeshInstance3D) -> void:
@@ -101,20 +116,55 @@ func _check_surface_vertices(node: MeshInstance3D) -> void:
 			_failures.append("Terrain penetrates %s at %s: ground %.3f" % [node.name, vertex, ground])
 
 
-func _check_rural_collision(node: MeshInstance3D) -> void:
-	if not node.has_meta("rural_base_mesh") or not node.material_override is ShaderMaterial:
-		_failures.append("Missing baked rural profile on %s" % node.name)
+## What is left of the dirt floor may only be the bridge aprons.
+func _check_apron(node: MeshInstance3D) -> void:
+	if node == null:
+		_failures.append("Missing bridge aprons: the dirt ramps to both bridges are gone")
 		return
-	var faces: PackedVector3Array = node.mesh.get_faces()
-	var found: bool = false
-	for body: Node in node.get_children():
-		if not body is StaticBody3D:
+	_check_surface_vertices(node)
+	for vertex: Vector3 in node.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+		var reach: float = INF
+		for zone: Vector3 in Rural.BRIDGE_ZONES:
+			reach = minf(reach, Vector2(vertex.x, vertex.z).distance_to(Vector2(zone.x, zone.y)) - zone.z - 8.0)
+		if reach > 2.0:
+			_failures.append("Dirt floor %.1f m away from any bridge landing at %s" % [reach, vertex])
+			return
+
+
+## The tracks are a thin decal over the ground: no collision of their own, never
+## sunk into the terrain and never floating above it. Returns how many marks the
+## group carries, so the caller can tell an empty district from a missing one.
+func _check_tire_tracks(group: Node) -> int:
+	if group == null:
+		return 0
+	var marks: int = 0
+	for track: Node in group.get_children():
+		var surface: MeshInstance3D = track.get_node_or_null("Surface") as MeshInstance3D
+		if surface == null or surface.mesh == null:
+			_failures.append("Tire track %s has no baked surface" % track.name)
 			continue
-		for child: Node in body.get_children():
-			if child is CollisionShape3D and (child as CollisionShape3D).shape is ConcavePolygonShape3D:
-				found = true
-				var shape: ConcavePolygonShape3D = (child as CollisionShape3D).shape as ConcavePolygonShape3D
-				if shape.get_faces() != faces:
-					_failures.append("Rural physics differs from visible triangles on %s" % node.name)
-	if not found:
-		_failures.append("Missing rural collision on %s" % node.name)
+		marks += 1
+		if not surface.material_override is ShaderMaterial:
+			_failures.append("Tire track %s needs the tire_track shader material" % track.name)
+		if surface.visibility_range_end <= 0.0:
+			_failures.append("Tire track %s needs a visibility range" % track.name)
+		for child: Node in surface.get_children():
+			if child is StaticBody3D:
+				_failures.append("Tire tracks must not collide: the terrain carries the floor")
+		var placement: Transform3D = (track as Node3D).transform
+		for vertex: Vector3 in surface.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+			var world_vertex: Vector3 = placement * vertex
+			var ground: float = _terrain.data.get_height(world_vertex)
+			if is_nan(ground):
+				_failures.append("Tire track outside the terrain at %s" % world_vertex)
+				break
+			var lift: float = world_vertex.y - ground
+			if lift < 0.005 or lift > 0.09:
+				_failures.append("Tire track %.3f m above the ground at %s" % [lift, world_vertex])
+				break
+	return marks
+
+
+func _ground(point: Vector2) -> float:
+	var height: float = _terrain.data.get_height(Vector3(point.x, 0.0, point.y))
+	return Layout.GROUND_HEIGHT if is_nan(height) else height

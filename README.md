@@ -329,6 +329,7 @@ editor, em `scenes/CountryTown/CountryTown.tscn`.
 | `Districts/Fields.tscn` | Milharal sobre sulcos, talhões de trigo e girassóis, gerada |
 | `Districts/Vegetation.tscn` | Árvores e arbustos de cena, juncos e seixos das margens |
 | `Districts/Detailing.tscn` | Cercas, fardos, caixas, placas, sebes e canteiros |
+| `Districts/StreetLife.tscn` | Vasos e mobili?rio da pra?a; folhas, poeira e vagalumes com desligamento por dist?ncia em `scripts/ambient_particles.gd` |
 | `Districts/NightLights.tscn` | Postes, luminárias de fachada e luzes de janela |
 | `Districts/UrbanInfill.tscn` | Construções adicionais, calçadas, quintais, cargas e postes, instanciada em `TownDistrict` |
 | `Districts/RuralInfill.tscn` | Pátios de trabalho, pomares, fardos, silos pequenos e manchas de margem, instanciada em `FarmDistrict` |
@@ -350,9 +351,45 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   Rampas de encontro acompanham o tabuleiro existente, de 5 m de largura.
   O piso fica 6 cm acima do terreno; as ruas locais urbanas recebem o mesmo
   aplainamento das principais. Calçadas de cerca de 2 m e meio-fio baixo
-  ficam somente fora da malha viária, com recortes nos cruzamentos. Faixas
+  ficam somente fora da malha viária, com recortes nos cruzamentos. Calçadas e
+  meio-fio têm 25 cm de espessura para baixo, com laterais, fundo e colisão,
+  mantendo o topo baixo para a passagem do jogador. Faixas
   centrais discretas identificam as vias principais. As malhas têm colisão
   própria, materiais locais com ruído determinístico e nenhuma peça FBX de rua.
+- `tools/build_rural_roads.gd` tira o piso de terra das vias rurais. A via de
+  terra e as trilhas não têm mais malha de piso: o chão visível é o próprio
+  terreno, que o material do Terrain3D já pinta de terra pela máscara de uso do
+  solo. Sobra piso só nas quatro cabeceiras de ponte, onde as rampas precisam
+  dele; essa aba desce até o terreno na borda de fora, sem degrau, e é o que
+  resta em `scripts/terrain/rural_road_profile.gd`, com o preset
+  `Materiais/rural_road_gentle.tres`. A fita `WheelTracks` que essa ferramenta
+  gerava foi aposentada — as marcas agora são as de pneu, descritas abaixo.
+  Rode esta ferramenta e `tools/build_terrain_surface.gd` sempre que o traçado
+  rural mudar: uma tira o piso, a outra faz a pintura do chão.
+- `scenes/Props/TireTrack3D.tscn` são as marcas de pneu, o único rastro das vias
+  rurais hoje. O traçado é a `Curve3D` do próprio nó: instancie a cena, puxe os
+  pontos no editor e a fita é reassada e salva junto com a cena — em jogo nada é
+  gerado. Cada instância desenha de 1 a 6 passagens paralelas
+  (`lanes`/`lane_spacing`, 1,6 m é a bitola da caminhonete), serpenteia de leve
+  (`lateral_wander`), respira de largura (`width_variation`) e varia a
+  intensidade por passagem (`intensity`/`intensity_variation`), com as pontas
+  nascendo e morrendo no chão por `end_fade`, então instâncias sobrepostas se
+  misturam sem emenda. Os vértices assentam na altura do chão — `Terrain3D` se a
+  cena tiver um, raycast caso contrário — com a folga `ground_offset`; o
+  material `Materiais/tire_track.tres` não escreve profundidade, o que tira o
+  z-fighting, e repete `Texturas/tire_tread.res` a cada `tread_length` metros.
+  O perfil está em `scripts/terrain/tire_track_3d.gd`; a textura vem de
+  `tools/build_tire_tread_texture.gd`.
+- `tools/build_tire_tracks.gd` assa essas marcas contra o terreno atual e
+  remove o `WheelTracks` antigo que encontrar. Sem argumento ele só refaz a
+  malha do que já está em cena, preservando curvas editadas à mão; com
+  `-- --reseed` ele descarta o nó `TireTracks` e semeia tudo de novo a partir do
+  layout: três passagens ao longo de cada via de terra e duas em cada trilha,
+  com deslocamentos, sementes e desgastes diferentes, mais arcos de manobra em
+  cada cruzamento e entrada — 7 cruzamentos, até 4 arcos cada. As marcas param
+  nas cabeceiras de ponte, onde o chão é a rampa e não o terreno. Para sujar um
+  ponto específico, duplique uma instância no editor e puxe a curva; para
+  desfazer tudo e voltar ao plano, rode com `--reseed`.
 - `tools/build_country_town_terrain.gd` lê esses dados e os marcadores da cena
   de POIs, gera o heightmap, achata as zonas construídas, abre uma clareira sob
   cada marcador e sob cada peça de estrada, escava o canal do rio por último e

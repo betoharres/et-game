@@ -1,5 +1,7 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/StreetLife.tscn" id="21_street_life"]
+
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/SecondaryPaths.tscn" id="20_secondary_paths"]
 
 [ext_resource type="Terrain3DMaterial" path="res://Materiais/country_terrain_material.tres" id="1_terrain_material"]
@@ -83,3 +85,5 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 431.2286, 6.6, 358.0332)
 
 [node name="EnvironmentAudio" type="Node" parent="."]
 script = ExtResource("18_environment_audio")
+
+[node name="StreetLife" parent="." instance=ExtResource("21_street_life")]

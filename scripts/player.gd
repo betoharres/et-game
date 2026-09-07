@@ -12,6 +12,7 @@ const STANDING_COLLISION_HEIGHT : float = 1.0
 const CROUCHING_COLLISION_HEIGHT : float = 0.62
 const FLOOR_PROBE_HEIGHT : float = 1.5
 const FLOOR_PROBE_DEPTH : float = 4.0
+const MAX_STEP_HEIGHT : float = 0.12
 const WALL_NORMAL_LIMIT : float = 0.7
 const NEW_CONTACT_NORMAL_LIMIT : float = 0.7
 const MIN_FALL_TIME_SCALE : float = 0.5
@@ -474,6 +475,7 @@ func _physics_process(delta: float) -> void:
 
 	var velocity_before_move : Vector3 = velocity
 
+	_try_step_up(delta)
 	move_and_slide()
 
 	_detect_landing(was_on_floor, velocity_before_move)
@@ -482,6 +484,40 @@ func _physics_process(delta: float) -> void:
 	var horizontal_speed : float = velocity.slide(up_direction).length()
 	footstep_audio.set_motion(horizontal_speed, is_on_floor())
 	_update_animation_controller()
+
+
+## Sobe bordas baixas do piso sem transformar paredes em superfícies escaláveis.
+func _try_step_up(delta : float) -> void:
+	if not is_on_floor() or velocity.dot(up_direction) > 0.0:
+		return
+	var motion : Vector3 = velocity.slide(up_direction) * delta
+	if motion.length_squared() < 0.000001:
+		return
+	var obstacle : KinematicCollision3D = KinematicCollision3D.new()
+	if not test_move(global_transform, motion, obstacle):
+		return
+	var floor_limit : float = cos(floor_max_angle)
+	if obstacle.get_normal().dot(up_direction) >= floor_limit:
+		return
+	var lift : Vector3 = up_direction * MAX_STEP_HEIGHT
+	if test_move(global_transform, lift):
+		return
+	var raised : Transform3D = global_transform
+	raised.origin += lift
+	if test_move(raised, motion):
+		return
+	raised.origin += motion
+	var support : KinematicCollision3D = KinematicCollision3D.new()
+	if not test_move(raised, -lift, support):
+		return
+	if support.get_normal().dot(up_direction) < floor_limit:
+		return
+	var rise : float = MAX_STEP_HEIGHT + support.get_travel().dot(up_direction)
+	if rise <= safe_margin or rise > MAX_STEP_HEIGHT:
+		return
+	# Só antecipa a subida; move_and_slide mantém o deslocamento horizontal
+	# e atualiza os contatos, a velocidade e o estado de chão normalmente.
+	global_position += up_direction * rise
 
 
 func _update_camera_target() -> void:

@@ -375,9 +375,9 @@ func _build_roads() -> bool:
 	# Only the outer perimeter is paved: no sidewalk or curb crosses a junction.
 	var walks: Array[PackedVector2Array] = road_polygons(true, 2.1, true)
 	var curbs: Array[PackedVector2Array] = road_polygons(true, 0.24, true)
-	Surface.build(network, "Sidewalks", walks, all_roads + curbs, GROUND_HEIGHT + 0.13,
+	Surface.build(network, "Sidewalks", walks, all_roads + curbs, GROUND_HEIGHT + 0.08,
 		Surface.material(Color(0.30, 0.28, 0.24)))
-	Surface.build(network, "Curbs", curbs, all_roads, GROUND_HEIGHT + 0.13,
+	Surface.build(network, "Curbs", curbs, all_roads, GROUND_HEIGHT + 0.08,
 		Surface.material(Color(0.38, 0.36, 0.31)))
 	var shoulders: Array[PackedVector2Array] = road_polygons(false, 1.1)
 	Surface.build(network, "RuralShoulders", shoulders, all_roads, GROUND_HEIGHT + 0.015,

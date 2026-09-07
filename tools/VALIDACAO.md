@@ -26,7 +26,8 @@ Uma ferramenta de `tools/`:
 No Country Town, os geradores de layout e settlement usam malhas nativas e
 aceitam `--headless`. Campos e vegetação ainda usam `MultiMesh` e precisam de
 rasterização real. `RoadNetwork.tscn` deve conter `AsphaltRoadBed`,
-`DirtRoadBed`, `Sidewalks` e `Curbs`; as trilhas rurais ficam em `SecondaryPaths`.
+`Sidewalks`, `Curbs` e `TireTracks`, mais o `DirtRoadBed` reduzido às abas das
+pontes; as marcas das trilhas rurais ficam no `TireTracks` de `SecondaryPaths`.
 
 Omita `--headless` quando a checagem depender de rasterização de verdade —
 render, screenshot, culling — porque o driver dummy não desenha nada:
@@ -66,6 +67,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
+| Marcas de pneu de autoria sobre as vias | `tools/build_tire_tracks.gd` |
 
 `tools/bake_police_patrol_route.gd` regera o grafo de ruas que a viatura de
 polícia patrulha (o `road_nodes` do nó `AIDriver` em
@@ -82,6 +84,27 @@ são utilitários de geração de asset, não checagens. Campos e vegetação pr
 rodar sem `--headless`, porque o driver dummy não preserva buffers de MultiMesh.
 A ordem completa é layout, terreno, settlement, campos e vegetação. O terreno
 reimporta as regiões do zero, por isso o plantio vem depois.
+
+`tools/build_rural_roads.gd` tira o piso de terra das vias rurais e das trilhas
+— o rastro é feito por `build_tire_tracks.gd` — e regrava `RoadNetwork.tscn` e `SecondaryPaths.tscn`.
+Aceita `--headless`, mas carrega o terreno: as fitas assentam na altura real do
+chão. Rode depois de mudar `ROAD_RUNS`, `SECONDARY_PATHS` ou o preset
+`Materiais/rural_road_gentle.tres`, junto com `build_terrain_surface.gd` — uma
+faz as marcas, a outra a faixa de terra que o terreno pinta sob elas — e antes de
+`check_country_town_roads.gd`. O recorte das abas de ponte é idempotente: a malha
+original do piso fica guardada em `rural_base_mesh`.
+
+`tools/build_tire_tracks.gd` assa as marcas de pneu
+(`scenes/Props/TireTrack3D.tscn`) dos distritos contra o terreno atual, remove o
+`WheelTracks` antigo e regrava as cenas. Aceita `--headless` e carrega o
+terreno. Sem argumento ela preserva as curvas que já estão em cena; com
+`-- --reseed` descarta o nó `TireTracks` e semeia tudo de novo a partir do
+layout, o que apaga edições manuais. Só é necessária quando o relevo mudar ou
+quando uma curva for editada sem o editor aberto — no editor, o próprio nó
+reassa a marca ao mexer na curva ou nos parâmetros, e o botão *Reassar marca*
+força a reconstrução. A textura de banda
+(`Texturas/tire_tread.res`) vem de `tools/build_tire_tread_texture.gd`, que só
+precisa rodar se o desenho do pneu mudar.
 
 `tools/build_terrain_surface.gd` gera apenas dados de material: normais/rugosidade
 das três texturas locais e a máscara de uso do solo do Country Town. Aceita

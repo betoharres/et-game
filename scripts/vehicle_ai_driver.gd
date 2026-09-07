@@ -20,6 +20,15 @@ extends Node
 ## another street is available, so the car doesn't dive into every little stub.
 @export var min_branch_cells: int = 3
 
+## Metres the followed path is shifted to the right of the direction of travel,
+## so the car keeps to its own hand of the street instead of driving down the
+## centre line. The paved town streets are 9 m wide (see `road_polygons()` in
+## tools/build_country_town_layout.gd), so half a lane is 2.25 m: two cars
+## meeting head on pass side by side, one lane each, as on a real two-way
+## street. Set it to 0.0 to drive the centre line again, or negate it for
+## left-hand traffic.
+@export var lane_offset: float = 2.25
+
 ## Cruise speed on a straight, in m/s. The AI brakes with reverse engine force
 ## when it runs faster than this, so it never accelerates itself into a slide.
 @export var cruise_speed: float = 9.0
@@ -508,12 +517,76 @@ func _fill_path() -> void:
 			break
 		_path_indices.append(next)
 
-	_path.clear()
+	var centres : Array[Vector3] = []
 	for index : int in _path_indices:
-		_path.append(road_nodes[index])
+		centres.append(road_nodes[index])
+
+	_path = _lane_path(centres)
 
 	_build_cumulative_distances()
 	_find_dead_end_cusp()
+
+
+## Shifts the centre-line polyline `centres` onto the right-hand lane. Each
+## vertex slides along the bisector of the two segments meeting there, scaled
+## by 1 / cos(half the turn), which is what keeps the offset a constant
+## `lane_offset` from the centre line through a corner instead of cutting it
+## short on the inside of the turn.
+##
+## A dead-end cusp (the A-B-A the path takes at a street with no way out, see
+## `_find_dead_end_cusp`) has its two segments exactly opposed, so the bisector
+## collapses: the tip is left on the centre line, which is what a three-point
+## turn wants anyway - it swings from the right-hand lane, across the middle of
+## the street, and back into the right-hand lane facing the other way.
+func _lane_path(centres : Array[Vector3]) -> Array[Vector3]:
+	if absf(lane_offset) < 0.001 or centres.size() < 2:
+		return centres
+
+	var shifted : Array[Vector3] = []
+
+	for index : int in centres.size():
+		var incoming : Vector3 = (
+			_flat_direction(centres[index - 1], centres[index])
+			if index > 0
+			else Vector3.ZERO
+		)
+		var outgoing : Vector3 = (
+			_flat_direction(centres[index], centres[index + 1])
+			if index < centres.size() - 1
+			else Vector3.ZERO
+		)
+
+		var bisector : Vector3 = incoming + outgoing
+		if bisector.length_squared() < 0.0001:
+			# Either end of the polyline (one of the two is zero, and the sum
+			# is the other one) is handled above; landing here means the two
+			# segments cancel out, which is the dead-end cusp.
+			shifted.append(centres[index])
+			continue
+
+		bisector = bisector.normalized()
+
+		var reference : Vector3 = incoming if incoming != Vector3.ZERO else outgoing
+		var miter : float = clampf(
+			1.0 / maxf(reference.dot(bisector), 0.5), 1.0, 2.0
+		)
+
+		# Forward crossed with up is the right-hand side: Godot's -Z forward
+		# gives +X, the same hand a driver means by "the right of the road".
+		var right : Vector3 = bisector.cross(Vector3.UP).normalized()
+		shifted.append(centres[index] + right * lane_offset * miter)
+
+	return shifted
+
+
+func _flat_direction(from : Vector3, to : Vector3) -> Vector3:
+	var direction : Vector3 = to - from
+	direction.y = 0.0
+
+	if direction.length_squared() < 0.0001:
+		return Vector3.ZERO
+
+	return direction.normalized()
 
 
 ## A dead end shows up in `_path_indices` as an A-B-A cusp: `_pick_next()`

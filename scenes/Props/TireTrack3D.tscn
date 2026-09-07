@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/terrain/tire_track_3d.gd" id="1_tire_track"]
+[ext_resource type="Material" path="res://Materiais/tire_track.tres" id="2_tire_material"]
+
+[sub_resource type="Curve3D" id="Curve3D_tire_track"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 3, 0, 0, 0, 0, 0, -3, 0, -1.5, 3, 0, 1.5, 9, 0, 4, -3, 0, -1, 0, 0, 0, 18, 0, 6),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="TireTrack3D" type="Path3D"]
+curve = SubResource("Curve3D_tire_track")
+script = ExtResource("1_tire_track")
+material = ExtResource("2_tire_material")

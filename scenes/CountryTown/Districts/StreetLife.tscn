@@ -1,0 +1,132 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/FX/TownWindLeaves.tscn" id="leaves"]
+[ext_resource type="PackedScene" path="res://scenes/FX/TownRoadDust.tscn" id="dust"]
+[ext_resource type="PackedScene" path="res://scenes/FX/TownFireflies.tscn" id="fireflies"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_PotPlant_04.tscn" id="pot"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_RubbishBin_01.tscn" id="bin"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_TrashBag_01.tscn" id="bag"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_ParkBench_01.tscn" id="bench"]
+
+[node name="StreetLife" type="Node3D"]
+
+[node name="Leaves01" parent="." instance=ExtResource("leaves")]
+position = Vector3(417, 10, 196)
+
+[node name="Leaves02" parent="." instance=ExtResource("leaves")]
+position = Vector3(507, 10, 199)
+
+[node name="Leaves03" parent="." instance=ExtResource("leaves")]
+position = Vector3(505, 10, 273)
+
+[node name="Leaves04" parent="." instance=ExtResource("leaves")]
+position = Vector3(511, 10, 327)
+
+[node name="Leaves05" parent="." instance=ExtResource("leaves")]
+position = Vector3(372, 10, 232)
+
+[node name="Leaves06" parent="." instance=ExtResource("leaves")]
+position = Vector3(470, 10, 225)
+
+[node name="Leaves07" parent="." instance=ExtResource("leaves")]
+position = Vector3(166, 10, 284)
+
+[node name="Dust01" parent="." instance=ExtResource("dust")]
+position = Vector3(452, 6.6, 242)
+
+[node name="Dust02" parent="." instance=ExtResource("dust")]
+position = Vector3(448, 6.6, 310)
+
+[node name="Dust03" parent="." instance=ExtResource("dust")]
+position = Vector3(395, 6.6, 231)
+
+[node name="Dust04" parent="." instance=ExtResource("dust")]
+position = Vector3(79, 6.6, 125)
+
+[node name="Dust05" parent="." instance=ExtResource("dust")]
+position = Vector3(148, 6.6, 278)
+
+[node name="Fireflies01" parent="." instance=ExtResource("fireflies")]
+position = Vector3(476, 7, 227)
+
+[node name="Fireflies02" parent="." instance=ExtResource("fireflies")]
+position = Vector3(430, 7, 206)
+
+[node name="Fireflies03" parent="." instance=ExtResource("fireflies")]
+position = Vector3(523, 7, 312)
+
+[node name="Fireflies04" parent="." instance=ExtResource("fireflies")]
+position = Vector3(86, 5.6, 362)
+
+[node name="Fireflies05" parent="." instance=ExtResource("fireflies")]
+position = Vector3(238, 5.6, 245)
+
+[node name="Bin01" parent="." instance=ExtResource("bin")]
+position = Vector3(468.2, 6.04, 219.5)
+scale = Vector3(1, 1, 1)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Bin02" parent="." instance=ExtResource("bin")]
+position = Vector3(471.8, 6.04, 230.5)
+scale = Vector3(1, 1, 1)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Bag03" parent="." instance=ExtResource("bag")]
+position = Vector3(472.3, 6.04, 230.5)
+scale = Vector3(0.8, 0.8, 0.8)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Pot04" parent="." instance=ExtResource("pot")]
+position = Vector3(468.1, 6.04, 230.5)
+scale = Vector3(1.8, 1.8, 1.8)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Pot05" parent="." instance=ExtResource("pot")]
+position = Vector3(471.9, 6.04, 219.5)
+scale = Vector3(1.8, 1.8, 1.8)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Pot06" parent="." instance=ExtResource("pot")]
+position = Vector3(466, 6.04, 225)
+scale = Vector3(2, 2, 2)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Pot07" parent="." instance=ExtResource("pot")]
+position = Vector3(474, 6.04, 225)
+scale = Vector3(2, 2, 2)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Bench08" parent="." instance=ExtResource("bench")]
+position = Vector3(467, 6.04, 232.5)
+scale = Vector3(1, 1, 1)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Pot09" parent="." instance=ExtResource("pot")]
+position = Vector3(465.3, 6.04, 232.5)
+scale = Vector3(1.7, 1.7, 1.7)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
+
+[node name="Bin10" parent="." instance=ExtResource("bin")]
+position = Vector3(468.6, 6.04, 232.5)
+scale = Vector3(1, 1, 1)
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+gi_mode = 0
