@@ -65,6 +65,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
 | Layout do mapa Country Town | `tools/check_country_town_layout.gd` |
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
+| Escala das casas, divisas e acessos de pedestres/carros nos lotes | `tools/check_country_town_neighborhood.gd` |
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
 | Marcas de pneu de autoria sobre as vias | `tools/build_tire_tracks.gd` |

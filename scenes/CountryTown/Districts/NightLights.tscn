@@ -164,22 +164,6 @@ visibility_range_end = 140
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.5, 3.6, 296)
 visibility_range_end = 140
 
-[node name="Fixture04" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 198)
-visibility_range_end = 140
-
-[node name="Fixture05" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 262)
-visibility_range_end = 140
-
-[node name="Fixture06" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 194)
-visibility_range_end = 140
-
-[node name="Fixture07" parent="Fixtures" instance=ExtResource("4_sm_prop_outdoor_light_02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 256)
-visibility_range_end = 140
-
 [node name="Fixture08" parent="Fixtures" instance=ExtResource("5_sm_prop_outdoor_light_01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 357, 3, 372)
 visibility_range_end = 140
@@ -204,30 +188,6 @@ omni_range = 7.5
 
 [node name="WindowLight03" type="OmniLight3D" parent="WindowLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 526.5, 3.6, 296)
-light_energy = 0.5
-shadow_enabled = false
-omni_range = 7.5
-
-[node name="WindowLight04" type="OmniLight3D" parent="WindowLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 198)
-light_energy = 0.5
-shadow_enabled = false
-omni_range = 7.5
-
-[node name="WindowLight05" type="OmniLight3D" parent="WindowLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 441, 2.8, 262)
-light_energy = 0.5
-shadow_enabled = false
-omni_range = 7.5
-
-[node name="WindowLight06" type="OmniLight3D" parent="WindowLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 194)
-light_energy = 0.5
-shadow_enabled = false
-omni_range = 7.5
-
-[node name="WindowLight07" type="OmniLight3D" parent="WindowLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 487.5, 2.8, 256)
 light_energy = 0.5
 shadow_enabled = false
 omni_range = 7.5

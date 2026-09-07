@@ -417,13 +417,16 @@ sul. Nem as estradas nem o relevo são feitos à mão:
 - O talhÃ£o `CornField` Ã© propositalmente grande e usa `CORN_MAZE` como uma receita fixa: cÃ©lulas `#` recebem milho alto e `.` ficam como corredores. Para trocar depois por um labirinto aleatÃ³rio, substitua essa matriz mantendo a mesma grade.
 - `tools/build_country_town_settlement.gd` monta os complementos urbanos e
   rurais usando os assets locais PolygonTown/PolygonFarm e a malha da nave
-  existente. `LOTS` define 14 construções autorais; `_build_frontages` preenche
-  as frentes de rua usando a pegada real dos presets, com variação determinística
-  de casas e lojas. O número de fachadas depende das reservas de circulação e da pegada
-  dos assets; a geração informa o total no console. O
-  preenchimento reserva a praça, as colisões existentes e as faixas de
-  circulação. Ruas locais delimitam os quarteirões e a frente do rio; solo de
-  lote, calçadas e quintais conectam as fachadas. As propriedades rurais têm
+  existente. `tools/country_town_neighborhood.gd` define os 22 lotes residenciais
+  e os três comércios de `UrbanInfill`: casas maiores, cercas e portões abertos,
+  acesso de pedestres, jardins, varandas e 16 carros estáticos em vagas privadas.
+  As primitivas são agrupadas por material por lote; objetos pequenos e carros
+  têm alcance de visibilidade limitado. `Entrance`, `ParkingSpace` e
+  `FutureInterior` marcam acessos e espaço para expansão; ainda não há interiores
+  jogáveis, portões interativos ou rotina de moradores. Para regerar somente o
+  bairro, use `tools/build_country_town_settlement.gd -- --town-only` com o wrapper
+  Godot; depois atualize campos e vegetação. Praça, igreja e loja original ficam
+  em `TownDistrict.tscn`. As propriedades rurais têm
   seis pátios de trabalho, três pomares, galpões de colheita, tratores de cenário,
   fardos, lenha e cercas com aberturas. O depósito de entrega ganhou limites e
   alas de armazenamento. Não há geração procedural durante a partida.
@@ -439,8 +442,7 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   facetada e quatro velas, animadas por `AnimationPlayer`; substitui a bomba
   eólica apenas neste mapa. O ancoradouro tem cobertura de madeira. A nave
   inclinada da queda é cenário com colisão, sem scripts
-  da nave jogável ou coleta. Quatro postes adicionais usam `house_lights.gd`
-  e o grupo `debug_house_lighting`, com luzes sem sombra.
+  da nave jogável ou coleta. A iluminação urbana permanece em `NightLights.tscn`.
   Alguns FBX rurais são importados como `PackedScene`, embora as cenas antigas
   os solicitassem como `ArrayMesh`. O gerador extrai suas malhas para
   `Blocks/Meshes/`, corrigindo abrigo, bebedouro, estufa, banca, banheiro e

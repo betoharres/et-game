@@ -37,9 +37,6 @@ transform = Transform3D(-0.1736, 0, -0.9848, 0, 1, 0, 0.9848, 0, -0.1736, 166, 6
 [node name="Tree07" parent="YardTrees" instance=ExtResource("2_tem_tree_03a")]
 transform = Transform3D(-0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, -0.342, 417, 6, 196)
 
-[node name="Tree08" parent="YardTrees" instance=ExtResource("1_tem_tree_01a")]
-transform = Transform3D(0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, 0.9659, 507, 6, 199)
-
 [node name="Tree09" parent="YardTrees" instance=ExtResource("2_tem_tree_03a")]
 transform = Transform3D(-0.9848, 0, 0.1736, 0, 1, 0, -0.1736, 0, -0.9848, 505, 6, 273)
 
@@ -80,12 +77,6 @@ transform = Transform3D(-0.9836, 0, 0.1801, 0, 1, 0, -0.1801, 0, -0.9836, 430, 6
 
 [node name="Bush09" parent="Bushes" instance=ExtResource("3_tem_bush_02a")]
 transform = Transform3D(0.3859, 0, -0.9225, 0, 1, 0, 0.9225, 0, 0.3859, 446, 6, 232)
-
-[node name="Bush10" parent="Bushes" instance=ExtResource("4_tem_bush_01a")]
-transform = Transform3D(0.0936, 0, 0.9956, 0, 1, 0, -0.9956, 0, 0.0936, 500, 6, 200)
-
-[node name="Bush11" parent="Bushes" instance=ExtResource("4_tem_bush_01a")]
-transform = Transform3D(-0.2916, 0, 0.9566, 0, 1, 0, -0.9566, 0, -0.2916, 505, 6, 262)
 
 [node name="Bush12" parent="Bushes" instance=ExtResource("4_tem_bush_01a")]
 transform = Transform3D(0.9565, 0, -0.2917, 0, 1, 0, 0.2917, 0, 0.9565, 523, 6, 312)

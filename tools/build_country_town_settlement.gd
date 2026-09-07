@@ -23,30 +23,12 @@ const FENCE_MIN_RUN: float = 0.8
 const FENCE_SINK: float = 0.06
 ## Recuos de um metro testados quando o lado cai sobre estrada, rio ou predio.
 const FENCE_SETBACK_STEPS: int = 7
-const LOTS: Array[Array] = [
-	# nome, preset (H=casa, S=loja), X, Z, rotacao Y
-	["Bakery", "S01", 436, 179, -90],
-	["MarketHouse", "H04", 475, 184, 90],
-	["CornerHouse", "H07", 535, 185, 90],
-	["ProduceShop", "S01", 494, 225, 0],
-	["EastCottage", "H02", 535, 225, -90],
-	["GardenHouse", "H06", 535, 256, 90],
-	["SquareCottage", "H01", 476, 256, -90],
-	["RiversideHouse", "H01", 388, 193, -90],
-	["WestCottage", "H02", 388, 280, 0],
-	["ChurchLaneHouse", "H07", 436, 285, -90],
-	["SouthTownHouse", "H10", 436, 321, -90],
-	["SouthCornerShop", "S03", 476, 313, 90],
-	["SouthGardenHouse", "H04", 476, 337, -90],
-	["EastFarmhouse", "H02", 540, 328, 0],
-]
 
 var _terrain: Terrain3D
 var _failed: bool = false
 var _serial: int = 0
 var _meshes: Dictionary[String, Mesh] = {}
 var _occupied: Array[Rect2] = []
-var _frontage_count: int = 0
 var _fence_posts: Array[Vector2] = []
 
 
@@ -57,6 +39,10 @@ func _process(_delta: float) -> bool:
 	if _terrain.data.get_region_count() == 0:
 		push_error("Terreno ausente: gere o terreno antes do settlement.")
 		quit(1)
+		return true
+	if "--town-only" in OS.get_cmdline_user_args():
+		_build_town()
+		quit(1 if _failed else 0)
 		return true
 	# Alguns assets antigos eram usados como Mesh, mas sao importados como
 	# PackedScene. Extraimos uma malha local sem alterar os imports compartilhados.
@@ -314,48 +300,9 @@ func _build_workyard() -> void:
 
 
 func _build_town() -> void:
-	var town: Node3D = _group("UrbanInfill")
-	town.set_meta("country_town_composition", true)
-	for lot: Array in LOTS:
-		var code: String = lot[1]
-		var asset: String = "Buildings/Presets/SM_Bld_House_Preset_%s.tscn" % code.substr(1)
-		if code.begins_with("S"):
-			asset = "Buildings/SM_Bld_Shop_%s.tscn" % code.substr(1)
-		var building: Node3D = _at(town, TOWN + asset, lot[0], Vector2(lot[2], lot[3]), lot[4])
-		if building is MeshInstance3D:
-			(building as MeshInstance3D).layers = 128
-	for point: Vector2 in [Vector2(501, 219), Vector2(434, 175), Vector2(486, 316), Vector2(505, 262)]:
-		_at(town, BASE + "Blocks/CargoStack.tscn", "ShopCargo%d" % town.get_child_count(), point, 90)
-	# Calçadas continuas nos dois lados da avenida e das ruas locais.
-	# Sidewalks are baked with RoadNetwork, including junction cutouts.
-	_strip(town, "ChurchForecourt", [Vector2(524, 289), Vector2(540, 289)], 7.0, Color(0.38, 0.37, 0.32), 0.08)
-	for point: Vector2 in [Vector2(482, 231), Vector2(526, 285), Vector2(540, 285)]:
-		_at(town, TOWN + "Props/SM_Prop_ParkBench_01.tscn", "Bench%d" % town.get_child_count(), point, 180)
-	# Pequenos quintais nas bordas: deixam o centro compacto e a periferia rural.
-	for point: Vector2 in [Vector2(540, 198), Vector2(540, 266), Vector2(427, 330), Vector2(502, 342)]:
-		for index: int in 3:
-			_at(town, TOWN + "Environment/SM_Env_Fence_White_Straight_01.tscn", "YardFence%d" % town.get_child_count(), point + Vector2(index * 2.5, 0))
-		for edge: float in [0.0, 7.5]:
-			_at(town, TOWN + "Environment/SM_Env_Fence_White_Post_01.tscn", "YardPost%d" % town.get_child_count(), point + Vector2(edge, 0))
-	var lights: Node3D = _group("StreetLights", town)
-	lights.set_script(load("res://scripts/house_lights.gd"))
-	lights.add_to_group("debug_house_lighting", true)
-	lights.set("window_light_color", Color(1.0, 0.82, 0.57))
-	lights.set("window_light_energy", 0.7)
-	lights.set("light_range", 13.0)
-	lights.set("shadow_light_indices", PackedInt32Array())
-	for point: Vector2 in [Vector2(508, 174), Vector2(546, 204), Vector2(508, 232), Vector2(546, 271)]:
-		_at(town, TOWN + "Props/SM_Prop_LampStanding_02.tscn", "StreetLamp%d" % town.get_child_count(), point)
-		var light: OmniLight3D = OmniLight3D.new()
-		light.position = Vector3(point.x, _height(point) + 1.75, point.y)
-		light.light_color = Color(1.0, 0.82, 0.57)
-		light.light_energy = 0.7
-		light.omni_range = 13.0
-		light.distance_fade_enabled = true
-		light.distance_fade_begin = 100.0
-		light.distance_fade_length = 20.0
-		lights.add_child(light)
-	_build_frontages(town)
+	var neighborhood: RefCounted = load("res://tools/country_town_neighborhood.gd").new()
+	var town: Node3D = neighborhood.build(_terrain)
+	_failed = _failed or neighborhood.failed
 	_save(town, "Districts/UrbanInfill.tscn")
 
 
@@ -476,77 +423,6 @@ func _free_footprint(rect: Rect2, margin: float = 0.7) -> bool:
 		if _crosses_rect(rect.grow(13.0), Layout.RIVER_PATH[index], Layout.RIVER_PATH[index + 1]):
 			return false
 	return true
-
-
-func _build_frontages(town: Node3D) -> void:
-	_reserve_authored()
-	_reserve_shapes(town)
-	var fronts: Node3D = _group("StreetFrontages", town)
-	# As linhas seguem ruas existentes; a pegada real escolhe o que cabe.
-	var rows: Array[Array] = [
-		[Vector2(352, 181), Vector2(352, 284), -90],
-		[Vector2(384, 179), Vector2(384, 284), 90],
-		[Vector2(380, 150), Vector2(544, 150), 180],
-		[Vector2(438, 176), Vector2(438, 342), -90],
-		[Vector2(476, 177), Vector2(476, 340), 90],
-		[Vector2(504, 179), Vector2(504, 266), -90],
-		[Vector2(534, 178), Vector2(534, 267), 90],
-		[Vector2(385, 344), Vector2(434, 344), 180],
-		[Vector2(388, 310), Vector2(436, 310), 0],
-		[Vector2(389, 263), Vector2(432, 263), 180],
-	]
-	for row: Array in rows:
-		var start: Vector2 = row[0]
-		var end: Vector2 = row[1]
-		var length: float = start.distance_to(end)
-		var steps: int = int(length / 4.0)
-		for step: int in steps + 1:
-			var point: Vector2 = start.lerp(end, float(step) / steps)
-			var choices: Array[String] = ["H10", "H09", "S02", "H05", "H01", "S01", "H02"]
-			for choice: int in choices.size():
-				var code: String = choices[(choice + _frontage_count) % choices.size()]
-				var asset: String = "Buildings/Presets/SM_Bld_House_Preset_%s.tscn" % code.substr(1)
-				if code.begins_with("S"):
-					asset = "Buildings/SM_Bld_Shop_%s.tscn" % code.substr(1)
-				var building: Node3D = (load(TOWN + asset) as PackedScene).instantiate() as Node3D
-				building.position = Vector3(point.x, _height(point), point.y)
-				building.rotation_degrees.y = row[2]
-				building.scale = Vector3.ONE * 1.15
-				var bounds: AABB = _visual_bounds(building)
-				var rect: Rect2 = Rect2(bounds.position.x, bounds.position.z, bounds.size.x, bounds.size.z)
-				if not _free_footprint(rect):
-					building.free()
-					continue
-				_frontage_count += 1
-				building.name = "Frontage%02d_%s" % [_frontage_count, code]
-				building.set_meta("country_town_block", true)
-				if building is MeshInstance3D:
-					(building as MeshInstance3D).layers = 128
-				fronts.add_child(building)
-				_occupied.append(rect.grow(1.2))
-				# Solo ocupado: o lote deixa de parecer uma casa largada na grama.
-				_strip(town, "LotGround%02d" % _frontage_count,
-					[Vector2(rect.position.x - 1, rect.get_center().y), Vector2(rect.end.x + 1, rect.get_center().y)],
-					rect.size.y + 2, Color(0.30, 0.255, 0.18), 0.035)
-				break
-	# Lotes originais tambem recebem solo de quintal e acesso visivel.
-	for lot: Array in LOTS:
-		var point: Vector2 = Vector2(lot[2], lot[3])
-		_strip(town, "AuthoredLot" + str(lot[0]), [point - Vector2(6, 0), point + Vector2(6, 0)], 13.0, Color(0.30, 0.255, 0.18), 0.035)
-	# Feira em um patio amplo ao lado da praca, com toldos e mercadoria.
-	for point: Vector2 in [Vector2(487, 220), Vector2(487, 230), Vector2(505, 224)]:
-		var stand: MeshInstance3D = _prop(town, "SM_Bld_ProduceStand_01", Vector3(point.x, _height(point), point.y), 90)
-		if stand != null:
-			stand.visibility_range_end = 500.0
-	for point: Vector2 in [Vector2(398, 182), Vector2(398, 250), Vector2(482, 201), Vector2(509, 283), Vector2(525, 272)]:
-		_at(town, BASE + "Blocks/CargoStack.tscn", "StreetCargo%d" % town.get_child_count(), point)
-	# Fundos dos quarteiroes: anexos, pilhas de lenha e hortas cercadas.
-	for point: Vector2 in [Vector2(396, 269), Vector2(493, 283), Vector2(525, 333), Vector2(415, 334)]:
-		var shed: Node3D = (load(TOWN + "Buildings/SM_Bld_GardenShed_01.tscn") as PackedScene).instantiate() as Node3D
-		place_if_free(town, shed, point, "BackyardShed")
-	_fence_line(town, Vector2(521, 284), Vector2(546, 284))
-	_fence_line(town, Vector2(546, 285), Vector2(546, 313))
-	print("Composicao urbana: %d fachadas adicionais, %d construcoes com as 24 existentes" % [_frontage_count, _frontage_count + 24])
 
 
 func place_if_free(parent: Node, node: Node3D, point: Vector2, label: String) -> bool:
