@@ -1,6 +1,8 @@
-[gd_resource type="Terrain3DMaterial" format=3 uid="uid://bhsomirq7jyr5"]
+[gd_resource type="Terrain3DMaterial" format=3]
 
 [ext_resource type="Shader" path="res://shaders/terrain_natural.gdshader" id="1_8ble8"]
+
+[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/country_land_use.res" id="2_land_use"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8ble8"]
 seed = 731
@@ -19,6 +21,8 @@ seamless = true
 
 [resource]
 _shader_parameters = {
+&"use_land_use": true,
+&"land_use_texture": ExtResource("2_land_use"),
 &"auto_base_texture": 0,
 &"auto_height_reduction": 0.0,
 &"auto_overlay_texture": 1,

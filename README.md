@@ -284,6 +284,33 @@ interpola densidade, tonalidade, scattering, energia dos feixes e interferência
 de tela; `set_quality_preset()` troca o preset em runtime. O grupo
 `alien_post_process` expõe interferência manual e pulso.
 
+O chão usa `shaders/terrain_natural.gdshader`, derivado do Terrain3D instalado
+(licença MIT no arquivo), mantendo geometria, IDs pintados e projeção nas encostas.
+A Fazenda usa `Materiais/new_terrain_3d_material.tres`; o Country Town usa
+`Materiais/country_terrain_material.tres`, com uma máscara própria de uso do solo.
+Nas áreas automáticas, a cobertura de grama é contínua, com variações amplas;
+terra aparece nas transições e rocha nas maiores inclinações. A mistura automática
+é linear para evitar bordas de camuflagem; a pintura manual mantém a mistura
+nativa. A paleta ajustada e a redução de contraste distante valem para ambos.
+
+`grass_coverage` e `grass_patch_scale` controlam cobertura e escala em metros;
+`auto_slope` controla exposição de rocha. `soil_color`, `meadow_color` e
+`stone_color` definem a paleta; `detail_fade_start/end` reduzem os detalhes entre
+25 e 160 m da câmera. Escalas, detiling e força dos normais ficam em
+`3dModelos/SICS Trees/ArrayTrees.tres`. Os normais são aproximações discretas
+derivadas dos albedos locais, não medidas de relevo nem alteração de colisão.
+
+`tools/build_terrain_surface.gd` gera os três mapas de normal/rugosidade e a
+máscara do Country Town em `Texturas/terrain_surface/`. A máscara lê estradas,
+trilhas, talhões, clareiras e rio do gerador de layout, mais os marcadores dos
+pátios; deixa bordas suaves entre passagem, cultivo e pastagem. Ao alterar esses
+dados ou as três texturas-base, regenere somente os materiais com
+`.\tools\godot.cmd --headless --path . --script res://tools/build_terrain_surface.gd`
+(com o editor fechado, ou em cópia isolada). Não precisa reconstruir relevo ou
+vegetação. Os recursos `.res` incluem mipmaps e dispensam importação de imagens.
+Revise a integração do shader ao atualizar o Terrain3D, pois é uma cópia da
+versão instalada. Aparência e custo de GPU precisam de conferência no editor.
+
 ## Mapa Country Town
 
 Mapa novo, em construção, com fazenda e cidade rural em `scenes/CountryTown/`.
@@ -384,10 +411,12 @@ sul. Nem as estradas nem o relevo são feitos à mão:
 - `tools/build_country_town_vegetation.gd` planta grama, arbustos e árvores de
   fundo no instancer do Terrain3D, desviando de estrada, rio e de qualquer
   colisão dos distritos. Cada espécie é um `Terrain3DMeshAsset` apontando para
-  uma cena de `scenes/Vegetation/` — ids 1, 2 e 3 —, com os alcances de LOD
-  apertados. O id 0 do `ArrayTrees.tres` é o cartão gerado que já existia, sem
-  textura no material: **não plante nele**, ele desenha uma cruz branca saindo
-  do chão.
+  uma cena de `scenes/Vegetation/` — ids 1 e 2 para arbusto/árvore e ids 3 a 7
+  para as cinco variantes de grama —, com os alcances de LOD apertados. A
+  escolha da variante é determinística e ponderada, então a geração permanece
+  estável sem repetir sempre o mesmo tufo. O id 0 do `ArrayTrees.tres` é o
+  cartão gerado que já existia, sem textura no material: **não plante nele**,
+  ele desenha uma cruz branca saindo do chão.
 
 Mexeu no layout, rode na ordem:
 

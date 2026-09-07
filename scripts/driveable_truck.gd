@@ -56,6 +56,10 @@ var exterior_camera_position : Vector3
 var exterior_camera_rotation : Vector3
 var first_person_camera : bool = false
 
+# Optional AI driver. When present and no player is in the vehicle, it supplies
+# throttle/steering through the same application code the player's input uses.
+@onready var ai_driver : VehicleAIDriver = get_node_or_null("AIDriver") as VehicleAIDriver
+
 # Driver ET reference
 @onready var ET_driver : Node3D = $ET2
 @onready var driver_proportions : SkeletonModifier3D = (
@@ -215,8 +219,17 @@ func _update_exterior_camera_collision(delta : float) -> void:
 
 func _update_driving(delta : float) -> void:
 	if not vehicle_controlled:
-		engine_force = 0.0
-		brake = brake_force
+		if ai_driver != null:
+			brake = 0.0
+			var control_input : Vector2 = ai_driver.get_control_input(
+				global_position,
+				global_transform,
+				linear_velocity
+			)
+			_apply_driving_input(control_input.x, control_input.y, delta)
+		else:
+			engine_force = 0.0
+			brake = brake_force
 		return
 
 	var throttle : float = Input.get_axis(
@@ -229,6 +242,14 @@ func _update_driving(delta : float) -> void:
 		"ui_left"
 	)
 
+	_apply_driving_input(throttle, steering_input, delta)
+
+
+## `steering_input` is the [-1, 1] scale Input.get_axis produces, but an AI
+## driver deliberately asks for more than that at parking speed to reach full
+## lock for a turnaround (see maneuver_steering_limit in vehicle_ai_driver.gd).
+## Don't clamp it here, or that manoeuvre quietly loses its turning circle.
+func _apply_driving_input(throttle : float, steering_input : float, delta : float) -> void:
 	engine_force = throttle * max_engine_force
 
 	var target_steering : float = steering_input * max_steering
@@ -324,7 +345,9 @@ func exit_vehicle() -> void:
 
 	current_player.visible = true
 	ET_driver.visible = false
-	self.freeze = true
+	# A vehicle with an AI driver stays unfrozen so it keeps patrolling once
+	# the player gets out; a plain vehicle freezes back in place as before.
+	self.freeze = ai_driver == null
 
 	current_player.set_physics_process(true)
 	current_player.set_process_input(true)

@@ -2,6 +2,9 @@ extends SceneTree
 
 ## Checks the saved meshes/collisions, not just the layout recipe.
 const Layout: GDScript = preload("res://tools/build_country_town_layout.gd")
+const Rural: GDScript = preload("res://tools/build_rural_roads.gd")
+var _rural_profile: Resource
+var _main_footprints: Array[PackedVector2Array] = []
 var _started: bool = false
 var _failures: Array[String] = []
 var _samples: int = 0
@@ -17,6 +20,9 @@ func _process(_delta: float) -> bool:
 
 
 func _run() -> void:
+	_rural_profile = load(Rural.PRESET)
+	_rural_profile.configure(Rural.segments(), Rural.protected_zones())
+	_main_footprints = Layout.road_polygons(false) + Layout.road_polygons(true)
 	var world: Node3D = Node3D.new()
 	root.add_child(world)
 	for label: String in ["RoadNetwork", "SecondaryPaths", "RiverDistrict"]:
@@ -36,11 +42,11 @@ func _run() -> void:
 		var center: Vector2 = Layout.grid_position(cell.x, cell.y)
 		for direction: Vector2 in Layout.ROAD_CONNECTORS[Layout.shape_of(tile["kind"])]:
 			var axis: Vector2 = Layout.rotate_local(direction, tile["angle"])
-			_sample_segment(center, center + axis * Layout.TILE * 0.5, 4.0 if tile["kind"].begins_with("asphalt") else 3.5, true)
+			_sample_segment(center, center + axis * Layout.TILE * 0.5, 4.0 if tile["kind"].begins_with("asphalt") else 3.5, true, not tile["kind"].begins_with("asphalt"))
 	for path: Dictionary in Layout.SECONDARY_PATHS:
 		var points: Array = path["points"]
 		for index: int in points.size() - 1:
-			_sample_segment(points[index], points[index + 1], float(path["width"]) * 0.44, path["urban"])
+			_sample_segment(points[index], points[index + 1], float(path["width"]) * 0.44, path["urban"], not path["urban"])
 	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
 		_sample_segment(bridge - Vector2(25, 0), bridge + Vector2(25, 0), 2.0, true)
 	var roads: Node = world.get_node("RoadNetwork")
@@ -50,6 +56,8 @@ func _run() -> void:
 		_failures.append("Asphalt must have a dark, textured local material")
 	_check_surface_vertices(asphalt)
 	_check_surface_vertices(roads.get_node("DirtRoadBed") as MeshInstance3D)
+	_check_rural_collision(roads.get_node("DirtRoadBed") as MeshInstance3D)
+	_check_rural_collision(world.get_node("SecondaryPaths/RuralTrails") as MeshInstance3D)
 	if _failures.is_empty():
 		print("Country Town roads OK: %d floor samples, textured asphalt, terrain below pavement, both bridge ramps." % _samples)
 	else:
@@ -59,7 +67,7 @@ func _run() -> void:
 	quit(0 if _failures.is_empty() else 1)
 
 
-func _sample_segment(start: Vector2, end: Vector2, half_width: float, flat: bool) -> void:
+func _sample_segment(start: Vector2, end: Vector2, half_width: float, flat: bool, rural: bool = false) -> void:
 	var steps: int = maxi(1, ceili(start.distance_to(end)))
 	var side: Vector2 = (end - start).normalized().orthogonal()
 	for step: int in steps + 1:
@@ -67,6 +75,15 @@ func _sample_segment(start: Vector2, end: Vector2, half_width: float, flat: bool
 		for offset: float in [-half_width, 0.0, half_width]:
 			var point: Vector2 = center + side * offset
 			var expected: float = Layout.road_height(point) if flat else _terrain.data.get_height(Vector3(point.x, 0, point.y)) + Layout.ROAD_PIECE_LIFT
+			if not flat:
+				# Trail endpoints can overlap the main road's flattened platform.
+				# There the floor follows the main road, not the lower river-bank terrain.
+				for polygon: PackedVector2Array in _main_footprints:
+					if Geometry2D.is_point_in_polygon(point, polygon):
+						expected = Layout.road_height(point)
+						break
+			if rural:
+				expected += (_rural_profile.sample(point) as Vector3).z
 			var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(Vector3(point.x, expected + 1, point.y), Vector3(point.x, expected - 1, point.y))
 			var hit: Dictionary = _space.intersect_ray(query)
 			_samples += 1
@@ -82,3 +99,22 @@ func _check_surface_vertices(node: MeshInstance3D) -> void:
 		var ground: float = _terrain.data.get_height(vertex)
 		if is_nan(ground) or ground > vertex.y - 0.01:
 			_failures.append("Terrain penetrates %s at %s: ground %.3f" % [node.name, vertex, ground])
+
+
+func _check_rural_collision(node: MeshInstance3D) -> void:
+	if not node.has_meta("rural_base_mesh") or not node.material_override is ShaderMaterial:
+		_failures.append("Missing baked rural profile on %s" % node.name)
+		return
+	var faces: PackedVector3Array = node.mesh.get_faces()
+	var found: bool = false
+	for body: Node in node.get_children():
+		if not body is StaticBody3D:
+			continue
+		for child: Node in body.get_children():
+			if child is CollisionShape3D and (child as CollisionShape3D).shape is ConcavePolygonShape3D:
+				found = true
+				var shape: ConcavePolygonShape3D = (child as CollisionShape3D).shape as ConcavePolygonShape3D
+				if shape.get_faces() != faces:
+					_failures.append("Rural physics differs from visible triangles on %s" % node.name)
+	if not found:
+		_failures.append("Missing rural collision on %s" % node.name)

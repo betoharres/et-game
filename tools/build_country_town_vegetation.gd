@@ -42,10 +42,16 @@ const DISTRICT_SCENES: Array[String] = [
 ## vazio: sem textura no material, ele desenha uma cruz branca.
 const BUSH_ID: int = 1
 const TREE_ID: int = 2
-const GRASS_ID: int = 3
 const BUSH_SCENE: String = "res://scenes/Vegetation/tem_bush_02a.tscn"
 const TREE_SCENE: String = "res://scenes/Vegetation/forest_tree_1a.tscn"
-const GRASS_SCENE: String = "res://scenes/Vegetation/tem_grass_patch_01a.tscn"
+const GRASS_IDS: Array[int] = [3, 4, 5, 6, 7]
+const GRASS_SCENES: Array[String] = [
+	"res://scenes/Vegetation/tem_grass_patch_01a.tscn",
+	"res://scenes/Vegetation/tem_grass_patch_02a.tscn",
+	"res://scenes/Vegetation/tem_grass_patch_03a.tscn",
+	"res://scenes/Vegetation/tem_grass_patch_04a.tscn",
+	"res://scenes/Vegetation/tem_grass_patch_05a.tscn",
+]
 
 const MAP_WIDTH: float = 600.0
 const MAP_DEPTH: float = 450.0
@@ -105,6 +111,10 @@ func _build() -> bool:
 	terrain.assets = assets
 	root.add_child(terrain)
 	terrain.data_directory = TERRAIN_DIR
+	# `data_directory` inicializa o instancer com os assets que existiam antes
+	# desta execucao. Reaplicar a referencia depois disso atualiza tambem as
+	# cinco variantes de grama criadas acima.
+	terrain.assets = assets
 	var data: Terrain3DData = terrain.data
 	if data == null or data.get_region_count() == 0:
 		push_error("Terreno ausente em %s -- rode tools/build_country_town_terrain.gd" % TERRAIN_DIR)
@@ -118,17 +128,20 @@ func _build() -> bool:
 	var instancer: Terrain3DInstancer = terrain.instancer
 	# O id 0 entra na limpeza porque versoes anteriores deste script plantavam a
 	# grama nele: o cartao gerado sem textura, que aparecia como cruz branca.
-	for mesh_id: int in [0, BUSH_ID, TREE_ID, GRASS_ID]:
+	for mesh_id: int in [0, BUSH_ID, TREE_ID] + GRASS_IDS:
 		instancer.clear_by_mesh(mesh_id)
 
-	var grass: Array[Transform3D] = _scatter_grass(data)
+	var grasses: Array = _scatter_grass(data)
 	var bushes: Array[Transform3D] = _scatter_bushes(data)
 	var trees: Array[Transform3D] = _scatter_trees(data)
 
-	instancer.add_transforms(GRASS_ID, grass, PackedColorArray(), false)
+	var grass_count: int = 0
+	for index: int in GRASS_IDS.size():
+		instancer.add_transforms(GRASS_IDS[index], grasses[index], PackedColorArray(), false)
+		grass_count += grasses[index].size()
 	instancer.add_transforms(BUSH_ID, bushes, PackedColorArray(), false)
 	instancer.add_transforms(TREE_ID, trees, PackedColorArray(), true)
-	print("Plantado: %d tufos de grama, %d arbustos, %d arvores" % [grass.size(), bushes.size(), trees.size()])
+	print("Plantado: %d tufos de grama em %d variantes, %d arbustos, %d arvores" % [grass_count, GRASS_IDS.size(), bushes.size(), trees.size()])
 
 	data.save_directory(TERRAIN_DIR)
 	if ResourceSaver.save(assets, ASSETS_PATH) != OK:
@@ -138,8 +151,8 @@ func _build() -> bool:
 	return true
 
 
-## Registra grama, arbusto e arvore no `Terrain3DAssets`. Cada um aponta para a
-## cena de vegetacao que ja existe.
+## Registra grama, arbusto e arvore no `Terrain3DAssets`. Cada variante de
+## grama aponta para uma cena de vegetacao que ja existe.
 ##
 ## Os alcances de LOD sao generosos de proposito. Apertar o LOD 0 economiza
 ## pouco -- o instancer ja desenha tudo em `MultiMesh` por regiao -- e cobra
@@ -156,11 +169,13 @@ func _ensure_mesh_assets(assets: Terrain3DAssets) -> bool:
 			"name": "country_town_tree", "scene": TREE_SCENE, "density": 0.25,
 			"ranges": [260.0],
 		},
-		GRASS_ID: {
-			"name": "country_town_grass", "scene": GRASS_SCENE, "density": 1.0,
-			"ranges": [35.0, 60.0, 95.0, 145.0, 220.0],
-		},
 	}
+	for index: int in GRASS_IDS.size():
+		wanted[GRASS_IDS[index]] = {
+			"name": "country_town_grass_%02d" % (index + 1),
+			"scene": GRASS_SCENES[index], "density": 1.0,
+			"ranges": [35.0, 60.0, 95.0, 145.0, 220.0],
+		}
 	for mesh_id: int in wanted:
 		var scene: PackedScene = load(wanted[mesh_id]["scene"]) as PackedScene
 		if scene == null:
@@ -214,8 +229,11 @@ static func district_blockers(paths: Array[String], parent: Node) -> Array[Rect2
 	return rects
 
 
-func _scatter_grass(data: Terrain3DData) -> Array[Transform3D]:
-	var placed: Array[Transform3D] = []
+func _scatter_grass(data: Terrain3DData) -> Array:
+	var placed: Array = []
+	for _index: int in GRASS_IDS.size():
+		var variant_placements: Array[Transform3D] = []
+		placed.append(variant_placements)
 	var steps_x: int = int(MAP_WIDTH / GRASS_SPACING)
 	var steps_z: int = int(MAP_DEPTH / GRASS_SPACING)
 	for ix: int in steps_x:
@@ -225,7 +243,17 @@ func _scatter_grass(data: Terrain3DData) -> Array[Transform3D]:
 					(float(iz) + _rng.randf()) * GRASS_SPACING)
 			if not _is_free(point, 0.0):
 				continue
-			placed.append(_ground_transform(data, point, _rng.randf_range(0.8, 1.25)))
+			var variant_roll: float = _rng.randf()
+			var variant: int = 0
+			if variant_roll >= 0.30:
+				variant = 1
+			if variant_roll >= 0.55:
+				variant = 2
+			if variant_roll >= 0.75:
+				variant = 3
+			if variant_roll >= 0.90:
+				variant = 4
+			placed[variant].append(_ground_transform(data, point, _rng.randf_range(0.8, 1.25)))
 	return placed
 
 

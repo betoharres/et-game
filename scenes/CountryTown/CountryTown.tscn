@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/SecondaryPaths.tscn" id="20_secondary_paths"]
 
-[ext_resource type="Terrain3DMaterial" uid="uid://bhsomirq7jyr5" path="res://Materiais/new_terrain_3d_material.tres" id="1_terrain_material"]
+[ext_resource type="Terrain3DMaterial" path="res://Materiais/country_terrain_material.tres" id="1_terrain_material"]
 [ext_resource type="Terrain3DAssets" uid="uid://jx7r6cvf63u" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="2_terrain_assets"]
 [ext_resource type="PackedScene" uid="uid://b7kgyrrylgmhf" path="res://scenes/NightEnvironment.tscn" id="3_night_environment"]
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="4_pause_menu"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Detailing.tscn" id="16_detailing"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NightLights.tscn" id="17_night_lights"]
 [ext_resource type="Script" path="res://scripts/audio/farm_environment_audio.gd" id="18_environment_audio"]
+[ext_resource type="PackedScene" path="res://scenes/Vehicles/PoliceCarDriveable.tscn" id="19_police_car_patrol"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_country_town"]
 
@@ -44,7 +45,7 @@ ground_fog_enabled = false
 [node name="PauseMenu" parent="." instance=ExtResource("4_pause_menu")]
 
 [node name="Player" parent="." instance=ExtResource("5_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 6, 48)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 464, 6.3, 225)
 
 [node name="PointsOfInterest" parent="." instance=ExtResource("6_points_of_interest")]
 
@@ -71,6 +72,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 6, 48)
 [node name="Detailing" parent="." instance=ExtResource("16_detailing")]
 
 [node name="NightLights" parent="." instance=ExtResource("17_night_lights")]
+
+[node name="VehiclesHolder" type="Node3D" parent="."]
+
+[node name="PoliceCarPatrol" parent="VehiclesHolder" instance=ExtResource("19_police_car_patrol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 455.0498, 6.6, 286.5696)
+
+[node name="PoliceCarPatrol2" parent="VehiclesHolder" instance=ExtResource("19_police_car_patrol")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 431.2286, 6.6, 358.0332)
 
 [node name="EnvironmentAudio" type="Node" parent="."]
 script = ExtResource("18_environment_audio")

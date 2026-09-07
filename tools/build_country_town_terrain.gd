@@ -26,7 +26,7 @@ extends SceneTree
 const Layout := preload("res://tools/build_country_town_layout.gd")
 
 const DEST_DIR: String = "res://scenes/CountryTown/Terrain"
-const MATERIAL_PATH: String = "res://Materiais/new_terrain_3d_material.tres"
+const MATERIAL_PATH: String = "res://Materiais/country_terrain_material.tres"
 const ASSETS_PATH: String = "res://3dModelos/SICS Trees/ArrayTrees.tres"
 const POI_SCENE_PATH: String = "res://scenes/CountryTown/Layout/PointsOfInterest.tscn"
 

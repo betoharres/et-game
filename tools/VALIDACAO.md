@@ -67,6 +67,13 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
 
+`tools/bake_police_patrol_route.gd` regera o grafo de ruas que a viatura de
+polícia patrulha (o `road_nodes` do nó `AIDriver` em
+`scenes/Vehicles/PoliceCarDriveable.tscn`). A IA não consegue ler
+`build_country_town_layout.gd` em tempo de execução, então os centros dos tiles
+ficam gravados na cena; rode esta ferramenta e cole a linha impressa sempre que
+`ROAD_RUNS` mudar, senão a patrulha continua dirigindo pela grade antiga.
+
 `tools/build_mixamo_character.py`, `tools/render_prototype_icons.py`,
 `tools/build_country_town_layout.gd`, `tools/build_country_town_terrain.gd`,
 `tools/build_country_town_fields.gd`, `tools/build_country_town_settlement.gd`
@@ -75,6 +82,14 @@ são utilitários de geração de asset, não checagens. Campos e vegetação pr
 rodar sem `--headless`, porque o driver dummy não preserva buffers de MultiMesh.
 A ordem completa é layout, terreno, settlement, campos e vegetação. O terreno
 reimporta as regiões do zero, por isso o plantio vem depois.
+
+`tools/build_terrain_surface.gd` gera apenas dados de material: normais/rugosidade
+das três texturas locais e a máscara de uso do solo do Country Town. Aceita
+`--headless`, não carrega o mundo e não altera relevo, colisão ou vegetação.
+Execute após mudar texturas-base, traçado, talhões, clareiras ou marcadores de
+pátios, em cópia isolada se o editor estiver aberto. Para conferir o visual,
+observe pasto/estrada/cultivo no nível do jogador e do alto; não use headless
+como comprovação da aparência ou do custo de GPU.
 
 Alterações em vias urbanas ou larguras exigem regenerar layout e terreno.
 Alterações apenas em lotes e objetos começam pelo settlement. A checagem de
