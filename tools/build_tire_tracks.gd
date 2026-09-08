@@ -24,7 +24,7 @@ const SCENES: Array[String] = [PRIMARY_SCENE, SECONDARY_SCENE]
 
 ## Cabeceiras de ponte: ali o chao e o piso da rampa, nao o terreno em que a
 ## marca assenta, entao ela para antes.
-const BRIDGE_ZONES: Array[Vector3] = [Vector3(312.1, 167.46, 26.0), Vector3(204.9, 298.48, 26.0)]
+const BRIDGE_ZONES: Array[Vector3] = [Vector3(318.18723, 167.46, 26.0), Vector3(204.9, 298.48, 26.0)]
 ## Passagens de cada via: a principal no eixo e as outras deslocadas e gastas.
 const PASSES: Array[Dictionary] = [
 	{"tag": "A", "lanes": 2, "offset": 0.0, "intensity": 0.85, "wander": 0.22},
@@ -89,6 +89,8 @@ func _build() -> void:
 		var baked: int = 0
 		var triangles: int = 0
 		for track: Node in _tracks(scene):
+			# Amostra as ondulacoes de 1 m sem atravessar o centro dos sulcos.
+			track.sample_step = minf(float(track.sample_step), 0.5)
 			track.height_provider = ground
 			track.bake()
 			baked += 1

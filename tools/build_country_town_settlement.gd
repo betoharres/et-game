@@ -661,7 +661,7 @@ func _fence_post(parent: Node, point: Vector2) -> void:
 
 
 func _near_main_road(point: Vector2, distance: float) -> bool:
-	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+	for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
 		if Rect2(bridge - Vector2(25, 6), Vector2(50, 12)).has_point(point):
 			return true
 	for segment: Dictionary in Layout.road_segments():

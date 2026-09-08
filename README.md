@@ -359,13 +359,27 @@ sul. Nem as estradas nem o relevo são feitos à mão:
 - `tools/build_rural_roads.gd` tira o piso de terra das vias rurais. A via de
   terra e as trilhas não têm mais malha de piso: o chão visível é o próprio
   terreno, que o material do Terrain3D já pinta de terra pela máscara de uso do
-  solo. Sobra piso só nas quatro cabeceiras de ponte, onde as rampas precisam
-  dele; essa aba desce até o terreno na borda de fora, sem degrau, e é o que
+  solo. Nas quatro cabeceiras de ponte, a aba fica invisível e mantém somente
+  o apoio físico das rampas. Ela desce até o terreno na borda de fora e é o que
   resta em `scripts/terrain/rural_road_profile.gd`, com o preset
   `Materiais/rural_road_gentle.tres`. A fita `WheelTracks` que essa ferramenta
   gerava foi aposentada — as marcas agora são as de pneu, descritas abaixo.
   Rode esta ferramenta e `tools/build_terrain_surface.gd` sempre que o traçado
   rural mudar: uma tira o piso, a outra faz a pintura do chão.
+- O relevo rural acompanha as curvas de pneu já salvas: sulcos rasos de
+  profundidade variável, pequenos acúmulos de terra nas laterais e desgaste
+  adicional em manobras. As passagens secundárias permanecem visuais. A grade
+  de 1 m representa canais suaves; o desenho fino do pneu continua no material.
+  Trechos das marcas se apagam, as bordas da terra variam e as depressões ficam
+  mais escuras e menos ásperas. Não há deformação durante o jogo.
+  Para reaplicar esse perfil às curvas existentes sem reconstruir o plantio:
+  `.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd -- --rural-only`,
+  depois `build_tire_tracks.gd` para reassentar as fitas e
+  `build_terrain_surface.gd` para atualizar a pintura. Execute com o editor
+  fechado ou em cópia isolada. O modo parcial substitui o desgaste anterior,
+  conservando as alturas-base, pintura e vegetação. Reassente as marcas depois
+  de cada atualização; mudanças no layout das vias ainda exigem a reconstrução
+  completa abaixo.
 - `scenes/Props/TireTrack3D.tscn` são as marcas de pneu, o único rastro das vias
   rurais hoje. O traçado é a `Curve3D` do próprio nó: instancie a cena, puxe os
   pontos no editor e a fita é reassada e salva junto com a cena — em jogo nada é
@@ -503,8 +517,9 @@ o piso no topo, o `Edge` entrega o piso um palmo abaixo do parapeito, e
 de um deles não quebra nada — só deixa um degrau ou uma viga furando o chão da
 ponte. `tools/check_country_town_bridge.gd` amostra a faixa de rolamento e cobra
 piso contínuo, plano e desobstruído, mais os dois parapeitos de ponta a ponta.
-A ponte tem 35 m, o tamanho exato do vão que a grade abre entre as duas peças
-de ponta da estrada, e os encontros fecham os 37 cm que sobram de cada lado.
+A ponte tem 35 m. A travessia norte fica centrada no eixo do rio em
+`(318.18723, 167.46)`: os encontros acompanham o deslocamento de 6,09 m em
+relação ao vão original da grade, com transição suave para a estrada existente.
 
 A ambientação segue a da fazenda: `NightEnvironment.tscn` sem alterar o preset,
 `FogZone` no leito do rio, no milharal e na cratera, e as luzes registradas no

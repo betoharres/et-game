@@ -30,13 +30,13 @@ func _initialize() -> void:
 		# A via de terra nao tem piso proprio: o desgaste que o terreno pinta e a
 		# estrada. Borda bem esfumada, para o pasto entrar nela sem emenda.
 		var dirt: bool = str(Layout.ROAD_RUNS[i][0]).begins_with("dirt")
-		_stamp_segment(segment["start"], segment["end"], 4.0 if dirt else 5.0, 6.5 if dirt else 4.0, 0)
+		_stamp_segment(Layout.aligned_road_point(segment["start"]), Layout.aligned_road_point(segment["end"]), 4.0 if dirt else 5.0, 4.5 if dirt else 4.0, 0, dirt)
 	for path: Dictionary in Layout.SECONDARY_PATHS:
 		var points: Array = path["points"]
 		var radius: float = float(path["width"]) * (0.5 if path["urban"] else 0.42)
 		var feather: float = 3.0 if path["urban"] else 4.5
 		for i: int in points.size() - 1:
-			_stamp_segment(points[i], points[i + 1], radius, feather, 0)
+			_stamp_segment(points[i], points[i + 1], radius, feather, 0, not path["urban"])
 	for field: Dictionary in Layout.CROP_FIELDS:
 		_stamp_rect(field["rect"], 2.5, 1)
 	for clearing: Rect2 in Layout.SETTLEMENT_CLEARINGS:
@@ -72,13 +72,18 @@ func _stamp_rect(rect: Rect2, feather: float, channel: int) -> void:
 			_write_weight(x, y, channel, 1.0 - smoothstep(0.0, feather, distance))
 
 
-func _stamp_segment(a: Vector2, b: Vector2, radius: float, feather: float, channel: int) -> void:
-	var bounds: Rect2i = _pixel_bounds(Rect2(a, Vector2.ZERO).expand(b).grow(radius + feather))
+func _stamp_segment(a: Vector2, b: Vector2, radius: float, feather: float, channel: int, irregular: bool = false) -> void:
+	var noise: FastNoiseLite = FastNoiseLite.new()
+	noise.seed = 4817
+	noise.frequency = 0.09
+	var reach: float = radius + feather + (1.8 if irregular else 0.0)
+	var bounds: Rect2i = _pixel_bounds(Rect2(a, Vector2.ZERO).expand(b).grow(reach))
 	for y: int in range(bounds.position.y, bounds.end.y):
 		for x: int in range(bounds.position.x, bounds.end.x):
 			var point: Vector2 = _world_pixel(x, y)
 			var distance: float = point.distance_to(Geometry2D.get_closest_point_to_segment(point, a, b))
-			_write_weight(x, y, channel, 1.0 - smoothstep(radius, radius + feather, distance))
+			var edge: float = noise.get_noise_2d(point.x, point.y) * 1.8 if irregular else 0.0
+			_write_weight(x, y, channel, 1.0 - smoothstep(radius + edge, radius + feather + edge, distance))
 
 
 func _pixel_bounds(rect: Rect2) -> Rect2i:

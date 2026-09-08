@@ -31,7 +31,11 @@ void fragment() {
 	float grain = sin(p.x * 1.7 + sin(p.y * 1.3)) * sin(p.y * 0.9 + 2.1);
 	float distance_fade = 1.0 - smoothstep(fade_start, fade_end, distance(world_position, CAMERA_POSITION_WORLD));
 	float mask = tread.a * cover * wear * opacity;
-	mask *= 1.0 + grain * grain_amount;
+	// Desgaste em escalas diferentes: trechos apagados, terra revolvida e banda parcial.
+	float stretch = sin(world_position.x * 0.083 + sin(world_position.z * 0.061) * 2.3)
+		* cos(world_position.z * 0.127 - world_position.x * 0.039);
+	float broken = smoothstep(-0.38, 0.45, stretch + grain * 0.22);
+	mask *= mix(0.08, 1.0, broken) * (1.0 + grain * grain_amount);
 	ALBEDO = track_color * mix(0.85, 1.15, tread.r) * (1.0 + grain * 0.08);
 	ALPHA = clamp(mask, 0.0, 1.0) * distance_fade;
 	ROUGHNESS = roughness_value;

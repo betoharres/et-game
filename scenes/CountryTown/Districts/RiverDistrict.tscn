@@ -27,7 +27,7 @@ size = Vector3(1.8, 1.6, 1.8)
 [node name="RiverWater" parent="." instance=ExtResource("1_riverwater")]
 
 [node name="BridgeNorth" parent="." instance=ExtResource("2_riverbridge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 312.1, 6.273, 167.46)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 318.18723, 6.273, 167.46)
 
 [node name="BridgeSouth" parent="." instance=ExtResource("2_riverbridge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.9, 6.273, 298.48)

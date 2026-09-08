@@ -325,7 +325,7 @@ func _is_map_rim(point: Vector2) -> bool:
 
 func _is_free(point: Vector2, extra: float) -> bool:
 	# Keep crowns and reeds away from bridge decks, including the bank landings.
-	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+	for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
 		if Rect2(bridge - Vector2(25, 6), Vector2(50, 12)).grow(extra).has_point(point):
 			return false
 	for field: Dictionary in Layout.CROP_FIELDS:

@@ -81,6 +81,7 @@ const PLATEAUS: Array[Rect2] = [
 ]
 
 var _heights: PackedFloat32Array = PackedFloat32Array()
+var _rural_offsets: Dictionary[Vector2i, float] = {}
 
 
 ## O trabalho espera o primeiro quadro: as cenas de layout so entregam
@@ -124,7 +125,69 @@ func _build() -> bool:
 				local_points.append(start.lerp(end, float(step) / steps))
 	_flatten_around(local_points, 7.5)
 	_carve_river()
+	_carve_rural_wear()
 	return _save_terrain()
+
+
+## Relevo permanente sob as curvas existentes; a grade de 1 m pede sulcos
+## largos e rasos. Maximos por pixel evitam somar profundidade em cruzamentos.
+func _carve_rural_wear() -> void:
+	var noise: FastNoiseLite = FastNoiseLite.new()
+	noise.seed = 4817
+	noise.frequency = 0.055
+	var cuts: Dictionary[Vector2i, float] = {}
+	var banks: Dictionary[Vector2i, float] = {}
+	for district: String in ["RoadNetwork", "SecondaryPaths"]:
+		var packed: PackedScene = load("res://scenes/CountryTown/Districts/%s.tscn" % district) as PackedScene
+		var scene: Node = packed.instantiate()
+		var tracks: Node = scene.get_node_or_null("TireTracks")
+		if tracks == null:
+			scene.free()
+			continue
+		for child: Node in tracks.get_children():
+			var track: Path3D = child as Path3D
+			if track == null or track.curve == null:
+				continue
+			# Passagens secundarias ficam visuais; arcos de manobra tambem escavam.
+			if str(track.name).ends_with("PassB") or str(track.name).ends_with("PassC"):
+				continue
+			var length: float = track.curve.get_baked_length()
+			for station: int in ceili(length) + 1:
+				var along: float = minf(float(station), length)
+				var local: Vector3 = track.curve.sample_baked(along)
+				var ahead: Vector3 = track.curve.sample_baked(minf(along + 2.0, length))
+				var behind: Vector3 = track.curve.sample_baked(maxf(along - 2.0, 0.0))
+				var direction: Vector3 = (ahead - behind).normalized()
+				var side: Vector3 = direction.cross(Vector3.UP).normalized()
+				var center: Vector3 = track.transform * local
+				var end_weight: float = smoothstep(0.0, 5.0, minf(along, length - along))
+				var protection: float = 1.0
+				for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
+					protection *= smoothstep(32.0, 42.0, Vector2(center.x, center.z).distance_to(bridge))
+				var patch: float = smoothstep(-0.35, 0.45, noise.get_noise_2d(center.x, center.z))
+				var bend: float = 1.0 - (ahead - local).normalized().dot((local - behind).normalized())
+				var depth: float = (0.025 + 0.085 * patch + minf(bend, 0.5) * 0.04) * end_weight * protection
+				for lane: int in int(track.get("lanes")):
+					var offset: float = float(track.get("lane_offset")) + (float(lane) - float(int(track.get("lanes")) - 1) * 0.5) * float(track.get("lane_spacing"))
+					var wheel: Vector3 = center + side * offset
+					for z: int in range(_pixel_of(wheel.z - 2.0), _pixel_of(wheel.z + 2.0) + 1):
+						for x: int in range(_pixel_of(wheel.x - 2.0), _pixel_of(wheel.x + 2.0) + 1):
+							var delta: Vector2 = Vector2(_world_of(x) - wheel.x, _world_of(z) - wheel.z)
+							var longitudinal: float = absf(delta.dot(Vector2(direction.x, direction.z)))
+							var lateral: float = absf(delta.dot(Vector2(side.x, side.z)))
+							var fade: float = 1.0 - smoothstep(0.4, 1.4, longitudinal)
+							var key: Vector2i = Vector2i(x, z)
+							var cut: float = depth * (1.0 - smoothstep(0.15, 1.0, lateral)) * fade
+							var bank: float = depth * 0.25 * (1.0 - smoothstep(0.0, 0.7, absf(lateral - 1.25))) * fade
+							cuts[key] = maxf(cuts.get(key, 0.0), cut)
+							banks[key] = maxf(banks.get(key, 0.0), bank)
+		scene.free()
+	for key: Vector2i in cuts:
+		var offset: float = float(banks[key]) - float(cuts[key])
+		if absf(offset) < 0.0001:
+			continue
+		_rural_offsets[key] = offset
+	print("Rural wear: %d height samples; shallow ruts and displaced soil." % _rural_offsets.size())
 
 
 ## Vale quase plano, com ondulacao suave e colinas subindo nas bordas.
@@ -266,8 +329,10 @@ func _save_terrain() -> bool:
 		return false
 
 	var terrain: Terrain3D = Terrain3D.new()
-	terrain.material = load(MATERIAL_PATH)
-	terrain.assets = load(ASSETS_PATH)
+	var rural_only: bool = OS.get_cmdline_user_args().has("--rural-only")
+	if not rural_only:
+		terrain.material = load(MATERIAL_PATH)
+		terrain.assets = load(ASSETS_PATH)
 	root.add_child(terrain)
 	# Apontar o diretorio de destino e o que inicializa os dados do terreno.
 	terrain.data_directory = DEST_DIR
@@ -276,12 +341,37 @@ func _save_terrain() -> bool:
 		push_error("Terrain3D nao inicializou os dados em headless")
 		return false
 
+	# Retira o perfil anterior antes de aplicar o novo, preservando o relevo
+	# existente (inclusive rampas de trilhas feitas pelo settlement).
+	if rural_only:
+		if data.get_region_count() == 0:
+			push_error("Missing existing terrain for --rural-only")
+			return false
+		for region: Terrain3DRegion in data.get_regions_active():
+			var previous: Dictionary = region.get_meta("rural_wear_offsets", {})
+			for key: Vector2i in previous:
+				var point: Vector3 = Vector3(_world_of(key.x), 0.0, _world_of(key.y))
+				data.set_height(point, data.get_height(point) - float(previous[key]))
+			if not previous.is_empty():
+				region.remove_meta("rural_wear_offsets")
+		for key: Vector2i in _rural_offsets:
+			var point: Vector3 = Vector3(_world_of(key.x), 0.0, _world_of(key.y))
+			data.set_height(point, data.get_height(point) + _rural_offsets[key])
+		_record_rural_offsets(data)
+		data.update_maps(Terrain3DRegion.TYPE_HEIGHT)
+		data.save_directory(DEST_DIR)
+		terrain.free()
+		return true
+
+	for key: Vector2i in _rural_offsets:
+		_heights[key.y * IMAGE_SIZE + key.x] += _rural_offsets[key]
 	var height_map: Image = Image.create_from_data(IMAGE_SIZE, IMAGE_SIZE, false,
 			Image.FORMAT_RF, _heights.to_byte_array())
 	var images: Array[Image] = []
 	images.resize(Terrain3DRegion.TYPE_MAX)
 	images[Terrain3DRegion.TYPE_HEIGHT] = height_map
 	data.import_images(images, Vector3(TERRAIN_ORIGIN, 0.0, TERRAIN_ORIGIN), 0.0, 1.0)
+	_record_rural_offsets(data)
 	data.save_directory(DEST_DIR)
 
 	var range_min_max: Vector2 = Terrain3DUtil.get_min_max(height_map)
@@ -291,3 +381,16 @@ func _save_terrain() -> bool:
 	root.remove_child(terrain)
 	terrain.free()
 	return true
+
+
+## Guarda so o deslocamento aplicado, para atualizacoes sem acumulo de relevo.
+func _record_rural_offsets(data: Terrain3DData) -> void:
+	for region: Terrain3DRegion in data.get_regions_active():
+		var offsets: Dictionary[Vector2i, float] = {}
+		for key: Vector2i in _rural_offsets:
+			var point: Vector3 = Vector3(_world_of(key.x), 0.0, _world_of(key.y))
+			if data.get_region_location(point) == region.location:
+				offsets[key] = _rural_offsets[key]
+		if not offsets.is_empty():
+			region.set_meta("rural_wear_offsets", offsets)
+			region.modified = true

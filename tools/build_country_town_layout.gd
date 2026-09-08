@@ -399,7 +399,7 @@ func _build_roads() -> bool:
 
 ## Match the existing bridge deck with a shallow ramp on each bank.
 static func road_height(point: Vector2) -> float:
-	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+	for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
 		if absf(point.y - bridge.y) > 5.0:
 			continue
 		var distance: float = absf(point.x - bridge.x)
@@ -440,7 +440,19 @@ static func road_polygons(urban: bool, margin: float = 0.0, built_only: bool = f
 		if built_only and path["name"] in ["CrashApproach", "DeliveryAccess"]:
 			continue
 		Surface.add_path(polygons, path["points"], float(path["width"]) + margin * 2.0)
+	# O vao da grade estava 6.08723 m a oeste do eixo do rio na ponte norte.
+	# Desloca tambem os encontros; a transicao termina antes das ruas vizinhas.
+	for polygon: PackedVector2Array in polygons:
+		for index: int in polygon.size():
+			polygon[index] = aligned_road_point(polygon[index])
 	return polygons
+
+
+## Leva um ponto da grade ao encontro real da ponte norte, centrada no rio.
+static func aligned_road_point(point: Vector2) -> Vector2:
+	var longitudinal: float = 1.0 - smoothstep(18.3, 40.0, absf(point.x - 312.1))
+	var lateral: float = 1.0 - smoothstep(6.0, 12.0, absf(point.y - 167.46))
+	return point + Vector2(6.08723 * longitudinal * lateral, 0.0)
 
 
 func _build_river() -> bool:

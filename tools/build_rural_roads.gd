@@ -10,7 +10,7 @@ const BASE: String = "res://scenes/CountryTown/Districts/"
 ## era a fita gerada aqui, hoje substituida pelas marcas de pneu de autoria.
 const RETIRED: Array[String] = ["RuralShoulders", "RuralTrails", "TrailShoulders", "WheelTracks"]
 ## Cabeceiras das duas pontes, com o raio em que o piso de terra continua.
-const BRIDGE_ZONES: Array[Vector3] = [Vector3(312.1, 167.46, 26.0), Vector3(204.9, 298.48, 26.0)]
+const BRIDGE_ZONES: Array[Vector3] = [Vector3(318.18723, 167.46, 26.0), Vector3(204.9, 298.48, 26.0)]
 
 var _terrain: Terrain3D
 var _started: bool = false
@@ -51,6 +51,8 @@ func _build() -> void:
 		var scene: Node = packed.instantiate()
 		var bed: MeshInstance3D = scene.get_node_or_null("DirtRoadBed") as MeshInstance3D
 		if bed != null:
+			# A aba serve so de apoio fisico; o terreno fornece o visual da entrada.
+			bed.visible = false
 			var kept: int = profile.trim_apron(bed, ground)
 			print("Bridge aprons on DirtRoadBed: %d triangles." % kept)
 			if kept == 0:

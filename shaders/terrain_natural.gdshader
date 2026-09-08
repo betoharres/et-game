@@ -743,6 +743,12 @@ void fragment() {
 	// Wetness/roughness modifier, converting 0 - 1 range to -1 to 1 range, clamped to Godot roughness values 
 	float roughness = clamp(fma(color_map.a - 0.5, 2.0, mat.normal_rough.a), 0., 1.);
 	
+	// Somente no Country Town: depressao rural retem umidade; lombadas secam.
+	float rural_low = use_land_use ? land_use.r * (1.0 - land_use.g) * automatic
+		* (1.0 - smoothstep(5.86, 5.99, v_vertex.y)) : 0.0;
+	macrov *= mix(vec3(1.0), vec3(0.72, 0.69, 0.63), rural_low * 0.65);
+	roughness = mix(roughness, 0.66, rural_low * 0.6);
+
 	// Apply PBR
 	ALBEDO = mat.albedo_height.rgb * color_map.rgb * macrov;
 	ROUGHNESS = roughness;

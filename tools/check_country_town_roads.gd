@@ -48,12 +48,12 @@ func _run() -> void:
 		var paved: bool = tile["kind"].begins_with("asphalt")
 		for direction: Vector2 in Layout.ROAD_CONNECTORS[Layout.shape_of(tile["kind"])]:
 			var axis: Vector2 = Layout.rotate_local(direction, tile["angle"])
-			_sample_segment(center, center + axis * Layout.TILE * 0.5, 4.0 if paved else 3.5, paved)
+			_sample_segment(Layout.aligned_road_point(center), Layout.aligned_road_point(center + axis * Layout.TILE * 0.5), 4.0 if paved else 3.5, paved)
 	for path: Dictionary in Layout.SECONDARY_PATHS:
 		var points: Array = path["points"]
 		for index: int in points.size() - 1:
 			_sample_segment(points[index], points[index + 1], float(path["width"]) * 0.44, path["urban"])
-	for bridge: Vector2 in [Vector2(312.1, 167.46), Vector2(204.9, 298.48)]:
+	for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
 		_sample_segment(bridge - Vector2(25, 0), bridge + Vector2(25, 0), 2.0, true)
 	var roads: Node = world.get_node("RoadNetwork")
 	var asphalt: MeshInstance3D = roads.get_node("AsphaltRoadBed") as MeshInstance3D
