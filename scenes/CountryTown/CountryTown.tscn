@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NightLights.tscn" id="17_night_lights"]
 [ext_resource type="Script" path="res://scripts/audio/farm_environment_audio.gd" id="18_environment_audio"]
 [ext_resource type="PackedScene" path="res://scenes/Vehicles/PoliceCarDriveable.tscn" id="19_police_car_patrol"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NPCs.tscn" id="22_npcs"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_country_town"]
 
@@ -87,3 +88,5 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 431.2286, 6.6, 358.0332)
 script = ExtResource("18_environment_audio")
 
 [node name="StreetLife" parent="." instance=ExtResource("21_street_life")]
+
+[node name="NPCs" parent="." instance=ExtResource("22_npcs")]

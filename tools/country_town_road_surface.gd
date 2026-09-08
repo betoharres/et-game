@@ -1,5 +1,8 @@
 extends RefCounted
 
+## Buried skirt closes the view beneath pavement, including recessed subsoil.
+const PAVEMENT_DEPTH: float = 0.60
+
 ## Offline convex polygon union: subtract earlier footprints before triangulating.
 ## Partitioning at each cutter edge also handles blocks enclosed by road loops.
 static func half_plane(poly: PackedVector2Array, a: Vector2, b: Vector2, inside: bool) -> PackedVector2Array:
@@ -112,7 +115,7 @@ static func build(parent: Node3D, label: String, polygons: Array[PackedVector2Ar
 	surface.index()
 	node.mesh = surface.commit()
 	if label == "Sidewalks" or label == "Curbs":
-		node.mesh = thicken_pavement(node.mesh, 0.25)
+		node.mesh = thicken_pavement(node.mesh, PAVEMENT_DEPTH)
 	node.material_override = mat
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(node)

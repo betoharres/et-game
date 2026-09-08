@@ -19,6 +19,7 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
 - [Arquitetura](#arquitetura) — cenas, autoloads, grupos e cadeias de interação.
 - [Onde ajustar o visual](#onde-ajustar-o-visual) — em que cena ou script mora cada parâmetro.
 - [Mapa Country Town](#mapa-country-town) — mapa novo em construção, fora do catálogo de fases.
+- [IA de NPCs (Beehave)](#ia-de-npcs-beehave) — fazendeiros, base de morador/policial e os componentes reutilizáveis de visão/audição/rotina.
 - [Limitações conhecidas](#limitações-conhecidas) — o que ainda não existe ou é provisório.
 - [Qualidade e validação](#qualidade-e-validação) — checagem no editor e ferramentas de `tools/`.
 
@@ -134,7 +135,7 @@ cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 | Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E` |
 | Solicitar a abdução de um item na área de entrega | Segure `E` |
 | Luz dos olhos do ET | `F` |
-| Alternar câmera da caminhonete | `G` |
+| Primeira pessoa (a pé ou na caminhonete) | `V` |
 | Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
 | Radar circular | `F3` |
 | Velocidade e voo (a cada toque) | `F4` |
@@ -199,6 +200,12 @@ Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
   deslocamento. Sobre a animação base atuam apenas dois `LookAtModifier3D` de
   influência limitada e um `TwoBoneIK3D` no braço direito, que só entra ao
   carregar um item ou executar o sinal.
+  Pequenos degraus usam step-up no controlador: `max_step_height` define o
+  limite (28 cm por padrão; zero desativa), com varredura da cápsula para
+  conferir teto livre e apoio dentro de `floor_max_angle`. A descida usa o
+  snap nativo apenas enquanto apoiado, sem prender pulos ou quedas maiores.
+  `step_visual_speed` suaviza corpo visual e alvo da câmera; a cápsula assume
+  imediatamente a altura livre de colisão, mantendo o avanço horizontal.
 - **Proporções do ET:** o GLB atual não possui Blend Shapes. Por isso,
   `CharacterProportions` usa escala de bones em um `SkeletonModifier3D`
   pós-animação para cabeça, barriga, peito, quadril, membros e ombros, escala
@@ -349,11 +356,14 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   asfalto escuro texturizado de 9 m; as vias principais da fazenda usam terra
   de 8 m, com trilhas menores. A troca de material acontece nas duas pontes.
   Rampas de encontro acompanham o tabuleiro existente, de 5 m de largura.
-  O piso fica 6 cm acima do terreno; as ruas locais urbanas recebem o mesmo
+  O asfalto fica 12 cm abaixo da grama (18 cm abaixo da cota anterior);
+  ruas locais recebem o mesmo
   aplainamento das principais. Calçadas de cerca de 2 m e meio-fio baixo
   ficam somente fora da malha viária, com recortes nos cruzamentos. Calçadas e
-  meio-fio têm 25 cm de espessura para baixo, com laterais, fundo e colisão,
-  mantendo o topo baixo para a passagem do jogador. Faixas
+  meio-fio têm fechamento lateral de 60 cm para baixo, com fundo e colisão,
+  mantendo o topo 8 cm acima da grama e 20 cm acima do asfalto. O subsolo é
+  rebaixado sob as vias, com transição sob as calçadas e nas bordas dos acessos
+  sem calçada; as rampas preservam o encontro com as pontes. Faixas
   centrais discretas identificam as vias principais. As malhas têm colisão
   própria, materiais locais com ruído determinístico e nenhuma peça FBX de rua.
 - `tools/build_rural_roads.gd` tira o piso de terra das vias rurais. A via de
@@ -471,6 +481,12 @@ sul. Nem as estradas nem o relevo são feitos à mão:
   cartão gerado que já existia, sem textura no material: **não plante nele**,
   ele desenha uma cruz branca saindo do chão.
 
+Para reaplicar apenas as alturas do asfalto sem reconstruir os distritos ou
+apagar vegetação, rode `tools/recess_country_town_asphalt.gd` em modo headless
+e depois `tools/check_country_town_roads.gd`. A ferramenta preserva as
+calçadas, marcas de pneu e rampas rurais existentes. Com o editor aberto, use
+uma cópia isolada conforme `tools/VALIDACAO.md`.
+
 Mexeu no layout, rode na ordem:
 
 ```powershell
@@ -545,6 +561,95 @@ de um novo passe.
 O terreno da fazenda continua em `res://scenes`, com os `terrain3d_*.res`
 soltos lá — os dois mapas nunca compartilham diretório.
 
+## IA de NPCs (Beehave)
+
+Os NPCs a pé do Country Town usam o addon [Beehave](https://github.com/bitbrain/beehave)
+(MIT, vendorado em `addons/beehave/`) para as Behavior Trees, mais três
+componentes nativos do Godot para percepção e locomoção — a árvore só decide,
+sensores e movimento ficam fora dela:
+
+| Arquivo | Papel |
+| --- | --- |
+| `scripts/npc/npc_actor.gd` (`NPCActor`) | Chassi comum: `NavigationAgent3D`, `patrol_points` (posições absolutas, como `VehicleAIDriver.road_nodes`), velocidades, `reaction_mode` (perseguir ou fugir) e estado exibido pela árvore. |
+| `scripts/npc/npc_vision.gd` (`NPCVision`) | Distância, ângulo e raycast de linha de visão, com progressão de detecção e memória da última posição vista. Consome `player.get_stealth_visibility()`/`get_visibility_multiplier()` e chama `set_vision_contact()`, os mesmos ganchos de camuflagem de `smelly_farmer.gd`/`photographer.gd`. |
+| `scripts/npc/npc_hearing.gd` (`NPCHearing`) | Varre `characters`/`vehicles` por corpos em movimento acima de um limiar de velocidade; também expõe `hear_noise(posição, intensidade)` para eventos futuros via `get_tree().call_group(&"npc_hearing_listeners", &"hear_noise", pos, intensidade)`, sem exigir referência direta ao NPC. |
+
+Toda cena de NPC instancia a mesma `scenes/NPCs/Behaviors/NPCBehaviorTree.tscn`
+como filha, com `actor_node_path` apontando para o `NPCActor` pai:
+
+```text
+SelectorReactive "Root"
+├─ Sequence "Chase":  CanSeePlayer → ReactionModeIs(CHASE) → ChasePlayer
+├─ Sequence "Flee":   CanSeePlayer → ReactionModeIs(FLEE)  → FleeFromPlayer
+├─ Sequence "Alert":  IsNoticingPlayer → AlertPose
+├─ Sequence "Search": HasLastSeenPosition → SearchLastSeenPosition → ReturnToPatrol
+├─ Sequence "Investigate": HeardNoise → InvestigatePosition → ReturnToPatrol
+└─ Selector "Routine": TalkToNeighbor → Idle (0–1 ponto) → Patrol (2+ pontos)
+```
+
+Por ser reativa, ver o jogador sempre interrompe busca/investigação/rotina.
+Fazendeiro, morador e policial usam essa mesma árvore e os mesmos
+componentes; só mudam exports do `NPCActor` (`patrol_points`,
+`reaction_mode`, `can_socialize`, velocidades) — as 14 folhas ficam em
+`scripts/npc/behaviors/`, uma responsabilidade cada.
+
+- **Fazendeiro** (`scripts/npc/farmer_npc.gd`, `scenes/NPCs/Farmer.tscn`):
+  `reaction_mode = CHASE`, conversa ocasionalmente com outro fazendeiro
+  (`social_group_name = "farmers"`) e usa lanterna — o mapa é permanentemente
+  noturno (sem ciclo dia/noite no projeto), então ela fica ligada durante
+  patrulha/investigação/busca. Seis instâncias em
+  `scenes/CountryTown/Districts/NPCs.tscn`, espalhadas pelos quatro núcleos de
+  fazenda do mapa: a do núcleo original patrulha
+  `Farmhouse → Barn → CornField → FarmerTractorSpot` (marcador novo em
+  `PointsOfInterest.tscn`, na posição do trator estacionado mais próximo em
+  `RuralInfill.tscn`); as demais alternam entre patrulhar 2–3 pontos (celeiro,
+  trator, moinho) e ficar com um único ponto de rotina, majoritariamente
+  parada "trabalhando" — a diferença entre patrulhar e ficar parado é só o
+  tamanho de `patrol_points`.
+- **Morador** (`scripts/npc/townsperson_npc.gd`, `scenes/NPCs/Townsperson.tscn`):
+  `reaction_mode = FLEE`, três instâncias circulando em triângulo entre
+  `GeneralStore`, `TownSquare` e `Church`, com os clipes femininos da
+  biblioteca. "Procurar ajuda" fica como extensão futura — hoje não há destino
+  de ajuda definido no jogo para apontar sem inventar um.
+- **Policial a pé** (`scripts/npc/police_npc.gd`, `scenes/NPCs/PoliceOfficer.tscn`):
+  `reaction_mode = CHASE`, três instâncias patrulhando os mesmos três pontos
+  urbanos. Ainda não reage ao alerta global: `PhotoAlertSystem.police_response_requested`
+  já é emitido nos níveis certos, mas não carrega a posição do ET — conectar
+  isso exige antes estender `photo_alert_system.gd` com essa posição.
+
+**Animação (Idle/Walk):** `scripts/npc/npc_animation.gd` (`NPCAnimation`) abre
+cada clipe da biblioteca Synty em `Temporarios/Animations/Polygon/`, copia a
+`Animation` dele para uma `AnimationLibrary` local e a toca no
+`AnimationPlayer` do NPC — mesma técnica do protótipo
+`Temporarios/Animations/Meshes/testanim_animation_controller.gd`. `NPCActor`
+chama `set_moving()` sempre que anda ou para.
+
+Isso obriga os três NPCs a usarem
+`Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx` como malha: as
+trilhas dos clipes são gravadas como `Skeleton3D:osso` e **só** funcionam
+nesse rig (50 ossos, `Hips/Spine_01/Shoulder_L`, em metros, com o `Skeleton3D`
+direto na raiz). Os modelos que os NPCs usavam antes não servem, e nenhum
+deles traz clipe embutido:
+
+| Modelo | Ossos | Nomes | Rest pose |
+| --- | --- | --- | --- |
+| `PolygonSyntyCharacter.fbx` | 50 | `Hips/Spine_01/Shoulder_L` | metros, Y-up — igual aos clipes |
+| `FarmerOld2.glb` | 48 | os mesmos nomes | centímetros e eixos girados (o nó `Armature` compensa com escala 0.01) |
+| `SK_Character_*.fbx` (PolygonCity) | 48 | outra convenção (`Pelvis/spine_01/UpperArm_L/Thigh_R`) | centímetros |
+
+Aplicar as trilhas nesses dois últimos sem retargeting deforma o personagem
+inteiro. O preço da troca é que os 12 NPCs compartilham a mesma malha (só a
+escala varia por instância, de 0,95 a 1,04); dar visual próprio a cada papel
+pede retargeting por `BoneMap`/`SkeletonProfileHumanoid` na importação, ou um
+modelo novo já no rig dos clipes. `tools/test_npc_animation.gd` cobre
+justamente essa armadilha: ele não checa só se a animação existe, mas se os
+ossos saem mesmo da rest pose.
+
+Sem a `NavigationRegion3D` do Country Town bakeada (ver limitações), o
+`NPCActor.move_toward_point()` degrada sozinho para ir direto ao ponto em
+linha reta, sem desvio de obstáculo; passa a seguir caminho de verdade assim
+que a malha for gerada, sem qualquer mudança de código.
+
 ## Limitações conhecidas
 
 - A nave que desce na fazenda e a `SpaceShip` que já existia na cena são
@@ -567,11 +672,13 @@ soltos lá — os dois mapas nunca compartilham diretório.
 - A masmorra não tem objetivo além dos destroços: sem inimigos, salas
   especiais nem variação vertical.
 - O cenário do mapa Country Town está fechado — terreno, rio, estradas, pontes,
-  edificações, vegetação e ambientação noturna — mas ele não tem lógica
-  nenhuma: sem NPC, armadilha, destroço coletável ou entrega funcional. A
+  edificações, vegetação e ambientação noturna — e já tem os primeiros NPCs
+  (fazendeiros, um morador e um policial de base, ver "IA de NPCs"), mas ainda
+  falta armadilha, destroço coletável ou entrega funcional. A
   sucata do local da queda é cenário, fora do grupo `pickup_items` e sem
   `score_value`. O portal da mina é só a moldura da entrada, sem ligação com
-  `scenes/Dungeon/`. A `NavigationRegion3D` não foi bakeada e o mapa não é
+  `scenes/Dungeon/`. A `NavigationRegion3D` não foi bakeada — os NPCs a pé
+  andam em linha reta até ela ser gerada — e o mapa não é
   alcançável pelo menu: abre direto pelo editor.
 - O áudio ambiente do Country Town reusa `farm_environment_audio.gd`, cujas
   posições de latido de cachorro são fixas nas coordenadas da fazenda e caem

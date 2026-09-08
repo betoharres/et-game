@@ -53,6 +53,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 6, 60)
 [node name="FarmerPatrol2" type="Marker3D" parent="." groups=["country_town_poi"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 6, 140)
 
+[node name="FarmerTractorSpot" type="Marker3D" parent="." groups=["country_town_poi"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 134, 6, 154)
+
 [node name="PhotographerPost1" type="Marker3D" parent="." groups=["country_town_poi"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 448, 6, 205)
 

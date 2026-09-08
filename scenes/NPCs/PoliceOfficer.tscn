@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/police_npc.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="2_model"]
+[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="3_material"]
+[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
+[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
+[ext_resource type="Script" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
+[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="7_idle_clip"]
+[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_police"]
+radius = 0.186
+height = 1.79
+
+[node name="PoliceOfficer" type="CharacterBody3D"]
+script = ExtResource("1_script")
+
+[node name="Character" parent="." instance=ExtResource("2_model")]
+
+[node name="PolygonSyntyCharacterMesh" parent="Character/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_material")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925, 0)
+shape = SubResource("CapsuleShape3D_police")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.5
+
+[node name="NPCVision" type="Node3D" parent="."]
+script = ExtResource("4_vision")
+eye_height = 1.6
+
+[node name="NPCHearing" type="Node3D" parent="."]
+script = ExtResource("5_hearing")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Character")
+
+[node name="NPCAnimation" type="Node" parent="."]
+script = ExtResource("6_animation")
+idle_clip = ExtResource("7_idle_clip")
+walk_clip = ExtResource("8_walk_clip")
+animation_player_path = NodePath("../AnimationPlayer")
+
+[node name="NPCBehaviorTree" parent="." instance=ExtResource("9_tree")]
+
+[editable path="Character"]

@@ -23,6 +23,8 @@ GlobalScore="*res://scripts/GlobalScore.gd"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
 DebugMenus="*res://scenes/Menu/DebugMenu.tscn"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [display]
 
@@ -38,7 +40,7 @@ project/assembly_name="Novo Projeto de Jogo"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg", "res://addons/beehave/plugin.cfg")
 
 [file_customization]
 
@@ -622,6 +624,28 @@ binos_zoom_out={
 "physical_keycode": 4194435,
 "key_label": 0,
 "unicode": 45,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+
+toggle_first_person={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 86,
+"key_label": 0,
+"unicode": 118,
 "location": 0,
 "echo": false,
 "script": null

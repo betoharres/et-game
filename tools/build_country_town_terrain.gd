@@ -372,6 +372,7 @@ func _save_terrain() -> bool:
 	images[Terrain3DRegion.TYPE_HEIGHT] = height_map
 	data.import_images(images, Vector3(TERRAIN_ORIGIN, 0.0, TERRAIN_ORIGIN), 0.0, 1.0)
 	_record_rural_offsets(data)
+	preload("res://tools/recess_country_town_asphalt.gd").recess_terrain(data)
 	data.save_directory(DEST_DIR)
 
 	var range_min_max: Vector2 = Terrain3DUtil.get_min_max(height_map)

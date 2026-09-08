@@ -31,6 +31,8 @@ static func inside_map(point: Vector2) -> bool:
 const GROUND_HEIGHT: float = 6.0
 ## Pavement clearance above terrain; bridge landings use a graded elevation.
 const ROAD_PIECE_LIFT: float = 0.06
+## Asphalt sits 12 cm below the lawn; sidewalks retain their existing elevation.
+const ASPHALT_DROP: float = 0.18
 ## Superficie da agua do rio.
 const WATER_LEVEL: float = 3.6
 
@@ -369,7 +371,7 @@ func _build_roads() -> bool:
 	var all_roads: Array[PackedVector2Array] = asphalt + dirt
 	var empty: Array[PackedVector2Array] = []
 	Surface.build(network, "AsphaltRoadBed", asphalt, empty, GROUND_HEIGHT + ROAD_PIECE_LIFT,
-		Surface.material(Color(0.14, 0.15, 0.16)), true, road_height)
+		Surface.material(Color(0.14, 0.15, 0.16)), true, asphalt_height)
 	Surface.build(network, "DirtRoadBed", dirt, asphalt, GROUND_HEIGHT + ROAD_PIECE_LIFT,
 		Surface.material(Color(0.64, 0.42, 0.22)), true, road_height)
 	# Only the outer perimeter is paved: no sidewalk or curb crosses a junction.
@@ -392,8 +394,8 @@ func _build_roads() -> bool:
 			continue
 		var axis: Vector2 = rotate_local(Vector2(0, 1), tile["angle"])
 		markings.append(Surface.rectangle(center - axis * 1.5, center + axis * 1.5, 0.13))
-	Surface.build(network, "MainRoadCenterLines", markings, empty, GROUND_HEIGHT + 0.075,
-		Surface.material(Color(0.65, 0.51, 0.22)), false)
+	Surface.build(network, "MainRoadCenterLines", markings, empty, GROUND_HEIGHT + 0.075 - ASPHALT_DROP,
+		Surface.material(Color(0.65, 0.51, 0.22)), false, asphalt_marking_height)
 	return _save_scene(network, ROAD_SCENE_PATH)
 
 
@@ -406,6 +408,19 @@ static func road_height(point: Vector2) -> float:
 		if distance < 24.0:
 			return lerpf(6.273, GROUND_HEIGHT + ROAD_PIECE_LIFT, clampf((distance - 17.8) / 6.2, 0.0, 1.0))
 	return GROUND_HEIGHT + ROAD_PIECE_LIFT
+
+
+static func asphalt_height(point: Vector2) -> float:
+	# Preserve the bridge deck and taper the recess over the existing landings.
+	var drop_weight: float = 1.0
+	for bridge: Vector2 in [Vector2(318.18723, 167.46), Vector2(204.9, 298.48)]:
+		if absf(point.y - bridge.y) <= 5.0:
+			drop_weight = minf(drop_weight, clampf((absf(point.x - bridge.x) - 17.8) / 6.2, 0.0, 1.0))
+	return road_height(point) - ASPHALT_DROP * drop_weight
+
+
+static func asphalt_marking_height(point: Vector2) -> float:
+	return asphalt_height(point) + 0.015
 
 
 ## Convex footprints with round ends. Grid arms meet exactly at tile boundaries;

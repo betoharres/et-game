@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Farmer.tscn" id="1_farmer"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Townsperson.tscn" id="2_townsperson"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/PoliceOfficer.tscn" id="3_police"]
+
+[node name="NPCs" type="Node3D"]
+
+[node name="FarmerPatrolling" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 6, 40)
+patrol_points = Array[Vector3]([Vector3(50, 6, 40), Vector3(75, 6, 110), Vector3(200, 6, 90), Vector3(134, 6, 154)])
+
+[node name="FarmerWorking" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(1.04, 0, 0, 0, 1.04, 0, 0, 0, 1.04, 165, 6, 140)
+patrol_points = Array[Vector3]([Vector3(165, 6, 140)])
+
+[node name="FarmerPatrolling2" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(0.96, 0, 0, 0, 0.96, 0, 0, 0, 0.96, 180, 6, 175)
+patrol_points = Array[Vector3]([Vector3(180, 6, 175), Vector3(241, 5.973994, 184), Vector3(235, 6, 155)])
+
+[node name="FarmerWorking2" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 241, 5.973994, 184)
+patrol_points = Array[Vector3]([Vector3(241, 5.973994, 184)])
+
+[node name="FarmerPatrolling3" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 140, 6, 290)
+patrol_points = Array[Vector3]([Vector3(140, 6, 290), Vector3(160, 6.189273, 317), Vector3(140, 6.2005515, 326)])
+
+[node name="FarmerPatrolling4" parent="." instance=ExtResource("1_farmer")]
+transform = Transform3D(0.98, 0, 0, 0, 0.98, 0, 0, 0, 0.98, 321, 6, 373)
+patrol_points = Array[Vector3]([Vector3(321, 6, 373), Vector3(323, 6, 382)])
+
+[node name="Townsperson" parent="." instance=ExtResource("2_townsperson")]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 390, 6, 215)
+patrol_points = Array[Vector3]([Vector3(390, 6, 215), Vector3(470, 6, 225)])
+
+[node name="Townsperson2" parent="." instance=ExtResource("2_townsperson")]
+transform = Transform3D(1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 472, 6, 227)
+patrol_points = Array[Vector3]([Vector3(470, 6, 225), Vector3(530, 6, 300)])
+
+[node name="Townsperson3" parent="." instance=ExtResource("2_townsperson")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 528, 6, 298)
+patrol_points = Array[Vector3]([Vector3(530, 6, 300), Vector3(390, 6, 215)])
+
+[node name="PoliceOfficer" parent="." instance=ExtResource("3_police")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 470, 6, 225)
+patrol_points = Array[Vector3]([Vector3(470, 6, 225), Vector3(530, 6, 300)])
+
+[node name="PoliceOfficer2" parent="." instance=ExtResource("3_police")]
+transform = Transform3D(1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 392, 6, 217)
+patrol_points = Array[Vector3]([Vector3(390, 6, 215), Vector3(470, 6, 225)])
+
+[node name="PoliceOfficer3" parent="." instance=ExtResource("3_police")]
+transform = Transform3D(0.97, 0, 0, 0, 0.97, 0, 0, 0, 0.97, 532, 6, 302)
+patrol_points = Array[Vector3]([Vector3(530, 6, 300), Vector3(390, 6, 215)])

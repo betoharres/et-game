@@ -84,11 +84,10 @@ func _ready() -> void:
 
 func _input(event : InputEvent) -> void:
 
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_G or event.physical_keycode == KEY_G:
-			if vehicle_controlled:
-				set_first_person_camera(!first_person_camera)
-			return
+	if event.is_action_pressed("toggle_first_person") and not event.is_echo():
+		if vehicle_controlled:
+			set_first_person_camera(not first_person_camera)
+		return
 
 	if event.is_action_pressed("interact"):
 		if vehicle_controlled:

@@ -52,6 +52,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | --- | --- |
 | Estados visuais e `AnimationTree` do Player | `tools/test_player_animation.gd` |
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
+| Subida/descida de degraus, teto livre e limite de step | `tools/test_player_steps.gd` |
 | Freada e pivô em reversões bruscas | `tools/test_player_reversal.gd` |
 | Ragdoll e recuperação | `tools/test_player_ragdoll.gd` |
 | Tripulante da nave caído no chão | `tools/test_ship_crew_downed.gd` |
@@ -62,6 +63,8 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
 | Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
+| IA de NPCs com Beehave (fazendeiro, componentes de visão/audição/rotina) | `tools/test_farmer_npc_behavior.gd` |
+| Animação Idle/Walk dos NPCs (rig e trilhas) | `tools/test_npc_animation.gd` |
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
 | Layout do mapa Country Town | `tools/check_country_town_layout.gd` |
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
@@ -147,6 +150,15 @@ diga o que ele deve conferir, usando os roteiros abaixo.
   ao jogador.
 - **Fazendeiro:** patrulha, detecção, perseguição, perda do alvo e estado de
   disparo.
+- **NPCs do Country Town (Beehave):** abra `CountryTown.tscn`, confira que os
+  12 NPCs (6 fazendeiros, 3 moradores, 3 policiais) ficam de pé em idle e
+  trocam para a caminhada ao se deslocar; observe o fazendeiro
+  patrulhador do núcleo original
+  (`Farmhouse → Barn → CornField → FarmerTractorSpot`) e os outros cinco
+  espalhados pelos demais núcleos de fazenda; aproxime-se de um para ver
+  `Alert` virar `Chase`, afaste-se e confira `Search` seguido do retorno
+  sozinho à rotina; confira também os três moradores (fogem) e os três
+  policiais patrulhando `GeneralStore`/`TownSquare`/`Church`.
 - **Country Town:** confira fachadas e calçadas em volta da praça, percorra
   as ruas locais e as trilhas do curral ao moinho/ancoradouro e observe o
   assentamento dos pátios nas encostas, a silhueta do silo e da nave caída.

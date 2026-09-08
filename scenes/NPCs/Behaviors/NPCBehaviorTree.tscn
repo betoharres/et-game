@@ -1,0 +1,98 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="0_tree"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="0_selectorreactive"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="0_sequence"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="0_selector"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/can_see_player.gd" id="1_cansee"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/reaction_mode_is.gd" id="2_reactmode"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/chase_player.gd" id="3_chase"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/flee_from_player.gd" id="4_flee"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/is_noticing_player.gd" id="5_notice"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/alert_pose.gd" id="6_alertpose"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/has_last_seen_position.gd" id="7_haslastseen"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/search_last_seen_position.gd" id="8_search"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/return_to_patrol.gd" id="9_return"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/heard_noise.gd" id="10_heard"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/investigate_position.gd" id="11_investigate"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/talk_to_neighbor.gd" id="12_talk"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/idle.gd" id="13_idle"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="14_patrol"]
+
+[node name="NPCBehaviorTree" type="Node"]
+script = ExtResource("0_tree")
+actor_node_path = NodePath("..")
+
+[node name="Root" type="Node" parent="."]
+script = ExtResource("0_selectorreactive")
+
+[node name="Chase" type="Node" parent="Root"]
+script = ExtResource("0_sequence")
+
+[node name="CanSeePlayer" type="Node" parent="Root/Chase"]
+script = ExtResource("1_cansee")
+
+[node name="ReactionModeIsChase" type="Node" parent="Root/Chase"]
+script = ExtResource("2_reactmode")
+expected_mode = 0
+
+[node name="ChasePlayer" type="Node" parent="Root/Chase"]
+script = ExtResource("3_chase")
+
+[node name="Flee" type="Node" parent="Root"]
+script = ExtResource("0_sequence")
+
+[node name="CanSeePlayer" type="Node" parent="Root/Flee"]
+script = ExtResource("1_cansee")
+
+[node name="ReactionModeIsFlee" type="Node" parent="Root/Flee"]
+script = ExtResource("2_reactmode")
+expected_mode = 1
+
+[node name="FleeFromPlayer" type="Node" parent="Root/Flee"]
+script = ExtResource("4_flee")
+
+[node name="Alert" type="Node" parent="Root"]
+script = ExtResource("0_sequence")
+
+[node name="IsNoticingPlayer" type="Node" parent="Root/Alert"]
+script = ExtResource("5_notice")
+
+[node name="AlertPose" type="Node" parent="Root/Alert"]
+script = ExtResource("6_alertpose")
+
+[node name="Search" type="Node" parent="Root"]
+script = ExtResource("0_sequence")
+
+[node name="HasLastSeenPosition" type="Node" parent="Root/Search"]
+script = ExtResource("7_haslastseen")
+
+[node name="SearchLastSeenPosition" type="Node" parent="Root/Search"]
+script = ExtResource("8_search")
+
+[node name="ReturnToPatrol" type="Node" parent="Root/Search"]
+script = ExtResource("9_return")
+
+[node name="Investigate" type="Node" parent="Root"]
+script = ExtResource("0_sequence")
+
+[node name="HeardNoise" type="Node" parent="Root/Investigate"]
+script = ExtResource("10_heard")
+
+[node name="InvestigatePosition" type="Node" parent="Root/Investigate"]
+script = ExtResource("11_investigate")
+
+[node name="ReturnToPatrol" type="Node" parent="Root/Investigate"]
+script = ExtResource("9_return")
+
+[node name="Routine" type="Node" parent="Root"]
+script = ExtResource("0_selector")
+
+[node name="TalkToNeighbor" type="Node" parent="Root/Routine"]
+script = ExtResource("12_talk")
+
+[node name="Idle" type="Node" parent="Root/Routine"]
+script = ExtResource("13_idle")
+
+[node name="Patrol" type="Node" parent="Root/Routine"]
+script = ExtResource("14_patrol")

@@ -7,6 +7,7 @@ const Layout: GDScript = preload("res://tools/build_country_town_layout.gd")
 const Rural: GDScript = preload("res://tools/build_rural_roads.gd")
 var _rural_profile: Resource
 var _main_footprints: Array[PackedVector2Array] = []
+var _asphalt_footprints: Array[PackedVector2Array] = []
 var _started: bool = false
 var _failures: Array[String] = []
 var _samples: int = 0
@@ -25,6 +26,7 @@ func _run() -> void:
 	_rural_profile = load(Rural.PRESET)
 	_rural_profile.configure(Rural.BRIDGE_ZONES)
 	_main_footprints = Layout.road_polygons(false) + Layout.road_polygons(true)
+	_asphalt_footprints = Layout.road_polygons(true)
 	var world: Node3D = Node3D.new()
 	root.add_child(world)
 	for label: String in ["RoadNetwork", "SecondaryPaths", "RiverDistrict"]:
@@ -89,6 +91,11 @@ func _sample_segment(start: Vector2, end: Vector2, half_width: float, paved: boo
 			var point: Vector2 = center + side * offset
 			var ground: float = _ground(point)
 			var expected: float = Layout.road_height(point) if paved else ground
+			if paved:
+				for polygon: PackedVector2Array in _asphalt_footprints:
+					if Geometry2D.is_point_in_polygon(point, polygon):
+						expected = Layout.asphalt_height(point)
+						break
 			var ceiling: float = expected + 0.045
 			var pit: float = expected - 0.045
 			if not paved:

@@ -12,7 +12,6 @@ const STANDING_COLLISION_HEIGHT : float = 1.0
 const CROUCHING_COLLISION_HEIGHT : float = 0.62
 const FLOOR_PROBE_HEIGHT : float = 1.5
 const FLOOR_PROBE_DEPTH : float = 4.0
-const MAX_STEP_HEIGHT : float = 0.12
 const WALL_NORMAL_LIMIT : float = 0.7
 const NEW_CONTACT_NORMAL_LIMIT : float = 0.7
 const MIN_FALL_TIME_SCALE : float = 0.5
@@ -56,6 +55,10 @@ enum ImpactReaction {
 @export_range(0.35, 0.75, 0.01) var reversal_commit_ratio : float = 0.55
 @export_range(20.0, 80.0, 1.0) var reversal_cancel_angle : float = 50.0
 
+@export_group("Steps")
+@export_range(0.0, 0.5, 0.01) var max_step_height : float = 0.28
+@export_range(0.5, 10.0, 0.1) var step_visual_speed : float = 3.0
+
 @export_category("Survival")
 @export var max_health : float = 100.0
 @export var max_stamina : float = 100.0
@@ -96,6 +99,7 @@ enum ImpactReaction {
 @export var camera_pitch_min: float = -80.0
 @export var camera_pitch_max: float = 80.0
 @export_range(-35.0, 35.0, 0.5) var camera_initial_pitch_degrees : float = 10.0
+@export_range(0.5, 2.0, 0.01) var first_person_eye_height : float = 0.95
 
 @export_category("Debug Movement")
 @export_range(1.0, 10.0, 0.5) var god_mode_speed_multiplier : float = 5.0
@@ -134,10 +138,14 @@ enum ImpactReaction {
 
 var camera_yaw: float = 0.0
 var camera_pitch: float = 0.0
+var _first_person : bool = false
+var _first_person_shadow_modes : Dictionary[GeometryInstance3D, int] = {}
 var is_crouching : bool = false
 var _crouch_amount : float = 0.0
 var _jump_state : int = JumpState.READY
 var _standing_visual_position : Vector3
+var _step_visual_offset : float = 0.0
+var _step_floor_angle : float = 0.0
 var health : float = 100.0
 var stamina : float = 100.0
 var _stamina_recovery_timer : float = 0.0
@@ -253,6 +261,8 @@ func sync_appearance(payload : Dictionary) -> void:
 
 
 func apply_appearance_profile(profile : Dictionary) -> void:
+	_step_visual_offset = 0.0
+	character_visual.position = _standing_visual_position
 	if character_proportions.has_method("set_profile"):
 		character_proportions.call("set_profile", profile, false)
 	_apply_appearance_dimensions()
@@ -270,7 +280,7 @@ func _apply_appearance_dimensions() -> void:
 	if capsule != null:
 		capsule.height = STANDING_COLLISION_HEIGHT * _appearance_height_scale
 		collision_shape.position.y = capsule.height * 0.5
-	camera_pivot.pivot_height = BASE_CAMERA_PIVOT_HEIGHT * _appearance_height_scale
+	camera_pivot.pivot_height = _camera_pivot_base_height() * _appearance_height_scale
 	carry_socket.position.y = BASE_CARRY_SOCKET_HEIGHT * _appearance_height_scale
 
 
@@ -372,6 +382,10 @@ func _input(event: InputEvent) -> void:
 		set_eye_light_enabled(not _eye_light_enabled)
 		return
 
+	if event.is_action_pressed("toggle_first_person") and not event.is_echo():
+		set_first_person(not _first_person)
+		return
+
 	# Items
 	if event.is_action_pressed("interact"):
 		
@@ -395,6 +409,7 @@ func _physics_process(delta: float) -> void:
 
 	if not _debug_flight_enabled:
 		_update_gravity_frame(get_gravity())
+	_update_step_visual(delta)
 	_update_camera_target()
 	_update_carry_pickup(delta)
 
@@ -426,7 +441,7 @@ func _physics_process(delta: float) -> void:
 	var vertical_speed : float = velocity.dot(up_direction)
 	if not is_on_floor():
 		velocity += gravity * delta
-	elif vertical_speed <= 0.0:
+	elif vertical_speed <= 0.0 or _jump_state == JumpState.READY:
 		velocity = velocity.slide(up_direction) - up_direction * 0.1
 
 	var input_direction: Vector2 = Input.get_vector("ui_right","ui_left","ui_up","ui_down")
@@ -475,8 +490,37 @@ func _physics_process(delta: float) -> void:
 
 	var velocity_before_move : Vector3 = velocity
 
-	_try_step_up(delta)
+	var position_before_move : Vector3 = global_position
+	var original_snap_length : float = floor_snap_length
+	var original_floor_angle : float = floor_max_angle
+	var can_step : bool = (
+		was_on_floor and velocity.dot(up_direction) <= 0.0
+		and _jump_state == JumpState.READY and max_step_height > 0.0
+	)
+	var step_rise : float = 0.0
+	if can_step:
+		# Native floor snapping keeps contacts/velocity current on the way down.
+		# Never extend its reach during a jump or an actual fall.
+		floor_snap_length = maxf(floor_snap_length, max_step_height + safe_margin)
+		step_rise = _try_step_up(delta)
+		if step_rise > 0.0:
+			floor_max_angle = _step_floor_angle
 	move_and_slide()
+	if can_step and not is_on_floor() and velocity.dot(up_direction) <= 0.0:
+		_try_step_down(original_floor_angle)
+	floor_snap_length = original_snap_length
+	floor_max_angle = original_floor_angle
+	if can_step and is_on_floor():
+		var height_change : float = (global_position - position_before_move).dot(up_direction)
+		if step_rise > 0.0 or (
+			height_change < -safe_margin
+			and get_floor_normal().dot(up_direction) > 0.999
+		):
+			_step_visual_offset = clampf(
+				_step_visual_offset - height_change, -max_step_height, max_step_height
+			)
+			_apply_step_visual()
+	_update_camera_target()
 
 	_detect_landing(was_on_floor, velocity_before_move)
 	_detect_body_impacts(velocity_before_move)
@@ -487,43 +531,159 @@ func _physics_process(delta: float) -> void:
 
 
 ## Sobe bordas baixas do piso sem transformar paredes em superfícies escaláveis.
-func _try_step_up(delta : float) -> void:
-	if not is_on_floor() or velocity.dot(up_direction) > 0.0:
-		return
+func _try_step_up(delta : float) -> float:
+	if not is_on_floor() or velocity.dot(up_direction) > 0.0 or max_step_height <= 0.0:
+		return 0.0
 	var motion : Vector3 = velocity.slide(up_direction) * delta
 	if motion.length_squared() < 0.000001:
-		return
+		return 0.0
 	var obstacle : KinematicCollision3D = KinematicCollision3D.new()
-	if not test_move(global_transform, motion, obstacle):
-		return
+	if not test_move(global_transform, motion, obstacle, safe_margin):
+		return 0.0
 	var floor_limit : float = cos(floor_max_angle)
 	if obstacle.get_normal().dot(up_direction) >= floor_limit:
-		return
-	var lift : Vector3 = up_direction * MAX_STEP_HEIGHT
-	if test_move(global_transform, lift):
-		return
+		return 0.0
+	var lift : Vector3 = up_direction * max_step_height
+	var ceiling : KinematicCollision3D = KinematicCollision3D.new()
+	if test_move(global_transform, lift, ceiling, safe_margin):
+		# A low ceiling can still leave enough room for a smaller step.
+		lift = up_direction * maxf(0.0, ceiling.get_travel().dot(up_direction) - safe_margin)
+	if lift.length() <= safe_margin:
+		return 0.0
 	var raised : Transform3D = global_transform
 	raised.origin += lift
-	if test_move(raised, motion):
-		return
+	if test_move(raised, motion, null, safe_margin):
+		return 0.0
 	raised.origin += motion
 	var support : KinematicCollision3D = KinematicCollision3D.new()
-	if not test_move(raised, -lift, support):
-		return
-	if support.get_normal().dot(up_direction) < floor_limit:
-		return
-	var rise : float = MAX_STEP_HEIGHT + support.get_travel().dot(up_direction)
-	if rise <= safe_margin or rise > MAX_STEP_HEIGHT:
-		return
+	if not test_move(raised, -lift, support, safe_margin):
+		return 0.0
+	var support_up : float = support.get_normal().dot(up_direction)
+	if support_up <= 0.05:
+		return 0.0
+	# A capsule touching a tread edge reports a rounded contact normal, not
+	# the tread's surface normal. Confirm the actual surface just inside it.
+	var surface_probe : Vector3 = support.get_position() + motion.normalized() * 0.01
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		surface_probe + up_direction * 0.02,
+		surface_probe - up_direction * (max_step_height + 0.02), collision_mask, [get_rid()]
+	)
+	var tread : Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
+	if tread.is_empty() or (tread["normal"] as Vector3).dot(up_direction) < floor_limit:
+		return 0.0
+	var tread_height : float = ((tread["position"] as Vector3) - global_position).dot(up_direction)
+	if (
+		tread_height <= safe_margin or tread_height > max_step_height + safe_margin
+		or tread_height > lift.dot(up_direction) + safe_margin
+	):
+		return 0.0
+	var rise : float = (lift + support.get_travel()).dot(up_direction)
+	if rise <= safe_margin or rise > max_step_height:
+		return 0.0
 	# Só antecipa a subida; move_and_slide mantém o deslocamento horizontal
 	# e atualiza os contatos, a velocidade e o estado de chão normalmente.
 	global_position += up_direction * rise
+	# Only this verified move may use the capsule's edge as a floor contact.
+	# The configured slope limit is restored immediately after move_and_slide.
+	_step_floor_angle = maxf(floor_max_angle, acos(clampf(support_up, 0.0, 1.0)) + 0.01)
+	return rise
+
+
+## At a descending lip, the first capsule contact can be too steep for native
+## snapping even though the next tread is flat. Validate that tread before
+## accepting the rounded edge as a temporary contact.
+func _try_step_down(configured_floor_angle : float) -> void:
+	var motion : Vector3 = velocity.slide(up_direction)
+	if motion.length_squared() < 0.000001:
+		return
+	var support : KinematicCollision3D = KinematicCollision3D.new()
+	if not test_move(global_transform, -up_direction * floor_snap_length, support, safe_margin):
+		return
+	var support_up : float = support.get_normal().dot(up_direction)
+	if support_up <= 0.05:
+		return
+	var probe : Vector3 = support.get_position() + motion.normalized() * 0.01
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		probe + up_direction * 0.02,
+		probe - up_direction * (max_step_height + 0.02), collision_mask, [get_rid()]
+	)
+	var tread : Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
+	if tread.is_empty() or (tread["normal"] as Vector3).dot(up_direction) < cos(configured_floor_angle):
+		return
+	var drop : float = (global_position - (tread["position"] as Vector3)).dot(up_direction)
+	if drop < -safe_margin or drop > max_step_height + safe_margin:
+		return
+	floor_max_angle = maxf(configured_floor_angle, acos(clampf(support_up, 0.0, 1.0)) + 0.01)
+	apply_floor_snap()
+
+
+## Smooth only the presentation: interpolating the capsule through a riser
+## would either penetrate the step or interrupt forward movement.
+func _update_step_visual(delta : float) -> void:
+	if _fall_state != FallState.NONE:
+		_step_visual_offset = 0.0
+		return
+	_step_visual_offset = move_toward(_step_visual_offset, 0.0, step_visual_speed * delta)
+	_apply_step_visual()
+
+
+func _apply_step_visual() -> void:
+	character_visual.position = _standing_visual_position + (
+		global_basis.inverse() * (up_direction * _step_visual_offset)
+	)
+
+
+## Alterna entre a camera de terceira pessoa e a visao do proprio ET: o rig
+## colapsa o braco, o pivo sobe para a altura dos olhos e o corpo passa a
+## projetar apenas sombra, para nao aparecer por dentro na frente da lente.
+func set_first_person(enabled : bool) -> void:
+	if _first_person == enabled:
+		return
+
+	_first_person = enabled
+	camera_pivot.set_first_person_mode(enabled)
+	camera_pivot.pivot_height = (
+		_camera_pivot_base_height() * _appearance_height_scale
+	)
+	_set_character_visual_hidden(enabled)
+
+
+func is_first_person() -> bool:
+	return _first_person
+
+
+func _camera_pivot_base_height() -> float:
+	return first_person_eye_height if _first_person else BASE_CAMERA_PIVOT_HEIGHT
+
+
+## Mantem o corpo na simulacao (sombras, luz dos olhos, colisao) e apenas o tira
+## da imagem, em vez de esconder o no inteiro.
+func _set_character_visual_hidden(hidden : bool) -> void:
+	if hidden:
+		for node : Node in character_visual.find_children(
+			"*", "GeometryInstance3D", true, false
+		):
+			var geometry : GeometryInstance3D = node as GeometryInstance3D
+			if geometry == null:
+				continue
+			_first_person_shadow_modes[geometry] = geometry.cast_shadow
+			geometry.cast_shadow = (
+				GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+			)
+		return
+
+	for geometry : GeometryInstance3D in _first_person_shadow_modes:
+		if not is_instance_valid(geometry):
+			continue
+		var shadow_mode : int = _first_person_shadow_modes[geometry]
+		geometry.cast_shadow = shadow_mode
+	_first_person_shadow_modes.clear()
 
 
 func _update_camera_target() -> void:
 	var horizontal_speed : float = velocity.slide(up_direction).length()
 	camera_pivot.set_target_pose(
-		global_position,
+		global_position + up_direction * _step_visual_offset,
 		camera_yaw,
 		camera_pitch,
 		crouch_camera_drop * _appearance_height_scale * _crouch_amount,
@@ -1246,6 +1406,7 @@ func _enter_ragdoll(impact_direction : Vector3, comic : bool,
 	_cancel_moving_turn()
 	set_intervention_signal_pose(false)
 	velocity = Vector3.ZERO
+	_step_visual_offset = 0.0
 	_is_sprinting = false
 	_jump_state = JumpState.READY
 	_knockback_remaining_distance = 0.0

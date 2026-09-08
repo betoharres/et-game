@@ -53,6 +53,8 @@ var _shake_phase : float = 0.0
 var _fov_offset : float = 0.0
 var _fov_offset_target : float = 0.0
 var _interior_camera_mode : bool = false
+var _first_person_mode : bool = false
+var _normal_spring_length : float = 4.1
 var _normal_spring_margin : float = 0.14
 var _normal_spring_shape : Shape3D
 var _interior_spring_shape : SphereShape3D
@@ -90,6 +92,7 @@ func _ready() -> void:
 	_target_up_direction = _target_basis.y.normalized()
 	_target_pitch = pitch_pivot.rotation.x
 	_normal_spring_margin = spring_arm.margin
+	_normal_spring_length = spring_arm.spring_length
 	_normal_spring_shape = spring_arm.shape
 	_interior_spring_shape = SphereShape3D.new()
 	# O collider do personagem tem raio de 0.10 m. Um volume de camera maior
@@ -191,6 +194,25 @@ func set_interior_camera_mode(enabled : bool) -> void:
 		shoulder.position.x = shoulder_offset
 
 
+## Coloca a camera no proprio pivo, sem braco nem deslocamento de ombro. Quem
+## chama continua responsavel pela altura do pivo e por esconder o corpo.
+func set_first_person_mode(enabled : bool) -> void:
+	_first_person_mode = enabled
+	if enabled:
+		spring_arm.spring_length = 0.0
+		shoulder.position.x = 0.0
+		if _has_target:
+			global_position = _target_position
+	else:
+		spring_arm.spring_length = _normal_spring_length
+		if not _interior_camera_mode:
+			shoulder.position.x = shoulder_offset
+
+
+func is_first_person_mode() -> bool:
+	return _first_person_mode
+
+
 func _input(event : InputEvent) -> void:
 	# Checked on the event itself: Input.is_action_just_pressed() stays true for
 	# the whole frame, and _input() runs once per event, so mouse motion in the
@@ -213,7 +235,7 @@ func _process(delta : float) -> void:
 	var position_weight : float = 1.0 - exp(-position_response * delta)
 	var rotation_weight : float = 1.0 - exp(-rotation_response * delta)
 
-	if _interior_camera_mode:
+	if _interior_camera_mode or _first_person_mode:
 		# Perto das paredes, ate poucos centimetros de atraso podem deixar a
 		# origem do SpringArm do lado de fora. A suavizacao de rotacao permanece.
 		global_position = _target_position
@@ -280,7 +302,9 @@ func _update_organic_motion(delta : float, position_weight : float, rotation_wei
 		turn_parallax_amount
 	)
 	var desired_shoulder_x : float = (
-		0.0 if _interior_camera_mode else shoulder_offset + parallax
+		0.0
+		if _interior_camera_mode or _first_person_mode
+		else shoulder_offset + parallax
 	)
 	shoulder.position.x = lerpf(
 		shoulder.position.x,
