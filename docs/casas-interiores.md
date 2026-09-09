@@ -40,7 +40,8 @@ separada e autocontida, gerada por ferramenta.
 ## Onde a casa aparece
 
 `House01`/`HouseDoor` são consumidos por `HouseTest.tscn`, `world.tscn`,
-`scenes/CountryTown/Districts/FarmDistrict.tscn` e `Mat_test.tscn`. Outros
+`scenes/CountryTown/Districts/FarmDistrict.tscn`, `TownDistrict.tscn` (ao norte
+da fonte, no antigo lote 202) e `Mat_test.tscn`. Outros
 prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`, `garage`, `cafe`,
 `windmill`) são cenas montadas à mão, sem interior navegável.
 

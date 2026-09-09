@@ -21,10 +21,10 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 - [Executar](#executar) — abrir no editor e rodar pelo PowerShell.
 - [Fluxo atual](#fluxo-atual) — menu, órbita, missão, coleta e entrega.
 - [Controles](#controles) — teclas e ações do Input Map.
-- [Arquitetura](#arquitetura) — cenas, autoloads, grupos e cadeias de interação.
+- [Arquitetura](#arquitetura) — como as cenas e os sistemas se ligam, em resumo.
 - [Mapas e cenas geradas](#mapas-e-cenas-geradas) — fazenda, Country Town, casa modular e masmorra.
 - [Limitações conhecidas](#limitações-conhecidas) — o que ainda não existe ou é provisório.
-- [Qualidade e validação](#qualidade-e-validação) — checagem no editor e ferramentas de `tools/`.
+- [Qualidade e validação](#qualidade-e-validação) — quando validar e onde estão os comandos.
 - [Documentação por sistema](#documentação-por-sistema) — o que ler em `docs/` antes de alterar cada sistema.
 
 ## Tecnologias e ambiente
@@ -46,11 +46,15 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 | `scenes/` | Todas as cenas do jogo, incluindo `Space/`, `CountryTown/`, `Buildings/`, `NPCs/`, `Dungeon/` e `Portal/` |
 | `scripts/` | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `npc/`, `dungeon/`, `audio/`) |
 | `shaders/` | Céu procedural, névoa rasteira, terreno e efeitos |
-| `tools/` | Checagens automatizadas e utilitários de build de asset (ver `tools/VALIDACAO.md`) |
+| `tools/` | Checagens automatizadas e utilitários de build de asset (ver `docs/ferramentas.md` e `tools/VALIDACAO.md`) |
 | `animations/mixamo/` | Rig visual único, FBX de origem, GLB gerado e mapeamento |
 | `assets/` | Áudio, fontes e música do menu |
 | `Texturas/ui/` | Ícones do HUD, gerados por `tools/render_prototype_icons.py` |
 | `3dModelos/`, `Texturas/`, `Materiais/` | Assets importados e materiais reutilizáveis |
+| `Temporarios/Animations/` | Rig e clipes Synty usados pelos NPCs |
+| `Polygon*/`, `SICSFarm/` | Pacotes de asset importados, na forma em que vieram |
+| `addons/` | Terrain3D, Beehave e PathMesh3D vendorados |
+| `build/` | Cópias isoladas do projeto e saídas de inspeção; fora do versionamento |
 
 Cenas de entrada:
 
@@ -83,26 +87,25 @@ Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
 Menu -> criar ET -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
 ```
 
-- O jogador personaliza sete características do ET em valores normalizados de
-  `0` a `1`; `Iniciar jogo` salva o perfil em `user://character_appearance.cfg`.
-- Na órbita, um terminal lista o catálogo de fases. Adicionar uma fase não
-  exige mexer em script: basta um `LevelDefinition.tres` apontando para a cena
-  e listado em `level_catalog.tres`.
+- O jogador personaliza sete características do ET; `Iniciar jogo` salva o
+  perfil em `user://character_appearance.cfg`.
+- Na órbita, um terminal lista o catálogo de fases; adicionar uma fase não
+  exige mexer em script.
 - Na fase, a nave desce do céu e estaciona sobre o ponto de chegada; pisar no
   pad e interagir aciona a descida pelo feixe. Abrir `world.tscn` direto no
   editor pula esse passo.
 - Destroços podem ser carregados e largados. Para entregar, o jogador larga o
-  item na plataforma e sustenta o sinal de intervenção alienígena; o feixe suga
-  o item até a nave e só então soma o `score_value` ao `GlobalScore`.
-- Um spider bot acompanha a nave, desce pelo feixe quando detecta um destroço
-  ao alcance e leva o item até a plataforma.
+  item na plataforma e sustenta o sinal de intervenção alienígena até o feixe
+  sugá-lo. Um spider bot desce da nave e ajuda na coleta.
 - O fazendeiro patrulha, persegue e atira; o fotógrafo acende até três
   estrelas, que solicitam respostas futuras de polícia, imprensa e MIB.
 - A vegetação oscila com o vento, inclina-se perto de personagens e veículos e
   esconde parcialmente o ET, reduzindo o alcance de detecção dos inimigos.
 - O ET tem vida, stamina e equilíbrio: colidir correndo ou cair provoca
   tropeço e, no limite, um ragdoll do qual ele se levanta sozinho.
-- A pontuação atual aparece apenas no console de depuração.
+
+Quem responde por cada etapa, o catálogo de fases e os limites do fluxo estão
+em [`docs/fluxo-de-jogo.md`](docs/fluxo-de-jogo.md).
 
 Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 `Portal/portal.tscn` (par de portais com renderização cruzada) e
@@ -131,99 +134,44 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 No avião, o mouse move o alvo que orienta o voo; `E` assume ou devolve o
 controle perto da cabine.
 
-O `F4` não abre menu: cada toque avança um degrau do ciclo `desligado` ->
-`velocidade` (imortalidade, stamina cheia e velocidade 5×) -> `velocidade e
-voo` (sem gravidade) -> `desligado`. O menu `F6`, disponível globalmente
-durante o jogo, traz o preset de atmosfera e cada fonte de luz da cena atual.
-
 As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
-O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia as
+O `F4` não abre menu: cada toque avança um degrau do ciclo de depuração. O
+menu de opções remapeia as teclas de movimento e o menu de pausa remapeia as
 demais ações; os remapeamentos duram a sessão.
+
+O ciclo do `F4`, o painel do `F6` e o processo de acrescentar uma ação ao menu
+de rebind estão em [`docs/ui-e-menus.md`](docs/ui-e-menus.md).
 
 ## Arquitetura
 
 O projeto é composto por cenas reutilizáveis. Um mapa (`world.tscn`,
 `CountryTown.tscn`) monta terreno, ambiente, jogador, NPCs, veículos, destroços
-e área de entrega; nenhum manager global orquestra isso.
+e área de entrega; nenhum manager global orquestra isso. Os sistemas se falam
+por **sinais**, **grupos** e **contratos de método**, e o estado realmente
+global vive em cinco autoloads: `CharacterAppearance`, `GlobalScore`,
+`PhotoAlertSystem`, `SceneTransition` e `DebugMenus`.
 
-Esta seção é o resumo; o detalhamento por sistema — responsabilidades, contratos
-e decisões — está em `docs/` (ver [Documentação por sistema](#documentação-por-sistema)).
-
-```text
-Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
-MainMenu -> CharacterCreator -> Orbit -> terminal de missão -> LevelCatalog -> world.tscn -> pad de descida -> feixe de chegada
-CharacterAppearance -> CharacterProportions -> Skeleton3D/olhos -> Player e ET do veículo
-SmellyFarmer/Photographer -> visão -> perseguição/foto -> vida do Player / PhotoAlertSystem
-NPCActor -> NPCVision/NPCHearing -> NPCBehaviorTree (Beehave) -> NPCRoutine/NPCActivity
-Player -> grupo characters -> vegetação e detecção dos inimigos
-DriveableTruck -> grupo vehicles -> direção e reação da vegetação
-Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo -> IK -> ragdoll
-NightEnvironment -> AgX/glow/névoa -> filtro de incidente alienígena
-FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
-```
-
-- **Autoloads:** `CharacterAppearance` (características do ET, persistidas),
-  `GlobalScore` (pontuação e inventário), `PhotoAlertSystem` (estrelas e
-  observadores), `SceneTransition` (transições entre cenas) e `DebugMenus`
-  (modos do jogador no `F4` e painel de iluminação no `F6`).
-- **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
-  `pickup_items`, `ship_passengers`, `fog_zones` e `volumetric_lights`.
-- **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
-  `drop()` e propriedade `score_value`. Um item em abdução deixa o grupo
-  temporariamente para não ser recolhido antes da entrega.
-- **Jogador:** `player.gd` cuida de input, física, equilíbrio e decisões e envia
-  o estado ao `PlayerAnimationController`, que centraliza a máquina de estados
-  do `AnimationTree`. O rig é um único `Skeleton3D` Mixamo com as animações
-  in-place — o `CharacterBody3D` é a única autoridade de deslocamento. Sobre a
-  animação base atuam apenas dois `LookAtModifier3D` e um `TwoBoneIK3D` no
-  braço direito. O step-up de degraus fica no próprio controlador
-  (`max_step_height`).
-- **Proporções do ET:** sem Blend Shapes no GLB, `CharacterProportions` aplica
-  escala de bones em um `SkeletonModifier3D` pós-animação, uma barriga
-  procedural presa ao bone e shaders para pele e olhos. O perfil é um
-  dicionário pequeno; `Player` expõe `get_appearance_replication_payload()` e o
-  RPC `sync_appearance()` para uma futura camada multiplayer.
-- **Ragdoll reversível:** `player_ragdoll.gd` gera os corpos físicos e serve
-  tanto à morte quanto à queda por desequilíbrio.
-- **Veículo:** desativa processamento e câmera do jogador, exibe o ET no banco e
-  restaura o personagem na saída.
-- **NPCs (Beehave):** `NPCActor` é o chassi (navegação, patrulha, velocidades,
-  `reaction_mode`); `NPCVision` e `NPCHearing` são os sensores; a árvore
-  reativa de `scenes/NPCs/Behaviors/NPCBehaviorTree.tscn` só decide, com uma
-  folha por responsabilidade em `scripts/npc/behaviors/`. Fazendeiro, morador e
-  policial compartilham essa árvore e mudam apenas exports. `NPCActivity` e
-  `NPCRoutine` reservam e liberam as vagas de cada parada. Os clipes Synty só
-  funcionam no rig de `Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx`.
-- **HUDs** reutilizam o tema `Materiais/hud_theme.tres` e uma família única de
-  ícones gerada dos meshes low-poly `Polygon Prototype`.
-- **Minimapa** (`scenes/VisionDebugMap.tscn`, `F3`): cena reutilizável, uma
-  instância por mapa, sem nada específico de fase no script. O que muda por
-  mapa são exports do nó `Overlay` (`world_radius`, `objective_group`,
-  `landmark_group`, `actor_scan_interval`).
-- **Ambientação:** `NightEnvironment` concentra presets de qualidade, névoa e
-  evento alienígena; `FogZone` adensa a névoa localmente; o chão usa
-  `shaders/terrain_natural.gdshader`, derivado do Terrain3D instalado
-  (licença MIT no arquivo).
+O detalhamento — cenas de entrada, tabelas de autoloads e de grupos, contratos
+entre sistemas, camadas de física e render, convenções de código e o diagrama
+dos fluxos entre sistemas — está em
+[`docs/arquitetura.md`](docs/arquitetura.md). Cada sistema tem o seu documento
+em [Documentação por sistema](#documentação-por-sistema).
 
 ## Mapas e cenas geradas
 
-- **Fazenda** (`scenes/world.tscn`): o mapa jogável do catálogo, montado à mão.
-- **Country Town** (`scenes/CountryTown/CountryTown.tscn`): mapa de `600 × 450 m`
-  em construção, **fora do catálogo de fases** — abre direto pelo editor. A cena
-  mestre só instancia terreno, ambiente, jogador e os distritos de
-  `Districts/`, e quase tudo é gerado: relevo, estradas, rio, pontes, talhões,
-  vegetação, complementos urbanos e rurais e a população de 12 NPCs saem das
-  ferramentas de `tools/`. As receitas ficam nos scripts de layout; edite as
-  receitas, não as cenas geradas. A ordem de execução, o efeito de cada
-  ferramenta e as checagens correspondentes estão em `tools/VALIDACAO.md`.
-- **Casa modular** (`scenes/Buildings/House01.tscn`): primeira casa em que
-  Player e NPCs entram, em cena separada e autocontida, com porta automática
-  (`scripts/house_door.gd`) e pontos de atividade que o `NPCActor` já conhece.
-  `scenes/Buildings/HouseTest.tscn` é a cena de teste. Gerada por
-  `tools/build_house_01.gd`.
-- **Masmorra** (`scenes/Dungeon/`): corredores procedurais planos, gerados uma
-  vez por sessão a partir de uma porta na fazenda; guarda destroços nos becos
-  sem saída, no mesmo fluxo de coleta e entrega.
+| Mapa / cena | Situação |
+| --- | --- |
+| Fazenda (`scenes/world.tscn`) | O mapa jogável do catálogo, montado à mão |
+| Country Town (`scenes/CountryTown/CountryTown.tscn`) | Mapa de `600 × 450 m` em construção, **fora do catálogo de fases**: abre direto pelo editor. Quase tudo é gerado pelas ferramentas de `tools/` |
+| Casa modular (`scenes/Buildings/House01.tscn`) | Primeira casa em que Player e NPCs entram, autocontida, com porta automática e pontos de atividade. `HouseTest.tscn` é a cena de teste |
+| Masmorra (`scenes/Dungeon/`) | Corredores procedurais planos, gerados uma vez por sessão a partir de uma porta na fazenda |
+
+Cena gerada por ferramenta não se edita à mão: a receita no script de `tools/`
+é a fonte da verdade. O detalhe de cada mapa está em
+[`docs/mundo.md`](docs/mundo.md),
+[`docs/country-town.md`](docs/country-town.md) e
+[`docs/casas-interiores.md`](docs/casas-interiores.md); a ordem de execução das
+ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 
 ## Limitações conhecidas
 
@@ -233,8 +181,9 @@ FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
 - O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
 - Polícia, imprensa e MIB existem apenas como sinais e mensagens de
   placeholder, sem cenas nem spawn.
-- A pontuação não tem HUD, objetivo final nem persistência, e o inventário do
-  autoload não está integrado ao fluxo de coleta.
+- A pontuação não tem HUD (aparece só no console de depuração), objetivo final
+  nem persistência, e o inventário do autoload não está integrado ao fluxo de
+  coleta.
 - Opções e remapeamentos não são salvos entre execuções.
 - Não há sessão multiplayer nem arquitetura de servidor; apenas o payload e o
   ponto de aplicação das proporções estão prontos para replicação futura.
@@ -259,48 +208,28 @@ FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
 
 ## Qualidade e validação
 
-Depois de alterar GDScript, cenas ou `project.godot`, confirme que não há erros
-de importação, parsing ou referências ausentes:
+O padrão é não validar: a maior parte das mudanças vai direto. Depois de
+alterar GDScript, cenas ou `project.godot`, uma checagem headless do Godot
+confirma que não há erro de importação, parsing ou referência ausente, e as
+verificações automatizadas de `tools/` cobrem um sistema cada. Resultado
+visual, de câmera, física, IK, navegação ou gameplay precisa de conferência em
+uma execução normal.
 
-```powershell
-.\tools\godot.cmd --headless --path . --editor --quit
-```
-
-As verificações automatizadas ficam em `tools/`, uma por sistema. Rode a do
-sistema que você alterou:
-
-```powershell
-.\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
-```
-
-`tools/VALIDACAO.md` tem o mapa completo de ferramenta por sistema, os
-utilitários de geração de asset, os roteiros de teste manual e as regras para
-escrever uma verificação nova. No Windows, use o executável terminado em
-`_console.exe`: só ele manda `print()` para o stdout. Resultado visual, de
-câmera, física, IK, navegação ou gameplay precisa de conferência em uma
-execução normal.
+Os comandos exatos, o mapa de ferramenta por sistema, os roteiros de teste
+manual e as regras para escrever uma verificação nova estão em
+[`tools/VALIDACAO.md`](tools/VALIDACAO.md); a política de quando validar, em
+[`AGENTS.md`](AGENTS.md); o mapa das ferramentas por categoria, em
+[`docs/ferramentas.md`](docs/ferramentas.md).
 
 ## Documentação por sistema
 
-`docs/` guarda a documentação persistente dos sistemas: relações entre eles,
-arquivos importantes, responsabilidades e decisões arquiteturais. É o que ler
-antes de alterar cada parte do jogo.
+`docs/` guarda a documentação persistente dos sistemas — arquitetura, fluxo de
+jogo, player, NPCs, animações, veículos, mundo, Country Town, casas e
+interiores, ambientação e FX, UI e menus, e ferramentas. É o que ler antes de
+alterar cada parte do jogo: relações entre sistemas, arquivos importantes,
+responsabilidades e decisões arquiteturais.
 
-| Documento | Cobre |
-| --- | --- |
-| `docs/arquitetura.md` | Cenas de entrada, autoloads, grupos, contratos, camadas e convenções |
-| `docs/fluxo-de-jogo.md` | Menu, órbita, catálogo de fases, chegada, coleta e entrega |
-| `docs/player.md` | O ET: movimento, sobrevivência, câmera, aparência, ragdoll |
-| `docs/npcs.md` | `NPCActor`, sensores, behavior tree Beehave e rotinas |
-| `docs/animacoes.md` | Os dois rigs (Mixamo e Synty) e a máquina de estados |
-| `docs/veiculos.md` | Caminhonete, viatura com IA, avião e a nave |
-| `docs/mundo.md` | Mapas, terreno, vegetação, masmorra e portais |
-| `docs/country-town.md` | O mapa gerado e a ordem das ferramentas |
-| `docs/casas-interiores.md` | Casa modular, portas e pontos de atividade |
-| `docs/ambiente-e-fx.md` | Noite, névoa, incidente alienígena, shaders e áudio |
-| `docs/ui-e-menus.md` | Menus, HUDs, minimapa e menus de depuração |
-| `docs/ferramentas.md` | Mapa dos scripts de `tools/` por categoria |
-
-`docs/generated/` está reservada a um snapshot automático do repositório
-(Repomix, configurado em `repomix.config.json`); o conteúdo gerado não é
-versionado.
+O índice, com o que cada documento cobre e quando lê-lo, está em
+[`docs/README.md`](docs/README.md). A pasta `docs/generated/` recebe snapshots
+automáticos do repositório (Repomix); o conteúdo gerado não é versionado — ver
+[`docs/generated/README.md`](docs/generated/README.md).

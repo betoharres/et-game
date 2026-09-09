@@ -1,9 +1,10 @@
 # Arquitetura geral
 
-Protótipo 3D single-player em Godot 4.8 (compatível com 4.7). Não há manager
-global orquestrando a partida: um mapa é uma cena que instancia terreno,
-ambiente, jogador, NPCs, veículos, itens e área de entrega, e os sistemas se
-falam por **sinais**, **grupos** e **contratos de método**.
+Protótipo 3D single-player em Godot 4.8 dev4 (ver **Tecnologias e ambiente** no
+[`../README.md`](../README.md)). Não há manager global orquestrando a partida:
+um mapa é uma cena que instancia terreno, ambiente, jogador, NPCs, veículos,
+itens e área de entrega, e os sistemas se falam por **sinais**, **grupos** e
+**contratos de método**.
 
 ## Cenas de entrada
 
@@ -88,6 +89,7 @@ Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> feixe -> GlobalSc
 MainMenu -> CharacterCreator -> Orbit -> terminal -> LevelCatalog -> world.tscn -> pad -> feixe de chegada
 CharacterAppearance -> CharacterProportions -> Skeleton3D/olhos -> Player e ET no banco do veículo
 NPCActor -> NPCVision/NPCHearing -> NPCBehaviorTree (Beehave) -> NPCRoutine/NPCActivity
+SmellyFarmer -> visão -> perseguição e disparo -> vida do Player
 Photographer -> PhotoAlertSystem -> sinais de polícia/imprensa/MIB (ainda sem consumidores)
 Player -> estado físico -> PlayerAnimationController -> AnimationTree -> IK -> ragdoll
 NightEnvironment -> presets/névoa/glow -> AlienIncidentPostProcess
@@ -122,16 +124,16 @@ com o botão em `scenes/Menu/PauseMenu.tscn`) — ver [ui-e-menus.md](ui-e-menus
 
 ## Convenções de código
 
-- GDScript **tipado sempre**: `var x: int = 0`, `func foo(delta: float) -> void:`.
+As regras gerais — GDScript tipado sempre, sinais e grupos antes de referência
+direta, não editar `.godot/`/`.uid`/`.import`, não alterar asset importado
+quando a sobrescrita local na cena resolve — estão em
+[`../AGENTS.md`](../AGENTS.md). O que é específico deste projeto:
+
 - Uma responsabilidade por script e por nó; prefira composição (um `Node` filho
   que faz uma coisa) a herança profunda ou a um script que faz tudo.
-- Prefira sinais e grupos a referências diretas entre sistemas.
 - Nomes de nó e de arquivo seguem o que já existe na pasta; scripts espelham a
   organização das cenas.
 - A **frente dos personagens e veículos deste projeto é o `+Z` local**, ao
   contrário do `-Z` padrão do Godot.
 - `Transform3D` no `.tscn` é gravado **row-major**: escrever os eixos como
   colunas grava a rotação inversa.
-- Não edite `.godot/`, `.uid`, `.import` nem caches gerados.
-- Não altere modelo/textura/material importado quando uma sobrescrita local na
-  cena resolver.

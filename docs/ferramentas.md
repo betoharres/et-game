@@ -6,8 +6,10 @@ e regras para escrever uma checagem nova — está em
 [`../tools/VALIDACAO.md`](../tools/VALIDACAO.md). Este documento é só o mapa:
 que tipo de script existe e a que sistema cada um pertence.
 
-Padrão do repositório: toda ferramenta é um `SceneTree` rodado pelo executável
-do Godot, e não roda durante a partida. O wrapper é `tools/godot.cmd`, que
+Padrão do repositório: a ferramenta é um `SceneTree` rodado pelo executável do
+Godot, e não roda durante a partida — as exceções são os utilitários que vivem
+fora do motor (`build_mixamo_character.py` no Blender,
+`render_prototype_icons.py` e `build_snapshots.ps1`). O wrapper é `tools/godot.cmd`, que
 procura o Godot em locais conhecidos e, no Windows, o executável
 `_console.exe` — só ele manda `print()` para o stdout.
 
@@ -35,22 +37,27 @@ edite à mão o que um gerador regrava.
 Bibliotecas auxiliares, `RefCounted`, que não rodam sozinhas:
 `country_town_road_surface.gd` e `country_town_neighborhood.gd`.
 
+Fora do jogo: `build_snapshots.ps1` empacota o repositório em snapshots de
+leitura para agentes, em `docs/generated/` — ver
+[generated/README.md](generated/README.md). Não toca em nada do projeto.
+
 ## Checagens automatizadas
 
 Imprimem diagnóstico e saem com `quit(1)` ao falhar. Rode **a do sistema que
 você alterou**, uma vez, depois da última edição — nunca a bateria inteira.
+Qual rodar depois de mexer em cada coisa: tabela em
+[`../tools/VALIDACAO.md`](../tools/VALIDACAO.md).
 
-| Sistema | Ferramenta |
+| Ferramenta | Sistema |
 | --- | --- |
-| Player: animação, pulo/stamina, degraus, reversão, ragdoll, modos do `F4` | `test_player_animation.gd`, `test_player_jump_stamina.gd`, `test_player_steps.gd`, `test_player_reversal.gd`, `test_player_ragdoll.gd`, `test_player_debug_modes.gd` |
-| Câmera | `test_cinematic_camera.gd` |
-| NPCs | `test_farmer_npc_behavior.gd`, `test_npc_animation.gd`, `test_generic_npc_navigation.gd`, `test_ship_crew_downed.gd` |
-| Minimapa | `test_minimap.gd` |
-| Portais | `test_portal_teleportation.gd` |
-| Ambientação | `test_atmosphere_presets.gd`, `test_alien_interference.gd`, `measure_atmosphere_cost.gd` (sem `--headless`) |
-| Nave | `check_tapered_shell.gd`, `validate_alien_ship_authored_geometry.gd` |
-| Casa modular | `check_house_01.gd` |
-| Country Town | `check_country_town_layout.gd`, `check_country_town_clearance.gd`, `check_country_town_neighborhood.gd`, `check_country_town_roads.gd`, `check_country_town_bridge.gd`, `check_country_town_fences.gd` |
+| `test_player_animation.gd`, `test_player_jump_stamina.gd`, `test_player_steps.gd`, `test_player_reversal.gd`, `test_player_ragdoll.gd`, `test_player_debug_modes.gd`, `test_cinematic_camera.gd` | [player.md](player.md) |
+| `test_farmer_npc_behavior.gd`, `test_npc_animation.gd`, `test_generic_npc_navigation.gd`, `test_ship_crew_downed.gd` | [npcs.md](npcs.md) |
+| `test_minimap.gd` | [ui-e-menus.md](ui-e-menus.md) |
+| `test_portal_teleportation.gd` | [mundo.md](mundo.md) |
+| `test_atmosphere_presets.gd`, `test_alien_interference.gd`, `measure_atmosphere_cost.gd` (sem `--headless`) | [ambiente-e-fx.md](ambiente-e-fx.md) |
+| `check_tapered_shell.gd`, `validate_alien_ship_authored_geometry.gd` | [veiculos.md](veiculos.md) |
+| `check_house_01.gd` | [casas-interiores.md](casas-interiores.md) |
+| `check_country_town_layout.gd`, `check_country_town_clearance.gd`, `check_country_town_neighborhood.gd`, `check_country_town_roads.gd`, `check_country_town_bridge.gd`, `check_country_town_fences.gd` | [country-town.md](country-town.md) |
 
 ## Inspeções visuais
 

@@ -5,9 +5,9 @@ Documentação persistente dos sistemas do projeto, escrita para que um agente
 precisar varrer o repositório inteiro nem depender de servidores externos.
 
 As regras de trabalho estão em [`../AGENTS.md`](../AGENTS.md). A visão geral do
-produto (o que existe, como rodar, controles, limitações) está no
-[`../README.md`](../README.md). O procedimento de validação está em
-[`../tools/VALIDACAO.md`](../tools/VALIDACAO.md).
+produto (o que existe, como rodar, controles, limitações e o mapa de pastas do
+projeto) está no [`../README.md`](../README.md). O procedimento de validação
+está em [`../tools/VALIDACAO.md`](../tools/VALIDACAO.md).
 
 ## Como usar
 
@@ -40,19 +40,4 @@ constantes dos scripts, que são a fonte da verdade — não duplique número aq
 | [ambiente-e-fx.md](ambiente-e-fx.md) | Céu/noite, névoa, pós-processo de incidente alienígena, partículas, shaders e áudio | `scripts/night_environment.gd`, `shaders/`, `scripts/audio/` |
 | [ui-e-menus.md](ui-e-menus.md) | Menus, HUDs, minimapa, menus de depuração, transições de cena, remapeamento de teclas | `scenes/Menu/`, HUDs, `scripts/vision_debug_map.gd` |
 | [ferramentas.md](ferramentas.md) | O que cada script de `tools/` faz e quando rodar | Adicionar ou alterar uma ferramenta de geração/checagem |
-| [generated/](generated/) | Área reservada para o snapshot automático do repositório (Repomix) | Nada — conteúdo gerado, nunca editado à mão |
-
-## Mapa rápido de pastas
-
-| Caminho | O que é |
-| --- | --- |
-| `scenes/` | Todas as cenas do jogo, agrupadas por sistema |
-| `scripts/` | GDScript, espelhando a organização das cenas |
-| `shaders/` | Céu, névoa, terreno, água, personagem e efeitos |
-| `tools/` | Geradores de asset e checagens automatizadas (ver [ferramentas.md](ferramentas.md)) |
-| `addons/` | Terrain3D, Beehave e PathMesh3D vendorados |
-| `animations/mixamo/` | Rig e clipes do Player |
-| `Temporarios/Animations/` | Rig e clipes Synty usados pelos NPCs |
-| `assets/`, `Texturas/`, `Materiais/`, `3dModelos/` | Áudio, texturas, materiais e modelos |
-| `Polygon*/`, `SICSFarm/` | Pacotes de asset importados, na forma em que vieram |
-| `build/` | Cópias isoladas do projeto e saídas de inspeção; fora do versionamento |
+| [generated/](generated/) | Snapshots do repositório em cinco perfis (Repomix), gerados por `tools/build_snapshots.ps1` | Nada — conteúdo gerado, nunca editado à mão |

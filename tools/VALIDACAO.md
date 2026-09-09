@@ -50,7 +50,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 
 | Sistema alterado | Ferramenta |
 | --- | --- |
-| Casa modular House01: navegação interna, portas, móveis | `tools/check_house_01.gd` |
+| Casa modular House01: navegação interna, portas, móveis e a moradora chegando à cama | `tools/check_house_01.gd` |
 | Estados visuais e `AnimationTree` do Player | `tools/test_player_animation.gd` |
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
 | Subida/descida de degraus, teto livre e limite de step | `tools/test_player_steps.gd` |
@@ -63,6 +63,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
+| Geometria autoral da nave alienígena | `tools/validate_alien_ship_authored_geometry.gd` |
 | Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
 | IA de NPCs com Beehave (fazendeiro, componentes de visão/audição/rotina) | `tools/test_farmer_npc_behavior.gd` |
 | Animação Idle/Walk dos NPCs (rig e trilhas) | `tools/test_npc_animation.gd` |
@@ -72,9 +73,9 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
 | Escala das casas, divisas e acessos de pedestres/carros nos lotes | `tools/check_country_town_neighborhood.gd` |
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
+| Cercas do Country Town | `tools/check_country_town_fences.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
 | Marcas de pneu de autoria sobre as vias | `tools/build_tire_tracks.gd` |
-| Casa modular House01: caminhos, portas e a moradora entrando | `tools/check_house_01.gd` |
 
 `tools/bake_police_patrol_route.gd` regera o grafo de ruas que a viatura de
 polícia patrulha (o `road_nodes` do nó `AIDriver` em

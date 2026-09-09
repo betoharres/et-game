@@ -9,7 +9,7 @@ alterar algo.
 
 ## O projeto em cinco linhas
 
-Protótipo 3D single-player em Godot 4.8 (compatível com 4.7). Um ET explora um
+Protótipo 3D single-player em Godot 4.8 dev4. Um ET explora um
 mapa noturno, coleta destroços de uma nave e os leva até uma área de entrega.
 Não há manager global: um mapa é uma cena que monta terreno, ambiente, jogador,
 NPCs, veículos e itens, e os sistemas se falam por **sinais**, **grupos** e
@@ -24,7 +24,8 @@ jogável: `scenes/world.tscn`.
 | Autoloads, grupos, contratos, camadas, convenções | [`docs/arquitetura.md`](docs/arquitetura.md) |
 | Documentação do sistema que vou alterar | tabela em [`docs/README.md`](docs/README.md) |
 | O que existe, como rodar, controles, limitações | [`README.md`](README.md) |
-| Comandos de validação e ferramentas de `tools/` | [`tools/VALIDACAO.md`](tools/VALIDACAO.md) |
+| Comandos de validação, ferramenta por sistema e roteiros manuais | [`tools/VALIDACAO.md`](tools/VALIDACAO.md) |
+| O que cada script de `tools/` faz, por categoria | [`docs/ferramentas.md`](docs/ferramentas.md) |
 | Autoloads, Input Map, camadas de física e render | `project.godot` |
 
 ## Antes de alterar

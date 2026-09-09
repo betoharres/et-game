@@ -9,10 +9,36 @@
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Fountain_01.tscn" id="11_sm_prop_fountain_01"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_ParkBench_01.tscn" id="12_sm_prop_parkbench_01"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Sign_01.tscn" id="13_sm_prop_sign_01"]
+[ext_resource type="PackedScene" path="res://scenes/Buildings/House01.tscn" id="21_house01"]
+
+[sub_resource type="StandardMaterial3D" id="Material_house_path"]
+albedo_color = Color(0.43, 0.42, 0.37, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="Mesh_house_path"]
+material = SubResource("Material_house_path")
+size = Vector3(2, 0.08, 8.2)
+
+[sub_resource type="BoxShape3D" id="Shape_house_path"]
+size = Vector3(2, 0.08, 8.2)
 
 [node name="TownDistrict" type="Node3D"]
 
 [node name="UrbanInfill" parent="." instance=ExtResource("20_infill")]
+
+[node name="House01" parent="." instance=ExtResource("21_house01")]
+position = Vector3(466, 6.4, 185)
+metadata/country_town_block = true
+
+[node name="House01Path" type="MeshInstance3D" parent="."]
+position = Vector3(470.52, 6.045, 202.1)
+mesh = SubResource("Mesh_house_path")
+layers = 512
+
+[node name="StaticBody3D" type="StaticBody3D" parent="House01Path"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="House01Path/StaticBody3D"]
+shape = SubResource("Shape_house_path")
 
 [node name="GeneralStore" parent="." instance=ExtResource("1_generalstore")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 390, 6, 215)

@@ -70,6 +70,15 @@ Bibliotecas auxiliares (`RefCounted`, não rodam sozinhas):
 
 ## População
 
+A `House01` habitável fica no `TownDistrict`, no antigo lote 202 ao norte
+da fonte, com a varanda voltada para a praça e acesso à calçada. É uma
+instância da cena compartilhada, preservada pelo settlement; a receita de
+`country_town_neighborhood.gd` reserva esse lote para não gerar outra casa ali.
+A navegação ainda usa a malha anterior à substituição: o bake completo foi
+barrado pelas rotas desconectadas entre `SouthFarm` e `Delivery`, de
+`FarmerPatrolling4` e `DeliveryWorker`. É preciso resolver essas rotas e reassar
+antes de atribuir aos NPCs uma rotina dentro da casa da praça.
+
 `Districts/NPCs.tscn` traz hoje **12 NPCs**: 6 fazendeiros (4 patrulhando,
 2 trabalhando parados), 3 moradores e 3 policiais a pé, todos sobre o mesmo
 chassi e a mesma behavior tree ([npcs.md](npcs.md)). As paradas de rotina são
@@ -101,6 +110,7 @@ chassi e a mesma behavior tree ([npcs.md](npcs.md)). As paradas de rotina são
 
 ## Limitações atuais
 
-O cenário está fechado e os NPCs andam, mas faltam armadilha, destroço
-coletável e entrega funcional; a sucata da queda é cenário, o portal da mina é
-só a moldura e o áudio ambiente reusa posições fixas da fazenda.
+O cenário está fechado e os NPCs andam, mas o mapa ainda não tem gameplay:
+faltam armadilha, destroço coletável e entrega funcional. A lista completa, com
+o que é cenário e o que reusa a fazenda, está em **Limitações conhecidas**, no
+[`../README.md`](../README.md).

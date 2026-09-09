@@ -62,13 +62,14 @@ const INNER_LEAF_BOX_AT: Vector3 = Vector3(0.5250206, 1.1362004, 0.06464121)
 ## A água encosta na parede 0,243 abaixo da origem da peça: sem essa queda
 ## sobra uma fresta de 24 cm entre o topo da parede e o telhado.
 const ROOF_DROP: float = -0.243
-## Empena: acompanha a água por dentro, 3 cm abaixo dela, e fecha a ponta.
-## As alturas da malha do telhado precisam incluir ROOF_DROP; sem isso a
-## empena fica acima do beiral e vaza para fora da cobertura.
-const GABLE_BASE_Y: float = 2.58
-const GABLE_APEX_Y: float = 4.30
-const GABLE_X_MIN: float = -0.2
-const GABLE_X_MAX: float = 5.2
+## As pontas cobrem a espessura externa das empenas, além do grid das paredes.
+const ROOF_END_OVERHANG: float = 0.3
+## Perfil da superfície inclinada do kit, já incluindo ROOF_DROP.
+## A empena encosta na cobertura; baixar o triângulo abre uma fresta inclinada.
+const GABLE_BASE_Y: float = 2.88
+const GABLE_APEX_Y: float = 4.375
+const GABLE_X_MIN: float = -0.28
+const GABLE_X_MAX: float = 5.28
 ## Cor chapada do revestimento. O atlas do kit é uma paleta: qualquer UV cai
 ## numa faixa de cor, e nenhuma delas casa com o siding nas duas pontas, então
 ## a empena é pintada direto no tom da parede.
@@ -407,8 +408,12 @@ func _build_roof() -> void:
 	# Água oeste sobe do beiral até a cumeeira em x = 2,5; a leste é a mesma
 	# peça espelhada pelo yaw.
 	for row: int in 4:
-		_add(roof, BLD % "SM_Bld_House_Roof_Angled_Gutter_01", "AguaOeste%d" % row, Vector3(0, ROOF_DROP, row * M), -90.0)
-		_add(roof, BLD % "SM_Bld_House_Roof_Angled_Gutter_01", "AguaLeste%d" % row, Vector3(W, ROOF_DROP, row * M + M), 90.0)
+		var start: float = row * M - (ROOF_END_OVERHANG if row == 0 else 0.0)
+		var end: float = (row + 1) * M + (ROOF_END_OVERHANG if row == 3 else 0.0)
+		var west: Node3D = _add(roof, BLD % "SM_Bld_House_Roof_Angled_Gutter_01", "AguaOeste%d" % row, Vector3(0, ROOF_DROP, start), -90.0)
+		var east: Node3D = _add(roof, BLD % "SM_Bld_House_Roof_Angled_Gutter_01", "AguaLeste%d" % row, Vector3(W, ROOF_DROP, end), 90.0)
+		west.scale.x = (end - start) / M
+		east.scale.x = (end - start) / M
 	_gable(roof, "EmpenaNorte", -0.2, 0.0)
 	_gable(roof, "EmpenaSul", L + 0.2, L)
 
