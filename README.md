@@ -41,20 +41,20 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 
 ## Estrutura principal
 
-| Pasta | Conteúdo |
-| --- | --- |
-| `scenes/` | Todas as cenas do jogo, incluindo `Space/`, `CountryTown/`, `Buildings/`, `NPCs/`, `Dungeon/` e `Portal/` |
-| `scripts/` | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `npc/`, `dungeon/`, `audio/`) |
-| `shaders/` | Céu procedural, névoa rasteira, terreno e efeitos |
-| `tools/` | Checagens automatizadas e utilitários de build de asset (ver `docs/ferramentas.md` e `tools/VALIDACAO.md`) |
-| `animations/mixamo/` | Rig visual único, FBX de origem, GLB gerado e mapeamento |
-| `assets/` | Áudio, fontes e música do menu |
-| `Texturas/ui/` | Ícones do HUD, gerados por `tools/render_prototype_icons.py` |
-| `3dModelos/`, `Texturas/`, `Materiais/` | Assets importados e materiais reutilizáveis |
-| `Temporarios/Animations/` | Rig e clipes Synty usados pelos NPCs |
-| `Polygon*/`, `SICSFarm/` | Pacotes de asset importados, na forma em que vieram |
-| `addons/` | Terrain3D, Beehave e PathMesh3D vendorados |
-| `build/` | Cópias isoladas do projeto e saídas de inspeção; fora do versionamento |
+| Pasta                                   | Conteúdo                                                                                                   |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `scenes/`                               | Todas as cenas do jogo, incluindo `Space/`, `CountryTown/`, `Buildings/`, `NPCs/`, `Dungeon/` e `Portal/`  |
+| `scripts/`                              | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `npc/`, `dungeon/`, `audio/`)           |
+| `shaders/`                              | Céu procedural, névoa rasteira, terreno e efeitos                                                          |
+| `tools/`                                | Checagens automatizadas e utilitários de build de asset (ver `docs/ferramentas.md` e `tools/VALIDACAO.md`) |
+| `animations/mixamo/`                    | Rig visual único, FBX de origem, GLB gerado e mapeamento                                                   |
+| `assets/`                               | Áudio, fontes e música do menu                                                                             |
+| `Texturas/ui/`                          | Ícones do HUD, gerados por `tools/render_prototype_icons.py`                                               |
+| `3dModelos/`, `Texturas/`, `Materiais/` | Assets importados e materiais reutilizáveis                                                                |
+| `Temporarios/Animations/`               | Rig e clipes Synty usados pelos NPCs                                                                       |
+| `Polygon*/`, `SICSFarm/`                | Pacotes de asset importados, na forma em que vieram                                                        |
+| `addons/`                               | Terrain3D, Beehave e PathMesh3D vendorados                                                                 |
+| `build/`                                | Cópias isoladas do projeto e saídas de inspeção; fora do versionamento                                     |
 
 A cena principal é `scenes/Menu/main_menu.tscn`; a fazenda é
 `scenes/world.tscn`. O mapa de cenas e scripts de cada etapa está em
@@ -69,8 +69,6 @@ PowerShell, use o wrapper do projeto (`tools/godot.cmd`):
 .\tools\godot.cmd --path .            # rodar o jogo
 .\tools\godot.cmd --editor --path .   # abrir o editor
 ```
-
-Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
 
 ## Fluxo atual
 
@@ -104,34 +102,23 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 
 ## Controles
 
-| Ação | Tecla |
-| --- | --- |
-| Mover o ET / dirigir a caminhonete | `WASD` |
-| Câmera | Mouse |
-| Correr | `Shift` (consome stamina; bloqueado no ar) |
-| Pular / agachar | `Espaço` / segure `C` |
-| Coletar ou largar item | `E` |
-| Pegar no colo ou soltar um ET caído | `E` |
-| Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E` |
-| Solicitar a abdução de um item na área de entrega | Segure `E` |
-| Luz dos olhos do ET | `F` |
-| Primeira pessoa (a pé ou na caminhonete) | `V` |
-| Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
-| Minimapa circular | `F3` |
-| Velocidade e voo (a cada toque) | `F4` |
-| Debug de iluminação | `F6` |
-| Menu de pausa | `Esc` |
-
-No avião, o mouse move o alvo que orienta o voo; `E` assume ou devolve o
-controle perto da cabine.
-
-As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
-O `F4` não abre menu: cada toque avança um degrau do ciclo de depuração. O
-menu de opções remapeia as teclas de movimento e o menu de pausa remapeia as
-demais ações; os remapeamentos duram a sessão.
-
-O ciclo do `F4`, o painel do `F6` e o processo de acrescentar uma ação ao menu
-de rebind estão em [`docs/ui-e-menus.md`](docs/ui-e-menus.md).
+| Ação                                                              | Tecla                                      |
+| ----------------------------------------------------------------- | ------------------------------------------ |
+| Mover o ET / dirigir a caminhonete                                | `WASD`                                     |
+| Câmera                                                            | Mouse                                      |
+| Correr                                                            | `Shift` (consome stamina; bloqueado no ar) |
+| Pular / agachar                                                   | `Espaço` / segure `C`                      |
+| Coletar ou largar item                                            | `E`                                        |
+| Pegar no colo ou soltar um ET caído                               | `E`                                        |
+| Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E`                                        |
+| Solicitar a abdução de um item na área de entrega                 | Segure `E`                                 |
+| Luz dos olhos do ET                                               | `F`                                        |
+| Primeira pessoa (a pé ou na caminhonete)                          | `V`                                        |
+| Binóculos / zoom                                                  | `B` / `+` e `-` do teclado numérico        |
+| Minimapa circular                                                 | `F3`                                       |
+| Velocidade e voo (a cada toque)                                   | `F4`                                       |
+| Debug de iluminação                                               | `F6`                                       |
+| Menu de pausa                                                     | `Esc`                                      |
 
 ## Arquitetura
 
@@ -142,12 +129,12 @@ em cada sistema.
 
 ## Mapas e cenas geradas
 
-| Mapa / cena | Situação |
-| --- | --- |
-| Fazenda (`scenes/world.tscn`) | O mapa jogável do catálogo, montado à mão |
+| Mapa / cena                                          | Situação                                                                                                                                       |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fazenda (`scenes/world.tscn`)                        | O mapa jogável do catálogo, montado à mão                                                                                                      |
 | Country Town (`scenes/CountryTown/CountryTown.tscn`) | Mapa de `600 × 450 m` em construção, **fora do catálogo de fases**: abre direto pelo editor. Quase tudo é gerado pelas ferramentas de `tools/` |
-| Casa modular (`scenes/Buildings/House01.tscn`) | Primeira casa em que Player e NPCs entram, autocontida, com porta automática e pontos de atividade. `HouseTest.tscn` é a cena de teste |
-| Masmorra (`scenes/Dungeon/`) | Corredores procedurais planos, gerados uma vez por sessão a partir de uma porta na fazenda |
+| Casa modular (`scenes/Buildings/House01.tscn`)       | Primeira casa em que Player e NPCs entram, autocontida, com porta automática e pontos de atividade. `HouseTest.tscn` é a cena de teste         |
+| Masmorra (`scenes/Dungeon/`)                         | Corredores procedurais planos, gerados uma vez por sessão a partir de uma porta na fazenda                                                     |
 
 Cena gerada por ferramenta não se edita à mão: a receita no script de `tools/`
 é a fonte da verdade. O detalhe de cada mapa está em

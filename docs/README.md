@@ -11,12 +11,11 @@ está em [`../tools/VALIDACAO.md`](../tools/VALIDACAO.md).
 
 ## Como usar
 
-1. Escolha uma linha da tabela e leia o documento do sistema. Abra
-   [arquitetura.md](arquitetura.md) se a alteração cruzar sistemas.
-2. Busque o símbolo nos scripts indicados e leia a função e seus consumidores.
-   Confira as propriedades sobrescritas na cena; o default do script pode diferir.
-3. Abra `project.godot` apenas nas seções envolvidas. Para validação, use a
-   política de `AGENTS.md` e consulte o procedimento só quando necessário.
+Para ajuste local com arquivo conhecido, vá direto ao código e à cena; não
+é obrigatório ler um documento. Se não souber onde editar, use os atalhos
+abaixo. Para comportamento novo ou mudança estrutural, consulte o índice por
+sistema; acrescente [arquitetura.md](arquitetura.md) quando cruzar sistemas.
+Se a investigação revelar efeitos em consumidores, amplie a leitura antes de editar.
 
 Busca pontual (a partir da raiz; substitua os exemplos pelo alvo da tarefa):
 
@@ -31,9 +30,33 @@ de `docs/generated/` para uma alteração local. Restrinja a busca ao sistema;
 amplie quando as referências apontarem para fora dele. Os snapshots servem
 para transportar contexto, não são uma etapa de leitura do projeto.
 
+## Atalhos por problema
+
+Os símbolos são pontos de partida, não diagnósticos. Busque com `rg -n -F`
+e confira sobrescritas na cena antes de alterar o default do script.
+
+| Problema / ajuste | Arquivo | Símbolo para buscar |
+| --- | --- | --- |
+| Velocidade de corrida do ET | `scripts/player.gd` | `sprint_speed` |
+| ET prende em degrau | `scripts/player.gd` | `max_step_height` |
+| Consumo da luz dos olhos | `scripts/player.gd` | `eye_light_energy_cost_per_second` |
+| Câmera em primeira pessoa | `scripts/cinematic_camera_rig.gd` | `set_first_person_mode` |
+| Clipe associado a um estado do Player | `scripts/player_animation_controller.gd` | `STATE_ANIMATIONS` |
+| Alcance de visão dos NPCs compostos (Country Town) | `scripts/npc/npc_vision.gd` | `sight_distance` |
+| Quem abre uma porta automática | `scripts/house_door.gd` | `opener_groups` |
+| Tempo segurando o sinal de entrega | `scripts/delivery_area.gd` | `signal_hold_duration` |
+| Alcance do minimapa | `scripts/vision_debug_map.gd` | `world_radius` |
+| Ação ausente no remapeamento do ESC | `scripts/pause_menu.gd` | `REBIND_ACTIONS` |
+| Traçado das ruas do Country Town | `tools/build_country_town_layout.gd` | `ROAD_RUNS` |
+
+Remapeamento e traçado envolvem outros arquivos: consulte respectivamente
+[UI](ui-e-menus.md#remapeamento-de-teclas) e [Country Town](country-town.md).
+Mantenha os atalhos restritos às tarefas recorrentes, sem copiar valores ou
+números de linha. Ao renomear um símbolo listado, ajuste sua entrada.
+
 ## Índice por sistema
 
-| Documento | Cobre | Leia antes de mexer em |
+| Documento | Cobre | Localizar mudanças estruturais em |
 | --- | --- | --- |
 | [arquitetura.md](arquitetura.md) | Autoloads, grupos globais, contratos, camadas de física/render, convenções locais | Mudanças que cruzam sistemas |
 | [fluxo-de-jogo.md](fluxo-de-jogo.md) | Menu → criador de ET → órbita → catálogo de fases → chegada → coleta → entrega | Menu, catálogo de fases, chegada na fase, área de entrega, pontuação |
@@ -48,3 +71,8 @@ para transportar contexto, não são uma etapa de leitura do projeto.
 | [ui-e-menus.md](ui-e-menus.md) | Menus, HUDs, minimapa, menus de depuração, transições de cena, remapeamento de teclas | `scenes/Menu/`, HUDs, `scripts/vision_debug_map.gd` |
 | [ferramentas.md](ferramentas.md) | Geradores: receita → saída → sistema; inspeções e bibliotecas auxiliares | Localizar quem gera um asset; escolher teste em `tools/VALIDACAO.md` |
 | [generated/](generated/) | Snapshots do repositório em cinco perfis (Repomix), gerados por `tools/build_snapshots.ps1` | Nada — conteúdo gerado, nunca editado à mão |
+
+## Manutenção da documentação
+
+[revisao-documentacao.md](revisao-documentacao.md): procedimento de revisão,
+intervalo de commits e onde manter cada informação. Leia só em tarefa de documentação.
