@@ -8,8 +8,6 @@ destroços e entregar. Entrada: `scenes/Menu/main_menu.tscn`; fazenda:
 ## Antes de alterar
 
 - Confira `git status` e preserve mudanças existentes do usuário.
-- No início da sessão, rode `python .claude/hooks/aviso-docs.py`. Se houver
-  aviso, repita-o ao usuário e ofereça revisão; não revise por conta própria.
 - **Ajuste local com arquivo conhecido** (valor, texto, cor ou correção interna
   sem mudar contrato): vá direto ao código e à propriedade na cena. Não exige
   ler índice, documento do sistema ou README.
@@ -23,9 +21,6 @@ destroços e entregar. Entrada: `scenes/Menu/main_menu.tscn`; fazenda:
 
 ## Implementação
 
-- Preserve o fluxo de explorar, coletar e entregar. Não introduza multiplayer,
-  backend, persistência ou servidor sem pedido explícito. Faça a menor mudança
-  necessária, sem reorganização ou abstração prematura.
 - Use recursos nativos e GDScript com tipos explícitos em variáveis, parâmetros
   e retornos. Prefira sinais, grupos, composição e cenas reutilizáveis, com
   responsabilidades pequenas; evite managers globais. `GlobalScore` é só para
