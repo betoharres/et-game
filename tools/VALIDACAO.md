@@ -50,6 +50,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 
 | Sistema alterado | Ferramenta |
 | --- | --- |
+| Casa modular House01: navegação interna, portas, móveis | `tools/check_house_01.gd` |
 | Estados visuais e `AnimationTree` do Player | `tools/test_player_animation.gd` |
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
 | Subida/descida de degraus, teto livre e limite de step | `tools/test_player_steps.gd` |
@@ -65,6 +66,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Patrulha do NPC genérico na nave | `tools/test_generic_npc_navigation.gd` |
 | IA de NPCs com Beehave (fazendeiro, componentes de visão/audição/rotina) | `tools/test_farmer_npc_behavior.gd` |
 | Animação Idle/Walk dos NPCs (rig e trilhas) | `tools/test_npc_animation.gd` |
+| Minimapa reutilizável (`F3`): busca por grupos, escala e fiação no Country Town | `tools/test_minimap.gd` |
 | Custo de render da atmosfera | `tools/measure_atmosphere_cost.gd` (sem `--headless`) |
 | Layout do mapa Country Town | `tools/check_country_town_layout.gd` |
 | Edificacoes e passagem nas estradas principais, ruas locais e trilhas do Country Town | `tools/check_country_town_clearance.gd` |
@@ -72,6 +74,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
 | Marcas de pneu de autoria sobre as vias | `tools/build_tire_tracks.gd` |
+| Casa modular House01: caminhos, portas e a moradora entrando | `tools/check_house_01.gd` |
 
 `tools/bake_police_patrol_route.gd` regera o grafo de ruas que a viatura de
 polícia patrulha (o `road_nodes` do nó `AIDriver` em
@@ -109,6 +112,18 @@ reassa a marca ao mexer na curva ou nos parâmetros, e o botão *Reassar marca*
 força a reconstrução. A textura de banda
 (`Texturas/tire_tread.res`) vem de `tools/build_tire_tread_texture.gd`, que só
 precisa rodar se o desenho do pneu mudar.
+
+`tools/build_house_01.gd` gera `scenes/Buildings/House01.tscn`, as duas portas,
+a cena de teste `HouseTest.tscn` e a malha de navegação interna; regerar
+sobrescreve ajustes feitos à mão no `.tscn`. `tools/build_country_town_population.gd`
+assa `Layout/PedestrianNavigation.res` e a cena de NPCs do Country Town a partir
+dos corredores, pátios e colisões dos distritos. As duas aceitam `--headless` e
+exigem o editor fechado ou cópia isolada:
+
+```powershell
+.\tools\godot.cmd --headless --path . --script res://tools/build_house_01.gd
+.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_population.gd
+```
 
 `tools/build_terrain_surface.gd` gera apenas dados de material: normais/rugosidade
 das três texturas locais e a máscara de uso do solo do Country Town. Aceita
@@ -159,6 +174,11 @@ diga o que ele deve conferir, usando os roteiros abaixo.
   `Alert` virar `Chase`, afaste-se e confira `Search` seguido do retorno
   sozinho à rotina; confira também os três moradores (fogem) e os três
   policiais patrulhando `GeneralStore`/`TownSquare`/`Church`.
+- **Minimapa (`F3`):** no Country Town, confira se os pontos de interesse
+  aparecem com o nome ao redor do jogador, se os NPCs próximos surgem com o
+  cone de visão e ficam vermelhos ao avistar o ET, e se `F3` liga e desliga.
+  Na fazenda, confira que o alcance curto e a área de entrega continuam como
+  antes — a mesma cena serve os dois mapas.
 - **Country Town:** confira fachadas e calçadas em volta da praça, percorra
   as ruas locais e as trilhas do curral ao moinho/ancoradouro e observe o
   assentamento dos pátios nas encostas, a silhueta do silo e da nave caída.

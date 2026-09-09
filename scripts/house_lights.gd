@@ -18,10 +18,14 @@ func _ready() -> void:
 		var light : OmniLight3D = child as OmniLight3D
 		if light == null:
 			continue
-		light.light_color = window_light_color
-		light.light_energy = window_light_energy * _debug_lighting_intensity
-		light.omni_range = light_range
-		light.shadow_enabled = shadow_light_indices.has(_window_lights.size())
+		# House01 usa ajustes por ambiente; as outras casas mantêm o preset global.
+		if not light.has_meta("room_lighting"):
+			light.light_color = window_light_color
+			light.light_energy = window_light_energy
+			light.omni_range = light_range
+			light.shadow_enabled = shadow_light_indices.has(_window_lights.size())
+		light.set_meta("base_light_energy", light.light_energy)
+		light.light_energy *= _debug_lighting_intensity
 		light.light_volumetric_fog_energy = 0.08
 		light.visible = _debug_lighting_enabled
 		_window_lights.append(light)
@@ -35,7 +39,7 @@ func _process(delta : float) -> void:
 		var secondary_wave : float = sin(_elapsed * flicker_speed * 0.37 + phase * 0.6)
 		var variation : float = (slow_wave * 0.65 + secondary_wave * 0.35) * flicker_amount
 		_window_lights[index].light_energy = (
-			window_light_energy
+			float(_window_lights[index].get_meta("base_light_energy", window_light_energy))
 			* _debug_lighting_intensity
 			* (1.0 + variation)
 		)
@@ -54,7 +58,7 @@ func is_debug_lighting_enabled() -> bool:
 func set_debug_lighting_intensity(intensity : float) -> void:
 	_debug_lighting_intensity = clampf(intensity, 0.0, 2.0)
 	for light : OmniLight3D in _window_lights:
-		light.light_energy = window_light_energy * _debug_lighting_intensity
+		light.light_energy = float(light.get_meta("base_light_energy", window_light_energy)) * _debug_lighting_intensity
 
 
 func get_debug_lighting_intensity() -> float:

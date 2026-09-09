@@ -20,9 +20,17 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 		return FAILURE
 
 	npc.set_state(&"search")
+	if npc.reaction_mode == NPCActor.ReactionMode.FLEE and npc.routine != null:
+		npc.set_state(&"recover")
+		npc.stop_moving()
+		_elapsed += get_physics_process_delta_time()
+		if _elapsed >= npc.search_duration:
+			npc.vision.has_last_seen_position = false
+			return SUCCESS
+		return RUNNING
 
 	if not _arrived:
-		if npc.move_toward_point(npc.vision.last_seen_position, npc.alert_speed):
+		if npc.move_toward_point(npc.vision.last_seen_position, npc.alert_speed) or npc.navigation_failed:
 			_arrived = true
 		return RUNNING
 

@@ -24,16 +24,18 @@
 [ext_resource type="Script" path="res://scripts/audio/farm_environment_audio.gd" id="18_environment_audio"]
 [ext_resource type="PackedScene" path="res://scenes/Vehicles/PoliceCarDriveable.tscn" id="19_police_car_patrol"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NPCs.tscn" id="22_npcs"]
+[ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="23_minimap"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_country_town"]
+[ext_resource type="NavigationMesh" path="res://scenes/CountryTown/Layout/PedestrianNavigation.res" id="24_pedestrian_navigation"]
 
 [node name="CountryTown" type="Node3D"]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_country_town")
+navigation_mesh = ExtResource("24_pedestrian_navigation")
 
 [node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D"]
 data_directory = "res://scenes/CountryTown/Terrain"
+collision_mode = 3
 material = ExtResource("1_terrain_material")
 assets = ExtResource("2_terrain_assets")
 mesh_lods = 5
@@ -90,3 +92,12 @@ script = ExtResource("18_environment_audio")
 [node name="StreetLife" parent="." instance=ExtResource("21_street_life")]
 
 [node name="NPCs" parent="." instance=ExtResource("22_npcs")]
+
+[node name="Minimap" parent="." instance=ExtResource("23_minimap")]
+
+[node name="Overlay" parent="Minimap" index="0"]
+world_radius = 140.0
+landmark_group = &"country_town_poi"
+uniform_npc_markers = true
+
+[editable path="Minimap"]

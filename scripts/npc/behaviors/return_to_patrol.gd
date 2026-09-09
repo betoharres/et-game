@@ -8,6 +8,8 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var npc: NPCActor = actor as NPCActor
 	if npc == null:
 		return FAILURE
+	if npc.routine != null:
+		return SUCCESS
 
 	var points: Array[Vector3] = npc.get_patrol_positions()
 	if points.is_empty():

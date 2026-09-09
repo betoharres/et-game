@@ -25,5 +25,7 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	away = away.normalized()
 
 	var flee_target: Vector3 = npc.global_position + away * npc.flee_distance
+	if npc.routine != null:
+		flee_target = npc.routine.refuge(threat_position)
 	npc.move_toward_point(flee_target, npc.alert_speed)
 	return RUNNING

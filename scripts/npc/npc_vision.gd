@@ -25,6 +25,8 @@ var detection_progress: float = 0.0
 var time_since_lost: float = 0.0
 var last_seen_position: Vector3 = Vector3.ZERO
 var has_last_seen_position: bool = false
+var _sample_elapsed: float = 0.0
+var _sample_interval: float = 0.0
 
 @onready var _actor: CollisionObject3D = get_parent() as CollisionObject3D
 
@@ -43,6 +45,12 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_sample_elapsed += delta
+	if _sample_elapsed < _sample_interval:
+		return
+	delta = _sample_elapsed
+	_sample_elapsed = 0.0
+	_sample_interval = 0.1 if player != null and global_position.distance_to(player.global_position) < 70.0 else 0.5
 	if player == null or not _is_player_alive():
 		_clear_contact()
 		return

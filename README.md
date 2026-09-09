@@ -5,9 +5,14 @@ fazenda, coleta destroços de uma nave e os leva até uma área de entrega. O
 cenário inclui vegetação reativa, uma caminhonete dirigível, um fazendeiro que
 persegue o jogador e um fotógrafo que o expõe.
 
+A documentação por sistema — arquitetura, player, NPCs, veículos, mundo,
+casas, animação, ambientação e UI — fica em `docs/`, com o índice em
+`docs/README.md`. As regras de trabalho para agentes ficam em `AGENTS.md`.
+
 Este README descreve **o que existe e onde fica**. Valores de ajuste
 — velocidades, tempos, distâncias, parâmetros de névoa e de câmera — ficam nos
-exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
+exports das cenas e nas constantes dos scripts, que são a fonte da verdade. Os
+comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md`.
 
 ## Índice
 
@@ -17,11 +22,10 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
 - [Fluxo atual](#fluxo-atual) — menu, órbita, missão, coleta e entrega.
 - [Controles](#controles) — teclas e ações do Input Map.
 - [Arquitetura](#arquitetura) — cenas, autoloads, grupos e cadeias de interação.
-- [Onde ajustar o visual](#onde-ajustar-o-visual) — em que cena ou script mora cada parâmetro.
-- [Mapa Country Town](#mapa-country-town) — mapa novo em construção, fora do catálogo de fases.
-- [IA de NPCs (Beehave)](#ia-de-npcs-beehave) — fazendeiros, base de morador/policial e os componentes reutilizáveis de visão/audição/rotina.
+- [Mapas e cenas geradas](#mapas-e-cenas-geradas) — fazenda, Country Town, casa modular e masmorra.
 - [Limitações conhecidas](#limitações-conhecidas) — o que ainda não existe ou é provisório.
 - [Qualidade e validação](#qualidade-e-validação) — checagem no editor e ferramentas de `tools/`.
+- [Documentação por sistema](#documentação-por-sistema) — o que ler em `docs/` antes de alterar cada sistema.
 
 ## Tecnologias e ambiente
 
@@ -31,16 +35,18 @@ exports das cenas e nas constantes dos scripts, que são a fonte da verdade.
   resolução-base `1920×1080`.
 - Física 3D com Jolt Physics.
 - Terreno com Terrain3D; modelos `.fbx`/`.glb`, com texturas e materiais rurais.
+- Behavior Trees dos NPCs com o addon [Beehave](https://github.com/bitbrain/beehave)
+  (MIT, vendorado em `addons/beehave/`).
 - Export para Windows Desktop `x86_64` em `export_presets.cfg`.
 
 ## Estrutura principal
 
 | Pasta | Conteúdo |
 | --- | --- |
-| `scenes/` | Todas as cenas do jogo, incluindo `Space/`, `Dungeon/` e `Portal/` |
-| `scripts/` | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `dungeon/`, `audio/`) |
-| `shaders/` | Céu procedural e névoa rasteira |
-| `tools/` | Checagens automatizadas e utilitários de build de asset |
+| `scenes/` | Todas as cenas do jogo, incluindo `Space/`, `CountryTown/`, `Buildings/`, `NPCs/`, `Dungeon/` e `Portal/` |
+| `scripts/` | GDScript, espelhando a organização das cenas (`space/`, `levels/`, `npc/`, `dungeon/`, `audio/`) |
+| `shaders/` | Céu procedural, névoa rasteira, terreno e efeitos |
+| `tools/` | Checagens automatizadas e utilitários de build de asset (ver `tools/VALIDACAO.md`) |
 | `animations/mixamo/` | Rig visual único, FBX de origem, GLB gerado e mapeamento |
 | `assets/` | Áudio, fontes e música do menu |
 | `Texturas/ui/` | Ícones do HUD, gerados por `tools/render_prototype_icons.py` |
@@ -77,50 +83,30 @@ Depois de exportado, o jogo abre direto por `build/ETs.exe`, sem o editor.
 Menu -> criar ET -> nave em orbita -> terminal de missao -> aproximacao -> nave descendo no ceu da fazenda -> raio trator -> coletar -> entregar
 ```
 
-- Depois de escolher `Jogar`, o jogador personaliza cabeça, barriga, pernas,
-  braços, ombros, altura e olhos em valores normalizados de `0` a `1`. O ET
-  animado pode ser girado com o mouse, aproximado com a roda e reproduzir uma
-  animação pelos botões agrupados à esquerda. O modo `Aleatório`, selecionado
-  por padrão, troca a animação automaticamente a cada 5 segundos; `Iniciar jogo` salva o perfil em
-  `user://character_appearance.cfg` e segue para a órbita.
-- O jogador começa a bordo da nave, em órbita da Terra. Um terminal de missão
-  lista o catálogo de fases; hoje só a Fazenda está disponível, com entradas de
-  exemplo bloqueadas. Adicionar uma fase não exige mexer em script: basta um
-  `LevelDefinition.tres` apontando para a cena e listado em
-  `level_catalog.tres`.
-- Ao chegar na fase, o ET nasce sobre a nave, que desce do céu e estaciona
-  acima do ponto de chegada. Pisar no pad central e interagir aciona a cutscene
-  de descida pelo feixe. Abrir `world.tscn` direto no editor pula esse passo.
-- Destroços próximos podem ser carregados e largados. Para entregar, o jogador
-  larga o item na plataforma e sustenta o sinal de intervenção alienígena; um
-  feixe suga o item até a nave e só então soma o `score_value` ao
-  `GlobalScore`. Soltar o botão antes do fim cancela a chamada.
+- O jogador personaliza sete características do ET em valores normalizados de
+  `0` a `1`; `Iniciar jogo` salva o perfil em `user://character_appearance.cfg`.
+- Na órbita, um terminal lista o catálogo de fases. Adicionar uma fase não
+  exige mexer em script: basta um `LevelDefinition.tres` apontando para a cena
+  e listado em `level_catalog.tres`.
+- Na fase, a nave desce do céu e estaciona sobre o ponto de chegada; pisar no
+  pad e interagir aciona a descida pelo feixe. Abrir `world.tscn` direto no
+  editor pula esse passo.
+- Destroços podem ser carregados e largados. Para entregar, o jogador larga o
+  item na plataforma e sustenta o sinal de intervenção alienígena; o feixe suga
+  o item até a nave e só então soma o `score_value` ao `GlobalScore`.
 - Um spider bot acompanha a nave, desce pelo feixe quando detecta um destroço
-  ao alcance, leva o item até a plataforma e volta a ficar oculto.
-- A caminhonete atravessa o mapa e tem câmeras externa e interna. Os binóculos
-  têm zoom e uma visão X-ray feita com um passe separado sobre os mesmos
-  meshes, sem duplicar geometria.
-- O fazendeiro patrulha a malha de navegação, persegue o ET ao avistá-lo e
-  passa a atirar de perto. A precisão varia com distância, movimento,
-  camuflagem e acertos consecutivos.
-- Um fotógrafo persegue e fotografa o ET. Cada foto acende uma estrela, até
-  três; ficar sem ser visto por tempo suficiente remove uma estrela. As
-  estrelas solicitam respostas futuras de polícia, imprensa e MIB.
-- Trigo e girassóis oscilam com o vento, inclinam-se perto de personagens e
-  veículos e escondem parcialmente o ET, reduzindo o alcance de detecção do
-  fazendeiro. Agachar na vegetação aumenta a camuflagem.
-- O ET tem vida e stamina. Correr consome stamina e esgotá-la bloqueia a
-  recuperação por alguns segundos. Colidir correndo ou cair de altura consome
-  equilíbrio, provoca tropeço e, no limite, um ragdoll do qual ele se levanta
-  sozinho. Zerar a vida entra em ragdoll definitivo, com menu para reiniciar.
-- Uma porta na fazenda leva a uma masmorra procedural plana, montada a partir
-  de módulos de corredor. Ela é gerada uma vez por sessão e guarda destroços
-  nos becos sem saída, que seguem o mesmo fluxo de coleta e entrega.
+  ao alcance e leva o item até a plataforma.
+- O fazendeiro patrulha, persegue e atira; o fotógrafo acende até três
+  estrelas, que solicitam respostas futuras de polícia, imprensa e MIB.
+- A vegetação oscila com o vento, inclina-se perto de personagens e veículos e
+  esconde parcialmente o ET, reduzindo o alcance de detecção dos inimigos.
+- O ET tem vida, stamina e equilíbrio: colidir correndo ou cair provoca
+  tropeço e, no limite, um ragdoll do qual ele se levanta sozinho.
 - A pontuação atual aparece apenas no console de depuração.
 
-Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial
-dentro de uma esfera), `Portal/portal.tscn` (par de portais com renderização
-cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
+Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
+`Portal/portal.tscn` (par de portais com renderização cruzada) e
+`FlyablePlane.tscn` (avião controlável).
 
 ## Controles
 
@@ -137,7 +123,7 @@ cruzada e travessia contínua) e `FlyablePlane.tscn` (avião controlável).
 | Luz dos olhos do ET | `F` |
 | Primeira pessoa (a pé ou na caminhonete) | `V` |
 | Binóculos / zoom | `B` / `+` e `-` do teclado numérico |
-| Radar circular | `F3` |
+| Minimapa circular | `F3` |
 | Velocidade e voo (a cada toque) | `F4` |
 | Debug de iluminação | `F6` |
 | Menu de pausa | `Esc` |
@@ -147,514 +133,102 @@ controle perto da cabine.
 
 O `F4` não abre menu: cada toque avança um degrau do ciclo `desligado` ->
 `velocidade` (imortalidade, stamina cheia e velocidade 5×) -> `velocidade e
-voo` (sem gravidade, subindo com `Espaço` e descendo com `C`) -> `desligado`.
-O estado é lido do próprio jogador a cada toque, então continua correto depois
-de trocar de mapa, e o resultado sai no console. O menu `F6`, disponível
-globalmente durante o jogo mesmo após trocar de mapa, traz o preset de
-atmosfera e o controle de cada fonte de luz disponível na cena atual.
+voo` (sem gravidade) -> `desligado`. O menu `F6`, disponível globalmente
+durante o jogo, traz o preset de atmosfera e cada fonte de luz da cena atual.
 
 As interações usam uma ação própria para que `Espaço` fique reservado ao pulo.
-O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia
-movimento, corrida, pulo, agachamento, interação, chamada da nave, luz dos
-olhos, radar, binóculos, velocidade e voo, e debug de iluminação. Os
-remapeamentos duram a sessão.
+O menu de opções remapeia as teclas de movimento e o menu de pausa remapeia as
+demais ações; os remapeamentos duram a sessão.
 
 ## Arquitetura
 
-O projeto é composto por cenas reutilizáveis. `world.tscn` monta terreno,
-fazenda, nave, vegetação, objetos, jogador, inimigos, veículo, destroços e área
-de entrega.
+O projeto é composto por cenas reutilizáveis. Um mapa (`world.tscn`,
+`CountryTown.tscn`) monta terreno, ambiente, jogador, NPCs, veículos, destroços
+e área de entrega; nenhum manager global orquestra isso.
+
+Esta seção é o resumo; o detalhamento por sistema — responsabilidades, contratos
+e decisões — está em `docs/` (ver [Documentação por sistema](#documentação-por-sistema)).
 
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> sinal/abdução -> GlobalScore
-MainMenu -> CharacterCreator -> Orbit -> terminal de missão -> LevelCatalog -> aproximação -> world.tscn -> AlienShip descendo do céu -> pad de descida -> feixe de chegada
+MainMenu -> CharacterCreator -> Orbit -> terminal de missão -> LevelCatalog -> world.tscn -> pad de descida -> feixe de chegada
 CharacterAppearance -> CharacterProportions -> Skeleton3D/olhos -> Player e ET do veículo
-SmellyFarmer -> visão/linha de visão -> perseguição/disparo -> vida do Player
-Photographer -> visão/foto -> PhotoAlertSystem -> HUD/solicitações futuras
-Player -> grupo characters -> vegetação e detecção do inimigo
-WheatField/SunflowersPatch -> área de camuflagem -> visibilidade do Player
+SmellyFarmer/Photographer -> visão -> perseguição/foto -> vida do Player / PhotoAlertSystem
+NPCActor -> NPCVision/NPCHearing -> NPCBehaviorTree (Beehave) -> NPCRoutine/NPCActivity
+Player -> grupo characters -> vegetação e detecção dos inimigos
 DriveableTruck -> grupo vehicles -> direção e reação da vegetação
-Player -> colisão de parede -> equilíbrio -> stumble/queda -> PlayerRagdoll
-Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo
-Mixamo -> LookAt/IK de ação -> reação -> ragdoll (prioridade crescente)
-Player -> CinematicCameraRig -> SpringArm3D -> Camera3D
+Player -> estado físico -> PlayerAnimationController -> AnimationTree -> Mixamo -> IK -> ragdoll
 NightEnvironment -> AgX/glow/névoa -> filtro de incidente alienígena
 FogZone -> grupo fog_zones -> GroundFogLayer -> densidade local da névoa
-Nave/feixe/evento -> AlienInterferenceSource -> AlienIncidentPostProcess
 ```
 
-- **Autoloads:** `CharacterAppearance` mantém e persiste as sete características
-  normalizadas do ET; `GlobalScore` mantém pontuação e inventário;
-  `PhotoAlertSystem`, estrelas e observadores; `SceneTransition`, as transições
-  entre cenas; e `DebugMenus`, o atalho global dos modos do jogador (`F4`) e o
-  painel de iluminação (`F6`).
+- **Autoloads:** `CharacterAppearance` (características do ET, persistidas),
+  `GlobalScore` (pontuação e inventário), `PhotoAlertSystem` (estrelas e
+  observadores), `SceneTransition` (transições entre cenas) e `DebugMenus`
+  (modos do jogador no `F4` e painel de iluminação no `F6`).
 - **Grupos** conectam sistemas sem referência direta: `characters`, `vehicles`,
   `pickup_items`, `ship_passengers`, `fog_zones` e `volumetric_lights`.
 - **Contrato de coletáveis:** grupo `pickup_items`, métodos `pickup()` e
   `drop()` e propriedade `score_value`. Um item em abdução deixa o grupo
   temporariamente para não ser recolhido antes da entrega.
-- **Jogador:** `player.gd` cuida de input, física, equilíbrio e decisões, e
-  envia o estado ao `PlayerAnimationController`, que centraliza a máquina de
-  estados do `AnimationTree`. O rig é um único `Skeleton3D` Mixamo com as
-  animações in-place — o `CharacterBody3D` é a única autoridade de
-  deslocamento. Sobre a animação base atuam apenas dois `LookAtModifier3D` de
-  influência limitada e um `TwoBoneIK3D` no braço direito, que só entra ao
-  carregar um item ou executar o sinal.
-  Pequenos degraus usam step-up no controlador: `max_step_height` define o
-  limite (28 cm por padrão; zero desativa), com varredura da cápsula para
-  conferir teto livre e apoio dentro de `floor_max_angle`. A descida usa o
-  snap nativo apenas enquanto apoiado, sem prender pulos ou quedas maiores.
-  `step_visual_speed` suaviza corpo visual e alvo da câmera; a cápsula assume
-  imediatamente a altura livre de colisão, mantendo o avanço horizontal.
-- **Proporções do ET:** o GLB atual não possui Blend Shapes. Por isso,
-  `CharacterProportions` usa escala de bones em um `SkeletonModifier3D`
-  pós-animação para cabeça, barriga, peito, quadril, membros e ombros, escala
-  visual para altura, um elipsoide abdominal procedural fechado preso ao bone,
-  shaders para as dobras/sombreamento e um shader restrito à superfície separada
-  dos olhos. A geometria arredondada é gerada em runtime e não altera nem adiciona
-  arquivos de modelo. O perfil da barriga continua normalizado de `0` a `1`,
-  mas o máximo visual corresponde ao antigo formato de `0.86`, evitando a
-  deformação instável do extremo anterior. A barriga procedural é fechada, tem
-  a traseira rasa embutida no tronco e usa normais suaves e a mesma cor/acabamento
-  da pele. Há compensações nos bones filhos para não transformar o ET em uma
-  esfera. O mesmo
-  modificador soma offsets pós-animação nos ombros, braços, cotovelos e mãos para
-  contornar a barriga, além de inclinar discretamente o tronco nos extremos; as
-  rotações autorais continuam sendo a base da pose. O perfil é um
-  dicionário pequeno e independente de transporte; `Player` expõe
-  `get_appearance_replication_payload()` e o RPC `sync_appearance()` para uma
-  futura camada multiplayer. Roupas skinnadas no mesmo esqueleto acompanham os
-  bones automaticamente; acessórios rígidos devem usar `BoneAttachment3D`.
-- **Ragdoll reversível:** `player_ragdoll.gd` gera os corpos físicos e é usado
-  tanto pela morte quanto pela queda por desequilíbrio; ao sair, a orientação
-  do peito decide entre levantar de costas ou de bruços.
-- **Veículo:** desativa processamento e câmera do jogador, exibe o ET no banco
-  e restaura o personagem na saída.
-- **Fazendeiro:** estados `WANDERING`, `CHASING` e `SHOOTING`, com memória
-  curta da última posição vista e checagem de obstáculos.
-- **NPC genérico da nave:** `GenericNPC.tscn` usa o mesmo corpo e cápsula para
-  personagens Polygon. O comportamento exportado alterna entre `IDLE` e
-  `PATROL`; a patrulha escolhe destinos aleatórios diretamente na
-  `NavigationRegion3D` indicada em `navigation_region_path`. NPCs filhos da
-  nave acompanham-na pela hierarquia; `ship_passengers` reserva o transporte
-  manual para corpos que estejam fora dessa hierarquia.
-- **Luz viva da nave e da fazenda:** `LivingLight.tscn` compartilha a região de
-  navegação do NPC genérico e alterna entre `WANDER`, `CURIOUS`, `SCARED` e
-  `REST`. O script
-  controla diretamente dois `Trail3D` nativos do Godot 4.8 dev4 — um externo,
-  largo, com gradiente âmbar-esverdeado, e um interno, fino e quase branco —,
-  ambos com o material de `shaders/living_light_trail.gdshader`, que refaz o
-  billboard do rastro e faz a energia correr por dentro dele. Completam o
-  visual um halo billboard aditivo, motes orbitando o núcleo e uma pulsação
-  irregular de vagalume; marcadores no
-  grupo `living_light_rest_points` servem como pontos de descanso. Na fazenda,
-  uma instância começa perto do ponto onde o jogador desce da nave. Ela foge
-  continuamente enquanto o jogador permanece no raio de percepção, sem ficar
-  limitada ao círculo de passeio, e nunca sobe mais que
-  `maximum_height_above_navigation` acima da superfície abaixo dela. Onde a
-  `NavigationRegion3D` não tem malha bakeada — hoje, a fazenda inteira — o
-  script ignora a navegação, mira o destino em linha e tira a altura de
-  referência de uma sonda de raycast para baixo, feita cinco vezes por segundo.
-- **Masmorra:** isolada das `NavigationRegion3D` da fazenda, não participa da
-  navegação dos NPCs. O estado "já gerada" vive em memória no próprio nó e se
-  perde ao recarregar a cena.
+- **Jogador:** `player.gd` cuida de input, física, equilíbrio e decisões e envia
+  o estado ao `PlayerAnimationController`, que centraliza a máquina de estados
+  do `AnimationTree`. O rig é um único `Skeleton3D` Mixamo com as animações
+  in-place — o `CharacterBody3D` é a única autoridade de deslocamento. Sobre a
+  animação base atuam apenas dois `LookAtModifier3D` e um `TwoBoneIK3D` no
+  braço direito. O step-up de degraus fica no próprio controlador
+  (`max_step_height`).
+- **Proporções do ET:** sem Blend Shapes no GLB, `CharacterProportions` aplica
+  escala de bones em um `SkeletonModifier3D` pós-animação, uma barriga
+  procedural presa ao bone e shaders para pele e olhos. O perfil é um
+  dicionário pequeno; `Player` expõe `get_appearance_replication_payload()` e o
+  RPC `sync_appearance()` para uma futura camada multiplayer.
+- **Ragdoll reversível:** `player_ragdoll.gd` gera os corpos físicos e serve
+  tanto à morte quanto à queda por desequilíbrio.
+- **Veículo:** desativa processamento e câmera do jogador, exibe o ET no banco e
+  restaura o personagem na saída.
+- **NPCs (Beehave):** `NPCActor` é o chassi (navegação, patrulha, velocidades,
+  `reaction_mode`); `NPCVision` e `NPCHearing` são os sensores; a árvore
+  reativa de `scenes/NPCs/Behaviors/NPCBehaviorTree.tscn` só decide, com uma
+  folha por responsabilidade em `scripts/npc/behaviors/`. Fazendeiro, morador e
+  policial compartilham essa árvore e mudam apenas exports. `NPCActivity` e
+  `NPCRoutine` reservam e liberam as vagas de cada parada. Os clipes Synty só
+  funcionam no rig de `Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx`.
 - **HUDs** reutilizam o tema `Materiais/hud_theme.tres` e uma família única de
   ícones gerada dos meshes low-poly `Polygon Prototype`.
+- **Minimapa** (`scenes/VisionDebugMap.tscn`, `F3`): cena reutilizável, uma
+  instância por mapa, sem nada específico de fase no script. O que muda por
+  mapa são exports do nó `Overlay` (`world_radius`, `objective_group`,
+  `landmark_group`, `actor_scan_interval`).
+- **Ambientação:** `NightEnvironment` concentra presets de qualidade, névoa e
+  evento alienígena; `FogZone` adensa a névoa localmente; o chão usa
+  `shaders/terrain_natural.gdshader`, derivado do Terrain3D instalado
+  (licença MIT no arquivo).
 
-## Onde ajustar o visual
+## Mapas e cenas geradas
 
-| Para mudar | Vá em |
-| --- | --- |
-| FOV, distância e colisão da câmera | `Camera3D` e `SpringArm3D` em `scenes/Player.tscn` |
-| Seguimento, offset, sway e respiração | Exports de `scripts/cinematic_camera_rig.gd` |
-| Grão, vinheta, aberração, contraste, black lift | `IncidentPostProcess` em `scenes/NightEnvironment.tscn` |
-| Bloom e halation | Propriedades `glow_*` do `Environment` na mesma cena |
-| Presets de qualidade, névoa e evento alienígena | Exports do `NightEnvironment` e `QUALITY_PRESETS` em `scripts/night_environment.gd` |
-| Forma e movimento da névoa rasteira | `scenes/FX/GroundFogLayer.tscn` e `shaders/ground_fog.gdshader` |
-| Névoa mais densa em um lugar | Instancie `scenes/FX/FogZone.tscn` e ajuste raio e força |
-| Interferência por nave, feixe ou evento | Exports de cada `AlienInterferenceSource` |
-| Cores alienígenas | Materiais e luzes de `AlienShip.tscn`, `DeliveryArea.tscn`, `ArrivalBeam.tscn` e `SpaceShipInterior.tscn` |
-| Movimento, personalidade, luz e rastro da luz viva | Exports de `LivingLight` em `scenes/Space/AlienShip.tscn` |
-
-A névoa tem duas escalas: uma manta rasteira de planos com shader, que segue a
-câmera, e o fog atmosférico do `Environment`, que fecha ao longe e esconde a
-borda do mapa. O volumetric fog está desligado em todos os presets, por custo,
-e pode ser religado nos presets de `night_environment.gd`.
-
-Armadilha do Godot 4.7: no fog em modo Depth, `Environment.fog_density` deixa
-de ser densidade e passa a multiplicar a rampa de profundidade — um valor de
-modo exponencial faz a névoa sumir. O controle certo é
-`atmospheric_fog_opacity`, em `night_environment.gd`.
-
-Por código, `NightEnvironment.set_alien_fog_intensity()` recebe de 0 a 1 e
-interpola densidade, tonalidade, scattering, energia dos feixes e interferência
-de tela; `set_quality_preset()` troca o preset em runtime. O grupo
-`alien_post_process` expõe interferência manual e pulso.
-
-O chão usa `shaders/terrain_natural.gdshader`, derivado do Terrain3D instalado
-(licença MIT no arquivo), mantendo geometria, IDs pintados e projeção nas encostas.
-A Fazenda usa `Materiais/new_terrain_3d_material.tres`; o Country Town usa
-`Materiais/country_terrain_material.tres`, com uma máscara própria de uso do solo.
-Nas áreas automáticas, a cobertura de grama é contínua, com variações amplas;
-terra aparece nas transições e rocha nas maiores inclinações. A mistura automática
-é linear para evitar bordas de camuflagem; a pintura manual mantém a mistura
-nativa. A paleta ajustada e a redução de contraste distante valem para ambos.
-
-`grass_coverage` e `grass_patch_scale` controlam cobertura e escala em metros;
-`auto_slope` controla exposição de rocha. `soil_color`, `meadow_color` e
-`stone_color` definem a paleta; `detail_fade_start/end` reduzem os detalhes entre
-25 e 160 m da câmera. Escalas, detiling e força dos normais ficam em
-`3dModelos/SICS Trees/ArrayTrees.tres`. Os normais são aproximações discretas
-derivadas dos albedos locais, não medidas de relevo nem alteração de colisão.
-
-`tools/build_terrain_surface.gd` gera os três mapas de normal/rugosidade e a
-máscara do Country Town em `Texturas/terrain_surface/`. A máscara lê estradas,
-trilhas, talhões, clareiras e rio do gerador de layout, mais os marcadores dos
-pátios; deixa bordas suaves entre passagem, cultivo e pastagem. Ao alterar esses
-dados ou as três texturas-base, regenere somente os materiais com
-`.\tools\godot.cmd --headless --path . --script res://tools/build_terrain_surface.gd`
-(com o editor fechado, ou em cópia isolada). Não precisa reconstruir relevo ou
-vegetação. Os recursos `.res` incluem mipmaps e dispensam importação de imagens.
-Revise a integração do shader ao atualizar o Terrain3D, pois é uma cópia da
-versão instalada. Aparência e custo de GPU precisam de conferência no editor.
-
-## Mapa Country Town
-
-Mapa novo, em construção, com fazenda e cidade rural em `scenes/CountryTown/`.
-Ele **não entra no catálogo de fases**: `scenes/Space/Levels/` e
-`scripts/world.gd` não o conhecem, e por enquanto ele é aberto direto pelo
-editor, em `scenes/CountryTown/CountryTown.tscn`.
-
-| Arquivo | Papel |
-| --- | --- |
-| `CountryTown.tscn` | Cena mestre: só instancia terreno, ambiente, jogador e distritos |
-| `Terrain/` | `data_directory` exclusivo do Terrain3D deste mapa |
-| `Layout/PointsOfInterest.tscn` | Um `Marker3D` por ponto do mapa, todos no grupo `country_town_poi` |
-| `Districts/RoadNetwork.tscn` | Malhas nativas de asfalto, terra, calçadas, meio-fio, acostamentos e sinalização |
-| `Districts/RiverWater.tscn` | Lâmina d'água do rio, barreira só visual, gerada por script |
-| `Districts/RiverDistrict.tscn` | Instancia a água, as duas pontes, o ancoradouro e a névoa do leito |
-| `Districts/Fields.tscn` | Milharal sobre sulcos, talhões de trigo e girassóis, gerada |
-| `Districts/Vegetation.tscn` | Árvores e arbustos de cena, juncos e seixos das margens |
-| `Districts/Detailing.tscn` | Cercas, fardos, caixas, placas, sebes e canteiros |
-| `Districts/StreetLife.tscn` | Vasos e mobili?rio da pra?a; folhas, poeira e vagalumes com desligamento por dist?ncia em `scripts/ambient_particles.gd` |
-| `Districts/NightLights.tscn` | Postes, luminárias de fachada e luzes de janela |
-| `Districts/UrbanInfill.tscn` | Construções adicionais, calçadas, quintais, cargas e postes, instanciada em `TownDistrict` |
-| `Districts/RuralInfill.tscn` | Pátios de trabalho, pomares, fardos, silos pequenos e manchas de margem, instanciada em `FarmDistrict` |
-| `Districts/SecondaryPaths.tscn` | Trilhas rurais unificadas e acostamentos sobre o relevo existente |
-| `Districts/*.tscn` restantes | Fazenda, cidade, queda, mina e pátio de entrega |
-| `Blocks/*.tscn` | Blocos reutilizáveis, cada um com a própria colisão dentro |
-
-O mapa mede `600 × 450 m`, com origem no canto noroeste, X para leste e Z para
-sul. Nem as estradas nem o relevo são feitos à mão:
-
-- `tools/build_country_town_layout.gd` guarda a grade principal (`ROAD_RUNS`),
-  as ruas locais (`SECONDARY_PATHS`) e o rio (`RIVER_PATH`). Gera
-  `RoadNetwork.tscn` e `RiverWater.tscn`; agora aceita `--headless`.
-  `country_town_road_surface.gd` une as pegadas das vias antes de triangular:
-  cruzamentos em T e de quatro vias compartilham o piso; curvas e pontas usam
-  contornos arredondados. As ruas urbanas, inclusive o acesso da queda, usam
-  asfalto escuro texturizado de 9 m; as vias principais da fazenda usam terra
-  de 8 m, com trilhas menores. A troca de material acontece nas duas pontes.
-  Rampas de encontro acompanham o tabuleiro existente, de 5 m de largura.
-  O asfalto fica 12 cm abaixo da grama (18 cm abaixo da cota anterior);
-  ruas locais recebem o mesmo
-  aplainamento das principais. Calçadas de cerca de 2 m e meio-fio baixo
-  ficam somente fora da malha viária, com recortes nos cruzamentos. Calçadas e
-  meio-fio têm fechamento lateral de 60 cm para baixo, com fundo e colisão,
-  mantendo o topo 8 cm acima da grama e 20 cm acima do asfalto. O subsolo é
-  rebaixado sob as vias, com transição sob as calçadas e nas bordas dos acessos
-  sem calçada; as rampas preservam o encontro com as pontes. Faixas
-  centrais discretas identificam as vias principais. As malhas têm colisão
-  própria, materiais locais com ruído determinístico e nenhuma peça FBX de rua.
-- `tools/build_rural_roads.gd` tira o piso de terra das vias rurais. A via de
-  terra e as trilhas não têm mais malha de piso: o chão visível é o próprio
-  terreno, que o material do Terrain3D já pinta de terra pela máscara de uso do
-  solo. Nas quatro cabeceiras de ponte, a aba fica invisível e mantém somente
-  o apoio físico das rampas. Ela desce até o terreno na borda de fora e é o que
-  resta em `scripts/terrain/rural_road_profile.gd`, com o preset
-  `Materiais/rural_road_gentle.tres`. A fita `WheelTracks` que essa ferramenta
-  gerava foi aposentada — as marcas agora são as de pneu, descritas abaixo.
-  Rode esta ferramenta e `tools/build_terrain_surface.gd` sempre que o traçado
-  rural mudar: uma tira o piso, a outra faz a pintura do chão.
-- O relevo rural acompanha as curvas de pneu já salvas: sulcos rasos de
-  profundidade variável, pequenos acúmulos de terra nas laterais e desgaste
-  adicional em manobras. As passagens secundárias permanecem visuais. A grade
-  de 1 m representa canais suaves; o desenho fino do pneu continua no material.
-  Trechos das marcas se apagam, as bordas da terra variam e as depressões ficam
-  mais escuras e menos ásperas. Não há deformação durante o jogo.
-  Para reaplicar esse perfil às curvas existentes sem reconstruir o plantio:
-  `.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd -- --rural-only`,
-  depois `build_tire_tracks.gd` para reassentar as fitas e
-  `build_terrain_surface.gd` para atualizar a pintura. Execute com o editor
-  fechado ou em cópia isolada. O modo parcial substitui o desgaste anterior,
-  conservando as alturas-base, pintura e vegetação. Reassente as marcas depois
-  de cada atualização; mudanças no layout das vias ainda exigem a reconstrução
-  completa abaixo.
-- `scenes/Props/TireTrack3D.tscn` são as marcas de pneu, o único rastro das vias
-  rurais hoje. O traçado é a `Curve3D` do próprio nó: instancie a cena, puxe os
-  pontos no editor e a fita é reassada e salva junto com a cena — em jogo nada é
-  gerado. Cada instância desenha de 1 a 6 passagens paralelas
-  (`lanes`/`lane_spacing`, 1,6 m é a bitola da caminhonete), serpenteia de leve
-  (`lateral_wander`), respira de largura (`width_variation`) e varia a
-  intensidade por passagem (`intensity`/`intensity_variation`), com as pontas
-  nascendo e morrendo no chão por `end_fade`, então instâncias sobrepostas se
-  misturam sem emenda. Os vértices assentam na altura do chão — `Terrain3D` se a
-  cena tiver um, raycast caso contrário — com a folga `ground_offset`; o
-  material `Materiais/tire_track.tres` não escreve profundidade, o que tira o
-  z-fighting, e repete `Texturas/tire_tread.res` a cada `tread_length` metros.
-  O perfil está em `scripts/terrain/tire_track_3d.gd`; a textura vem de
-  `tools/build_tire_tread_texture.gd`.
-- `tools/build_tire_tracks.gd` assa essas marcas contra o terreno atual e
-  remove o `WheelTracks` antigo que encontrar. Sem argumento ele só refaz a
-  malha do que já está em cena, preservando curvas editadas à mão; com
-  `-- --reseed` ele descarta o nó `TireTracks` e semeia tudo de novo a partir do
-  layout: três passagens ao longo de cada via de terra e duas em cada trilha,
-  com deslocamentos, sementes e desgastes diferentes, mais arcos de manobra em
-  cada cruzamento e entrada — 7 cruzamentos, até 4 arcos cada. As marcas param
-  nas cabeceiras de ponte, onde o chão é a rampa e não o terreno. Para sujar um
-  ponto específico, duplique uma instância no editor e puxe a curva; para
-  desfazer tudo e voltar ao plano, rode com `--reseed`.
-- `tools/build_country_town_terrain.gd` lê esses dados e os marcadores da cena
-  de POIs, gera o heightmap, achata as zonas construídas, abre uma clareira sob
-  cada marcador e sob cada peça de estrada, escava o canal do rio por último e
-  salva as regiões em `scenes/CountryTown/Terrain/`. O heightmap cobre
-  1280 × 1280 m a partir de `TERRAIN_ORIGIN` (−256 m em X e em Z, múltiplo do
-  `region_size` do Terrain3D): as colinas de borda começam para dentro do mapa
-  e só saturam bem depois dele, e sem essa folga negativa o terreno acabava no
-  meio da subida a oeste e ao norte — um precipício em vez de montanha.
-
-- `tools/build_country_town_fields.gd` planta o milharal, os talhões de trigo
-  e os canteiros de girassol, e gera `Districts/Fields.tscn`. Os talhões são
-  retângulos em `CROP_FIELDS`, no script de layout; o script poda o que cai
-  sobre estrada, rio ou prédio. Os 13 talhões compartilham essas áreas com
-  as cercas, o solo trabalhado e a exclusão da vegetação de fundo.
-  O que limita o tamanho de um talhão é a malha, não a área — um pé de milho
-  Synty tem 1438 triângulos e a cena `corn_field_root` empilha dez deles em
-  2,2 × 5,2 m —, então cada instância sai com `visibility_range` e
-  `active_radius` ajustados. Quem cuida disso é `scripts/reactive_crop.gd`,
-  base comum das três plantações: fora do raio ativo o talhão dorme e o
-  `_process` sai no primeiro `if`; além do alcance de visibilidade as plantas
-  derretem em vez de sumir de uma vez. Blocos de 20 m com hastes geométricas
-  simples assumem a silhueta à distância: os campos continuam compondo a
-  paisagem além do alcance das malhas reativas, sem sensores ou scripts nesses
-  blocos distantes. Os sulcos também amostram o terreno e evitam os corredores.
-- O talhÃ£o `CornField` Ã© propositalmente grande e usa `CORN_MAZE` como uma receita fixa: cÃ©lulas `#` recebem milho alto e `.` ficam como corredores. Para trocar depois por um labirinto aleatÃ³rio, substitua essa matriz mantendo a mesma grade.
-- `tools/build_country_town_settlement.gd` monta os complementos urbanos e
-  rurais usando os assets locais PolygonTown/PolygonFarm e a malha da nave
-  existente. `tools/country_town_neighborhood.gd` define os 22 lotes residenciais
-  e os três comércios de `UrbanInfill`: casas maiores, cercas e portões abertos,
-  acesso de pedestres, jardins, varandas e 16 carros estáticos em vagas privadas.
-  As primitivas são agrupadas por material por lote; objetos pequenos e carros
-  têm alcance de visibilidade limitado. `Entrance`, `ParkingSpace` e
-  `FutureInterior` marcam acessos e espaço para expansão; ainda não há interiores
-  jogáveis, portões interativos ou rotina de moradores. Para regerar somente o
-  bairro, use `tools/build_country_town_settlement.gd -- --town-only` com o wrapper
-  Godot; depois atualize campos e vegetação. Praça, igreja e loja original ficam
-  em `TownDistrict.tscn`. As propriedades rurais têm
-  seis pátios de trabalho, três pomares, galpões de colheita, tratores de cenário,
-  fardos, lenha e cercas com aberturas. O depósito de entrega ganhou limites e
-  alas de armazenamento. Não há geração procedural durante a partida.
-  `SECONDARY_PATHS`, no script de layout, guarda larguras e pontos das ruas,
-  becos e trilhas; `SETTLEMENT_CLEARINGS` reserva os pátios e a praça. As
-  trilhas rurais amostram o terreno e são unidas sem sobreposição visual, com
-  acostamentos e pontas arredondadas. As ruas urbanas integram `RoadNetwork`.
-  Campos e vegetação respeitam esses corredores.
-  O plantio de fundo também evita as colisões da decoração e dos campos,
-  deixando o núcleo urbano para os jardins montados nas cenas.
-  Os blocos `CargoStack`, `RuralWorkyard`, `FarmSilo`, `CrashedSaucer`,
-  `GrainMill` e `DockShelter` são reutilizáveis. O moinho de grãos usa torre
-  facetada e quatro velas, animadas por `AnimationPlayer`; substitui a bomba
-  eólica apenas neste mapa. O ancoradouro tem cobertura de madeira. A nave
-  inclinada da queda é cenário com colisão, sem scripts
-  da nave jogável ou coleta. A iluminação urbana permanece em `NightLights.tscn`.
-  Alguns FBX rurais são importados como `PackedScene`, embora as cenas antigas
-  os solicitassem como `ArrayMesh`. O gerador extrai suas malhas para
-  `Blocks/Meshes/`, corrigindo abrigo, bebedouro, estufa, banca, banheiro e
-  silo apenas neste mapa, sem alterar os imports ou as cenas da fazenda antiga.
-- `tools/build_country_town_vegetation.gd` planta grama, arbustos e árvores de
-  fundo no instancer do Terrain3D, desviando de estrada, rio e de qualquer
-  colisão dos distritos. Cada espécie é um `Terrain3DMeshAsset` apontando para
-  uma cena de `scenes/Vegetation/` — ids 1 e 2 para arbusto/árvore e ids 3 a 7
-  para as cinco variantes de grama —, com os alcances de LOD apertados. A
-  escolha da variante é determinística e ponderada, então a geração permanece
-  estável sem repetir sempre o mesmo tufo. O id 0 do `ArrayTrees.tres` é o
-  cartão gerado que já existia, sem textura no material: **não plante nele**,
-  ele desenha uma cruz branca saindo do chão.
-
-Para reaplicar apenas as alturas do asfalto sem reconstruir os distritos ou
-apagar vegetação, rode `tools/recess_country_town_asphalt.gd` em modo headless
-e depois `tools/check_country_town_roads.gd`. A ferramenta preserva as
-calçadas, marcas de pneu e rampas rurais existentes. Com o editor aberto, use
-uma cópia isolada conforme `tools/VALIDACAO.md`.
-
-Mexeu no layout, rode na ordem:
-
-```powershell
-.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_layout.gd
-.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_terrain.gd
-.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_settlement.gd
-.\tools\godot.cmd --path . --script res://tools/build_country_town_fields.gd --resolution 320x240
-.\tools\godot.cmd --path . --script res://tools/build_country_town_vegetation.gd --resolution 320x240
-.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_layout.gd
-.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_clearance.gd
-.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_bridge.gd
-.\tools\godot.cmd --headless --path . --script res://tools/check_country_town_roads.gd
-```
-
-A ordem importa: o build do terreno reimporta as regiões do zero e levaria a
-vegetação junto, então o plantio vem depois dele. O de vegetação **não**
-roda com `--headless`, pois grava buffers de `MultiMesh`.
-
-Se mudou apenas lotes ou decoração, rode settlement e depois campos e
-vegetação. Mudanças em ruas urbanas, larguras ou traçados exigem a sequência
-completa acima, pois piso, reservas e terreno precisam concordar.
-Edite as receitas para preservar ajustes entre gerações. Feche o editor antes
-dos comandos ou use uma cópia isolada, conforme `tools/VALIDACAO.md`.
-
-`check_country_town_roads.gd` verifica as colisões salvas por amostragem da
-largura das vias, as rampas das pontes, o material e a folga sobre o terreno.
-Para inspeção visual solicitada, `inspect_country_town_roads.gd`, sem
-`--headless`, grava sete vistas em `build/country-road-review/`, com iluminação
-diurna de inspeção e sem jogador. Acrescente `-- --scene-lighting` para conferir
-com a iluminação real do mapa. Não altera o ambiente salvo.
-
-A vegetação de fundo — cerca de 12.000 tufos de grama, 310 arbustos e 920
-árvores — não gasta um nó sequer: vive no instancer, dentro das próprias
-regiões do terreno. Instâncias de cena ficam para o que tem comportamento ou o
-jogador encosta: as plantações de `scenes/AnimatedCrops/`, com
-`concealment_area` e `fog_zone` próprios, e as árvores dos quintais. É o
-oposto de `world.tscn`, que tem cerca de 7.500 linhas só de tufo de grama
-instanciado um a um.
-
-As duas travessias usam `Blocks/RiverBridge.tscn`, montada com módulos do
-PolygonCity. Cada módulo tem a sua própria cota de origem: o `Underside` entrega
-o piso no topo, o `Edge` entrega o piso um palmo abaixo do parapeito, e
-`Support` e `Pillar` são estrutura, que mora **sob** o tabuleiro. Errar a cota
-de um deles não quebra nada — só deixa um degrau ou uma viga furando o chão da
-ponte. `tools/check_country_town_bridge.gd` amostra a faixa de rolamento e cobra
-piso contínuo, plano e desobstruído, mais os dois parapeitos de ponta a ponta.
-A ponte tem 35 m. A travessia norte fica centrada no eixo do rio em
-`(318.18723, 167.46)`: os encontros acompanham o deslocamento de 6,09 m em
-relação ao vão original da grade, com transição suave para a estrada existente.
-
-A ambientação segue a da fazenda: `NightEnvironment.tscn` sem alterar o preset,
-`FogZone` no leito do rio, no milharal e na cratera, e as luzes registradas no
-grupo `debug_house_lighting`, que o menu `F6` liga e desliga.
-
-As ruas são malhas estáticas agrupadas por superfície e não projetam sombra;
-os planos de água só se sobrepõem o
-necessário para fechar o canto de cada curva, e o rio usa
-`Materiais/ea_water_countryTown.tres` — o mesmo `ea_coolwater`, com refração,
-cáusticas e brilhos desligados pelos interruptores `enable_refraction`,
-`enable_caustics` e `enable_foam` do shader, que existem para isso. A espuma de
-margem fica ligada, é ela que desenha a silhueta do rio contra a ribanceira.
-
-A água corre para a foz por conta dos uniformes `flow_speed` e `flow_stretch`
-do `ea_coolwater`. A direção não é configurada plano a plano: o shader lê o
-eixo `+Z` local da malha, que o gerador já deixa apontando para jusante em cada
-trecho, então as curvas acompanham sozinhas. `flow_speed = 0` devolve a água
-parada dos outros materiais (`lagoon`, `tropical`, `deepBlue`), que não
-declaram esses parâmetros. O custo é de dois produtos escalares por pixel: as
-normais, a espuma e os brilhos passam a ser amostrados nesse referencial em vez
-de um novo passe.
-
-O terreno da fazenda continua em `res://scenes`, com os `terrain3d_*.res`
-soltos lá — os dois mapas nunca compartilham diretório.
-
-## IA de NPCs (Beehave)
-
-Os NPCs a pé do Country Town usam o addon [Beehave](https://github.com/bitbrain/beehave)
-(MIT, vendorado em `addons/beehave/`) para as Behavior Trees, mais três
-componentes nativos do Godot para percepção e locomoção — a árvore só decide,
-sensores e movimento ficam fora dela:
-
-| Arquivo | Papel |
-| --- | --- |
-| `scripts/npc/npc_actor.gd` (`NPCActor`) | Chassi comum: `NavigationAgent3D`, `patrol_points` (posições absolutas, como `VehicleAIDriver.road_nodes`), velocidades, `reaction_mode` (perseguir ou fugir) e estado exibido pela árvore. |
-| `scripts/npc/npc_vision.gd` (`NPCVision`) | Distância, ângulo e raycast de linha de visão, com progressão de detecção e memória da última posição vista. Consome `player.get_stealth_visibility()`/`get_visibility_multiplier()` e chama `set_vision_contact()`, os mesmos ganchos de camuflagem de `smelly_farmer.gd`/`photographer.gd`. |
-| `scripts/npc/npc_hearing.gd` (`NPCHearing`) | Varre `characters`/`vehicles` por corpos em movimento acima de um limiar de velocidade; também expõe `hear_noise(posição, intensidade)` para eventos futuros via `get_tree().call_group(&"npc_hearing_listeners", &"hear_noise", pos, intensidade)`, sem exigir referência direta ao NPC. |
-
-Toda cena de NPC instancia a mesma `scenes/NPCs/Behaviors/NPCBehaviorTree.tscn`
-como filha, com `actor_node_path` apontando para o `NPCActor` pai:
-
-```text
-SelectorReactive "Root"
-├─ Sequence "Chase":  CanSeePlayer → ReactionModeIs(CHASE) → ChasePlayer
-├─ Sequence "Flee":   CanSeePlayer → ReactionModeIs(FLEE)  → FleeFromPlayer
-├─ Sequence "Alert":  IsNoticingPlayer → AlertPose
-├─ Sequence "Search": HasLastSeenPosition → SearchLastSeenPosition → ReturnToPatrol
-├─ Sequence "Investigate": HeardNoise → InvestigatePosition → ReturnToPatrol
-└─ Selector "Routine": TalkToNeighbor → Idle (0–1 ponto) → Patrol (2+ pontos)
-```
-
-Por ser reativa, ver o jogador sempre interrompe busca/investigação/rotina.
-Fazendeiro, morador e policial usam essa mesma árvore e os mesmos
-componentes; só mudam exports do `NPCActor` (`patrol_points`,
-`reaction_mode`, `can_socialize`, velocidades) — as 14 folhas ficam em
-`scripts/npc/behaviors/`, uma responsabilidade cada.
-
-- **Fazendeiro** (`scripts/npc/farmer_npc.gd`, `scenes/NPCs/Farmer.tscn`):
-  `reaction_mode = CHASE`, conversa ocasionalmente com outro fazendeiro
-  (`social_group_name = "farmers"`) e usa lanterna — o mapa é permanentemente
-  noturno (sem ciclo dia/noite no projeto), então ela fica ligada durante
-  patrulha/investigação/busca. Seis instâncias em
-  `scenes/CountryTown/Districts/NPCs.tscn`, espalhadas pelos quatro núcleos de
-  fazenda do mapa: a do núcleo original patrulha
-  `Farmhouse → Barn → CornField → FarmerTractorSpot` (marcador novo em
-  `PointsOfInterest.tscn`, na posição do trator estacionado mais próximo em
-  `RuralInfill.tscn`); as demais alternam entre patrulhar 2–3 pontos (celeiro,
-  trator, moinho) e ficar com um único ponto de rotina, majoritariamente
-  parada "trabalhando" — a diferença entre patrulhar e ficar parado é só o
-  tamanho de `patrol_points`.
-- **Morador** (`scripts/npc/townsperson_npc.gd`, `scenes/NPCs/Townsperson.tscn`):
-  `reaction_mode = FLEE`, três instâncias circulando em triângulo entre
-  `GeneralStore`, `TownSquare` e `Church`, com os clipes femininos da
-  biblioteca. "Procurar ajuda" fica como extensão futura — hoje não há destino
-  de ajuda definido no jogo para apontar sem inventar um.
-- **Policial a pé** (`scripts/npc/police_npc.gd`, `scenes/NPCs/PoliceOfficer.tscn`):
-  `reaction_mode = CHASE`, três instâncias patrulhando os mesmos três pontos
-  urbanos. Ainda não reage ao alerta global: `PhotoAlertSystem.police_response_requested`
-  já é emitido nos níveis certos, mas não carrega a posição do ET — conectar
-  isso exige antes estender `photo_alert_system.gd` com essa posição.
-
-**Animação (Idle/Walk):** `scripts/npc/npc_animation.gd` (`NPCAnimation`) abre
-cada clipe da biblioteca Synty em `Temporarios/Animations/Polygon/`, copia a
-`Animation` dele para uma `AnimationLibrary` local e a toca no
-`AnimationPlayer` do NPC — mesma técnica do protótipo
-`Temporarios/Animations/Meshes/testanim_animation_controller.gd`. `NPCActor`
-chama `set_moving()` sempre que anda ou para.
-
-Isso obriga os três NPCs a usarem
-`Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx` como malha: as
-trilhas dos clipes são gravadas como `Skeleton3D:osso` e **só** funcionam
-nesse rig (50 ossos, `Hips/Spine_01/Shoulder_L`, em metros, com o `Skeleton3D`
-direto na raiz). Os modelos que os NPCs usavam antes não servem, e nenhum
-deles traz clipe embutido:
-
-| Modelo | Ossos | Nomes | Rest pose |
-| --- | --- | --- | --- |
-| `PolygonSyntyCharacter.fbx` | 50 | `Hips/Spine_01/Shoulder_L` | metros, Y-up — igual aos clipes |
-| `FarmerOld2.glb` | 48 | os mesmos nomes | centímetros e eixos girados (o nó `Armature` compensa com escala 0.01) |
-| `SK_Character_*.fbx` (PolygonCity) | 48 | outra convenção (`Pelvis/spine_01/UpperArm_L/Thigh_R`) | centímetros |
-
-Aplicar as trilhas nesses dois últimos sem retargeting deforma o personagem
-inteiro. O preço da troca é que os 12 NPCs compartilham a mesma malha (só a
-escala varia por instância, de 0,95 a 1,04); dar visual próprio a cada papel
-pede retargeting por `BoneMap`/`SkeletonProfileHumanoid` na importação, ou um
-modelo novo já no rig dos clipes. `tools/test_npc_animation.gd` cobre
-justamente essa armadilha: ele não checa só se a animação existe, mas se os
-ossos saem mesmo da rest pose.
-
-Sem a `NavigationRegion3D` do Country Town bakeada (ver limitações), o
-`NPCActor.move_toward_point()` degrada sozinho para ir direto ao ponto em
-linha reta, sem desvio de obstáculo; passa a seguir caminho de verdade assim
-que a malha for gerada, sem qualquer mudança de código.
+- **Fazenda** (`scenes/world.tscn`): o mapa jogável do catálogo, montado à mão.
+- **Country Town** (`scenes/CountryTown/CountryTown.tscn`): mapa de `600 × 450 m`
+  em construção, **fora do catálogo de fases** — abre direto pelo editor. A cena
+  mestre só instancia terreno, ambiente, jogador e os distritos de
+  `Districts/`, e quase tudo é gerado: relevo, estradas, rio, pontes, talhões,
+  vegetação, complementos urbanos e rurais e a população de 12 NPCs saem das
+  ferramentas de `tools/`. As receitas ficam nos scripts de layout; edite as
+  receitas, não as cenas geradas. A ordem de execução, o efeito de cada
+  ferramenta e as checagens correspondentes estão em `tools/VALIDACAO.md`.
+- **Casa modular** (`scenes/Buildings/House01.tscn`): primeira casa em que
+  Player e NPCs entram, em cena separada e autocontida, com porta automática
+  (`scripts/house_door.gd`) e pontos de atividade que o `NPCActor` já conhece.
+  `scenes/Buildings/HouseTest.tscn` é a cena de teste. Gerada por
+  `tools/build_house_01.gd`.
+- **Masmorra** (`scenes/Dungeon/`): corredores procedurais planos, gerados uma
+  vez por sessão a partir de uma porta na fazenda; guarda destroços nos becos
+  sem saída, no mesmo fluxo de coleta e entrega.
 
 ## Limitações conhecidas
 
 - A nave que desce na fazenda e a `SpaceShip` que já existia na cena são
-  redundantes; consolidá-las é trabalho futuro. Não há caminho de volta à
-  órbita.
+  redundantes, e não há caminho de volta à órbita.
 - O catálogo tem só a Fazenda; Cidade e Deserto são exemplos bloqueados.
 - O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
 - Polícia, imprensa e MIB existem apenas como sinais e mensagens de
@@ -666,65 +240,67 @@ que a malha for gerada, sem qualquer mudança de código.
   ponto de aplicação das proporções estão prontos para replicação futura.
 - A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
   desligada, feixes e holofotes não formam cones de luz no ar.
-- A queda não causa dano nem é percebida pelos NPCs. Durante o ragdoll a
-  cápsula de colisão fica desabilitada, então o ET pode atravessar geometria
-  fina, e não há verificação de espaço livre ao levantar.
-- A masmorra não tem objetivo além dos destroços: sem inimigos, salas
-  especiais nem variação vertical.
-- O cenário do mapa Country Town está fechado — terreno, rio, estradas, pontes,
-  edificações, vegetação e ambientação noturna — e já tem os primeiros NPCs
-  (fazendeiros, um morador e um policial de base, ver "IA de NPCs"), mas ainda
-  falta armadilha, destroço coletável ou entrega funcional. A
-  sucata do local da queda é cenário, fora do grupo `pickup_items` e sem
-  `score_value`. O portal da mina é só a moldura da entrada, sem ligação com
-  `scenes/Dungeon/`. A `NavigationRegion3D` não foi bakeada — os NPCs a pé
-  andam em linha reta até ela ser gerada — e o mapa não é
-  alcançável pelo menu: abre direto pelo editor.
-- O áudio ambiente do Country Town reusa `farm_environment_audio.gd`, cujas
-  posições de latido de cachorro são fixas nas coordenadas da fazenda e caem
-  fora deste mapa. Vento e grilos, que não são posicionais, tocam normalmente.
-- A malha de navegação interna da nave cobre hoje apenas a plataforma de
-  `9×9 m` junto ao NPC genérico; a luz viva fica limitada a essa área até a
-  região ser rebakeada para o restante do interior. A `NavigationRegion3D` da
-  fazenda existe mas nunca foi bakeada, então ali a luz viva voa por sonda de
-  chão, sem desvio de obstáculo pela navegação — só a colisão do corpo a segura.
-  No Godot 4.8 dev4,
-  `Trail3D.color` é empacotado como RGBA8 e não aceita HDR overbright; o brilho
-  forte vem do uniforme `energy` do shader do rastro, e um `StandardMaterial3D`
-  em modo unshaded ignora a emissão, então núcleo e halo pulsam via albedo HDR.
+- A queda não causa dano nem é percebida pelos NPCs, e durante o ragdoll a
+  cápsula de colisão fica desabilitada.
+- A masmorra não tem objetivo além dos destroços: sem inimigos, salas especiais
+  nem variação vertical.
+- No Country Town o cenário está fechado e os NPCs já andam, mas faltam
+  armadilha, destroço coletável e entrega funcional; a sucata da queda é
+  cenário, o portal da mina é só a moldura e o áudio ambiente reusa posições
+  fixas da fazenda.
+- A `NavigationRegion3D` da fazenda nunca foi bakeada: ali a luz viva voa por
+  sonda de chão, sem desvio de obstáculo pela navegação. Dentro da nave, a
+  malha cobre apenas a plataforma de `9×9 m`.
 - A origem e a licença dos assets em `3dModelos/` e `Texturas/`, do pacote
   `Polygon Prototype` e dos FBX Mixamo não estão confirmadas. Áudio, ícones e
   animações têm procedência registrada em `assets/audio/SOURCE.md`,
-  `Texturas/ui/SOURCE.md` e `animations/mixamo/SOURCE.md`; confirme os
-  termos antes de redistribuir.
+  `Texturas/ui/SOURCE.md` e `animations/mixamo/SOURCE.md`; confirme os termos
+  antes de redistribuir.
 
 ## Qualidade e validação
 
-Depois de alterar GDScript, cenas ou `project.godot`, abra o projeto no editor
-e confirme que não há erros de importação, parsing ou referências ausentes. Uma
-checagem sem interface:
+Depois de alterar GDScript, cenas ou `project.godot`, confirme que não há erros
+de importação, parsing ou referências ausentes:
 
 ```powershell
 .\tools\godot.cmd --headless --path . --editor --quit
 ```
 
-As verificações automatizadas ficam em `tools/`, uma por sistema (animação,
-salto e stamina, reversão, ragdoll, câmera, portais, modos de debug,
-interferência e presets de atmosfera). Rode a do sistema que você alterou:
+As verificações automatizadas ficam em `tools/`, uma por sistema. Rode a do
+sistema que você alterou:
 
 ```powershell
 .\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
 
-Omita `--headless` quando a checagem depender de rasterização de verdade, como
-render, screenshot ou culling. No Windows, use o executável terminado em
-`_console.exe`: só ele manda `print()` para o stdout.
+`tools/VALIDACAO.md` tem o mapa completo de ferramenta por sistema, os
+utilitários de geração de asset, os roteiros de teste manual e as regras para
+escrever uma verificação nova. No Windows, use o executável terminado em
+`_console.exe`: só ele manda `print()` para o stdout. Resultado visual, de
+câmera, física, IK, navegação ou gameplay precisa de conferência em uma
+execução normal.
 
-Para medir o custo da atmosfera antes e depois de mexer na névoa,
-`tools/measure_atmosphere_cost.gd` percorre os presets e imprime FPS e tempo de
-render por frame. Ele mede a referência sem névoa no início e no fim, porque a
-nave gira e muda quantos feixes aparecem em tela.
+## Documentação por sistema
 
-Mudanças de gameplay, câmera, física, veículo, navegação, IK ou vegetação
-também devem ser conferidas em uma execução normal. Não inclua senhas, tokens,
-credenciais ou chaves nos arquivos do projeto.
+`docs/` guarda a documentação persistente dos sistemas: relações entre eles,
+arquivos importantes, responsabilidades e decisões arquiteturais. É o que ler
+antes de alterar cada parte do jogo.
+
+| Documento | Cobre |
+| --- | --- |
+| `docs/arquitetura.md` | Cenas de entrada, autoloads, grupos, contratos, camadas e convenções |
+| `docs/fluxo-de-jogo.md` | Menu, órbita, catálogo de fases, chegada, coleta e entrega |
+| `docs/player.md` | O ET: movimento, sobrevivência, câmera, aparência, ragdoll |
+| `docs/npcs.md` | `NPCActor`, sensores, behavior tree Beehave e rotinas |
+| `docs/animacoes.md` | Os dois rigs (Mixamo e Synty) e a máquina de estados |
+| `docs/veiculos.md` | Caminhonete, viatura com IA, avião e a nave |
+| `docs/mundo.md` | Mapas, terreno, vegetação, masmorra e portais |
+| `docs/country-town.md` | O mapa gerado e a ordem das ferramentas |
+| `docs/casas-interiores.md` | Casa modular, portas e pontos de atividade |
+| `docs/ambiente-e-fx.md` | Noite, névoa, incidente alienígena, shaders e áudio |
+| `docs/ui-e-menus.md` | Menus, HUDs, minimapa e menus de depuração |
+| `docs/ferramentas.md` | Mapa dos scripts de `tools/` por categoria |
+
+`docs/generated/` está reservada a um snapshot automático do repositório
+(Repomix, configurado em `repomix.config.json`); o conteúdo gerado não é
+versionado.

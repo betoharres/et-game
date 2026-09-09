@@ -1,93 +1,116 @@
 # Instruções para agentes — ET Game
 
-Fonte única de instruções para agentes. `CLAUDE.md` apenas importa este arquivo,
-para o Claude Code e o Codex seguirem as mesmas regras.
+Fonte única de regras para agentes. `CLAUDE.md` apenas importa este arquivo,
+para o Claude Code e o Codex seguirem as mesmas instruções.
+
+Este arquivo é o **índice**: visão geral, regras e para onde ir. O detalhe de
+cada sistema mora em [`docs/`](docs/) e é a primeira coisa a ler antes de
+alterar algo.
+
+## O projeto em cinco linhas
+
+Protótipo 3D single-player em Godot 4.8 (compatível com 4.7). Um ET explora um
+mapa noturno, coleta destroços de uma nave e os leva até uma área de entrega.
+Não há manager global: um mapa é uma cena que monta terreno, ambiente, jogador,
+NPCs, veículos e itens, e os sistemas se falam por **sinais**, **grupos** e
+**contratos de método**. Cena principal: `scenes/Menu/main_menu.tscn`. Mapa
+jogável: `scenes/world.tscn`.
+
+## Onde está a informação
+
+| Preciso de… | Vá para |
+| --- | --- |
+| Mapa dos sistemas e por onde começar | [`docs/README.md`](docs/README.md) |
+| Autoloads, grupos, contratos, camadas, convenções | [`docs/arquitetura.md`](docs/arquitetura.md) |
+| Documentação do sistema que vou alterar | tabela em [`docs/README.md`](docs/README.md) |
+| O que existe, como rodar, controles, limitações | [`README.md`](README.md) |
+| Comandos de validação e ferramentas de `tools/` | [`tools/VALIDACAO.md`](tools/VALIDACAO.md) |
+| Autoloads, Input Map, camadas de física e render | `project.godot` |
 
 ## Antes de alterar
 
-- Consulte no `README.md` a seção relevante à mudança (índice no topo);
-  leia-o inteiro apenas ao alterar fluxo ou arquitetura.
-- Consulte em `project.godot` as chaves relevantes: autoloads, Input Map,
-  camadas de física e configuração de render.
-- Analise as cenas e os scripts envolvidos antes de editar.
-- Verifique referências entre cenas, scripts, recursos, grupos, sinais,
-  autoloads, materiais e modelos importados.
-- Confirme no código o comportamento atual; não documente ou implemente
-  funcionalidades presumidas.
-- Consulte `git status` e preserve mudanças existentes do usuário, inclusive
-  alterações não relacionadas à tarefa atual.
+- Leia o documento de [`docs/`](docs/) do sistema envolvido e, em mudanças que
+  cruzam sistemas, [`docs/arquitetura.md`](docs/arquitetura.md).
+- Consulte no `README.md` a seção relevante; leia-o inteiro apenas ao alterar
+  fluxo ou arquitetura.
+- Confira em `project.godot` as chaves que a mudança tocar.
+- Analise as cenas e os scripts envolvidos, e verifique as referências entre
+  cenas, scripts, recursos, grupos, sinais, autoloads, materiais e modelos
+  importados.
+- Confirme no código o comportamento atual; não documente nem implemente
+  funcionalidade presumida.
+- Consulte `git status` e preserve mudanças existentes do usuário, inclusive as
+  não relacionadas à tarefa atual.
 
 ## Escopo
 
 - O projeto atual é um protótipo 3D single-player.
 - Preserve o fluxo principal de explorar, coletar destroços e entregá-los.
-- Não introduza multiplayer, backend, persistência ou uma arquitetura de
-  servidor sem solicitação explícita.
+- Não introduza multiplayer, backend, persistência ou arquitetura de servidor
+  sem solicitação explícita.
 - Faça a menor alteração necessária e evite reorganizações sem benefício claro.
-- Mantenha compatibilidade com Godot 4.7, Godot 4.8 e com o preset Windows existente.
+- Mantenha compatibilidade com Godot 4.7, Godot 4.8 e com o preset Windows.
 
 ## Godot
 
 - Prefira recursos nativos do Godot e GDScript tipado.
-- Sempre use vars, funções e retornos com tipos explícitos (var x: int = 0; func foo(delta: float) -> void:).
-- Use ações do Input Map em vez de adicionar teclas hard-coded. Ao criar uma
-  nova ação, registre-a em `project.godot`, documente o controle no README e
-  adicione-a ao menu de controles do ESC (`REBIND_ACTIONS`/`REBIND_LABELS` e
-  `action_buttons` em `scripts/pause_menu.gd`, com o botão correspondente em
-  `scenes/PauseMenu.tscn`), para que fique visível e rebindável pelo jogador.
+- Sempre use vars, funções e retornos com tipos explícitos
+  (`var x: int = 0`; `func foo(delta: float) -> void:`).
+- Use ações do Input Map em vez de teclas hard-coded. Ao criar uma ação:
+  registre-a em `project.godot`, documente o controle no `README.md` e
+  acrescente-a ao menu de controles do ESC — ver
+  [`docs/ui-e-menus.md`](docs/ui-e-menus.md).
 - Prefira sinais, grupos, composição e cenas reutilizáveis.
 - Mantenha scripts e nós com responsabilidades pequenas.
 - Preserve os grupos `characters`, `vehicles` e `pickup_items` ou atualize
   todos os seus consumidores na mesma mudança.
 - Evite managers globais, duplicação e abstrações prematuras. Use o autoload
   `GlobalScore` somente para estado realmente global.
-- Não edite `.godot/`, arquivos `.uid`, arquivos `.import` ou caches gerados.
+- Cena ou recurso gerado por ferramenta de `tools/` não se edita à mão: mude a
+  receita no script e regere ([`docs/ferramentas.md`](docs/ferramentas.md)).
+- Não edite `.godot/`, arquivos `.uid`, `.import` ou caches gerados.
 - Não altere modelos, texturas ou materiais importados quando uma sobrescrita
   local na cena resolver o problema.
 - Nunca grave senhas, tokens, chaves ou credenciais no repositório.
 - Registre origem, autor e licença ao adicionar assets externos.
-
-## Gameplay e cenas
-
-- `scenes/Menu/main_menu.tscn` é a cena principal configurada; o botão de jogar
-  inicia `scenes/Space/Orbit.tscn`, que leva à fase escolhida.
-- `world.tscn` deve compor o mapa. Comportamentos reutilizáveis devem permanecer
-  nas cenas próprias em vez de serem duplicados no mundo.
-- Preserve o contrato de itens coletáveis: grupo `pickup_items`, métodos
-  `pickup()` e `drop()` e propriedade `score_value` quando aplicáveis.
-- Alterações na entrega devem manter consistência entre `player.gd`,
-  `delivery_area.gd`, os itens e `GlobalScore.gd`.
-- Alterações no veículo devem considerar entrada, saída, câmera, visibilidade do
-  jogador, congelamento da física e restauração dos processos do personagem.
-- Alterações no fazendeiro devem considerar navegação pronta, perda de visão,
-  transições entre estados, disparos, dano e morte do jogador.
-- Vegetação reativa deve continuar funcionando tanto para `characters` quanto
-  para `vehicles`, sem custo desnecessário por instância.
 
 ## Validação
 
 - O padrão é não validar. Mudança no corpo de uma função, em valores, textos,
   comentários ou documentação vai direto, com um resumo do que mudou.
 - Rode a checagem headless do Godot apenas nestes casos: script ou cena nova,
-  arquivo movido ou renomeado, alteração em `project.godot`, ou quando o
-  editor já estiver acusando erro. Uma vez, depois da última edição.
+  arquivo movido ou renomeado, alteração em `project.godot`, ou quando o editor
+  já estiver acusando erro. Uma vez, depois da última edição.
 - Rode uma ferramenta de `tools/` só ao mexer no comportamento que ela cobre —
   a do sistema alterado, nunca a bateria inteira.
-- Não abra o jogo para julgar resultado visual, de física ou de gameplay. Quem
-  confere isso é o usuário, no editor que ele já tem aberto: diga em uma frase
-  o que ele deve olhar.
-- Os comandos, o mapa de ferramentas de `tools/` por sistema, os roteiros do
-  que pedir ao usuário e as regras para escrever uma verificação nova estão em
-  `tools/VALIDACAO.md`.
+- Os comandos, o mapa de ferramentas por sistema, os roteiros do que pedir ao
+  usuário e as regras para escrever uma verificação nova estão em
+  [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 - Nunca remova ou enfraqueça validações para ocultar falhas.
 - Nunca declare algo como testado sem ter executado a validação.
 
 ## Documentação
 
+- **Mudança arquitetural relevante atualiza a documentação correspondente em
+  [`docs/`](docs/), na mesma alteração.** Conta como relevante: sistema, cena
+  reutilizável, autoload, grupo, sinal ou contrato entre sistemas criado,
+  removido ou renomeado; responsabilidade movida de um script para outro; etapa
+  nova no fluxo de jogo; ferramenta de `tools/` adicionada ou com efeito
+  alterado; decisão que um agente futuro precisaria conhecer para não repetir um
+  erro. Ajuste de valor, correção dentro de uma função e mudança só visual não
+  exigem documentação.
+- Ao criar um documento novo em `docs/`, acrescente-o ao índice de
+  [`docs/README.md`](docs/README.md).
+- `docs/` descreve **relações, responsabilidades e decisões**. Valores de ajuste
+  vivem nos `@export` e nas constantes, que são a fonte da verdade — não
+  duplique número nem copie código para a documentação.
 - Atualize `README.md` quando mudar o fluxo, controles, cena principal,
-  arquitetura, dependências, comandos de execução ou limitações conhecidas.
-- Ao adicionar, remover ou renomear uma seção do `README.md`, atualize o
-  índice no topo dele.
-- Atualize `AGENTS.md` somente quando surgir uma regra permanente nova.
+  arquitetura, dependências, comandos de execução ou limitações conhecidas; ao
+  adicionar, remover ou renomear uma seção dele, atualize o índice no topo.
+- Detalhe de pipeline de geração, parâmetros de ajuste, cotas de asset e
+  armadilhas de ferramenta vão para `tools/VALIDACAO.md` ou para comentários no
+  script que os implementa — não para o `README.md`.
+- `docs/generated/` recebe snapshot de ferramenta; nunca escreva ali à mão.
+- Atualize este `AGENTS.md` somente quando surgir uma regra permanente nova.
 - Ao concluir, informe os arquivos alterados, as validações executadas e as
   limitações que permaneceram.

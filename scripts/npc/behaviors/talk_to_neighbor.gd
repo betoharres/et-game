@@ -19,6 +19,9 @@ func before_run(_actor: Node, _blackboard: Blackboard) -> void:
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var npc: NPCActor = actor as NPCActor
+	# Rotinas com vagas conversam no próprio destino, sem abandonar a reserva.
+	if npc != null and npc.routine != null:
+		return FAILURE
 	if npc == null or not npc.can_socialize or npc.social_group_name == &"":
 		return FAILURE
 

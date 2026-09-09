@@ -8,6 +8,6 @@ extends NPCActor
 
 func _ready() -> void:
 	reaction_mode = ReactionMode.FLEE
-	can_socialize = false
+	can_socialize = routine != null
 	use_flashlight = false
 	super()

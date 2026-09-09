@@ -198,6 +198,10 @@ static func thicken_pavement(mesh: Mesh, depth: float) -> ArrayMesh:
 	var surface: SurfaceTool = SurfaceTool.new()
 	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 	surface.append_from(mesh, 0, Transform3D.IDENTITY)
+	# append_from also copies the top's index buffer. Clear it before adding
+	# faces, otherwise index() keeps only those old indices and the new walls
+	# exist in the vertex buffer but are never rendered or used by collision.
+	surface.deindex()
 	var faces: PackedVector3Array = mesh.get_faces()
 	var edges: Dictionary = {}
 	var down: Vector3 = Vector3.DOWN * depth

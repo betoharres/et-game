@@ -23,6 +23,14 @@ var _scan_timer: float = 0.0
 
 func _ready() -> void:
 	add_to_group(&"npc_hearing_listeners")
+	_scan_timer = randf_range(0.0, scan_interval)
+
+
+func hear_report(source: Vector3, last_seen: Vector3) -> void:
+	if global_position.distance_to(source) > 18.0:
+		return
+	pending_noise_position = last_seen
+	pending_noise_time = Time.get_ticks_msec() / 1000.0
 
 
 func _physics_process(delta: float) -> void:
@@ -30,6 +38,9 @@ func _physics_process(delta: float) -> void:
 	if _scan_timer > 0.0:
 		return
 	_scan_timer = scan_interval
+	var actor: NPCActor = get_parent() as NPCActor
+	if actor != null and is_instance_valid(actor.player) and global_position.distance_to(actor.player.global_position) > 90.0:
+		_scan_timer = 0.8
 	_scan_ambient_noise()
 
 

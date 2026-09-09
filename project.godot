@@ -629,7 +629,6 @@ binos_zoom_out={
 "script": null
 )]
 }
-
 toggle_first_person={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,

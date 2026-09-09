@@ -1,0 +1,49 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "filePath": "docs/generated/repomix-snapshot.md",
+    "style": "markdown",
+    "headerText": "Snapshot gerado do ET Game. A documentacao curada fica em docs/; as regras, em AGENTS.md.",
+    "removeComments": false,
+    "showLineNumbers": false,
+    "directoryStructure": true,
+    "files": true
+  },
+  "include": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "project.godot",
+    "export_presets.cfg",
+    "docs/**/*.md",
+    "scripts/**/*.gd",
+    "shaders/**/*.gdshader",
+    "tools/**/*.gd",
+    "tools/**/*.py",
+    "tools/**/*.md"
+  ],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      ".godot/**",
+      "addons/**",
+      "build/**",
+      "docs/generated/**",
+      "Polygon*/**",
+      "SICSFarm/**",
+      "Temporarios/**",
+      "Texturas/**",
+      "Materiais/**",
+      "3dModelos/**",
+      "assets/**",
+      "animations/**",
+      "script_templates/**",
+      "**/*.uid",
+      "**/*.import"
+    ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  }
+}

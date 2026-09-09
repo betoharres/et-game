@@ -63,6 +63,8 @@ func _run() -> void:
 	if material == null or material.albedo_texture == null or material.albedo_color.v > 0.25:
 		_failures.append("Asphalt must have a dark, textured local material")
 	_check_surface_vertices(asphalt)
+	for label: String in ["Sidewalks", "Curbs"]:
+		_check_pavement_walls(roads.get_node(label) as MeshInstance3D)
 	_check_apron(roads.get_node_or_null("DirtRoadBed") as MeshInstance3D)
 	for label: String in Rural.RETIRED:
 		if roads.get_node_or_null(label) != null or world.get_node_or_null("SecondaryPaths/%s" % label) != null:
@@ -121,6 +123,54 @@ func _check_surface_vertices(node: MeshInstance3D) -> void:
 		var ground: float = _terrain.data.get_height(vertex)
 		if is_nan(ground) or ground > vertex.y - 0.01:
 			_failures.append("Terrain penetrates %s at %s: ground %.3f" % [node.name, vertex, ground])
+
+
+## Inspect indexed faces and raycast across exposed edges, not just the AABB:
+## unused wall vertices can enlarge the bounds without closing a single gap.
+func _check_pavement_walls(node: MeshInstance3D) -> void:
+	var faces: PackedVector3Array = node.mesh.get_faces()
+	var top: float = node.mesh.get_aabb().end.y
+	var edges: Dictionary = {}
+	var walls: int = 0
+	for index: int in range(0, faces.size(), 3):
+		var a: Vector3 = faces[index]
+		var b: Vector3 = faces[index + 1]
+		var c: Vector3 = faces[index + 2]
+		if maxf(a.y, maxf(b.y, c.y)) - minf(a.y, minf(b.y, c.y)) > 0.1:
+			walls += 1
+		if absf(a.y - top) > 0.001 or absf(b.y - top) > 0.001 or absf(c.y - top) > 0.001:
+			continue
+		for corner: int in 3:
+			var key: Array[Vector3] = [
+				faces[index + corner].snapped(Vector3.ONE * 0.001),
+				faces[index + (corner + 1) % 3].snapped(Vector3.ONE * 0.001)
+			]
+			key.sort()
+			edges[key] = int(edges.get(key, 0)) + 1
+	if walls == 0:
+		_failures.append("%s has no indexed side faces: pavement is open underneath" % node.name)
+		return
+	var samples: int = 0
+	for key: Array in edges:
+		if edges[key] != 1 or (key[1] as Vector3).distance_to(key[0]) < 0.02:
+			continue
+		var middle: Vector3 = (key[0] + key[1]) * 0.5 - Vector3.UP * 0.1
+		var side: Vector3 = (key[1] - key[0]).normalized().cross(Vector3.UP) * 0.01
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+			node.to_global(middle + side), node.to_global(middle - side)
+		)
+		var hit: Dictionary = _space.intersect_ray(query)
+		if hit.is_empty():
+			# Concave collision faces are one-sided; inspect the opposite side
+			# too, since the sorted edge does not retain the surface winding.
+			var start: Vector3 = query.from
+			query.from = query.to
+			query.to = start
+			hit = _space.intersect_ray(query)
+		if hit.is_empty():
+			_failures.append("Open pavement edge on %s at %s" % [node.name, node.to_global(middle)])
+		samples += 1
+	print("%s: %d indexed wall triangles, %d side collision samples" % [node.name, walls, samples])
 
 
 ## What is left of the dirt floor may only be the bridge aprons.

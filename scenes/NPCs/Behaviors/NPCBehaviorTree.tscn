@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="0_tree"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="0_selectorreactive"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/npc/behaviors/talk_to_neighbor.gd" id="12_talk"]
 [ext_resource type="Script" path="res://scripts/npc/behaviors/idle.gd" id="13_idle"]
 [ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="14_patrol"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/daily_routine.gd" id="15_daily"]
 
 [node name="NPCBehaviorTree" type="Node"]
 script = ExtResource("0_tree")
@@ -90,6 +91,9 @@ script = ExtResource("0_selector")
 
 [node name="TalkToNeighbor" type="Node" parent="Root/Routine"]
 script = ExtResource("12_talk")
+
+[node name="DailyRoutine" type="Node" parent="Root/Routine"]
+script = ExtResource("15_daily")
 
 [node name="Idle" type="Node" parent="Root/Routine"]
 script = ExtResource("13_idle")

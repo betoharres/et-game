@@ -25,9 +25,11 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	if not _has_target:
 		_target = npc.hearing.consume_noise()
 		_has_target = true
+		if npc.reaction_mode == NPCActor.ReactionMode.FLEE and npc.routine != null:
+			_target = npc.routine.refuge(_target)
 
 	if not _arrived:
-		if npc.move_toward_point(_target, npc.walk_speed):
+		if npc.move_toward_point(_target, npc.walk_speed) or npc.navigation_failed:
 			_arrived = true
 		return RUNNING
 
