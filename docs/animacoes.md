@@ -39,7 +39,7 @@ Decisões que valem lembrar:
   build do GLB.
 - Locomoção mistura andar/correr/agachar/strafe por velocidade e direção
   local, com variantes de idle sorteadas depois de um tempo parado.
-- Sobre a animação base atuam apenas três modificadores: dois
+- Para olhar e alcançar alvos, a pilha usa dois
   `LookAtModifier3D` (cabeça e torso) e um `TwoBoneIK3D` no braço direito,
   alimentado pelos alvos de `scripts/ik_target_container.gd`.
 - `CharacterProportions` é um `SkeletonModifier3D` pós-animação (escala de

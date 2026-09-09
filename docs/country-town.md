@@ -29,44 +29,26 @@ Os pontos de interesse (`Farmhouse`, `Barn`, `CornField`, `MinePortal`,
 comum: o layout, as checagens e o minimapa dependem dos nomes exatos e do grupo
 `country_town_poi`.
 
-## Pipeline de geração
+## Receitas e dependências
 
-Ordem obrigatória — cada etapa consome a saída da anterior:
+Localize a receita pela saída em [ferramentas.md](ferramentas.md#geradores-de-asset).
+A ordem de execução, os argumentos, os efeitos de regenerar e a escolha de
+checagens ficam em [tools/VALIDACAO.md](../tools/VALIDACAO.md#geração-do-country-town).
 
-```text
-build_country_town_layout  →  build_country_town_terrain  →
-build_country_town_settlement  →  build_country_town_fields  →
-build_country_town_vegetation
-```
-
-| Ferramenta | O que gera | Observações |
-| --- | --- | --- |
-| `build_country_town_layout.gd` | Estradas e rio, com interseções assadas sem sobreposição | O traçado autoral (`ROAD_RUNS`) manda; asfalto, terra, calçadas, meios-fios e acostamentos têm materiais separados. Aceita `--headless` |
-| `build_country_town_terrain.gd` | Heightmap e regiões do Terrain3D | O relevo se adapta ao layout, não o contrário. **Reimporta as regiões do zero** — por isso vem antes do plantio. Só escreve em `scenes/CountryTown/Terrain` |
-| `build_country_town_settlement.gd` | Lotes, prédios e complementos dos distritos | Composição determinística com assets locais; não sobrescreve distritos autorais. Receita de lotes em `tools/country_town_neighborhood.gd` |
-| `build_country_town_fields.gd` | Milharal, trigo e girassóis | Poda o que cai perto de estrada, rio ou colisão de prédio. **Precisa rodar sem `--headless`** (MultiMesh) |
-| `build_country_town_vegetation.gd` | Grama, arbustos e árvores no `Terrain3DInstancer` | Vegetação vive dentro das regiões do terreno, não como nós de cena. Rodar de novo limpa o plantio anterior. **Sem `--headless`** |
-| `build_country_town_population.gd` | `Layout/PedestrianNavigation.res` e `Districts/NPCs.tscn` | Assa navegação de pedestre e a população a partir de corredores, pátios e colisões dos distritos; gera também os `NPCActivity`. Exige editor fechado |
-
-Ferramentas de superfície viária, complementares:
-
-- `build_rural_roads.gd` — tira o piso de terra das vias rurais (o chão passa a
-  ser o terreno) e deixa piso só nas cabeceiras de ponte; regrava
-  `RoadNetwork.tscn` e `SecondaryPaths.tscn`. Idempotente.
-- `build_tire_tracks.gd` — assa as marcas de pneu contra o terreno atual. Sem
-  argumento preserva as curvas em cena; `-- --reseed` descarta e semeia tudo de
-  novo, apagando edições manuais.
-- `build_terrain_surface.gd` — normais/rugosidade das texturas e a máscara de
-  uso do solo. Só dados de material.
-- `recess_country_town_asphalt.gd` — atualiza só o piso pavimentado e o subsolo.
-- `bake_police_patrol_route.gd` — regera o grafo de ruas da patrulha e imprime a
-  linha para colar no nó `AIDriver` da viatura. **Obrigatório sempre que
-  `ROAD_RUNS` mudar.**
-
-Bibliotecas auxiliares (`RefCounted`, não rodam sozinhas):
-`tools/country_town_road_surface.gd` (união de polígonos convexos do piso) e
-`tools/country_town_neighborhood.gd` (receita de lotes em metros; frente local
-`-Z`).
+- O layout define o traçado (`ROAD_RUNS`) e os pontos de interesse; o relevo
+  se adapta a esse traçado. Os dados do terreno deste mapa ficam separados
+  dos da fazenda.
+- O settlement compõe os lotes e complementos. A receita de lotes é
+  `tools/country_town_neighborhood.gd` (medidas em metros, frente local `-Z`);
+  `tools/country_town_road_surface.gd` monta polígonos do piso. São bibliotecas
+  `RefCounted`, não ferramentas executáveis.
+- A vegetação do instancer é salva nas regiões do Terrain3D. Recriar o terreno
+  remove esse plantio; não o trate como uma cena independente.
+- A população usa corredores, pátios e colisões dos distritos para gerar
+  `Layout/PedestrianNavigation.res`, `Districts/NPCs.tscn` e atividades.
+- As curvas de `TireTrack3D` admitem autoria no editor; o gerador preserva as
+  existentes sem `--reseed`. Essa opção descarta a autoria. Confira os
+  argumentos antes de regenerar cenas que contêm marcas.
 
 ## População
 
@@ -84,29 +66,11 @@ antes de atribuir aos NPCs uma rotina dentro da casa da praça.
 chassi e a mesma behavior tree ([npcs.md](npcs.md)). As paradas de rotina são
 `NPCActivity` gerados junto com a cena.
 
-## Checagens
-
-| Checagem | Cobre |
-| --- | --- |
-| `check_country_town_layout.gd` | Cada POI existe com o nome exato, está no grupo, cai dentro do retângulo do mapa, pousa no terreno e fica acima da linha d'água |
-| `check_country_town_clearance.gd` | Edificações e passagem nas vias principais, ruas locais e trilhas |
-| `check_country_town_neighborhood.gd` | Escala das casas, divisas e acessos de pedestre/carro nos lotes |
-| `check_country_town_roads.gd` | Malhas e colisões salvas do piso viário, rampas, asfalto e folga sobre o terreno |
-| `check_country_town_bridge.gd` | Tabuleiro e parapeitos da ponte |
-| `check_country_town_fences.gd` | Cercas |
-| `inspect_country_town_roads.gd` | Sete capturas em `build/country-road-review/` (rodar **sem** `--headless`) |
-
 ## Ao alterar
 
-1. Mudou via urbana ou largura? Regere layout **e** terreno.
-2. Mudou só lotes e objetos? Comece pelo settlement.
-3. Mudou `ROAD_RUNS`, `SECONDARY_PATHS` ou o preset de via rural? Rode
-   `build_rural_roads.gd` + `build_terrain_surface.gd`, depois
-   `check_country_town_roads.gd`, e reassar o grafo da patrulha.
-4. Campos e vegetação **nunca** com `--headless`.
-5. Nunca rode uma segunda instância do Godot com o editor aberto no mesmo
-   projeto: as duas concorrem pelo cache em `.godot/`. Use cópia isolada.
-6. Comandos exatos, argumentos e roteiros manuais: `tools/VALIDACAO.md`.
+Comece pela receita da parte afetada, preservando os nomes dos POIs e as
+instâncias compartilhadas. Para comandos, dependências de regeneração e
+checagens, consulte [tools/VALIDACAO.md](../tools/VALIDACAO.md#geração-do-country-town).
 
 ## Limitações atuais
 

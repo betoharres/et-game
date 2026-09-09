@@ -43,21 +43,8 @@ leitura para agentes, em `docs/generated/` — ver
 
 ## Checagens automatizadas
 
-Imprimem diagnóstico e saem com `quit(1)` ao falhar. Rode **a do sistema que
-você alterou**, uma vez, depois da última edição — nunca a bateria inteira.
-Qual rodar depois de mexer em cada coisa: tabela em
-[`../tools/VALIDACAO.md`](../tools/VALIDACAO.md).
-
-| Ferramenta | Sistema |
-| --- | --- |
-| `test_player_animation.gd`, `test_player_jump_stamina.gd`, `test_player_steps.gd`, `test_player_reversal.gd`, `test_player_ragdoll.gd`, `test_player_debug_modes.gd`, `test_cinematic_camera.gd` | [player.md](player.md) |
-| `test_farmer_npc_behavior.gd`, `test_npc_animation.gd`, `test_generic_npc_navigation.gd`, `test_ship_crew_downed.gd` | [npcs.md](npcs.md) |
-| `test_minimap.gd` | [ui-e-menus.md](ui-e-menus.md) |
-| `test_portal_teleportation.gd` | [mundo.md](mundo.md) |
-| `test_atmosphere_presets.gd`, `test_alien_interference.gd`, `measure_atmosphere_cost.gd` (sem `--headless`) | [ambiente-e-fx.md](ambiente-e-fx.md) |
-| `check_tapered_shell.gd`, `validate_alien_ship_authored_geometry.gd` | [veiculos.md](veiculos.md) |
-| `check_house_01.gd` | [casas-interiores.md](casas-interiores.md) |
-| `check_country_town_layout.gd`, `check_country_town_clearance.gd`, `check_country_town_neighborhood.gd`, `check_country_town_roads.gd`, `check_country_town_bridge.gd`, `check_country_town_fences.gd` | [country-town.md](country-town.md) |
+O catálogo único de testes, com o comportamento coberto por cada um, está em
+[tools/VALIDACAO.md](../tools/VALIDACAO.md#qual-ferramenta-para-cada-sistema).
 
 ## Inspeções visuais
 
@@ -70,12 +57,9 @@ usuário julgar o resultado, nunca como critério de aprovação:
 
 ## Ao adicionar uma ferramenta
 
-1. Decida a categoria: gerador, checagem ou inspeção — e siga o padrão da
-   categoria (checagem imprime diagnóstico e falha com `quit(1)`, informando
-   coordenadas de mundo em falhas espaciais).
-2. Registre-a na tabela de `tools/VALIDACAO.md` ligada ao sistema que ela cobre,
-   e cite-a no documento do sistema aqui em `docs/`.
-3. Se ela depender de rasterização real (render, screenshot, MultiMesh,
-   culling), diga isso no cabeçalho do script: o driver dummy não desenha nada.
-4. Nunca remova ou enfraqueça uma validação para esconder falha; nunca declare
-   algo testado sem ter executado.
+Siga o padrão da categoria. Dependência de rasterização real deve aparecer
+no cabeçalho do script (render, screenshot, MultiMesh, culling).
+Na revisão de documentação, registre geradores nesta tabela e checagens em
+[tools/VALIDACAO.md](../tools/VALIDACAO.md#qual-ferramenta-para-cada-sistema).
+Documente no sistema apenas dependências e decisões que o agente precisará
+preservar; a política de atualização é a de [AGENTS.md](../AGENTS.md).

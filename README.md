@@ -56,23 +56,14 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 | `addons/` | Terrain3D, Beehave e PathMesh3D vendorados |
 | `build/` | Cópias isoladas do projeto e saídas de inspeção; fora do versionamento |
 
-Cenas de entrada:
-
-| Cena | Papel |
-| --- | --- |
-| `scenes/Menu/main_menu.tscn` | Cena principal do projeto: menu, opções e remapeamento |
-| `scenes/Menu/CharacterCreator.tscn` | Personalização 3D exibida entre Jogar e a órbita |
-| `scenes/Space/Orbit.tscn` | Órbita jogável com o terminal de seleção de missão |
-| `scenes/world.tscn` | Mapa da fazenda, onde a partida acontece |
-| `scenes/Player.tscn` | ET, câmera, rig Mixamo, `AnimationTree` e IK de ação |
-| `scenes/Space/AlienShip.tscn` | Nave reutilizada na órbita, na fazenda e no Barn |
-| `scenes/NightEnvironment.tscn` | Céu, Lua, névoa, iluminação e filtro de tela da fazenda |
+A cena principal é `scenes/Menu/main_menu.tscn`; a fazenda é
+`scenes/world.tscn`. O mapa de cenas e scripts de cada etapa está em
+[fluxo-de-jogo.md](docs/fluxo-de-jogo.md#etapas-e-quem-responde-por-cada-uma).
 
 ## Executar
 
 Abra `project.godot` no Godot 4.8 dev4 ou mais novo e pressione `F5`. Pelo
-PowerShell, use o wrapper do projeto, que procura primeiro o dev4 em
-`C:\Godot_v4.8`, depois o dev4 Mono legado e, por último, o Godot no `PATH`:
+PowerShell, use o wrapper do projeto (`tools/godot.cmd`):
 
 ```powershell
 .\tools\godot.cmd --path .            # rodar o jogo
@@ -93,7 +84,7 @@ Menu -> criar ET -> nave em orbita -> terminal de missao -> aproximacao -> nave 
   exige mexer em script.
 - Na fase, a nave desce do céu e estaciona sobre o ponto de chegada; pisar no
   pad e interagir aciona a descida pelo feixe. Abrir `world.tscn` direto no
-  editor pula esse passo.
+  editor inicia automaticamente a descida pelo feixe, sem a etapa do pad.
 - Destroços podem ser carregados e largados. Para entregar, o jogador larga o
   item na plataforma e sustenta o sinal de intervenção alienígena até o feixe
   sugá-lo. Um spider bot desce da nave e ajuda na coleta.
@@ -144,18 +135,10 @@ de rebind estão em [`docs/ui-e-menus.md`](docs/ui-e-menus.md).
 
 ## Arquitetura
 
-O projeto é composto por cenas reutilizáveis. Um mapa (`world.tscn`,
-`CountryTown.tscn`) monta terreno, ambiente, jogador, NPCs, veículos, destroços
-e área de entrega; nenhum manager global orquestra isso. Os sistemas se falam
-por **sinais**, **grupos** e **contratos de método**, e o estado realmente
-global vive em cinco autoloads: `CharacterAppearance`, `GlobalScore`,
-`PhotoAlertSystem`, `SceneTransition` e `DebugMenus`.
-
-O detalhamento — cenas de entrada, tabelas de autoloads e de grupos, contratos
-entre sistemas, camadas de física e render, convenções de código e o diagrama
-dos fluxos entre sistemas — está em
-[`docs/arquitetura.md`](docs/arquitetura.md). Cada sistema tem o seu documento
-em [Documentação por sistema](#documentação-por-sistema).
+Cada mapa monta cenas reutilizáveis que se comunicam por sinais, grupos e
+contratos de método. [docs/arquitetura.md](docs/arquitetura.md) localiza os
+contratos e autoloads; [docs/README.md](docs/README.md) indica por onde começar
+em cada sistema.
 
 ## Mapas e cenas geradas
 
@@ -175,8 +158,7 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 
 ## Limitações conhecidas
 
-- A nave que desce na fazenda e a `SpaceShip` que já existia na cena são
-  redundantes, e não há caminho de volta à órbita.
+- Não há caminho de volta da fazenda à órbita.
 - O catálogo tem só a Fazenda; Cidade e Deserto são exemplos bloqueados.
 - O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
 - Polícia, imprensa e MIB existem apenas como sinais e mensagens de
@@ -208,28 +190,14 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 
 ## Qualidade e validação
 
-O padrão é não validar: a maior parte das mudanças vai direto. Depois de
-alterar GDScript, cenas ou `project.godot`, uma checagem headless do Godot
-confirma que não há erro de importação, parsing ou referência ausente, e as
-verificações automatizadas de `tools/` cobrem um sistema cada. Resultado
-visual, de câmera, física, IK, navegação ou gameplay precisa de conferência em
-uma execução normal.
-
-Os comandos exatos, o mapa de ferramenta por sistema, os roteiros de teste
-manual e as regras para escrever uma verificação nova estão em
-[`tools/VALIDACAO.md`](tools/VALIDACAO.md); a política de quando validar, em
-[`AGENTS.md`](AGENTS.md); o mapa das ferramentas por categoria, em
-[`docs/ferramentas.md`](docs/ferramentas.md).
+A política de quando validar fica em [AGENTS.md](AGENTS.md#validação).
+Comandos e seleção de testes ficam em [tools/VALIDACAO.md](tools/VALIDACAO.md).
+Checagem headless não comprova aparência, física ou experiência de jogo;
+os roteiros manuais estão nesse mesmo documento.
 
 ## Documentação por sistema
 
-`docs/` guarda a documentação persistente dos sistemas — arquitetura, fluxo de
-jogo, player, NPCs, animações, veículos, mundo, Country Town, casas e
-interiores, ambientação e FX, UI e menus, e ferramentas. É o que ler antes de
-alterar cada parte do jogo: relações entre sistemas, arquivos importantes,
-responsabilidades e decisões arquiteturais.
-
-O índice, com o que cada documento cobre e quando lê-lo, está em
-[`docs/README.md`](docs/README.md). A pasta `docs/generated/` recebe snapshots
-automáticos do repositório (Repomix); o conteúdo gerado não é versionado — ver
-[`docs/generated/README.md`](docs/generated/README.md).
+Use [docs/README.md](docs/README.md) para localizar o documento e o código
+responsável pela tarefa. [AGENTS.md](AGENTS.md) concentra as regras de trabalho.
+Os snapshots de `docs/generated/` são exportações opcionais de contexto,
+não documentação adicional a carregar durante o desenvolvimento.

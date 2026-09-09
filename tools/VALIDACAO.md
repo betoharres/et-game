@@ -4,10 +4,11 @@ Procedimento de validação do projeto, válido para qualquer agente ou pessoa.
 As regras de política ficam em `AGENTS.md`, na seção Validação; aqui está o
 como fazer.
 
-O padrão é não validar: a maior parte das mudanças vai direto. Rode algo
-apenas nos casos listados em `AGENTS.md`, uma vez, depois da última edição, e
-repita só se o código mudar depois da checagem ou se o ciclo rodar/medir fizer
-parte da depuração.
+Consulte aqui apenas a seção necessária: [comandos](#comandos),
+[teste por comportamento](#qual-ferramenta-para-cada-sistema),
+[geração do Country Town](#geração-do-country-town),
+[casa modular](#geração-da-casa-modular), [roteiros manuais](#roteiros-manuais)
+ou [checagem nova](#escrever-uma-verificação-nova).
 
 ## Comandos
 
@@ -22,12 +23,6 @@ Uma ferramenta de `tools/`:
 ```powershell
 .\tools\godot.cmd --headless --path . --script res://tools/<tool>.gd
 ```
-
-No Country Town, os geradores de layout e settlement usam malhas nativas e
-aceitam `--headless`. Campos e vegetação ainda usam `MultiMesh` e precisam de
-rasterização real. `RoadNetwork.tscn` deve conter `AsphaltRoadBed`,
-`Sidewalks`, `Curbs` e `TireTracks`, mais o `DirtRoadBed` reduzido às abas das
-pontes; as marcas das trilhas rurais ficam no `TireTracks` de `SecondaryPaths`.
 
 Omita `--headless` quando a checagem depender de rasterização de verdade —
 render, screenshot, culling — porque o driver dummy não desenha nada:
@@ -75,7 +70,14 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Cercas do Country Town | `tools/check_country_town_fences.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
-| Marcas de pneu de autoria sobre as vias | `tools/build_tire_tracks.gd` |
+
+## Geração do Country Town
+
+No Country Town, os geradores de layout e settlement usam malhas nativas e
+aceitam `--headless`. Campos e vegetação ainda usam `MultiMesh` e precisam de
+rasterização real. `RoadNetwork.tscn` deve conter `AsphaltRoadBed`,
+`Sidewalks`, `Curbs` e `TireTracks`, mais o `DirtRoadBed` reduzido às abas das
+pontes; as marcas das trilhas rurais ficam no `TireTracks` de `SecondaryPaths`.
 
 `tools/bake_police_patrol_route.gd` regera o grafo de ruas que a viatura de
 polícia patrulha (o `road_nodes` do nó `AIDriver` em
@@ -84,7 +86,10 @@ polícia patrulha (o `road_nodes` do nó `AIDriver` em
 ficam gravados na cena; rode esta ferramenta e cole a linha impressa sempre que
 `ROAD_RUNS` mudar, senão a patrulha continua dirigindo pela grade antiga.
 
-`tools/build_mixamo_character.py`, `tools/render_prototype_icons.py`,
+`tools/recess_country_town_asphalt.gd` atualiza piso pavimentado e subsolo,
+preservando os distritos e a vegetação. `-- --pavement-only` pula a alteração
+do terreno; confira o cabeçalho e os argumentos do script antes de usá-lo.
+
 `tools/build_country_town_layout.gd`, `tools/build_country_town_terrain.gd`,
 `tools/build_country_town_fields.gd`, `tools/build_country_town_settlement.gd`
 e `tools/build_country_town_vegetation.gd`
@@ -97,8 +102,8 @@ reimporta as regiões do zero, por isso o plantio vem depois.
 — o rastro é feito por `build_tire_tracks.gd` — e regrava `RoadNetwork.tscn` e `SecondaryPaths.tscn`.
 Aceita `--headless`, mas carrega o terreno: as fitas assentam na altura real do
 chão. Rode depois de mudar `ROAD_RUNS`, `SECONDARY_PATHS` ou o preset
-`Materiais/rural_road_gentle.tres`, junto com `build_terrain_surface.gd` — uma
-faz as marcas, a outra a faixa de terra que o terreno pinta sob elas — e antes de
+`Materiais/rural_road_gentle.tres`, junto com `build_terrain_surface.gd` — a
+primeira recorta o piso; a segunda pinta a faixa de terra no terreno — e antes de
 `check_country_town_roads.gd`. O recorte das abas de ponte é idempotente: a malha
 original do piso fica guardada em `rural_base_mesh`.
 
@@ -114,17 +119,11 @@ força a reconstrução. A textura de banda
 (`Texturas/tire_tread.res`) vem de `tools/build_tire_tread_texture.gd`, que só
 precisa rodar se o desenho do pneu mudar.
 
-`tools/build_house_01.gd` gera `scenes/Buildings/House01.tscn`, as duas portas,
-a cena de teste `HouseTest.tscn` e a malha de navegação interna; regerar
-sobrescreve ajustes feitos à mão no `.tscn`. `tools/build_country_town_population.gd`
-assa `Layout/PedestrianNavigation.res` e a cena de NPCs do Country Town a partir
-dos corredores, pátios e colisões dos distritos. As duas aceitam `--headless` e
-exigem o editor fechado ou cópia isolada:
-
-```powershell
-.\tools\godot.cmd --headless --path . --script res://tools/build_house_01.gd
-.\tools\godot.cmd --headless --path . --script res://tools/build_country_town_population.gd
-```
+`tools/build_country_town_population.gd` assa
+`Layout/PedestrianNavigation.res` e a cena de NPCs a partir dos corredores,
+pátios e colisões dos distritos. Rode após alterações nesses dados; aceita
+`--headless`. A limitação de conectividade da malha atual está em
+[Country Town — População](../docs/country-town.md#população).
 
 `tools/build_terrain_surface.gd` gera apenas dados de material: normais/rugosidade
 das três texturas locais e a máscara de uso do solo do Country Town. Aceita
@@ -153,6 +152,20 @@ Os complementos gerados usam `country_town_composition` para identificar
 agrupamentos e `country_town_block` para identificar objetos: a altura é
 conferida por objeto, sem usar o centro do distrito inteiro como se fosse um
 prédio. Avisos de vãos pequenos entre móveis e cargas continuam sendo emitidos.
+
+## Geração da casa modular
+
+`tools/build_house_01.gd` regrava `House01.tscn`, `HouseDoor.tscn`,
+`HouseDoorInner.tscn`, `HouseTest.tscn` e a navegação da cena de teste.
+Use editor fechado ou cópia isolada; ajustes manuais nas saídas se perdem.
+
+```powershell
+.\tools\godot.cmd --headless --path . --script res://tools/build_house_01.gd
+.\tools\godot.cmd --headless --path . --script res://tools/check_house_01.gd
+```
+
+Para inspeção visual solicitada, `tools/shoot_house_01.gd` roda sem
+`--headless`. Relações entre casa, portas e NPCs: [casas-interiores.md](../docs/casas-interiores.md).
 
 ## Roteiros manuais
 
@@ -191,5 +204,3 @@ diga o que ele deve conferir, usando os roteiros abaixo.
 - Screenshot serve só como inspeção visual final, nunca como o critério.
 - Testes de unidade, se forem adicionados: prefira GUT, em `test/unit` e
   `test/integration`.
-- Nunca remova nem enfraqueça uma validação para esconder falha.
-- Nunca declare algo testado sem ter executado.

@@ -56,16 +56,8 @@ a cutscene automática de chegada, o que serve para teste rápido.
 
 ## Limites atuais do fluxo
 
-Não invente peça que ainda não existe. Hoje:
-
-- Não há caminho de volta da fase para a órbita.
-- O catálogo só tem a Fazenda jogável; o Country Town **não** está no catálogo.
-- A pontuação não tem HUD, objetivo final nem persistência, e o inventário do
-  `GlobalScore` não está ligado ao fluxo de coleta.
-- Os sinais do `PhotoAlertSystem` não têm cenas nem spawn do outro lado.
-- Opções e remapeamentos duram só a sessão.
-
-A lista completa está em **Limitações conhecidas**, no `README.md`.
+Consulte [Limitações conhecidas](../README.md#limitações-conhecidas) para o
+estado do catálogo, pontuação, retorno à órbita e respostas ao alerta de fotos.
 
 ## Ao alterar
 

@@ -64,7 +64,7 @@ Terrain3D), céu, névoa, água (`water`, `ea_coolwater`), personagem
 (`alien_incident_post`, `damage_vignette`, `xray_binos`) e variação de solo.
 
 Cada shader é usado por uma cena ou material específico: antes de alterar,
-procure quem o referencia (`grep` por `nome.gdshader` em `scenes/`,
+procure quem o referencia (`rg -n -F nome.gdshader` em `scenes/`,
 `Materiais/` e `scripts/`).
 
 ## Áudio
