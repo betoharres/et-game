@@ -26,12 +26,14 @@ jogável: `scenes/world.tscn`.
 | O que existe, como rodar, controles, limitações | [`README.md`](README.md) |
 | Comandos de validação, ferramenta por sistema e roteiros manuais | [`tools/VALIDACAO.md`](tools/VALIDACAO.md) |
 | O que cada script de `tools/` faz, por categoria | [`docs/ferramentas.md`](docs/ferramentas.md) |
+| Quando e como revisar a documentação | seção [Documentação](#documentação) deste arquivo |
 | Autoloads, Input Map, camadas de física e render | `project.godot` |
 
 ## Antes de alterar
 
 - Leia o documento de [`docs/`](docs/) do sistema envolvido e, em mudanças que
-  cruzam sistemas, [`docs/arquitetura.md`](docs/arquitetura.md).
+  cruzam sistemas, [`docs/arquitetura.md`](docs/arquitetura.md). A documentação
+  pode estar atrás do código: use-a como mapa de onde olhar, não como verdade.
 - Consulte no `README.md` a seção relevante; leia-o inteiro apenas ao alterar
   fluxo ou arquitetura.
 - Confira em `project.godot` as chaves que a mudança tocar.
@@ -92,26 +94,73 @@ jogável: `scenes/world.tscn`.
 
 ## Documentação
 
-- **Mudança arquitetural relevante atualiza a documentação correspondente em
-  [`docs/`](docs/), na mesma alteração.** Conta como relevante: sistema, cena
-  reutilizável, autoload, grupo, sinal ou contrato entre sistemas criado,
-  removido ou renomeado; responsabilidade movida de um script para outro; etapa
-  nova no fluxo de jogo; ferramenta de `tools/` adicionada ou com efeito
-  alterado; decisão que um agente futuro precisaria conhecer para não repetir um
-  erro. Ajuste de valor, correção dentro de uma função e mudança só visual não
-  exigem documentação.
+Documentação é mínima. Prefira código claro a comentário, e comentário a
+documento.
+
+### Comentários no código
+
+- Não comente o óbvio. Se dá para ver lendo o código, não escreva: nome, tipo,
+  `@export` e constante já dizem o quê.
+- Comente apenas restrição técnica não óbvia, contorno de bug e decisão que
+  alguém quebraria sem perceber — sempre o **porquê**, nunca o quê.
+- Comentário é curto. Se precisa de vários parágrafos, ou a explicação vale para
+  o sistema inteiro e vai para [`docs/`](docs/), ou o código está pedindo para
+  ficar mais simples.
+- Não registre suposição, histórico, alternativa descartada, plano futuro nem
+  regra especulativa.
+- Comentário que descreve código morre com ele: ao alterar uma função, apague o
+  que ela invalidou em vez de acumular camadas.
+
+### Documentos
+
+**Desenvolvimento não documenta.** Enquanto a tarefa for implementar, corrigir
+ou ajustar, não atualize `docs/`, `README.md` nem este arquivo: entregue o
+código e o resumo do que mudou. Revisar documentação é uma tarefa própria,
+pedida explicitamente pelo desenvolvedor — em geral na hora do commit.
+
+- **A mensagem de commit é o registro.** É o único lugar onde o *porquê* de uma
+  decisão sobrevive até a revisão; o diff não o recupera. Ao commitar mudança de
+  contrato entre sistemas, diga na mensagem o que mudou e por quê.
+- Exceção única: se a alteração deixa um trecho de `docs/` afirmando algo que
+  levaria outro agente a escrever código errado, corrija esse trecho junto. Um
+  parágrafo, não uma revisão.
+- `docs/` está possivelmente atrás do código. Serve para saber onde olhar, não
+  como verdade.
+- `docs/generated/` recebe snapshot de ferramenta; nunca escreva ali à mão.
+- Ao concluir, informe os arquivos alterados, as validações executadas e as
+  limitações que permaneceram.
+
+### Revisar a documentação
+
+Só quando pedido. O escopo é o intervalo desde o último commit que tocou
+`docs/`, `README.md`, `AGENTS.md` ou `tools/VALIDACAO.md`: leia esse intervalo
+com `git log` e `git diff` e atualize apenas o que os commits invalidaram.
+
+- Atualize o documento de [`docs/`](docs/) correspondente quando o intervalo
+  criar, remover ou renomear sistema, cena reutilizável, autoload, grupo, sinal
+  ou contrato entre sistemas; mover responsabilidade de um script para outro;
+  acrescentar etapa ao fluxo de jogo; adicionar ferramenta de `tools/` ou mudar
+  o efeito de uma; ou registrar decisão que um agente futuro precisaria conhecer
+  para não repetir um erro. Ajuste de valor, correção dentro de uma função e
+  mudança só visual não entram.
 - Ao criar um documento novo em `docs/`, acrescente-o ao índice de
   [`docs/README.md`](docs/README.md).
 - `docs/` descreve **relações, responsabilidades e decisões**. Valores de ajuste
   vivem nos `@export` e nas constantes, que são a fonte da verdade — não
   duplique número nem copie código para a documentação.
+- `docs/` descreve a arquitetura atual. Apague o trecho que deixou de valer em
+  vez de acumular regra histórica ou seção de "como era antes".
 - Atualize `README.md` quando mudar o fluxo, controles, cena principal,
   arquitetura, dependências, comandos de execução ou limitações conhecidas; ao
   adicionar, remover ou renomear uma seção dele, atualize o índice no topo.
 - Detalhe de pipeline de geração, parâmetros de ajuste, cotas de asset e
   armadilhas de ferramenta vão para `tools/VALIDACAO.md` ou para comentários no
   script que os implementa — não para o `README.md`.
-- `docs/generated/` recebe snapshot de ferramenta; nunca escreva ali à mão.
 - Atualize este `AGENTS.md` somente quando surgir uma regra permanente nova.
-- Ao concluir, informe os arquivos alterados, as validações executadas e as
-  limitações que permaneceram.
+
+### Aviso de atraso
+
+`python .claude/hooks/aviso-docs.py` informa quantos commits e quantos dias se
+passaram desde a última revisão. Rode-o no início da sessão; se ele imprimir um
+aviso, repita-o ao desenvolvedor na resposta e ofereça a revisão — nunca revise
+por conta própria.
