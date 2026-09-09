@@ -133,7 +133,7 @@ em cada sistema.
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | Fazenda (`scenes/world.tscn`)                        | O mapa jogável do catálogo, montado à mão                                                                                                      |
 | Country Town (`scenes/CountryTown/CountryTown.tscn`) | Mapa de `600 × 450 m` em construção, **fora do catálogo de fases**: abre direto pelo editor. Quase tudo é gerado pelas ferramentas de `tools/` |
-| Casa modular (`scenes/Buildings/House01.tscn`)       | Primeira casa em que Player e NPCs entram, autocontida, com porta automática e pontos de atividade. `HouseTest.tscn` é a cena de teste         |
+| Casa modular (`scenes/Buildings/House01.tscn`)       | Primeira casa em que Player e NPCs entram, autocontida, com portas trancáveis e pontos de atividade. `HouseTest.tscn` é a cena de teste        |
 | Masmorra (`scenes/Dungeon/`)                         | Corredores procedurais planos, gerados uma vez por sessão a partir de uma porta na fazenda                                                     |
 
 Cena gerada por ferramenta não se edita à mão: a receita no script de `tools/`

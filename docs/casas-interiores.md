@@ -11,7 +11,7 @@ separada e autocontida, gerada por ferramenta.
 | `scenes/Buildings/HouseTest.tscn` | Cena de teste: terreno simples, Player, uma moradora e a casa |
 | `scenes/Buildings/HouseTestNavigation.res` | Malha de navegação usada pela cena de teste |
 | `tools/build_house_01.gd` | **Gera** a casa, as duas portas, a cena de teste e a navegação interna |
-| `tools/check_house_01.gd` | Verifica que a casa é habitável (navegação, porta, moradora até a cama) |
+| `tools/check_house_01.gd` | Verifica que a casa é habitável (navegação, portas, tranca, moradora até a cama) |
 | `tools/shoot_house_01.gd` | Capturas para inspeção visual (sem `--headless`) |
 | `scripts/house_lights.gd` | Luzes de janela, com cintilação e participação no menu `F6` |
 
@@ -28,7 +28,8 @@ separada e autocontida, gerada por ferramenta.
 - **Porta é composição, não animação.** `HouseDoor` é `Folha`
   (`AnimatableBody3D` com malha e colisão) + `Trigger` (`Area3D`), mais um aviso
   e um alto-falante criados em código — a cena é regravada pelo gerador, nó
-  posto à mão nela se perde.
+  posto à mão nela se perde. Rangido, trinco e maçaneta chacoalhando saem do
+  `ProceduralSFX` ([ambiente-e-fx.md](ambiente-e-fx.md)).
 - **Quem tem mão abre com a mão.** Os grupos de `auto_open_groups` (por padrão
   `npc_actors`) abrem só de chegar perto, porque NPC não tem teclado; os de
   `manual_groups` (`characters`) veem o aviso na folha e apertam `interact`.
@@ -49,10 +50,11 @@ separada e autocontida, gerada por ferramenta.
 ## Onde a casa aparece
 
 `House01`/`HouseDoor` são consumidos por `HouseTest.tscn`, `world.tscn`,
-`scenes/CountryTown/Districts/FarmDistrict.tscn`, `TownDistrict.tscn` (ao norte
-da fonte, no antigo lote 202) e `Mat_test.tscn`. Outros
-prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`, `garage`, `cafe`,
-`windmill`) são cenas montadas à mão, sem interior navegável.
+`scenes/CountryTown/Districts/FarmDistrict.tscn`, `TownDistrict.tscn` (duas
+instâncias ao norte da fonte: a do antigo lote 202 e a `House01Aberta`, com a
+entrada destrancada — ver [country-town.md](country-town.md)) e
+`Mat_test.tscn`. Outros prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`,
+`garage`, `cafe`, `windmill`) são cenas montadas à mão, sem interior navegável.
 
 ## Ao alterar
 

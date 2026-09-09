@@ -77,6 +77,11 @@ procure quem o referencia (`rg -n -F nome.gdshader` em `scenes/`,
 | `scripts/audio/beam_travel_audio.gd` (`BeamTravelAudio`) | Som do feixe, com pitch variando entre nave e solo |
 | `scripts/audio/procedural_sfx.gd` (`ProceduralSFX`) | Utilitário `RefCounted` que sintetiza os efeitos |
 
+As portas de casa também sintetizam pelo `ProceduralSFX` — rangido, trinco e
+maçaneta chacoalhando na porta trancada ([casas-interiores.md](casas-interiores.md)).
+Cada `HouseDoor` guarda esses streams em `static`: sintetizar por porta custa
+caro e o resultado é sempre o mesmo.
+
 Os arquivos de áudio ficam em `assets/audio/`, com procedência registrada em
 `assets/audio/SOURCE.md`. O Country Town ainda reusa as posições fixas de
 ambiência da fazenda.

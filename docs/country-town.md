@@ -56,6 +56,14 @@ A `House01` habitável fica no `TownDistrict`, no antigo lote 202 ao norte
 da fonte, com a varanda voltada para a praça e acesso à calçada. É uma
 instância da cena compartilhada, preservada pelo settlement; a receita de
 `country_town_neighborhood.gd` reserva esse lote para não gerar outra casa ali.
+A leste dela, no vão até o lote 204, o distrito instancia a mesma cena de novo
+como `House01Aberta`, com o `starts_locked` da porta de entrada sobrescrito para
+`false`: é a casa em que se entra sem depender da moradora que tem a chave. Essa
+segunda instância não tem lote na receita — existe só no `TownDistrict`, com uma
+cópia do caminho de entrada. A sobrescrita depende do caminho do nó dentro da
+cena gerada: renomear a porta na receita de `build_house_01.gd` desfaz a tranca
+aberta sem avisar.
+
 A navegação ainda usa a malha anterior à substituição: o bake completo foi
 barrado pelas rotas desconectadas entre `SouthFarm` e `Delivery`, de
 `FarmerPatrolling4` e `DeliveryWorker`. É preciso resolver essas rotas e reassar

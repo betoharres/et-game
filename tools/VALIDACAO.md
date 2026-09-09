@@ -45,7 +45,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 
 | Sistema alterado | Ferramenta |
 | --- | --- |
-| Casa modular House01: navegação interna, portas, móveis e a moradora chegando à cama | `tools/check_house_01.gd` |
+| Casa modular House01: navegação interna, portas (manual, automática e tranca), móveis e a moradora chegando à cama | `tools/check_house_01.gd` |
 | Estados visuais e `AnimationTree` do Player | `tools/test_player_animation.gd` |
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
 | Subida/descida de degraus, teto livre e limite de step | `tools/test_player_steps.gd` |
@@ -179,6 +179,11 @@ diga o que ele deve conferir, usando os roteiros abaixo.
   ao jogador.
 - **Fazendeiro:** patrulha, detecção, perseguição, perda do alvo e estado de
   disparo.
+- **Portas da casa:** aproxime-se de uma porta da `House01` e confira o aviso
+  na folha, `E` abrindo e fechando, e o som de rangido e trinco. Na entrada
+  trancada, o aviso deve dizer `Trancada` por fora e `[E] Destrancar` por
+  dentro; a moradora passa pela mesma porta sem parar. No `TownDistrict`, a
+  `House01Aberta` ao lado abre direto.
 - **NPCs do Country Town (Beehave):** abra `CountryTown.tscn`, confira que os
   12 NPCs (6 fazendeiros, 3 moradores, 3 policiais) ficam de pé em idle e
   trocam para a caminhada ao se deslocar; observe o fazendeiro

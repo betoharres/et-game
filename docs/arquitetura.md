@@ -31,14 +31,15 @@ primeiros são **grupos globais** declarados em `project.godot`
 
 | Grupo | Quem entra | Quem consulta |
 | --- | --- | --- |
-| `characters` | Player e personagens jogáveis/carregáveis | Vegetação reativa, sensores de NPC, porta de casa |
-| `vehicles` | Veículos dirigíveis | Vegetação reativa, porta de casa |
+| `characters` | Player e personagens jogáveis/carregáveis | Vegetação reativa, sensores de NPC, porta de casa (abre no `interact`) |
+| `vehicles` | Veículos dirigíveis | Vegetação reativa |
 | `pickup_items` | Destroços coletáveis | `player.gd` (coleta) e `delivery_area.gd` (entrega) |
 | `concealment_areas` | Áreas de vegetação que escondem o ET | `scripts/vegetation_concealment.gd` → `player.gd` |
 | `photographers` | NPCs que fotografam o ET | `PhotoAlertSystem` |
-| `npc_actors` | Todo `NPCActor` (entra sozinho no `_ready`) | Propagação de alerta entre NPCs, rotina social, minimapa, porta de casa |
+| `npc_actors` | Todo `NPCActor` (entra sozinho no `_ready`) | Propagação de alerta entre NPCs, rotina social, minimapa, porta de casa (abre por proximidade e leva chave) |
 | `carriable_characters` | Personagens carregáveis | `player.gd` busca candidatos para carregar no colo; contrato em [player.md](player.md) |
 | `delivery_areas` | Área de entrega do mapa | Minimapa (objetivo) e busca do alvo do feixe |
+| `house_doors` | Toda `HouseDoor` (entra sozinha no `_ready`) | `player.gd`, para saber se o `interact` é da porta |
 | `country_town_poi` | Pontos de interesse do Country Town | Minimapa (marcos nomeados) |
 | `fog_zones` | `FogZone` | `GroundFogLayer` (adensa a névoa local) |
 | `volumetric_lights`, `alien_volumetric_lights`, `ufo_lighting` | Luzes | `NightEnvironment` (presets de qualidade e evento alienígena) |
@@ -63,6 +64,11 @@ primeiros são **grupos globais** declarados em `project.godot`
 - **Alvo de detecção** — `player.gd` expõe `set_vision_contact()`,
   `get_visibility_multiplier()`, `enter_concealment()` / `exit_concealment()`,
   usados por sensores e vegetação.
+- **Reserva do `interact`** — antes de coletar, largar ou soltar um ET,
+  `player.gd` pergunta aos grupos `delivery_areas` e `house_doors` se algum nó
+  quer a tecla, por `reserves_interaction_for(character)`. Quem responde `true`
+  trata o `interact` por conta própria. Alvo interativo novo entra num desses
+  grupos e implementa o método, em vez de disputar a tecla no `_input`.
 - **Depuração por grupo** — `debug_menu.gd` chama métodos como
   `set_debug_lighting_enabled` / `get_debug_lighting_intensity` via grupo; um nó
   novo participa do menu implementando esses métodos e entrando no grupo certo.
