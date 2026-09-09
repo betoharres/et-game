@@ -6,8 +6,8 @@ separada e autocontida, gerada por ferramenta.
 | Arquivo | Papel |
 | --- | --- |
 | `scenes/Buildings/House01.tscn` | A casa: estrutura, mobília, luzes, portas, navegação e pontos de atividade |
-| `scenes/Buildings/HouseDoor.tscn` / `HouseDoorInner.tscn` | Porta externa e porta interna, automáticas |
-| `scripts/house_door.gd` (`HouseDoor`) | Abre e fecha por proximidade |
+| `scenes/Buildings/HouseDoor.tscn` / `HouseDoorInner.tscn` | Porta externa e porta interna |
+| `scripts/house_door.gd` (`HouseDoor`) | NPC abre por proximidade, quem joga abre com `interact`; guarda a tranca |
 | `scenes/Buildings/HouseTest.tscn` | Cena de teste: terreno simples, Player, uma moradora e a casa |
 | `scenes/Buildings/HouseTestNavigation.res` | Malha de navegação usada pela cena de teste |
 | `tools/build_house_01.gd` | **Gera** a casa, as duas portas, a cena de teste e a navegação interna |
@@ -26,10 +26,19 @@ separada e autocontida, gerada por ferramenta.
   fecham sobre um vão específico — daí a largura da casa. Alterar dimensão sem
   respeitar o grid quebra o telhado.
 - **Porta é composição, não animação.** `HouseDoor` é `Folha`
-  (`AnimatableBody3D` com malha e colisão) + `Trigger` (`Area3D`). Abre para
-  quem estiver nos grupos declarados em `opener_groups` — por padrão
-  `characters`, `npc_actors` e `vehicles` — e fecha sozinha depois de um atraso.
-  Um NPC só atravessa porque está no grupo `npc_actors`.
+  (`AnimatableBody3D` com malha e colisão) + `Trigger` (`Area3D`), mais um aviso
+  e um alto-falante criados em código — a cena é regravada pelo gerador, nó
+  posto à mão nela se perde.
+- **Quem tem mão abre com a mão.** Os grupos de `auto_open_groups` (por padrão
+  `npc_actors`) abrem só de chegar perto, porque NPC não tem teclado; os de
+  `manual_groups` (`characters`) veem o aviso na folha e apertam `interact`.
+  Aberta na mão, a folha fica aberta até o mesmo `interact` fechá-la; aberta por
+  NPC, ela fecha sozinha depois de `close_delay`.
+- **Tranca é do lado de dentro.** Com `starts_locked`, a porta só cede a quem
+  está em `key_groups` (os moradores) ou a quem já está do lado de dentro — o
+  interior é o `-Z` local da folha. Quem tem chave destranca ao abrir e não
+  tranca de novo, então a casa não fica fechada para sempre. A porta de entrada
+  da House01 começa trancada; as internas, não.
 - **A casa conhece a rotina dos NPCs.** O nó `Atividades` traz `Marker3D` com o
   script `NPCActivity` (`Cama`, `Sofa`, `Cozinha`, `MesaJantar`, `Varanda`), que
   o `NPCRoutine` percorre e cujas vagas reserva — ver [npcs.md](npcs.md).
@@ -51,7 +60,7 @@ prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`, `garage`, `cafe`,
    cópia isolada), depois rode `tools/check_house_01.gd`.
 2. Ponto de atividade novo: acrescente o `NPCActivity` na receita, com
    `slots` suficientes para quantos NPCs devem usá-lo ao mesmo tempo.
-3. Porta em outro prédio: instancie `HouseDoor.tscn` e ajuste `opener_groups` —
-   não escreva outra lógica de porta.
+3. Porta em outro prédio: instancie `HouseDoor.tscn` e ajuste os grupos ou a
+   tranca pelo inspetor — não escreva outra lógica de porta.
 4. Inspeção visual: `tools/shoot_house_01.gd` sem `--headless`; quem julga o
    resultado é o usuário.

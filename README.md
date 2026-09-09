@@ -110,7 +110,7 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 | Pular / agachar                                                   | `Espaço` / segure `C`                      |
 | Coletar ou largar item                                            | `E`                                        |
 | Pegar no colo ou soltar um ET caído                               | `E`                                        |
-| Interagir: terminal, pad de descida, entrar e sair da caminhonete | `E`                                        |
+| Interagir: portas, terminal, pad de descida, entrar e sair da caminhonete | `E`                                        |
 | Solicitar a abdução de um item na área de entrega                 | Segure `E`                                 |
 | Luz dos olhos do ET                                               | `F`                                        |
 | Primeira pessoa (a pé ou na caminhonete)                          | `V`                                        |

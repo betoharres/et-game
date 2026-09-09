@@ -56,14 +56,13 @@ falhas nem declare testes não executados.
 
 ## Documentação
 
-- Durante desenvolvimento, não atualize documentação, exceto a tabela de
-  controles para ação nova ou trecho que a mudança deixe induzindo código errado.
+- Durante desenvolvimento, não atualize documentação. Sem exceção.
 - Comente apenas o porquê não óbvio de restrições, contornos de bugs e decisões.
   Seja curto; remova comentários invalidados, sem histórico ou planos futuros.
-- Ao commitar mudança de contrato, registre o que mudou e por quê.
 - Revisão solicitada: siga [revisao-documentacao.md](docs/revisao-documentacao.md).
   Não carregue esse procedimento durante implementação comum.
-- Ao concluir, informe arquivos alterados, validações executadas e limitações.
+- Ao concluir, informe arquivos alterados, validações executadas, limitações e
+  documentação que a mudança deixou desatualizada.
 
 Execução, controles e limitações do produto: [README.md](README.md), somente
 quando relevantes à tarefa.

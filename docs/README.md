@@ -43,7 +43,8 @@ e confira sobrescritas na cena antes de alterar o default do script.
 | Câmera em primeira pessoa | `scripts/cinematic_camera_rig.gd` | `set_first_person_mode` |
 | Clipe associado a um estado do Player | `scripts/player_animation_controller.gd` | `STATE_ANIMATIONS` |
 | Alcance de visão dos NPCs compostos (Country Town) | `scripts/npc/npc_vision.gd` | `sight_distance` |
-| Quem abre uma porta automática | `scripts/house_door.gd` | `opener_groups` |
+| Quem abre uma porta sozinho, quem abre no `interact` | `scripts/house_door.gd` | `auto_open_groups`, `manual_groups` |
+| Porta que começa trancada e quem tem chave | `scripts/house_door.gd` | `starts_locked`, `key_groups` |
 | Tempo segurando o sinal de entrega | `scripts/delivery_area.gd` | `signal_hold_duration` |
 | Alcance do minimapa | `scripts/vision_debug_map.gd` | `world_radius` |
 | Ação ausente no remapeamento do ESC | `scripts/pause_menu.gd` | `REBIND_ACTIONS` |

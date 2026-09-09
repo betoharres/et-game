@@ -1,8 +1,9 @@
 extends SceneTree
 
 ## Verifica que a House01 é habitável de verdade: a navegação liga o jardim a
-## cada ponto de atividade, a porta de entrada abre com alguém por perto e a
-## moradora atravessa a porta e chega à cama.
+## cada ponto de atividade, as portas respondem ao `interact` de quem joga e
+## abrem sozinhas para o NPC, a tranca da entrada só cede por dentro ou com
+## chave, e a moradora atravessa a porta e chega à cama.
 ##
 ##     .\tools\godot.cmd --headless --path . --script res://tools/check_house_01.gd
 
@@ -62,28 +63,88 @@ func _check_door() -> void:
 	var doors: Array[Node] = _world.find_children("*", "HouseDoor", true, false)
 	if doors.size() != 3:
 		_failures.append("Esperava 3 portas com folha, achei %d" % doors.size())
-	var walker: CharacterBody3D = CharacterBody3D.new()
-	walker.add_to_group(&"characters")
+	var walker: CharacterBody3D = _spawn_probe(&"characters")
+	var resident: CharacterBody3D = _spawn_probe(&"npc_actors")
+	for door: Node in doors:
+		var handle: Node3D = door as Node3D
+		var starts_locked: bool = bool(handle.get("locked"))
+		await _park(resident)
+
+		# Quem joga não abre porta de graça: só chegar perto não move a folha.
+		await _place(walker, handle, 0.6)
+		if handle.call("is_open"):
+			_failures.append("Porta %s abriu sozinha para quem joga" % handle.name)
+
+		if starts_locked:
+			if bool(handle.call("interact", walker)):
+				_failures.append("Porta %s trancada cedeu pelo lado de fora" % handle.name)
+			if handle.call("is_open"):
+				_failures.append("Porta %s trancada abriu mesmo assim" % handle.name)
+			await _place(walker, handle, -0.6)
+			if not bool(handle.call("interact", walker)):
+				_failures.append("Porta %s trancada nao destrancou por dentro" % handle.name)
+		elif not bool(handle.call("interact", walker)):
+			_failures.append("Porta %s nao aceitou o interact" % handle.name)
+
+		await _settle(90)
+		if not handle.call("is_open"):
+			_failures.append("Porta %s nao abriu com interact" % handle.name)
+		handle.call("interact", walker)
+		await _settle(90)
+		if handle.call("is_open"):
+			_failures.append("Porta %s nao fechou com interact" % handle.name)
+		await _park(walker)
+
+		# O NPC não tem teclado: para ele a porta continua abrindo sozinha, e a
+		# chave da moradora vale mesmo na porta trancada.
+		handle.set("locked", starts_locked)
+		await _place(resident, handle, 0.6)
+		await _settle(90)
+		if not handle.call("is_open"):
+			_failures.append("Porta %s nao abriu para o NPC" % handle.name)
+		if bool(handle.get("locked")):
+			_failures.append("NPC com chave nao destrancou a porta %s" % handle.name)
+		await _park(resident)
+		await _settle(30)
+		# O passeio da moradora vem depois: devolver a tranca faz dele também um
+		# teste de que a chave dela atravessa a porta fechada.
+		handle.set("locked", starts_locked)
+		print("Porta %s: manual para quem joga, automatica para o NPC%s" % [
+			handle.name, " (comeca trancada)" if starts_locked else ""
+		])
+	walker.queue_free()
+	resident.queue_free()
+
+
+func _spawn_probe(group: StringName) -> CharacterBody3D:
+	var probe: CharacterBody3D = CharacterBody3D.new()
+	probe.add_to_group(group)
 	var shape: CollisionShape3D = CollisionShape3D.new()
 	var capsule: CapsuleShape3D = CapsuleShape3D.new()
 	capsule.radius = 0.2
 	capsule.height = 1.7
 	shape.shape = capsule
-	walker.add_child(shape)
-	_world.add_child(walker)
-	for door: Node in doors:
-		var handle: Node3D = door as Node3D
-		walker.global_position = handle.global_position + Vector3(0.5, 0.9, 0.6)
-		for frame: int in 90:
-			await physics_frame
-		if not handle.call("is_open"):
-			_failures.append("Porta %s nao abriu com alguem ao lado" % handle.name)
-		else:
-			print("Porta %s abre por proximidade" % handle.name)
-		walker.global_position = Vector3(0, 40, 0)
-		for frame: int in 30:
-			await physics_frame
-	walker.queue_free()
+	probe.add_child(shape)
+	_world.add_child(probe)
+	probe.global_position = Vector3(0, 40, 0)
+	return probe
+
+
+## `side` positivo põe o corpo do lado de fora da folha; negativo, do lado de
+## dentro -- o mesmo -Z local que a porta usa para liberar o trinco.
+func _place(probe: CharacterBody3D, door: Node3D, side: float) -> void:
+	probe.global_position = door.to_global(Vector3(0.5, 0.9, side))
+	await _settle(20)
+
+
+func _park(probe: CharacterBody3D) -> void:
+	probe.global_position = Vector3(0, 40, 0)
+	await _settle(20)
+
+
+func _settle(frames: int) -> void:
+	for frame: int in frames:
+		await physics_frame
 
 
 func _check_walk() -> void:

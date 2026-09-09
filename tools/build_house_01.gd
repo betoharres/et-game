@@ -362,6 +362,9 @@ func _entry_door(parent: Node3D, node_name: String, at: Vector3, yaw: float) -> 
 	# Abre para a varanda: aberta para dentro, a folha fica bem no caminho de
 	# quem entra e trava o NPC contra ela.
 	leaf.set("open_direction", -1)
+	# A casa começa fechada: a moradora leva chave e destranca ao passar, e o
+	# ET só entra pela porta depois disso, ou destrancando por dentro.
+	leaf.set("starts_locked", true)
 	frame.add_child(leaf)
 	leaf.owner = _house
 

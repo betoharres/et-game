@@ -289,6 +289,7 @@ shape = SubResource("BoxShape3D_a5eom")
 [node name="PortaEntrada" parent="Estrutura/BatentePorta" unique_id=231971673 instance=ExtResource("14_l23mo")]
 transform = Transform3D(0.8333333, 0, 0, 0, 1, 0, 0, 0, 0.9259259, 0.74945384, 0.01190729, 0.08475586)
 open_direction = -1
+starts_locked = true
 
 [node name="Folha2" type="AnimatableBody3D" parent="Estrutura/BatentePorta/PortaEntrada" unique_id=1659758490]
 sync_to_physics = false

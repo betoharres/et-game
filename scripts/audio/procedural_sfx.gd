@@ -118,6 +118,85 @@ static func launch_charge(duration : float = 1.1) -> AudioStreamWAV:
 	return _to_stream(samples)
 
 
+## Hinge creak for a door swinging open or shut. Stick-slip is what makes a
+## hinge sound like a hinge: the tone is chopped by an irregular tremolo, so
+## the note grinds instead of humming.
+static func door_creak(duration : float = 0.8) -> AudioStreamWAV:
+	var frame_count : int = int(duration * MIX_RATE)
+	var samples : PackedFloat32Array = PackedFloat32Array()
+	samples.resize(frame_count)
+
+	var phase : float = 0.0
+	var grain_phase : float = 0.0
+	var noise : PackedFloat32Array = _filtered_noise(frame_count, 0.09, 20517)
+
+	for index : int in range(frame_count):
+		var progress : float = float(index) / float(frame_count)
+		var frequency : float = lerpf(232.0, 168.0, progress)
+		phase += TAU * frequency / float(MIX_RATE)
+		grain_phase += TAU * lerpf(26.0, 17.0, progress) / float(MIX_RATE)
+
+		# Sawtooth-ish body: the odd partial gives the wood its rasp.
+		var body : float = sin(phase) * 0.5 + sin(phase * 3.0) * 0.18
+		var grain : float = 0.45 + 0.55 * absf(sin(grain_phase))
+		var value : float = (body + noise[index] * 0.35) * grain
+
+		samples[index] = clampf(value * _envelope(progress, 0.12, 0.35) * 0.7, -1.0, 1.0)
+
+	return _to_stream(samples)
+
+
+## Latch click: the bolt dropping into the strike plate, or the key turning.
+static func door_latch() -> AudioStreamWAV:
+	var duration : float = 0.16
+	var frame_count : int = int(duration * MIX_RATE)
+	var samples : PackedFloat32Array = PackedFloat32Array()
+	samples.resize(frame_count)
+
+	var phase : float = 0.0
+	var noise : PackedFloat32Array = _filtered_noise(frame_count, 0.55, 77341)
+
+	for index : int in range(frame_count):
+		var progress : float = float(index) / float(frame_count)
+		phase += TAU * lerpf(1450.0, 780.0, progress) / float(MIX_RATE)
+
+		var tick : float = sin(phase) * exp(-progress * 34.0) * 0.5
+		var snap : float = noise[index] * exp(-progress * 46.0) * 0.7
+
+		samples[index] = clampf((tick + snap) * 0.9, -1.0, 1.0)
+
+	return _to_stream(samples)
+
+
+## Handle rattling against a door that will not budge: three tugs, so it reads
+## as "locked" and not as a failed input.
+static func door_rattle() -> AudioStreamWAV:
+	const TUGS : Array[float] = [0.0, 0.17, 0.33]
+
+	var duration : float = 0.55
+	var frame_count : int = int(duration * MIX_RATE)
+	var samples : PackedFloat32Array = PackedFloat32Array()
+	samples.resize(frame_count)
+
+	var noise : PackedFloat32Array = _filtered_noise(frame_count, 0.4, 31904)
+
+	for index : int in range(frame_count):
+		var seconds : float = float(index) / float(MIX_RATE)
+
+		var value : float = 0.0
+		for tug : float in TUGS:
+			var since : float = seconds - tug
+			if since < 0.0:
+				continue
+			# Two close metal partials: a knob knocking its plate, not a bell.
+			var metal : float = sin(TAU * 620.0 * since) + sin(TAU * 940.0 * since) * 0.6
+			value += (metal * 0.35 + noise[index] * 0.5) * exp(-since * 30.0)
+
+		samples[index] = clampf(value * 0.8, -1.0, 1.0)
+
+	return _to_stream(samples)
+
+
 ## One-pole lowpass over white noise. `smoothing` closer to 0.0 is darker.
 static func _filtered_noise(
 	frame_count : int,

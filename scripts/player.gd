@@ -388,7 +388,11 @@ func _input(event: InputEvent) -> void:
 
 	# Items
 	if event.is_action_pressed("interact"):
-		
+		# Diante de uma porta a tecla é dela: abrir carregando destroço não
+		# pode virar largar o destroço na soleira.
+		if _is_door_interaction_reserved():
+			return
+
 		if carried_character != null:
 			release_carried_character()
 		elif carried_item == null:
@@ -1917,6 +1921,17 @@ func _update_carry_pickup(delta : float) -> void:
 		return
 
 	animation_controller.set_carry_mode(true)
+
+
+func _is_door_interaction_reserved() -> bool:
+	for door : Node in get_tree().get_nodes_in_group("house_doors"):
+		if not door.has_method("reserves_interaction_for"):
+			continue
+
+		if bool(door.call("reserves_interaction_for", self)):
+			return true
+
+	return false
 
 
 func _is_delivery_interaction_reserved() -> bool:

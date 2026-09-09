@@ -40,6 +40,23 @@ layers = 512
 [node name="CollisionShape3D" type="CollisionShape3D" parent="House01Path/StaticBody3D"]
 shape = SubResource("Shape_house_path")
 
+[node name="House01Aberta" parent="." instance=ExtResource("21_house01")]
+position = Vector3(476, 6.4, 185)
+metadata/country_town_block = true
+
+[node name="PortaEntrada" parent="House01Aberta/Estrutura/BatentePorta"]
+starts_locked = false
+
+[node name="House01AbertaPath" type="MeshInstance3D" parent="."]
+position = Vector3(480.52, 6.045, 202.1)
+mesh = SubResource("Mesh_house_path")
+layers = 512
+
+[node name="StaticBody3D" type="StaticBody3D" parent="House01AbertaPath"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="House01AbertaPath/StaticBody3D"]
+shape = SubResource("Shape_house_path")
+
 [node name="GeneralStore" parent="." instance=ExtResource("1_generalstore")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 390, 6, 215)
 
