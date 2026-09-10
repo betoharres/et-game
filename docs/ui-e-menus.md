@@ -33,10 +33,15 @@ Ao criar uma ação no Input Map, acrescente-a nos três lugares de
 1. `REBIND_ACTIONS` (a ação),
 2. `REBIND_LABELS` (o rótulo em português, na mesma ordem),
 3. `action_buttons` (a fiação),
-4. o botão correspondente em `scenes/Menu/PauseMenu.tscn`.
+4. o botão correspondente em `scenes/Menu/PauseMenu.tscn`, dentro de
+   `ControlsPanel/Actions` — o painel é um `ScrollContainer`, para caber a
+   lista crescente de ações sem estourar a tela.
 
 Sem isso a tecla existe mas o jogador não a vê nem consegue trocá-la — é regra
-do `AGENTS.md`.
+do `AGENTS.md`. A escuta de rebind aceita tanto `InputEventKey` quanto
+`InputEventMouseButton` (usado pelos slots do inventário de exploração, que
+ciclam com a roda do mouse); ação nova que só faz sentido no teclado não
+precisa desse cuidado, mas o rebind em si não distingue.
 
 ## Minimapa (`F3`)
 

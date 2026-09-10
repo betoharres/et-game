@@ -61,6 +61,12 @@ Padrões que a árvore assume:
 - Ramos reativos usam `SequenceReactive`/`SelectorReactive` (não `Sequence`
   puro): trocar o tipo muda quando as condições são reavaliadas e é a causa
   clássica de NPC "grudado" num comportamento.
+- Toda folha que chama `move_toward_point()` devolve `FAILURE` quando
+  `npc.navigation_failed` fica `true` (destino inalcançável ou NPC preso),
+  em vez de `RUNNING` para sempre: `Patrol` pula para o próximo ponto,
+  `Chase`/`Flee`/`Idle`/`ReturnToPatrol` liberam o `Selector` para o próximo
+  ramo. `move_toward_point()` mantém a falha por 2 s depois de marcá-la,
+  então a folha não tenta o mesmo destino outra vez no tick seguinte.
 - No `.tscn`, cada nó da árvore é `type="Node"` + `script` do Beehave; e os
   autoloads `BeehaveGlobalMetrics`/`BeehaveGlobalDebugger` precisam continuar
   registrados em `project.godot`.

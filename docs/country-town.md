@@ -40,8 +40,9 @@ checagens ficam em [tools/VALIDACAO.md](../tools/VALIDACAO.md#geração-do-count
   dos da fazenda.
 - O settlement compõe os lotes e complementos. A receita de lotes é
   `tools/country_town_neighborhood.gd` (medidas em metros, frente local `-Z`);
-  `tools/country_town_road_surface.gd` monta polígonos do piso. São bibliotecas
-  `RefCounted`, não ferramentas executáveis.
+  `tools/country_town_road_surface.gd` monta polígonos do piso;
+  `tools/window_interiors.gd` decora as janelas dos presets sem interior. São
+  bibliotecas `RefCounted`, não ferramentas executáveis.
 - A vegetação do instancer é salva nas regiões do Terrain3D. Recriar o terreno
   remove esse plantio; não o trate como uma cena independente.
 - A população usa corredores, pátios e colisões dos distritos para gerar
@@ -52,8 +53,8 @@ checagens ficam em [tools/VALIDACAO.md](../tools/VALIDACAO.md#geração-do-count
 
 ## População
 
-A `House01` habitável fica no `TownDistrict`, no antigo lote 202 ao norte
-da fonte, com a varanda voltada para a praça e acesso à calçada. É uma
+A `House01` original habitável fica no `TownDistrict`, no antigo lote 202 ao
+norte da fonte, com a varanda voltada para a praça e acesso à calçada. É uma
 instância da cena compartilhada, preservada pelo settlement; a receita de
 `country_town_neighborhood.gd` reserva esse lote para não gerar outra casa ali.
 A leste dela, no vão até o lote 204, o distrito instancia a mesma cena de novo
@@ -63,6 +64,21 @@ segunda instância não tem lote na receita — existe só no `TownDistrict`, co
 cópia do caminho de entrada. A sobrescrita depende do caminho do nó dentro da
 cena gerada: renomear a porta na receita de `build_house_01.gd` desfaz a tranca
 aberta sem avisar.
+
+Além dessas duas, oito lotes de `LOTS` (204, 206, 203, 208, 210, 212, 302, 304
+— o preset em `recipe[6] == LIVEABLE`, valor `0`) também instanciam `House01`
+em vez da casca decorativa do kit PolygonTown, cada uma vestida por
+`HouseVariant` com `variant_seed = number` — ver
+[casas-interiores.md](casas-interiores.md). A tranca da entrada varia por
+`number % 3 == 0`; o restante (luzes, cortinas, móveis) é aleatório por
+semente. Os demais lotes continuam com a casca `SM_Bld_House_Preset_XX` sem
+interior; cada uma delas, mais as fachadas de comércio (`Padaria`, `Mercearia`,
+`Cafe`, via `_build_shop`), ganham um cômodo raso atrás de cada vidro
+(`tools/window_interiors.gd`, biblioteca `RefCounted`) para não parecerem
+ocas por dentro quando vistas da rua — ver
+[ferramentas.md](ferramentas.md#geradores-de-asset). `decorate()`/
+`decorate_tree()` devolvem quantos cômodos criaram; zero marca a geração como
+falha (vitrine ausente), sem interromper o resto da montagem.
 
 A navegação ainda usa a malha anterior à substituição: o bake completo foi
 barrado pelas rotas desconectadas entre `SouthFarm` e `Delivery`, de

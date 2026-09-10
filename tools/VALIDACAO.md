@@ -46,6 +46,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Sistema alterado | Ferramenta |
 | --- | --- |
 | Casa modular House01: navegação interna, portas (manual, automática e tranca), móveis e a moradora chegando à cama | `tools/check_house_01.gd` |
+| Inventário de exploração do Player: guardar, soltar, slot cheio, item de duas mãos, seleção e ciclo de slots | `tools/test_exploration_inventory.gd` |
 | Estados visuais e `AnimationTree` do Player | `tools/test_player_animation.gd` |
 | Pulo e consumo de stamina | `tools/test_player_jump_stamina.gd` |
 | Subida/descida de degraus, teto livre e limite de step | `tools/test_player_steps.gd` |
@@ -164,6 +165,13 @@ Use editor fechado ou cópia isolada; ajustes manuais nas saídas se perdem.
 .\tools\godot.cmd --headless --path . --script res://tools/check_house_01.gd
 ```
 
+`tools/build_house_02.gd` regrava `House02.tscn` do mesmo jeito (`--headless`
+funciona; sem cena de teste nem checagem dedicada ainda):
+
+```powershell
+.\tools\godot.cmd --headless --path . --script res://tools/build_house_02.gd
+```
+
 Para inspeção visual solicitada, `tools/shoot_house_01.gd` roda sem
 `--headless`. Relações entre casa, portas e NPCs: [casas-interiores.md](../docs/casas-interiores.md).
 
@@ -174,7 +182,11 @@ julga é o usuário, no editor que ele já tem aberto. Não abra o jogo para iss
 diga o que ele deve conferir, usando os roteiros abaixo.
 
 - **Coleta e entrega:** pegue, largue e entregue um item solto e um item
-  carregado; confirme a pontuação no console.
+  carregado; confirme a pontuação no console. Colete destroços pequenos até
+  encher os 4 slots do inventário de exploração (HUD embaixo no centro),
+  confirme a recusa com o quinto, troque de slot pelas teclas `1`-`4` e pela
+  roda do mouse, e solte o selecionado e um item de duas mãos (que não entra
+  nos slots).
 - **Veículo:** entrada, direção, troca de câmera, saída e devolução do controle
   ao jogador.
 - **Fazendeiro:** patrulha, detecção, perseguição, perda do alvo e estado de
@@ -201,6 +213,12 @@ diga o que ele deve conferir, usando os roteiros abaixo.
 - **Country Town:** confira fachadas e calçadas em volta da praça, percorra
   as ruas locais e as trilhas do curral ao moinho/ancoradouro e observe o
   assentamento dos pátios nas encostas, a silhueta do silo e da nave caída.
+  Nos lotes habitáveis (instâncias de `House01` fora do 202/`House01Aberta`),
+  confira se a tranca da entrada varia de casa para casa e se luz, cortina e
+  móveis não saem idênticos; nos demais lotes e nas fachadas de comércio,
+  confira pela janela se aparece um cômodo iluminado atrás do vidro, em vez de
+  vazio. `tools/shoot_country_town_windows.gd` (sem `--headless`) tira essas
+  fotos automaticamente.
 
 ## Escrever uma verificação nova
 

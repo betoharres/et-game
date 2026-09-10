@@ -21,7 +21,8 @@ apenas instanciam essa cena — hoje `world.tscn`, `CountryTown.tscn`,
 | `scripts/energy_pool.gd` | Reserva de energia genérica com drenos nomeados |
 | `scripts/ik_target_container.gd` | Alvos de mão/cotovelo do `TwoBoneIK3D` (poses de carregar e de sinalizar) |
 | `scripts/audio/footstep_audio.gd` | Passos por tipo de superfície |
-| `scripts/player_hud.gd` / `scenes/PlayerHUD.tscn` | Vida, stamina, energia e feedback de dano |
+| `scripts/player_hud.gd` / `scenes/PlayerHUD.tscn` | Vida, stamina, energia, feedback de dano e os 4 slots do inventário de exploração |
+| `scripts/exploration_inventory.gd` | Inventário de 4 slots para destroços pequenos; itens de duas mãos não entram nele |
 
 ## Estrutura da cena
 
@@ -38,6 +39,7 @@ CharacterBody3D (player.gd)
 │   └── RagdollRecovery (SkeletonModifier3D, último da pilha)
 ├── AnimationTree
 ├── EnergyPool, PlayerRagdoll, IKtargetContainer (HandR, ElbowR), CarrySocket
+├── ExplorationInventory
 ├── CollisionShape3D
 ├── CameraHolder (CinematicCameraRig) → PitchPivot → ShoulderOffset → SpringArm3D
 │                                        → Camera3D (+HeadTarget) e XRAYCamera
@@ -65,9 +67,13 @@ CharacterBody3D (player.gd)
   vegetação (grupo `concealment_areas`) e reduzem `get_visibility_multiplier()`,
   que os sensores de NPC consultam. `set_vision_contact()` é como um sensor
   avisa que está vendo o ET; alimenta `get_stealth_alert()`.
-- **Carregar**: itens do grupo `pickup_items` vão para o `CarrySocket`
-  (`try_pickup`); personagens do grupo `carriable_characters` são levados no
-  colo (`try_carry_character` / `release_carried_character`), aplicando
+- **Carregar**: `try_pickup()` decide pelo item mais próximo do grupo
+  `pickup_items` que responde `true` a `is_available_for_abduction()`. Item
+  `two_handed` vai para o `CarrySocket` nas mãos, como antes; os demais entram
+  no `ExplorationInventory` (`store_item`), ficando ocultos e sem colisão até
+  serem soltos — ver [inventário de exploração](#inventário-de-exploração)
+  abaixo. Personagens do grupo `carriable_characters` são levados no colo
+  (`try_carry_character` / `release_carried_character`), aplicando
   `apply_carry()` no carregado.
 - **Aparência**: o perfil vem do autoload `CharacterAppearance` e é aplicado por
   `CharacterProportions` — escala de bones num `SkeletonModifier3D`
@@ -81,6 +87,29 @@ CharacterBody3D (player.gd)
 - **Modos de depuração**: `set_debug_god_mode_enabled()` e
   `set_debug_flight_enabled()` são acionados pelo ciclo do `F4`
   (`DebugMenus`); o Player entra no grupo `debug_player` para ser encontrado.
+
+## Inventário de exploração
+
+`scripts/exploration_inventory.gd` é um `Node` filho do Player, com 4 slots por
+padrão (`capacity`). Cada item ocupa `slot_cost` slots (1 a 4, export de
+`spaceship_scraps.gd`); item `two_handed` nunca entra, mesmo cabendo.
+`store_item()` chama `item.store_in_inventory(player)` — o item se reparenta,
+esconde e some da colisão — e falha (com `feedback` de "sem espaço") se a soma
+dos custos passar de `capacity`, se o item já estiver guardado ou se ele não
+implementar `store_in_inventory`. `drop_selected()`/`drop_last()` devolvem o
+item ao mundo na frente do jogador via `item.drop()`, que também é quem
+restaura visual e colisão.
+
+- Slots 1-4 (`inventory_slot_1..4`) selecionam direto; `inventory_previous`/
+  `inventory_next` (roda do mouse, por padrão) ciclam — desativado com os
+  binóculos ativos para não brigar com o zoom.
+- `changed` e `feedback` viajam para fora como
+  `exploration_inventory_changed`/`exploration_inventory_feedback` no Player,
+  que o HUD (`player_hud.gd`) usa para redesenhar os 4 quadros e piscar em
+  vermelho na recusa.
+- `spaceship_scraps.gd` guarda a `collision_layer`/`collision_mask` antes de
+  zerá-las no `pickup()` e as repõe no `drop()`; `is_available_for_abduction()`
+  é o filtro que impede pegar um item já carregado ou em processo de abdução.
 
 ## Ao alterar
 
@@ -96,4 +125,6 @@ CharacterBody3D (player.gd)
 5. Validação (`tools/VALIDACAO.md`): `test_player_animation.gd`,
    `test_player_jump_stamina.gd`, `test_player_steps.gd`,
    `test_player_reversal.gd`, `test_player_ragdoll.gd`,
-   `test_player_debug_modes.gd`, `test_cinematic_camera.gd`.
+   `test_player_debug_modes.gd`, `test_cinematic_camera.gd`,
+   `test_exploration_inventory.gd` (guardar, soltar, slot cheio, item
+   `two_handed`, seleção e ciclo de slots).

@@ -112,6 +112,9 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 | Pegar no colo ou soltar um ET caído                               | `E`                                        |
 | Interagir: portas, terminal, pad de descida, entrar e sair da caminhonete | `E`                                        |
 | Solicitar a abdução de um item na área de entrega                 | Segure `E`                                 |
+| Selecionar slot do inventário de exploração                       | `1`-`4`                                    |
+| Trocar de slot do inventário de exploração                        | Roda do mouse                              |
+| Soltar o slot selecionado do inventário de exploração              | `C` (agachar) + `E`                        |
 | Luz dos olhos do ET                                               | `F`                                        |
 | Primeira pessoa (a pé ou na caminhonete)                          | `V`                                        |
 | Binóculos / zoom                                                  | `B` / `+` e `-` do teclado numérico        |

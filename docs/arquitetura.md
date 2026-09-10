@@ -50,11 +50,14 @@ primeiros são **grupos globais** declarados em `project.godot`
 
 ## Contratos entre sistemas
 
-- **Coletável** — estar no grupo `pickup_items` e expor `pickup(player)`,
-  `drop()` e a propriedade `score_value`. Referência:
-  `scripts/spaceship_scraps.gd`. Um item em abdução sai do grupo
-  temporariamente (`is_available_for_abduction()` / `begin_abduction()`) para
-  não ser recolhido antes da entrega.
+- **Coletável** — estar no grupo `pickup_items`, expor `pickup(player)`,
+  `drop()`, a propriedade `score_value` e responder `true` a
+  `is_available_for_abduction()` (o filtro que `try_pickup()` usa para
+  escolher o item mais próximo). Referência: `scripts/spaceship_scraps.gd`. Um
+  item em abdução sai do grupo temporariamente (`begin_abduction()`) para não
+  ser recolhido antes da entrega. Item sem `two_handed` também implementa
+  `store_in_inventory(player)`, para caber no `ExplorationInventory` do Player
+  em vez do `CarrySocket` nas mãos — ver [player.md](player.md#inventário-de-exploração).
 - **Entrega** — `scripts/delivery_area.gd` só soma o `score_value` ao
   `GlobalScore` quando o feixe termina de sugar o item; emite
   `intervention_requested`, `abduction_started` e `item_delivered`.

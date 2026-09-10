@@ -29,13 +29,17 @@ edite à mão o que um gerador regrava.
 | `build_rural_roads.gd`, `recess_country_town_asphalt.gd` | Piso viário | [country-town.md](country-town.md) |
 | `build_tire_tracks.gd`, `build_tire_tread_texture.gd` | Marcas de pneu e a textura de banda | [mundo.md](mundo.md) |
 | `build_terrain_surface.gd` | Dados de material do terreno | [mundo.md](mundo.md) |
-| `build_house_01.gd` | Casa modular, portas, cena de teste e navegação | [casas-interiores.md](casas-interiores.md) |
+| `build_house_01.gd` | Casa modular (House01), portas, cena de teste e navegação | [casas-interiores.md](casas-interiores.md) |
+| `build_house_02.gd` | Segunda planta modular (House02), com garagem | [casas-interiores.md](casas-interiores.md) |
 | `bake_police_patrol_route.gd` | Grafo de ruas da patrulha (colar no `AIDriver`) | [veiculos.md](veiculos.md) |
 | `build_mixamo_character.py` | `ET_animated.glb` (roda no Blender) | [animacoes.md](animacoes.md) |
 | `render_prototype_icons.py` | Ícones de `Texturas/ui/` | [ui-e-menus.md](ui-e-menus.md) |
 
 Bibliotecas auxiliares, `RefCounted`, que não rodam sozinhas:
-`country_town_road_surface.gd` e `country_town_neighborhood.gd`.
+`country_town_road_surface.gd`, `country_town_neighborhood.gd` e
+`window_interiors.gd` (cômodo raso atrás de cada vidro de janela dos presets
+sem interior do PolygonTown, chamada pelo settlement — ver
+[country-town.md](country-town.md#população)).
 
 Fora do jogo: `build_snapshots.ps1` empacota o repositório em snapshots de
 leitura para agentes, em `docs/generated/` — ver
@@ -48,10 +52,12 @@ O catálogo único de testes, com o comportamento coberto por cada um, está em
 
 ## Inspeções visuais
 
-Rodam **sem** `--headless` e produzem capturas em `build/`. Servem para o
-usuário julgar o resultado, nunca como critério de aprovação:
-`inspect_country_town_roads.gd`, `shoot_house_01.gd`,
-`shoot_country_town_fences.gd`.
+Rodam **sem** `--headless` e produzem capturas. Servem para o usuário julgar o
+resultado, nunca como critério de aprovação: `inspect_country_town_roads.gd`
+(grava em `build/`), `shoot_house_01.gd`, `shoot_country_town_fences.gd` e
+`shoot_country_town_windows.gd` (fachadas e vitrines do `TownDistrict`; os três
+últimos gravam em `user://`, redirecionável por variável de ambiente —
+`HOUSE_SHOT_DIR` para o de janelas).
 
 `tools/_inspect_tmp.gd` é um rascunho de inspeção, não uma ferramenta estável.
 

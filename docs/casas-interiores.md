@@ -1,17 +1,21 @@
 # Casas e interiores
 
 A primeira casa em que Player e NPCs entram de verdade é a **House01**: uma cena
-separada e autocontida, gerada por ferramenta.
+separada e autocontida, gerada por ferramenta. **House02** é uma segunda planta,
+mesma técnica de geração, com garagem; ainda não é instanciada em nenhum mapa.
 
 | Arquivo | Papel |
 | --- | --- |
 | `scenes/Buildings/House01.tscn` | A casa: estrutura, mobília, luzes, portas, navegação e pontos de atividade |
-| `scenes/Buildings/HouseDoor.tscn` / `HouseDoorInner.tscn` | Porta externa e porta interna |
+| `scenes/Buildings/House02.tscn` | Segunda planta: quarto de casal, quarto de solteiro, banheiro, sala/cozinha e garagem anexa |
+| `scenes/Buildings/HouseDoor.tscn` / `HouseDoorInner.tscn` | Porta externa e porta interna, reaproveitadas pelas duas plantas |
 | `scripts/house_door.gd` (`HouseDoor`) | NPC abre por proximidade, quem joga abre com `interact`; guarda a tranca |
+| `scripts/house_variant.gd` (`HouseVariant`) | Aplicado a uma instância de `House01` no Country Town: varia tranca, luzes, cortinas e móveis por `variant_seed` — ver [Country Town](country-town.md#população) |
 | `scenes/Buildings/HouseTest.tscn` | Cena de teste: terreno simples, Player, uma moradora e a casa |
 | `scenes/Buildings/HouseTestNavigation.res` | Malha de navegação usada pela cena de teste |
-| `tools/build_house_01.gd` | **Gera** a casa, as duas portas, a cena de teste e a navegação interna |
-| `tools/check_house_01.gd` | Verifica que a casa é habitável (navegação, portas, tranca, moradora até a cama) |
+| `tools/build_house_01.gd` | **Gera** a House01, as duas portas, a cena de teste e a navegação interna |
+| `tools/build_house_02.gd` | **Gera** a House02 (mesmo padrão de receita, sem cena de teste própria) |
+| `tools/check_house_01.gd` | Verifica que a House01 é habitável (navegação, portas, tranca, moradora até a cama) |
 | `tools/shoot_house_01.gd` | Capturas para inspeção visual (sem `--headless`) |
 | `scripts/house_lights.gd` | Luzes de janela, com cintilação e participação no menu `F6` |
 
@@ -46,23 +50,39 @@ separada e autocontida, gerada por ferramenta.
 - **Navegação interna assada.** A malha liga o jardim a cada ponto de atividade;
   é isso que `check_house_01.gd` verifica de ponta a ponta (a moradora sai do
   jardim, atravessa a porta e chega à cama).
+- **Uma planta, várias casas.** No Country Town, cada lote habitável instancia
+  `House01.tscn` de novo (`GEN_EDIT_STATE_INSTANCE`, para não perder a
+  sobrescrita ao empacotar) e recebe `HouseVariant` (`_enter_tree`, antes do
+  `_ready` de portas e luzes): sorteia a intensidade e a distância de corte das
+  luzes, esconde parte das cortinas e da mobília reserva (`spare_furniture`) e
+  destranca ou não a porta de entrada — tudo a partir de um único
+  `variant_seed`. Mesma semente, mesma casa; sem isso todo lote habitável
+  sairia idêntico à `House01` original.
 
 ## Onde a casa aparece
 
 `House01`/`HouseDoor` são consumidos por `HouseTest.tscn`, `world.tscn`,
-`scenes/CountryTown/Districts/FarmDistrict.tscn`, `TownDistrict.tscn` (duas
-instâncias ao norte da fonte: a do antigo lote 202 e a `House01Aberta`, com a
-entrada destrancada — ver [country-town.md](country-town.md)) e
-`Mat_test.tscn`. Outros prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`,
+`scenes/CountryTown/Districts/FarmDistrict.tscn`, `Mat_test.tscn` e, dentro do
+`TownDistrict`, por vários lotes do settlement gerado — ver
+[Country Town — População](country-town.md#população) para quais lotes e como
+a tranca varia. Outros prédios da fazenda (`Barn01`, `FarmHouse01`, `Silo02`,
 `garage`, `cafe`, `windmill`) são cenas montadas à mão, sem interior navegável.
+`House02` ainda não é instanciada em nenhuma cena — existe só como saída de
+`tools/build_house_02.gd`.
 
 ## Ao alterar
 
-1. Mudança na casa: edite `tools/build_house_01.gd` e regere (editor fechado ou
-   cópia isolada), depois rode `tools/check_house_01.gd`.
+1. Mudança na House01: edite `tools/build_house_01.gd` e regere (editor
+   fechado ou cópia isolada), depois rode `tools/check_house_01.gd`. Mudança na
+   House02: edite `tools/build_house_02.gd` e regere; ainda não há checagem
+   dedicada.
 2. Ponto de atividade novo: acrescente o `NPCActivity` na receita, com
    `slots` suficientes para quantos NPCs devem usá-lo ao mesmo tempo.
 3. Porta em outro prédio: instancie `HouseDoor.tscn` e ajuste os grupos ou a
    tranca pelo inspetor — não escreva outra lógica de porta.
-4. Inspeção visual: `tools/shoot_house_01.gd` sem `--headless`; quem julga o
-   resultado é o usuário.
+4. Variação nova por lote (luz, cortina, móvel, tranca): acrescente ao
+   `HouseVariant`, não à receita do settlement — ele já aplica por
+   `variant_seed` a qualquer instância de `House01`.
+5. Inspeção visual: `tools/shoot_house_01.gd` sem `--headless`; para as
+   instâncias do Country Town, `tools/shoot_country_town_windows.gd` (ver
+   [ferramentas.md](ferramentas.md)). Quem julga o resultado é o usuário.
