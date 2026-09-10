@@ -59,6 +59,8 @@ var last_chat_time: float = -1000.0
 var navigation_failed: bool = false
 var _stuck_time: float = 0.0
 var _motion_target: Vector3 = Vector3.INF
+var _last_progress_position: Vector3 = Vector3.INF
+var _navigation_failure_until: float = 0.0
 var _report_cooldown: float = 0.0
 var _detail_timer: float = 0.0
 var _simple_routine: bool = false
@@ -146,6 +148,12 @@ func move_toward_point(point: Vector3, speed: float) -> bool:
 	if _motion_target.distance_to(point) > 1.0:
 		_motion_target = point
 		_stuck_time = 0.0
+		_last_progress_position = global_position
+		_navigation_failure_until = 0.0
+	elif Time.get_ticks_msec() / 1000.0 < _navigation_failure_until:
+		navigation_failed = true
+		stop_moving()
+		return false
 	var to_point: Vector3 = point - global_position
 	to_point.y = 0.0
 	if to_point.length() <= navigation_agent.target_desired_distance:
@@ -164,11 +172,14 @@ func move_toward_point(point: Vector3, speed: float) -> bool:
 		var next_position: Vector3 = navigation_agent.get_next_path_position()
 		if navigation_agent.is_navigation_finished():
 			navigation_failed = true
+			_navigation_failure_until = Time.get_ticks_msec() / 1000.0 + 2.0
 			stop_moving()
 			return false
 		direction = next_position - global_position
 		direction.y = 0.0
 	elif require_navigation:
+		navigation_failed = true
+		_navigation_failure_until = Time.get_ticks_msec() / 1000.0 + 2.0
 		stop_moving()
 		return false
 
@@ -181,12 +192,17 @@ func move_toward_point(point: Vector3, speed: float) -> bool:
 		navigation_agent.velocity = desired_velocity
 	else:
 		_apply_safe_velocity(desired_velocity)
-	if get_real_velocity().length_squared() < 0.04:
+	# Velocidade pode permanecer alta enquanto o CharacterBody3D escorrega
+	# contra uma parede. Mede também o deslocamento real entre tentativas.
+	if _last_progress_position.distance_to(global_position) < 0.03:
 		_stuck_time += get_physics_process_delta_time()
 	else:
 		_stuck_time = 0.0
+		_last_progress_position = global_position
 	if _stuck_time > 4.0:
 		navigation_failed = true
+		_stuck_time = 0.0
+		_navigation_failure_until = Time.get_ticks_msec() / 1000.0 + 2.0
 		stop_moving()
 		return false
 	face_direction(direction)

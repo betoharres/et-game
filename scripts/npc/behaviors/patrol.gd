@@ -31,7 +31,12 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	_index = _index % points.size()
 
 	if not _arrived:
-		if npc.move_toward_point(points[_index], npc.walk_speed):
+		var arrived: bool = npc.move_toward_point(points[_index], npc.walk_speed)
+		if npc.navigation_failed:
+			# Abandona este ponto; o Selector poderá escolher Idle ou outra rotina.
+			_index = (_index + 1) % points.size()
+			return FAILURE
+		if arrived:
 			_arrived = true
 		return RUNNING
 

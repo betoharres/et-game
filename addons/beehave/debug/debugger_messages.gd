@@ -2,7 +2,10 @@ class_name BeehaveDebuggerMessages
 
 
 static func can_send_message() -> bool:
-	return not Engine.is_editor_hint() and OS.has_feature("editor")
+	# Running from the editor does not guarantee that a game debugger session is
+	# attached (for example headless checks and launches outside the editor).
+	# EngineDebugger.send_message() logs an error in that case.
+	return not Engine.is_editor_hint() and OS.has_feature("editor") and EngineDebugger.is_active()
 
 
 static func register_tree(beehave_tree: Dictionary) -> void:

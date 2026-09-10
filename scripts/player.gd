@@ -4,6 +4,8 @@ signal health_changed(current_health : float, maximum_health : float)
 signal stamina_changed(current_stamina : float, maximum_stamina : float)
 signal energy_changed(current_energy : float, maximum_energy : float)
 signal stealth_alert_changed(alert_level : float)
+signal exploration_inventory_changed
+signal exploration_inventory_feedback(message : String)
 signal died
 
 const EYE_LIGHT_ENERGY_SOURCE : StringName = &"eye_light"
@@ -134,6 +136,7 @@ enum ImpactReaction {
 	$ET/ETArmature/Skeleton3D/EyeLightAttachment/EyeAreaLight
 )
 @onready var energy_pool : EnergyPool = $EnergyPool
+@onready var exploration_inventory : Node = $ExplorationInventory
 @onready var carry_socket : Marker3D = $CarrySocket
 
 var camera_yaw: float = 0.0
@@ -196,6 +199,8 @@ var carried_character : Node3D = null
 var _carry_pickup_timer : float = 0.0
 
 func _ready() -> void:
+	exploration_inventory.changed.connect(func() -> void: exploration_inventory_changed.emit())
+	exploration_inventory.feedback.connect(func(message : String) -> void: exploration_inventory_feedback.emit(message))
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	health = max_health
 	stamina = max_stamina
@@ -378,6 +383,18 @@ func _input(event: InputEvent) -> void:
 	if _movement_locked:
 		return
 
+	for slot : int in range(4):
+		if event.is_action_pressed("inventory_slot_%d" % (slot + 1)) and not event.is_echo():
+			exploration_inventory.select_slot(slot)
+			return
+	if not camera_pivot.binos_active:
+		if event.is_action_pressed("inventory_previous"):
+			exploration_inventory.cycle_slot(-1)
+			return
+		if event.is_action_pressed("inventory_next"):
+			exploration_inventory.cycle_slot(1)
+			return
+
 	if event.is_action_pressed("toggle_eye_light") and not event.is_echo():
 		set_eye_light_enabled(not _eye_light_enabled)
 		return
@@ -386,26 +403,18 @@ func _input(event: InputEvent) -> void:
 		set_first_person(not _first_person)
 		return
 
-	# Items
-	if event.is_action_pressed("interact"):
-		# Diante de uma porta a tecla é dela: abrir carregando destroço não
-		# pode virar largar o destroço na soleira.
+	if event.is_action_pressed("interact") and not event.is_echo():
 		if _is_door_interaction_reserved():
 			return
-
 		if carried_character != null:
 			release_carried_character()
-		elif carried_item == null:
-			if _is_delivery_interaction_reserved():
-				return
-			if try_carry_character():
-				return
-			try_pickup()
-		else:
-			carried_item.drop()
-			carried_item = null
-			if ik_target_container.has_method("set_carrying"):
-				ik_target_container.call("set_carrying", false)
+		elif carried_item != null:
+			_drop_exploration_item()
+		elif Input.is_action_pressed("crouch"):
+			exploration_inventory.drop_selected(self)
+		elif not _is_delivery_interaction_reserved():
+			if not try_carry_character():
+				try_pickup()
 
 func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
@@ -1424,11 +1433,7 @@ func _enter_ragdoll(impact_direction : Vector3, comic : bool,
 	character_visual.position = _standing_visual_position
 	footstep_audio.set_motion(0.0, false)
 
-	if carried_item != null:
-		carried_item.drop()
-		carried_item = null
-		if ik_target_container.has_method("set_carrying"):
-			ik_target_container.call("set_carrying", false)
+	_drop_exploration_item()
 
 	release_carried_character()
 
@@ -1823,7 +1828,7 @@ func _can_stand() -> bool:
 	
 func try_pickup() -> void:
 
-	if carried_item != null:
+	if carried_item != null or carried_character != null:
 		return
 
 	var items : Array[Node] = get_tree().get_nodes_in_group("pickup_items")
@@ -1832,7 +1837,9 @@ func try_pickup() -> void:
 	var closest_distance : float = 2.0
 
 	for item in items:
-		if not item is RigidBody3D:
+		if not item is RigidBody3D or not item.has_method("is_available_for_abduction"):
+			continue
+		if not bool(item.call("is_available_for_abduction")):
 			continue
 
 		var distance : float = (
@@ -1847,10 +1854,27 @@ func try_pickup() -> void:
 
 
 	if closest_item != null:
-		carried_item = closest_item
-		closest_item.pickup(self)
-		if ik_target_container.has_method("set_carrying"):
-			ik_target_container.call("set_carrying", true)
+		if bool(closest_item.get("two_handed")):
+			closest_item.pickup(self)
+			carried_item = closest_item
+			carried_item.tree_exiting.connect(_clear_exploration_hands, CONNECT_ONE_SHOT)
+			animation_controller.set_carry_mode(true)
+			exploration_inventory_changed.emit()
+		else:
+			exploration_inventory.store_item(closest_item, self)
+
+
+func _drop_exploration_item() -> void:
+	if is_instance_valid(carried_item):
+		carried_item.drop()
+
+
+func _clear_exploration_hands() -> void:
+	carried_item = null
+	if not is_inside_tree() or not is_instance_valid(animation_controller):
+		return
+	animation_controller.set_carry_mode(false)
+	exploration_inventory_changed.emit()
 
 
 ## O ET caido nao e um RigidBody3D do grupo `pickup_items`: e um personagem

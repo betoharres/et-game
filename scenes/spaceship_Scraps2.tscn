@@ -11,6 +11,9 @@ radius = 0.28076172
 [node name="SpaceshipScraps2" type="RigidBody3D" unique_id=1030946306 groups=["pickup_items"]]
 mass = 150.0
 script = ExtResource("1_v5sgg")
+display_name = "Módulo de energia"
+slot_cost = 1
+two_handed = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1414117352]
 transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0, 0, 0)

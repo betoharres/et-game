@@ -31,55 +31,55 @@ roughness = 0.95
 [sub_resource type="BoxShape3D" id="BoxShape3D_vqir7"]
 size = Vector3(60, 1, 60)
 
-[node name="HouseTest" type="Node3D" unique_id=787615800]
+[node name="HouseTest" type="Node3D" unique_id=1585996785]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1297112505]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1688188214]
 environment = SubResource("Environment_70bte")
 
-[node name="Sol" type="DirectionalLight3D" parent="." unique_id=1180413791]
+[node name="Sol" type="DirectionalLight3D" parent="." unique_id=1351387789]
 transform = Transform3D(0.7880108, -0.4575257, 0.41195792, 0, 0.66913056, 0.74314487, -0.6156615, -0.58560616, 0.5272821, 0, 0, 0)
 light_energy = 1.1
 shadow_enabled = true
 
-[node name="Terreno" type="Node3D" parent="." unique_id=100086098]
+[node name="Terreno" type="Node3D" parent="." unique_id=1897635508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
 
-[node name="Grama" type="MeshInstance3D" parent="Terreno" unique_id=1696044259]
+[node name="Grama" type="MeshInstance3D" parent="Terreno" unique_id=259822994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 mesh = SubResource("PlaneMesh_4lhxp")
 surface_material_override/0 = SubResource("StandardMaterial3D_vrcos")
 
-[node name="Chao" type="StaticBody3D" parent="Terreno" unique_id=504257980]
+[node name="Chao" type="StaticBody3D" parent="Terreno" unique_id=361796172]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terreno/Chao" unique_id=655157064]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terreno/Chao" unique_id=1404835723]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.5, 5)
 shape = SubResource("BoxShape3D_vqir7")
 
-[node name="House01" type="Node3D" parent="." unique_id=2069258970 instance=ExtResource("1_l644j")]
+[node name="House01" type="Node3D" parent="." unique_id=713006633 instance=ExtResource("1_l644j")]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=49241890]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1690256224]
 navigation_mesh = ExtResource("2_8xxq8")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=760738079 groups=["characters", "debug_player", "players"] instance=ExtResource("3_0ebgv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.5, -0.2, 16)
 script = ExtResource("4_dkwbd")
 
-[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=476149756 instance=ExtResource("5_g2sox")]
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=2104021951 instance=ExtResource("5_g2sox")]
 process_mode = 3
 layer = 100
 script = ExtResource("6_hhwjt")
 
-[node name="Moradora" type="CharacterBody3D" parent="." unique_id=1667571795 instance=ExtResource("7_w0gxh")]
+[node name="Moradora" type="CharacterBody3D" parent="." unique_id=1486389600 instance=ExtResource("7_w0gxh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.3, 13.5)
 floor_snap_length = 0.45
 script = ExtResource("8_raeq5")
 walk_speed = 1.4
 require_navigation = true
 grounded = true
-patrol_points = Array[Vector3]([Vector3(2.34, 0, 1.728), Vector3(3.48, 0, 9.396), Vector3(4.32, 0, 4.644), Vector3(3.12, 0, 6.372), Vector3(2.4, 0, 12.2)])
+patrol_points = Array[Vector3]([Vector3(2.3400002, 0, 1.728), Vector3(3.4800003, 0, 9.396), Vector3(4.32, 0, 4.6440005), Vector3(3.1200001, 0, 6.372), Vector3(2.4, 0, 12.2)])
 reaction_mode = 1
 
-[node name="NPCRoutine" type="Node" parent="Moradora" unique_id=1321760967]
+[node name="NPCRoutine" type="Node" parent="Moradora" unique_id=142642786]
 script = ExtResource("9_vxwrc")
 activity_paths = Array[NodePath]([NodePath("../../House01/Atividades/Varanda"), NodePath("../../House01/Atividades/Sofa"), NodePath("../../House01/Atividades/Cozinha"), NodePath("../../House01/Atividades/MesaJantar"), NodePath("../../House01/Atividades/Cama")])
 refuge_path = NodePath("../../House01/Atividades/Varanda")

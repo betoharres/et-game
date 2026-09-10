@@ -25,7 +25,11 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 
 	npc.set_state(&"idle")
 
-	if points.size() == 1 and not npc.move_toward_point(points[0], npc.walk_speed):
+	if points.size() == 1:
+		if npc.move_toward_point(points[0], npc.walk_speed):
+			return RUNNING
+		if npc.navigation_failed:
+			return FAILURE
 		return RUNNING
 
 	npc.stop_moving()

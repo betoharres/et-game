@@ -356,7 +356,7 @@ func _entry_door(parent: Node3D, node_name: String, at: Vector3, yaw: float) -> 
 	# A parede não vem do prefab: a dele é uma caixa cheia e fecharia o vão.
 	_mesh_body(parent, node_name, "SM_Bld_House_ExteriorWall_GroundFloor_Door_01", ENTRY_WALL_BOXES, at, yaw)
 	var frame: MeshInstance3D = _mesh_body(parent, "BatentePorta", "SM_Bld_House_Door_01", FRAME_BOXES, at, yaw)
-	var leaf: Node3D = (load(DOOR_PATH) as PackedScene).instantiate() as Node3D
+	var leaf: Node3D = (load(DOOR_PATH) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE) as Node3D
 	leaf.name = "PortaEntrada"
 	leaf.position = LEAF_OFFSET
 	# Abre para a varanda: aberta para dentro, a folha fica bem no caminho de
@@ -373,7 +373,7 @@ func _inner_door(parent: Node3D, node_name: String, at: Vector3, yaw: float, wit
 	var wall: MeshInstance3D = _mesh_body(parent, node_name, "SM_Bld_House_InteriorWall_Door_01", INNER_BOXES, at, yaw)
 	if not with_leaf:
 		return
-	var leaf: Node3D = (load(INNER_DOOR_PATH) as PackedScene).instantiate() as Node3D
+	var leaf: Node3D = (load(INNER_DOOR_PATH) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE) as Node3D
 	leaf.name = "Folha" + node_name
 	leaf.position = INNER_LEAF_OFFSET
 	wall.add_child(leaf)

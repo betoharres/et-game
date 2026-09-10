@@ -28,4 +28,4 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	if npc.routine != null:
 		flee_target = npc.routine.refuge(threat_position)
 	npc.move_toward_point(flee_target, npc.alert_speed)
-	return RUNNING
+	return FAILURE if npc.navigation_failed else RUNNING

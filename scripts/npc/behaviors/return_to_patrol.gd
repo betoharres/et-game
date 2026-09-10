@@ -25,4 +25,7 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 			closest = point
 			closest_distance = distance
 
-	return SUCCESS if npc.move_toward_point(closest, npc.walk_speed) else RUNNING
+	var arrived: bool = npc.move_toward_point(closest, npc.walk_speed)
+	if npc.navigation_failed:
+		return FAILURE
+	return SUCCESS if arrived else RUNNING

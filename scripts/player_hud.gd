@@ -33,6 +33,8 @@ const LOW_ENERGY_COLOR : Color = Color(1.0, 0.62, 0.35, 1.0)
 	$Interface/DefeatMenu/Content/RestartButton
 )
 
+var _inventory_slots : HBoxContainer
+var _inventory_feedback_tween : Tween
 var player : Node
 var _previous_health : float = -1.0
 var _stamina_hide_timer : float = 0.0
@@ -48,6 +50,7 @@ func _ready() -> void:
 	if player == null:
 		return
 
+	_build_inventory_hud()
 	player.connect("health_changed", _on_health_changed)
 	player.connect("stamina_changed", _on_stamina_changed)
 	player.connect("energy_changed", _on_energy_changed)
@@ -183,3 +186,45 @@ func _on_restart_pressed() -> void:
 	if reload_error != OK:
 		restart_button.disabled = false
 		push_error("Could not restart the current scene: %s" % reload_error)
+
+
+func _build_inventory_hud() -> void:
+	_inventory_slots = HBoxContainer.new()
+	$Interface.add_child(_inventory_slots)
+	_inventory_slots.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	_inventory_slots.offset_left = -143.0
+	_inventory_slots.offset_right = 143.0
+	_inventory_slots.offset_top = -96.0
+	_inventory_slots.offset_bottom = -32.0
+	_inventory_slots.add_theme_constant_override("separation", 10)
+	_inventory_slots.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for index : int in range(4):
+		var slot : Panel = Panel.new()
+		slot.custom_minimum_size = Vector2(64.0, 64.0)
+		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_inventory_slots.add_child(slot)
+	player.connect("exploration_inventory_changed", _refresh_inventory)
+	player.connect("exploration_inventory_feedback", _show_inventory_feedback)
+	_refresh_inventory()
+
+
+func _refresh_inventory() -> void:
+	var inventory : Node = player.get_node("ExplorationInventory")
+	for index : int in range(_inventory_slots.get_child_count()):
+		var slot : Panel = _inventory_slots.get_child(index) as Panel
+		var occupied : bool = is_instance_valid(inventory.call("item_at", index))
+		var selected : bool = index == int(inventory.get("selected_slot"))
+		var style : StyleBoxFlat = StyleBoxFlat.new()
+		style.bg_color = Color(0.12, 0.32, 0.37, 0.92) if occupied else Color(0.025, 0.035, 0.045, 0.72)
+		style.border_color = Color(0.65, 0.95, 1.0) if selected else Color(0.45, 0.55, 0.6, 0.45)
+		style.set_border_width_all(2 if selected else 1)
+		style.set_corner_radius_all(4)
+		slot.add_theme_stylebox_override("panel", style)
+
+
+func _show_inventory_feedback(_message : String) -> void:
+	if _inventory_feedback_tween != null:
+		_inventory_feedback_tween.kill()
+	_inventory_slots.modulate = Color(1.0, 0.35, 0.3)
+	_inventory_feedback_tween = create_tween()
+	_inventory_feedback_tween.tween_property(_inventory_slots, "modulate", Color.WHITE, 0.35)

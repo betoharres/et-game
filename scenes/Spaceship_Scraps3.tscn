@@ -9,6 +9,9 @@ size = Vector3(0.9392456, 0.6965546, 0.64208585)
 
 [node name="SpaceshipScraps3" type="RigidBody3D" unique_id=921262471 groups=["pickup_items"]]
 script = ExtResource("1_nqaen")
+display_name = "Unidade de refrigeração"
+slot_cost = 2
+two_handed = false
 
 [node name="SmPropAirConditioningUnit01" type="MeshInstance3D" parent="." unique_id=307173454]
 layers = 64

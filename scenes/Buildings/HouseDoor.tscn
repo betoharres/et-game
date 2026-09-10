@@ -9,23 +9,23 @@ size = Vector3(1.0447855, 2.2243478, 0.23754603)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bn3kn"]
 
-[node name="HouseDoor" type="Node3D" unique_id=231971673]
+[node name="HouseDoor" type="Node3D" unique_id=1413846603]
 script = ExtResource("1_drak1")
 
-[node name="Folha" type="AnimatableBody3D" parent="." unique_id=1659758490]
+[node name="Folha" type="AnimatableBody3D" parent="." unique_id=1979069469]
 sync_to_physics = false
 
-[node name="Malha" type="MeshInstance3D" parent="Folha" unique_id=1465364263]
+[node name="Malha" type="MeshInstance3D" parent="Folha" unique_id=964156024]
 mesh = ExtResource("2_bh8jv")
 surface_material_override/0 = ExtResource("3_k22n1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Folha" unique_id=2079500401]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Folha" unique_id=1354348490]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52239263, 1.1121739, 0.04999995)
 shape = SubResource("BoxShape3D_k1fow")
 
-[node name="Trigger" type="Area3D" parent="." unique_id=711110870]
+[node name="Trigger" type="Area3D" parent="." unique_id=763938360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.05)
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger" unique_id=1876405106]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger" unique_id=1818059551]
 shape = SubResource("SphereShape3D_bn3kn")

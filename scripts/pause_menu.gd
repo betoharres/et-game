@@ -17,7 +17,13 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"binos_zoom_in",
 	&"binos_zoom_out",
 	&"debug_player_modes",
-	&"debug_lighting_menu"
+	&"debug_lighting_menu",
+	&"inventory_slot_1",
+	&"inventory_slot_2",
+	&"inventory_slot_3",
+	&"inventory_slot_4",
+	&"inventory_previous",
+	&"inventory_next"
 ]
 
 const REBIND_LABELS : Array[String] = [
@@ -37,14 +43,20 @@ const REBIND_LABELS : Array[String] = [
 	"Zoom binóculos +",
 	"Zoom binóculos -",
 	"Velocidade e voo",
-	"Debug de iluminação"
+	"Debug de iluminação",
+	"Inventário 1",
+	"Inventário 2",
+	"Inventário 3",
+	"Inventário 4",
+	"Slot anterior",
+	"Próximo slot"
 ]
 
 @onready var overlay : Control = $Overlay
 @onready var pause_buttons : VBoxContainer = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons
 )
-@onready var controls_panel : VBoxContainer = (
+@onready var controls_panel : ScrollContainer = (
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel
 )
 @onready var resume_button : Button = (
@@ -60,26 +72,32 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/PauseButtons/ExitButton
 )
 @onready var controls_back_button : Button = (
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BackButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/BackButton
 )
 @onready var action_buttons : Array[Button] = [
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/ForwardButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BackwardButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/LeftButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/RightButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/SprintButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/JumpButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/CrouchButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/InteractButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/AbductionButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/EyeLightButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/FirstPersonButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/DebugMapButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomInButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/BinocularsZoomOutButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/PlayerModesButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/LightingDebugMenuButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/ForwardButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/BackwardButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/LeftButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/RightButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/SprintButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/JumpButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/CrouchButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/InteractButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/AbductionButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/EyeLightButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/FirstPersonButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/DebugMapButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/BinocularsButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/BinocularsZoomInButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/BinocularsZoomOutButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/PlayerModesButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/LightingDebugMenuButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_1Button,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_2Button,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_3Button,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_4Button,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_previousButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_nextButton
 ]
 
 var rebinding_action : StringName = &""
@@ -135,8 +153,8 @@ func _handle_rebinding_input(event : InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-	if event is InputEventKey and event.pressed and not event.echo:
-		var key_event : InputEventKey = event.duplicate() as InputEventKey
+	if (event is InputEventKey or event is InputEventMouseButton) and event.is_pressed() and not event.is_echo():
+		var key_event : InputEvent = event.duplicate() as InputEvent
 		InputMap.action_erase_events(rebinding_action)
 		InputMap.action_add_event(rebinding_action, key_event)
 		rebinding_action = &""
@@ -221,5 +239,8 @@ func _get_action_key(action : StringName) -> String:
 				keycode = key_event.keycode
 
 			return OS.get_keycode_string(keycode)
+
+		if input_event is InputEventMouseButton:
+			return input_event.as_text()
 
 	return "Sem tecla"

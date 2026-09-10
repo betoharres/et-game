@@ -9,6 +9,9 @@ size = Vector3(1.019767, 0.39551923, 0.71764946)
 
 [node name="SpaceshipScraps6" type="RigidBody3D" unique_id=174749796 groups=["pickup_items"]]
 script = ExtResource("1_sqdc7")
+display_name = "Caixa militar"
+slot_cost = 2
+two_handed = false
 
 [node name="SmPropCrateMilitary02" type="MeshInstance3D" parent="." unique_id=337171269]
 layers = 64

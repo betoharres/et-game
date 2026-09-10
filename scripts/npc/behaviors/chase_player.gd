@@ -19,4 +19,4 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 		else npc.vision.last_seen_position
 	)
 	npc.move_toward_point(target, npc.alert_speed)
-	return RUNNING
+	return FAILURE if npc.navigation_failed else RUNNING

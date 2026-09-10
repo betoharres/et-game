@@ -1,18 +1,17 @@
-[gd_resource type="Terrain3DAssets" format=3]
+[gd_resource type="Terrain3DAssets" format=3 uid="uid://c74nhpc0xmly1"]
 
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_bush_02a.tscn" id="1_daqf2"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/forest_tree_1a.tscn" id="2_yr6fu"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_grass_patch_01a.tscn" id="3_yr6fu"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_grass_patch_02a.tscn" id="4_engeb"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_grass_patch_03a.tscn" id="5_cl681"]
-[ext_resource type="Texture2D" path="res://Texturas/ground.png" id="5_yr6fu"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_grass_patch_04a.tscn" id="6_5c4va"]
-[ext_resource type="Texture2D" path="res://Texturas/grass.png" id="6_xlgic"]
-[ext_resource type="PackedScene" path="res://scenes/Vegetation/tem_grass_patch_05a.tscn" id="7_w2oqa"]
-[ext_resource type="Texture2D" path="res://Texturas/rockyCliff.png" id="7_xlgic"]
-
-[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/ground_normal_roughness.res" id="normal_ground"]
+[ext_resource type="PackedScene" uid="uid://b4k5y8rmeltij" path="res://scenes/Vegetation/tem_bush_02a.tscn" id="1_daqf2"]
+[ext_resource type="PackedScene" uid="uid://b6ly07pkwge6a" path="res://scenes/Vegetation/forest_tree_1a.tscn" id="2_yr6fu"]
+[ext_resource type="PackedScene" uid="uid://cl8gvqtu4l83d" path="res://scenes/Vegetation/tem_grass_patch_01a.tscn" id="3_yr6fu"]
+[ext_resource type="PackedScene" uid="uid://bsui201eehmom" path="res://scenes/Vegetation/tem_grass_patch_02a.tscn" id="4_engeb"]
+[ext_resource type="PackedScene" uid="uid://ggyw0g6j67oy" path="res://scenes/Vegetation/tem_grass_patch_03a.tscn" id="5_cl681"]
+[ext_resource type="Texture2D" uid="uid://uvdah4o4of5q" path="res://Texturas/ground.png" id="5_yr6fu"]
+[ext_resource type="PackedScene" uid="uid://bigqluinq1ce1" path="res://scenes/Vegetation/tem_grass_patch_04a.tscn" id="6_5c4va"]
+[ext_resource type="Texture2D" uid="uid://cq8e5lngvnsl" path="res://Texturas/grass.png" id="6_xlgic"]
+[ext_resource type="PackedScene" uid="uid://cmhwmobubg7us" path="res://scenes/Vegetation/tem_grass_patch_05a.tscn" id="7_w2oqa"]
+[ext_resource type="Texture2D" uid="uid://crt63d4ued7o6" path="res://Texturas/rockyCliff.png" id="7_xlgic"]
 [ext_resource type="Texture2D" path="res://Texturas/terrain_surface/grass_normal_roughness.res" id="normal_grass"]
+[ext_resource type="Texture2D" path="res://Texturas/terrain_surface/ground_normal_roughness.res" id="normal_ground"]
 [ext_resource type="Texture2D" path="res://Texturas/terrain_surface/rockyCliff_normal_roughness.res" id="normal_rockyCliff"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_abnu2"]
@@ -131,40 +130,34 @@ resource_name = "country_town_grass_05"
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_lqpbd"]
 name = "ground"
+albedo_texture = ExtResource("5_yr6fu")
+normal_texture = ExtResource("normal_ground")
+normal_depth = 0.55
 uv_scale = 0.48
 detiling_rotation = 0.8
 detiling_shift = 0.65
-albedo_color = Color(1, 1, 1, 1)
-roughness = 0.0
-normal_depth = 0.55
-albedo_texture = ExtResource("5_yr6fu")
-normal_texture = ExtResource("normal_ground")
 resource_name = "ground"
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_v10sh"]
 name = "grass"
-uv_scale = 0.65
-detiling_rotation = 1.0
-detiling_shift = 0.8
-albedo_color = Color(1, 1, 1, 1)
-roughness = 0.0
-normal_depth = 0.55
 id = 1
 albedo_texture = ExtResource("6_xlgic")
 normal_texture = ExtResource("normal_grass")
+normal_depth = 0.55
+uv_scale = 0.65
+detiling_rotation = 1.0
+detiling_shift = 0.8
 resource_name = "grass"
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_engeb"]
 name = "rockyCliff"
-uv_scale = 0.24
-detiling_rotation = 0.12
-detiling_shift = 0.55
-albedo_color = Color(1, 1, 1, 1)
-roughness = 0.0
-normal_depth = 0.55
 id = 2
 albedo_texture = ExtResource("7_xlgic")
 normal_texture = ExtResource("normal_rockyCliff")
+normal_depth = 0.55
+uv_scale = 0.24
+detiling_rotation = 0.12
+detiling_shift = 0.55
 resource_name = "rockyCliff"
 
 [resource]

@@ -117,94 +117,124 @@ theme_override_colors/font_color = Color(0.65, 0.7, 0.82, 1)
 text = "Pressione Esc para continuar"
 horizontal_alignment = 1
 
-[node name="ControlsPanel" type="VBoxContainer" parent="Overlay/CenterContainer/MenuPanel/MarginContainer"]
+[node name="ControlsPanel" type="ScrollContainer" parent="Overlay/CenterContainer/MenuPanel/MarginContainer"]
+custom_minimum_size = Vector2(440, 480)
+horizontal_scroll_mode = 0
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="Title" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="Actions" type="VBoxContainer" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "CONTROLES"
 horizontal_alignment = 1
 
-[node name="Instructions" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="Instructions" type="Label" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 layout_mode = 2
 text = "Clique em uma ação para trocar sua tecla.\nMouse: câmera  •  G: câmera do veículo"
 horizontal_alignment = 1
 
-[node name="ForwardButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="ForwardButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="BackwardButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="BackwardButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="LeftButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="LeftButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="RightButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="RightButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="SprintButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="SprintButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="JumpButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="JumpButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="CrouchButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="CrouchButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="InteractButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="InteractButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="AbductionButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="AbductionButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="EyeLightButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="EyeLightButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="FirstPersonButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="FirstPersonButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="DebugMapButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="DebugMapButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="BinocularsButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="BinocularsButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="BinocularsZoomInButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="BinocularsZoomInButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="BinocularsZoomOutButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="BinocularsZoomOutButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="PlayerModesButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="PlayerModesButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="LightingDebugMenuButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="LightingDebugMenuButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel"]
+[node name="BackButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 text = "Voltar"
 icon = ExtResource("6_back_icon")
 expand_icon = true
 icon_max_width = 23
+
+[node name="inventory_slot_1Button" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Inventário 1"
+
+[node name="inventory_slot_2Button" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Inventário 2"
+
+[node name="inventory_slot_3Button" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Inventário 3"
+
+[node name="inventory_slot_4Button" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Inventário 4"
+
+[node name="inventory_previousButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Slot anterior"
+
+[node name="inventory_nextButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Próximo slot"

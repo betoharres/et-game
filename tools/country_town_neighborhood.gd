@@ -1,6 +1,30 @@
 extends RefCounted
 ## Receita de lotes em metros, assada pelo settlement. Frente local = -Z.
 const TOWN: String = "res://PolygonTown/Prefabs/"
+const INTERIORS: GDScript = preload("res://tools/window_interiors.gd")
+
+## Preset 0 troca a casca fechada do kit pela casa modular em que se entra.
+## O preset e uma malha unica, sem vao de porta: quem tem porta que abre e
+## interior caminhavel e a House01.
+const LIVEABLE: int = 0
+const LIVEABLE_PATH: String = "res://scenes/Buildings/House01.tscn"
+const LIVEABLE_DOORWAY: String = "Estrutura/BatentePorta"
+const VARIANT_SCRIPT: String = "res://scripts/house_variant.gd"
+## A casa modular apoia o piso interno acima do gramado, como a instancia da
+## praca no TownDistrict; sem isso a soleira afunda no lote.
+const LIVEABLE_LIFT: float = 0.4
+## Presets sem interior nao tem folga de fundacao como a House01/02; afunda a
+## casca no lote como as cercas afundam na encosta (FENCE_SINK em
+## build_country_town_settlement.gd), senao a fachada flutua sobre o declive.
+const SCENERY_HOUSE_SINK: float = 0.18
+## A malha do preset varia de 4 a 9 m de altura nativa (kit de sobrado), bem
+## acima da House01/02 (parede 2.88 m, cumeeira em GABLE_APEX_Y = 4.375 m em
+## house_variant.gd). recipe[7] so escala o suficiente para bater a largura
+## minima do lote (MIN_PRESET); escalar altura junto deixaria a casca alta
+## demais. Por isso a altura usa fator proprio, so encolhendo o que passa
+## disto, sem alongar preset que ja nasce baixo.
+const SCENERY_HOUSE_MAX_HEIGHT: float = 5.5
+
 const LOTS: Array[Array] = [
 	# numero, centro X/Z, frente Y, largura, profundidade, preset, escala
 	[101, 386, 148, 180, 24, 24, 3, 1.08],
@@ -11,16 +35,16 @@ const LOTS: Array[Array] = [
 	[106, 385, 282, 90, 22, 22, 10, 1.08],
 	[201, 439.5, 188, -90, 26, 16, 10, 1.0],
 	# Lote 202 reservado à House01 habitável, instanciada em TownDistrict.
-	[204, 497, 189, -90, 26, 22, 6, 1.08],
-	[206, 534.5, 189, -90, 26, 23, 7, 1.08],
-	[203, 436, 259, -90, 24, 24, 4, 1.08],
-	[208, 474, 259, 90, 24, 22, 9, 1.15],
-	[210, 497, 259, -90, 24, 22, 5, 1.08],
-	[212, 534.5, 259, -90, 24, 23, 6, 1.1],
+	[204, 497, 189, -90, 26, 22, 0, 1.08],
+	[206, 534.5, 189, -90, 26, 23, 0, 1.08],
+	[203, 436, 259, -90, 24, 24, 0, 1.08],
+	[208, 474, 259, 90, 24, 22, 0, 1.15],
+	[210, 497, 259, -90, 24, 22, 0, 1.08],
+	[212, 534.5, 259, -90, 24, 23, 0, 1.1],
 	[301, 436, 318, -90, 20, 24, 9, 1.12],
 	[303, 436, 341, -90, 20, 24, 5, 1.08],
-	[302, 474, 318, 90, 24, 22, 4, 1.08],
-	[304, 497, 318, -90, 24, 22, 6, 1.08],
+	[302, 474, 318, 90, 24, 22, 0, 1.08],
+	[304, 497, 318, -90, 24, 22, 0, 1.08],
 	[306, 474, 342, 90, 18, 22, 9, 1.1],
 	[308, 497, 342, -90, 18, 22, 5, 1.08],
 	[305, 385, 338, 180, 24, 26, 7, 1.12],
@@ -208,15 +232,41 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	var front: float = -depth * 0.5
 	var back: float = depth * 0.5
 	var drive_x: float = width * 0.5 - 2.7
-	var house: MeshInstance3D = _asset(lot, "Buildings/Presets/SM_Bld_House_Preset_%02d" % int(recipe[6]), "House", Vector3.ZERO, 0, recipe[7]) as MeshInstance3D
-	if house == null:
-		return
-	var bounds: AABB = house.mesh.get_aabb()
-	var house_size: Vector3 = bounds.size * float(recipe[7])
-	var house_x: float = -width * 0.5 + 1.0 + house_size.x * 0.5
+	var liveable: bool = int(recipe[6]) == LIVEABLE
 	var house_front: float = front + 5.0
-	house.position = Vector3(house_x - bounds.get_center().x * float(recipe[7]), 0.06 - bounds.position.y * float(recipe[7]), house_front - bounds.position.z * float(recipe[7]))
-	_set_ranges(house, 650.0, 128)
+	var house_size: Vector3 = Vector3.ZERO
+	var house_x: float = 0.0
+	var entrance_z: float = house_front - 0.9
+	if liveable:
+		var home: Node3D = _liveable(lot, number)
+		if home == null:
+			return
+		var bounds: AABB = _visual_bounds(home)
+		house_size = bounds.size
+		house_x = -width * 0.5 + 1.0 + house_size.x * 0.5
+		# Meia volta: a fachada da casa modular e o +Z local dela, e a frente
+		# do lote e o -Z. A borda da varanda encosta no recuo do lote.
+		home.rotation_degrees.y = 180.0
+		home.position = Vector3(house_x + bounds.get_center().x, LIVEABLE_LIFT, house_front + bounds.end.z)
+		var doorway: Node3D = home.get_node_or_null(LIVEABLE_DOORWAY) as Node3D
+		if doorway != null:
+			entrance_z = house_front + bounds.end.z - doorway.position.z - 0.9
+	else:
+		var house: MeshInstance3D = _asset(lot, "Buildings/Presets/SM_Bld_House_Preset_%02d" % int(recipe[6]), "House", Vector3.ZERO, 0, recipe[7]) as MeshInstance3D
+		if house == null:
+			return
+		var bounds: AABB = house.mesh.get_aabb()
+		house_size = bounds.size * float(recipe[7])
+		house_x = -width * 0.5 + 1.0 + house_size.x * 0.5
+		var height_scale: float = minf(float(recipe[7]), SCENERY_HOUSE_MAX_HEIGHT / bounds.size.y)
+		house.scale.y = height_scale
+		house.position = Vector3(house_x - bounds.get_center().x * float(recipe[7]), -SCENERY_HOUSE_SINK - bounds.position.y * height_scale, house_front - bounds.position.z * float(recipe[7]))
+		_set_ranges(house, 650.0, 128)
+		# A casca do preset nao tem interior: a vitrine entra depois das faixas
+		# de visibilidade porque o comodo some antes da casa.
+		if INTERIORS.new().decorate(house, number) == 0:
+			failed = true
+			push_error("Casa %d ficou sem vitrine de janela" % number)
 	if house_size.x > width - 6.5 or house_size.z > depth - 6.4:
 		failed = true
 		push_error("Casa %d nao cabe no lote: %s" % [number, house_size])
@@ -227,7 +277,8 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	var fence_key: String = "PaleFence" if number % 3 == 0 else "WoodFence"
 	_box(lot, "Driveway", Vector3(3.6, 0.08, depth - 2), Vector3(drive_x, 0.025, -0.7), "Gravel", gravel)
 	_box(lot, "EntrancePath", Vector3(1.8, 0.08, 5.6), Vector3(entry_x, 0.035, front + 2.2), "Paving", concrete)
-	_box(lot, "Porch", Vector3(house_size.x - 0.6, 0.1, 1.8), Vector3(house_x, 0.04, house_front - 0.6), "Paving", concrete)
+	if not liveable:
+		_box(lot, "Porch", Vector3(house_size.x - 0.6, 0.1, 1.8), Vector3(house_x, 0.04, house_front - 0.6), "Paving", concrete)
 	_box(lot, "BackPatio", Vector3(width - 2, 0.08, 1.6), Vector3(0, 0.025, back - 1.2), "Paving", concrete)
 	# Caminho e entrada da garagem continuam ate a calcada, fora da cerca.
 	_box(lot, "DriveApron", Vector3(3.6, 0.08, 1.4), Vector3(drive_x, 0.035, front - 0.6), "Paving", concrete)
@@ -244,8 +295,9 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	_fence(lot, Vector2(drive_x + 1.9, front), Vector2(drive_x + 1.9, front + 1.7), wood, fence_key)
 	_asset(lot, "Props/SM_Prop_LetterBox_01", "Mailbox", Vector3(entry_x + 1.3, 0.06, front + 0.3))
 	_asset(lot, "Props/SM_Prop_RubbishBin_01", "CollectionBin", Vector3(drive_x - 2.5, 0.06, front + 0.7))
-	for x: float in [entry_x - 1.4, entry_x + 1.4]:
-		_asset(lot, "Props/SM_Prop_PotPlant_04", "PorchPlant", Vector3(x, 0.08, house_front - 1.0), number, 1.7)
+	if not liveable:
+		for x: float in [entry_x - 1.4, entry_x + 1.4]:
+			_asset(lot, "Props/SM_Prop_PotPlant_04", "PorchPlant", Vector3(x, 0.08, house_front - 1.0), number, 1.7)
 	var garden_x: float = -width * 0.5 + 1.5
 	_box(lot, "FlowerBed", Vector3(1.4, 0.12, 2.8), Vector3(garden_x, 0.06, front + 2.6), "GardenSoil", Color(0.18, 0.125, 0.075))
 	for z: float in [front + 1.8, front + 2.6, front + 3.4]:
@@ -264,10 +316,11 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	_marker(lot, "PedestrianGate", Vector3(entry_x, 0.1, front))
 	_marker(lot, "VehicleGate", Vector3(drive_x, 0.1, front))
 	_marker(lot, "ParkingSpace", Vector3(drive_x, 0.1, front + 6.5))
-	_marker(lot, "Entrance", Vector3(entry_x, 0.15, house_front - 0.9))
-	var interior: Marker3D = _marker(lot, "FutureInterior", house.position + Vector3(0, 0.1, 0))
-	interior.set_meta("available_footprint", Vector2(house_size.x - 1.0, house_size.z - 1.0))
-	interior.set_meta("floor_height", 2.8)
+	_marker(lot, "Entrance", Vector3(entry_x, 0.15, entrance_z))
+	if not liveable:
+		var interior: Marker3D = _marker(lot, "FutureInterior", Vector3(house_x, 0.1, house_front + house_size.z * 0.5))
+		interior.set_meta("available_footprint", Vector2(house_size.x - 1.0, house_size.z - 1.0))
+		interior.set_meta("floor_height", 2.8)
 	var address: Label3D = Label3D.new()
 	address.name = "HouseNumber"
 	address.text = str(number)
@@ -282,6 +335,53 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	_flush(lot)
 
 
+## Casa modular do jogo instanciada no lote: fica como instancia, e nao
+## achatada como os assets do kit, para acompanhar mudancas em House01.tscn.
+func _liveable(lot: Node3D, number: int) -> Node3D:
+	var packed: PackedScene = load(LIVEABLE_PATH) as PackedScene
+	if packed == null:
+		failed = true
+		push_error("Casa habitavel ausente: %s" % LIVEABLE_PATH)
+		return null
+	# Sem o estado de edicao a instancia perde as sobrescritas ao ser empacotada,
+	# e toda casa do bairro sairia igual a House01 original.
+	var home: Node3D = packed.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE) as Node3D
+	home.name = "House"
+	home.set_meta("country_town_block", true)
+	lot.add_child(home)
+	_dress_liveable(home, number)
+	return home
+
+
+## Mesma planta em todo lote: o que muda de casa para casa e a tranca, a luz,
+## as cortinas e quais moveis ficam no lugar. Fora do editor so a raiz da
+## instancia guarda sobrescrita ao ser empacotada, entao a variacao inteira e
+## descrita ali e aplicada por `HouseVariant`.
+func _dress_liveable(home: Node3D, number: int) -> void:
+	home.set_script(load(VARIANT_SCRIPT))
+	home.set("variant_seed", number)
+	home.set("entry_locked", number % 3 == 0)
+
+
+func _visual_bounds(node: Node, parent_transform: Transform3D = Transform3D.IDENTITY) -> AABB:
+	var local: Transform3D = parent_transform
+	if node is Node3D:
+		local *= (node as Node3D).transform
+	var bounds: AABB = AABB()
+	var started: bool = false
+	var visual: MeshInstance3D = node as MeshInstance3D
+	if visual != null and visual.mesh != null and visual.visible:
+		bounds = local * visual.mesh.get_aabb()
+		started = true
+	for child: Node in node.get_children():
+		var sub: AABB = _visual_bounds(child, local)
+		if sub.size == Vector3.ZERO:
+			continue
+		bounds = sub if not started else bounds.merge(sub)
+		started = true
+	return bounds
+
+
 func _build_shop(town: Node3D, title: String, point: Vector2, yaw: float, preset: int) -> void:
 	var shop: Node3D = Node3D.new()
 	shop.name = title
@@ -293,6 +393,9 @@ func _build_shop(town: Node3D, title: String, point: Vector2, yaw: float, preset
 	if building == null:
 		return
 	_set_ranges(building, 600.0, 128)
+	if INTERIORS.new().decorate_tree(building, preset * 7 + int(point.x)) == 0:
+		failed = true
+		push_error("Comercio %s ficou sem vitrine" % title)
 	var bounds: AABB = building.mesh.get_aabb()
 	var front: float = bounds.position.z
 	# Toldos e tabuleiros ficam junto a fachada, sem fechar a calcada.
