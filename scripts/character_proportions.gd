@@ -52,6 +52,8 @@ var _profile : Dictionary = DEFAULT_PROFILE.duplicate(true)
 var _bone_ids : Dictionary = {}
 var _visual_root : Node3D
 var _character_mesh : MeshInstance3D
+var _goggles_mesh : MeshInstance3D
+var _goggles_head_offset : Transform3D = Transform3D.IDENTITY
 var _base_visual_scale : Vector3 = Vector3.ONE
 var _base_visual_position : Vector3 = Vector3.ZERO
 var _body_material : ShaderMaterial
@@ -61,10 +63,13 @@ var _eye_material : ShaderMaterial
 func _ready() -> void:
 	_visual_root = get_node_or_null(visual_root_path) as Node3D
 	_character_mesh = get_node_or_null(character_mesh_path) as MeshInstance3D
+	if _character_mesh != null:
+		_goggles_mesh = _character_mesh.get_node_or_null("FarSightGoggles") as MeshInstance3D
 	if _visual_root != null:
 		_base_visual_scale = _visual_root.scale
 		_base_visual_position = _visual_root.position
 	_cache_bones()
+	_bind_goggles_to_head()
 	_setup_body_material()
 	_setup_eye_material()
 
@@ -134,6 +139,33 @@ func _cache_bones() -> void:
 		_bone_ids[role] = bone_index
 
 
+func _bind_goggles_to_head() -> void:
+	var skeleton : Skeleton3D = get_skeleton()
+	var head : int = int(_bone_ids.get("head", -1))
+	if _goggles_mesh == null or skeleton == null or head < 0:
+		return
+	_goggles_head_offset = (
+		skeleton.get_bone_global_rest(head).affine_inverse()
+		* skeleton.global_transform.affine_inverse()
+		* _goggles_mesh.global_transform
+	)
+	# Follow the final pose, after animation, look-at, and ragdoll modifiers.
+	skeleton.skeleton_updated.connect(_update_goggles_transform)
+	_update_goggles_transform()
+
+
+func _update_goggles_transform() -> void:
+	var skeleton : Skeleton3D = get_skeleton()
+	var head : int = int(_bone_ids.get("head", -1))
+	if not is_instance_valid(_goggles_mesh) or skeleton == null or head < 0:
+		return
+	_goggles_mesh.global_transform = (
+		skeleton.global_transform
+		* skeleton.get_bone_global_pose(head)
+		* _goggles_head_offset
+	)
+
+
 func _setup_eye_material() -> void:
 	if _character_mesh == null or _character_mesh.mesh == null:
 		return
@@ -193,20 +225,19 @@ func _apply_static_visuals() -> void:
 
 
 func _apply_blend_shapes() -> void:
-	if _character_mesh == null or _character_mesh.mesh == null:
-		return
-	for feature : String in BLEND_SHAPES:
-		var blend_shape : StringName = StringName(BLEND_SHAPES[feature])
-		var blend_shape_index : int = _find_blend_shape(blend_shape)
-		if blend_shape_index >= 0:
-			_character_mesh.set_blend_shape_value(blend_shape_index, float(_profile[feature]))
+	for mesh_instance : MeshInstance3D in [_character_mesh, _goggles_mesh]:
+		for feature : String in BLEND_SHAPES:
+			var blend_shape : StringName = StringName(BLEND_SHAPES[feature])
+			var blend_shape_index : int = _find_blend_shape(mesh_instance, blend_shape)
+			if blend_shape_index >= 0:
+				mesh_instance.set_blend_shape_value(blend_shape_index, float(_profile[feature]))
 
 
-func _find_blend_shape(blend_shape : StringName) -> int:
-	if _character_mesh == null or _character_mesh.mesh == null:
+func _find_blend_shape(mesh_instance : MeshInstance3D, blend_shape : StringName) -> int:
+	if mesh_instance == null or mesh_instance.mesh == null:
 		return -1
-	for index : int in _character_mesh.mesh.get_blend_shape_count():
-		if _character_mesh.mesh.get_blend_shape_name(index) == blend_shape:
+	for index : int in mesh_instance.mesh.get_blend_shape_count():
+		if mesh_instance.mesh.get_blend_shape_name(index) == blend_shape:
 			return index
 	return -1
 
