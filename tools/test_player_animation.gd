@@ -11,8 +11,8 @@ func run() -> void:
 	var packed : PackedScene = load("res://scenes/Player.tscn") as PackedScene
 	var player : CharacterBody3D = packed.instantiate() as CharacterBody3D
 	root.add_child(player)
-	await process_frame
 	player.set_physics_process(false)
+	await process_frame
 
 	var controller : PlayerAnimationController = player.get_node(
 		"PlayerAnimationController"
@@ -43,6 +43,11 @@ func run() -> void:
 		and animation_player.speed_scale < 1.9,
 		"Walk playback calibrated"
 	)
+	var skeleton : Skeleton3D = player.get_node("ET/ETArmature/Skeleton3D") as Skeleton3D
+	tree.advance(0.3)
+	var walk_pose : Array[Quaternion] = bone_rotations(skeleton)
+	tree.advance(0.2)
+	check(bones_moved(skeleton, walk_pose), "Walk state animates the visual skeleton")
 
 	controller.set_motion_state(Vector3(0.0, 0.0, 5.5), true, true, false, 0)
 	await physics_frame
@@ -119,6 +124,25 @@ func run() -> void:
 		animation_player.speed_scale < front_initial_speed,
 		"Front get up eases from arms into standing"
 	)
+	controller.set_physics_process(false)
+	tree.active = false
+	check_model_clips(player.get_node("ET"), "Player")
+
+	var crew_scene : PackedScene = load("res://scenes/NPCs/ShipCrewAlien.tscn") as PackedScene
+	var crew : Node = crew_scene.instantiate()
+	root.add_child(crew)
+	crew.set_physics_process(false)
+	crew.get_node("PlayerAnimationController").set_physics_process(false)
+	(crew.get_node("AnimationTree") as AnimationTree).active = false
+	check_model_clips(crew.get_node("ET"), "ShipCrewAlien")
+	crew.queue_free()
+
+	var creator_scene : PackedScene = load("res://scenes/Menu/CharacterCreator.tscn") as PackedScene
+	var creator : Node = creator_scene.instantiate()
+	root.add_child(creator)
+	var preview_pivot : Node = creator.get_node("%PreviewPivot")
+	check_model_clips(preview_pivot.get_node("ET"), "CharacterCreator")
+	creator.queue_free()
 
 	player.queue_free()
 	await process_frame
@@ -135,6 +159,57 @@ func check(condition : bool, label : String) -> void:
 		return
 	_failed = true
 	push_error("CHECK|FAIL|%s" % label)
+
+
+func check_model_clips(model : Node, label : String) -> void:
+	var animation_player : AnimationPlayer = model.get_node("AnimationPlayer") as AnimationPlayer
+	var skeleton : Skeleton3D = model.get_node("ETArmature/Skeleton3D") as Skeleton3D
+	var mesh : MeshInstance3D = skeleton.get_node("ET") as MeshInstance3D
+	check(mesh.get_node(mesh.skeleton) == skeleton and mesh.skin != null,
+		"%s mesh bound to the animated skeleton" % label)
+	var shape_weights : PackedFloat32Array = []
+	check(mesh.mesh.get_blend_shape_count() == 3, "%s retains three blend shapes" % label)
+	for shape_index : int in mesh.mesh.get_blend_shape_count():
+		var weight : float = 0.2 + 0.3 * shape_index
+		mesh.set_blend_shape_value(shape_index, weight)
+		shape_weights.append(weight)
+	var animation_names : Array[StringName] = []
+	for name_value : String in PlayerAnimationController.STATE_ANIMATIONS.values():
+		animation_names.append(StringName(name_value))
+	animation_names.append_array([&"jump_start", &"carried_idle", &"carried_from_ground"])
+	var all_move : bool = true
+	for animation_name : StringName in animation_names:
+		if not animation_player.has_animation(animation_name):
+			check(false, "%s missing %s" % [label, animation_name])
+			all_move = false
+			continue
+		var animation : Animation = animation_player.get_animation(animation_name)
+		animation_player.play(animation_name)
+		animation_player.seek(animation.length * 0.15, true)
+		var first_pose : Array[Quaternion] = bone_rotations(skeleton)
+		animation_player.seek(animation.length * 0.55, true)
+		if not bones_moved(skeleton, first_pose):
+			check(false, "%s clip %s has no visible bone motion" % [label, animation_name])
+			all_move = false
+	check(all_move, "%s: all 37 clips move the actual skeleton" % label)
+	for shape_index : int in shape_weights.size():
+		check(is_equal_approx(mesh.get_blend_shape_value(shape_index), shape_weights[shape_index]),
+			"%s animation preserves %s" % [label, mesh.mesh.get_blend_shape_name(shape_index)])
+	animation_player.stop()
+
+
+func bone_rotations(skeleton : Skeleton3D) -> Array[Quaternion]:
+	var result : Array[Quaternion] = []
+	for bone : int in skeleton.get_bone_count():
+		result.append(skeleton.get_bone_pose_rotation(bone))
+	return result
+
+
+func bones_moved(skeleton : Skeleton3D, previous : Array[Quaternion]) -> bool:
+	for bone : int in skeleton.get_bone_count():
+		if not previous[bone].is_equal_approx(skeleton.get_bone_pose_rotation(bone)):
+			return true
+	return false
 
 
 func looping_animations_are_in_place(animation_player : AnimationPlayer) -> bool:

@@ -32,7 +32,7 @@ edite à mão o que um gerador regrava.
 | `build_house_01.gd` | Casa modular (House01), portas, cena de teste e navegação | [casas-interiores.md](casas-interiores.md) |
 | `build_house_02.gd` | Segunda planta modular (House02), com garagem | [casas-interiores.md](casas-interiores.md) |
 | `bake_police_patrol_route.gd` | Grafo de ruas da patrulha (colar no `AIDriver`) | [veiculos.md](veiculos.md) |
-| `build_mixamo_character.py` | `ET_animated.glb` (roda no Blender) | [animacoes.md](animacoes.md) |
+| `build_mixamo_character.py` + `build_mixamo_animation_library.gd` | `ET_animations.res` (Blender assa os FBXs; Godot grava a biblioteca sem alterar a malha) | [animacoes.md](animacoes.md) |
 | `render_prototype_icons.py` | Ícones de `Texturas/ui/` | [ui-e-menus.md](ui-e-menus.md) |
 
 Bibliotecas auxiliares, `RefCounted`, que não rodam sozinhas:

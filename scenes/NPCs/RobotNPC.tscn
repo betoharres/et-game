@@ -6,5 +6,64 @@
 [node name="GenericNPC" unique_id=1189888404 instance=ExtResource("1_tybh4")]
 patrol_wait_time = 1.0
 
-[node name="CharacterMesh" parent="VisualRoot/Skeleton3D" parent_id_path=PackedInt32Array(1120817432) index="0" unique_id=3690575]
+[node name="Character_Alien_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="0" unique_id=666531755]
+visible = false
+
+[node name="Character_Alien_Male_02" parent="NPC_idle_anim/Armature/Skeleton3D" index="1" unique_id=1643273157]
+visible = false
+
+[node name="Character_Android_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="2" unique_id=1943854301]
+visible = false
+
+[node name="Character_Augmented_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="3" unique_id=867144850]
+visible = false
+
+[node name="Character_Cop_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="4" unique_id=1788722657]
+visible = false
+
+[node name="Character_Cyber_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="5" unique_id=1580715951]
+visible = false
+
+[node name="Character_Cyber_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="6" unique_id=2119682029]
+visible = false
+
+[node name="Character_CyberPunk_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="7" unique_id=1084556401]
+visible = false
+
+[node name="Character_CyborgNinja_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="8" unique_id=869808193]
+visible = false
+
+[node name="Character_Garbage_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="9" unique_id=1168297613]
+visible = false
+
+[node name="Character_Hacker_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="10" unique_id=1542394504]
+visible = false
+
+[node name="Character_Hologram_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="11" unique_id=1547796654]
+visible = false
+
+[node name="Character_Junky_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="12" unique_id=264491786]
+visible = false
+
+[node name="Character_Junky_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="13" unique_id=296769711]
+visible = false
+
+[node name="Character_Medical_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="14" unique_id=1946521403]
+visible = false
+
+[node name="Character_Monk_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="15" unique_id=976310960]
+visible = false
+
+[node name="Character_Muscle_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="16" unique_id=1709364119]
+visible = false
+
+[node name="Character_Rich_Female_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="17" unique_id=179081126]
+visible = false
+
+[node name="Character_Rich_Male_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="18" unique_id=1121520541]
+visible = false
+
+[node name="Character_Robot_01" parent="NPC_idle_anim/Armature/Skeleton3D" index="19" unique_id=1368620908]
 surface_material_override/0 = ExtResource("2_2q5dr")
+
+[editable path="NPC_idle_anim"]

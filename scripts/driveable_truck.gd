@@ -63,7 +63,7 @@ var first_person_camera : bool = false
 # Driver ET reference
 @onready var ET_driver : Node3D = $ET2
 @onready var driver_proportions : SkeletonModifier3D = (
-	$ET2/Armature/Skeleton3D/CharacterProportions
+	$ET2/ETArmature/Skeleton3D/CharacterProportions
 )
 
 func _ready() -> void:

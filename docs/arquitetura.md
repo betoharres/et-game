@@ -81,7 +81,7 @@ primeiros são **grupos globais** declarados em `project.godot`
 ```text
 Player -> grupo pickup_items -> pickup/drop -> DeliveryArea -> feixe -> GlobalScore
 MainMenu -> CharacterCreator -> Orbit -> terminal -> LevelCatalog -> world.tscn -> pad -> feixe de chegada
-CharacterAppearance -> CharacterProportions -> Skeleton3D/olhos -> Player e ET no banco do veículo
+CharacterAppearance -> CharacterProportions -> Blend Shapes/rig/olhos -> Player e ET no banco do veículo
 NPCActor -> NPCVision/NPCHearing -> NPCBehaviorTree (Beehave) -> NPCRoutine/NPCActivity
 SmellyFarmer -> visão -> perseguição e disparo -> vida do Player
 Photographer -> PhotoAlertSystem -> sinais de polícia/imprensa/MIB (ainda sem consumidores)

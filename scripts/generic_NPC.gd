@@ -27,7 +27,9 @@ enum Behavior {
 @export_range(0.0, 50.0, 0.1) var gravity: float = 9.8
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var animation_player: AnimationPlayer = $VisualRoot/AnimationPlayer
+@onready var animation_player: AnimationPlayer = (
+	get_node_or_null("NPC_idle_anim/AnimationPlayer") as AnimationPlayer
+)
 
 var _patrol_space: Node3D
 var _navigation_region: NavigationRegion3D
@@ -169,7 +171,11 @@ func _set_moving(moving: bool) -> void:
 
 
 func _play_animation(animation_name: StringName) -> void:
-	if animation_name.is_empty() or not animation_player.has_animation(animation_name):
+	if (
+		animation_player == null
+		or animation_name.is_empty()
+		or not animation_player.has_animation(animation_name)
+	):
 		_current_animation = &""
 		return
 	if _current_animation == animation_name:

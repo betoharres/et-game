@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ccw7i6l57f805" path="res://scripts/player_animation_controller.gd" id="3_animation_script"]
 [ext_resource type="Script" uid="uid://b18c4iyksteau" path="res://scripts/player_ragdoll.gd" id="4_ragdoll_script"]
 [ext_resource type="Script" uid="uid://ble30vc8ite7l" path="res://scripts/ragdoll_recovery_modifier.gd" id="5_recovery_script"]
+[ext_resource type="AnimationLibrary" path="res://animations/mixamo/ET_animations.res" id="6_clips"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crew"]
 radius = 0.1
@@ -14,6 +15,9 @@ height = 1.0
 script = ExtResource("1_crew_script")
 
 [node name="ET" parent="." instance=ExtResource("2_alien_model")]
+
+[node name="AnimationPlayer" parent="ET" index="1"]
+libraries/ = ExtResource("6_clips")
 
 [node name="ET" parent="ET/ETArmature/Skeleton3D" index="0"]
 layers = 16

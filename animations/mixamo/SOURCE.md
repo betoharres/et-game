@@ -4,18 +4,24 @@ The FBX files in this directory were supplied by the project owner from
 Mixamo. No separate license file accompanied them; confirm the account and
 redistribution terms before distributing the raw source assets.
 
-`ET_para_mixamo.fbx` is the ET mesh already bound to the common 49-bone
-`mixamorig:` hierarchy. `ET_animated.glb` is the runtime asset generated from
-that mesh and the selected clips with:
+`ET_animated.glb` is the authored runtime mesh with the `Belly`, `Head`, and
+`Eyes` blend shapes. Its embedded clips are not used by the player, character
+preview, or ship crew: their scenes override the default animation library
+with `ET_animations.res`.
+
+`ET_para_mixamo.fbx` supplies the common 49-bone `mixamorig:` baking rig.
+Rebuild the animation library from it and the selected clips with:
 
 ```powershell
-& "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --python tools/build_mixamo_character.py
+& "D:\Program Files\Blender 4.0\blender.exe" --background --factory-startup --python-exit-code 1 --python tools/build_mixamo_character.py
 ```
 
-The build script keeps one mesh and one visual Skeleton, normalizes the FBX
-armature transform, converts hip translation from centimeters to meters, and
-removes horizontal root displacement so `CharacterBody3D` remains authoritative
-for movement. Vertical motion authored in the jump and landing clips is kept.
+The build script normalizes the FBX armature transform, converts hip translation
+from centimeters to meters, and removes horizontal root displacement so
+`CharacterBody3D` remains authoritative for movement. Vertical motion is kept.
+It exports a temporary GLB, then invokes Godot 4.8 and
+`tools/build_mixamo_animation_library.gd` to validate bone motion and save the
+library. The temporary baking mesh is discarded; `ET_animated.glb` is untouched.
 
 ## Runtime mapping
 

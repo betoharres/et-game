@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/character_proportions.gd" id="12_proportions"]
 
 [ext_resource type="Script" path="res://scripts/exploration_inventory.gd" id="13_inventory"]
+[ext_resource type="AnimationLibrary" path="res://animations/mixamo/ET_animations.res" id="14_clips"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_p7iby"]
 material = ExtResource("5_lkdrv")
@@ -49,6 +50,9 @@ script = ExtResource("4_footsteps")
 
 [node name="ET" parent="." unique_id=306698158 instance=ExtResource("2_3li8b")]
 
+[node name="AnimationPlayer" parent="ET" index="1"]
+libraries/ = ExtResource("14_clips")
+
 [node name="ET" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="0" unique_id=495875308]
 layers = 256
 
@@ -60,6 +64,7 @@ mesh = SubResource("BoxMesh_p7iby")
 
 [node name="CharacterProportions" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="1"]
 script = ExtResource("12_proportions")
+character_mesh_path = NodePath("../ET")
 
 [node name="Head" type="LookAtModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 634191814) index="2" unique_id=420108015]
 influence = 0.242
