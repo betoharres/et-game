@@ -5,6 +5,7 @@ extends CanvasLayer
 
 signal accepted
 signal declined
+signal closed
 
 @onready var speaker_label : Label = (
 	$Overlay/Center/Panel/Margin/Content/Speaker
@@ -24,6 +25,7 @@ signal declined
 
 var _lines : Array[String] = []
 var _index : int = 0
+var _informational : bool = false
 
 
 func _ready() -> void:
@@ -45,6 +47,7 @@ func open(
 	speaker : String, lines : Array[String],
 	accept_text : String = "Aceitar missão", decline_text : String = "Recusar"
 ) -> void:
+	_informational = false
 	speaker_label.text = speaker
 	accept_button.text = accept_text
 	decline_button.text = decline_text
@@ -55,17 +58,35 @@ func open(
 	_show_line()
 
 
+## Abre uma conversa sem decisão de missão. A última fala continua usando o
+## mesmo botão da sequência, mas fecha a UI em vez de emitir accepted/declined.
+func open_information(
+	speaker : String, lines : Array[String], continue_text : String = "Continuar"
+) -> void:
+	_informational = true
+	speaker_label.text = speaker
+	continue_button.text = continue_text
+	_lines = lines
+	_index = 0
+	visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_show_line()
+
+
 func close() -> void:
+	if not visible:
+		return
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	closed.emit()
 
 
 func _show_line() -> void:
 	body_label.text = _lines[_index] if _index < _lines.size() else ""
 	var is_last : bool = _index >= _lines.size() - 1
-	continue_button.visible = not is_last
-	accept_button.visible = is_last
-	decline_button.visible = is_last
+	continue_button.visible = _informational or not is_last
+	accept_button.visible = not _informational and is_last
+	decline_button.visible = not _informational and is_last
 	if is_last:
 		accept_button.grab_focus()
 	else:
@@ -73,6 +94,9 @@ func _show_line() -> void:
 
 
 func _advance() -> void:
+	if _informational and _index >= _lines.size() - 1:
+		close()
+		return
 	_index = mini(_index + 1, _lines.size() - 1)
 	_show_line()
 

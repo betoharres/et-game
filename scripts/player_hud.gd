@@ -70,6 +70,13 @@ func _ready() -> void:
 	locator.offset_right = 176.0
 	locator.offset_top = 24.0
 	locator.offset_bottom = 168.0
+	var mission_hud : Control = preload("res://scenes/MissionHUD.tscn").instantiate() as Control
+	$Interface.add_child(mission_hud)
+	mission_hud.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	mission_hud.offset_left = -344.0
+	mission_hud.offset_right = -24.0
+	mission_hud.offset_top = 24.0
+	mission_hud.offset_bottom = 120.0
 	player.connect("health_changed", _on_health_changed)
 	player.connect("stamina_changed", _on_stamina_changed)
 	player.connect("energy_changed", _on_energy_changed)

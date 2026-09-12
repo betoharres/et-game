@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 CharacterAppearance="*res://scripts/character_appearance.gd"
 GlobalScore="*res://scripts/GlobalScore.gd"
+MissionLog="*res://scripts/mission_log.gd"
 PhotoAlertSystem="*res://scripts/photo_alert_system.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
 DebugMenus="*res://scenes/Menu/DebugMenu.tscn"

@@ -28,6 +28,9 @@
 
 [ext_resource type="PackedScene" path="res://scenes/RecoveryPoint.tscn" id="25_recovery"]
 [ext_resource type="Script" path="res://scripts/country_town.gd" id="26_country_town"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/ShipCrewAlien.tscn" id="27_crash_site_guide"]
+[ext_resource type="Script" path="res://scripts/space/mission_giver_npc.gd" id="28_guide_script"]
+[ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="29_mission_dialogue"]
 
 [node name="CountryTown" type="Node3D" unique_id=1267138773]
 script = ExtResource("26_country_town")
@@ -108,3 +111,10 @@ uniform_npc_markers = true
 
 [node name="RecoveryPoint" parent="." instance=ExtResource("25_recovery")]
 position = Vector3(350, 6.12, 375)
+
+[node name="CrashSiteGuide" parent="." instance=ExtResource("27_crash_site_guide")]
+position = Vector3(527.5, 6.0, 55.0)
+script = ExtResource("28_guide_script")
+wander_extents = Vector2(1.0, 1.0)
+
+[node name="MissionDialogue" parent="." instance=ExtResource("29_mission_dialogue")]

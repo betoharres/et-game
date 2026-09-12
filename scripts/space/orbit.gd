@@ -16,6 +16,9 @@ const RESCUE_MISSION_LINES : Array[String] = [
 	"Localize o ponto da queda e traga de volta o que sobrou. Topa a missão?",
 ]
 
+const RESCUE_MISSION_TITLE : String = "Missão de resgate"
+const RESCUE_MISSION_OBJECTIVE_TRAVEL : String = "Viajar até a Terra e localizar o local da queda."
+
 const APPROACH_DURATION : float = 2.4
 ## Direcao em que a Terra vem, medida a partir da nave. So a direcao
 ## importa: a distancia final e calculada em _approach_position(), para a
@@ -110,6 +113,7 @@ func _on_rescue_mission_accepted() -> void:
 		return
 	_rescue_accepted = true
 	mission_npc.set_mission_accepted(true)
+	MissionLog.start_mission(RESCUE_MISSION_TITLE, RESCUE_MISSION_OBJECTIVE_TRAVEL)
 	_open_departure_choice()
 
 

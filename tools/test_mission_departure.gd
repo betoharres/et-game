@@ -81,8 +81,10 @@ func _run() -> void:
 	if current_scene != null and current_scene.scene_file_path == "res://scenes/CountryTown/CountryTown.tscn":
 		await create_timer(0.3).timeout
 		_check(not FLOW.arrival_by_saucer and not FLOW.arrived_from_orbit, "Destino consome estado de viagem")
-		var arrival : Node = current_scene.get_node_or_null("MissionSaucer")
+		var arrival : Node = current_scene.get_node_or_null("RecoveryShip/Hull")
 		_check(arrival != null, "Mesma Saucer aparece na chegada")
+		_check(current_scene.find_children("*", "Saucer", true, false).size() == 1, "Chegada contém somente uma Saucer")
+		_check(not current_scene.get_node("RecoveryShip").is_physics_processing(), "Nave aguarda descida antes de coletar")
 		var arrived_player : CharacterBody3D = current_scene.get_node("Player") as CharacterBody3D
 		_check(
 			not bool(arrived_player.get("_movement_locked")),
@@ -94,7 +96,12 @@ func _run() -> void:
 			arrival.get_node("Cabin/Console").activated.emit()
 		await create_timer(7.0).timeout
 		_check(not bool(arrived_player.get("_movement_locked")), "Descida devolve controle")
+		_check(is_instance_valid(arrival) and current_scene.get_node("RecoveryShip").is_physics_processing(), "Nave da chegada permanece para coleta")
 		await _snapshot("arrival")
+	await reload_current_scene()
+	await create_timer(0.3).timeout
+	_check(current_scene.find_children("*", "Saucer", true, false).is_empty(), "Abertura direta não cria nave")
+	_check(not bool(current_scene.get_node("Player").get("_movement_locked")), "Abertura direta mantém jogador livre no chão")
 	print("Mission departure failures: ", failures)
 	current_scene.queue_free()
 	await process_frame

@@ -16,7 +16,10 @@ func _run() -> void:
 	var point : Node3D = recovery_scene.instantiate()
 	world.add_child(point)
 	var zone : Area3D = point.get_node("CollectionArea")
-	var ship : Node3D = point.get_node("RecoveryShip")
+	var ship : Node3D = (load("res://scenes/Space/RecoveryShip.tscn") as PackedScene).instantiate() as Node3D
+	ship.position = Vector3(114, 45, -150)
+	ship.zone_path = NodePath("../CollectionArea")
+	point.add_child(ship)
 	ship.set_physics_process(false)
 	var character : Node3D = Node3D.new()
 	world.add_child(character)
