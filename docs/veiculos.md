@@ -11,9 +11,10 @@ abrirem na sua chegada. As cenas ficam em `scenes/Vehicles/`.
 
 - `try_enter_vehicle()` / `enter_vehicle(player)` / `exit_vehicle()`: ao entrar,
   o processamento e a câmera do jogador são desativados, o ET aparece sentado no
-  banco (com as mesmas `CharacterProportions` do Player, para o boneco no banco
-  respeitar a aparência escolhida) e o controle passa ao veículo; ao sair, o
-  personagem é restaurado.
+  banco. Essa representação instancia `animations/mixamo/ET_animated.glb` e usa
+  as mesmas `CharacterProportions` do Player, inclusive os Blend Shapes `Belly`,
+  `Head` e `Eyes`, para respeitar a aparência escolhida. O controle passa ao
+  veículo; ao sair, o personagem é restaurado.
 - Câmera própria: terceira pessoa com colisão e retorno automático, e primeira
   pessoa (`set_first_person_camera`) no mesmo `V` do jogador a pé.
 - O mesmo caminho de física atende jogador e IA: `_update_driving()` chama

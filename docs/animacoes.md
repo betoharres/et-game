@@ -5,7 +5,7 @@ outro deforma o personagem — é a armadilha mais cara desta área.
 
 | Rig | Quem usa | Origem dos clipes |
 | --- | --- | --- |
-| Mixamo (49 bones, prefixo `mixamorig_`) | Player (`animations/mixamo/ET_animated.glb`) | FBX Mixamo em `animations/mixamo/`, assados por `tools/build_mixamo_character.py` |
+| Mixamo (49 bones, prefixo `mixamorig_`) | Player, prévia e tripulantes ET (`animations/mixamo/ET_animated.glb`) | FBX em `animations/mixamo/`, assados em `ET_animations.res` por `tools/build_mixamo_character.py` |
 | Synty (50 bones, em metros, `Skeleton3D` na raiz) | NPCs de `scenes/NPCs/` | Biblioteca em `Temporarios/Animations/Polygon/`, feita para `Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx` |
 
 Os clipes Synty gravam as trilhas como `Skeleton3D:osso`: só funcionam nesse rig
@@ -14,6 +14,12 @@ Os `SK_Character_*` de outros pacotes e o `FarmerOld2` **não** aceitam esses
 clipes.
 
 ## Player — `PlayerAnimationController`
+
+`ET_animated.glb` fornece a malha com Blend Shapes e o esqueleto.
+`Player.tscn`, `CharacterCreator.tscn` e `ShipCrewAlien.tscn` sobrescrevem a
+biblioteca padrão do `AnimationPlayer` com `animations/mixamo/ET_animations.res`.
+Assim, reexportar a malha não substitui os clipes por ações sem movimento.
+O gerador usa o rig FBX apenas para assar os clipes e não regrava esse GLB.
 
 `scripts/player_animation_controller.gd` é a **única** máquina de estados do
 `AnimationTree`. `player.gd` nunca fala com o `AnimationTree` direto; envia
@@ -35,15 +41,16 @@ Decisões que valem lembrar:
   é acrescentar uma entrada ali e ligá-la ao gatilho certo, não recriar a
   árvore no editor.
 - Os clipes são **in-place**: o `CharacterBody3D` é a autoridade de
-  deslocamento. Só o deslocamento vertical do pulo/queda foi preservado no
-  build do GLB.
+  deslocamento. O gerador remove o deslocamento horizontal do quadril e
+  preserva o movimento vertical autorado.
 - Locomoção mistura andar/correr/agachar/strafe por velocidade e direção
   local, com variantes de idle sorteadas depois de um tempo parado.
 - Para olhar e alcançar alvos, a pilha usa dois
   `LookAtModifier3D` (cabeça e torso) e um `TwoBoneIK3D` no braço direito,
   alimentado pelos alvos de `scripts/ik_target_container.gd`.
-- `CharacterProportions` é um `SkeletonModifier3D` pós-animação (escala de
-  bones, barriga procedural) — ver [player.md](player.md).
+- `CharacterProportions` aplica os Blend Shapes `Belly`, `Head` e `Eyes` da
+  malha e, como `SkeletonModifier3D` pós-animação, as proporções restantes dos
+  bones — ver [player.md](player.md).
 - `RagdollRecovery` (`scripts/ragdoll_recovery_modifier.gd`) tem de ser o
   **último** da pilha: só dentro de `_process_modification` a pose real é
   legível, e é ele que casa a pose caída com o começo do clipe de levantar.

@@ -98,9 +98,13 @@ Ainda vivos em `world.tscn`, com visão e navegação próprias dentro do script
 | --- | --- |
 | `scripts/smelly_farmer.gd` | Fazendeiro que patrulha, persegue e atira (dano instantâneo, sem projétil) |
 | `scripts/photographer.gd` | Fotógrafo: fotografa o ET e alimenta o `PhotoAlertSystem` |
-| `scripts/generic_NPC.gd` (`GenericNPC`) | NPC simples de patrulha, usado dentro da nave |
+| `scripts/generic_NPC.gd` (`GenericNPC`) | NPC simples de patrulha da nave; usa o rig de `CharactersScifiCity.glb`, e `RobotNPC.tscn` deixa somente a malha de robô visível |
 | `scripts/living_light.gd` (`LivingLight`) | Criatura-luz que vagueia, se assusta e foge |
 | `scripts/drone_02.gd`, `scripts/spy_cam.gd`, `scripts/spider_bot/` | Máquinas: drone de patrulha, câmera espiã e o robô de pernas com IK que ajuda na coleta |
+
+O `CharactersScifiCity.glb` atual não traz `AnimationPlayer`; por isso o
+`GenericNPC` mantém a patrulha funcional sem exigir clipes, mas sua malha fica
+em pose estática até receber animações compatíveis com esse rig.
 
 Não estenda esses scripts com comportamento novo: se um deles precisar de
 decisão mais rica, migre o papel para `NPCActor` + árvore compartilhada.

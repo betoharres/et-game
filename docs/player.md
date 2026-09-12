@@ -13,10 +13,11 @@ apenas instanciam essa cena — hoje `world.tscn`, `CountryTown.tscn`,
 | `scenes/Player.tscn` | Montagem completa do ET |
 | `scripts/player.gd` | Input, física, sobrevivência, equilíbrio, interação; é a autoridade de deslocamento |
 | `scripts/player_animation_controller.gd` | Única máquina de estados do `AnimationTree` — ver [animacoes.md](animacoes.md) |
+| `animations/mixamo/ET_animations.res` | Biblioteca dos clipes Mixamo, compartilhada com a prévia de personalização e os tripulantes ET |
 | `scripts/cinematic_camera_rig.gd` | Câmera de ombro, resposta orgânica, shake, colisão, FOV, binóculos/XRAY |
 | `scripts/player_ragdoll.gd` | Constrói e destrói os `PhysicalBone3D` do ragdoll |
 | `scripts/ragdoll_recovery_modifier.gd` | `SkeletonModifier3D` final: casa a pose caída com o início do clipe de levantar |
-| `scripts/character_proportions.gd` | `SkeletonModifier3D` de proporções, barriga procedural e shaders de pele/olhos |
+| `scripts/character_proportions.gd` | Aplica os Blend Shapes do corpo e as proporções restantes do rig, além dos shaders de pele/olhos |
 | `scripts/character_appearance.gd` | Autoload com o perfil salvo (`user://character_appearance.cfg`) |
 | `scripts/energy_pool.gd` | Reserva de energia genérica com drenos nomeados |
 | `scripts/ik_target_container.gd` | Alvos de mão/cotovelo do `TwoBoneIK3D` (poses de carregar e de sinalizar) |
@@ -76,9 +77,14 @@ CharacterBody3D (player.gd)
   (`try_carry_character` / `release_carried_character`), aplicando
   `apply_carry()` no carregado.
 - **Aparência**: o perfil vem do autoload `CharacterAppearance` e é aplicado por
-  `CharacterProportions` — escala de bones num `SkeletonModifier3D`
-  pós-animação, barriga procedural presa ao bone e shaders de pele e olhos
-  (não há Blend Shapes no GLB). `get_appearance_replication_payload()` e o RPC
+  `CharacterProportions`. `belly_size`, `head_size` e `eye_size` controlam
+  diretamente os Blend Shapes `Belly`, `Head` e `Eyes` da malha `ET` em
+  `animations/mixamo/ET_animated.glb`; altura, pernas, braços e ombros continuam
+  como proporções do rig. Os shaders cuidam somente da pele e dos olhos. Player,
+  criador de personagem e ETs nos bancos dos veículos reutilizam esse mesmo GLB.
+  O Player, a prévia e os tripulantes usam `ET_animations.res` como biblioteca
+  do `AnimationPlayer`, independente das animações embutidas no modelo.
+  `get_appearance_replication_payload()` e o RPC
   `sync_appearance()` existem para uma futura camada multiplayer, que **não**
   deve ser construída sem pedido explícito.
 - **Câmera**: `CinematicCameraRig` cuida de enquadramento, colisão, shake e do

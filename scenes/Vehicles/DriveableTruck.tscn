@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cpde58dqb71a0" path="res://3dModelos/SM_Veh_Pickup_02.fbx" id="2_dsrke"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="2_oub4l"]
 [ext_resource type="ArrayMesh" uid="uid://bx2188ks8cmi4" path="res://3dModelos/SM_Veh_Pickup_Wheel_fl.fbx" id="2_usi65"]
-[ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="3_oub4l"]
+[ext_resource type="PackedScene" uid="uid://cqx20hhqxy8s0" path="res://animations/mixamo/ET_animated.glb" id="3_oub4l"]
 [ext_resource type="ArrayMesh" uid="uid://c07ntekcwpmid" path="res://3dModelos/SM_Veh_Pickup_Wheel_rr.fbx" id="4_dsrke"]
 [ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="4_jdtfx"]
 [ext_resource type="ArrayMesh" uid="uid://7j17vs7kcg6o" path="res://3dModelos/SM_Veh_Pickup_Wheel_rl.fbx" id="5_jdtfx"]
@@ -155,48 +155,47 @@ far = 450.0
 transform = Transform3D(1, 0, 0, 0, 0.99353033, 0.11356681, 0, -0.11356681, 0.99353033, 0.4512354, 0.49217248, 0.67538583)
 visible = false
 
-[node name="Skeleton3D" parent="ET2/Armature" parent_id_path=PackedInt32Array(306698158, 588762772) index="0" unique_id=698747928]
+[node name="Skeleton3D" parent="ET2/ETArmature" parent_id_path=PackedInt32Array(306698158, 634191814) index="0" unique_id=698747928]
 bones/7/rotation = Quaternion(0.012007, 0, 0.099219, 0.994993)
 bones/23/rotation = Quaternion(-0.677082, -0.595, -0.44, 0.566991)
 bones/24/rotation = Quaternion(0.058856, 0.124827, 0.199967, 0.998981)
 bones/28/rotation = Quaternion(-1.527082, 1.26, 0.945, 1.111991)
 bones/29/rotation = Quaternion(0.043856, 0.030173, -0.164967, 0.998981)
 
-[node name="CharacterProportions" type="SkeletonModifier3D" parent="ET2/Armature/Skeleton3D" index="0"]
+[node name="CharacterProportions" type="SkeletonModifier3D" parent="ET2/ETArmature/Skeleton3D" index="0"]
 script = ExtResource("10_proportions")
 keep_feet_grounded = false
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="1" unique_id=1029484437]
+[node name="HandR" type="TwoBoneIK3D" parent="ET2/ETArmature/Skeleton3D" index="1" unique_id=1029484437]
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKContainer/SteeringWheelPivot/SteeringWheel/HandR")
 settings/0/pole_node = NodePath("../../../../IKContainer/ElbowR")
-settings/0/root_bone_name = "Arm.R"
+settings/0/root_bone_name = "mixamorig_RightArm"
+settings/0/root_bone = 34
+settings/0/middle_bone_name = "mixamorig_RightForeArm"
+settings/0/middle_bone = 35
+settings/0/pole_direction = 0
+settings/0/end_bone_name = "mixamorig_RightHand"
+settings/0/end_bone = 36
+settings/0/use_virtual_end = false
+settings/0/extend_end_bone = false
+
+[node name="HandL" type="TwoBoneIK3D" parent="ET2/ETArmature/Skeleton3D" index="2" unique_id=1769389730]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../IKContainer/SteeringWheelPivot/SteeringWheel/HandL")
+settings/0/pole_node = NodePath("../../../../IKContainer/ElbowL")
+settings/0/root_bone_name = "mixamorig_LeftArm"
 settings/0/root_bone = 15
-settings/0/middle_bone_name = "Forearm.R"
+settings/0/middle_bone_name = "mixamorig_LeftForeArm"
 settings/0/middle_bone = 16
 settings/0/pole_direction = 0
-settings/0/end_bone_name = "Hand.R"
+settings/0/end_bone_name = "mixamorig_LeftHand"
 settings/0/end_bone = 17
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="HandL" type="TwoBoneIK3D" parent="ET2/Armature/Skeleton3D" index="2" unique_id=1769389730]
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKContainer/SteeringWheelPivot/SteeringWheel/HandL")
-settings/0/pole_node = NodePath("../../../../IKContainer/ElbowL")
-settings/0/root_bone_name = "Arm.L"
-settings/0/root_bone = 7
-settings/0/middle_bone_name = "Forearm.L"
-settings/0/middle_bone = 8
-settings/0/pole_direction = 0
-settings/0/end_bone_name = "Hand.L"
-settings/0/end_bone = 9
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="ET" parent="ET2/Armature/Skeleton3D" index="3" unique_id=1189663179]
+[node name="ET" parent="ET2/ETArmature/Skeleton3D" index="3" unique_id=1189663179]
 layers = 256
-mesh = SubResource("ArrayMesh_oub4l")
 
 [node name="IKContainer" type="Node3D" parent="." unique_id=654266772]
 

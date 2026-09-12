@@ -1,4 +1,4 @@
-"""Build one Godot-friendly GLB containing the Mixamo ET and selected actions.
+"""Bake the Mixamo actions into a shared Godot AnimationLibrary.
 
 Run with Blender:
     blender --background --factory-startup --python tools/build_mixamo_character.py
@@ -7,6 +7,9 @@ Run with Blender:
 from __future__ import annotations
 
 import pathlib
+import shutil
+import subprocess
+import tempfile
 
 import bpy
 from mathutils import Quaternion
@@ -14,7 +17,7 @@ from mathutils import Quaternion
 
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE_ROOT = PROJECT_ROOT / "animations" / "mixamo"
-OUTPUT_PATH = SOURCE_ROOT / "ET_animated.glb"
+OUTPUT_PATH = SOURCE_ROOT / "ET_animations.res"
 
 CLIPS = {
     "idle": "idle.fbx",
@@ -180,7 +183,21 @@ def remove_objects(objects: list[bpy.types.Object]) -> None:
         bpy.data.objects.remove(obj, do_unlink=True)
 
 
+def find_godot() -> str:
+    for candidate in (
+        pathlib.Path("C:/Godot_v4.8/Godot_v4.8-dev4_win64_console.exe"),
+        pathlib.Path("D:/Program Files/Godot/Godot_v4.8/Godot_v4.8-dev4_mono_win64_console.exe"),
+    ):
+        if candidate.is_file():
+            return str(candidate)
+    executable = shutil.which("godot")
+    if executable is None:
+        raise RuntimeError("Godot 4.8 is required to save the animation library")
+    return executable
+
+
 def main() -> None:
+    godot = find_godot()
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
     base_objects = import_fbx(SOURCE_ROOT / "ET_para_mixamo.fbx")
@@ -238,6 +255,7 @@ def main() -> None:
         # armature. The data paths are compatible because every clip came from
         # the same Mixamo auto-rig.
         base_armature.animation_data.action = action
+        base_armature.animation_data.action_slot = action.slots[0]
         base_armature.animation_data.action = None
         remove_objects(imported_objects)
         if source_action.name in bpy.data.actions:
@@ -254,6 +272,7 @@ def main() -> None:
         action.use_fake_user = True
         freeze_action(action, frame)
         base_armature.animation_data.action = action
+        base_armature.animation_data.action_slot = action.slots[0]
         base_armature.animation_data.action = None
 
     allowed_objects = {base_armature, *meshes}
@@ -267,20 +286,32 @@ def main() -> None:
     base_armature.select_set(True)
     bpy.context.view_layer.objects.active = base_armature
 
-    result = bpy.ops.export_scene.gltf(
-        filepath=str(OUTPUT_PATH),
-        export_format="GLB",
-        use_selection=True,
-        export_animations=True,
-        export_animation_mode="ACTIONS",
-        export_force_sampling=True,
-        export_skins=True,
-        export_morph=False,
-        export_lights=False,
-        export_cameras=False,
-    )
-    if "FINISHED" not in result:
-        raise RuntimeError(f"Could not export {OUTPUT_PATH}")
+    # The FBX mesh is only a baking rig. Never overwrite the authored GLB:
+    # its geometry and blend shapes can change independently of the clips.
+    with tempfile.TemporaryDirectory(prefix="et-mixamo-") as temporary_directory:
+        intermediate = pathlib.Path(temporary_directory) / "ET_motion.glb"
+        result = bpy.ops.export_scene.gltf(
+            filepath=str(intermediate),
+            export_format="GLB",
+            use_selection=True,
+            export_animations=True,
+            export_animation_mode="ACTIONS",
+            export_force_sampling=True,
+            export_skins=True,
+            export_morph=False,
+            export_lights=False,
+            export_cameras=False,
+        )
+        if "FINISHED" not in result:
+            raise RuntimeError(f"Could not export {intermediate}")
+        subprocess.run(
+            [
+                godot, "--headless", "--path", str(PROJECT_ROOT),
+                "--script", "res://tools/build_mixamo_animation_library.gd",
+                "--", str(intermediate), str(OUTPUT_PATH),
+            ],
+            check=True,
+        )
 
     print(
         "BUILT|%s|bones=%d|animations=%d" % (
