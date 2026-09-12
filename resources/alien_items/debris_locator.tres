@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="AlienItemDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="AlienItemDefinition" format=3 uid="uid://w2ikkiyw8ib5"]
 
-[ext_resource type="Script" path="res://scripts/alien_item_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dw0id0s4w5m85" path="res://scripts/alien_item_definition.gd" id="1"]
 
 [sub_resource type="BoxMesh" id="Mesh"]
 size = Vector3(0.32, 0.2, 0.48)

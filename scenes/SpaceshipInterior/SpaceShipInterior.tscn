@@ -4,12 +4,34 @@
 
 [sub_resource type="CylinderShape3D" id="Shape_DescendPad"]
 height = 1.5
-radius = 2.0
+radius = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Material_TransportBeam"]
+transparency = 1
+shading_mode = 0
+cull_mode = 2
+albedo_color = Color(0.05, 0.9, 1, 0.22)
+emission_enabled = true
+emission = Color(0.05, 0.9, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="Mesh_TransportBeam"]
+material = SubResource("Material_TransportBeam")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.5
+radial_segments = 48
 
 [node name="SpaceShipInterior" type="Node3D" unique_id=1809059096]
 script = ExtResource("1_interior_script")
 
 [node name="DescendPad" type="Node3D" parent="." unique_id=1099926139]
+
+[node name="TransportBeam" type="MeshInstance3D" parent="DescendPad"]
+position = Vector3(0, 0.75, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("Mesh_TransportBeam")
 
 [node name="DescendTrigger" type="Area3D" parent="DescendPad" unique_id=998617697]
 

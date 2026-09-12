@@ -1,9 +1,6 @@
 extends Node3D
 
-## Interior of the UFO: crew quarters, control room, and a central
-## hatch/lift pad the player uses to descend back to the surface.
-##
-## The scene is pure geometry plus the pad: it does not decide where the pad
+## The transport pad does not decide where the pad
 ## leads. Stepping on it only emits descend_requested, and whoever owns the
 ## ship (see scripts/space/alien_ship.gd) runs the actual descent. That is what
 ## lets the same interior serve both ends of the flow -- parked in orbit, where
@@ -17,6 +14,7 @@ signal descend_requested
 
 @onready var descend_trigger : Area3D = $DescendPad/DescendTrigger
 @onready var descend_prompt : Label3D = $DescendPad/DescendPrompt
+@onready var transport_beam : MeshInstance3D = $DescendPad/TransportBeam
 
 var _descend_trigger_enabled : bool = false
 var _activate_on_enter : bool = false
@@ -52,6 +50,7 @@ func set_descend_trigger_enabled(
 	activate_on_enter : bool = false
 ) -> void:
 	_descend_trigger_enabled = enabled
+	transport_beam.visible = enabled
 	_activate_on_enter = enabled and activate_on_enter
 	if not enabled:
 		descend_prompt.visible = false

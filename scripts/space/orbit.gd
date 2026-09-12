@@ -61,6 +61,8 @@ var _mission_transport : Node3D = null
 func _ready() -> void:
 	_earth_home_scale = earth.scale
 
+	var spawn_offset : Vector3 = ship.spawn_point.global_position - player.global_position
+	player.apply_carry(Transform3D(Basis.IDENTITY, spawn_offset), 0.0)
 	ship.set_player_inside(player, true)
 
 	console.activated.connect(_on_console_activated)
