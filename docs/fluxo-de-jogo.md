@@ -30,10 +30,51 @@ nome, briefing, `scene_path`, disponibilidade e motivo do bloqueio.
 
 Os recursos vivem em `scenes/Space/Levels/`: `level_catalog.tres`,
 `level_farm.tres`, `level_city.tres`, `level_desert.tres` (as duas últimas
-bloqueadas, como exemplo).
+bloqueadas, como exemplo) e `level_country_town.tres` (disponível).
 
 **Adicionar uma fase não exige tocar em script**: crie um `LevelDefinition.tres`
-apontando para a cena e liste-o em `level_catalog.tres`.
+apontando para a cena e liste-o em `level_catalog.tres`. Escolher o Country
+Town no terminal é um caso à parte: `orbit.gd` desvia esse `scene_path`
+específico para o diálogo do `MissionGiverNPC` em vez de abrir o feixe de
+transporte — ver [Missão de resgate](#missão-de-resgate-country-town) abaixo.
+
+## Missão de resgate (Country Town)
+
+Na órbita, além do terminal, o tripulante `MissionGiver`
+(`scripts/space/mission_giver_npc.gd`, uma especialização de
+`ship_crew_alien.gd` — ver [veículos](veiculos.md#nave-alienígena)) oferece a
+missão de resgate diretamente, com um marcador flutuante `!` enquanto não
+aceita. `E` perto dele abre `scripts/space/mission_dialogue.gd`
+(`MissionDialogueUI`, cena `MissionDialogue.tscn`), uma UI de diálogo
+sequencial genérica que termina em Aceitar/Recusar.
+
+- **Aceitar não parte na hora**: abre uma segunda pergunta ("Ir agora" / "Ir
+  depois"). Recusar qualquer uma das duas não perde a missão — o NPC lembra
+  `_rescue_accepted` e, na próxima conversa, pula direto para a pergunta de
+  partida sem repetir o briefing.
+- **O catálogo também lista o Country Town** (`level_country_town.tres`).
+  Escolhê-lo pelo terminal (`orbit.gd._on_level_chosen`) fecha o terminal e
+  chama o mesmo fluxo do NPC, em vez de abrir o feixe da `AlienShip` — as
+  outras fases continuam pelo feixe normal.
+- **Partida**: em vez do feixe da `AlienShip`, o jogo instancia a
+  `MissionSaucer` (`scenes/Space/MissionSaucer.tscn`) e teleporta o jogador
+  para dentro da cabine (`mission_saucer.gd.board()`, via `apply_carry()`, o
+  mesmo contrato do `ShipCarryField`). Segue a mesma cutscene de aproximação à
+  Terra que o terminal usa (`orbit.gd._play_approach`), com um deslocamento de
+  câmera extra específico da saucer. `MissionFlow.arrived_from_orbit` e a nova
+  `MissionFlow.arrival_by_saucer` marcam a chegada para a fase decidir a
+  cutscene certa.
+- **Chegada**: `CountryTown.tscn` tem script de raiz próprio
+  (`scripts/country_town.gd`), não `world.gd`. Se `arrival_by_saucer` estiver
+  ligado, ele instancia **uma nova `MissionSaucer` só visual** acima do
+  jogador (não é a mesma nave da órbita) para a cutscene de descida pelo
+  `ArrivalBeam`, depois a destrói.
+- **Objetivo**: todo nó do grupo `alien_debris` nasce oculto
+  (`set_discovered(false)`); aproximar-se do marcador `AlienCrashSite`
+  (raio 14 m, já existente em `Layout/PointsOfInterest.tscn`) revela os
+  destroços espalhados pelo mapa. Coleta, `DebrisLocator` e entrega pela
+  `RecoveryZone`/`RecoveryShip`: ver
+  [Country Town — missão e destroços](country-town.md#missão-e-destroços).
 
 `scripts/levels/mission_flow.gd` guarda o único estado que atravessa a troca de
 cena — `arrived_from_orbit`. É um `RefCounted` com `static var`, de propósito:
@@ -67,4 +108,6 @@ estado do catálogo, pontuação, retorno à órbita e respostas ao alerta de fo
 2. Etapa nova entre menu e fase: use o `SceneTransition` já existente.
 3. Estado que precise atravessar cenas: pese antes se cabe em `MissionFlow`
    (estático, sem ciclo de vida) em vez de virar autoload.
-4. Validação: roteiro manual de coleta e entrega em `tools/VALIDACAO.md`.
+4. Validação: roteiro manual de coleta e entrega em `tools/VALIDACAO.md`;
+   `tools/test_mission_departure.gd` cobre o diálogo do `MissionGiverNPC`, a
+   escolha de partida e a chegada via `MissionSaucer`.

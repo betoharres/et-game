@@ -46,6 +46,8 @@ e confira sobrescritas na cena antes de alterar o default do script.
 | Quem abre uma porta sozinho, quem abre no `interact` | `scripts/house_door.gd` | `auto_open_groups`, `manual_groups` |
 | Porta que começa trancada e quem tem chave | `scripts/house_door.gd` | `starts_locked`, `key_groups` |
 | Tempo segurando o sinal de entrega | `scripts/delivery_area.gd` | `signal_hold_duration` |
+| Alcance/velocidade da `RecoveryZone`/`RecoveryShip` (Country Town) | `scripts/recovery_zone.gd`, `scripts/recovery_ship.gd` | `radius`, `flight_speed` |
+| Posição dos destroços alienígenas (Country Town) | `tools/build_country_town_debris.gd` | `POSITIONS` |
 | Alcance do minimapa | `scripts/vision_debug_map.gd` | `world_radius` |
 | Ação ausente no remapeamento do ESC | `scripts/pause_menu.gd` | `REBIND_ACTIONS` |
 | Traçado das ruas do Country Town | `tools/build_country_town_layout.gd` | `ROAD_RUNS` |

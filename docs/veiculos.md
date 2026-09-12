@@ -69,6 +69,22 @@ Não é um veículo dirigível, mas transporta o jogador. `scenes/Space/AlienShi
 A mesma nave é reutilizada na órbita, na chegada à fase e no celeiro —
 ver [fluxo-de-jogo.md](fluxo-de-jogo.md).
 
+### Saucer pessoal da missão de resgate
+
+`scenes/Space/MissionSaucer.tscn` + `scripts/space/mission_saucer.gd`
+(`extends saucer.gd`) é um segundo veículo espacial, menor e com cabine
+fechada (12 painéis de janela), exclusivo da missão de resgate ao Country
+Town — não é a mesma instância da `AlienShip`, e não usa o pad de descida de
+`Saucer` (o embarque é todo scriptado). `board(player)` teleporta o jogador
+para dentro pelo mesmo `apply_carry()`/`ShipCarryField` que a `AlienShip` usa
+para carregar passageiros (a saucer tem seu próprio `CarryField` interno), e
+`stop_spin_facing()`/`begin_approach_audio()` repetem a técnica de alinhamento
+e áudio de `AlienShip`. É instanciada sob demanda pelo `orbit.gd` (partida) e
+de novo, só como visual, por `scripts/country_town.gd` (chegada) — nunca é um
+nó fixo de cena. `mission_giver_npc.gd` (`extends ship_crew_alien.gd`) é quem
+oferece essa missão na órbita — ver
+[Missão de resgate](fluxo-de-jogo.md#missão-de-resgate-country-town).
+
 ## Veículos de cenário
 
 `Harvester01`, `PickUp01`, `QuadBike`, `TractorOld`, `VintageCar`,

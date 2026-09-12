@@ -38,7 +38,7 @@ primeiros são **grupos globais** declarados em `project.godot`
 | `photographers` | NPCs que fotografam o ET | `PhotoAlertSystem` |
 | `npc_actors` | Todo `NPCActor` (entra sozinho no `_ready`) | Propagação de alerta entre NPCs, rotina social, minimapa, porta de casa (abre por proximidade e leva chave) |
 | `carriable_characters` | Personagens carregáveis | `player.gd` busca candidatos para carregar no colo; contrato em [player.md](player.md) |
-| `delivery_areas` | Área de entrega do mapa | Minimapa (objetivo) e busca do alvo do feixe |
+| `delivery_areas` | Área de entrega do mapa; `RecoveryZone` também entra, mas sem implementar `reserves_interaction_for` (nunca reserva a tecla) | Minimapa (objetivo) e busca do alvo do feixe |
 | `house_doors` | Toda `HouseDoor` (entra sozinha no `_ready`) | `player.gd`, para saber se o `interact` é da porta |
 | `country_town_poi` | Pontos de interesse do Country Town | Minimapa (marcos nomeados) |
 | `fog_zones` | `FogZone` | `GroundFogLayer` (adensa a névoa local) |
@@ -46,6 +46,9 @@ primeiros são **grupos globais** declarados em `project.godot`
 | `alien_interference_sources`, `alien_post_process` | Fontes e filtro do incidente | `AlienIncidentPostProcess` |
 | `night_environment`, `ground_fog_layer` | Nós de ambientação | Chamadas por grupo (`call_group`) vindas do mundo e do menu de debug |
 | `ship_passengers` | Quem viaja a bordo da nave | `ShipCarryField` |
+| `dialogue_sources` | NPCs com diálogo (`MissionGiverNPC`) | `player_hud.gd` (prompt "[E] Falar") |
+| `alien_debris` | Todo `AlienDebris` (entra sozinho no `_ready`) | `debris_locator.gd` (destroço mais próximo), `scripts/country_town.gd` (revela ao cumprir o objetivo) |
+| `recovery_zones` | `RecoveryZone` | `player_hud.gd` (prompt de status da coleta) |
 | `debug_*` (`debug_player`, `debug_environment_lighting`, `debug_house_lighting`, `debug_delivery_lighting`) | Alvos do menu `F6`/`F4` | `scripts/debug_menu.gd` |
 
 ## Contratos entre sistemas
@@ -58,9 +61,16 @@ primeiros são **grupos globais** declarados em `project.godot`
   ser recolhido antes da entrega. Item sem `two_handed` também implementa
   `store_in_inventory(player)`, para caber no `ExplorationInventory` do Player
   em vez do `CarrySocket` nas mãos — ver [player.md](player.md#inventário-de-exploração).
+  Um item pode recusar essa entrada implementando `inventory_rejection()` (não
+  vazio = recusa com a mensagem devolvida); `alien_technology_item.gd` usa
+  isso para itens grandes demais para carregar.
 - **Entrega** — `scripts/delivery_area.gd` só soma o `score_value` ao
   `GlobalScore` quando o feixe termina de sugar o item; emite
   `intervention_requested`, `abduction_started` e `item_delivered`.
+  `scripts/recovery_zone.gd` + `scripts/recovery_ship.gd` são uma segunda
+  forma de entrega (largar dentro de uma zona e uma nave recolhe sozinha), sem
+  exigir presença do jogador — ver
+  [Country Town — missão e destroços](country-town.md#missão-e-destroços).
 - **NPC** — o chassi é `NPCActor` (`scripts/npc/npc_actor.gd`); as folhas de
   comportamento recebem o actor e leem `npc.vision`, `npc.hearing`,
   `npc.routine`. Ver [npcs.md](npcs.md).

@@ -71,6 +71,10 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Tabuleiro e parapeitos da ponte do Country Town | `tools/check_country_town_bridge.gd` |
 | Cercas do Country Town | `tools/check_country_town_fences.gd` |
 | Piso viário salvo, rampas, asfalto e folga sobre o terreno | `tools/check_country_town_roads.gd` |
+| Detector de destroços: direção, força, histerese e o `DebrisLocatorHUD` | `tools/test_alien_debris.gd` |
+| Coleta de destroços no Country Town: aproximação, raycast de parede, inventário cheio, item não transportável | `tools/test_country_town_debris_gameplay.gd` |
+| Diálogo do `MissionGiverNPC`, escolha de partida e chegada via `MissionSaucer` | `tools/test_mission_departure.gd` |
+| `RecoveryZone`/`RecoveryShip`: itens elegíveis, voo até a zona e entrega | `tools/test_recovery_ship.gd` |
 
 ## Geração do Country Town
 
@@ -125,6 +129,12 @@ precisa rodar se o desenho do pneu mudar.
 pátios e colisões dos distritos. Rode após alterações nesses dados; aceita
 `--headless`. A limitação de conectividade da malha atual está em
 [Country Town — População](../docs/country-town.md#população).
+
+`tools/build_country_town_debris.gd` regrava `AlienDebrisTest.tscn` (oito
+destroços e o localizador) a partir de posições XZ fixas no próprio script,
+projetando a altura no `Terrain3D` real. Aceita `--headless`; rode de novo só
+se mudar posição, tipo ou contagem de destroços — ver
+[Country Town — Missão e destroços](../docs/country-town.md#missão-e-destroços).
 
 `tools/build_terrain_surface.gd` gera apenas dados de material: normais/rugosidade
 das três texturas locais e a máscara de uso do solo do Country Town. Aceita
@@ -185,8 +195,20 @@ diga o que ele deve conferir, usando os roteiros abaixo.
   carregado; confirme a pontuação no console. Colete destroços pequenos até
   encher os 4 slots do inventário de exploração (HUD embaixo no centro),
   confirme a recusa com o quinto, troque de slot pelas teclas `1`-`4` e pela
-  roda do mouse, e solte o selecionado e um item de duas mãos (que não entra
-  nos slots).
+  roda do mouse, e solte o selecionado (`G` ou `C`+`E`) e um item de duas mãos
+  (que não entra nos slots).
+- **Missão de resgate (Country Town):** na órbita, fale (`E`) com o tripulante
+  do marcador `!`; confirme o briefing, a recusa mantendo a oferta e a escolha
+  "Ir agora"/"Ir depois". Aceitando, confirme o embarque na `MissionSaucer`
+  (janela panorâmica, primeira pessoa) e a cutscene de aproximação à Terra.
+  Escolher "Sítio Rural" pelo terminal deve abrir o mesmo diálogo, não o feixe
+  da nave grande. Na chegada, aproxime-se do local da queda (`AlienCrashSite`)
+  e confirme que os destroços somem de invisíveis para coletáveis; colete o
+  `DebrisLocator` primeiro e confirme a HUD de radar (seta e força do sinal)
+  só aparecendo com ele selecionado; tente coletar o motor grande e confirme a
+  recusa "grande demais para transportar"; largue um destroço dentro do
+  círculo "PONTO DE COLETA" e confirme que a nave de resgate o recolhe sozinha
+  e pontua, sem precisar segurar `interact`.
 - **Veículo:** entrada, direção, troca de câmera, saída e devolução do controle
   ao jogador.
 - **Fazendeiro:** patrulha, detecção, perseguição, perda do alvo e estado de

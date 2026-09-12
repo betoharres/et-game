@@ -1,7 +1,9 @@
 # Country Town — o mapa gerado
 
 `scenes/CountryTown/CountryTown.tscn` é um mapa de **600 × 450 m** em
-construção, **fora do catálogo de fases**: abre direto pelo editor.
+construção, no catálogo de fases (`level_country_town.tres`, disponível) como
+a missão de resgate — ver [fluxo de jogo](fluxo-de-jogo.md#missão-de-resgate-country-town).
+Ainda abre direto pelo editor para iteração rápida.
 
 A regra que organiza tudo aqui: **as receitas são a fonte da verdade, as cenas
 são saída**. Editar à mão uma cena gerada é trabalho perdido na próxima
@@ -10,18 +12,21 @@ script de `tools/` e regere.
 
 ## Composição da cena mestre
 
-A cena mestre só instancia terreno, ambiente, jogador e os distritos:
+A cena mestre é dona de um script de raiz próprio, `scripts/country_town.gd`
+(objetivo e cutscene de chegada — ver [Missão e destroços](#missão-e-destroços)),
+e instancia terreno, ambiente, jogador e os distritos:
 
 | Nó | Conteúdo |
 | --- | --- |
 | `NavigationRegion3D` → `Terrain3D` | Relevo, com dados em `scenes/CountryTown/Terrain` (exclusivo deste mapa) |
 | `NightEnvironment`, `PauseMenu`, `Player` | Cenas compartilhadas |
-| `PointsOfInterest` | Marcadores do grupo `country_town_poi` (`Layout/PointsOfInterest.tscn`) |
+| `PointsOfInterest` | Marcadores do grupo `country_town_poi` (`Layout/PointsOfInterest.tscn`), inclui o `AlienCrashSite` que revela os destroços |
 | `RoadNetwork`, `SecondaryPaths` | Vias principais e trilhas rurais |
 | `RiverDistrict`, `FarmDistrict`, `TownDistrict`, `CrashSiteDistrict`, `MinePortalSite`, `DeliveryYard` | Distritos |
 | `Fields`, `Vegetation`, `Detailing`, `NightLights`, `StreetLife` | Talhões, plantio, complementos, luzes e vida de rua |
 | `VehiclesHolder` | Duas viaturas em patrulha ([veiculos.md](veiculos.md)) |
 | `EnvironmentAudio`, `NPCs`, `Minimap` | Áudio, população e minimapa |
+| `AlienDebrisTest`, `RecoveryPoint` | Destroços coletáveis e ponto de entrega da missão — ver [Missão e destroços](#missão-e-destroços) |
 
 Os pontos de interesse (`Farmhouse`, `Barn`, `CornField`, `MinePortal`,
 `AlienCrashSite`, `TownSquare`, `Church`, `GeneralStore`, `DeliveryPoint`,
@@ -90,6 +95,47 @@ antes de atribuir aos NPCs uma rotina dentro da casa da praça.
 chassi e a mesma behavior tree ([npcs.md](npcs.md)). As paradas de rotina são
 `NPCActivity` gerados junto com a cena.
 
+## Missão e destroços
+
+O objetivo desta fase — achar a nave caída e recuperar a tecnologia — é
+controlado por `scripts/country_town.gd`, o script de raiz da cena (não
+`world.gd`, usado pelas outras fases). Fluxo completo, incluindo o embarque na
+órbita, em [fluxo de jogo](fluxo-de-jogo.md#missão-de-resgate-country-town).
+
+- Todo nó do grupo `alien_debris` nasce oculto (`AlienDebris.set_discovered(false)`)
+  no `_ready()` da cena; aproximar-se do marcador `AlienCrashSite` (raio de
+  14 m, ponto de interesse já existente em `Layout/PointsOfInterest.tscn`)
+  revela os oito destroços e o `DebrisLocator` de `AlienDebrisTest.tscn`.
+- `AlienDebrisTest.tscn` é gerada por `tools/build_country_town_debris.gd`: a
+  receita fixa oito posições XZ manuais (poço, girassóis, celeiro/silo,
+  estrada, quintal, casa, comércio e o motor) e projeta a altura no
+  `Terrain3D` real. **Regenere essa cena em vez de editá-la** se mudar
+  posição, tipo ou contagem de destroços — ver
+  [ferramentas.md](ferramentas.md#geradores-de-asset).
+  As definições de item (`resources/alien_items/*.tres`, `AlienItemDefinition`)
+  são dados puros: mesh, forma de colisão, `slot_cost`, `score_value`,
+  `is_locator` e `transportable`. O `engine_wreck` é o único não
+  transportável (`transportable = false`) — não pode ser guardado no
+  inventário nem pego na mão, só existe como obstáculo/trófeu maior
+  (`score_value = 100`, contra 10 dos demais).
+- `DebrisLocator` (`scripts/debris_locator.gd`, `RefCounted`) é o algoritmo do
+  "detector de metais": acha o `AlienDebris` mais próximo, com histerese de
+  direção (8 setores) e de força (5 níveis) para não oscilar com o jogador
+  quase parado. `scripts/debris_locator_hud.gd` (`DebrisLocatorHUD.tscn`,
+  instanciada por `player_hud.gd`) só aparece enquanto o equipamento
+  "Debris Locator" está selecionado no inventário de exploração.
+- **Entrega**: `scenes/RecoveryPoint.tscn` reúne uma `RecoveryZone`
+  (`scripts/recovery_zone.gd`, área de "ponto de coleta") e uma `RecoveryShip`
+  (`scripts/recovery_ship.gd`, reaproveita o visual de `space_ship.tscn`).
+  O jogador só **larga** o item dentro do círculo; a nave sobrevoa
+  periodicamente, recolhe quem tiver a meta `recovery_dropped` (setada em
+  `spaceship_scraps.gd.drop()`) e pontua no `GlobalScore` sozinha — sem exigir
+  presença contínua do jogador, ao contrário do `delivery_area.gd` (segurar
+  `interact`). `RecoveryZone` também entra no grupo `delivery_areas` para
+  participar da arbitragem de `interact` do Player, mas não implementa
+  `reserves_interaction_for` — nunca reserva a tecla, só é encontrável pela
+  busca por grupo.
+
 ## Ao alterar
 
 Comece pela receita da parte afetada, preservando os nomes dos POIs e as
@@ -98,7 +144,8 @@ checagens, consulte [tools/VALIDACAO.md](../tools/VALIDACAO.md#geração-do-coun
 
 ## Limitações atuais
 
-O cenário está fechado e os NPCs andam, mas o mapa ainda não tem gameplay:
-faltam armadilha, destroço coletável e entrega funcional. A lista completa, com
-o que é cenário e o que reusa a fazenda, está em **Limitações conhecidas**, no
+O cenário está fechado, os NPCs andam e a missão de resgate (destroços,
+localizador e entrega pela `RecoveryShip`) já é jogável; falta uma armadilha
+de ameaça própria desta fase. A lista completa, com o que é cenário e o que
+reusa a fazenda, está em **Limitações conhecidas**, no
 [`../README.md`](../README.md).

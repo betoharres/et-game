@@ -114,7 +114,7 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 | Solicitar a abdução de um item na área de entrega                 | Segure `E`                                 |
 | Selecionar slot do inventário de exploração                       | `1`-`4`                                    |
 | Trocar de slot do inventário de exploração                        | Roda do mouse                              |
-| Soltar o slot selecionado do inventário de exploração              | `C` (agachar) + `E`                        |
+| Largar item carregado ou o slot selecionado do inventário          | `G` (ou `C` (agachar) + `E`)               |
 | Luz dos olhos do ET                                               | `F`                                        |
 | Primeira pessoa (a pé ou na caminhonete)                          | `V`                                        |
 | Binóculos / zoom                                                  | `B` / `+` e `-` do teclado numérico        |
@@ -135,7 +135,7 @@ em cada sistema.
 | Mapa / cena                                          | Situação                                                                                                                                       |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | Fazenda (`scenes/world.tscn`)                        | O mapa jogável do catálogo, montado à mão                                                                                                      |
-| Country Town (`scenes/CountryTown/CountryTown.tscn`) | Mapa de `600 × 450 m` em construção, **fora do catálogo de fases**: abre direto pelo editor. Quase tudo é gerado pelas ferramentas de `tools/` |
+| Country Town (`scenes/CountryTown/CountryTown.tscn`) | Mapa de `600 × 450 m` em construção, no catálogo de fases como a missão de resgate; ainda abre direto pelo editor para iteração rápida. Quase tudo é gerado pelas ferramentas de `tools/` |
 | Casa modular (`scenes/Buildings/House01.tscn`)       | Primeira casa em que Player e NPCs entram, autocontida, com portas trancáveis e pontos de atividade. `HouseTest.tscn` é a cena de teste        |
 | Masmorra (`scenes/Dungeon/`)                         | Corredores procedurais planos, gerados uma vez por sessão a partir de uma porta na fazenda                                                     |
 
@@ -148,8 +148,9 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 
 ## Limitações conhecidas
 
-- Não há caminho de volta da fazenda à órbita.
-- O catálogo tem só a Fazenda; Cidade e Deserto são exemplos bloqueados.
+- Não há caminho de volta da fazenda (nem do Country Town) à órbita.
+- O catálogo tem a Fazenda e o Country Town (missão de resgate); Cidade e
+  Deserto são exemplos bloqueados.
 - O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
 - Polícia, imprensa e MIB existem apenas como sinais e mensagens de
   placeholder, sem cenas nem spawn.
@@ -165,10 +166,12 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
   cápsula de colisão fica desabilitada.
 - A masmorra não tem objetivo além dos destroços: sem inimigos, salas especiais
   nem variação vertical.
-- No Country Town o cenário está fechado e os NPCs já andam, mas faltam
-  armadilha, destroço coletável e entrega funcional; a sucata da queda é
-  cenário, o portal da mina é só a moldura e o áudio ambiente reusa posições
-  fixas da fazenda.
+- No Country Town o cenário está fechado, os NPCs já andam e a missão de
+  resgate (destroços, localizador e entrega automática) já é jogável, mas
+  falta uma armadilha de ameaça própria da fase; a sucata da queda é cenário,
+  o portal da mina é só a moldura, o áudio ambiente reusa posições fixas da
+  fazenda e o motor alienígena (maior pontuação) não tem via de entrega, pois
+  não pode ser transportado pelo jogador.
 - A `NavigationRegion3D` da fazenda nunca foi bakeada: ali a luz viva voa por
   sonda de chão, sem desvio de obstáculo pela navegação. Dentro da nave, a
   malha cobre apenas a plataforma de `9×9 m`.

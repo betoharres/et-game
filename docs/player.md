@@ -68,14 +68,19 @@ CharacterBody3D (player.gd)
   vegetação (grupo `concealment_areas`) e reduzem `get_visibility_multiplier()`,
   que os sensores de NPC consultam. `set_vision_contact()` é como um sensor
   avisa que está vendo o ET; alimenta `get_stealth_alert()`.
-- **Carregar**: `try_pickup()` decide pelo item mais próximo do grupo
-  `pickup_items` que responde `true` a `is_available_for_abduction()`. Item
-  `two_handed` vai para o `CarrySocket` nas mãos, como antes; os demais entram
-  no `ExplorationInventory` (`store_item`), ficando ocultos e sem colisão até
-  serem soltos — ver [inventário de exploração](#inventário-de-exploração)
-  abaixo. Personagens do grupo `carriable_characters` são levados no colo
-  (`try_carry_character` / `release_carried_character`), aplicando
-  `apply_carry()` no carregado.
+- **Carregar**: `get_pickup_candidate()` escolhe o item mais próximo do grupo
+  `pickup_items` que responde `true` a `is_available_for_abduction()` **e**
+  não tem obstáculo no raycast físico entre a cabeça do jogador e o item (não
+  dá para pegar através de parede). Por isso a consulta só é segura no quadro
+  de física com o Jolt em thread separada: `_input()` apenas marca
+  `_pickup_requested = true`, e `_physics_process()` chama `try_pickup()` no
+  tick seguinte. `player_hud.gd` reusa `get_pickup_candidate()` para o prompt
+  "[E] Coletar". Item `two_handed` vai para o `CarrySocket` nas mãos, como
+  antes; os demais entram no `ExplorationInventory` (`store_item`), ficando
+  ocultos e sem colisão até serem soltos — ver
+  [inventário de exploração](#inventário-de-exploração) abaixo. Personagens do
+  grupo `carriable_characters` são levados no colo (`try_carry_character` /
+  `release_carried_character`), aplicando `apply_carry()` no carregado.
 - **Aparência**: o perfil vem do autoload `CharacterAppearance` e é aplicado por
   `CharacterProportions`. `belly_size`, `head_size` e `eye_size` controlam
   diretamente os Blend Shapes `Belly`, `Head` e `Eyes` da malha `ET` em
@@ -87,6 +92,15 @@ CharacterBody3D (player.gd)
   `get_appearance_replication_payload()` e o RPC
   `sync_appearance()` existem para uma futura camada multiplayer, que **não**
   deve ser construída sem pedido explícito.
+- **Acessório preso à cabeça** (`FarSightGoggles`, filho da malha `ET`):
+  `CharacterProportions` calcula o offset local ao osso da cabeça uma vez
+  (`_bind_goggles_to_head`) e recalcula o transform global do acessório a cada
+  `Skeleton3D.skeleton_updated` (`_update_goggles_transform`), em vez de usar
+  `BoneAttachment3D`. É proposital: `skeleton_updated` dispara depois de
+  animação, `LookAtModifier3D` e `RagdollRecovery`, então o acessório segue a
+  pose **final** da pilha de modificadores — um `BoneAttachment3D` capturaria
+  uma pose intermediária. Os Blend Shapes `Belly`/`Head`/`Eyes` também são
+  aplicados ao acessório, não só à malha do ET.
 - **Câmera**: `CinematicCameraRig` cuida de enquadramento, colisão, shake e do
   modo primeira pessoa (`set_first_person`), além dos binóculos com zoom e do
   material XRAY (a câmera secundária mostra o que a camada 6 esconde).
@@ -108,7 +122,12 @@ restaura visual e colisão.
 
 - Slots 1-4 (`inventory_slot_1..4`) selecionam direto; `inventory_previous`/
   `inventory_next` (roda do mouse, por padrão) ciclam — desativado com os
-  binóculos ativos para não brigar com o zoom.
+  binóculos ativos para não brigar com o zoom. `drop_item` (`G`) larga o item
+  carregado na mão ou, se nenhum, o slot selecionado — `crouch` + `interact`
+  continua funcionando em paralelo, como atalho antigo.
+- Um item pode recusar `store_item()` implementando `inventory_rejection()`
+  (string não vazia = mensagem de recusa); usado por itens grandes demais
+  para o inventário — ver [arquitetura.md](arquitetura.md#contratos-entre-sistemas).
 - `changed` e `feedback` viajam para fora como
   `exploration_inventory_changed`/`exploration_inventory_feedback` no Player,
   que o HUD (`player_hud.gd`) usa para redesenhar os 4 quadros e piscar em

@@ -26,6 +26,7 @@ edite à mão o que um gerador regrava.
 | `build_country_town_fields.gd` | Talhões (sem `--headless`) | [country-town.md](country-town.md) |
 | `build_country_town_vegetation.gd` | Plantio no instancer (sem `--headless`) | [country-town.md](country-town.md) |
 | `build_country_town_population.gd` | Navegação de pedestre e os NPCs do mapa | [npcs.md](npcs.md) |
+| `build_country_town_debris.gd` | Destroços alienígenas e o localizador (`AlienDebrisTest.tscn`) | [country-town.md](country-town.md#missão-e-destroços) |
 | `build_rural_roads.gd`, `recess_country_town_asphalt.gd` | Piso viário | [country-town.md](country-town.md) |
 | `build_tire_tracks.gd`, `build_tire_tread_texture.gd` | Marcas de pneu e a textura de banda | [mundo.md](mundo.md) |
 | `build_terrain_surface.gd` | Dados de material do terreno | [mundo.md](mundo.md) |
