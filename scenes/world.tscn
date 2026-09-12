@@ -81,6 +81,7 @@
 [ext_resource type="PackedScene" uid="uid://ctlyi6tcv6xdp" path="res://scenes/NPCs/Photographer.tscn" id="83_photographer"]
 [ext_resource type="PackedScene" uid="uid://cdfkl3n51qfkf" path="res://PolygonTown/Prefabs/Props/SM_Prop_BedsideTable_01.tscn" id="84_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
+[ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 [ext_resource type="PackedScene" uid="uid://br05hptvyc4vo" path="res://PolygonTown/Prefabs/Props/SM_Prop_Bed_Double_02.tscn" id="85_n6seq"]
 [ext_resource type="PackedScene" uid="uid://bo7i75ihupee6" path="res://scenes/Vehicles/FlyablePlane.tscn" id="89_5p8eo"]
 [ext_resource type="PackedScene" uid="uid://caxfubawl5yb3" path="res://PolygonTown/Prefabs/Props/SM_Prop_Art_03.tscn" id="90_frq1x"]
@@ -1403,6 +1404,10 @@ script = ExtResource("80_audio")
 
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
 
+[node name="PursuitSystem" parent="." instance=ExtResource("pursuit_system")]
+player_path = NodePath("../CharacterBody3D")
+terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
+
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 129.23634, -8.647179)
 
@@ -1411,6 +1416,7 @@ navigation_mesh = SubResource("NavigationMesh_ec6vt")
 
 [node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=2137716348]
 data_directory = "res://scenes"
+collision_mode = 3
 material = ExtResource("168_sjp3e")
 assets = ExtResource("169_sjp3e")
 mesh_lods = 5

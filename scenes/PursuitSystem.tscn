@@ -1,0 +1,19 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/pursuit_director.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/pursuit_navigation.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Pursuit/PursuitAgent.tscn" id="3"]
+[ext_resource type="Resource" path="res://scenes/NPCs/Pursuit/Police.tres" id="4"]
+[ext_resource type="Resource" path="res://scenes/NPCs/Pursuit/SWAT.tres" id="5"]
+[ext_resource type="Resource" path="res://scenes/NPCs/Pursuit/MIB.tres" id="6"]
+[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="7"]
+
+[node name="PursuitSystem" type="Node3D"]
+script = ExtResource("1")
+agent_scene = ExtResource("3")
+factions = Array[ExtResource("7")]([ExtResource("4"), ExtResource("5"), ExtResource("6")])
+
+[node name="Navigation" type="NavigationRegion3D" parent="."]
+script = ExtResource("2")
+
+[node name="Reinforcements" type="Node3D" parent="."]

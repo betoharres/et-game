@@ -66,7 +66,7 @@ custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 mouse_filter = 2
 texture_filter = 2
-texture = ExtResource("4_camera_icon")
+texture = ExtResource("8_warning_icon")
 expand_mode = 1
 stretch_mode = 5
 
@@ -74,7 +74,7 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.87, 1, 0.95)
 theme_override_font_sizes/font_size = 15
-text = "REGISTRO FOTOGRÁFICO"
+text = "NÍVEL DE PERSEGUIÇÃO"
 
 [node name="ObjectiveRow" type="HBoxContainer" parent="Interface/AlertPanel/MarginContainer/Content"]
 layout_mode = 2
@@ -141,7 +141,13 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.65, 0.76, 0.9)
 theme_override_font_sizes/font_size = 12
-text = "SEM REGISTRO"
+text = "ROUBOS E FOTOS AUMENTAM O ALERTA"
+
+[node name="FactionLabel" type="Label" parent="Interface/AlertPanel/MarginContainer/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.76, 0.22, 1)
+theme_override_font_sizes/font_size = 15
+text = "SEM PERSEGUIÇÃO"
 
 [node name="PhotoFeedback" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_photo_blip")

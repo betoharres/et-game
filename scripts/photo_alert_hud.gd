@@ -3,6 +3,7 @@ extends CanvasLayer
 const ATTENTION_HOLD_SECONDS : float = 3.0
 const ACTIVE_OPACITY : float = 1.0
 const IDLE_OPACITY : float = 0.42
+const FACTION_NAMES : Array[String] = ["SEM PERSEGUIÇÃO", "POLÍCIA", "SWAT", "MIB"]
 const STAR_FILLED : Texture2D = preload(
 	"res://Texturas/ui/star_filled.png"
 )
@@ -32,6 +33,7 @@ const WARNING_ICON : Texture2D = preload(
 	$Interface/AlertPanel/MarginContainer/Content/StatusRow/StatusIcon
 )
 @onready var photo_feedback : AudioStreamPlayer = $PhotoFeedback
+@onready var faction_label : Label = $Interface/AlertPanel/MarginContainer/Content/FactionLabel
 
 var _previous_count : int = -1
 var _attention_timer : float = ATTENTION_HOLD_SECONDS
@@ -52,7 +54,7 @@ func _process(delta : float) -> void:
 	_update_status()
 	_attention_timer = maxf(_attention_timer - delta, 0.0)
 	var target_opacity : float = (
-		ACTIVE_OPACITY if _attention_timer > 0.0 else IDLE_OPACITY
+		ACTIVE_OPACITY if _attention_timer > 0.0 or PhotoAlertSystem.get_photo_count() > 0 else IDLE_OPACITY
 	)
 	alert_panel.modulate.a = move_toward(
 		alert_panel.modulate.a,
@@ -73,6 +75,7 @@ func _on_photo_count_changed(current_count : int, maximum_count : int) -> void:
 			else Color(0.42, 0.56, 0.7, 0.76)
 		)
 	count_label.text = "%d / %d" % [current_count, maximum_count]
+	faction_label.text = FACTION_NAMES[clampi(current_count, 0, 3)]
 
 	if _previous_count >= 0 and current_count > _previous_count:
 		photo_feedback.play()
@@ -87,12 +90,12 @@ func _update_status() -> void:
 
 	if current_count <= 0:
 		new_mode = &"empty"
-		status_label.text = "SEM REGISTRO"
+		status_label.text = "ROUBOS E FOTOS AUMENTAM O ALERTA"
 		status_icon.texture = WATCH_ICON
 		status_icon.self_modulate = Color(0.55, 0.65, 0.76, 0.9)
-	elif PhotoAlertSystem.is_observed_by_photographer():
+	elif PhotoAlertSystem.is_observed():
 		new_mode = &"observed"
-		status_label.text = "OBSERVADO"
+		status_label.text = "LOCALIZADO — PERCA A LINHA DE VISÃO"
 		status_icon.texture = WARNING_ICON
 		status_icon.self_modulate = Color(1.0, 0.46, 0.24, 1.0)
 	else:
@@ -100,8 +103,8 @@ func _update_status() -> void:
 		status_icon.texture = WATCH_ICON
 		status_icon.self_modulate = Color(0.35, 0.82, 1.0, 0.95)
 		var seconds : int = ceili(PhotoAlertSystem.get_seconds_until_photo_decay())
-		if seconds != _last_seconds:
-			status_label.text = "OCULTO — %ds" % seconds
+		if seconds != _last_seconds or new_mode != _status_mode:
+			status_label.text = "OCULTO — MENOS UMA ESTRELA EM %ds" % seconds
 			_last_seconds = seconds
 
 	if new_mode != _status_mode:
