@@ -83,8 +83,16 @@ func _run() -> void:
 		_check(not FLOW.arrival_by_saucer and not FLOW.arrived_from_orbit, "Destino consome estado de viagem")
 		var arrival : Node = current_scene.get_node_or_null("MissionSaucer")
 		_check(arrival != null, "Mesma Saucer aparece na chegada")
-		await create_timer(7.0).timeout
 		var arrived_player : CharacterBody3D = current_scene.get_node("Player") as CharacterBody3D
+		_check(
+			not bool(arrived_player.get("_movement_locked")),
+			"ET anda livre dentro da cabine antes de acionar o console"
+		)
+		if arrival != null:
+			# Simula o clique no console em vez de esperar o ET andar ate o
+			# gatilho fisico -- mesmo padrao usado acima para o MissionGiver.
+			arrival.get_node("Cabin/Console").activated.emit()
+		await create_timer(7.0).timeout
 		_check(not bool(arrived_player.get("_movement_locked")), "Descida devolve controle")
 		await _snapshot("arrival")
 	print("Mission departure failures: ", failures)

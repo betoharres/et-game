@@ -33,6 +33,8 @@ func _ready() -> void:
 
 func _process(delta : float) -> void:
 	_elapsed += delta
+	if flicker_amount == 0.0 or not _debug_lighting_enabled:
+		return
 	for index : int in range(_window_lights.size()):
 		var phase : float = float(index) * 1.91
 		var slow_wave : float = sin(_elapsed * flicker_speed + phase)

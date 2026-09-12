@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="0_tree"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="0_selectorreactive"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scripts/npc/behaviors/idle.gd" id="13_idle"]
 [ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="14_patrol"]
 [ext_resource type="Script" path="res://scripts/npc/behaviors/daily_routine.gd" id="15_daily"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/wait_for_traffic.gd" id="16_traffic"]
 
 [node name="NPCBehaviorTree" type="Node"]
 script = ExtResource("0_tree")
@@ -85,6 +86,9 @@ script = ExtResource("11_investigate")
 
 [node name="ReturnToPatrol" type="Node" parent="Root/Investigate"]
 script = ExtResource("9_return")
+
+[node name="WaitForTraffic" type="Node" parent="Root"]
+script = ExtResource("16_traffic")
 
 [node name="Routine" type="Node" parent="Root"]
 script = ExtResource("0_selector")
