@@ -5,6 +5,10 @@ const IDLE_STATUS_OPACITY : float = 0.78
 const LOW_ENERGY_RATIO : float = 0.2
 const LOW_ENERGY_COLOR : Color = Color(1.0, 0.62, 0.35, 1.0)
 
+@export_group("Damage Feedback")
+@export_range(0.0, 1.0, 0.05) var damage_effect_strength : float = 0.85
+@export_range(0.1, 1.0, 0.05) var damage_fade_duration : float = 0.5
+
 @onready var status_panel : PanelContainer = $Interface/StatusPanel
 @onready var health_bar : ProgressBar = (
 	$Interface/StatusPanel/StatusMargin/StatusRows/HealthRow/HealthBar
@@ -28,6 +32,7 @@ const LOW_ENERGY_COLOR : Color = Color(1.0, 0.62, 0.35, 1.0)
 	$Interface/StatusPanel/StatusMargin/StatusRows/StaminaRow/StaminaValue
 )
 @onready var damage_vignette : ColorRect = $Interface/DamageVignette
+@onready var damage_back_buffer : BackBufferCopy = $Interface/DamageBackBuffer
 @onready var defeat_menu : PanelContainer = $Interface/DefeatMenu
 @onready var restart_button : Button = (
 	$Interface/DefeatMenu/Content/RestartButton
@@ -42,7 +47,7 @@ var _inventory_message_time : float = 0.0
 var _inventory_slots : HBoxContainer
 var _inventory_feedback_tween : Tween
 var player : Node
-var _previous_health : float = -1.0
+var _vignette_intensity : float = 0.0
 var _stamina_hide_timer : float = 0.0
 var _stamina_tween : Tween = null
 var _status_tween : Tween = null
@@ -78,6 +83,7 @@ func _ready() -> void:
 	mission_hud.offset_top = 24.0
 	mission_hud.offset_bottom = 120.0
 	player.connect("health_changed", _on_health_changed)
+	player.connect("damaged", _play_damage_feedback)
 	player.connect("stamina_changed", _on_stamina_changed)
 	player.connect("energy_changed", _on_energy_changed)
 	player.connect("died", _on_player_died)
@@ -110,10 +116,6 @@ func _on_health_changed(current : float, maximum : float) -> void:
 	health_bar.max_value = maximum
 	health_bar.value = current
 	health_value.text = str(roundi(current))
-
-	if _previous_health >= 0.0 and current < _previous_health:
-		_play_damage_feedback()
-	_previous_health = current
 
 
 func _on_stamina_changed(current : float, maximum : float) -> void:
@@ -160,19 +162,29 @@ func _hide_stamina_row() -> void:
 	_stamina_tween.tween_callback(stamina_row.hide)
 
 
-func _play_damage_feedback() -> void:
+func _play_damage_feedback(amount : float, hit_direction : Vector3) -> void:
 	if _damage_tween != null:
 		_damage_tween.kill()
-	_set_vignette_intensity(0.34)
+	var maximum : float = maxf(float(player.call("get_max_health")), 1.0)
+	var severity : float = clampf(amount / (maximum * 0.3), 0.0, 1.0)
+	var peak : float = maxf(
+		_vignette_intensity, lerpf(0.45, 1.0, severity) * damage_effect_strength
+	)
+	_set_damage_direction(hit_direction)
+	_set_vignette_intensity(peak)
+	_set_impact_strength(peak)
 	health_bar.modulate = Color(1.0, 0.45, 0.45, 1.0)
 	_damage_tween = create_tween()
 	_damage_tween.set_parallel(true)
 	_damage_tween.tween_method(
 		_set_vignette_intensity,
-		0.34,
+		peak,
 		0.0,
-		0.55
+		damage_fade_duration
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_damage_tween.tween_method(
+		_set_impact_strength, peak, 0.0, minf(0.16, damage_fade_duration)
+	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_damage_tween.tween_property(
 		health_bar,
 		"modulate",
@@ -194,9 +206,34 @@ func _play_damage_feedback() -> void:
 
 
 func _set_vignette_intensity(value : float) -> void:
+	_vignette_intensity = value
+	damage_vignette.visible = value > 0.0001
+	damage_back_buffer.visible = damage_vignette.visible
 	var vignette_material : ShaderMaterial = damage_vignette.material as ShaderMaterial
 	if vignette_material != null:
 		vignette_material.set_shader_parameter("intensity", value)
+
+
+func _set_impact_strength(value : float) -> void:
+	var vignette_material : ShaderMaterial = damage_vignette.material as ShaderMaterial
+	if vignette_material != null:
+		vignette_material.set_shader_parameter("impact_strength", value)
+
+
+func _set_damage_direction(hit_direction : Vector3) -> void:
+	var screen_direction : Vector2 = Vector2.ZERO
+	var camera : Camera3D = get_viewport().get_camera_3d()
+	if camera != null and not hit_direction.is_zero_approx():
+		# Hits carry the push direction, so the source lies on the opposite side.
+		var incoming : Vector3 = camera.global_basis.inverse() * -hit_direction.normalized()
+		screen_direction = Vector2(incoming.x, -incoming.y)
+		if screen_direction.length_squared() > 0.04:
+			screen_direction = screen_direction.normalized()
+		else:
+			screen_direction = Vector2.ZERO
+	var vignette_material : ShaderMaterial = damage_vignette.material as ShaderMaterial
+	if vignette_material != null:
+		vignette_material.set_shader_parameter("hit_direction", screen_direction)
 
 
 func _on_player_died() -> void:

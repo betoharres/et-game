@@ -86,11 +86,11 @@ func run() -> void:
 	controller.trigger_turn(deg_to_rad(130.0))
 	check(controller.get_current_state() == &"TurnLeftWide", "Wide turn")
 
-	controller.trigger_hit(Vector3.RIGHT)
-	check(controller.get_current_state() == &"HitSide", "Side hit")
+	check_hit_reaction(controller, skeleton, tree)
 
 	controller.trigger_stumble(Vector3(0.0, 0.0, -1.0))
 	check(controller.get_current_state() == &"StumbleBack", "Stumble")
+	check(not controller.hit_reaction.is_running(), "Stumble clears small recoil")
 
 	controller.trigger_landing(8.0)
 	check(controller.get_current_state() == &"Landing", "Hard landing")
@@ -159,6 +159,70 @@ func check(condition : bool, label : String) -> void:
 		return
 	_failed = true
 	push_error("CHECK|FAIL|%s" % label)
+
+
+func check_hit_reaction(controller : PlayerAnimationController,
+	skeleton : Skeleton3D, tree : AnimationTree) -> void:
+	var reaction : PlayerHitReaction = controller.hit_reaction
+	check(reaction != null, "Player has a hit reaction modifier")
+	if reaction == null:
+		return
+	check(
+		reaction.get_index() < skeleton.get_node("HandR").get_index()
+		and reaction.get_index() < skeleton.get_node("RagdollRecovery").get_index(),
+		"Hit recoil precedes hand IK and ragdoll recovery"
+	)
+	controller.set_motion_state(Vector3(0.0, 0.0, 3.0), true, false, false, 0)
+	controller._physics_process(2.0)
+	tree.advance(0.3)
+	var before : Array[Quaternion] = bone_rotations(skeleton)
+	var body_position : Vector3 = controller.player_body.position
+	controller.trigger_hit(Vector3.RIGHT)
+	check(
+		reaction.is_running() and controller.get_current_state() == &"Walk",
+		"Damage recoils while walking continues"
+	)
+	reaction._process_modification_with_delta(0.04)
+	var spine : int = skeleton.find_bone("mixamorig_Spine2")
+	var head : int = skeleton.find_bone("mixamorig_Head")
+	check(
+		not skeleton.get_bone_pose_rotation(spine).is_equal_approx(before[spine])
+		and not skeleton.get_bone_pose_rotation(head).is_equal_approx(before[head]),
+		"Hit visibly bends torso and head"
+	)
+	var other_bones_unchanged : bool = true
+	for bone : int in skeleton.get_bone_count():
+		if bone != spine and bone != head:
+			other_bones_unchanged = other_bones_unchanged and (
+				skeleton.get_bone_pose_rotation(bone).is_equal_approx(before[bone])
+			)
+	check(
+		other_bones_unchanged and controller.player_body.position == body_position,
+		"Hit preserves locomotion bones and body position"
+	)
+	controller.trigger_hit(Vector3.LEFT)
+	reaction._process_modification_with_delta(reaction.duration - 0.02)
+	check(reaction.is_running(), "Repeated damage refreshes recoil")
+	reaction._process_modification_with_delta(0.03)
+	check(not reaction.is_running(), "Recoil ends within its short duration")
+	for bone : int in skeleton.get_bone_count():
+		skeleton.set_bone_pose_rotation(bone, before[bone])
+
+	controller.trigger_hit(Vector3.RIGHT)
+	controller.hold_pose(&"idle", 0.0)
+	controller.trigger_hit(Vector3.RIGHT)
+	check(not reaction.is_running(), "Held pose clears and rejects recoil")
+	controller.release_pose()
+	controller.trigger_hit(Vector3.RIGHT)
+	controller.set_ragdoll_active(true)
+	controller.trigger_hit(Vector3.RIGHT)
+	check(not reaction.is_running(), "Ragdoll clears and rejects recoil")
+	controller.begin_get_up(true)
+	controller.trigger_hit(Vector3.RIGHT)
+	check(not reaction.is_running(), "Get up rejects recoil")
+	controller.finish_get_up()
+	controller.trigger_hit(Vector3.ZERO)
+	check(reaction.is_running(), "Directionless damage still recoils")
 
 
 func check_model_clips(model : Node, label : String) -> void:

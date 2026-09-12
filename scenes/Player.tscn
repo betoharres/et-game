@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://cppy11s77ubxb" path="res://scripts/character_proportions.gd" id="12_proportions"]
 [ext_resource type="Script" uid="uid://2r3hwqim1oj4" path="res://scripts/exploration_inventory.gd" id="13_inventory"]
 [ext_resource type="AnimationLibrary" path="res://animations/mixamo/ET_animations.res" id="14_clips"]
+[ext_resource type="Script" path="res://scripts/audio/player_hit_audio.gd" id="15_hit_audio"]
+[ext_resource type="Script" path="res://scripts/player_hit_reaction.gd" id="16_hit_reaction"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -42,6 +44,9 @@ script = ExtResource("1_p0vlq")
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]
 script = ExtResource("4_footsteps")
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]
+script = ExtResource("15_hit_audio")
 
 [node name="PlayerHUD" parent="." unique_id=1616169788 instance=ExtResource("5_hud")]
 
@@ -106,7 +111,10 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="4" unique_id=1183812581]
+[node name="HitReaction" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="4"]
+script = ExtResource("16_hit_reaction")
+
+[node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="5" unique_id=1183812581]
 influence = 0.0
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKtargetContainer/HandR")
@@ -121,7 +129,7 @@ settings/0/end_bone = 36
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="5" unique_id=276298268]
+[node name="EyeLightAttachment" type="BoneAttachment3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="6" unique_id=276298268]
 bone_name = "mixamorig_Head"
 bone_idx = 31
 
@@ -137,7 +145,7 @@ spot_range = 12.0
 spot_attenuation = 0.9
 spot_angle = 32.0
 
-[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="6" unique_id=197484809]
+[node name="RagdollRecovery" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="7" unique_id=197484809]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
