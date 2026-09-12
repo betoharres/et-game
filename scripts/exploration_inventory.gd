@@ -41,11 +41,16 @@ func used_slots() -> int:
 func store_item(item : RigidBody3D, player : Node3D) -> bool:
 	if not item.has_method("store_in_inventory") or items.has(item):
 		return false
+	if item.has_method("inventory_rejection"):
+		var rejection : String = str(item.call("inventory_rejection"))
+		if not rejection.is_empty():
+			feedback.emit(rejection)
+			return false
 	if bool(item.get("two_handed")):
 		return false
 	var cost : int = maxi(1, int(item.get("slot_cost")))
 	if used_slots() + cost > capacity:
-		feedback.emit("Sem espaço: este objeto precisa de %d slots." % cost)
+		feedback.emit("Inventário cheio.")
 		return false
 	if not bool(item.call("store_in_inventory", player)):
 		return false

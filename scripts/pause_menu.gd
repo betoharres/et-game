@@ -23,7 +23,8 @@ const REBIND_ACTIONS : Array[StringName] = [
 	&"inventory_slot_3",
 	&"inventory_slot_4",
 	&"inventory_previous",
-	&"inventory_next"
+	&"inventory_next",
+	&"drop_item"
 ]
 
 const REBIND_LABELS : Array[String] = [
@@ -49,7 +50,8 @@ const REBIND_LABELS : Array[String] = [
 	"Inventário 3",
 	"Inventário 4",
 	"Slot anterior",
-	"Próximo slot"
+	"Próximo slot",
+	"Largar item"
 ]
 
 @onready var overlay : Control = $Overlay
@@ -97,7 +99,8 @@ const REBIND_LABELS : Array[String] = [
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_3Button,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_slot_4Button,
 	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_previousButton,
-	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_nextButton
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/inventory_nextButton,
+	$Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions/DropItemButton
 ]
 
 var rebinding_action : StringName = &""

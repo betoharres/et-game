@@ -9,3 +9,4 @@ extends RefCounted
 ## acionar o feixe. Abrir a fase direto no editor mantem False, preservando a
 ## cutscene automatica de chegada para testes rapidos.
 static var arrived_from_orbit : bool = false
+static var arrival_by_saucer : bool = false

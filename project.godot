@@ -650,6 +650,10 @@ toggle_first_person={
 "script": null
 )]
 }
+drop_item={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":71,"unicode":103)]
+}
 inventory_slot_1={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,

@@ -238,3 +238,7 @@ text = "Slot anterior"
 [node name="inventory_nextButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 layout_mode = 2
 text = "Próximo slot"
+
+[node name="DropItemButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+layout_mode = 2
+text = "Largar item: G"

@@ -1,0 +1,403 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Space/Saucer.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/space/mission_saucer.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/space/ship_carry_field.gd" id="3"]
+[ext_resource type="AudioStream" path="res://assets/audio/spaceship/huge-vehicle-sound-76368.mp3" id="4"]
+
+[sub_resource type="StandardMaterial3D" id="Hull"]
+albedo_color = Color(0.075, 0.12, 0.16, 1)
+metallic = 0.7
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Trim"]
+albedo_color = Color(0.12, 0.5, 0.55, 1)
+emission_enabled = true
+emission = Color(0.12, 0.75, 0.9, 1)
+emission_energy_multiplier = 1.4
+
+[sub_resource type="StandardMaterial3D" id="Glass"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.35, 0.7, 0.8, 0.055)
+roughness = 0.12
+
+[sub_resource type="BoxMesh" id="Sill"]
+size = Vector3(0.97, 0.52, 0.12)
+material = SubResource("Hull")
+
+[sub_resource type="BoxMesh" id="Window"]
+size = Vector3(0.97, 1.7, 0.025)
+material = SubResource("Glass")
+
+[sub_resource type="BoxMesh" id="Pillar"]
+size = Vector3(0.065, 2.3, 0.08)
+material = SubResource("Hull")
+
+[sub_resource type="BoxMesh" id="Strip"]
+size = Vector3(0.96, 0.025, 0.13)
+material = SubResource("Trim")
+
+[sub_resource type="BoxShape3D" id="WallShape"]
+size = Vector3(0.98, 2.5, 0.12)
+
+[sub_resource type="CylinderMesh" id="Roof"]
+top_radius = 1.6
+bottom_radius = 1.98
+height = 0.22
+radial_segments = 12
+material = SubResource("Hull")
+
+[sub_resource type="CylinderShape3D" id="RoofShape"]
+radius = 1.98
+height = 0.22
+
+[sub_resource type="CylinderShape3D" id="CarryShape"]
+radius = 2.05
+height = 3.0
+
+[sub_resource type="BoxMesh" id="Console"]
+size = Vector3(1.05, 0.1, 0.4)
+material = SubResource("Hull")
+
+[sub_resource type="BoxMesh" id="Screen"]
+size = Vector3(0.65, 0.012, 0.25)
+material = SubResource("Trim")
+
+[node name="MissionSaucer" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="SpawnPoint" parent="."]
+position = Vector3(0, 0.1, 0.65)
+
+[node name="Cabin" type="StaticBody3D" parent="."]
+
+[node name="Roof" type="MeshInstance3D" parent="Cabin"]
+position = Vector3(0, 2.4, 0)
+mesh = SubResource("Roof")
+
+[node name="RoofCollision" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(0, 2.4, 0)
+shape = SubResource("RoofShape")
+
+[node name="Console" type="MeshInstance3D" parent="Cabin"]
+position = Vector3(0, 0.62, -1.3)
+rotation = Vector3(0.2, 0, 0)
+mesh = SubResource("Console")
+
+[node name="Screen" type="MeshInstance3D" parent="Cabin/Console"]
+position = Vector3(0, 0.06, 0)
+mesh = SubResource("Screen")
+
+[node name="CarryField" type="Area3D" parent="."]
+position = Vector3(0, 1.2, 0)
+script = ExtResource("3")
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarryField"]
+shape = SubResource("CarryShape")
+
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4")
+volume_db = -24.0
+
+[node name="Panel0" type="Node3D" parent="Cabin"]
+position = Vector3(0.000000, 0, 1.800000)
+rotation = Vector3(0, 0.000000, 0)
+
+[node name="Sill0" type="MeshInstance3D" parent="Cabin/Panel0"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window0" type="MeshInstance3D" parent="Cabin/Panel0"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar0" type="MeshInstance3D" parent="Cabin/Panel0"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip0" type="MeshInstance3D" parent="Cabin/Panel0"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision0" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(0.000000, 1.2, 1.800000)
+rotation = Vector3(0, 0.000000, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel1" type="Node3D" parent="Cabin"]
+position = Vector3(0.900000, 0, 1.558846)
+rotation = Vector3(0, 0.523599, 0)
+
+[node name="Sill1" type="MeshInstance3D" parent="Cabin/Panel1"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window1" type="MeshInstance3D" parent="Cabin/Panel1"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar1" type="MeshInstance3D" parent="Cabin/Panel1"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip1" type="MeshInstance3D" parent="Cabin/Panel1"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision1" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(0.900000, 1.2, 1.558846)
+rotation = Vector3(0, 0.523599, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel2" type="Node3D" parent="Cabin"]
+position = Vector3(1.558846, 0, 0.900000)
+rotation = Vector3(0, 1.047198, 0)
+
+[node name="Sill2" type="MeshInstance3D" parent="Cabin/Panel2"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window2" type="MeshInstance3D" parent="Cabin/Panel2"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar2" type="MeshInstance3D" parent="Cabin/Panel2"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip2" type="MeshInstance3D" parent="Cabin/Panel2"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision2" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(1.558846, 1.2, 0.900000)
+rotation = Vector3(0, 1.047198, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel3" type="Node3D" parent="Cabin"]
+position = Vector3(1.800000, 0, 0.000000)
+rotation = Vector3(0, 1.570796, 0)
+
+[node name="Sill3" type="MeshInstance3D" parent="Cabin/Panel3"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window3" type="MeshInstance3D" parent="Cabin/Panel3"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar3" type="MeshInstance3D" parent="Cabin/Panel3"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip3" type="MeshInstance3D" parent="Cabin/Panel3"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision3" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(1.800000, 1.2, 0.000000)
+rotation = Vector3(0, 1.570796, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel4" type="Node3D" parent="Cabin"]
+position = Vector3(1.558846, 0, -0.900000)
+rotation = Vector3(0, 2.094395, 0)
+
+[node name="Sill4" type="MeshInstance3D" parent="Cabin/Panel4"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window4" type="MeshInstance3D" parent="Cabin/Panel4"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar4" type="MeshInstance3D" parent="Cabin/Panel4"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip4" type="MeshInstance3D" parent="Cabin/Panel4"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision4" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(1.558846, 1.2, -0.900000)
+rotation = Vector3(0, 2.094395, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel5" type="Node3D" parent="Cabin"]
+position = Vector3(0.900000, 0, -1.558846)
+rotation = Vector3(0, 2.617994, 0)
+
+[node name="Sill5" type="MeshInstance3D" parent="Cabin/Panel5"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window5" type="MeshInstance3D" parent="Cabin/Panel5"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar5" type="MeshInstance3D" parent="Cabin/Panel5"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip5" type="MeshInstance3D" parent="Cabin/Panel5"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision5" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(0.900000, 1.2, -1.558846)
+rotation = Vector3(0, 2.617994, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel6" type="Node3D" parent="Cabin"]
+position = Vector3(0.000000, 0, -1.800000)
+rotation = Vector3(0, 3.141593, 0)
+
+[node name="Sill6" type="MeshInstance3D" parent="Cabin/Panel6"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window6" type="MeshInstance3D" parent="Cabin/Panel6"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar6" type="MeshInstance3D" parent="Cabin/Panel6"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip6" type="MeshInstance3D" parent="Cabin/Panel6"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision6" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(0.000000, 1.2, -1.800000)
+rotation = Vector3(0, 3.141593, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel7" type="Node3D" parent="Cabin"]
+position = Vector3(-0.900000, 0, -1.558846)
+rotation = Vector3(0, 3.665191, 0)
+
+[node name="Sill7" type="MeshInstance3D" parent="Cabin/Panel7"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window7" type="MeshInstance3D" parent="Cabin/Panel7"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar7" type="MeshInstance3D" parent="Cabin/Panel7"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip7" type="MeshInstance3D" parent="Cabin/Panel7"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision7" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(-0.900000, 1.2, -1.558846)
+rotation = Vector3(0, 3.665191, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel8" type="Node3D" parent="Cabin"]
+position = Vector3(-1.558846, 0, -0.900000)
+rotation = Vector3(0, 4.188790, 0)
+
+[node name="Sill8" type="MeshInstance3D" parent="Cabin/Panel8"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window8" type="MeshInstance3D" parent="Cabin/Panel8"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar8" type="MeshInstance3D" parent="Cabin/Panel8"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip8" type="MeshInstance3D" parent="Cabin/Panel8"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision8" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(-1.558846, 1.2, -0.900000)
+rotation = Vector3(0, 4.188790, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel9" type="Node3D" parent="Cabin"]
+position = Vector3(-1.800000, 0, -0.000000)
+rotation = Vector3(0, 4.712389, 0)
+
+[node name="Sill9" type="MeshInstance3D" parent="Cabin/Panel9"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window9" type="MeshInstance3D" parent="Cabin/Panel9"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar9" type="MeshInstance3D" parent="Cabin/Panel9"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip9" type="MeshInstance3D" parent="Cabin/Panel9"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision9" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(-1.800000, 1.2, -0.000000)
+rotation = Vector3(0, 4.712389, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel10" type="Node3D" parent="Cabin"]
+position = Vector3(-1.558846, 0, 0.900000)
+rotation = Vector3(0, 5.235988, 0)
+
+[node name="Sill10" type="MeshInstance3D" parent="Cabin/Panel10"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window10" type="MeshInstance3D" parent="Cabin/Panel10"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar10" type="MeshInstance3D" parent="Cabin/Panel10"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip10" type="MeshInstance3D" parent="Cabin/Panel10"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision10" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(-1.558846, 1.2, 0.900000)
+rotation = Vector3(0, 5.235988, 0)
+shape = SubResource("WallShape")
+
+[node name="Panel11" type="Node3D" parent="Cabin"]
+position = Vector3(-0.900000, 0, 1.558846)
+rotation = Vector3(0, 5.759587, 0)
+
+[node name="Sill11" type="MeshInstance3D" parent="Cabin/Panel11"]
+position = Vector3(0, 0.26, 0)
+mesh = SubResource("Sill")
+
+[node name="Window11" type="MeshInstance3D" parent="Cabin/Panel11"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("Window")
+
+[node name="Pillar11" type="MeshInstance3D" parent="Cabin/Panel11"]
+position = Vector3(0.48, 1.15, 0)
+mesh = SubResource("Pillar")
+
+[node name="Strip11" type="MeshInstance3D" parent="Cabin/Panel11"]
+position = Vector3(0, 0.53, 0)
+mesh = SubResource("Strip")
+
+[node name="Collision11" type="CollisionShape3D" parent="Cabin"]
+position = Vector3(-0.900000, 1.2, 1.558846)
+rotation = Vector3(0, 5.759587, 0)
+shape = SubResource("WallShape")

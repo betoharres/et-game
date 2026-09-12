@@ -48,6 +48,7 @@ func drop() -> void:
 		return
 
 	carried = false
+	set_meta("recovery_dropped", true)
 
 	var world_position : Vector3 = global_position
 

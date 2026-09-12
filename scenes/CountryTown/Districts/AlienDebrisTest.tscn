@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Items/AlienDebris.tscn" id="1_aghus"]
+[ext_resource type="Script" path="res://scripts/alien_debris.gd" id="2_cxqu7"]
+[ext_resource type="Resource" path="res://resources/alien_items/energy_cell.tres" id="3_tnlt2"]
+[ext_resource type="Resource" path="res://resources/alien_items/navigation_core.tres" id="4_83bak"]
+[ext_resource type="Resource" path="res://resources/alien_items/hull_fragment.tres" id="5_fs3mx"]
+[ext_resource type="Resource" path="res://resources/alien_items/engine_wreck.tres" id="6_m5ucl"]
+[ext_resource type="PackedScene" path="res://scenes/Items/DebrisLocator.tscn" id="7_8lds4"]
+[ext_resource type="Script" path="res://scripts/alien_technology_item.gd" id="8_owdgs"]
+[ext_resource type="Resource" path="res://resources/alien_items/debris_locator.tres" id="9_chc23"]
+
+[node name="AlienDebrisTest" type="Node3D" unique_id=258388334]
+
+[node name="Debris1" type="RigidBody3D" parent="." unique_id=733394392 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 6.656013, 55)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("3_tnlt2")
+
+[node name="Debris2" type="RigidBody3D" parent="." unique_id=1104273461 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6.65, 90)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("4_83bak")
+
+[node name="Debris3" type="RigidBody3D" parent="." unique_id=781433389 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 6.65, 120)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("5_fs3mx")
+
+[node name="Debris4" type="RigidBody3D" parent="." unique_id=852960293 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114, 6.65, 135)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("3_tnlt2")
+
+[node name="Debris5" type="RigidBody3D" parent="." unique_id=1980784791 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 464, 6.65, 198)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("4_83bak")
+
+[node name="Debris6" type="RigidBody3D" parent="." unique_id=1161177814 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 479, 6.65, 204)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("5_fs3mx")
+
+[node name="Debris7" type="RigidBody3D" parent="." unique_id=1229295007 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 385, 6.65, 225)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("3_tnlt2")
+
+[node name="Debris8" type="RigidBody3D" parent="." unique_id=1260452383 groups=["pickup_items"] instance=ExtResource("1_aghus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 521, 6.6932387, 66)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("2_cxqu7")
+definition = ExtResource("6_m5ucl")
+
+[node name="DebrisLocator" type="RigidBody3D" parent="." unique_id=1006543362 groups=["pickup_items"] instance=ExtResource("7_8lds4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 462.8, 6.65, 225)
+collision_layer = 8
+mass = 0.5
+script = ExtResource("8_owdgs")
+definition = ExtResource("9_chc23")

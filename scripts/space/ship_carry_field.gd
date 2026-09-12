@@ -169,7 +169,12 @@ func _on_body_entered(body : Node3D) -> void:
 func _on_body_exited(body : Node3D) -> void:
 	var character : CharacterBody3D = body as CharacterBody3D
 	if character != null:
-		_passengers.erase(character)
+		release_passenger(character)
+
+
+func release_passenger(character : CharacterBody3D) -> void:
+	# A transferência de nave não pode esperar o body_exited do próximo tick.
+	_passengers.erase(character)
 
 
 func _forget_freed_passengers() -> void:

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/recovery_ship.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Vehicles/space_ship.tscn" id="2_space_ship"]
+[ext_resource type="Shader" path="res://shaders/ufo_beam.gdshader" id="3_beam_shader"]
+
+[sub_resource type="ShaderMaterial" id="BeamMaterial"]
+shader = ExtResource("3_beam_shader")
+shader_parameter/beam_color = Color(0.1, 0.95, 0.78, 0.14)
+shader_parameter/emission_strength = 1.2
+
+[sub_resource type="CylinderMesh" id="BeamMesh"]
+material = SubResource("BeamMaterial")
+top_radius = 0.4
+bottom_radius = 4.0
+height = 1.0
+radial_segments = 32
+
+[node name="RecoveryShip" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Hull" parent="." instance=ExtResource("2_space_ship")]
+scale = Vector3(0.16, 0.16, 0.16)
+process_mode = 4
+
+[node name="BeamVolume1" parent="Hull/LightArm1/SpotLight3D"]
+visible = false
+
+[node name="BeamVolume2" parent="Hull/LightArm2/SpotLight3D"]
+visible = false
+
+[node name="BeamVolume3" parent="Hull/LightArm3/SpotLight3D"]
+visible = false
+
+[node name="BeamDust1" parent="Hull/LightArm1/SpotLight3D"]
+visible = false
+
+[node name="BeamDust2" parent="Hull/LightArm2/SpotLight3D"]
+visible = false
+
+[node name="BeamDust3" parent="Hull/LightArm3/SpotLight3D"]
+visible = false
+
+[node name="Glow" parent="Hull/UFOLights/HullLight1"]
+visible = false
+
+[node name="Glow" parent="Hull/UFOLights/HullLight2"]
+visible = false
+
+[node name="Glow" parent="Hull/UFOLights/HullLight3"]
+visible = false
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BeamMesh")
+cast_shadow = 0

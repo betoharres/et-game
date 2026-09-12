@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+display_name = "SÍTIO RURAL — NAVE DESAPARECIDA"
+briefing = "Um grupo de prisioneiros roubou uma nave de transporte, que caiu numa zona rural da Terra. Localize o ponto da queda e recupere a tecnologia espalhada antes que alguém encontre os destroços."
+scene_path = "res://scenes/CountryTown/CountryTown.tscn"
+available = true
+locked_reason = ""

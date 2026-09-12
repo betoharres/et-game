@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/alien_technology_item.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/alien_items/debris_locator.tres" id="2"]
+
+[node name="DebrisLocator" type="RigidBody3D" groups=["pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.5
+script = ExtResource("1")
+definition = ExtResource("2")

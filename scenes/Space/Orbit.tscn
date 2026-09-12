@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionSelectUI.tscn" id="8_mission_ui"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="9_player"]
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="10_pause_menu"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/ShipCrewAlien.tscn" id="11_crew_alien"]
+[ext_resource type="Script" path="res://scripts/space/mission_giver_npc.gd" id="12_mission_npc_script"]
+[ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="13_mission_dialogue"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
 shader = ExtResource("2_night_sky")
@@ -125,7 +128,14 @@ mesh = SubResource("SphereMesh_atmosphere")
 [node name="AlienShip" parent="." unique_id=349197007 instance=ExtResource("6_ship")]
 spin_speed = 0.18
 
+[node name="MissionGiver" parent="AlienShip" instance=ExtResource("11_crew_alien")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.8, -2.6)
+script = ExtResource("12_mission_npc_script")
+wander_extents = Vector2(0.6, 0.6)
+
 [node name="MissionSelectUI" parent="." unique_id=782099217 instance=ExtResource("8_mission_ui")]
+
+[node name="MissionDialogue" parent="." instance=ExtResource("13_mission_dialogue")]
 
 [node name="CharacterBody3D" parent="." unique_id=50976619 instance=ExtResource("9_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2)

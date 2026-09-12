@@ -33,6 +33,12 @@ const LOW_ENERGY_COLOR : Color = Color(1.0, 0.62, 0.35, 1.0)
 	$Interface/DefeatMenu/Content/RestartButton
 )
 
+var _drop_prompt : Label
+var _recovery_prompt : Label
+var _pickup_prompt : Label
+var _talk_prompt : Label
+var _inventory_message : Label
+var _inventory_message_time : float = 0.0
 var _inventory_slots : HBoxContainer
 var _inventory_feedback_tween : Tween
 var player : Node
@@ -51,6 +57,19 @@ func _ready() -> void:
 		return
 
 	_build_inventory_hud()
+	_drop_prompt = _interaction_label(-132.0)
+	_recovery_prompt = _interaction_label(-240.0)
+	_pickup_prompt = _interaction_label(-166.0)
+	_talk_prompt = _interaction_label(-166.0)
+	_inventory_message = _interaction_label(-204.0)
+	var locator : Control = preload("res://scenes/DebrisLocatorHUD.tscn").instantiate() as Control
+	locator.character = player as Node3D
+	$Interface.add_child(locator)
+	locator.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	locator.offset_left = -176.0
+	locator.offset_right = 176.0
+	locator.offset_top = 24.0
+	locator.offset_bottom = 168.0
 	player.connect("health_changed", _on_health_changed)
 	player.connect("stamina_changed", _on_stamina_changed)
 	player.connect("energy_changed", _on_energy_changed)
@@ -203,6 +222,15 @@ func _build_inventory_hud() -> void:
 		slot.custom_minimum_size = Vector2(64.0, 64.0)
 		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_inventory_slots.add_child(slot)
+		var caption : Label = Label.new()
+		caption.name = "Caption"
+		caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		caption.add_theme_font_size_override("font_size", 12)
+		slot.add_child(caption)
+		caption.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	player.connect("exploration_inventory_changed", _refresh_inventory)
 	player.connect("exploration_inventory_feedback", _show_inventory_feedback)
 	_refresh_inventory()
@@ -212,7 +240,10 @@ func _refresh_inventory() -> void:
 	var inventory : Node = player.get_node("ExplorationInventory")
 	for index : int in range(_inventory_slots.get_child_count()):
 		var slot : Panel = _inventory_slots.get_child(index) as Panel
-		var occupied : bool = is_instance_valid(inventory.call("item_at", index))
+		var item : RigidBody3D = inventory.call("item_at", index) as RigidBody3D
+		var occupied : bool = is_instance_valid(item)
+		var caption : Label = slot.get_node("Caption") as Label
+		caption.text = "%d\n%s" % [index + 1, str(item.get("display_name")) if occupied else "—"]
 		var selected : bool = index == int(inventory.get("selected_slot"))
 		var style : StyleBoxFlat = StyleBoxFlat.new()
 		style.bg_color = Color(0.12, 0.32, 0.37, 0.92) if occupied else Color(0.025, 0.035, 0.045, 0.72)
@@ -222,9 +253,65 @@ func _refresh_inventory() -> void:
 		slot.add_theme_stylebox_override("panel", style)
 
 
-func _show_inventory_feedback(_message : String) -> void:
+func _show_inventory_feedback(message : String) -> void:
+	_inventory_message.text = message
+	_inventory_message_time = 3.0
 	if _inventory_feedback_tween != null:
 		_inventory_feedback_tween.kill()
 	_inventory_slots.modulate = Color(1.0, 0.35, 0.3)
 	_inventory_feedback_tween = create_tween()
 	_inventory_feedback_tween.tween_property(_inventory_slots, "modulate", Color.WHITE, 0.35)
+
+
+func _interaction_label(top : float) -> Label:
+	var label : Label = Label.new()
+	$Interface.add_child(label)
+	label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	label.offset_left = -330.0
+	label.offset_right = 330.0
+	label.offset_top = top
+	label.offset_bottom = top + 36.0
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size", 18)
+	label.add_theme_color_override("font_shadow_color", Color.BLACK)
+	label.add_theme_constant_override("shadow_offset_x", 2)
+	label.add_theme_constant_override("shadow_offset_y", 2)
+	return label
+
+
+func _physics_process(delta : float) -> void:
+	if not is_instance_valid(player) or _pickup_prompt == null:
+		return
+	_inventory_message_time = maxf(0.0, _inventory_message_time - delta)
+	_inventory_message.visible = _inventory_message_time > 0.0
+	var inventory : Node = player.get_node("ExplorationInventory")
+	var selected : RigidBody3D = inventory.call("item_at", int(inventory.get("selected_slot"))) as RigidBody3D
+	var held : RigidBody3D = player.get("carried_item") as RigidBody3D
+	var drop_target : RigidBody3D = held if is_instance_valid(held) else selected
+	_drop_prompt.text = "[%s] Largar - %s" % [_interaction_key("drop_item"), str(drop_target.get("display_name"))] if is_instance_valid(drop_target) else ""
+	_recovery_prompt.text = ""
+	for zone : Node in get_tree().get_nodes_in_group("recovery_zones"):
+		if bool(zone.call("contains_position", player.global_position)):
+			_recovery_prompt.text = "ÁREA DE COLETA - " + str(zone.get("status_text"))
+			break
+	var item : RigidBody3D = player.call("get_pickup_candidate") as RigidBody3D
+	_pickup_prompt.text = ""
+	if item != null and not Input.is_action_pressed("crouch"):
+		_pickup_prompt.text = "[%s] Coletar — %s" % [_interaction_key(), str(item.get("display_name"))]
+	_talk_prompt.text = ""
+	if item == null:
+		for npc : Node in get_tree().get_nodes_in_group("dialogue_sources"):
+			if bool(npc.call("is_player_nearby")):
+				_talk_prompt.text = "[%s] Falar" % _interaction_key()
+				break
+
+
+func _interaction_key(action : StringName = &"interact") -> String:
+	for event : InputEvent in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			var key : InputEventKey = event as InputEventKey
+			return OS.get_keycode_string(key.physical_keycode if key.physical_keycode != 0 else key.keycode)
+		if event is InputEventMouseButton:
+			return event.as_text()
+	return "Interagir"

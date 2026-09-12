@@ -24,7 +24,13 @@
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NPCs.tscn" id="22_npcs"]
 [ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="23_minimap"]
 
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/AlienDebrisTest.tscn" id="24_debris"]
+
+[ext_resource type="PackedScene" path="res://scenes/RecoveryPoint.tscn" id="25_recovery"]
+[ext_resource type="Script" path="res://scripts/country_town.gd" id="26_country_town"]
+
 [node name="CountryTown" type="Node3D" unique_id=1267138773]
+script = ExtResource("26_country_town")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=865187737]
 
@@ -97,3 +103,8 @@ landmark_group = &"country_town_poi"
 uniform_npc_markers = true
 
 [editable path="Minimap"]
+
+[node name="AlienDebrisTest" parent="." instance=ExtResource("24_debris")]
+
+[node name="RecoveryPoint" parent="." instance=ExtResource("25_recovery")]
+position = Vector3(350, 6.12, 375)

@@ -197,6 +197,7 @@ var carried_item : RigidBody3D = null
 # Carregar outro ET
 var carried_character : Node3D = null
 var _carry_pickup_timer : float = 0.0
+var _pickup_requested : bool = false
 
 func _ready() -> void:
 	exploration_inventory.changed.connect(func() -> void: exploration_inventory_changed.emit())
@@ -403,6 +404,13 @@ func _input(event: InputEvent) -> void:
 		set_first_person(not _first_person)
 		return
 
+	if event.is_action_pressed("drop_item") and not event.is_echo():
+		if carried_item != null:
+			_drop_exploration_item()
+		else:
+			exploration_inventory.drop_selected(self)
+		return
+
 	if event.is_action_pressed("interact") and not event.is_echo():
 		if _is_door_interaction_reserved():
 			return
@@ -414,7 +422,8 @@ func _input(event: InputEvent) -> void:
 			exploration_inventory.drop_selected(self)
 		elif not _is_delivery_interaction_reserved():
 			if not try_carry_character():
-				try_pickup()
+				# A consulta de colisão só é segura no quadro de física com Jolt em outra thread.
+				_pickup_requested = true
 
 func _physics_process(delta: float) -> void:
 	if _fall_state != FallState.NONE:
@@ -425,6 +434,9 @@ func _physics_process(delta: float) -> void:
 	_update_step_visual(delta)
 	_update_camera_target()
 	_update_carry_pickup(delta)
+	if _pickup_requested:
+		_pickup_requested = false
+		try_pickup()
 
 	if _fall_state != FallState.NONE:
 		return
@@ -1826,32 +1838,34 @@ func _can_stand() -> bool:
 
 	return get_world_3d().direct_space_state.intersect_shape(query, 1).is_empty()
 	
-func try_pickup() -> void:
-
-	if carried_item != null or carried_character != null:
-		return
-
-	var items : Array[Node] = get_tree().get_nodes_in_group("pickup_items")
-
+func get_pickup_candidate() -> RigidBody3D:
+	if _movement_locked or carried_item != null or carried_character != null:
+		return null
+	if _is_door_interaction_reserved() or _is_delivery_interaction_reserved():
+		return null
 	var closest_item : RigidBody3D = null
 	var closest_distance : float = 2.0
-
-	for item in items:
-		if not item is RigidBody3D or not item.has_method("is_available_for_abduction"):
+	for node : Node in get_tree().get_nodes_in_group("pickup_items"):
+		var item : RigidBody3D = node as RigidBody3D
+		if item == null or item.is_queued_for_deletion() or not item.has_method("is_available_for_abduction"):
 			continue
 		if not bool(item.call("is_available_for_abduction")):
 			continue
-
-		var distance : float = (
-			global_position.distance_to(
-				item.global_position
-			)
+		var distance : float = global_position.distance_to(item.global_position)
+		if distance >= closest_distance:
+			continue
+		var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+			global_position + global_basis.y, item.global_position, 1, [get_rid(), item.get_rid()]
 		)
+		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():
+			continue
+		closest_distance = distance
+		closest_item = item
+	return closest_item
 
-		if distance < closest_distance:
-			closest_distance = distance
-			closest_item = item
 
+func try_pickup() -> void:
+	var closest_item : RigidBody3D = get_pickup_candidate()
 
 	if closest_item != null:
 		if bool(closest_item.get("two_handed")):
