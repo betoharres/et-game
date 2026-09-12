@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PursuitProfile" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="1"]
+[ext_resource type="PackedScene" path="res://PolygonCity/Characters/SK_Character_BusinessMan_Suit.fbx" id="2"]
+[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="3"]
+[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Wep_Pistol_01.fbx" id="4"]
+[ext_resource type="Material" path="res://Materiais/ScifiCity1A.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+stars = 3
+faction_name = "MIB"
+max_health = 200.0
+walk_speed = 2.8
+chase_speed = 4.8
+sight_distance = 44.0
+attack_range = 26.0
+damage = 16.0
+shot_interval = 0.3
+burst_size = 3
+burst_pause = 1.2
+aim_time = 0.4
+spread_degrees = 1.0
+shot_color = Color(0.2, 0.85, 1, 1)
+shot_pitch = 1.8
+max_active = 6
+wave_size = 2
+reinforcement_interval = 6.0
+character_scene = ExtResource("2")
+character_material = ExtResource("3")
+weapon_mesh = ExtResource("4")
+weapon_material = ExtResource("5")
+muzzle_offset = Vector3(0, 0.1, 0.31)

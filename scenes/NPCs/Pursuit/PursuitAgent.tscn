@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/pursuit_npc.gd" id="1"]
+[ext_resource type="Resource" path="res://scenes/NPCs/Pursuit/Police.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/npc/pursuit_appearance.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/npc/npc_ranged_combat.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/audio/farmer_gunshot_audio.gd" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="8"]
+
+[sub_resource type="CapsuleShape3D" id="Shape"]
+radius = 0.3
+height = 1.9
+
+[node name="PursuitAgent" type="CharacterBody3D" groups=["pursuit_enemies"]]
+script = ExtResource("1")
+profile = ExtResource("2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.95, 0)
+shape = SubResource("Shape")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.15
+
+[node name="NPCVision" type="Node3D" parent="."]
+script = ExtResource("3")
+sight_half_angle_degrees = 80.0
+detection_time = 0.35
+lose_sight_after = 3.0
+
+[node name="NPCHearing" type="Node3D" parent="."]
+script = ExtResource("4")
+
+[node name="Appearance" type="Node3D" parent="."]
+script = ExtResource("5")
+
+[node name="NPCCombat" type="Node" parent="."]
+script = ExtResource("6")
+
+[node name="GunshotAudio" type="AudioStreamPlayer3D" parent="NPCCombat"]
+position = Vector3(0, 1.2, 0.4)
+script = ExtResource("7")
+volume_db = -14.0
+max_distance = 65.0
+max_polyphony = 4
+
+[node name="NPCBehaviorTree" parent="." instance=ExtResource("8")]

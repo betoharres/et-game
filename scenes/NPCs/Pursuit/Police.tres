@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="PursuitProfile" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="1"]
+[ext_resource type="PackedScene" path="res://PolygonCity/Characters/SK_Character_Male_Police.fbx" id="2"]
+[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="3"]
+[ext_resource type="ArrayMesh" path="res://PolygonHeist/FBX/SM_Wep_PistolSwat_01.fbx" id="4"]
+[ext_resource type="Material" path="res://Materiais/PolygonHeist1A.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+stars = 1
+faction_name = "POLÍCIA"
+max_health = 60.0
+walk_speed = 2.0
+chase_speed = 3.6
+sight_distance = 30.0
+attack_range = 14.0
+damage = 8.0
+shot_interval = 0.9
+burst_size = 1
+burst_pause = 0.9
+aim_time = 0.65
+spread_degrees = 2.5
+max_active = 2
+wave_size = 2
+reinforcement_interval = 12.0
+character_scene = ExtResource("2")
+character_material = ExtResource("3")
+weapon_mesh = ExtResource("4")
+weapon_material = ExtResource("5")
+muzzle_offset = Vector3(0, 0.06, 0.22)

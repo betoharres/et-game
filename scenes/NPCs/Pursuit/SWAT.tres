@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PursuitProfile" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="1"]
+[ext_resource type="PackedScene" path="res://PolygonHeist/FBX/Characters/SK_Character_Male_SWAT_01.fbx" id="2"]
+[ext_resource type="Material" path="res://Materiais/PolygonHeist1A.tres" id="3"]
+[ext_resource type="ArrayMesh" path="res://PolygonHeist/FBX/SM_Wep_RifleSwat_01.fbx" id="4"]
+
+[resource]
+script = ExtResource("1")
+stars = 2
+faction_name = "SWAT"
+max_health = 120.0
+walk_speed = 2.4
+chase_speed = 4.2
+sight_distance = 36.0
+attack_range = 20.0
+damage = 9.0
+shot_interval = 0.16
+burst_size = 4
+burst_pause = 1.6
+aim_time = 0.5
+spread_degrees = 1.8
+shot_color = Color(1, 0.5, 0.15, 1)
+shot_pitch = 1.0
+max_active = 4
+wave_size = 2
+reinforcement_interval = 9.0
+character_scene = ExtResource("2")
+character_material = ExtResource("3")
+weapon_mesh = ExtResource("4")
+weapon_material = ExtResource("3")
+muzzle_offset = Vector3(0, 0.08, 0.68)
+support_hand_offset = Vector3(0.03, -0.03, 0.22)

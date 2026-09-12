@@ -165,7 +165,7 @@ func _take_photo() -> void:
 	var current_photo_count : int = 0
 	if photo_alert_system != null:
 		current_photo_count = photo_alert_system.register_photo(
-			get_instance_id()
+			get_instance_id(), player.global_position
 		)
 	photo_taken.emit(current_photo_count)
 

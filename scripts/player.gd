@@ -6,6 +6,7 @@ signal energy_changed(current_energy : float, maximum_energy : float)
 signal stealth_alert_changed(alert_level : float)
 signal exploration_inventory_changed
 signal exploration_inventory_feedback(message : String)
+signal item_collected(item : RigidBody3D)
 signal died
 
 const EYE_LIGHT_ENERGY_SOURCE : StringName = &"eye_light"
@@ -1870,12 +1871,15 @@ func try_pickup() -> void:
 	if closest_item != null:
 		if bool(closest_item.get("two_handed")):
 			closest_item.pickup(self)
+			if closest_item.get("carrier") != self:
+				return
 			carried_item = closest_item
 			carried_item.tree_exiting.connect(_clear_exploration_hands, CONNECT_ONE_SHOT)
 			animation_controller.set_carry_mode(true)
 			exploration_inventory_changed.emit()
-		else:
-			exploration_inventory.store_item(closest_item, self)
+			item_collected.emit(closest_item)
+		elif exploration_inventory.store_item(closest_item, self):
+			item_collected.emit(closest_item)
 
 
 func _drop_exploration_item() -> void:
