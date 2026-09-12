@@ -81,8 +81,17 @@ func _play_arrival() -> void:
 	player.set_movement_locked(true, 100.0)
 	player.global_position = start_position
 	player.camera_pivot.global_position = start_position
+
 	if arrival_saucer != null:
-		await get_tree().create_timer(1.2).timeout
+		# O ET fica parado dentro da cabine, livre para andar ate o console: a
+		# camera de interior evita o clipping do braco de camera de ombro contra
+		# o casco, que antes vazava a nave por cima da propria cabine.
+		player.camera_pivot.set_interior_camera_mode(true)
+		player.set_movement_locked(false)
+		var console : Node = arrival_saucer.get_node("Cabin/Console")
+		await console.activated
+		player.camera_pivot.set_interior_camera_mode(false)
+		player.set_movement_locked(true, 100.0)
 
 	var beam : ArrivalBeam = ARRIVAL_BEAM_SCENE.instantiate() as ArrivalBeam
 	add_child(beam)

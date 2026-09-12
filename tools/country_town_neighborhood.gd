@@ -1,6 +1,7 @@
 extends RefCounted
 ## Receita de lotes em metros, assada pelo settlement. Frente local = -Z.
 const TOWN: String = "res://PolygonTown/Prefabs/"
+const CARS: GDScript = preload("res://tools/town_civilian_cars.gd")
 const INTERIORS: GDScript = preload("res://tools/window_interiors.gd")
 
 ## Preset 0 troca a casca fechada do kit pela casa modular em que se entra.
@@ -152,22 +153,6 @@ func _asset(parent: Node3D, path: String, label: String, point: Vector3, yaw: fl
 	return node
 
 
-func _parked_collision(car: Node3D) -> void:
-	# Rodas, volante e vidro nao precisam de corpos separados num carro cenario.
-	for node: Node in car.find_children("*", "StaticBody3D", true, false):
-		node.free()
-	var mesh_node: MeshInstance3D = car as MeshInstance3D
-	var bounds: AABB = mesh_node.mesh.get_aabb()
-	var body: StaticBody3D = StaticBody3D.new()
-	var collider: CollisionShape3D = CollisionShape3D.new()
-	var shape: BoxShape3D = BoxShape3D.new()
-	shape.size = Vector3(bounds.size.x * 0.94, bounds.size.y, bounds.size.z * 0.95)
-	collider.shape = shape
-	collider.position = Vector3(bounds.get_center().x, bounds.size.y * 0.5, bounds.get_center().z)
-	body.add_child(collider)
-	car.add_child(body)
-
-
 func _set_ranges(node: Node, distance: float, layer: int) -> void:
 	if node is GeometryInstance3D:
 		var visual: GeometryInstance3D = node as GeometryInstance3D
@@ -302,13 +287,10 @@ func _build_home(town: Node3D, recipe: Array) -> void:
 	_box(lot, "FlowerBed", Vector3(1.4, 0.12, 2.8), Vector3(garden_x, 0.06, front + 2.6), "GardenSoil", Color(0.18, 0.125, 0.075))
 	for z: float in [front + 1.8, front + 2.6, front + 3.4]:
 		_asset(lot, "Props/SM_Prop_PotPlant_04", "GardenPlant", Vector3(garden_x, 0.12, z), number * 13, 1.35)
-	if number % 4 != 0:
-		var car: Node3D = _asset(lot, "Vehicles/SM_Veh_Pickup_01" if number % 3 == 0 else "Vehicles/SM_Veh_Convertable_01", "ParkedCar", Vector3(drive_x, 0.08, front + 6.5), 180 if number % 2 == 0 else 0)
-		if car != null:
-			_set_ranges(car, 230.0, 8)
-			_parked_collision(car)
-	else:
-		_box(lot, "WheelStop", Vector3(1.8, 0.13, 0.2), Vector3(drive_x, 0.09, front + 9), "Paving", concrete)
+	var car: Node3D = CARS.build(number)
+	car.position = Vector3(drive_x, 0.08, front + 6.5)
+	car.rotation_degrees.y = 180 if number % 2 == 0 else 0
+	lot.add_child(car)
 	if number % 2 == 0:
 		_asset(lot, "Props/SM_Prop_ParkBench_01", "PorchBench", Vector3(house_x + 2.5, 0.1, house_front - 0.8))
 	else:

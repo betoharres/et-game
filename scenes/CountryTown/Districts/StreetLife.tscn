@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/FX/TownWindLeaves.tscn" id="leaves"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/PedestrianLife.tscn" id="pedestrians"]
 [ext_resource type="PackedScene" path="res://scenes/FX/TownRoadDust.tscn" id="dust"]
 [ext_resource type="PackedScene" path="res://scenes/FX/TownFireflies.tscn" id="fireflies"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_PotPlant_04.tscn" id="pot"]
@@ -9,6 +10,8 @@
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_ParkBench_01.tscn" id="bench"]
 
 [node name="StreetLife" type="Node3D"]
+
+[node name="PedestrianLife" parent="." instance=ExtResource("pedestrians")]
 
 [node name="Leaves01" parent="." instance=ExtResource("leaves")]
 position = Vector3(417, 10, 196)

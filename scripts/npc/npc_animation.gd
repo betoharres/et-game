@@ -3,7 +3,7 @@ extends Node
 
 ## Dá Idle/Walk ao NPC. Os modelos Synty do projeto não trazem clipe embutido,
 ## então cada clipe da biblioteca em `Temporarios/Animations/Polygon/` é aberto
-## uma vez, tem sua única `Animation` copiada para uma `AnimationLibrary` local
+## uma vez, tem sua única `Animation` compartilhada entre bibliotecas locais
 ## e é tocado pelo `AnimationPlayer` do NPC — mesma técnica de
 ## `Temporarios/Animations/Meshes/testanim_animation_controller.gd`.
 ##
@@ -19,6 +19,9 @@ extends Node
 
 var _animation_player: AnimationPlayer
 var _is_moving: bool = false
+
+# Os clipes são imutáveis; tempo e velocidade continuam em cada AnimationPlayer.
+static var _clip_cache: Dictionary[PackedScene, Animation] = {}
 
 
 func _ready() -> void:
@@ -54,6 +57,9 @@ func _load_animation_library() -> void:
 func _add_clip(library: AnimationLibrary, animation_name: StringName, clip: PackedScene) -> void:
 	if clip == null:
 		return
+	if _clip_cache.has(clip):
+		library.add_animation(animation_name, _clip_cache[clip])
+		return
 
 	var source_root: Node = clip.instantiate()
 	var source_player: AnimationPlayer = (
@@ -67,5 +73,6 @@ func _add_clip(library: AnimationLibrary, animation_name: StringName, clip: Pack
 		source_player.get_animation(source_player.get_animation_list()[0]).duplicate(true) as Animation
 	)
 	animation.loop_mode = Animation.LOOP_LINEAR
+	_clip_cache[clip] = animation
 	library.add_animation(animation_name, animation)
 	source_root.free()

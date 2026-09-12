@@ -67,9 +67,13 @@ var _player : Node3D = null
 var _objective : Node3D = null
 var _vision_actors : Array[Node] = []
 var _landmarks : Array[Node3D] = []
+var _character_bodies : Array[Node] = []
 
 
 func _ready() -> void:
+	_character_bodies = get_tree().root.find_children("*", "CharacterBody3D", true, false)
+	get_tree().node_added.connect(_on_scene_node_added)
+	get_tree().node_removed.connect(_on_scene_node_removed)
 	_update_map_geometry()
 	_refresh_scene_references()
 	queue_redraw()
@@ -119,9 +123,6 @@ func _update_map_geometry() -> void:
 # BUSCA NA CENA
 # --------------------------------------------------
 
-## Reconstrói as referências usadas pelo desenho. Roda em intervalos, nunca a
-## cada frame: `find_children` percorre a árvore inteira, o que é caro em mapas
-## grandes como o Country Town.
 func _refresh_scene_references() -> void:
 	_player = _find_player()
 	_objective = _find_objective()
@@ -158,9 +159,16 @@ func _find_landmarks() -> Array[Node3D]:
 	return landmarks
 
 
-## Aceita os dois estilos de NPC do projeto: os antigos, que respondem
-## diretamente (`smelly_farmer.gd`, `photographer.gd`), e os do sistema Beehave,
-## que guardam a visão no componente filho `NPCVision`.
+func _on_scene_node_added(node : Node) -> void:
+	if node is CharacterBody3D:
+		_character_bodies.append(node)
+
+
+func _on_scene_node_removed(node : Node) -> void:
+	if node is CharacterBody3D:
+		_character_bodies.erase(node)
+
+
 func _find_vision_actors() -> Array[Node]:
 	var actors : Array[Node] = []
 
@@ -172,13 +180,12 @@ func _find_vision_actors() -> Array[Node]:
 	if current_scene == null:
 		return actors
 
-	for candidate : Node in current_scene.find_children(
-		"*",
-		"CharacterBody3D",
-		true,
-		false
-	):
-		if candidate.has_method("_can_see_player") and not actors.has(candidate):
+	for candidate : Node in _character_bodies:
+		if (
+			current_scene.is_ancestor_of(candidate)
+			and candidate.has_method("_can_see_player")
+			and not actors.has(candidate)
+		):
 			actors.append(candidate)
 	return actors
 

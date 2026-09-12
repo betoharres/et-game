@@ -30,16 +30,17 @@ const MATERIAL_PATH: String = "res://Materiais/country_terrain_material.tres"
 const ASSETS_PATH: String = "res://3dModelos/SICS Trees/ArrayTrees.tres"
 const POI_SCENE_PATH: String = "res://scenes/CountryTown/Layout/PointsOfInterest.tscn"
 
-## O heightmap cobre 1280 x 1280 m começando 256 m a oeste e ao norte da origem
+## O heightmap cobre 1024 x 1024 m começando 256 m a oeste e ao norte da origem
 ## do mapa. 1 pixel = 1 m.
 ##
-## A folga negativa e o que faz as colinas de borda fecharem o horizonte dos
-## quatro lados: elas comecam `RIM_INSET` metros para dentro e so saturam
-## `RIM_RAMP` metros adiante, ja fora do mapa. Com o heightmap comecando em
-## zero, esse trecho de rampa simplesmente nao existia a oeste e ao norte -- o
-## terreno acabava no meio da subida, num precipicio. `TERRAIN_ORIGIN` e
-## multiplo do `region_size` (256 m) do Terrain3D, senao as regioes nao alinham.
-const IMAGE_SIZE: int = 1280
+## A folga negativa existe para o rio: a foz vira lago no canto sudoeste, fora
+## do retangulo jogavel (`RIVER_PATH` + `RIVER_WIDTH_OVERRIDES` em
+## `build_country_town_layout.gd`), e o leito escavado precisa de terreno para
+## se apoiar antes de sumir da borda da imagem. `TERRAIN_ORIGIN` e multiplo do
+## `region_size` (256 m) do Terrain3D, senao as regioes nao alinham; sem RIM,
+## nao ha mais colina de borda para fechar o horizonte, entao a imagem so
+## precisa ser grande o bastante para cobrir o lago da foz, nao mais que isso.
+const IMAGE_SIZE: int = 1024
 const TERRAIN_ORIGIN: float = -256.0
 const MAP_WIDTH: float = 600.0
 const MAP_DEPTH: float = 450.0
@@ -61,8 +62,9 @@ const RIVER_BANK_WIDTH: float = Layout.RIVER_BANK_WIDTH
 const ROLLING_AMPLITUDE: float = 0.55
 
 ## Colinas de borda: comecam a RIM_INSET da borda do mapa e saturam RIM_RAMP
-## metros adiante, ja fora dele.
-const RIM_HEIGHT: float = 26.0
+## metros adiante, ja fora dele. Zerado a pedido: as colinas ficavam longe
+## demais para ver da cidade e so atrapalhavam as sombras.
+const RIM_HEIGHT: float = 0.0
 const RIM_INSET: float = 30.0
 const RIM_RAMP: float = 120.0
 

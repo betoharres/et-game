@@ -19,6 +19,9 @@ var _teleport_cooldowns: Dictionary[int, float] = {}
 func _ready() -> void:
 	viewport_1.world_3d = get_world_3d()
 	viewport_2.world_3d = get_world_3d()
+	# Os materiais usam estas texturas apenas quando a superfície é desenhada.
+	viewport_1.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
+	viewport_2.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
 	portal_1.material_override = _create_portal_material(viewport_1)
 	portal_2.material_override = _create_portal_material(viewport_2)
 
