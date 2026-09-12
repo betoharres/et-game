@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal health_changed(current_health : float, maximum_health : float)
+signal damaged(amount : float, hit_direction : Vector3)
 signal stamina_changed(current_stamina : float, maximum_stamina : float)
 signal energy_changed(current_energy : float, maximum_energy : float)
 signal stealth_alert_changed(alert_level : float)
@@ -1117,6 +1118,7 @@ func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
 	if _debug_god_mode_enabled or amount <= 0.0 or health <= 0.0:
 		return
 
+	var applied_damage : float = minf(amount, health)
 	var is_fatal : bool = health - amount <= 0.0
 
 	if not is_fatal:
@@ -1126,6 +1128,7 @@ func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
 
 	health = maxf(health - amount, 0.0)
 	health_changed.emit(health, max_health)
+	damaged.emit(applied_damage, hit_direction)
 
 	if health <= 0.0:
 		_die(hit_direction)

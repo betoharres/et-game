@@ -46,6 +46,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="ShaderMaterial" id="DamageVignetteMaterial"]
+resource_local_to_scene = true
 shader = ExtResource("3_vignette")
 shader_parameter/intensity = 0.0
 
@@ -63,7 +64,12 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_theme")
 
+[node name="DamageBackBuffer" type="BackBufferCopy" parent="Interface"]
+visible = false
+copy_mode = 2
+
 [node name="DamageVignette" type="ColorRect" parent="Interface"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

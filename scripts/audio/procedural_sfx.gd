@@ -86,6 +86,37 @@ static func landing_impact() -> AudioStreamWAV:
 	return _to_stream(samples)
 
 
+static func player_hit() -> AudioStreamWAV:
+	const DURATION : float = 0.34
+	var frame_count : int = int(DURATION * MIX_RATE)
+	var samples : PackedFloat32Array = PackedFloat32Array()
+	samples.resize(frame_count)
+
+	var body_phase : float = 0.0
+	var voice_phase : float = 0.0
+	var noise : PackedFloat32Array = _filtered_noise(frame_count, 0.32, 81029)
+
+	for index : int in range(frame_count):
+		var seconds : float = float(index) / float(MIX_RATE)
+		var progress : float = seconds / DURATION
+		body_phase += TAU * lerpf(135.0, 48.0, sqrt(progress)) / float(MIX_RATE)
+		voice_phase += TAU * lerpf(310.0, 155.0, progress) / float(MIX_RATE)
+
+		var impact : float = (
+			sin(body_phase) * exp(-seconds * 22.0) * 0.62
+			+ noise[index] * exp(-seconds * 52.0) * 0.7
+		)
+		var voice_envelope : float = _envelope(progress, 0.1, 0.5) * exp(-progress * 3.0)
+		var voice : float = (
+			sin(voice_phase + sin(voice_phase * 1.47) * 0.5)
+			* (0.85 + 0.15 * sin(TAU * 28.0 * seconds))
+			* voice_envelope * 0.24
+		)
+		samples[index] = (impact + voice) * _envelope(progress, 0.008, 0.2)
+
+	return _to_stream(samples)
+
+
 ## Rising whoosh for the moment the player commits to launching: a sweep that
 ## accelerates upward and then gets cut off by the scene swap.
 static func launch_charge(duration : float = 1.1) -> AudioStreamWAV:

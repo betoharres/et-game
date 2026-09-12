@@ -59,3 +59,5 @@ addons/*/bin/~*
 #
 # Regra geral: ignore o que a engine RECRIA sozinha (/.godot/), nunca o que ela
 # LÊ para montar o projeto (.import, .uid, assets, dados de terreno).
+ETs.x86_64
+ETs.pck

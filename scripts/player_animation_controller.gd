@@ -2,7 +2,7 @@ class_name PlayerAnimationController
 extends Node
 
 ## Central visual state for the player. CharacterBody3D still owns movement;
-## this controller only maps its physical state to authored Mixamo clips.
+## this controller drives authored Mixamo clips and additive hit recoil.
 
 signal get_up_finished
 
@@ -110,6 +110,9 @@ const IDLE_VARIANT_STATES : PackedStringArray = [
 @onready var animation_player : AnimationPlayer = $"../ET/AnimationPlayer"
 @onready var animation_tree : AnimationTree = $"../AnimationTree"
 @onready var player_body : CharacterBody3D = get_parent() as CharacterBody3D
+@onready var hit_reaction : PlayerHitReaction = get_node_or_null(
+	"../ET/ETArmature/Skeleton3D/HitReaction"
+) as PlayerHitReaction
 
 var _playback : AnimationNodeStateMachinePlayback
 var _random : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -219,22 +222,18 @@ func cancel_moving_turn() -> void:
 
 
 func trigger_hit(impact_direction : Vector3) -> void:
-	if _ragdoll_active or _get_up_active or _action_is_reaction():
+	if _ragdoll_active or _get_up_active or _pose_held or _action_is_reaction():
 		return
 
-	var local_direction : Vector3 = _to_local_direction(impact_direction)
-	var state : StringName = (
-		&"HitSide"
-		if absf(local_direction.x) > absf(local_direction.z) * 0.65
-		else &"HitFront"
-	)
-	_trigger_action(state, minf(_animation_length_for_state(state), 1.15), false)
+	if hit_reaction != null:
+		hit_reaction.trigger(impact_direction)
 
 
 func trigger_stumble(impact_direction : Vector3) -> void:
 	if _ragdoll_active or _get_up_active:
 		return
 
+	_clear_hit_reaction()
 	var local_direction : Vector3 = _to_local_direction(impact_direction)
 	var state : StringName = (
 		&"StumbleBack" if local_direction.z < 0.0 else &"StumbleForward"
@@ -246,6 +245,7 @@ func trigger_landing(landing_speed : float) -> void:
 	if _ragdoll_active or _get_up_active or landing_speed <= 0.0:
 		return
 
+	_clear_hit_reaction()
 	_trigger_action(
 		&"Landing",
 		minf(_animation_length_for_state(&"Landing"), 1.0),
@@ -254,6 +254,7 @@ func trigger_landing(landing_speed : float) -> void:
 
 
 func set_ragdoll_active(active : bool) -> void:
+	_clear_hit_reaction()
 	_ragdoll_active = active
 	_action_state = &""
 	_action_timer = 0.0
@@ -264,6 +265,7 @@ func set_ragdoll_active(active : bool) -> void:
 
 
 func begin_get_up(face_up : bool) -> float:
+	_clear_hit_reaction()
 	_ragdoll_active = false
 	animation_tree.active = true
 	_get_up_active = true
@@ -337,6 +339,7 @@ func hold_pose(animation_name : StringName, position : float) -> void:
 		push_warning("Pose animation missing: %s" % animation_name)
 		return
 
+	_clear_hit_reaction()
 	_action_state = &""
 	_action_timer = 0.0
 	_get_up_active = false
@@ -360,6 +363,7 @@ func play_pose(animation_name : StringName, duration : float = 0.0,
 		push_warning("Pose animation missing: %s" % animation_name)
 		return
 
+	_clear_hit_reaction()
 	_action_state = &""
 	_action_timer = 0.0
 	_get_up_active = false
@@ -668,6 +672,11 @@ func _action_is_reaction() -> bool:
 		&"StumbleForward",
 		&"StumbleBack",
 	]
+
+
+func _clear_hit_reaction() -> void:
+	if hit_reaction != null:
+		hit_reaction.clear()
 
 
 func _reset_idle_variant_timer() -> void:
