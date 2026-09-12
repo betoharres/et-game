@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="PursuitProfile" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="PursuitProfile" format=3 uid="uid://0e6egm2wbii3"]
 
-[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="1"]
-[ext_resource type="PackedScene" path="res://PolygonCity/Characters/SK_Character_BusinessMan_Suit.fbx" id="2"]
-[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="3"]
-[ext_resource type="ArrayMesh" path="res://PolygonScifiCity/FBX/SM_Wep_Pistol_01.fbx" id="4"]
-[ext_resource type="Material" path="res://Materiais/ScifiCity1A.tres" id="5"]
+[ext_resource type="Script" uid="uid://ckanwu7rva6ng" path="res://scripts/npc/pursuit_profile.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dedeel4j4pjmt" path="res://PolygonCity/Characters/SK_Character_BusinessMan_Suit.fbx" id="2"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="3"]
+[ext_resource type="ArrayMesh" uid="uid://dp5mcmbp6wpg5" path="res://PolygonScifiCity/FBX/SM_Wep_Pistol_01.fbx" id="4"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="5"]
 
 [resource]
 script = ExtResource("1")
@@ -21,10 +21,11 @@ burst_size = 3
 burst_pause = 1.2
 aim_time = 0.4
 spread_degrees = 1.0
-shot_color = Color(0.2, 0.85, 1, 1)
-shot_pitch = 1.8
+shot_color = Color(1, 0.015, 0.025, 1)
+shot_pitch = 1.0
+laser_shots = true
+shot_volume_db = 10.0
 max_active = 6
-wave_size = 2
 reinforcement_interval = 6.0
 character_scene = ExtResource("2")
 character_material = ExtResource("3")

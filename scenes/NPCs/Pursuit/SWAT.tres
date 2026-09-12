@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="PursuitProfile" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="PursuitProfile" format=3 uid="uid://1nr120dndajr"]
 
-[ext_resource type="Script" path="res://scripts/npc/pursuit_profile.gd" id="1"]
-[ext_resource type="PackedScene" path="res://PolygonHeist/FBX/Characters/SK_Character_Male_SWAT_01.fbx" id="2"]
-[ext_resource type="Material" path="res://Materiais/PolygonHeist1A.tres" id="3"]
-[ext_resource type="ArrayMesh" path="res://PolygonHeist/FBX/SM_Wep_RifleSwat_01.fbx" id="4"]
+[ext_resource type="Script" uid="uid://ckanwu7rva6ng" path="res://scripts/npc/pursuit_profile.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bh6f3xde2s6w3" path="res://PolygonHeist/FBX/Characters/SK_Character_Male_SWAT_01.fbx" id="2"]
+[ext_resource type="Material" uid="uid://5hesgg1i11su" path="res://Materiais/PolygonHeist1A.tres" id="3"]
+[ext_resource type="ArrayMesh" uid="uid://bh6jjk4h3ssya" path="res://PolygonHeist/FBX/SM_Wep_RifleSwat_01.fbx" id="4"]
 
 [resource]
 script = ExtResource("1")
@@ -22,8 +22,8 @@ aim_time = 0.5
 spread_degrees = 1.8
 shot_color = Color(1, 0.5, 0.15, 1)
 shot_pitch = 1.0
+shot_volume_db = 16.0
 max_active = 4
-wave_size = 2
 reinforcement_interval = 9.0
 character_scene = ExtResource("2")
 character_material = ExtResource("3")

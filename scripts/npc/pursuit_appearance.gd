@@ -1,11 +1,14 @@
 class_name PursuitAppearance
 extends Node3D
 
+const LASER_SHOT_DURATION: float = 0.14
+
 var muzzle: Marker3D
 var _skeleton: Skeleton3D
 var _weapon: Node3D
 var _flash: OmniLight3D
 var _tracer: MeshInstance3D
+var _tracer_material: StandardMaterial3D
 var _flash_time: float = 0.0
 var _stride: float = 0.0
 var _motion_weight: float = 0.0
@@ -48,15 +51,17 @@ func _ready() -> void:
 	beam.bottom_radius = 0.012
 	beam.height = 1.0
 	beam.radial_segments = 6
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.albedo_color = profile.shot_color
-	material.emission_enabled = true
-	material.emission = profile.shot_color
-	material.emission_energy_multiplier = 3.0
+	_tracer_material = StandardMaterial3D.new()
+	_tracer_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_tracer_material.albedo_color = profile.shot_color
+	_tracer_material.emission_enabled = true
+	_tracer_material.emission = profile.shot_color
+	_tracer_material.emission_energy_multiplier = 3.0
+	if profile.laser_shots:
+		_tracer_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_tracer = MeshInstance3D.new()
 	_tracer.mesh = beam
-	_tracer.material_override = material
+	_tracer.material_override = _tracer_material
 	_tracer.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(_tracer)
 	_tracer.top_level = true
@@ -67,6 +72,8 @@ func _process(delta: float) -> void:
 	_flash_time = maxf(_flash_time - delta, 0.0)
 	_flash.visible = _flash_time > 0.0
 	_tracer.visible = _flash_time > 0.0
+	if _npc.profile.laser_shots:
+		_tracer_material.albedo_color.a = clampf(_flash_time / LASER_SHOT_DURATION, 0.0, 1.0)
 	if _npc.vision != null and _npc.vision.is_currently_visible and _npc.is_player_alive():
 		var target: Vector3 = _npc.player.global_position + Vector3.UP * _npc.vision.player_target_height
 		var local_target: Vector3 = to_local(target) - _weapon.position
@@ -95,10 +102,13 @@ func show_shot(end: Vector3) -> void:
 	if direction.length_squared() < 0.0001:
 		return
 	_tracer.global_transform = Transform3D(
-		Basis(Quaternion(Vector3.UP, direction.normalized())).scaled(Vector3(1.0, direction.length(), 1.0)),
+		Basis(Quaternion(Vector3.UP, direction.normalized())).scaled_local(Vector3(1.0, direction.length(), 1.0)),
 		(start + end) * 0.5
 	)
-	_flash_time = 0.075
+	_flash_time = LASER_SHOT_DURATION if _npc.profile.laser_shots else 0.075
+	_tracer_material.albedo_color = _npc.profile.shot_color
+	_flash.visible = true
+	_tracer.visible = true
 
 
 func _rotate_bone(bone: int, angle: float) -> void:

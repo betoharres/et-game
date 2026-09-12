@@ -81,7 +81,6 @@
 [ext_resource type="PackedScene" uid="uid://ctlyi6tcv6xdp" path="res://scenes/NPCs/Photographer.tscn" id="83_photographer"]
 [ext_resource type="PackedScene" uid="uid://cdfkl3n51qfkf" path="res://PolygonTown/Prefabs/Props/SM_Prop_BedsideTable_01.tscn" id="84_8xaka"]
 [ext_resource type="PackedScene" path="res://scenes/PhotoAlertHUD.tscn" id="84_photo_hud"]
-[ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 [ext_resource type="PackedScene" uid="uid://br05hptvyc4vo" path="res://PolygonTown/Prefabs/Props/SM_Prop_Bed_Double_02.tscn" id="85_n6seq"]
 [ext_resource type="PackedScene" uid="uid://bo7i75ihupee6" path="res://scenes/Vehicles/FlyablePlane.tscn" id="89_5p8eo"]
 [ext_resource type="PackedScene" uid="uid://caxfubawl5yb3" path="res://PolygonTown/Prefabs/Props/SM_Prop_Art_03.tscn" id="90_frq1x"]
@@ -143,7 +142,7 @@
 [ext_resource type="PackedScene" uid="uid://brxgcx53ho257" path="res://scenes/Buildings/Barn03.tscn" id="168_3fb5j"]
 [ext_resource type="PackedScene" uid="uid://ehjc8hntub78" path="res://scenes/Buildings/Barn02.tscn" id="168_3r8ca"]
 [ext_resource type="Terrain3DMaterial" uid="uid://bhsomirq7jyr5" path="res://Materiais/new_terrain_3d_material.tres" id="168_sjp3e"]
-[ext_resource type="Terrain3DAssets" uid="uid://jx7r6cvf63u" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="169_sjp3e"]
+[ext_resource type="Terrain3DAssets" uid="uid://g06hlahfp3xm" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="169_sjp3e"]
 [ext_resource type="PackedScene" uid="uid://c50tukg86jx2u" path="res://scenes/Vehicles/EngineTruck.tscn" id="170_3r8ca"]
 [ext_resource type="PackedScene" uid="uid://ck55oo0egd20" path="res://scenes/FX/FX_Flies_01.tscn" id="174_hg3bl"]
 [ext_resource type="PackedScene" uid="uid://q0rv67ea3v18" path="res://scenes/water_well.tscn" id="176_hl1kq"]
@@ -200,6 +199,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c7ivcrbemkcok" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Panel_02.fbx" id="205_oev46"]
 [ext_resource type="ArrayMesh" uid="uid://cq7vlqdg2hp5g" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_01.fbx" id="206_bdqdu"]
 [ext_resource type="ArrayMesh" uid="uid://bqmbwhp8ysq0a" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_02.fbx" id="207_ui3ty"]
+[ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
@@ -1404,21 +1404,21 @@ script = ExtResource("80_audio")
 
 [node name="PhotoAlertHUD" parent="." unique_id=1796654297 instance=ExtResource("84_photo_hud")]
 
-[node name="PursuitSystem" parent="." instance=ExtResource("pursuit_system")]
+[node name="PursuitSystem" parent="." unique_id=2058831106 instance=ExtResource("pursuit_system")]
 player_path = NodePath("../CharacterBody3D")
 terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 129.23634, -8.647179)
+transform = Transform3D(2.1, 0, 0, 0, 2.8275847, 0, 0, 0, 1.9000001, 6.3355465, 129.23634, -8.647179)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
 
 [node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=2137716348]
 data_directory = "res://scenes"
-collision_mode = 3
 material = ExtResource("168_sjp3e")
 assets = ExtResource("169_sjp3e")
+collision_mode = 3
 mesh_lods = 5
 render_layers = 2147483680
 cull_margin = 64.0
@@ -2506,27 +2506,27 @@ surface_material_override/0 = ExtResource("55_iexy4")
 [node name="Barn2" parent="BuildingsHolder" unique_id=1112714426 instance=ExtResource("168_3r8ca")]
 transform = Transform3D(0.29395762, 0, -0.9558184, 0, 1, 0, 0.9558184, 0, 0.29395762, 51.062424, 0, -52.53492)
 
-[node name="SM_Bld_Barn_02_Shutter_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="0" unique_id=2033813495]
+[node name="SM_Bld_Barn_02_Shutter_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="0" unique_id=1878238679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.736098, 5.179363, 0.70615774)
 mesh = SubResource("ArrayMesh_av6ia")
 
-[node name="SM_Bld_Barn_02_Door_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="1" unique_id=1313508311]
+[node name="SM_Bld_Barn_02_Door_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="1" unique_id=2004104010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8309684, -1.1608123e-05, -0.94508284)
 mesh = SubResource("ArrayMesh_trvmq")
 
-[node name="SM_Bld_Barn_02_Door_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="2" unique_id=183319575]
+[node name="SM_Bld_Barn_02_Door_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="2" unique_id=278362720]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8309684, -1.1608123e-05, 0.9491305)
 mesh = SubResource("ArrayMesh_555k2")
 
-[node name="SM_Bld_Barn_02_Door_04" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="3" unique_id=1246080086]
+[node name="SM_Bld_Barn_02_Door_04" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="3" unique_id=2114503256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.826652, -1.1608123e-05, -0.94508284)
 mesh = SubResource("ArrayMesh_cj5w6")
 
-[node name="SM_Bld_Barn_02_Door_03" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="4" unique_id=856160411]
+[node name="SM_Bld_Barn_02_Door_03" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="4" unique_id=1818045158]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.826652, -1.1608123e-05, 0.9491305)
 mesh = SubResource("ArrayMesh_f8sxl")
 
-[node name="SM_Bld_Barn_02_Shutter_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="5" unique_id=1761156861]
+[node name="SM_Bld_Barn_02_Shutter_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="5" unique_id=1740080215]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.758583, 5.179363, -0.68539375)
 mesh = SubResource("ArrayMesh_mkihn")
 
@@ -2540,27 +2540,27 @@ shape = SubResource("BoxShape3D_3r8ca")
 [node name="Barn3" parent="BuildingsHolder" unique_id=997954030 instance=ExtResource("168_3fb5j")]
 transform = Transform3D(0.732647, 0, 0.6806088, 0, 1, 0, -0.6806088, 0, 0.732647, -42.23614, 0, 45.51762)
 
-[node name="SM_Bld_Barn_03_Shutter_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="1" unique_id=986188886]
+[node name="SM_Bld_Barn_03_Shutter_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="1" unique_id=863734891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8732753, 5.179363, 0.70615846)
 mesh = SubResource("ArrayMesh_rjdrt")
 
-[node name="SM_Bld_Barn_03_Shutter_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="2" unique_id=1883354570]
+[node name="SM_Bld_Barn_03_Shutter_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="2" unique_id=2141143553]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8751464, 5.179363, -0.68539304)
 mesh = SubResource("ArrayMesh_kymbk")
 
-[node name="SM_Bld_Barn_03_Door_04" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="3" unique_id=57660015]
+[node name="SM_Bld_Barn_03_Door_04" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="3" unique_id=913450771]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9288373, -1.1608123e-05, -0.94508207)
 mesh = SubResource("ArrayMesh_006iv")
 
-[node name="SM_Bld_Barn_03_Door_03" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="4" unique_id=2114547866]
+[node name="SM_Bld_Barn_03_Door_03" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="4" unique_id=586393287]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9288373, -1.1608123e-05, 0.9491312)
 mesh = SubResource("ArrayMesh_bg8j3")
 
-[node name="SM_Bld_Barn_03_Door_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="5" unique_id=670229501]
+[node name="SM_Bld_Barn_03_Door_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="5" unique_id=774827074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9681454, -1.1608123e-05, -0.94508207)
 mesh = SubResource("ArrayMesh_inag0")
 
-[node name="SM_Bld_Barn_03_Door_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="6" unique_id=710889830]
+[node name="SM_Bld_Barn_03_Door_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="6" unique_id=909336776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9681454, -1.1608123e-05, 0.9491312)
 mesh = SubResource("ArrayMesh_y0x8m")
 

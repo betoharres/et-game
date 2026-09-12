@@ -87,6 +87,9 @@ func _test_system() -> void:
 		_check(director.active_enemies.size() == director.get_profile(level).max_active, "Nível %d recebe reforços até o limite" % level)
 		for npc: PursuitNPC in director.active_enemies:
 			_check(npc.profile.stars == level and npc.get_health() == npc.profile.max_health, "Facção e vida do reforço no nível %d" % level)
+		if not director.active_enemies.is_empty():
+			_check_shot_geometry(director.active_enemies[0])
+			_check_shot_audio(director.active_enemies[0])
 		var ids: Array[int] = []
 		for npc: PursuitNPC in director.active_enemies:
 			ids.append(npc.get_instance_id())
@@ -143,6 +146,45 @@ func _test_pickups() -> void:
 	large.free()
 	alert.register_photo(0, player.global_position)
 	_check(alert.get_photo_count() == 3, "Fotos respeitam teto de três estrelas")
+
+
+func _check_shot_geometry(npc: PursuitNPC) -> void:
+	var appearance: PursuitAppearance = npc.get_node("Appearance") as PursuitAppearance
+	var tracer: MeshInstance3D = appearance.get("_tracer") as MeshInstance3D
+	var start: Vector3 = appearance.muzzle.global_position
+	for offset: Vector3 in [Vector3(0, 0, 10), Vector3(7, 3, -8), Vector3(0, -10, 0)]:
+		var end: Vector3 = start + offset
+		appearance.show_shot(end)
+		var beam_start: Vector3 = tracer.global_transform * Vector3(0, -0.5, 0)
+		var beam_end: Vector3 = tracer.global_transform * Vector3(0, 0.5, 0)
+		_check(beam_start.is_equal_approx(start) and beam_end.is_equal_approx(end),
+			"Traçante %s liga boca %s ao impacto %s; observado %s → %s" % [npc.profile.faction_name, start, end, beam_start, beam_end])
+		_check(is_equal_approx(tracer.global_basis.x.length(), 1.0)
+			and is_equal_approx(tracer.global_basis.z.length(), 1.0),
+			"Comprimento do traçante não altera sua espessura")
+
+
+func _check_shot_audio(npc: PursuitNPC) -> void:
+	var combat: NPCRangedCombat = npc.get_node("NPCCombat") as NPCRangedCombat
+	var audio: AudioStreamPlayer3D = combat.get("_audio") as AudioStreamPlayer3D
+	_check(audio.global_position.distance_to(npc.global_position) < 2.0,
+		"Som de %s acompanha o atirador: NPC=%s áudio=%s" % [npc.profile.faction_name, npc.global_position, audio.global_position])
+	var start: Vector3 = audio.global_position
+	var displacement: Vector3 = Vector3(2, 0, -3)
+	npc.position += displacement
+	_check(audio.global_position.is_equal_approx(start + displacement),
+		"Fonte de tiro acompanha o deslocamento de %s" % npc.profile.faction_name)
+	npc.position -= displacement
+	var expected_path: String = (
+		"res://assets/audio/gun/laser-gun-shooting-sound.mp3"
+		if npc.profile.laser_shots
+		else "res://assets/audio/gun/firearm-shooting-sound.mp3"
+	)
+	_check(audio.stream != null and audio.stream.resource_path == expected_path,
+		"Gravação correta na arma de %s" % npc.profile.faction_name)
+	audio.play()
+	_check(audio.playing, "Áudio de tiro inicia para %s" % npc.profile.faction_name)
+	audio.stop()
 
 
 func _test_navigation_and_combat() -> void:

@@ -20,6 +20,8 @@ extends Resource
 @export_range(0.0, 10.0) var spread_degrees: float = 2.5
 @export var shot_color: Color = Color(1.0, 0.72, 0.25)
 @export_range(0.5, 3.0) var shot_pitch: float = 1.2
+@export var laser_shots: bool = false
+@export_range(-40.0, 24.0, 0.5) var shot_volume_db: float = -14.0
 
 @export_category("Reforços")
 @export_range(1, 20) var max_active: int = 2

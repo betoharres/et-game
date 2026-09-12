@@ -4,6 +4,9 @@ extends Node
 signal health_changed(current: float, maximum: float)
 signal died
 
+const LASER_SHOT: AudioStream = preload("res://assets/audio/gun/laser-gun-shooting-sound.mp3")
+const FIREARM_SHOT: AudioStream = preload("res://assets/audio/gun/firearm-shooting-sound.mp3")
+
 var health: float = 0.0
 var _cooldown: float = 0.0
 var _aim_elapsed: float = 0.0
@@ -11,12 +14,15 @@ var _burst_shots: int = 0
 
 @onready var _npc: PursuitNPC = get_parent() as PursuitNPC
 @onready var _appearance: PursuitAppearance = get_node("../Appearance") as PursuitAppearance
-@onready var _audio: AudioStreamPlayer3D = $GunshotAudio
+@onready var _audio: AudioStreamPlayer3D = $"../GunshotAudio"
 
 
 func _ready() -> void:
 	health = _npc.profile.max_health
 	_audio.pitch_scale = _npc.profile.shot_pitch
+	_audio.volume_db = _npc.profile.shot_volume_db
+	_audio.max_db = _npc.profile.shot_volume_db
+	_audio.stream = LASER_SHOT if _npc.profile.laser_shots else FIREARM_SHOT
 
 
 func _physics_process(delta: float) -> void:
@@ -53,7 +59,7 @@ func aim_and_fire(delta: float) -> void:
 	var hit: Dictionary = _ray_to(origin + shot_direction * _npc.profile.attack_range)
 	var end: Vector3 = hit.get("position", origin + shot_direction * _npc.profile.attack_range)
 	_appearance.show_shot(end)
-	_audio.call("play_shot")
+	_audio.play()
 	_burst_shots += 1
 	if _burst_shots >= _npc.profile.burst_size:
 		_burst_shots = 0
