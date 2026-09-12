@@ -13,7 +13,7 @@ extends Node3D
 @export_range(1.0, 300.0) var hidden_seconds_per_star: float = 30.0
 
 @export_category("Limites de reforços")
-@export_range(1, 20) var maximum_active_enemies: int = 6
+@export_range(1, 20) var maximum_active_enemies: int = 12
 @export_range(0.1, 30.0) var initial_response_delay: float = 2.0
 @export_range(5.0, 100.0) var minimum_spawn_distance: float = 20.0
 @export_range(5.0, 150.0) var maximum_spawn_distance: float = 36.0
@@ -98,14 +98,14 @@ func _on_incident(position_seen: Vector3) -> void:
 
 
 func _on_level_changed(level: int, _maximum: int) -> void:
-	for npc: PursuitNPC in active_enemies.duplicate():
-		if is_instance_valid(npc) and npc.profile.stars != level:
-			_retire(npc)
 	if level == 0:
+		for npc: PursuitNPC in active_enemies.duplicate():
+			if is_instance_valid(npc):
+				_retire(npc)
 		_last_reported_position = Vector3.INF
 		_reinforcement_timer = 0.0
 	else:
-		_reinforcement_timer = maxf(_reinforcement_timer, initial_response_delay)
+		_reinforcement_timer = initial_response_delay
 		if not _last_reported_position.is_finite():
 			_last_reported_position = _player.global_position
 
@@ -131,7 +131,13 @@ func _spawn_wave(profile: PursuitProfile) -> void:
 		return
 	if _last_reported_position.distance_to(_player.global_position) > despawn_distance:
 		return
-	var available: int = mini(maximum_active_enemies, profile.max_active) - active_enemies.size()
+	var faction_count: int = 0
+	for npc: PursuitNPC in active_enemies:
+		if is_instance_valid(npc) and npc.profile.stars == profile.stars:
+			faction_count += 1
+	var available: int = mini(
+		maximum_active_enemies - active_enemies.size(), profile.max_active - faction_count
+	)
 	var remaining: int = mini(available, profile.wave_size)
 	for attempt: int in range(spawn_attempts_per_wave):
 		if remaining <= 0:

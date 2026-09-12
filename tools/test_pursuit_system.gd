@@ -77,19 +77,39 @@ func _test_system() -> void:
 	_check((hud.get_node("Interface/AlertPanel/MarginContainer/Content/ObjectiveRow/CountLabel") as Label).text == "0 / 3", "HUD acompanha redução até zero")
 	await _wait_navigation()
 	director.set_physics_process(true)
+	var expected_total: int = 0
 	for level: int in range(1, 4):
+		var survivors: Dictionary[int, float] = {}
+		if not director.active_enemies.is_empty():
+			director.active_enemies[0].take_damage(1.0)
+		for npc: PursuitNPC in director.active_enemies:
+			survivors[npc.get_instance_id()] = npc.get_health()
 		alert.register_photo(0, player.global_position)
+		expected_total += director.get_profile(level).max_active
 		var exceeded_cap: bool = false
 		for frame: int in range(190):
 			await physics_frame
-			exceeded_cap = exceeded_cap or director.active_enemies.size() > mini(director.maximum_active_enemies, director.get_profile(level).max_active)
+			exceeded_cap = exceeded_cap or director.active_enemies.size() > mini(director.maximum_active_enemies, expected_total)
 		_check(not exceeded_cap, "Nível %d respeita teto durante ondas" % level)
-		_check(director.active_enemies.size() == director.get_profile(level).max_active, "Nível %d recebe reforços até o limite" % level)
+		_check(director.active_enemies.size() == expected_total, "Nível %d acumula reforços até o limite" % level)
+		for id: int in survivors:
+			var survivor: PursuitNPC = instance_from_id(id) as PursuitNPC
+			_check(is_instance_valid(survivor) and director.active_enemies.has(survivor)
+				and is_equal_approx(survivor.get_health(), survivors[id]),
+				"Nível %d mantém o inimigo %d e sua vida" % [level, id])
+		var faction_counts: Dictionary[int, int] = {}
+		var current_faction_npc: PursuitNPC
 		for npc: PursuitNPC in director.active_enemies:
-			_check(npc.profile.stars == level and npc.get_health() == npc.profile.max_health, "Facção e vida do reforço no nível %d" % level)
-		if not director.active_enemies.is_empty():
-			_check_shot_geometry(director.active_enemies[0])
-			_check_shot_audio(director.active_enemies[0])
+			faction_counts[npc.profile.stars] = faction_counts.get(npc.profile.stars, 0) + 1
+			if npc.profile.stars == level:
+				current_faction_npc = npc
+				_check(npc.get_health() == npc.profile.max_health, "Reforço novo chega com vida cheia")
+		for faction_level: int in range(1, level + 1):
+			_check(faction_counts.get(faction_level, 0) == director.get_profile(faction_level).max_active,
+				"Nível %d mantém a cota da facção %d" % [level, faction_level])
+		if current_faction_npc != null:
+			_check_shot_geometry(current_faction_npc)
+			_check_shot_audio(current_faction_npc)
 		var ids: Array[int] = []
 		for npc: PursuitNPC in director.active_enemies:
 			ids.append(npc.get_instance_id())
@@ -97,13 +117,29 @@ func _test_system() -> void:
 		for npc: PursuitNPC in director.active_enemies:
 			_check(ids.has(npc.get_instance_id()), "Limite cheio não recria NPCs continuamente")
 		print("Nível %d: %d reforços ativos" % [level, director.active_enemies.size()])
+	director.set_physics_process(false)
+	var retained_ids: Array[int] = []
+	for npc: PursuitNPC in director.active_enemies:
+		retained_ids.append(npc.get_instance_id())
+		alert.set_pursuer_observing(npc.get_instance_id(), false)
+	alert.call("_process", 30.0)
+	_check(alert.get_photo_count() == 2 and director.active_enemies.size() == expected_total,
+		"Perder uma estrela mantém os inimigos que ainda estão na perseguição")
+	alert.register_photo(0, player.global_position)
+	director.set_physics_process(true)
+	await _frames(80)
+	_check(director.active_enemies.size() == expected_total, "Recuperar estrela não duplica reforços")
+	for npc: PursuitNPC in director.active_enemies:
+		_check(retained_ids.has(npc.get_instance_id()), "Reescalada mantém os mesmos inimigos")
 	if not director.active_enemies.is_empty():
-		var victim: PursuitNPC = director.active_enemies[0]
+		director.set_physics_process(false)
+		var victim: PursuitNPC = director.active_enemies.back()
 		victim.take_damage(victim.profile.max_health)
 		await _frames(2)
-		_check(director.active_enemies.size() < 6, "Morte libera vaga")
+		_check(director.active_enemies.size() == expected_total - 1, "Morte libera vaga")
+		director.set_physics_process(true)
 		await _frames(80)
-		_check(director.active_enemies.size() == 6, "Onda seguinte repõe vaga")
+		_check(director.active_enemies.size() == expected_total, "Onda seguinte repõe vaga da facção atual")
 	alert.reset()
 	await _frames(3)
 	_check(director.active_enemies.is_empty() and get_nodes_in_group("pursuit_enemies").is_empty(), "Zero estrelas remove perseguidores")
