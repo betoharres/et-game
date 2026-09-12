@@ -40,7 +40,6 @@ var _approach_audio_started : bool = false
 @onready var interior : Node3D = $Interior
 @onready var spawn_point : Marker3D = $SpawnPoint
 @onready var fall_guard : Area3D = $FallGuard
-@onready var transport_beam : MeshInstance3D = $Props/TransportBeam
 @onready var interior_ambience : AudioStreamPlayer = $ShipAudio/InteriorAmbience
 @onready var movement_hum : AudioStreamPlayer = $ShipAudio/MovementHum
 @onready var heavy_engine : AudioStreamPlayer = $ShipAudio/HeavyEngine
@@ -63,7 +62,6 @@ func _ready() -> void:
 	process_physics_priority = SPIN_PHYSICS_PRIORITY
 	interior.descend_requested.connect(_on_interior_descend_requested)
 	fall_guard.body_entered.connect(_on_fall_guard_body_entered)
-	transport_beam.visible = false
 	for beam_light : SpotLight3D in beam_lights:
 		_base_beam_energies.append(beam_light.light_energy)
 	_set_mp3_loop_enabled(interior_ambience.stream, true)
@@ -171,7 +169,6 @@ func end_approach_audio(fade_duration : float) -> void:
 ## deve responder depois que uma missao foi escolhida, e numa fase so depois que
 ## o deck termina de pousar.
 func set_descend_trigger_enabled(enabled : bool) -> void:
-	transport_beam.visible = enabled
 	interior.set_descend_trigger_enabled(enabled)
 
 
@@ -179,7 +176,6 @@ func set_descend_trigger_enabled(enabled : bool) -> void:
 ## after a mission is confirmed; entering its volume emits descend_requested
 ## without requiring a second interaction key press.
 func set_transport_beam_enabled(enabled : bool) -> void:
-	transport_beam.visible = enabled
 	interior.set_descend_trigger_enabled(enabled, true)
 
 
