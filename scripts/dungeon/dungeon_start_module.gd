@@ -8,6 +8,8 @@ var base_energy : float = 1.0
 var target_energy : float = 1.0
 
 func _ready() -> void:
+	var room_mesh : MeshInstance3D = $DungeonStartModule
+	room_mesh.create_trimesh_collision()
 	base_energy = light1.light_energy
 	base_energy = light2.light_energy
 	base_energy = light3.light_energy

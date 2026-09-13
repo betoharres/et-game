@@ -1,15 +1,18 @@
 extends Node3D
 
-## Procedural 2D dungeon assembled from authored 2 x 2 x 2 metre modules.
+## Procedural 2D dungeon assembled from authored corridor modules.
 ## A randomized spanning maze guarantees that every cell is reachable; a few
 ## extra reciprocal links create loops. The module selected for each cell is
-## driven entirely by its North/East/South/West connection mask.
+## driven by its North/East/South/West connection mask, except the starter room.
 
 const CELL_SIZE : float = 4.0
 const DEFAULT_GRID_WIDTH : int = 12
 const DEFAULT_GRID_DEPTH : int = 12
 const EXTRA_CONNECTION_CHANCE : float = 0.12
 const SCRAP_COUNT : int = 2
+const START_MODULE_SCENE : PackedScene = preload(
+	"res://scenes/Dungeon/dungeon_start_module.tscn"
+)
 
 const X_MODULE_SCENE : PackedScene = preload(
 	"res://scenes/Dungeon/Xconnector.tscn"
@@ -63,7 +66,7 @@ const DIRECTION_OFFSETS : Array[Vector2i] = [
 
 var _generated : bool = false
 var _entry_cell : Vector2i = Vector2i.ZERO
-var _entry_direction : int = DungeonModule.Direction.EAST
+var _start_module : Node3D
 var _farm_return_position : Vector3 = Vector3.ZERO
 var _characters_at_exit : Array[CharacterBody3D] = []
 var _connection_masks : Dictionary = {}
@@ -97,7 +100,7 @@ func ensure_generated(farm_return_position : Vector3) -> void:
 
 	_seed_random()
 	@warning_ignore("integer_division")
-	_entry_cell = Vector2i(0, grid_depth / 2)
+	_entry_cell = Vector2i(grid_width / 2, grid_depth)
 	_connection_masks = _generate_connection_masks()
 
 	if not _validate_connection_masks(_connection_masks):
@@ -111,8 +114,7 @@ func ensure_generated(farm_return_position : Vector3) -> void:
 
 
 func get_entry_global_position() -> Vector3:
-	var inward_offset : Vector3 = _direction_to_vector3(_entry_direction) * 0.5
-	return to_global(_cell_to_local(_entry_cell) + inward_offset)
+	return _start_module.get_node("EntrySpawn").global_position
 
 
 func get_connection_masks() -> Dictionary:
@@ -130,14 +132,14 @@ func _generate_connection_masks() -> Dictionary:
 	var connections : Dictionary = {}
 	var visited : Dictionary = {}
 	var stack : Array[Vector2i] = []
-	var first_cell : Vector2i = _entry_cell + Vector2i.RIGHT
+	var first_cell : Vector2i = _entry_cell + Vector2i.UP
 
 	for x : int in range(grid_width):
 		for z : int in range(grid_depth):
 			connections[Vector2i(x, z)] = 0
 
-	# Keeping the boundary entrance out of the walk until the first link makes it
-	# a guaranteed U module whose only path points into the dungeon (+X).
+	# The larger starter sits outside the grid and has only its authored -Z exit.
+	connections[_entry_cell] = 0
 	visited[_entry_cell] = true
 	visited[first_cell] = true
 	_connect_cells(_entry_cell, first_cell, connections)
@@ -225,7 +227,16 @@ func _cells_are_connected(
 
 
 func _instantiate_modules(connections : Dictionary) -> void:
+	_start_module = START_MODULE_SCENE.instantiate() as Node3D
+	module_container.add_child(_start_module)
+	var doorway : Node3D = _start_module.get_node("Doorway") as Node3D
+	var first_cell : Vector2i = _entry_cell + Vector2i.UP
+	var corridor_edge : Vector3 = _cell_to_local(first_cell) + Vector3(0.0, 0.0, CELL_SIZE * 0.5)
+	_start_module.position = corridor_edge - doorway.position
+	_start_module.set_meta("grid_cell", _entry_cell)
 	for cell : Vector2i in connections.keys():
+		if cell == _entry_cell:
+			continue
 		var target_mask : int = int(connections[cell])
 		var module_scene : PackedScene = _get_module_scene(target_mask)
 		if module_scene == null:
@@ -293,7 +304,7 @@ func _has_opposite_connections(mask : int) -> bool:
 
 
 func _validate_connection_masks(connections : Dictionary) -> bool:
-	if connections.size() != grid_width * grid_depth:
+	if connections.size() != grid_width * grid_depth + 1:
 		return false
 
 	for cell : Vector2i in connections.keys():
@@ -338,9 +349,8 @@ func _all_cells_reachable(connections : Dictionary) -> bool:
 
 
 func _position_exit_door() -> void:
-	exit_door.position = _cell_to_local(_entry_cell)
-	# The entrance U opens East, so the portal arch spans the X-axis corridor.
-	exit_door.rotation.y = PI * 0.5
+	var portal_spawn : Node3D = _start_module.get_node("PortalSpawn") as Node3D
+	exit_door.global_transform = portal_spawn.global_transform
 
 
 func _spawn_scraps(connections : Dictionary) -> void:

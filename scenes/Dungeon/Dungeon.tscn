@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://datwxktpja0bw"]
 
 [ext_resource type="Script" uid="uid://12fpncdww6l0" path="res://scripts/dungeon/dungeon.gd" id="1_88q8k"]
-[ext_resource type="PackedScene" uid="uid://c646tj0i371e0" path="res://scenes/SICS Columns/tem_broken_pillar_01a.tscn" id="2_cdvrn"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_Portal"]
 albedo_color = Color(0.25, 0.9, 0.55, 1)
@@ -24,18 +23,6 @@ script = ExtResource("1_88q8k")
 [node name="Pickups" type="Node3D" parent="." unique_id=1444258551]
 
 [node name="ExitDoor" type="Node3D" parent="." unique_id=345876783]
-
-[node name="TEM_Broken_Pillar_01A" parent="ExitDoor" unique_id=1842880316 instance=ExtResource("2_cdvrn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-
-[node name="TEM_Broken_Pillar_01A3" parent="ExitDoor" unique_id=61829843 instance=ExtResource("2_cdvrn")]
-transform = Transform3D(-4.371139e-08, 0.535, 0, -1, -2.3385594e-08, 0, 0, 0, 1, 0, 2.487, 0)
-
-[node name="TEM_Broken_Pillar_01A4" parent="ExitDoor" unique_id=281807119 instance=ExtResource("2_cdvrn")]
-transform = Transform3D(4.371139e-08, -0.535, 8.742278e-08, -0.84161997, 5.57794e-09, 0.5400702, -0.5400702, -5.199343e-08, -0.84161997, 0, 2.487, 0)
-
-[node name="TEM_Broken_Pillar_01A2" parent="ExitDoor" unique_id=341312502 instance=ExtResource("2_cdvrn")]
-transform = Transform3D(-0.670903, 0, 0.7415451, 0, 1, 0, -0.7415451, 0, -0.670903, 1, 0, 0)
 
 [node name="Portal" type="MeshInstance3D" parent="ExitDoor" unique_id=1602473283]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.06027198)

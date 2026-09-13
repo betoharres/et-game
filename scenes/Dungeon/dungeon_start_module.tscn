@@ -8,13 +8,60 @@
 [ext_resource type="PackedScene" uid="uid://dv3hf3urlj7mf" path="res://scenes/FX/FX_Sun_Beam_01.tscn" id="5_u3rj2"]
 [ext_resource type="PackedScene" uid="uid://3xw0gm70vi4p" path="res://scenes/FX/FX_Dust_01.tscn" id="6_cspox"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_740jj"]
+points = PackedVector3Array(5, 0, 2.84, 5, 0, -2.84, -5, 0, -2.84, -5, 0, 2.84, 2.84, 0, 5, 2.84, 0, -5, -2.84, 0, 5, -2.84, 0, -5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_emb0l"]
+points = PackedVector3Array(2.84, 5, 6, -2.84, 5, 6, 2.84, 5, 0, -2.84, 5, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ccga3"]
+points = PackedVector3Array(2.84, 5, 6, 2.84, 5, 3.75, -2.84, 5, 6, -2.84, 5, 3.75)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2rbqt"]
+points = PackedVector3Array(1.695, 5, 0, 2.84, 5, 3.75, 1.695, 5, 3.75, 2.84, 5, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_31rs4"]
+points = PackedVector3Array(-2.84, 5, 3.75, -1.695, 5, 3.75, -1.695, 5, 0, -2.84, 5, 0)
+
 [node name="DungeonStartModule" type="Node3D" unique_id=109868589]
 script = ExtResource("1_740jj")
 
 [node name="DungeonStartModule" type="MeshInstance3D" parent="." unique_id=1019955106]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
 mesh = ExtResource("1_ghcvg")
 surface_material_override/0 = ExtResource("2_x820l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DungeonStartModule" unique_id=647942698]
+
+[node name="Floor" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=85602921]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_740jj")
+
+[node name="Ceiling" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=271690198]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 7.154928e-08, 6)
+shape = SubResource("ConvexPolygonShape3D_740jj")
+
+[node name="Wall" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=2001665386]
+transform = Transform3D(-1, -8.742278e-08, 1.0425061e-15, 8.742278e-08, -1, 2.3849761e-08, -1.0425061e-15, 2.3849761e-08, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
+
+[node name="Wall2" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=1439667314]
+transform = Transform3D(1.3113416e-07, -1, 1.1924881e-08, 1, 1.3113416e-07, 1.1924879e-08, -1.1924881e-08, 1.192488e-08, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
+
+[node name="Wall3" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=675475087]
+transform = Transform3D(-2.1855693e-07, 1, -1.1924881e-08, -1, -2.1855693e-07, 1.1924883e-08, 1.1924881e-08, 1.1924884e-08, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_emb0l")
+
+[node name="Wall4" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=658259591]
+shape = SubResource("ConvexPolygonShape3D_ccga3")
+
+[node name="Wall5" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=764564899]
+shape = SubResource("ConvexPolygonShape3D_2rbqt")
+
+[node name="Wall6" type="CollisionShape3D" parent="DungeonStartModule/StaticBody3D" unique_id=230248871]
+transform = Transform3D(1, 2.4863522e-23, 0, 1.2431761e-23, 1, 0, -1.4824726e-31, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_31rs4")
 
 [node name="TEM_Lamp_Post_02A" parent="." unique_id=1399777727 instance=ExtResource("3_u3rj2")]
 transform = Transform3D(0.18979241, 0, -0.9818242, 0, 1, 0, 0.9818242, 0, 0.18979241, -4.731415, 4.3339844, 1.357735)
@@ -90,8 +137,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25111246, 2.786419, 1.1260
 
 [node name="FX_Dust_01" parent="." unique_id=1721225617 instance=ExtResource("6_cspox")]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1054319405]
-transform = Transform3D(0.36487976, 0, 0.93105465, 0, 1, 0, -0.93105465, 0, 0.36487976, 3.9152937, 3.747592, 2.5848722)
+[node name="Doorway" type="Marker3D" parent="." unique_id=1550111499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="PortalSpawn" type="Marker3D" parent="." unique_id=2127781534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.864, 1.1)
+
+[node name="EntrySpawn" type="Marker3D" parent="." unique_id=493360502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -2)
 
 [editable path="TEM_Lamp_Post_02A"]
 [editable path="TEM_Lamp_Post_02A2"]
