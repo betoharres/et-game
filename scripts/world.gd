@@ -336,6 +336,7 @@ func _on_touchdown(beam : ArrivalBeam) -> void:
 	player.camera_pivot.add_shake(LANDING_SHAKE)
 	player.camera_pivot.kick_fov(LANDING_FOV_KICK)
 	player.set_movement_locked(false)
+	$FarmEnvironmentAudio.start_background_music()
 
 	if _impact_player != null:
 		_impact_player.play()

@@ -1409,7 +1409,7 @@ player_path = NodePath("../CharacterBody3D")
 terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(4.524208, 0, 0, 0, 6.1948028, 0, 0, 0, 4.8283424, 6.3355465, 129.23634, -8.647179)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3355465, 129.23634, -8.647179)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
