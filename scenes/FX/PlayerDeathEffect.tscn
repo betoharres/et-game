@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://shaders/death_grayscale.gdshader" id="1_grayscale"]
+[ext_resource type="AudioStream" path="res://assets/audio/player/et-death.mp3" id="2_death_audio"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grayscale"]
+shader = ExtResource("1_grayscale")
+
+[node name="DeathEffect" type="CanvasLayer"]
+layer = 2
+visible = false
+
+[node name="WorldBackBuffer" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Grayscale" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_grayscale")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DeathAudio" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_death_audio")
+volume_db = -6.0

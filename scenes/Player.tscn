@@ -20,6 +20,7 @@
 [ext_resource type="AnimationLibrary" path="res://animations/mixamo/ET_animations.res" id="14_clips"]
 [ext_resource type="Script" path="res://scripts/audio/player_hit_audio.gd" id="15_hit_audio"]
 [ext_resource type="Script" path="res://scripts/player_hit_reaction.gd" id="16_hit_reaction"]
+[ext_resource type="PackedScene" path="res://scenes/FX/PlayerDeathEffect.tscn" id="17_death_effect"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -47,6 +48,8 @@ script = ExtResource("4_footsteps")
 
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 script = ExtResource("15_hit_audio")
+
+[node name="DeathEffect" parent="." instance=ExtResource("17_death_effect")]
 
 [node name="PlayerHUD" parent="." unique_id=1616169788 instance=ExtResource("5_hud")]
 
@@ -237,5 +240,8 @@ shape = SubResource("BoxShape3D_ec6vt")
 
 [node name="PlayerAnimationController" type="Node" parent="." unique_id=1911173868]
 script = ExtResource("9_animation")
+
+[connection signal="died" from="." to="DeathEffect" method="show"]
+[connection signal="died" from="." to="DeathEffect/DeathAudio" method="play"]
 
 [editable path="ET"]
