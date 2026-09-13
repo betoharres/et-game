@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="AlienItemDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="AlienItemDefinition" format=3 uid="uid://cxgwrvam73sob"]
 
-[ext_resource type="Script" path="res://scripts/alien_item_definition.gd" id="1"]
+[ext_resource type="Script" uid="uid://dw0id0s4w5m85" path="res://scripts/alien_item_definition.gd" id="1"]
 
 [sub_resource type="SphereMesh" id="Mesh"]
 radius = 0.25
@@ -13,7 +13,6 @@ radius = 0.25
 script = ExtResource("1")
 item_id = "navigation_core"
 display_name = "Núcleo de navegação"
-is_locator = false
 mesh = SubResource("Mesh")
 shape = SubResource("Shape")
 tint = Color(0.55, 0.35, 1, 1)

@@ -423,6 +423,8 @@ func _input(event: InputEvent) -> void:
 		elif Input.is_action_pressed("crouch"):
 			exploration_inventory.drop_selected(self)
 		elif not _is_delivery_interaction_reserved():
+			if _try_interact_with_engine_truck():
+				return
 			if not try_carry_character():
 				# A consulta de colisão só é segura no quadro de física com Jolt em outra thread.
 				_pickup_requested = true
@@ -1966,6 +1968,23 @@ func _update_carry_pickup(delta : float) -> void:
 		return
 
 	animation_controller.set_carry_mode(true)
+
+
+func _try_interact_with_engine_truck() -> bool:
+	var closest_truck: Node3D = null
+	var closest_distance: float = INF
+	for node: Node in get_tree().get_nodes_in_group("engine_trucks"):
+		var truck: Node3D = node as Node3D
+		if truck == null or not bool(truck.call("can_interact", self)):
+			continue
+		var distance: float = global_position.distance_squared_to(truck.global_position)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_truck = truck
+	if closest_truck == null:
+		return false
+	closest_truck.call("interact", self)
+	return true
 
 
 func _is_door_interaction_reserved() -> bool:
