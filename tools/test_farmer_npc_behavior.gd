@@ -42,6 +42,8 @@ func _run() -> void:
 	world.add_child(player)
 
 	var farmer: FarmerNPC = FARMER_SCENE.instantiate() as FarmerNPC
+	# This test exercises patrol while its player deliberately stays 1 km away.
+	farmer.activity_distance = 0.0
 	farmer.patrol_points = [Vector3(0, 0, 0), Vector3(6, 0, 0)]
 	farmer.patrol_wait_time_min = 0.2
 	farmer.patrol_wait_time_max = 0.4

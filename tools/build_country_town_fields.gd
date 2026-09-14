@@ -47,6 +47,7 @@ const FIELDS: Array[Dictionary] = Layout.CROP_FIELDS
 
 ## Sulcos de terra sob o milharal: o modelo mede 5 x 5 m e nasce no canto.
 const DIRT_ROWS_TILE: float = 5.0
+const DIRT_ROWS_BATCH_SIZE: float = 20.0
 
 const DISTRICT_SCENES: Array[String] = [
 	"res://scenes/CountryTown/Districts/FarmDistrict.tscn",
@@ -67,7 +68,7 @@ var _road_segments: Array[Dictionary] = []
 
 func _process(_delta: float) -> bool:
 	_rng.seed = 20260906
-	var ok: bool = _build()
+	var ok: bool = _rebatch_dirt_rows() if "--rebatch-dirt-rows" in OS.get_cmdline_user_args() else _build()
 	quit(0 if ok else 1)
 	return true
 
@@ -152,7 +153,7 @@ func _build() -> bool:
 	return true
 
 
-## Sulcos sob os talhoes que pedem chao de terra, num `MultiMesh` so.
+## Spatial batches allow separate frustum/occlusion culling and mesh LOD selection.
 func _build_dirt_rows(fields: Node3D, rects: Array[Rect2], data: Terrain3DData) -> bool:
 	if rects.is_empty():
 		return true
@@ -175,25 +176,78 @@ func _build_dirt_rows(fields: Node3D, rects: Array[Rect2], data: Terrain3DData) 
 				x += DIRT_ROWS_TILE
 			z += DIRT_ROWS_TILE
 
-	var multi_mesh: MultiMesh = MultiMesh.new()
-	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-	multi_mesh.mesh = mesh
-	multi_mesh.instance_count = transforms.size()
-	for index: int in transforms.size():
-		multi_mesh.set_instance_transform(index, transforms[index])
-	if multi_mesh.buffer.is_empty():
-		push_error("MultiMesh dos sulcos voltou sem buffer: rode este script SEM --headless")
-		return false
+	return _add_dirt_row_batches(fields, transforms, mesh, material)
 
-	var node: MultiMeshInstance3D = MultiMeshInstance3D.new()
-	node.name = "DirtRows"
-	node.multimesh = multi_mesh
-	node.material_override = material
-	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	fields.add_child(node)
-	node.owner = fields
-	print("DirtRows: %d sulcos" % transforms.size())
+
+func _add_dirt_row_batches(fields: Node3D, transforms: Array[Transform3D], mesh: Mesh, material: Material) -> bool:
+	var cells: Dictionary[Vector2i, Array] = {}
+	for transform: Transform3D in transforms:
+		var center: Vector3 = transform * mesh.get_aabb().get_center()
+		var cell: Vector2i = Vector2i(floori(center.x / DIRT_ROWS_BATCH_SIZE), floori(center.z / DIRT_ROWS_BATCH_SIZE))
+		if not cells.has(cell):
+			cells[cell] = []
+		cells[cell].append(transform)
+	var holder: Node3D = Node3D.new()
+	holder.name = "DirtRows"
+	fields.add_child(holder)
+	holder.owner = fields
+	for cell: Vector2i in cells:
+		var origin: Vector3 = Vector3((cell.x + 0.5) * DIRT_ROWS_BATCH_SIZE, 0, (cell.y + 0.5) * DIRT_ROWS_BATCH_SIZE)
+		var multi_mesh: MultiMesh = MultiMesh.new()
+		multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+		multi_mesh.mesh = mesh
+		multi_mesh.instance_count = cells[cell].size()
+		for index: int in cells[cell].size():
+			var transform: Transform3D = cells[cell][index]
+			transform.origin -= origin
+			multi_mesh.set_instance_transform(index, transform)
+		if multi_mesh.buffer.is_empty():
+			push_error("Dirt-row buffers require a real renderer; omit --headless")
+			return false
+		var node: MultiMeshInstance3D = MultiMeshInstance3D.new()
+		node.name = "Batch_%d_%d" % [cell.x, cell.y]
+		node.position = origin
+		node.multimesh = multi_mesh
+		node.material_override = material
+		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		holder.add_child(node)
+		node.owner = fields
+	print("DirtRows: %d instances in %d spatial batches" % [transforms.size(), cells.size()])
 	return true
+
+
+# Rebatch saved placements without reseeding crops or resampling terrain heights.
+func _rebatch_dirt_rows() -> bool:
+	var packed: PackedScene = load(FIELDS_SCENE_PATH) as PackedScene
+	var fields: Node3D = packed.instantiate() as Node3D
+	var old: Node3D = fields.get_node("DirtRows") as Node3D
+	var sources: Array[Node] = []
+	if old is MultiMeshInstance3D:
+		sources.append(old)
+	else:
+		sources.assign(old.get_children())
+	var transforms: Array[Transform3D] = []
+	var mesh: Mesh
+	var material: Material
+	for source: Node in sources:
+		var batch: MultiMeshInstance3D = source as MultiMeshInstance3D
+		mesh = batch.multimesh.mesh
+		material = batch.material_override
+		var placement: Transform3D = batch.transform if batch == old else old.transform * batch.transform
+		for index: int in batch.multimesh.instance_count:
+			transforms.append(placement * batch.multimesh.get_instance_transform(index))
+	fields.remove_child(old)
+	old.free()
+	if not _add_dirt_row_batches(fields, transforms, mesh, material):
+		fields.free()
+		return false
+	var result: PackedScene = PackedScene.new()
+	var error: Error = result.pack(fields)
+	if error == OK:
+		error = ResourceSaver.save(result, FIELDS_SCENE_PATH)
+	fields.free()
+	return error == OK
+
 
 
 ## Silhueta distante em blocos de 20m: hastes de oito triangulos, sem Area3D

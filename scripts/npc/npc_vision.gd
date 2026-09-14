@@ -82,6 +82,13 @@ func get_player_position() -> Vector3:
 	return player.global_position if player != null else global_position
 
 
+func suspend_contact() -> void:
+	_clear_contact()
+	has_last_seen_position = false
+	_sample_elapsed = 0.0
+	_sample_interval = 0.0
+
+
 func _clear_contact() -> void:
 	is_currently_visible = false
 	has_detected_player = false

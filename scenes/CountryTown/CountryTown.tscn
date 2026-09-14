@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dgn1u1i28fp1d"]
 
 [ext_resource type="Terrain3DMaterial" uid="uid://ddbi1meaqjgru" path="res://Materiais/country_terrain_material.tres" id="1_terrain_material"]
-[ext_resource type="Terrain3DAssets" uid="uid://c74nhpc0xmly1" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="2_terrain_assets"]
+[ext_resource type="Terrain3DAssets" uid="uid://g06hlahfp3xm" path="res://3dModelos/SICS Trees/ArrayTrees.tres" id="2_terrain_assets"]
 [ext_resource type="PackedScene" uid="uid://b7kgyrrylgmhf" path="res://scenes/NightEnvironment.tscn" id="3_night_environment"]
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="4_pause_menu"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="5_player"]
@@ -16,24 +16,25 @@
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Fields.tscn" id="14_fields"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Vegetation.tscn" id="15_vegetation"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Detailing.tscn" id="16_detailing"]
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NightLights.tscn" id="17_night_lights"]
+[ext_resource type="PackedScene" uid="uid://dyatabn2m5m81" path="res://scenes/CountryTown/Districts/NightLights.tscn" id="17_night_lights"]
 [ext_resource type="Script" uid="uid://c6qrkcglgvt7l" path="res://scripts/audio/farm_environment_audio.gd" id="18_environment_audio"]
-[ext_resource type="PackedScene" path="res://scenes/Vehicles/PoliceCarDriveable.tscn" id="19_police_car_patrol"]
+[ext_resource type="PackedScene" uid="uid://beo41amsa371d" path="res://scenes/Vehicles/PoliceCarDriveable.tscn" id="19_police_car_patrol"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/SecondaryPaths.tscn" id="20_secondary_paths"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/StreetLife.tscn" id="21_street_life"]
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/NPCs.tscn" id="22_npcs"]
 [ext_resource type="PackedScene" path="res://scenes/VisionDebugMap.tscn" id="23_minimap"]
-
 [ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/AlienDebrisTest.tscn" id="24_debris"]
-
 [ext_resource type="PackedScene" path="res://scenes/RecoveryPoint.tscn" id="25_recovery"]
-[ext_resource type="Script" path="res://scripts/country_town.gd" id="26_country_town"]
+[ext_resource type="Script" uid="uid://bi6e0a3gtnw88" path="res://scripts/country_town.gd" id="26_country_town"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/ShipCrewAlien.tscn" id="27_crash_site_guide"]
-[ext_resource type="Script" path="res://scripts/space/mission_giver_npc.gd" id="28_guide_script"]
+[ext_resource type="Script" uid="uid://cgrdgx2m5ggfh" path="res://scripts/space/mission_giver_npc.gd" id="28_guide_script"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="29_mission_dialogue"]
+[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/Occlusion.tscn" id="30_occlusion"]
 
 [node name="CountryTown" type="Node3D" unique_id=1267138773]
 script = ExtResource("26_country_town")
+
+[node name="Occlusion" parent="." unique_id=1483737770 instance=ExtResource("30_occlusion")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=865187737]
 
@@ -42,13 +43,15 @@ data_directory = "res://scenes/CountryTown/Terrain"
 material = ExtResource("1_terrain_material")
 assets = ExtResource("2_terrain_assets")
 collision_mode = 3
-mesh_lods = 5
+mesh_lods = 10
 render_layers = 2147483680
-cull_margin = 64.0
+cast_shadows = 0
+cull_margin = 32.0
 top_level = true
 metadata/_edit_lock_ = true
 
 [node name="NightEnvironment" parent="." unique_id=135051820 instance=ExtResource("3_night_environment")]
+quality_level = 1
 ground_fog_enabled = false
 atmospheric_fog_enabled = false
 
@@ -105,16 +108,21 @@ world_radius = 140.0
 landmark_group = &"country_town_poi"
 uniform_npc_markers = true
 
-[editable path="Minimap"]
+[node name="AlienDebrisTest" parent="." unique_id=1118894680 instance=ExtResource("24_debris")]
 
-[node name="AlienDebrisTest" parent="." instance=ExtResource("24_debris")]
+[node name="RecoveryPoint" parent="." unique_id=452564177 instance=ExtResource("25_recovery")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 350, 6.12, 375)
 
-[node name="RecoveryPoint" parent="." instance=ExtResource("25_recovery")]
-position = Vector3(350, 6.12, 375)
-
-[node name="CrashSiteGuide" parent="." instance=ExtResource("27_crash_site_guide")]
-position = Vector3(527.5, 6.0, 55.0)
+[node name="CrashSiteGuide" parent="." unique_id=2137309502 instance=ExtResource("27_crash_site_guide")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 527.5, 6, 55)
 script = ExtResource("28_guide_script")
-wander_extents = Vector2(1.0, 1.0)
+interact_radius = 2.2
+marker_height = 1.7
+marker_bob_amount = 0.08
+marker_bob_speed = 2.0
+marker_color = Color(1, 0.85, 0.2, 1)
+wander_extents = Vector2(1, 1)
 
-[node name="MissionDialogue" parent="." instance=ExtResource("29_mission_dialogue")]
+[node name="MissionDialogue" parent="." unique_id=2056370085 instance=ExtResource("29_mission_dialogue")]
+
+[editable path="Minimap"]

@@ -8,6 +8,16 @@ extends CharacterBody3D
 
 enum ReactionMode { CHASE, FLEE }
 
+@export_category("Activity")
+## Zero keeps simulation running regardless of player distance.
+@export var activity_distance: float = 90.0
+@export var activity_hysteresis: float = 15.0
+
+var is_dormant: bool = false
+var _activity_timer: Timer
+var _saved_process_modes: Dictionary[Node, int] = {}
+var _saved_avoidance: bool = false
+
 @export_category("Movimento")
 @export var walk_speed: float = 2.0
 @export var alert_speed: float = 3.4
@@ -88,6 +98,68 @@ func _ready() -> void:
 	navigation_agent.velocity_computed.connect(_apply_safe_velocity)
 	if routine != null:
 		last_chat_time = Time.get_ticks_msec() / 1000.0 + randf_range(0.0, 10.0)
+	_activity_timer = Timer.new()
+	_activity_timer.name = "ActivityCheck"
+	# Explicit mode lets the timer wake a disabled parent, but respects game pause.
+	_activity_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
+	_activity_timer.one_shot = true
+	_activity_timer.timeout.connect(_check_activity)
+	add_child(_activity_timer)
+	_activity_timer.start(randf_range(0.01, 0.5))
+
+
+func _check_activity() -> void:
+	_activity_timer.start(0.5)
+	if not is_dormant and not can_process():
+		return
+	var nearby: bool = activity_distance <= 0.0
+	var radius: float = maxf(0.0, activity_distance - activity_hysteresis) if is_dormant else activity_distance
+	for candidate: Node in get_tree().get_nodes_in_group(&"characters"):
+		var character: CharacterBody3D = candidate as CharacterBody3D
+		if character == null or character is NPCActor:
+			continue
+		if global_position.distance_squared_to(character.global_position) <= radius * radius:
+			nearby = true
+			break
+	_set_dormant(not nearby)
+
+
+func _set_dormant(sleeping: bool) -> void:
+	if is_dormant == sleeping:
+		return
+	if sleeping:
+		var tree: BeehaveTree = get_node_or_null("NPCBehaviorTree") as BeehaveTree
+		if tree != null:
+			tree.interrupt()
+		if routine != null:
+			routine.interrupt()
+		stop_moving()
+		velocity = Vector3.ZERO
+		if vision != null:
+			vision.suspend_contact()
+		_saved_avoidance = navigation_agent.avoidance_enabled
+		navigation_agent.avoidance_enabled = false
+		_suspend_branch(self)
+	else:
+		for node: Node in _saved_process_modes:
+			if is_instance_valid(node):
+				node.process_mode = _saved_process_modes[node] as Node.ProcessMode
+		_saved_process_modes.clear()
+		navigation_agent.avoidance_enabled = _saved_avoidance
+		_find_player()
+		if vision != null:
+			vision.player = player
+		_detail_timer = 0.0
+	is_dormant = sleeping
+
+
+func _suspend_branch(node: Node) -> void:
+	if node == _activity_timer:
+		return
+	_saved_process_modes[node] = node.process_mode
+	node.process_mode = Node.PROCESS_MODE_DISABLED
+	for child: Node in node.get_children():
+		_suspend_branch(child)
 
 
 func _physics_process(delta: float) -> void:
@@ -120,9 +192,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _find_player() -> void:
+	player = null
 	var characters: Array[Node] = get_tree().get_nodes_in_group("characters")
 	for character in characters:
-		if character is CharacterBody3D:
+		if character is CharacterBody3D and not character is NPCActor:
 			player = character
 			break
 
@@ -230,6 +303,8 @@ func stop_moving() -> void:
 
 
 func _apply_safe_velocity(safe_velocity: Vector3) -> void:
+	if is_dormant:
+		return
 	var vertical: float = velocity.y
 	velocity = safe_velocity
 	if grounded:
