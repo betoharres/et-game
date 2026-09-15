@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cpgyeeddoi52d"]
 
 [ext_resource type="PackedScene" uid="uid://rdqcyhbb84l5" path="res://3dModelos/SICS Trees/Forest_Tree_1D.fbx" id="1_n30he"]
-[ext_resource type="Material" uid="uid://lvoqa3g1761n" path="res://3dModelos/SICS Trees/trunk1a.tres" id="2_qpe8v"]
-[ext_resource type="Material" uid="uid://cfrhjf8lk4hb6" path="res://3dModelos/SICS Trees/leaves.tres" id="3_0wimx"]
+[ext_resource type="Material" uid="uid://71wo3u0jxc4b" path="res://Materiais/SICS_nature_trees.tres" id="2_vx475"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_210g4"]
 height = 2.192195
@@ -10,10 +9,10 @@ radius = 0.14941406
 
 [node name="Forest_Tree_1D" unique_id=245262191 instance=ExtResource("1_n30he")]
 
-[node name="Forest_Tree_1D" parent="." index="0" unique_id=1337733660]
+[node name="Forest_Tree_1D" parent="." index="0" unique_id=1239576900]
 layers = 2
-surface_material_override/0 = ExtResource("2_qpe8v")
-surface_material_override/1 = ExtResource("3_0wimx")
+surface_material_override/0 = ExtResource("2_vx475")
+surface_material_override/1 = ExtResource("2_vx475")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Forest_Tree_1D" index="0" unique_id=1513400473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03756106, 3.0748644, 0.40421522)
