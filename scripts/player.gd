@@ -1564,7 +1564,27 @@ func _detect_landing(was_on_floor : bool, velocity_before_move : Vector3) -> voi
 		)
 
 
-## Turns wall collisions from the last move_and_slide() into balance loss.
+func receive_vehicle_contact(direction : Vector3, contact_velocity : Vector3,
+	closing_speed : float, delta : float) -> bool:
+	if _debug_flight_enabled or _movement_locked or not is_alive():
+		return false
+	if _fall_state != FallState.NONE:
+		return true
+	var push_direction : Vector3 = direction.slide(up_direction).normalized()
+	if push_direction.is_zero_approx():
+		return false
+	var push_distance : float = maxf(contact_velocity.dot(push_direction), closing_speed) * delta
+	if closing_speed < fall_impact_speed or _debug_god_mode_enabled:
+		var hit : KinematicCollision3D = move_and_collide(push_direction * push_distance)
+		if hit == null or _debug_god_mode_enabled:
+			return true
+	# Being pinned also drops the standing capsule, without teleporting through
+	# the wall. Momentum goes into the physical bones after simulation starts.
+	_begin_fall(push_direction, clampf(closing_speed / fall_impact_speed, 0.35, 2.0))
+	ragdoll.inherit_vehicle_velocity(contact_velocity.slide(up_direction))
+	return true
+
+
 ## Resting against a surface is not an impact: only a fresh contact, or a
 ## clearly different surface, counts as one.
 func _detect_body_impacts(velocity_before_move : Vector3) -> void:
@@ -1579,10 +1599,6 @@ func _detect_body_impacts(velocity_before_move : Vector3) -> void:
 
 	var travel : Vector3 = velocity_before_move.slide(up_direction)
 
-	if travel.length() < min_impact_speed:
-		_was_on_wall = true
-		return
-
 	var impact_speed : float = 0.0
 	var impact_normal : Vector3 = Vector3.ZERO
 
@@ -1593,7 +1609,8 @@ func _detect_body_impacts(velocity_before_move : Vector3) -> void:
 		if absf(normal.dot(up_direction)) > WALL_NORMAL_LIMIT:
 			continue
 
-		var entering_speed : float = -travel.dot(normal)
+		var relative_velocity : Vector3 = travel - collision.get_collider_velocity().slide(up_direction)
+		var entering_speed : float = -relative_velocity.dot(normal)
 
 		if entering_speed <= impact_speed:
 			continue
@@ -1731,6 +1748,9 @@ func _update_fall(delta : float) -> void:
 
 func _begin_stand_up() -> void:
 	var face_up : bool = ragdoll.is_face_up()
+	# Finish the smoothed root follow before capturing the recovery pose, so
+	# the in-place get-up animation is anchored where the ragdoll landed.
+	global_position = _project_to_floor(ragdoll.get_body_global_position())
 	ragdoll.stop_ragdoll()
 	collision_shape.set_deferred("disabled", false)
 	_fall_state = FallState.STANDING_UP

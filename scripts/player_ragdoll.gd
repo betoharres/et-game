@@ -47,6 +47,7 @@ var _suspended_modifiers : Array[SkeletonModifier3D] = []
 var _suspended_influences : PackedFloat32Array = PackedFloat32Array()
 var _recovery_modifier : RagdollRecoveryModifier
 var _random : RandomNumberGenerator = RandomNumberGenerator.new()
+var _vehicle_velocity : Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
@@ -242,12 +243,9 @@ func get_body_global_position() -> Vector3:
 	if _skeleton == null:
 		return Vector3.ZERO
 
-	var root_id : int = _skeleton.find_bone(ROOT_BONE)
-
-	if root_id < 0:
-		return _skeleton.global_position
-
-	return _skeleton.to_global(_skeleton.get_bone_global_pose(root_id).origin)
+	# Outside the modifier stack, the skeleton exposes the animation pose,
+	# not the simulated pose. Follow the physical hips in world space.
+	return _bone_global_position(ROOT_BONE)
 
 
 ## Uses the shoulder/spine plane instead of a single bone axis, which remains
@@ -446,12 +444,24 @@ func _configure_joint(physical_bone : PhysicalBone3D) -> void:
 	physical_bone.set("joint_constraints/twist_span", 35.0)
 
 
+func inherit_vehicle_velocity(inherited_velocity : Vector3) -> void:
+	_vehicle_velocity = inherited_velocity.limit_length(25.0)
+
+
+func _apply_vehicle_velocity() -> void:
+	for value : Variant in _physical_bones.values():
+		var bone : PhysicalBone3D = value as PhysicalBone3D
+		bone.apply_central_impulse(_vehicle_velocity * bone.mass)
+	_vehicle_velocity = Vector3.ZERO
+
+
 func _start_physics(impact_direction : Vector3, comic : bool,
 	strength : float) -> void:
 	if _simulator == null:
 		return
 
 	_simulator.physical_bones_start_simulation()
+	_apply_vehicle_velocity.call_deferred()
 
 	if comic:
 		_apply_comic_impact.call_deferred(impact_direction, strength)

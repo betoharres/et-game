@@ -61,6 +61,7 @@ var player_camera : Camera3D = null
 var exterior_camera_position : Vector3
 var exterior_camera_rotation : Vector3
 var first_person_camera : bool = false
+var _driver_collision_exception_owned : bool = false
 
 # Optional AI driver. When present and no player is in the vehicle, it supplies
 # throttle/steering through the same application code the player's input uses.
@@ -73,6 +74,9 @@ var first_person_camera : bool = false
 )
 
 func _ready() -> void:
+	var character_contact : Node = preload("res://scripts/vehicle_character_contact.gd").new()
+	character_contact.name = "CharacterContact"
+	add_child(character_contact)
 	_attach_wheel_mesh(front_left_wheel_mesh, front_left_wheel)
 	_attach_wheel_mesh(front_right_wheel_mesh, front_right_wheel)
 	_attach_wheel_mesh(rear_left_wheel_mesh, rear_left_wheel)
@@ -322,6 +326,9 @@ func try_enter_vehicle() -> void:
 
 func enter_vehicle(player : CharacterBody3D) -> void:
 	current_player = player
+	_driver_collision_exception_owned = not get_collision_exceptions().has(player)
+	if _driver_collision_exception_owned:
+		add_collision_exception_with(player)
 	vehicle_controlled = true
 	if player.has_method("get_appearance_profile"):
 		driver_proportions.call(
@@ -360,6 +367,9 @@ func exit_vehicle() -> void:
 	current_player.global_position = global_position + (
 		global_transform.basis.x * 2.0
 	)
+	if _driver_collision_exception_owned:
+		remove_collision_exception_with(current_player)
+	_driver_collision_exception_owned = false
 
 	current_player.visible = true
 	ET_driver.visible = false
