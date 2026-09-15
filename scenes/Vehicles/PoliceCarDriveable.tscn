@@ -11,79 +11,102 @@
 [ext_resource type="Script" uid="uid://dwyb1todhmxol" path="res://scripts/vehicle_ai_driver.gd" id="14_aidriver"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
-size = Vector3(1.85, 1.05, 4.9)
+size = Vector3(1.85, 0.6930908, 4.9)
 
-[node name="PoliceCarDriveable" type="VehicleBody3D" unique_id=1630439248 groups=["vehicles"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_yi7g8"]
+size = Vector3(1.85, 0.53997195, 2.6229491)
+
+[node name="PoliceCarDriveable" type="VehicleBody3D" unique_id=1630439248 node_paths=PackedStringArray("front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel", "front_left_wheel_mesh", "front_right_wheel_mesh", "rear_left_wheel_mesh", "rear_right_wheel_mesh", "steering_wheel_pivot") groups=["vehicles"]]
 mass = 1300.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0.3, 0)
 script = ExtResource("1_oub4l")
 max_engine_force = 2500.0
+front_left_wheel = NodePath("FrontLeftWheel")
+front_right_wheel = NodePath("FrontRightWheel")
+rear_left_wheel = NodePath("RearLeftWheel")
+rear_right_wheel = NodePath("RearRightWheel")
+front_left_wheel_mesh = NodePath("SM_Veh_Car_Police_01/SM_Veh_Car_Police_01/Wheel_fl")
+front_right_wheel_mesh = NodePath("SM_Veh_Car_Police_01/SM_Veh_Car_Police_01/Wheel_fr")
+rear_left_wheel_mesh = NodePath("SM_Veh_Car_Police_01/SM_Veh_Car_Police_01/Wheel_rl")
+rear_right_wheel_mesh = NodePath("SM_Veh_Car_Police_01/SM_Veh_Car_Police_01/Wheel_rr")
+steering_wheel_pivot = NodePath("IKContainer/SteeringWheelPivot/SteeringWheel")
 
 [node name="SM_Veh_Car_Police_01" parent="." unique_id=735738773 instance=ExtResource("11_police")]
 
 [node name="SM_Veh_Car_Police_01" parent="SM_Veh_Car_Police_01" index="0" unique_id=806879669]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="SM_Veh_Car_Police_Glass" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="0" unique_id=488449693]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="SM_Veh_Car_Police_Plates" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="1" unique_id=1679752374]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="Wheel_fl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="2" unique_id=68360629]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="Wheel_fr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="3" unique_id=848458151]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="Wheel_rl" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="4" unique_id=338843914]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="Wheel_rr" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="5" unique_id=805729876]
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="SteeringW" parent="SM_Veh_Car_Police_01/SM_Veh_Car_Police_01" index="6" unique_id=875748192]
-visible = false
+layers = 8
 surface_material_override/0 = ExtResource("12_policemat")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=271162186]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0.15558529)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67154545, 0.15558529)
 shape = SubResource("BoxShape3D_ec6vt")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1188354149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2804658, -0.23606491)
+shape = SubResource("BoxShape3D_yi7g8")
+
 [node name="FrontLeftWheel" type="VehicleWheel3D" parent="." unique_id=78806782]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.4, 1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.361, 1.632)
 use_as_traction = true
 use_as_steering = true
-wheel_radius = 0.4
+wheel_radius = 0.361
 wheel_rest_length = 0.05
 wheel_friction_slip = 100.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="RearRightWheel" type="VehicleWheel3D" parent="." unique_id=1777652914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.4, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.361, -1.25)
 use_as_traction = true
-wheel_radius = 0.4
+wheel_radius = 0.361
 wheel_rest_length = 0.05
 wheel_friction_slip = 100.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="RearLeftWheel" type="VehicleWheel3D" parent="." unique_id=461216355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.4, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.361, -1.25)
 use_as_traction = true
-wheel_radius = 0.4
+wheel_radius = 0.361
 wheel_rest_length = 0.05
 wheel_friction_slip = 100.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 
 [node name="FrontRightWheel" type="VehicleWheel3D" parent="." unique_id=589617516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.4, 1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.361, 1.632)
 use_as_traction = true
 use_as_steering = true
-wheel_radius = 0.4
+wheel_radius = 0.361
 wheel_rest_length = 0.05
 wheel_friction_slip = 100.0
 suspension_travel = 0.1
@@ -105,6 +128,7 @@ transform = Transform3D(-0.6785794, 0, 0.73452705, 0, 1, 0, -0.73452705, 0, -0.6
 
 [node name="Red3" type="SpotLight3D" parent="SirenLights/ArmRed3" unique_id=1749445774]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+layers = 4
 light_color = Color(1, 0, 0, 1)
 light_energy = 10.0
 light_bake_mode = 1
@@ -119,6 +143,7 @@ transform = Transform3D(-0.89147866, 0, -0.45306265, 0, 1, 0, 0.45306265, 0, -0.
 
 [node name="Red2" type="SpotLight3D" parent="SirenLights/ArmRed2" unique_id=751025401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+layers = 4
 light_color = Color(1, 0, 0, 1)
 light_energy = 10.0
 light_bake_mode = 1
@@ -133,6 +158,7 @@ transform = Transform3D(0.7772088, 0, -0.6292428, 0, 1, 0, 0.6292428, 0, 0.77720
 
 [node name="Red1" type="SpotLight3D" parent="SirenLights/ArmRed1" unique_id=1043142357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+layers = 4
 light_color = Color(1, 0, 0, 1)
 light_energy = 10.0
 light_bake_mode = 1
@@ -147,6 +173,7 @@ transform = Transform3D(0.83787054, 0, 0.545869, 0, 1, 0, -0.545869, 0, 0.837870
 
 [node name="White1" type="SpotLight3D" parent="SirenLights/ArmWhite1" unique_id=1246723595]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+layers = 4
 light_energy = 10.0
 light_bake_mode = 1
 distance_fade_begin = 15.0
@@ -160,6 +187,7 @@ transform = Transform3D(-0.9875193, 0, 0.15749761, 0, 1, 0, -0.15749761, 0, -0.9
 
 [node name="White2" type="SpotLight3D" parent="SirenLights/ArmWhite2" unique_id=549122500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16484493)
+layers = 4
 light_energy = 10.0
 light_bake_mode = 1
 distance_fade_begin = 15.0
@@ -235,6 +263,7 @@ script = ExtResource("14_aidriver")
 road_nodes = Array[Vector3]([Vector3(228.7484, 6.06, 298.4802), Vector3(240.659, 6.06, 298.4802), Vector3(252.5696, 6.06, 298.4802), Vector3(264.4802, 6.06, 298.4802), Vector3(276.3908, 6.06, 298.4802), Vector3(288.3014, 6.06, 298.4802), Vector3(300.212, 6.06, 298.4802), Vector3(312.1226, 6.06, 298.4802), Vector3(324.0332, 6.06, 298.4802), Vector3(335.9438, 6.06, 167.4636), Vector3(335.9438, 6.06, 298.4802), Vector3(347.8544, 6.06, 167.4636), Vector3(347.8544, 6.06, 298.4802), Vector3(347.8544, 6.06, 310.3908), Vector3(347.8544, 6.06, 322.3014), Vector3(347.8544, 6.06, 334.212), Vector3(347.8544, 6.06, 346.1226), Vector3(347.8544, 6.06, 358.0332), Vector3(347.8544, 6.06, 369.9438), Vector3(359.765, 6.06, 167.4636), Vector3(359.765, 6.06, 358.0332), Vector3(371.6756, 6.06, 167.4636), Vector3(371.6756, 6.06, 358.0332), Vector3(383.5862, 6.06, 167.4636), Vector3(383.5862, 6.06, 358.0332), Vector3(395.4968, 6.06, 167.4636), Vector3(395.4968, 6.06, 358.0332), Vector3(407.4074, 6.06, 167.4636), Vector3(407.4074, 6.06, 179.3742), Vector3(407.4074, 6.06, 191.2848), Vector3(407.4074, 6.06, 203.1954), Vector3(407.4074, 6.06, 215.106), Vector3(407.4074, 6.06, 227.0166), Vector3(407.4074, 6.06, 238.9272), Vector3(407.4074, 6.06, 358.0332), Vector3(419.318, 6.06, 167.4636), Vector3(419.318, 6.06, 238.9272), Vector3(419.318, 6.06, 358.0332), Vector3(431.2286, 6.06, 167.4636), Vector3(431.2286, 6.06, 238.9272), Vector3(431.2286, 6.06, 358.0332), Vector3(443.1392, 6.06, 167.4636), Vector3(443.1392, 6.06, 238.9272), Vector3(443.1392, 6.06, 358.0332), Vector3(455.0498, 6.06, 167.4636), Vector3(455.0498, 6.06, 179.3742), Vector3(455.0498, 6.06, 191.2848), Vector3(455.0498, 6.06, 203.1954), Vector3(455.0498, 6.06, 215.106), Vector3(455.0498, 6.06, 227.0166), Vector3(455.0498, 6.06, 238.9272), Vector3(455.0498, 6.06, 250.8378), Vector3(455.0498, 6.06, 262.7484), Vector3(455.0498, 6.06, 274.659), Vector3(455.0498, 6.06, 286.5696), Vector3(455.0498, 6.06, 298.4802), Vector3(455.0498, 6.06, 310.3908), Vector3(455.0498, 6.06, 322.3014), Vector3(455.0498, 6.06, 334.212), Vector3(455.0498, 6.06, 346.1226), Vector3(455.0498, 6.06, 358.0332), Vector3(455.0498, 6.06, 369.9438), Vector3(455.0498, 6.06, 381.8544), Vector3(455.0498, 6.06, 393.765), Vector3(466.9604, 6.06, 298.4802), Vector3(466.9604, 6.06, 393.765), Vector3(478.871, 6.06, 298.4802), Vector3(478.871, 6.06, 393.765), Vector3(490.7816, 6.06, 298.4802), Vector3(490.7816, 6.06, 393.765), Vector3(502.6922, 6.06, 298.4802), Vector3(502.6922, 6.06, 393.765), Vector3(514.6028, 6.06, 298.4802), Vector3(514.6028, 6.06, 393.765), Vector3(526.5134, 6.06, 393.765), Vector3(538.424, 6.06, 393.765), Vector3(550.3346, 6.06, 393.765), Vector3(562.2452, 6.06, 393.765), Vector3(574.1558, 6.06, 393.765), Vector3(586.0664, 6.06, 393.765)])
 
 [node name="IKContainer" type="Node3D" parent="." unique_id=654266772]
+visible = false
 
 [node name="ElbowL" type="Marker3D" parent="IKContainer" unique_id=529016029]
 transform = Transform3D(1, 0, 0, 0, 0.99353033, 0.11356681, 0, -0.11356681, 0.99353033, 0.5723, 0.7492, 0.6124)

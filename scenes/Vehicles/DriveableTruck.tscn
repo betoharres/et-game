@@ -63,12 +63,21 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[node name="PickupTruckDriveable" type="VehicleBody3D" unique_id=1630439248 groups=["vehicles"]]
+[node name="PickupTruckDriveable" type="VehicleBody3D" node_paths=["front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel", "front_left_wheel_mesh", "front_right_wheel_mesh", "rear_left_wheel_mesh", "rear_right_wheel_mesh", "steering_wheel_pivot"] unique_id=1630439248 groups=["vehicles"]]
 mass = 1300.0
 freeze = true
 engine_force = 100.0
 brake = 100.0
 script = ExtResource("1_oub4l")
+front_left_wheel = NodePath("FrontLeftWheel")
+front_right_wheel = NodePath("FrontRightWheel")
+rear_left_wheel = NodePath("RearLeftWheel")
+rear_right_wheel = NodePath("RearRightWheel")
+front_left_wheel_mesh = NodePath("FrontLeftWheel/MeshInstance3D")
+front_right_wheel_mesh = NodePath("FrontRightWheel/MeshInstance3D")
+rear_left_wheel_mesh = NodePath("RearLeftWheel/MeshInstance3D")
+rear_right_wheel_mesh = NodePath("RearRightWheel/MeshInstance3D")
+steering_wheel_pivot = NodePath("IKContainer/SteeringWheelPivot/SteeringWheel")
 max_engine_force = 1000.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=229161337]

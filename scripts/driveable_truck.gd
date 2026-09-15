@@ -8,12 +8,18 @@ extends VehicleBody3D
 # Vehicle interaction
 @export var enter_distance : float = 2.5
 
-@onready var front_left_wheel : VehicleWheel3D = $FrontLeftWheel
-@onready var front_right_wheel : VehicleWheel3D = $FrontRightWheel
-@onready var rear_left_wheel : VehicleWheel3D = $RearLeftWheel
-@onready var rear_right_wheel : VehicleWheel3D = $RearRightWheel
+@export_group("Wheels")
+@export var front_left_wheel : VehicleWheel3D
+@export var front_right_wheel : VehicleWheel3D
+@export var rear_left_wheel : VehicleWheel3D
+@export var rear_right_wheel : VehicleWheel3D
+@export var front_left_wheel_mesh : MeshInstance3D
+@export var front_right_wheel_mesh : MeshInstance3D
+@export var rear_left_wheel_mesh : MeshInstance3D
+@export var rear_right_wheel_mesh : MeshInstance3D
 
-@onready var steering_wheel_pivot : MeshInstance3D = $IKContainer/SteeringWheelPivot/SteeringWheel
+@export var steering_wheel_pivot : MeshInstance3D
+@export_group("")
 
 # Camera
 @onready var camera_arm : Node3D = $CameraArm
@@ -67,6 +73,11 @@ var first_person_camera : bool = false
 )
 
 func _ready() -> void:
+	_attach_wheel_mesh(front_left_wheel_mesh, front_left_wheel)
+	_attach_wheel_mesh(front_right_wheel_mesh, front_right_wheel)
+	_attach_wheel_mesh(rear_left_wheel_mesh, rear_left_wheel)
+	_attach_wheel_mesh(rear_right_wheel_mesh, rear_right_wheel)
+
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	camera_yaw = global_rotation.y
@@ -80,6 +91,14 @@ func _ready() -> void:
 	exterior_camera_rotation = camera.rotation
 	camera_distance = exterior_camera_position.length()
 	camera.current = false
+
+
+func _attach_wheel_mesh(mesh : MeshInstance3D, wheel : VehicleWheel3D) -> void:
+	if mesh == null or wheel == null or mesh.get_parent() == wheel:
+		return
+	# Imported models can keep their wheels under the body; inherit physics
+	# spin, steering and suspension while preserving the authored placement.
+	mesh.reparent(wheel, true)
 
 
 func _input(event : InputEvent) -> void:
