@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Gorilla.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Items/BananaBox.tscn" id="2"]
+
+[node name="GorillaBananaQuest" type="Node3D"]
+
+[node name="Gorilla" parent="." instance=ExtResource("1")]
+
+[node name="BananaBox" parent="." instance=ExtResource("2")]
+position = Vector3(6, 0.3, 0)

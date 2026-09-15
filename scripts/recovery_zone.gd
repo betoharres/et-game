@@ -53,6 +53,8 @@ func available_items() -> Array[RigidBody3D]:
 	for body : Node3D in get_overlapping_bodies():
 		if not body is RigidBody3D or not body.is_in_group("pickup_items"):
 			continue
+		if body.is_in_group("quest_items"):
+			continue
 		if not contains_position(body.global_position) or not body.has_meta("recovery_dropped"):
 			continue
 		if not body.has_method("is_available_for_abduction") or not bool(body.call("is_available_for_abduction")):

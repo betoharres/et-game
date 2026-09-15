@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cv27sfah6tobg"]
+
+[ext_resource type="Script" uid="uid://cm5uxhfw7ua24" path="res://scripts/npc/npc_actor.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bqf0svabwlphp" path="res://PolygonKaiju/Characters/Kaiju_01_02_04.fbx" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="3"]
+[ext_resource type="Script" uid="uid://clfmuqj1871k5" path="res://scripts/npc/banana_trade.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://dxa7kca3d2nv2" path="res://PolygonTown/Prefabs/Props/SM_Prop_Toilet_01.tscn" id="4_g4t8j"]
+[ext_resource type="Texture2D" uid="uid://7h3sirjuravm" path="res://PolygonKaiju/Textures/Kaiju_04_01_A.png" id="5"]
+[ext_resource type="ArrayMesh" uid="uid://dacar8srbesat" path="res://PolygonTown/Models/Items/extracted/SM_Item_ToiletRoll_02.res" id="13_61deg"]
+[ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/Spaceship_Scraps1.tscn" id="r1"]
+[ext_resource type="PackedScene" uid="uid://jnnbvr00yg2w" path="res://scenes/spaceship_Scraps2.tscn" id="r2"]
+[ext_resource type="PackedScene" uid="uid://c1706107vicuy" path="res://scenes/Spaceship_Scraps3.tscn" id="r3"]
+[ext_resource type="PackedScene" uid="uid://bhbub6jjfp0a7" path="res://scenes/Spaceship_Scraps4.tscn" id="r4"]
+[ext_resource type="PackedScene" uid="uid://ca65j4w5wksmi" path="res://scenes/Spaceship_Scraps5.tscn" id="r5"]
+[ext_resource type="PackedScene" uid="uid://dhba55x082ju" path="res://scenes/Spaceship_Scraps6.tscn" id="r6"]
+[ext_resource type="PackedScene" uid="uid://ckrvhp1e41qs7" path="res://scenes/Spaceship_Scraps7.tscn" id="r7"]
+
+[sub_resource type="StandardMaterial3D" id="Fur"]
+albedo_texture = ExtResource("5")
+
+[sub_resource type="CapsuleShape3D" id="Shape"]
+radius = 0.55
+
+[node name="Gorilla" type="CharacterBody3D" unique_id=812072702]
+script = ExtResource("1")
+rotation_speed = 0.0
+grounded = true
+
+[node name="Character" parent="." unique_id=1435504198 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34155977, 0)
+
+[node name="Skeleton3D" parent="Character" index="0" unique_id=1671116840]
+bones/2/rotation = Quaternion(0.154707, -0.010959, 0.016534, 0.999498)
+bones/3/rotation = Quaternion(0.002033, 0.000922, -0.006949, 0.995165)
+bones/11/rotation = Quaternion(0.5618, -0.041313, -0.781073, 1.136911)
+bones/12/rotation = Quaternion(0.952311, 0.853443, -0.037493, 0.798347)
+bones/13/rotation = Quaternion(-0.09441, 0.093716, -0.576791, 0.995083)
+bones/14/rotation = Quaternion(0.364731, -0.712965, -0.237753, 0.648706)
+bones/17/rotation = Quaternion(-0.216234, 1.086763, 0.0229, 0.076808)
+bones/26/rotation = Quaternion(0.75687, 1.11226, -1.005661, -0.009086)
+bones/27/rotation = Quaternion(0.267314, 0.334552, -0.01072, 0.997674)
+bones/28/rotation = Quaternion(-0.021702, 0.607912, 0.005185, 0.998738)
+bones/30/rotation = Quaternion(-0.157884, 0.063769, -0.187807, 0.985236)
+bones/33/rotation = Quaternion(0.020226, 0.001057, -0.13794, 0.999075)
+bones/34/rotation = Quaternion(0.026162, 0.00497, -0.62777, 0.990789)
+bones/37/rotation = Quaternion(-0.019289, -0.003852, -0.323314, 0.999535)
+bones/38/rotation = Quaternion(0.069575, 0.024454, -0.206958, 0.990395)
+bones/41/rotation = Quaternion(0.209225, 0.991252, 1.147857, -0.351174)
+bones/42/rotation = Quaternion(-1.094657, -0.016825, 0.028473, 0.999453)
+bones/46/rotation = Quaternion(-0.197442, 0.857362, 0.927853, 0.160632)
+bones/47/rotation = Quaternion(-0.981582, -0.030789, 0.017459, 0.99977)
+
+[node name="SM_Chr_Kaiju_01" parent="Character/Skeleton3D" index="0" unique_id=544016858]
+visible = false
+
+[node name="SM_Chr_Kaiju_02" parent="Character/Skeleton3D" index="1" unique_id=238366931]
+visible = false
+
+[node name="SM_Chr_Kaiju_04" parent="Character/Skeleton3D" index="2" unique_id=422077588]
+layers = 16
+surface_material_override/0 = SubResource("Fur")
+
+[node name="SM_Prop_Toilet_01" parent="Character/Skeleton3D" index="3" unique_id=1841169359 instance=ExtResource("4_g4t8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005246401, 0.1971859, -0.14499502)
+layers = 16
+
+[node name="SmItemToiletRoll02" type="MeshInstance3D" parent="Character/Skeleton3D" index="4" unique_id=556867849]
+transform = Transform3D(0.012200078, -0.8615497, 0.50752676, 0.9998998, 0.014159203, 0, -0.007186174, 0.5074759, 0.861636, -0.055761576, 0.75351626, 0.7289277)
+layers = 16
+mesh = ExtResource("13_61deg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1572016247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("Shape")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=967748569]
+
+[node name="NPCBehaviorTree" parent="." unique_id=145745752 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("3")]
+blackboard = NodePath("@Node@72639")
+actor = NodePath("..")
+
+[node name="BananaTrade" type="Node3D" parent="." unique_id=1401699260]
+script = ExtResource("4")
+rewards = Array[PackedScene]([ExtResource("r1"), ExtResource("r2"), ExtResource("r3"), ExtResource("r4"), ExtResource("r5"), ExtResource("r6"), ExtResource("r7")])
+
+[node name="RewardSpawn" type="Marker3D" parent="." unique_id=1021947804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.4, 0.6)
+
+[node name="QuestLabel" type="Label3D" parent="." unique_id=1782963446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+pixel_size = 0.007
+billboard = 1
+modulate = Color(1, 0.88, 0.4, 1)
+text = "!
+Gorila — Bananas por destroços"
+font_size = 36
+outline_size = 8
+
+[editable path="Character"]

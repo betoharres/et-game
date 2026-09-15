@@ -199,6 +199,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c7ivcrbemkcok" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Panel_02.fbx" id="205_oev46"]
 [ext_resource type="ArrayMesh" uid="uid://cq7vlqdg2hp5g" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_01.fbx" id="206_bdqdu"]
 [ext_resource type="ArrayMesh" uid="uid://bqmbwhp8ysq0a" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_02.fbx" id="207_ui3ty"]
+[ext_resource type="PackedScene" path="res://scenes/Quests/GorillaBananaQuest.tscn" id="gorilla_quest"]
 [ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
@@ -13094,6 +13095,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
 
 [node name="SpaceshipScraps9" parent="ScrapsHolder" unique_id=1704994491 instance=ExtResource("187_u6w7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
+
+[node name="GorillaBananaQuest" parent="." unique_id=677496972 instance=ExtResource("gorilla_quest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.284893, 0.1958563, -22.786776)
 
 [editable path="PropsHolder/Root3"]
 [editable path="PropsHolder/Root3/SM_Veh_Pickup_01"]

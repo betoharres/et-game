@@ -27,6 +27,8 @@ func _run() -> void:
 	var outside : RigidBody3D = _item(world, Vector3(4.5, 0.5, 0))
 	var untouched : RigidBody3D = _item(world, Vector3(1, 0.5, 0))
 	untouched.remove_meta("recovery_dropped")
+	var quest_item : RigidBody3D = _item(world, Vector3(-1, 0.5, 0))
+	quest_item.add_to_group("quest_items")
 	var held : RigidBody3D = _item(world, Vector3(0, 1, 0))
 	held.call("pickup", character)
 	var locator : RigidBody3D = preload("res://scenes/Items/DebrisLocator.tscn").instantiate()

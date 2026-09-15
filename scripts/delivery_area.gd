@@ -82,6 +82,8 @@ func is_delivery_active() -> bool:
 func request_automatic_delivery(item : RigidBody3D, character : Node3D) -> bool:
 	if _state != DeliveryState.IDLE or item == null or not is_instance_valid(item):
 		return false
+	if item.is_in_group("quest_items"):
+		return false
 	if not _candidate_items.has(item):
 		_candidate_items.append(item)
 	if item.has_method("is_available_for_abduction") and not bool(item.call("is_available_for_abduction")):
@@ -318,6 +320,8 @@ func _find_available_item() -> RigidBody3D:
 
 	for item : RigidBody3D in _candidate_items:
 		if not is_instance_valid(item):
+			continue
+		if item.is_in_group("quest_items"):
 			continue
 
 		if item.has_method("is_available_for_abduction"):

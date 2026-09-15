@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bh7no51gvcbww"]
+
+[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1"]
+[ext_resource type="ArrayMesh" uid="uid://uhbkx80le7dd" path="res://PolygonFarm/Models/SM_Prop_PalletCrate_01.fbx" id="2_a17xv"]
+[ext_resource type="ArrayMesh" uid="uid://3ku1fa0n2fyd" path="res://PolygonFarm/Models/SM_Prop_Banana_01_Group.fbx" id="3"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="4"]
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.74449706, 0.36, 0.45391113)
+
+[node name="BananaBox" type="RigidBody3D" unique_id=801654880 groups=["pickup_items", "quest_items"]]
+collision_layer = 8
+mass = 2.0
+script = ExtResource("1")
+item_id = "banana_box"
+score_value = 0
+display_name = "Caixa de bananas"
+
+[node name="Crate" type="MeshInstance3D" parent="." unique_id=366662807]
+layers = 512
+mesh = ExtResource("2_a17xv")
+surface_material_override/0 = ExtResource("4")
+
+[node name="Bananas" type="MeshInstance3D" parent="." unique_id=9942819]
+transform = Transform3D(0.8634214, 0, -0.50448346, 0, 1, 0, 0.50448346, 0, 0.8634214, -0.05220512, 0.21015157, -0.1743049)
+layers = 512
+mesh = ExtResource("3")
+surface_material_override/0 = ExtResource("4")
+
+[node name="Bananas2" type="MeshInstance3D" parent="." unique_id=1937892232]
+transform = Transform3D(-0.52518165, -0.78559005, 0.3271581, -0.66679484, 0.6187473, 0.415375, -0.5287427, 0, -0.8487822, 0.05555857, 0.1530151, 0.15942842)
+layers = 512
+mesh = ExtResource("3")
+surface_material_override/0 = ExtResource("4")
+
+[node name="Bananas3" type="MeshInstance3D" parent="." unique_id=1966462908]
+transform = Transform3D(-0.14923437, 0.3649212, -0.9190004, -0.24552353, -0.9139763, -0.32305625, -0.95783466, 0.1774249, 0.2259934, 0.17826712, 0.2330322, 0.052451722)
+layers = 512
+mesh = ExtResource("3")
+surface_material_override/0 = ExtResource("4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=476880986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006525904, 0.18, 0.00039306283)
+shape = SubResource("Shape")
