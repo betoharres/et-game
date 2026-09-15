@@ -52,9 +52,9 @@ id = 2
 scene_file = ExtResource("2_yr6fu")
 density = 0.25
 cast_shadows = 0
-last_lod = 1
-last_shadow_lod = 1
-lod0_range = 50.0
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 30.0
 resource_name = "country_town_tree"
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_lbygu"]
