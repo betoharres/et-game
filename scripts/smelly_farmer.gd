@@ -70,6 +70,7 @@ var consecutive_hits : int = 0
 	$IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle/MuzzleFlashTimer
 )
 @onready var muzzle : Node3D = $IKcontainer/HandR/SM_Wep_Shotgun_01/Muzzle
+@onready var animation : NPCAnimation = $NPCAnimation
 
 # IK anims
 @onready var target_marker : Marker3D = $IKcontainer/HeadTarget
@@ -136,6 +137,7 @@ func _physics_process(delta : float) -> void:
 		State.SHOOTING:
 			shoot(delta)
 
+	animation.set_moving(Vector2(velocity.x, velocity.z).length_squared() >= 0.0064)
 	update_head_look(delta)
 
 # --------------------------------------------------

@@ -4,9 +4,11 @@
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
 [ext_resource type="PackedScene" uid="uid://8k1jwoir1oh0" path="res://PolygonFarm/Models/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
-[ext_resource type="Script" uid="uid://c7b1g0wjyngyp" path="res://scripts/IKsmelly.gd" id="4_vfalg"]
 [ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="6_jqnf7"]
+[ext_resource type="Script" path="res://scripts/smelly_farmer_animation.gd" id="7_animation"]
+[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="8_idle_clip"]
+[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="9_walk_clip"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.18603516
@@ -98,37 +100,7 @@ settings/0/end_bone = 22
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#FootR" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="2" unique_id=1381833618]
-transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKcontainer/FootR")
-settings/0/pole_node = NodePath("../../../../IKcontainer/KneeR")
-settings/0/root_bone_name = "UpperLeg_R"
-settings/0/root_bone = 43
-settings/0/middle_bone_name = "LowerLeg_R"
-settings/0/middle_bone = 44
-settings/0/pole_direction = 5
-settings/0/end_bone_name = "Ankle_R"
-settings/0/end_bone = 45
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="Characters_Characters_Skeleton3D#FootL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="3" unique_id=1073337]
-transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
-setting_count = 1
-settings/0/target_node = NodePath("../../../../IKcontainer/FootL")
-settings/0/pole_node = NodePath("../../../../IKcontainer/KneeL")
-settings/0/root_bone_name = "UpperLeg_L"
-settings/0/root_bone = 38
-settings/0/middle_bone_name = "LowerLeg_L"
-settings/0/middle_bone = 39
-settings/0/pole_direction = 5
-settings/0/end_bone_name = "Ankle_L"
-settings/0/end_bone = 40
-settings/0/use_virtual_end = false
-settings/0/extend_end_bone = false
-
-[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="4" unique_id=2124072261]
+[node name="Characters_Characters_Skeleton3D#HandL" type="TwoBoneIK3D" parent="FarmerOld2/Armature/Skeleton3D" index="2" unique_id=2124072261]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 setting_count = 1
 settings/0/target_node = NodePath("../../../../IKcontainer/HandR/SM_Wep_Shotgun_01/HandL")
@@ -143,7 +115,7 @@ settings/0/end_bone = 7
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
-[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" index="5" unique_id=1712986502]
+[node name="Characters_Characters_Skeleton3D#LookAtModifier3D" type="LookAtModifier3D" parent="FarmerOld2/Armature/Skeleton3D" index="3" unique_id=1712986502]
 transform = Transform3D(1000000, 1.1641532e-08, -9.094947e-09, -9.094947e-09, 0, -1000000, -1.1641532e-08, 1000000, 8.271806e-23, 0, 0, 0)
 target_node = NodePath("../../../../IKcontainer/HeadTarget")
 bone_name = "Neck"
@@ -166,8 +138,16 @@ shape = SubResource("CapsuleShape3D_ec6vt")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=746269821]
 path_height_offset = 0.5
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../FarmerOld2")
+
+[node name="NPCAnimation" type="Node" parent="."]
+script = ExtResource("7_animation")
+idle_clip = ExtResource("8_idle_clip")
+walk_clip = ExtResource("9_walk_clip")
+animation_player_path = NodePath("../AnimationPlayer")
+
 [node name="IKcontainer" type="Node3D" parent="." unique_id=808096475]
-script = ExtResource("4_vfalg")
 
 [node name="ElbowR" type="Marker3D" parent="IKcontainer" unique_id=1307138661]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3927444, 1.1762562, -0.43399447)
@@ -222,24 +202,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5539022, -0.050064087, 0.19
 
 [node name="HandL" type="Marker3D" parent="IKcontainer/HandR/SM_Wep_Shotgun_01" unique_id=1250634967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12149116, 0.009710908, 0.23479956)
-
-[node name="KneeR" type="Marker3D" parent="IKcontainer" unique_id=1273151338]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.49982852, 0.57760084)
-
-[node name="KneeL" type="Marker3D" parent="IKcontainer" unique_id=1518692596]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.49982852, 0.57741046)
-
-[node name="StepR" type="Marker3D" parent="IKcontainer" unique_id=1686277510]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.02, 0.14)
-
-[node name="StepL" type="Marker3D" parent="IKcontainer" unique_id=1496301053]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.02, 0.14)
-
-[node name="FootR" type="Marker3D" parent="IKcontainer" unique_id=116722117]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133, 0.02, 0.14)
-
-[node name="FootL" type="Marker3D" parent="IKcontainer" unique_id=1409332700]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.02, 0.14)
 
 [node name="HeadTarget" type="Marker3D" parent="IKcontainer" unique_id=404352808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493148, 6.7135515)

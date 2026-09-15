@@ -167,6 +167,8 @@ func _on_scene_node_added(node : Node) -> void:
 func _on_scene_node_removed(node : Node) -> void:
 	if node is CharacterBody3D:
 		_character_bodies.erase(node)
+	_vision_actors.erase(node)
+	_landmarks.erase(node)
 
 
 func _find_vision_actors() -> Array[Node]:
@@ -226,12 +228,15 @@ func _draw() -> void:
 	_draw_north_tick(_player)
 
 	for landmark : Node3D in _landmarks:
-		_draw_landmark(landmark, _player)
+		if is_instance_valid(landmark):
+			_draw_landmark(landmark, _player)
 
 	_draw_objective(_player)
 
 	for actor : Node in _vision_actors:
-		_draw_vision_actor(actor, _player)
+		# Freed objects are rejected before the typed function can check them.
+		if is_instance_valid(actor):
+			_draw_vision_actor(actor, _player)
 
 	_draw_player_marker()
 
