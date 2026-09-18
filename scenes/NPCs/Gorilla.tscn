@@ -76,7 +76,7 @@ shape = SubResource("Shape")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=967748569]
 
 [node name="NPCBehaviorTree" parent="." unique_id=145745752 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("3")]
-blackboard = NodePath("@Node@72639")
+blackboard = NodePath("@Node@48075")
 actor = NodePath("..")
 
 [node name="BananaTrade" type="Node3D" parent="." unique_id=1401699260]

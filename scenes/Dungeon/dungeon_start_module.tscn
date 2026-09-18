@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqsd1teh3jxjx" path="res://scenes/FX/FX_Candle_Flame_01.tscn" id="3_x820l"]
 [ext_resource type="PackedScene" uid="uid://dv3hf3urlj7mf" path="res://scenes/FX/FX_Sun_Beam_01.tscn" id="5_u3rj2"]
 [ext_resource type="PackedScene" uid="uid://3xw0gm70vi4p" path="res://scenes/FX/FX_Dust_01.tscn" id="6_cspox"]
+[ext_resource type="PackedScene" uid="uid://x1tsgj3kllvq" path="res://3dModelos/octopusAlien.glb" id="8_g3sug"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_740jj"]
 points = PackedVector3Array(5, 0, 2.84, 5, 0, -2.84, -5, 0, -2.84, -5, 0, 2.84, 2.84, 0, 5, 2.84, 0, -5, -2.84, 0, 5, -2.84, 0, -5)
@@ -145,6 +146,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.864, 1.1)
 
 [node name="EntrySpawn" type="Marker3D" parent="." unique_id=493360502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -2)
+
+[node name="octopusAlien" parent="." unique_id=1989854967 instance=ExtResource("8_g3sug")]
+transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, -0.0132780075, 1.2004395, -4.4101563)
 
 [editable path="TEM_Lamp_Post_02A"]
 [editable path="TEM_Lamp_Post_02A2"]

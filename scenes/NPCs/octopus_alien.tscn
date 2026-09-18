@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bvepmljxdj7n4"]
+
+[ext_resource type="PackedScene" uid="uid://x1tsgj3kllvq" path="res://3dModelos/octopusAlien.glb" id="1_jroby"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_emb0l"]
+radius = 0.39990234
+height = 1.8654785
+
+[node name="OctopusAlien" type="AnimatableBody3D" unique_id=2028002664]
+
+[node name="octopusAlien" parent="." unique_id=1989854967 instance=ExtResource("1_jroby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5158215, 0)
+
+[node name="Skeleton3D" type="Skeleton3D" parent="octopusAlien" unique_id=71393378]
+
+[node name="Mesh" parent="octopusAlien" index="1" unique_id=102632465]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -3.5038328, 0)
+layers = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2086393386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93566895, 0)
+shape = SubResource("CapsuleShape3D_emb0l")
+
+[editable path="octopusAlien"]

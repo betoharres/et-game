@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://ctlyi6tcv6xdp"]
 
 [ext_resource type="Script" uid="uid://be7v6q604sshy" path="res://scripts/photographer.gd" id="1_photographer"]
-[ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_farmer_model"]
-[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="3_farmer_material"]
+[ext_resource type="PackedScene" uid="uid://kucq5tb26ney" path="res://PolygonCity/Characters/SK_Character_Male_Hoodie.fbx" id="2_psxk5"]
 
-[sub_resource type="CapsuleShape3D" id="CapsulePhotographer"]
-radius = 0.22
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q55lf"]
+radius = 0.185
 height = 1.8
 
 [sub_resource type="StandardMaterial3D" id="CameraBodyMaterial"]
@@ -47,15 +46,19 @@ rings = 6
 [node name="Photographer" type="CharacterBody3D" unique_id=753964151 groups=["photographers"]]
 script = ExtResource("1_photographer")
 
-[node name="FarmerOld2" parent="." unique_id=1036764768 instance=ExtResource("2_farmer_model")]
+[node name="SK_Character_Male_Hoodie" parent="." unique_id=637138292 instance=ExtResource("2_psxk5")]
 
-[node name="SM_Chr_Farmer_Male_Old_01" parent="FarmerOld2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1036764768, 1712719073) index="0" unique_id=916395720]
-layers = 16
-surface_material_override/0 = ExtResource("3_farmer_material")
+[node name="Skeleton3D" parent="SK_Character_Male_Hoodie/Root" parent_id_path=PackedInt32Array(637138292, 1586603644) index="0" unique_id=1196087919]
+bones/9/rotation = Quaternion(0.011328, -0.23686, -0.653807, 0.970889)
+bones/10/rotation = Quaternion(0.161684, -1.53075, -0.658748, 0.998316)
+bones/11/rotation = Quaternion(-0.02, -0.079169, 0.295, 0.999358)
+bones/24/rotation = Quaternion(0.011328, -0.23686, -0.813807, 0.970889)
+bones/25/rotation = Quaternion(0.146684, -1.54575, -0.413748, 0.998316)
+bones/26/rotation = Quaternion(0, 0.130831, 0.155, 0.999358)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1458509790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsulePhotographer")
+shape = SubResource("CapsuleShape3D_q55lf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1052011456]
 path_desired_distance = 0.5
@@ -93,9 +96,10 @@ one_shot = true
 
 [node name="RoleLabel" type="Label3D" parent="." unique_id=1117793553]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
+visible = false
 billboard = 1
 modulate = Color(0.75, 0.9, 1, 1)
 text = "FOTÓGRAFO"
 outline_size = 8
 
-[editable path="FarmerOld2"]
+[editable path="SK_Character_Male_Hoodie"]

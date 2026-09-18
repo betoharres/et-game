@@ -5473,13 +5473,13 @@ transform = Transform3D(-1.1270652, 0, 0.19814286, 0, 1.1443498, 0, -0.19814286,
 transform = Transform3D(-0.7642847, 0, 0.938529, 0, 1.2103585, 0, -0.938529, 0, -0.7642847, 451.02966, 1.8035749e-07, 3.757905)
 
 [node name="TEM_Grass_Patch_01A_02364" parent="VegetationHolder" unique_id=305080196 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.1158369, 3e-45, -0.2853522, -3e-45, 1.1517456, -3e-45, 0.2853522, 3e-45, 1.1158369, 428.11707, 1.7162348e-07, 0.72332525)
+transform = Transform3D(1.1158369, 0, -0.2853522, 0, 1.1517456, 0, 0.2853522, 0, 1.1158369, 428.11707, 1.7162348e-07, 0.72332525)
 
 [node name="TEM_Grass_Patch_01A_02363" parent="VegetationHolder" unique_id=303031931 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.85139585, 0, 0.91620517, 0, 1.2507225, 0, -0.91620517, 0, -0.85139585, 427.57443, 1.863722e-07, 21.947945)
 
 [node name="TEM_Grass_Patch_01A_02362" parent="VegetationHolder" unique_id=1543302512 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.8234218, 1.7e-44, 0.768926, 7e-45, 1.1266191, -2e-44, -0.768926, -1e-44, -0.8234218, 420.95837, 1.6787935e-07, 16.912771)
+transform = Transform3D(-0.8234218, 0, 0.768926, 0, 1.1266191, 0, -0.768926, 0, -0.8234218, 420.95837, 1.6787935e-07, 16.912771)
 
 [node name="TEM_Grass_Patch_01A_02361" parent="VegetationHolder" unique_id=754837513 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.6468139, 0, 1.094732, 0, 1.2715371, 0, -1.094732, 0, -0.6468139, 433.04974, 1.8947381e-07, 19.287842)
@@ -5497,10 +5497,10 @@ transform = Transform3D(-0.5126912, 0, 1.5636377, 0, 1.645544, 0, -1.5636377, 0,
 transform = Transform3D(-1.0140129, 0, -0.78537, 0, 1.2825866, 0, 0.78537, 0, -1.0140129, 436.15448, 1.9112031e-07, 11.808928)
 
 [node name="TEM_Grass_Patch_01A_02356" parent="VegetationHolder" unique_id=1238043550 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.133008, 1e-45, 0.41872427, 1e-45, 1.2079061, 1e-45, -0.41872427, 1e-45, -1.133008, 424.98535, 1.7999206e-07, 6.9735765)
+transform = Transform3D(-1.133008, 0, 0.41872427, 0, 1.2079061, 0, -0.41872427, 0, -1.133008, 424.98535, 1.7999206e-07, 6.9735765)
 
 [node name="TEM_Grass_Patch_01A_02355" parent="VegetationHolder" unique_id=1585250290 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.39757258, 6.164e-42, -1.2597171, -6.28e-42, 1.320966, 4.481e-42, 1.2597171, 4.641e-42, 0.39757258, 416.835, 1.968393e-07, 8.090042)
+transform = Transform3D(0.39757258, 0, -1.2597171, 0, 1.320966, 0, 1.2597171, 0, 0.39757258, 416.835, 1.968393e-07, 8.090042)
 
 [node name="TEM_Grass_Patch_01A_02354" parent="VegetationHolder" unique_id=35683279 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.109419, 9.418535e-23, -0.25241622, -7.854336e-23, 1.1377717, 7.932904e-23, 0.25241622, -5.992725e-23, 1.109419, 384.50455, 1.6954121e-07, 10.413549)
@@ -5557,7 +5557,7 @@ transform = Transform3D(1.6125708, 1.0062352e-27, -0.07623932, -9.438082e-28, 1.
 transform = Transform3D(1.444907, 6.125777e-28, -0.79613525, -1.5257686e-28, 1.6497234, 9.9245e-28, 0.79613525, -7.956037e-28, 1.444907, 410.45236, 2.4582798e-07, 47.715694)
 
 [node name="TEM_Grass_Patch_01A_02336" parent="VegetationHolder" unique_id=357712644 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.4841489, 4.6943964e-22, 1.85e-43, -4.6943964e-22, 1.4841489, 5.8378257e-22, 0, -5.8378257e-22, 1.4841489, 401.98215, 2.2115543e-07, 49.900623)
+transform = Transform3D(1.4841489, 4.6943964e-22, 0, -4.6943964e-22, 1.4841489, 5.8378257e-22, 0, -5.8378257e-22, 1.4841489, 401.98215, 2.2115543e-07, 49.900623)
 
 [node name="TEM_Grass_Patch_01A_02335" parent="VegetationHolder" unique_id=628843734 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.79997826, 3.7343128e-22, -0.84171325, 7.548448e-23, 1.1612263, 5.8692685e-22, 0.84171325, -4.5905353e-22, 0.79997826, 403.02957, 1.7303621e-07, 52.177753)
@@ -5584,7 +5584,7 @@ transform = Transform3D(0.13823235, 3.0093567e-23, 1.2951972, -5.6598485e-23, 1.
 transform = Transform3D(-0.82445097, 1.6931033e-25, -1.2056174, 3.1890138e-25, 1.460559, -1.2964972e-26, 1.2056174, -2.7055538e-25, -0.82445097, 400.6913, 2.1764028e-07, 35.5265)
 
 [node name="TEM_Grass_Patch_01A_02327" parent="VegetationHolder" unique_id=778993677 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.7563833, 1.4091718e-22, 1.5e-44, -1.4091718e-22, 1.7563833, 1.8609999e-22, 0, -1.8609999e-22, 1.7563833, 398.57162, 2.6172154e-07, 40.009468)
+transform = Transform3D(1.7563833, 1.4091718e-22, 0, -1.4091718e-22, 1.7563833, 1.8609999e-22, 0, -1.8609999e-22, 1.7563833, 398.57162, 2.6172154e-07, 40.009468)
 
 [node name="TEM_Grass_Patch_01A_02326" parent="VegetationHolder" unique_id=453164638 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.71164083, 8.6610963e-35, -1.2462878, 1.6202771e-34, 1.4351536, 7.217038e-36, 1.2462878, -1.3712623e-34, -0.71164083, 414.10532, 2.1385458e-07, 35.165688)
@@ -5602,7 +5602,7 @@ transform = Transform3D(1.2969023, 0, 0, 0, 1.2969023, 0, 0, 0, 1.2969023, 434.5
 transform = Transform3D(-1.3671467, 0, -0.6930656, 0, 1.532785, 0, 0.6930656, 0, -1.3671467, 432.5953, 2.284028e-07, 37.18331)
 
 [node name="TEM_Grass_Patch_01A_02321" parent="VegetationHolder" unique_id=753147750 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.4402508, 4e-45, 0, -4e-45, 1.4402508, 1e-45, 0, -1e-45, 1.4402508, 434.3995, 2.146141e-07, 43.797012)
+transform = Transform3D(1.4402508, 0, 0, 0, 1.4402508, 0, 0, 0, 1.4402508, 434.3995, 2.146141e-07, 43.797012)
 
 [node name="TEM_Grass_Patch_01A_02320" parent="VegetationHolder" unique_id=1109641016 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.17749484, 0, -1.2987707, 0, 1.3108431, 0, 1.2987707, 0, 0.17749484, 444.85007, 1.9533087e-07, 61.21834)
@@ -5614,16 +5614,16 @@ transform = Transform3D(1.7582998, 0, 0, 0, 1.7582998, 0, 0, 0, 1.7582998, 445.1
 transform = Transform3D(1.4824553, 0, -0.6528978, 0, 1.6198608, 0, 0.6528978, 0, 1.4824553, 444.7512, 2.4137807e-07, 49.94787)
 
 [node name="TEM_Grass_Patch_01A_02317" parent="VegetationHolder" unique_id=1982472252 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.837314, 1.04e-43, 1.4473029, -1.5e-43, 1.6720587, -3.2e-44, -1.4473029, -1.12e-43, 0.837314, 436.6867, 2.491562e-07, 53.97248)
+transform = Transform3D(0.837314, 0, 1.4473029, 0, 1.6720587, 0, -1.4473029, 0, 0.837314, 436.6867, 2.491562e-07, 53.97248)
 
 [node name="TEM_Grass_Patch_01A_02316" parent="VegetationHolder" unique_id=347406888 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.3381562, 3.968e-42, -1.1379977, 5.836e-42, 1.7566164, -7.41e-43, 1.1379977, -4.344e-42, -1.3381562, 434.79483, 2.6175627e-07, 54.508984)
+transform = Transform3D(-1.3381562, 0, -1.1379977, 0, 1.7566164, 0, 1.1379977, 0, -1.3381562, 434.79483, 2.6175627e-07, 54.508984)
 
 [node name="TEM_Grass_Patch_01A_02315" parent="VegetationHolder" unique_id=683942281 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.843337, 2.1405463e-32, -1.5129362, 3.5609024e-32, 1.7321066, 4.6572616e-33, 1.5129362, -2.883572e-32, -0.843337, 418.4627, 2.5810402e-07, 49.978127)
 
 [node name="TEM_Grass_Patch_01A_02314" parent="VegetationHolder" unique_id=251434787 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2093272, 1.93411e-40, 0, -1.93411e-40, 1.2093272, 3.7012e-40, 0, -3.7012e-40, 1.2093272, 422.74704, 1.8020381e-07, 36.087288)
+transform = Transform3D(1.2093272, 0, 0, 0, 1.2093272, 0, 0, 0, 1.2093272, 422.74704, 1.8020381e-07, 36.087288)
 
 [node name="TEM_Grass_Patch_01A_02313" parent="VegetationHolder" unique_id=22687440 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.32020178, 0, -1.5600058, 0, 1.5925286, 0, 1.5600058, 0, -0.32020178, 434.4171, 2.3730527e-07, 36.114525)
@@ -5758,10 +5758,10 @@ transform = Transform3D(0.87908894, 0, -0.68974507, 0, 1.1173834, 0, 0.68974507,
 transform = Transform3D(0.39140242, 0, -1.2508253, 0, 1.3106334, 0, 1.2508253, 0, 0.39140242, 500.81064, 1.9529962e-07, 56.960716)
 
 [node name="TEM_Grass_Patch_01A_02269" parent="VegetationHolder" unique_id=577706977 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.8452864, 1.3e-44, 0, -1.3e-44, 1.8452864, 8e-45, 0, -8e-45, 1.8452864, 443.16324, 2.7496912e-07, 69.257706)
+transform = Transform3D(1.8452864, 0, 0, 0, 1.8452864, 0, 0, 0, 1.8452864, 443.16324, 2.7496912e-07, 69.257706)
 
 [node name="TEM_Grass_Patch_01A_02268" parent="VegetationHolder" unique_id=1223265867 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.06796471, 3.5e-44, 1.1166582, -1.7e-44, 1.1187246, -3.6e-44, -1.1166582, -1.8e-44, -0.06796471, 443.54883, 1.6670297e-07, 74.00913)
+transform = Transform3D(-0.06796471, 0, 1.1166582, 0, 1.1187246, 0, -1.1166582, 0, -0.06796471, 443.54883, 1.6670297e-07, 74.00913)
 
 [node name="TEM_Grass_Patch_01A_02267" parent="VegetationHolder" unique_id=2116357126 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.79394656, 2.584392e-35, -0.8065694, -9.8994676e-36, 1.1317708, 2.6519414e-35, 0.8065694, -1.15486186e-35, 0.79394656, 431.75912, 1.6864702e-07, 75.961494)
@@ -5785,7 +5785,7 @@ transform = Transform3D(1.6418682, 6.4199315e-27, 0, -6.4199315e-27, 1.6418682, 
 transform = Transform3D(1.2796249, 4.99983e-32, 0, -4.99983e-32, 1.2796249, 1.36882965e-33, 0, -1.36882965e-33, 1.2796249, 428.50064, 1.9067899e-07, 90.194885)
 
 [node name="TEM_Grass_Patch_01A_02260" parent="VegetationHolder" unique_id=1457433336 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2773257, 4e-45, 0, -4e-45, 1.2773257, 0, 0, 0, 1.2773257, 447.19485, 1.903364e-07, 94.67374)
+transform = Transform3D(1.2773257, 0, 0, 0, 1.2773257, 0, 0, 0, 1.2773257, 447.19485, 1.903364e-07, 94.67374)
 
 [node name="TEM_Grass_Patch_01A_02259" parent="VegetationHolder" unique_id=471429665 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.62465996, 0, -1.449197, 0, 1.5780914, 0, 1.449197, 0, -0.62465996, 460.615, 2.3515396e-07, 66.75392)
@@ -5926,7 +5926,7 @@ transform = Transform3D(1.347205, 0, -0.66523606, 0, 1.502498, 0, 0.66523606, 0,
 transform = Transform3D(1.6627518, 0, 0, 0, 1.6627518, 0, 0, 0, 1.6627518, 460.0479, 2.4776935e-07, 111.596634)
 
 [node name="TEM_Grass_Patch_01A_02213" parent="VegetationHolder" unique_id=1827397969 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.6114445, -2.4788e-41, -0.06086879, -2.4911e-41, 1.6125937, 2.832e-42, 0.06086879, 3.77e-42, -1.6114445, 448.0351, 2.402952e-07, 117.008316)
+transform = Transform3D(-1.6114445, 0, -0.06086879, 0, 1.6125937, 0, 0.06086879, 0, -1.6114445, 448.0351, 2.402952e-07, 117.008316)
 
 [node name="TEM_Grass_Patch_01A_02212" parent="VegetationHolder" unique_id=1837743347 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.1797125, -1.0384061e-31, -0.8136965, -3.230945e-32, 1.4331168, -2.2973133e-31, 0.8136965, 2.0745484e-31, 1.1797125, 431.96, 2.1355106e-07, 103.92462)
@@ -5947,7 +5947,7 @@ transform = Transform3D(-1.0681283, -8.618473e-28, -0.390011, -1.4631946e-27, 1.
 transform = Transform3D(-0.60317814, -1.1168541e-27, 1.5825812, 1.4429751e-27, 1.6936314, 1.7451934e-27, -1.5825812, 1.9699024e-27, -0.60317814, 426.51624, 2.5237077e-07, 104.28395)
 
 [node name="TEM_Grass_Patch_01A_02206" parent="VegetationHolder" unique_id=480986469 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.6278947, -2.6493e-41, -1.3774533, -2.4164e-41, 1.5138129, -1.81e-41, 1.3774533, 1.448e-41, -0.6278947, 447.50528, 2.2557572e-07, 111.951324)
+transform = Transform3D(-0.6278947, 0, -1.3774533, 0, 1.5138129, 0, 1.3774533, 0, -0.6278947, 447.50528, 2.2557572e-07, 111.951324)
 
 [node name="TEM_Grass_Patch_01A_02205" parent="VegetationHolder" unique_id=2081233458 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.187083, -1.3498104e-23, 0, 1.3498104e-23, 1.187083, -1.5334391e-24, 0, 1.5334391e-24, 1.187083, 424.6134, 1.7688917e-07, 120.35781)
@@ -5968,7 +5968,7 @@ transform = Transform3D(-0.14241166, 9.3754436e-21, 1.4622928, -2.223389e-21, 1.
 transform = Transform3D(-1.1675185, 1.1623595e-22, 0.90781033, 3.2441662e-23, 1.478925, -1.4763878e-22, -0.90781033, -9.663786e-23, -1.1675185, 409.09393, 2.2037702e-07, 64.015755)
 
 [node name="TEM_Grass_Patch_01A_02199" parent="VegetationHolder" unique_id=256725072 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.5333567, 1.6420677e-20, 7.411e-41, -1.6420677e-20, 1.5333567, 6.920344e-21, 0, -6.920344e-21, 1.5333567, 407.07816, 2.2848798e-07, 69.32131)
+transform = Transform3D(1.5333567, 1.6420677e-20, 0, -1.6420677e-20, 1.5333567, 6.920344e-21, 0, -6.920344e-21, 1.5333567, 407.07816, 2.2848798e-07, 69.32131)
 
 [node name="TEM_Grass_Patch_01A_02198" parent="VegetationHolder" unique_id=1371111198 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.6916975, 3.8548245e-15, -1.1298958, 2.999801e-15, 1.3248056, 2.6833794e-15, 1.1298958, -1.1574349e-15, -0.6916975, 398.39682, 1.9741144e-07, 72.52115)
@@ -6166,7 +6166,7 @@ transform = Transform3D(-0.42102897, 4.1114392e-26, -1.2987893, -1.211655e-26, 1
 transform = Transform3D(-0.4261246, 1.653315e-26, 1.1971122, 1.6169314e-26, 1.2706927, -1.1793723e-26, -1.1971122, 1.12780116e-26, -0.4261246, 417.29794, 1.8934799e-07, -75.6571)
 
 [node name="TEM_Grass_Patch_01A_02133" parent="VegetationHolder" unique_id=76066695 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.5916383, 1.0836e-41, 0.08194412, 1.0975e-41, 1.5937463, 2.4e-42, -0.08194412, 2.961e-42, -1.5916383, 442.24936, 2.3748673e-07, -92.110016)
+transform = Transform3D(-1.5916383, 0, 0.08194412, 0, 1.5937463, 0, -0.08194412, 0, -1.5916383, 442.24936, 2.3748673e-07, -92.110016)
 
 [node name="TEM_Grass_Patch_01A_02132" parent="VegetationHolder" unique_id=274538528 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.20497063, 2.1174864e-31, -1.3078322, -1.2226328e-31, 1.3237969, 1.9517166e-31, 1.3078322, 9.056934e-32, 0.20497063, 428.93704, 1.9726113e-07, -86.59244)
@@ -6187,7 +6187,7 @@ transform = Transform3D(-0.18078905, 3.3071467e-24, -1.2089494, -1.021535e-24, 1
 transform = Transform3D(-1.4063994, 1.7352675e-29, -0.5060743, 1.4030991e-29, 1.4946806, 1.225814e-29, 0.5060743, 6.7834676e-30, -1.4063994, 428.24667, 2.227248e-07, -94.0496)
 
 [node name="TEM_Grass_Patch_01A_02126" parent="VegetationHolder" unique_id=1407813804 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.8165608, 6.6e-44, -1.3933938, -5.5e-44, 1.6150287, 4.3e-44, 1.3933938, 2.5e-44, 0.8165608, 442.28555, 2.4065807e-07, -77.729195)
+transform = Transform3D(0.8165608, 0, -1.3933938, 0, 1.6150287, 0, 1.3933938, 0, 0.8165608, 442.28555, 2.4065807e-07, -77.729195)
 
 [node name="TEM_Grass_Patch_01A_02125" parent="VegetationHolder" unique_id=1378002898 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.89182544, 1.0562179e-36, 0.6805728, 1.2528852e-36, 1.1218431, -9.926314e-38, -0.6805728, 6.811596e-37, -0.89182544, 429.36157, 1.6716767e-07, -65.626816)
@@ -6328,7 +6328,7 @@ transform = Transform3D(-1.5076947, 0, -0.67493093, 0, 1.6518703, 0, 0.67493093,
 transform = Transform3D(-0.2009348, 0, -1.2662485, 0, 1.2820921, 0, 1.2662485, 0, -0.2009348, 434.1017, 1.9104662e-07, -4.6990356)
 
 [node name="TEM_Grass_Patch_01A_02079" parent="VegetationHolder" unique_id=1381985094 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.52272147, 5.525e-41, -1.7447659, -4.1048e-41, 1.8213856, 4.5377e-41, 1.7447659, 2.63e-41, 0.52272147, 424.27527, 2.7140763e-07, -10.187698)
+transform = Transform3D(0.52272147, 0, -1.7447659, 0, 1.8213856, 0, 1.7447659, 0, 0.52272147, 424.27527, 2.7140763e-07, -10.187698)
 
 [node name="TEM_Grass_Patch_01A_02078" parent="VegetationHolder" unique_id=305735251 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.5061635, 0, -0.4589637, 0, 1.57454, 0, 0.4589637, 0, 1.5061635, 447.54227, 2.3462476e-07, -23.663254)
@@ -6340,10 +6340,10 @@ transform = Transform3D(-0.66100156, 6.325644e-35, 1.1423392, 4.844379e-35, 1.31
 transform = Transform3D(-1.24665, 0, 0.74011815, 0, 1.4497969, 0, -0.74011815, 0, -1.24665, 445.36435, 2.160366e-07, -43.653862)
 
 [node name="TEM_Grass_Patch_01A_02075" parent="VegetationHolder" unique_id=649876094 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.50367856, 1.122509e-39, -1.572957, -8.13614e-40, 1.6516314, 9.18125e-40, 1.572957, 4.94869e-40, 0.50367856, 429.31662, 2.4611228e-07, -55.236237)
+transform = Transform3D(0.50367856, 0, -1.572957, 0, 1.6516314, 0, 1.572957, 0, 0.50367856, 429.31662, 2.4611228e-07, -55.236237)
 
 [node name="TEM_Grass_Patch_01A_02074" parent="VegetationHolder" unique_id=1904680590 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.6638548, 2.7303e-41, -0.024819555, 2.7121e-41, 1.66404, 1.24e-41, 0.024819555, 1.1995e-41, -1.6638548, 431.69666, 2.479613e-07, -54.888626)
+transform = Transform3D(-1.6638548, 0, -0.024819555, 0, 1.66404, 0, 0.024819555, 0, -1.6638548, 431.69666, 2.479613e-07, -54.888626)
 
 [node name="TEM_Grass_Patch_01A_02073" parent="VegetationHolder" unique_id=927631966 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.2012792, 0, 0, 0, 1.2012792, 0, 0, 0, 1.2012792, 441.95026, 1.7900456e-07, -60.10318)
@@ -6355,13 +6355,13 @@ transform = Transform3D(0.8192717, 0, -1.1897906, 0, 1.4445788, 0, 1.1897906, 0,
 transform = Transform3D(-0.37570828, 0, 1.7660381, 0, 1.80556, 0, -1.7660381, 0, -0.37570828, 445.28378, 2.6904942e-07, -33.5924)
 
 [node name="TEM_Grass_Patch_01A_02070" parent="VegetationHolder" unique_id=994709702 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.5571008, 3.4e-44, -0.20477797, -3.5e-44, 1.5705085, -4e-45, 0.20477797, 8e-45, 1.5571008, 434.7917, 2.3402403e-07, -36.538223)
+transform = Transform3D(1.5571008, 0, -0.20477797, 0, 1.5705085, 0, 0.20477797, 0, 1.5571008, 434.7917, 2.3402403e-07, -36.538223)
 
 [node name="TEM_Grass_Patch_01A_02069" parent="VegetationHolder" unique_id=656410054 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.6202438, 7.823e-42, -0.092391275, 7.723e-42, 1.6228758, 1.949e-42, 0.092391275, 1.505e-42, -1.6202438, 431.44565, 2.4182737e-07, -36.13112)
+transform = Transform3D(-1.6202438, 0, -0.092391275, 0, 1.6228758, 0, 0.092391275, 0, -1.6202438, 431.44565, 2.4182737e-07, -36.13112)
 
 [node name="TEM_Grass_Patch_01A_02068" parent="VegetationHolder" unique_id=184317130 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.5716548, 4.585379e-39, 0, -4.585379e-39, 1.5716548, -9.4319e-40, 0, 9.4319e-40, 1.5716548, 427.23978, 2.3419484e-07, -36.06595)
+transform = Transform3D(1.5716548, 0, 0, 0, 1.5716548, 0, 0, 0, 1.5716548, 427.23978, 2.3419484e-07, -36.06595)
 
 [node name="TEM_Grass_Patch_01A_02067" parent="VegetationHolder" unique_id=277532534 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.2404464, 3.2359088e-32, 0.65207887, 3.1547112e-32, 1.4013972, -9.5317186e-33, -0.65207887, 6.242072e-33, -1.2404464, 416.6874, 2.0882447e-07, -42.11165)
@@ -6376,7 +6376,7 @@ transform = Transform3D(0.66006225, 9.625414e-12, -1.4682564, -1.19957915e-11, 1
 transform = Transform3D(-0.87875366, 9.88707e-26, 0.9714125, 1.200615e-25, 1.3099047, -2.4713206e-26, -0.9714125, 7.24575e-26, -0.87875366, 414.69525, 1.9519103e-07, -73.43654)
 
 [node name="TEM_Grass_Patch_01A_02063" parent="VegetationHolder" unique_id=1116936036 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2510436, 5.1785607e-20, -1.024558e-39, -5.1785607e-20, 1.2510436, -2.4751417e-20, 0, 2.4751417e-20, 1.2510436, 413.0229, 1.8642004e-07, -93.43325)
+transform = Transform3D(1.2510436, 5.1785607e-20, 0, -5.1785607e-20, 1.2510436, -2.4751417e-20, 0, 2.4751417e-20, 1.2510436, 413.0229, 1.8642004e-07, -93.43325)
 
 [node name="TEM_Grass_Patch_01A_02062" parent="VegetationHolder" unique_id=589398716 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.45348215, 2.3081671e-21, 1.17334, 2.3819209e-21, 1.257924, -1.5539739e-21, -1.17334, 1.6615499e-21, -0.45348215, 408.922, 1.874453e-07, -78.03652)
@@ -6418,7 +6418,7 @@ transform = Transform3D(-1.3160282, 8.707819e-26, -0.85156083, 7.2398455e-26, 1.
 transform = Transform3D(0.09784713, 2.152423e-24, 1.3312824, -1.0383883e-25, 1.3348733, -2.1505967e-24, -1.3312824, 5.4080717e-26, 0.09784713, 404.70193, 1.9891165e-07, -57.708687)
 
 [node name="TEM_Grass_Patch_01A_02049" parent="VegetationHolder" unique_id=1417004578 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.3803931, 1.610794e-19, -1.27847e-39, -1.610794e-19, 1.3803931, -1.0956044e-20, 0, 1.0956044e-20, 1.3803931, 396.14682, 2.0569463e-07, -56.634018)
+transform = Transform3D(1.3803931, 1.610794e-19, 0, -1.610794e-19, 1.3803931, -1.0956044e-20, 0, 1.0956044e-20, 1.3803931, 396.14682, 2.0569463e-07, -56.634018)
 
 [node name="TEM_Grass_Patch_01A_02048" parent="VegetationHolder" unique_id=2078686309 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.1032621, 1.4058196e-23, -1.2479113, 4.9390084e-24, 1.665674, 1.4397934e-23, 1.2479113, 5.8362265e-24, -1.1032621, 400.80176, 2.482048e-07, -34.232056)
@@ -6658,7 +6658,7 @@ transform = Transform3D(0.48644373, 5.816751e-29, -1.0730716, -1.3448664e-28, 1.
 transform = Transform3D(1.1438212, 7.605558e-31, -0.30414042, -1.112871e-30, 1.183566, -1.22561e-30, 0.30414042, 1.4704273e-30, 1.1438212, 351.62888, 1.7636509e-07, 193.57986)
 
 [node name="TEM_Grass_Patch_01A_01969" parent="VegetationHolder" unique_id=1078852909 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.9413657, 6e-45, -0.8852102, -6e-45, 1.2921945, 1.3e-44, 0.8852102, 1.3e-44, -0.9413657, 347.93445, 1.9255201e-07, 210.35718)
+transform = Transform3D(-0.9413657, 0, -0.8852102, 0, 1.2921945, 0, 0.8852102, 0, -0.9413657, 347.93445, 1.9255201e-07, 210.35718)
 
 [node name="TEM_Grass_Patch_01A_01968" parent="VegetationHolder" unique_id=1725534015 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.3273348, 0, -1.1348509, 0, 1.1811159, 0, 1.1348509, 0, -0.3273348, 345.054, 1.76e-07, 223.74039)
@@ -6670,10 +6670,10 @@ transform = Transform3D(-1.7277898, 0, -0.5115547, 0, 1.8019283, 0, 0.5115547, 0
 transform = Transform3D(1.4737223, 0, -0.8472303, 0, 1.6998991, 0, 0.8472303, 0, 1.4737223, 320.37946, 2.5330473e-07, 221.63716)
 
 [node name="TEM_Grass_Patch_01A_01965" parent="VegetationHolder" unique_id=235845120 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.7045607, 4.48818e-40, -1.3354204, -6.03288e-40, 1.5098852, 1.89161e-40, 1.3354204, 4.4531e-40, 0.7045607, 325.2298, 2.2499044e-07, 214.85655)
+transform = Transform3D(0.7045607, 0, -1.3354204, 0, 1.5098852, 0, 1.3354204, 0, 0.7045607, 325.2298, 2.2499044e-07, 214.85655)
 
 [node name="TEM_Grass_Patch_01A_01964" parent="VegetationHolder" unique_id=1275998046 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.006893012, 1.11e-43, -1.6905224, -4.15e-43, 1.6905364, 1.14e-43, 1.6905224, 4.15e-43, -0.006893012, 332.0676, 2.5190957e-07, 211.86172)
+transform = Transform3D(-0.006893012, 0, -1.6905224, 0, 1.6905364, 0, 1.6905224, 0, -0.006893012, 332.0676, 2.5190957e-07, 211.86172)
 
 [node name="TEM_Grass_Patch_01A_01963" parent="VegetationHolder" unique_id=1015224772 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.3936675, 8.957048e-38, -1.0795267, -2.2363185e-37, 1.7628633, -1.4244013e-37, 1.0795267, 2.4955464e-37, 1.3936675, 336.7981, 2.6268714e-07, 205.53595)
@@ -6691,7 +6691,7 @@ transform = Transform3D(1.2265753, 4.185731e-27, -0.07581248, -4.5108603e-27, 1.
 transform = Transform3D(-1.2182807, 6.999461e-29, -0.5004342, 2.6208292e-29, 1.3170581, 1.2041125e-28, 0.5004342, 1.0142237e-28, -1.2182807, 366.87772, 1.9625696e-07, 184.64734)
 
 [node name="TEM_Grass_Patch_01A_01958" parent="VegetationHolder" unique_id=644489763 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2671357, 3.990647e-21, -1.5008e-41, -3.990647e-21, 1.2671357, -4.7654525e-21, 0, 4.7654525e-21, 1.2671357, 366.53906, 1.8881796e-07, 169.73282)
+transform = Transform3D(1.2671357, 3.990647e-21, 0, -3.990647e-21, 1.2671357, -4.7654525e-21, 0, 4.7654525e-21, 1.2671357, 366.53906, 1.8881796e-07, 169.73282)
 
 [node name="TEM_Grass_Patch_01A_01957" parent="VegetationHolder" unique_id=1228594287 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.0035039582, 6.468179e-24, 1.6041188, 9.0377285e-24, 1.6041226, -6.487936e-24, -1.6041188, 9.051879e-24, 0.0035039582, 363.33182, 2.3903291e-07, 177.91608)
@@ -6709,19 +6709,19 @@ transform = Transform3D(-1.1542583, 1.4407717e-26, -0.4487456, 4.1902997e-27, 1.
 transform = Transform3D(-0.06617218, 2.5478003e-32, 1.6503202, 4.017878e-32, 1.6516463, -2.388745e-32, -1.6503202, 3.9189477e-32, -0.06617218, 365.43283, 2.461145e-07, 190.62396)
 
 [node name="TEM_Grass_Patch_01A_01952" parent="VegetationHolder" unique_id=1407493645 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2071308, 4.32e-42, 0, -4.32e-42, 1.2071308, -7.807e-42, 0, 7.807e-42, 1.2071308, 355.26443, 1.7987652e-07, 205.77415)
+transform = Transform3D(1.2071308, 0, 0, 0, 1.2071308, 0, 0, 0, 1.2071308, 355.26443, 1.7987652e-07, 205.77415)
 
 [node name="TEM_Grass_Patch_01A_01951" parent="VegetationHolder" unique_id=132212566 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.68271387, 4.39e-43, -1.1000506, -8.35e-43, 1.2946851, 0, 1.1000506, 7.09e-43, 0.68271387, 361.6724, 1.9292314e-07, 204.76314)
+transform = Transform3D(0.68271387, 0, -1.1000506, 0, 1.2946851, 0, 1.1000506, 0, 0.68271387, 361.6724, 1.9292314e-07, 204.76314)
 
 [node name="TEM_Grass_Patch_01A_01950" parent="VegetationHolder" unique_id=220189974 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.1000539, 0, 0, 0, 1.1000539, 0, 0, 0, 1.1000539, 357.33548, 1.6392082e-07, 209.8489)
 
 [node name="TEM_Grass_Patch_01A_01949" parent="VegetationHolder" unique_id=797772323 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2974997, 5.0004e-41, 0, -5.0004e-41, 1.2974997, -7.9455e-41, 0, 7.9455e-41, 1.2974997, 363.59094, 1.9334253e-07, 201.86269)
+transform = Transform3D(1.2974997, 0, 0, 0, 1.2974997, 0, 0, 0, 1.2974997, 363.59094, 1.9334253e-07, 201.86269)
 
 [node name="TEM_Grass_Patch_01A_01948" parent="VegetationHolder" unique_id=154624531 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.1553626, 1.7229e-41, 0.89041084, 3.0337e-41, 1.4586618, 1.1142e-41, -0.89041084, 2.7345e-41, -1.1553626, 363.59332, 2.1735757e-07, 202.4275)
+transform = Transform3D(-1.1553626, 0, 0.89041084, 0, 1.4586618, 0, -0.89041084, 0, -1.1553626, 363.59332, 2.1735757e-07, 202.4275)
 
 [node name="TEM_Grass_Patch_01A_01947" parent="VegetationHolder" unique_id=1669188584 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.3594093, 0, 0, 0, 1.3594093, 0, 0, 0, 1.3594093, 364.997, 2.0256779e-07, 213.97203)
@@ -6883,16 +6883,16 @@ transform = Transform3D(1.1715205, 0, 0, 0, 1.1715205, 0, 0, 0, 1.1715205, 275.0
 transform = Transform3D(-1.3287115, 0, 0.33343282, 0, 1.3699094, 0, -0.33343282, 0, -1.3287115, 260.1093, 2.0413243e-07, 221.84824)
 
 [node name="TEM_Grass_Patch_01A_01894" parent="VegetationHolder" unique_id=2101946836 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.9445279, 2.5e-44, -0.911675, -1.58e-43, 1.3127393, -1.28e-43, 0.911675, 2.02e-43, 0.9445279, 267.76584, 1.9561341e-07, 215.47536)
+transform = Transform3D(0.9445279, 0, -0.911675, 0, 1.3127393, 0, 0.911675, 0, 0.9445279, 267.76584, 1.9561341e-07, 215.47536)
 
 [node name="TEM_Grass_Patch_01A_01893" parent="VegetationHolder" unique_id=1913377284 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.9791393, 7.1e-44, -0.92992944, -4.53e-43, 1.3503639, 5.82e-43, 0.92992944, 7.34e-43, -0.9791393, 259.66583, 2.0121992e-07, 215.21037)
+transform = Transform3D(-0.9791393, 0, -0.92992944, 0, 1.3503639, 0, 0.92992944, 0, -0.9791393, 259.66583, 2.0121992e-07, 215.21037)
 
 [node name="TEM_Grass_Patch_01A_01892" parent="VegetationHolder" unique_id=178140486 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.9815405, 0, -1.0272347, 0, 1.420786, 0, 1.0272347, 0, -0.9815405, 268.79562, 2.1171364e-07, 221.70602)
 
 [node name="TEM_Grass_Patch_01A_01891" parent="VegetationHolder" unique_id=827263148 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.5912548, -8.8185e-41, 0, 8.8185e-41, 1.5912548, -7.0938e-41, 0, 7.0938e-41, 1.5912548, 267.15988, 2.3711547e-07, 213.31749)
+transform = Transform3D(1.5912548, 0, 0, 0, 1.5912548, 0, 0, 0, 1.5912548, 267.15988, 2.3711547e-07, 213.31749)
 
 [node name="TEM_Grass_Patch_01A_01890" parent="VegetationHolder" unique_id=1733338999 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.2463737, -1.6752075e-09, 3.9655323e-19, 1.6752075e-09, 1.2463737, -2.9504016e-10, 0, 2.9504016e-10, 1.2463737, 269.615, 1.85973e-07, 203.39294)
@@ -7297,7 +7297,7 @@ transform = Transform3D(-1.1217043, 0, 0.10511623, 0, 1.1266189, 0, -0.10511623,
 transform = Transform3D(-0.29830182, 0, 1.3096611, 0, 1.3432038, 0, -1.3096611, 0, -0.29830182, 322.19675, 2.0015298e-07, -236.31294)
 
 [node name="TEM_Grass_Patch_01A_01756" parent="VegetationHolder" unique_id=518204893 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.7576183, 3e-45, 0.27889782, -1.18e-43, 1.7796084, -7.52e-43, -0.27889782, -7.64e-43, -1.7576183, 324.851, 2.6518234e-07, -228.36093)
+transform = Transform3D(-1.7576183, 0, 0.27889782, 0, 1.7796084, 0, -0.27889782, 0, -1.7576183, 324.851, 2.6518234e-07, -228.36093)
 
 [node name="TEM_Grass_Patch_01A_01755" parent="VegetationHolder" unique_id=2098663805 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.4540025, 0, 0.47362748, 0, 1.5291979, 0, -0.47362748, 0, -1.4540025, 339.97485, 2.2786827e-07, -234.53596)
@@ -7324,16 +7324,16 @@ transform = Transform3D(1.746691, 0, 0, 0, 1.746691, 0, 0, 0, 1.746691, 337.8995
 transform = Transform3D(-1.7773232, 0, 0.29543442, 0, 1.8017101, 0, -0.29543442, 0, -1.7773232, 324.45892, 2.6847576e-07, -247.38371)
 
 [node name="TEM_Grass_Patch_01A_01747" parent="VegetationHolder" unique_id=742497107 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.1054282, 4e-45, 0, -4e-45, 1.1054282, 5.7e-44, 0, -5.7e-44, 1.1054282, 288.91824, 1.6472165e-07, -240.0192)
+transform = Transform3D(1.1054282, 0, 0, 0, 1.1054282, 0, 0, 0, 1.1054282, 288.91824, 1.6472165e-07, -240.0192)
 
 [node name="TEM_Grass_Patch_01A_01746" parent="VegetationHolder" unique_id=1675795849 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.27576017, 4.0340225e-28, 1.5383121, -3.6809766e-26, 1.5628333, 6.188743e-27, -1.5383121, -3.7324208e-26, 0.27576017, 288.0232, 2.3288034e-07, -229.98547)
 
 [node name="TEM_Grass_Patch_01A_01745" parent="VegetationHolder" unique_id=888559305 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.28314227, 7e-45, 1.0907305, -1.26e-43, 1.1268818, 2.7e-44, -1.0907305, -1.29e-43, 0.28314227, 292.79944, 1.679185e-07, -237.91817)
+transform = Transform3D(0.28314227, 0, 1.0907305, 0, 1.1268818, 0, -1.0907305, 0, 0.28314227, 292.79944, 1.679185e-07, -237.91817)
 
 [node name="TEM_Grass_Patch_01A_01744" parent="VegetationHolder" unique_id=374610302 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.2155899, 1.77e-43, -0.103101954, 1.229e-42, 1.2199544, -1.2406e-41, 0.103101954, -1.2466e-41, -1.2155899, 296.62222, 1.8178739e-07, -235.09413)
+transform = Transform3D(-1.2155899, 0, -0.103101954, 0, 1.2199544, 0, 0.103101954, 0, -1.2155899, 296.62222, 1.8178739e-07, -235.09413)
 
 [node name="TEM_Grass_Patch_01A_01743" parent="VegetationHolder" unique_id=127017568 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.6081163, 0, -0.5450904, 0, 1.6979876, 0, 0.5450904, 0, -1.6081163, 299.61807, 2.530199e-07, -238.02322)
@@ -7345,7 +7345,7 @@ transform = Transform3D(1.4774112, 0, 0, 0, 1.4774112, 0, 0, 0, 1.4774112, 309.6
 transform = Transform3D(0.18347035, 0, -1.2187335, 0, 1.2324661, 0, 1.2187335, 0, 0.18347035, 317.25113, 1.8365178e-07, -245.49702)
 
 [node name="TEM_Grass_Patch_01A_01740" parent="VegetationHolder" unique_id=301341516 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.7412984, 9.90627e-24, 7e-45, -9.90627e-24, 1.7412984, 1.3075481e-21, 0, -1.3075481e-21, 1.7412984, 302.60812, 2.5947372e-07, -225.0565)
+transform = Transform3D(1.7412984, 9.90627e-24, 0, -9.90627e-24, 1.7412984, 1.3075481e-21, 0, -1.3075481e-21, 1.7412984, 302.60812, 2.5947372e-07, -225.0565)
 
 [node name="TEM_Grass_Patch_01A_01739" parent="VegetationHolder" unique_id=514916699 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.7305136, 0, -0.9221021, 0, 1.1764023, 0, 0.9221021, 0, 0.7305136, 317.2452, 1.7529763e-07, -249.06502)
@@ -7360,7 +7360,7 @@ transform = Transform3D(0.8761082, 5.6071673e-34, -0.74552023, 2.28828e-32, 1.15
 transform = Transform3D(0.031155042, 4.6051787e-33, 1.550901, -2.9737837e-31, 1.551214, 1.3677465e-33, -1.550901, -2.9734583e-31, 0.031155042, 277.80765, 2.3114892e-07, -236.31978)
 
 [node name="TEM_Grass_Patch_01A_01735" parent="VegetationHolder" unique_id=1330248716 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.4651529, 1.5e-44, -0.52277523, 2.44e-43, 1.5556242, 7.33e-43, 0.52277523, -7.74e-43, 1.4651529, 274.70938, 2.318061e-07, -247.12785)
+transform = Transform3D(1.4651529, 0, -0.52277523, 0, 1.5556242, 0, 0.52277523, 0, 1.4651529, 274.70938, 2.318061e-07, -247.12785)
 
 [node name="TEM_Grass_Patch_01A_01734" parent="VegetationHolder" unique_id=1571341988 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.10121634, 0, -1.1406687, 0, 1.1451505, 0, 1.1406687, 0, 0.10121634, 268.85043, 1.7064075e-07, -255.83226)
@@ -7408,7 +7408,7 @@ transform = Transform3D(1.1671166, 7.399661e-14, -1.0978404, 1.4949189e-12, 1.60
 transform = Transform3D(-0.52463293, 6.973935e-06, -1.5669167, 7.021301e-05, 1.6524128, -1.6154178e-05, 1.5669167, -7.170906e-05, -0.52463293, 305.73557, 9.555916e-06, -209.80948)
 
 [node name="TEM_Grass_Patch_01A_01719" parent="VegetationHolder" unique_id=390724257 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.04962567, 1.52848e-40, -1.5235966, 1.3258904e-38, 1.5244046, 5.84788e-40, 1.5235966, -1.3270913e-38, 0.04962567, 334.5249, 2.2715402e-07, -223.40512)
+transform = Transform3D(0.04962567, 0, -1.5235966, 1.3258904e-38, 1.5244046, 0, 1.5235966, -1.3270913e-38, 0.04962567, 334.5249, 2.2715402e-07, -223.40512)
 
 [node name="TEM_Grass_Patch_01A_01718" parent="VegetationHolder" unique_id=1462665907 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.0088905, 4.0979257e-30, -1.3162143, 3.4798316e-28, 1.6583968, 2.7189564e-28, 1.3162143, -4.4159113e-28, 1.0088905, 332.5068, 2.471204e-07, -217.99706)
@@ -7417,7 +7417,7 @@ transform = Transform3D(1.0088905, 4.0979257e-30, -1.3162143, 3.4798316e-28, 1.6
 transform = Transform3D(-1.2935686, 4.5188155e-35, -1.0552602, 2.3623982e-33, 1.6693993, -2.82441e-33, 1.0552602, -3.681871e-33, -1.2935686, 326.0714, 2.487599e-07, -223.60606)
 
 [node name="TEM_Grass_Patch_01A_01716" parent="VegetationHolder" unique_id=1267785669 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.59024084, 7.1015e-41, 1.2535857, -3.985074e-39, 1.3855907, 1.797846e-39, -1.2535857, -4.371273e-39, 0.59024084, 339.57407, 2.0646912e-07, -221.7159)
+transform = Transform3D(0.59024084, 0, 1.2535857, 0, 1.3855907, 0, -1.2535857, 0, 0.59024084, 339.57407, 2.0646912e-07, -221.7159)
 
 [node name="TEM_Grass_Patch_01A_01715" parent="VegetationHolder" unique_id=406440404 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.4755884, 0, 1.6594425, 0, 1.7262485, 0, -1.6594425, 0, 0.4755884, 349.11386, 2.572311e-07, -223.82751)
@@ -7498,7 +7498,7 @@ transform = Transform3D(-1.7833686, 0, -0.15939748, 0, 1.7904779, 0, 0.15939748,
 transform = Transform3D(1.4977181, 0, 0, 0, 1.4977181, 0, 0, 0, 1.4977181, 377.80838, 2.2317741e-07, -219.28183)
 
 [node name="TEM_Grass_Patch_01A_01689" parent="VegetationHolder" unique_id=1621947442 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.3532306, 3e-45, -1.0785123, 7.6e-44, 1.7304398, 1e-43, 1.0785123, -1.23e-43, 1.3532306, 370.1549, 2.5785565e-07, -211.41272)
+transform = Transform3D(1.3532306, 0, -1.0785123, 0, 1.7304398, 0, 1.0785123, 0, 1.3532306, 370.1549, 2.5785565e-07, -211.41272)
 
 [node name="TEM_Grass_Patch_01A_01688" parent="VegetationHolder" unique_id=590411227 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.4350279, 0, 1.2306318, 0, 1.3052602, 0, -1.2306318, 0, 0.4350279, 367.29825, 1.9449894e-07, -215.17105)
@@ -8206,7 +8206,7 @@ transform = Transform3D(0.6908777, 2.0954909e-32, 1.5261672, 1.344218e-31, 1.675
 transform = Transform3D(0.25728098, 1.7892472e-26, -1.1326445, -1.1138207e-25, 1.1614978, -6.952239e-27, 1.1326445, 1.1015516e-25, 0.25728098, 240.3098, 1.7307669e-07, 197.98816)
 
 [node name="TEM_Grass_Patch_01A_01453" parent="VegetationHolder" unique_id=213332727 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.5446193, 0, -0.6747566, 0, 1.6855696, 3e-45, 0.6747566, 3e-45, -1.5446193, 229.68224, 2.5116947e-07, 218.06253)
+transform = Transform3D(-1.5446193, 0, -0.6747566, 0, 1.6855696, 0, 0.6747566, 0, -1.5446193, 229.68224, 2.5116947e-07, 218.06253)
 
 [node name="TEM_Grass_Patch_01A_01452" parent="VegetationHolder" unique_id=977683006 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.1430422, 0, 1.2268132, 0, 1.6767874, 0, -1.2268132, 0, -1.1430422, 229.01602, 2.4986082e-07, 222.02814)
@@ -8476,7 +8476,7 @@ transform = Transform3D(1.6282784, -4.801919e-09, 8.9109686e-17, 4.801919e-09, 1
 transform = Transform3D(0.62633985, 0, -0.9945015, 0, 1.175302, 0, 0.9945015, 0, 0.62633985, 250.67174, 1.7513366e-07, 14.1589985)
 
 [node name="TEM_Grass_Patch_01A_01363" parent="VegetationHolder" unique_id=1198695866 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.83196074, -3e-45, 1.5092378, 0, 1.7233564, 3e-45, -1.5092378, 0, 0.83196074, 252.28102, 2.5680012e-07, 17.348051)
+transform = Transform3D(0.83196074, 0, 1.5092378, 0, 1.7233564, 0, -1.5092378, 0, 0.83196074, 252.28102, 2.5680012e-07, 17.348051)
 
 [node name="TEM_Grass_Patch_01A_01362" parent="VegetationHolder" unique_id=2009275529 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.6987998, 0, 0, 0, 1.6987998, 0, 0, 0, 1.6987998, 252.26088, 2.5314094e-07, 8.567985)
@@ -8509,7 +8509,7 @@ transform = Transform3D(-1.3383478, -2.460189e-23, -0.49117142, -2.2586189e-23, 
 transform = Transform3D(0.78553104, 1.6724476e-25, -1.5121527, 2.8514186e-24, 1.7040143, 1.6697158e-24, 1.5121527, -3.300086e-24, 0.78553104, 242.67654, 2.5391793e-07, 46.681328)
 
 [node name="TEM_Grass_Patch_01A_01352" parent="VegetationHolder" unique_id=2064216539 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.3065526, 3.081929e-39, 0.4075474, -8.4448495e-38, 1.3686397, -2.8108242e-37, -0.4075474, -2.9347806e-37, -1.3065526, 230.90044, 2.0394323e-07, 32.703323)
+transform = Transform3D(-1.3065526, 0, 0.4075474, -8.4448495e-38, 1.3686397, -2.8108242e-37, -0.4075474, -2.9347806e-37, -1.3065526, 230.90044, 2.0394323e-07, 32.703323)
 
 [node name="TEM_Grass_Patch_01A_01351" parent="VegetationHolder" unique_id=2146051404 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.5016422, 1.9142608e-07, 3.4459496e-14, -1.9142608e-07, 1.5016422, 2.7031757e-07, 0, -2.7031757e-07, 1.5016422, 221.46965, 5.578196e-07, 35.46862)
@@ -8746,7 +8746,7 @@ transform = Transform3D(1.2216253, 1.654084e-33, -0.88263637, 3.6354594e-31, 1.5
 transform = Transform3D(-0.64265823, 2.3524493e-30, -1.227975, 3.9411876e-28, 1.385977, -2.0360609e-28, 1.227975, -4.4359834e-28, -0.64265823, 238.88823, 2.0652669e-07, -251.4007)
 
 [node name="TEM_Grass_Patch_01A_01273" parent="VegetationHolder" unique_id=501605891 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.323533, 1.304989e-39, 0, -1.304989e-39, 1.323533, 1.1711715e-36, 0, -1.1711715e-36, 1.323533, 244.74443, 1.9722181e-07, -253.5798)
+transform = Transform3D(1.323533, 0, 0, 0, 1.323533, 1.1711715e-36, 0, -1.1711715e-36, 1.323533, 244.74443, 1.9722181e-07, -253.5798)
 
 [node name="TEM_Grass_Patch_01A_01272" parent="VegetationHolder" unique_id=843879568 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.6935979, 2.1617667e-17, 4.704028e-33, -2.1617667e-17, 1.6935979, 3.6852874e-16, 0, -3.6852874e-16, 1.6935979, 236.44672, 2.5236577e-07, -244.44002)
@@ -9697,7 +9697,7 @@ transform = Transform3D(0.048400663, 0, -1.8414439, 0, 1.8420799, 0, 1.8414439, 
 transform = Transform3D(-1.0577115, 0, -1.4840035, 0, 1.8223666, 0, 1.4840035, 0, -1.0577115, 53.20671, 2.715538e-07, 190.81616)
 
 [node name="TEM_Grass_Patch_01A_00982" parent="VegetationHolder" unique_id=587348267 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.0335338, -3.4246726e-38, 1.4151231, -1.868325e-39, 1.75236, 4.1043508e-38, -1.4151231, 2.2698499e-38, -1.0335338, 123.091934, 2.61122e-07, 202.36798)
+transform = Transform3D(-1.0335338, -3.4246726e-38, 1.4151231, 0, 1.75236, 4.1043508e-38, -1.4151231, 2.2698499e-38, -1.0335338, 123.091934, 2.61122e-07, 202.36798)
 
 [node name="TEM_Grass_Patch_01A_00981" parent="VegetationHolder" unique_id=514023780 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.5580894, 0, 0, 0, 1.5580894, 0, 0, 0, 1.5580894, 115.21865, 2.3217343e-07, 209.99576)
@@ -9811,7 +9811,7 @@ transform = Transform3D(1.1423848, 0, -1.1875292, 0, 1.6478071, 0, 1.1875292, 0,
 transform = Transform3D(0.8083066, 0, -1.1554462, 0, 1.4101118, 0, 1.1554462, 0, 0.8083066, 78.48722, 2.1012305e-07, 189.38216)
 
 [node name="TEM_Tree_05A_00049" parent="VegetationHolder" unique_id=707584067 instance=ExtResource("182_onucu")]
-transform = Transform3D(0.96219754, -3.003e-42, -0.72505844, 1.188e-42, 1.2047962, -3.414e-42, 0.72505844, 2.011e-42, 0.96219754, 123.51013, 1.7952864e-07, 206.41463)
+transform = Transform3D(0.96219754, 0, -0.72505844, 0, 1.2047962, 0, 0.72505844, 0, 0.96219754, 123.51013, 1.7952864e-07, 206.41463)
 
 [node name="TEM_Tree_05A_00048" parent="VegetationHolder" unique_id=1805517182 instance=ExtResource("182_onucu")]
 transform = Transform3D(0.116706766, 0, -1.427612, 0, 1.4323744, 0, 1.427612, 0, 0.116706766, 124.02802, 2.1344043e-07, 230.56036)
@@ -9868,7 +9868,7 @@ transform = Transform3D(-1.2113339, 0, -0.70605946, 0, 1.4020877, 0, 0.70605946,
 transform = Transform3D(-0.1395259, 0, -1.1279624, 0, 1.1365591, 0, 1.1279624, 0, -0.1395259, 90.94526, 1.6936052e-07, 234.39114)
 
 [node name="TEM_Tree_03A_00019" parent="VegetationHolder" unique_id=866084292 instance=ExtResource("184_4khmu")]
-transform = Transform3D(1.5338929, -4e-45, 0, 4e-45, 1.5338929, 0, 0, 0, 1.5338929, 104.65582, 2.2856787e-07, 201.10506)
+transform = Transform3D(1.5338929, 0, 0, 0, 1.5338929, 0, 0, 0, 1.5338929, 104.65582, 2.2856787e-07, 201.10506)
 
 [node name="TEM_Tree_03A_00018" parent="VegetationHolder" unique_id=1244937678 instance=ExtResource("184_4khmu")]
 transform = Transform3D(1.1322602, -1.4529026e-07, 5.0083513e-14, 1.4529026e-07, 1.1322602, -3.903054e-07, 0, 3.903054e-07, 1.1322602, 123.045425, 5.895611e-06, 170.6399)
@@ -11287,34 +11287,34 @@ transform = Transform3D(1.5017904, 0, 0, 0, 1.5017904, 0, 0, 0, 1.5017904, -42.4
 transform = Transform3D(-1.3215141, -1.8732498e-13, 0.7722753, 7.837725e-12, 1.5306237, 1.37831534e-11, -0.7722753, 1.5854656e-11, -1.3215141, -116.079414, 2.2809837e-07, 42.057148)
 
 [node name="TEM_Grass_Patch_01A_00507" parent="VegetationHolder" unique_id=1625734306 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.0387131, 1.8e-44, -0.64014894, -2.4e-44, 1.2201293, 7.3e-44, 0.64014894, 7.3e-44, -1.0387131, -91.06116, 1.8181345e-07, 108.956474)
+transform = Transform3D(-1.0387131, 0, -0.64014894, 0, 1.2201293, 0, 0.64014894, 0, -1.0387131, -91.06116, 1.8181345e-07, 108.956474)
 
 [node name="TEM_Grass_Patch_01A_00506" parent="VegetationHolder" unique_id=65564596 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.27148443, 1.1006295e-37, 1.6512128, 6.9344813e-37, 1.673382, 2.47262e-39, -1.6512128, 6.8466223e-37, -0.27148443, -95.989845, 2.4935338e-07, 96.525055)
+transform = Transform3D(-0.27148443, 1.1006295e-37, 1.6512128, 6.9344813e-37, 1.673382, 0, -1.6512128, 6.8466223e-37, -0.27148443, -95.989845, 2.4935338e-07, 96.525055)
 
 [node name="TEM_Grass_Patch_01A_00505" parent="VegetationHolder" unique_id=455854721 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2532291, 1.5388e-41, -0.89037496, -9.9679e-41, 1.5373194, -1.13734e-40, 0.89037496, 1.50448e-40, 1.2532291, -101.36747, 2.2907847e-07, 103.909904)
+transform = Transform3D(1.2532291, 0, -0.89037496, 0, 1.5373194, 0, 0.89037496, 0, 1.2532291, -101.36747, 2.2907847e-07, 103.909904)
 
 [node name="TEM_Grass_Patch_01A_00504" parent="VegetationHolder" unique_id=1689206991 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.3002557, 6.45e-43, 0.14049183, 1.321e-42, 1.3078237, 6.226e-42, -0.14049183, 6.332e-42, -1.3002557, -101.37059, 1.9488093e-07, 106.48609)
+transform = Transform3D(-1.3002557, 0, 0.14049183, 0, 1.3078237, 0, -0.14049183, 0, -1.3002557, -101.37059, 1.9488093e-07, 106.48609)
 
 [node name="TEM_Grass_Patch_01A_00503" parent="VegetationHolder" unique_id=266332175 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.8457211, 3.779278e-39, 1.0095088, 2.4458196e-38, 1.3169482, 1.5559745e-38, -1.0095088, 2.874067e-38, -0.8457211, -98.90902, 1.9624059e-07, 99.19438)
+transform = Transform3D(-0.8457211, 0, 1.0095088, 2.4458196e-38, 1.3169482, 1.5559745e-38, -1.0095088, 2.874067e-38, -0.8457211, -98.90902, 1.9624059e-07, 99.19438)
 
 [node name="TEM_Grass_Patch_01A_00502" parent="VegetationHolder" unique_id=823049894 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.5270007, -8.4441e-41, -0.11846238, 1.2565e-41, 1.5315888, -9.29739e-40, 0.11846238, 9.25981e-40, 1.5270007, -109.048744, 2.2822454e-07, 102.48396)
+transform = Transform3D(1.5270007, 0, -0.11846238, 0, 1.5315888, 0, 0.11846238, 0, 1.5270007, -109.048744, 2.2822454e-07, 102.48396)
 
 [node name="TEM_Grass_Patch_01A_00501" parent="VegetationHolder" unique_id=1196516762 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.362109, 5.3367505e-38, -1.1888943, -8.2185765e-37, 1.8079852, -8.604398e-37, 1.1888943, 1.1886793e-36, 1.362109, -103.96523, 2.694108e-07, 96.615295)
 
 [node name="TEM_Grass_Patch_01A_00500" parent="VegetationHolder" unique_id=155221531 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.307201, -2.77e-43, -0.7329499, -4.26e-43, 1.4986627, 1.9e-43, 0.7329499, 3.76e-43, -1.307201, -125.059296, 2.2331817e-07, 105.496155)
+transform = Transform3D(-1.307201, 0, -0.7329499, 0, 1.4986627, 0, 0.7329499, 0, -1.307201, -125.059296, 2.2331817e-07, 105.496155)
 
 [node name="TEM_Grass_Patch_01A_00499" parent="VegetationHolder" unique_id=1236883371 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.2447362, -1.684364e-39, 0.21265115, -1.268298e-39, 1.2627703, 2.578248e-39, -0.21265115, 2.327844e-39, -1.2447362, -125.86333, 1.8816746e-07, 98.1335)
+transform = Transform3D(-1.2447362, 0, 0.21265115, 0, 1.2627703, 0, -0.21265115, 0, -1.2447362, -125.86333, 1.8816746e-07, 98.1335)
 
 [node name="TEM_Grass_Patch_01A_00498" parent="VegetationHolder" unique_id=307089530 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.8565335, -3.04e-43, 0, 3.04e-43, 1.8565335, -5.38e-43, 0, 5.38e-43, 1.8565335, -121.048256, 2.7664507e-07, 106.626396)
+transform = Transform3D(1.8565335, 0, 0, 0, 1.8565335, 0, 0, 0, 1.8565335, -121.048256, 2.7664507e-07, 106.626396)
 
 [node name="TEM_Grass_Patch_01A_00497" parent="VegetationHolder" unique_id=454032025 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.3319453, 0, 0, 0, 1.3319453, 0, 0, 0, 1.3319453, -118.166336, 1.9847533e-07, 113.19362)
@@ -11323,10 +11323,10 @@ transform = Transform3D(1.3319453, 0, 0, 0, 1.3319453, 0, 0, 0, 1.3319453, -118.
 transform = Transform3D(-1.1906998, 0, 0.65053964, 0, 1.3568227, 0, -0.65053964, 0, -1.1906998, -124.00619, 2.0218236e-07, 112.93068)
 
 [node name="TEM_Grass_Patch_01A_00495" parent="VegetationHolder" unique_id=527018538 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.0452157, -3.31e-43, -1.3352292, -6.45e-43, 1.6956748, 8.5e-44, 1.3352292, 5.58e-43, -1.0452157, -121.56951, 2.5267525e-07, 106.35571)
+transform = Transform3D(-1.0452157, 0, -1.3352292, 0, 1.6956748, 0, 1.3352292, 0, -1.0452157, -121.56951, 2.5267525e-07, 106.35571)
 
 [node name="TEM_Grass_Patch_01A_00494" parent="VegetationHolder" unique_id=2135779234 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.3829863, -1.1e-44, 0.19272958, -8e-45, 1.3963509, 2.5e-44, -0.19272958, 2.4e-44, -1.3829863, -114.74538, 2.080725e-07, 110.179596)
+transform = Transform3D(-1.3829863, 0, 0.19272958, 0, 1.3963509, 0, -0.19272958, 0, -1.3829863, -114.74538, 2.080725e-07, 110.179596)
 
 [node name="TEM_Grass_Patch_01A_00493" parent="VegetationHolder" unique_id=2125997053 instance=ExtResource("178_crjim")]
 transform = Transform3D(0.43377984, 0, 1.5024853, 0, 1.56385, 0, -1.5024853, 0, 0.43377984, -120.53527, 2.3303184e-07, 127.28504)
@@ -11347,7 +11347,7 @@ transform = Transform3D(1.8161469, -3.278479e-25, 0, 3.278479e-25, 1.8161469, -3
 transform = Transform3D(-1.7714787, -3.4466575e-26, -0.3603008, -9.1928186e-26, 1.8077481, 2.7904993e-25, 0.3603008, 2.9177337e-25, -1.7714787, -115.05316, 2.6937548e-07, 73.306625)
 
 [node name="TEM_Grass_Patch_01A_00487" parent="VegetationHolder" unique_id=1943567225 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.2970982, 9.02538e-23, -3.36e-43, -9.02538e-23, 1.2970982, -4.8434183e-21, 0, 4.8434183e-21, 1.2970982, -109.866165, 1.932827e-07, 64.30046)
+transform = Transform3D(1.2970982, 9.02538e-23, 0, -9.02538e-23, 1.2970982, -4.8434183e-21, 0, 4.8434183e-21, 1.2970982, -109.866165, 1.932827e-07, 64.30046)
 
 [node name="TEM_Grass_Patch_01A_00486" parent="VegetationHolder" unique_id=88710358 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.6057026, -3.3215418e-20, 0.15777405, -7.947182e-21, 1.6134354, 2.5878852e-19, -0.15777405, 2.567711e-19, -1.6057026, -117.597664, 2.4042063e-07, 60.540554)
@@ -11482,19 +11482,19 @@ transform = Transform3D(-1.0160269, 0, -1.2701979, 0, 1.6265649, 0, 1.2701979, 0
 transform = Transform3D(1.5812364, 1.0819761e-28, -0.5178157, -1.3472221e-28, 1.6638634, -6.373234e-29, 0.5178157, 1.0249469e-28, 1.5812364, -63.043304, 2.47935e-07, 65.33073)
 
 [node name="TEM_Grass_Patch_01A_00442" parent="VegetationHolder" unique_id=1312877708 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.4756818, 8e-45, 0.56211424, 1.1e-44, 1.5791166, 3e-45, -0.56211424, 4e-45, -1.4756818, -35.6994, 2.3530673e-07, 68.97138)
+transform = Transform3D(-1.4756818, 0, 0.56211424, 0, 1.5791166, 0, -0.56211424, 0, -1.4756818, -35.6994, 2.3530673e-07, 68.97138)
 
 [node name="TEM_Grass_Patch_01A_00441" parent="VegetationHolder" unique_id=961161694 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.7515469, 1.4442e-41, 0, -1.4442e-41, 1.7515469, -5.967e-42, 0, 5.967e-42, 1.7515469, -39.886894, 2.6100085e-07, 65.012375)
+transform = Transform3D(1.7515469, 0, 0, 0, 1.7515469, 0, 0, 0, 1.7515469, -39.886894, 2.6100085e-07, 65.012375)
 
 [node name="TEM_Grass_Patch_01A_00440" parent="VegetationHolder" unique_id=743182096 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.4295164, 0, 0, 0, 1.4295164, 0, 0, 0, 1.4295164, -33.271805, 2.1301457e-07, 69.92423)
 
 [node name="TEM_Grass_Patch_01A_00439" parent="VegetationHolder" unique_id=1544368316 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.811469, 7e-45, 0, -7e-45, 1.811469, 0, 0, 0, 1.811469, -35.180237, 2.6992993e-07, 64.421196)
+transform = Transform3D(1.811469, 0, 0, 0, 1.811469, 0, 0, 0, 1.811469, -35.180237, 2.6992993e-07, 64.421196)
 
 [node name="TEM_Grass_Patch_01A_00438" parent="VegetationHolder" unique_id=2142137688 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.7323021, 1.491e-42, -0.34809992, -1.572e-42, 1.7669307, -2.62e-43, 0.34809992, 5.68e-43, 1.7323021, -39.611916, 2.6329323e-07, 70.38073)
+transform = Transform3D(1.7323021, 0, -0.34809992, 0, 1.7669307, 0, 0.34809992, 0, 1.7323021, -39.611916, 2.6329323e-07, 70.38073)
 
 [node name="TEM_Grass_Patch_01A_00437" parent="VegetationHolder" unique_id=63830644 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.7697679, 4.7487013e-22, -0.28977478, 3.9554397e-22, 1.7933342, 5.2309495e-22, 0.28977478, 4.523072e-22, -1.7697679, -63.79213, 2.6722765e-07, 50.659935)
@@ -11503,10 +11503,10 @@ transform = Transform3D(-1.7697679, 4.7487013e-22, -0.28977478, 3.9554397e-22, 1
 transform = Transform3D(-1.2794209, 3.7537985e-27, 1.1156079, 5.140251e-27, 1.6974977, 1.832892e-28, -1.1156079, 3.516357e-27, -1.2794209, -62.982628, 2.529469e-07, 61.570427)
 
 [node name="TEM_Grass_Patch_01A_00435" parent="VegetationHolder" unique_id=399313595 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.3402159, 3e-45, 1.0020497, 3e-45, 1.6734045, -3e-45, -1.0020497, 0, -1.3402159, -32.919746, 2.4935673e-07, 60.910072)
+transform = Transform3D(-1.3402159, 0, 1.0020497, 0, 1.6734045, 0, -1.0020497, 0, -1.3402159, -32.919746, 2.4935673e-07, 60.910072)
 
 [node name="TEM_Grass_Patch_01A_00434" parent="VegetationHolder" unique_id=1426234017 instance=ExtResource("178_crjim")]
-transform = Transform3D(-1.5474135, 1.4028e-41, 0.34329, 1.4984e-41, 1.5850352, 2.77e-42, -0.34329, 5.95e-42, -1.5474135, -38.665756, 2.3618867e-07, 60.5813)
+transform = Transform3D(-1.5474135, 0, 0.34329, 0, 1.5850352, 0, -0.34329, 0, -1.5474135, -38.665756, 2.3618867e-07, 60.5813)
 
 [node name="TEM_Grass_Patch_01A_00433" parent="VegetationHolder" unique_id=103750736 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.66959727, 1.1603409e-36, -1.2811859, -6.7852486e-38, 1.4456133, 1.3447214e-36, 1.2811859, 6.8299964e-37, -0.66959727, -45.541756, 2.1541318e-07, 60.10483)
@@ -11515,7 +11515,7 @@ transform = Transform3D(-0.66959727, 1.1603409e-36, -1.2811859, -6.7852486e-38, 
 transform = Transform3D(1.6413393, 1.4741358e-37, -0.64564323, -1.6734722e-37, 1.7637601, -2.2723599e-38, 0.64564323, 8.2405615e-38, 1.6413393, -43.633163, 2.6282075e-07, 58.83256)
 
 [node name="TEM_Grass_Patch_01A_00431" parent="VegetationHolder" unique_id=1091545556 instance=ExtResource("178_crjim")]
-transform = Transform3D(0.06379671, 1.76134e-39, -1.3450085, -9.83825e-40, 1.3465207, 1.716655e-39, 1.3450085, 9.01385e-40, 0.06379671, -40.520317, 2.0064724e-07, 56.99447)
+transform = Transform3D(0.06379671, 0, -1.3450085, 0, 1.3465207, 0, 1.3450085, 0, 0.06379671, -40.520317, 2.0064724e-07, 56.99447)
 
 [node name="TEM_Grass_Patch_01A_00430" parent="VegetationHolder" unique_id=1393328307 instance=ExtResource("178_crjim")]
 transform = Transform3D(1.7748504, 6.511653e-36, 0, -6.511653e-36, 1.7748504, -4.0758207e-36, 0, 4.0758207e-36, 1.7748504, -43.520233, 2.6447333e-07, 53.072586)
@@ -11536,7 +11536,7 @@ transform = Transform3D(1.5309303, 7.216753e-21, -0.20311362, -8.045666e-21, 1.5
 transform = Transform3D(-1.6150944, 5.580272e-22, 0.65085715, 7.0644097e-22, 1.7413055, 2.6007717e-22, -0.65085715, 5.0527674e-22, -1.6150944, -57.820076, 2.5947475e-07, 43.730698)
 
 [node name="TEM_Grass_Patch_01A_00424" parent="VegetationHolder" unique_id=63911152 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.1547667, 2.7448457e-22, -6e-44, -2.7448457e-22, 1.1547667, -2.5114585e-22, 0, 2.5114585e-22, 1.1547667, -53.6652, 1.7207365e-07, 39.099545)
+transform = Transform3D(1.1547667, 2.7448457e-22, 0, -2.7448457e-22, 1.1547667, -2.5114585e-22, 0, 2.5114585e-22, 1.1547667, -53.6652, 1.7207365e-07, 39.099545)
 
 [node name="TEM_Grass_Patch_01A_00423" parent="VegetationHolder" unique_id=2124238981 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.90788066, 6.742729e-23, 1.3960716, 8.6990494e-23, 1.6653117, -2.3860152e-23, -1.3960716, 5.9918384e-23, -0.90788066, -56.588715, 2.481508e-07, 44.14194)
@@ -11692,7 +11692,7 @@ transform = Transform3D(-0.49846697, 5.0827916e-17, -1.5375024, -5.0526058e-17, 
 transform = Transform3D(0.21427588, 5.580336e-30, -1.1996187, -1.25152066e-29, 1.2186054, 3.4331898e-30, 1.1996187, 1.1716529e-29, 0.21427588, -79.5609, 1.8158637e-07, 78.62949)
 
 [node name="TEM_Tree_05A_00025" parent="VegetationHolder" unique_id=784277792 instance=ExtResource("182_onucu")]
-transform = Transform3D(-1.1350127, 4.8e-44, -1.4046893, -1e-44, 1.8059363, 7.1e-44, 1.4046893, 5e-44, -1.1350127, -48.334656, 2.691055e-07, 90.13799)
+transform = Transform3D(-1.1350127, 0, -1.4046893, 0, 1.8059363, 0, 1.4046893, 0, -1.1350127, -48.334656, 2.691055e-07, 90.13799)
 
 [node name="TEM_Tree_05A_00024" parent="VegetationHolder" unique_id=1022693148 instance=ExtResource("182_onucu")]
 transform = Transform3D(-1.5319294, 1.2002713e-34, -0.048196718, 1.15937e-34, 1.5326873, 1.3189282e-34, 0.048196718, 1.2818185e-34, -1.5319294, -60.990387, 2.2838823e-07, 78.03133)
@@ -11764,7 +11764,7 @@ transform = Transform3D(0.77043587, 0, -1.159362, 0, 1.3920099, 0, 1.159362, 0, 
 transform = Transform3D(-0.7857934, 0, -0.9380864, 0, 1.2237146, 0, 0.9380864, 0, -0.7857934, -92.38292, 1.8250192e-07, 37.778698)
 
 [node name="TEM_Tree_02A_00006" parent="VegetationHolder" unique_id=2029201872 instance=ExtResource("180_pq1gm")]
-transform = Transform3D(-0.30904177, -2.108831e-39, 1.606449, 8.62611e-39, 1.635905, 3.806951e-39, -1.606449, 9.189968e-39, -0.30904177, -113.35555, 2.4376888e-07, 100.05325)
+transform = Transform3D(-0.30904177, 0, 1.606449, 0, 1.635905, 0, -1.606449, 0, -0.30904177, -113.35555, 2.4376888e-07, 100.05325)
 
 [node name="TEM_Tree_02A_00005" parent="VegetationHolder" unique_id=1141247776 instance=ExtResource("180_pq1gm")]
 transform = Transform3D(-0.001535877, 2.430858e-38, 1.3197482, 1.564122e-37, 1.319749, -2.4126573e-38, -1.3197482, 1.5638401e-37, -0.001535877, -96.59686, 1.9665795e-07, 97.6368)
@@ -11803,7 +11803,7 @@ transform = Transform3D(0.49246135, -2.0088416e-08, -1.376689, 4.2266512e-07, 1.
 transform = Transform3D(-0.853644, -1.7968635e-15, 0.84737253, -2.7208126e-14, 1.2028085, -2.4858921e-14, -0.84737253, -3.6810585e-14, -0.853644, -28.856323, 1.7923244e-07, -238.5301)
 
 [node name="TEM_Grass_Patch_01A_00373" parent="VegetationHolder" unique_id=1333471140 instance=ExtResource("178_crjim")]
-transform = Transform3D(-0.24923848, 1.0102217e-38, -1.7352341, 2.8839992e-36, 1.7530422, -4.0403426e-37, 1.7352341, -2.9121457e-36, -0.24923848, -19.140831, 2.6122368e-07, -252.7877)
+transform = Transform3D(-0.24923848, 0, -1.7352341, 2.8839992e-36, 1.7530422, -4.0403426e-37, 1.7352341, -2.9121457e-36, -0.24923848, -19.140831, 2.6122368e-07, -252.7877)
 
 [node name="TEM_Grass_Patch_01A_00372" parent="VegetationHolder" unique_id=673549647 instance=ExtResource("178_crjim")]
 transform = Transform3D(-1.3790354, -5.8501716e-28, -0.39570308, 5.094471e-26, 1.4346844, -1.796647e-25, 0.39570308, -1.8674696e-25, -1.3790354, -17.566696, 2.1378466e-07, -246.97316)
@@ -11935,7 +11935,7 @@ transform = Transform3D(-0.37383705, -1.190969e-29, 1.7478412, -1.7665223e-27, 1
 transform = Transform3D(-1.5127201, -1.9618284e-25, -0.35508958, 4.8039002e-24, 1.5538374, -2.132361e-23, 0.35508958, -2.1857158e-23, -1.5127201, -32.58808, 2.3153984e-07, -243.39108)
 
 [node name="TEM_Grass_Patch_01A_00329" parent="VegetationHolder" unique_id=1858168932 instance=ExtResource("178_crjim")]
-transform = Transform3D(1.6807781, -6.8132566e-22, -2.2495e-41, 6.8132566e-22, 1.6807781, 5.549412e-20, 0, -5.549412e-20, 1.6807781, -43.57782, 2.5045549e-07, -240.65327)
+transform = Transform3D(1.6807781, -6.8132566e-22, 0, 6.8132566e-22, 1.6807781, 5.549412e-20, 0, -5.549412e-20, 1.6807781, -43.57782, 2.5045549e-07, -240.65327)
 
 [node name="TEM_Grass_Patch_01A_00328" parent="VegetationHolder" unique_id=149850815 instance=ExtResource("178_crjim")]
 transform = Transform3D(-0.59356487, -5.9420605e-17, -1.6486695, 1.5664923e-15, 1.7522644, -6.271332e-16, 1.6486695, -1.6863165e-15, -0.59356487, -45.1333, 2.6110777e-07, -237.59058)
