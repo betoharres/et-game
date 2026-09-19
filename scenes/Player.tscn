@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://scripts/audio/player_hit_audio.gd" id="15_hit_audio"]
 [ext_resource type="Script" path="res://scripts/player_hit_reaction.gd" id="16_hit_reaction"]
 [ext_resource type="PackedScene" path="res://scenes/FX/PlayerDeathEffect.tscn" id="17_death_effect"]
+[ext_resource type="Script" path="res://scripts/player_noise.gd" id="18_noise"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -45,6 +46,9 @@ script = ExtResource("1_p0vlq")
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]
 script = ExtResource("4_footsteps")
+
+[node name="PlayerNoise" type="Node" parent="."]
+script = ExtResource("18_noise")
 
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 script = ExtResource("15_hit_audio")

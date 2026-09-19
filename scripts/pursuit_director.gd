@@ -15,6 +15,7 @@ extends Node3D
 @export_category("Limites de reforços")
 @export_range(1, 20) var maximum_active_enemies: int = 12
 @export_range(0.1, 30.0) var initial_response_delay: float = 2.0
+@export_range(0.1, 30.0) var respawn_delay: float = 3.0
 @export_range(5.0, 100.0) var minimum_spawn_distance: float = 20.0
 @export_range(5.0, 150.0) var maximum_spawn_distance: float = 36.0
 @export_range(1, 64) var spawn_attempts_per_wave: int = 24
@@ -24,12 +25,25 @@ var active_enemies: Array[PursuitNPC] = []
 var _player: CharacterBody3D
 var _last_reported_position: Vector3 = Vector3.INF
 var _reinforcement_timer: float = 0.0
+var _respawn_timer: float = 0.0
+var _respawn_queue: Array[RespawnRequest] = []
 var _report_timer: float = 0.0
 var _spawn_shape: CapsuleShape3D
 
 @onready var navigation: PursuitNavigation = $Navigation
 @onready var _units: Node3D = $Reinforcements
 @onready var _alert: Node = get_node("/root/PhotoAlertSystem")
+
+
+class RespawnRequest:
+	extends RefCounted
+
+	var profile: PursuitProfile
+	var remaining: float
+
+	func _init(faction: PursuitProfile, delay: float) -> void:
+		profile = faction
+		remaining = delay
 
 
 func _ready() -> void:
@@ -67,12 +81,16 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(_player) or not _player.is_alive():
 		return
 	_reinforcement_timer = maxf(_reinforcement_timer - delta, 0.0)
+	_respawn_timer = maxf(_respawn_timer - delta, 0.0)
+	for request: RespawnRequest in _respawn_queue:
+		request.remaining = maxf(request.remaining - delta, 0.0)
 	_report_timer -= delta
 	if _report_timer <= 0.0:
 		_report_timer = 0.2
 		_update_reports()
+	_spawn_ready_respawns()
 	var profile: PursuitProfile = get_profile(_alert.get_photo_count())
-	if profile == null or not navigation.is_ready_for_paths() or _reinforcement_timer > 0.0:
+	if profile == null or not navigation.is_ready_for_paths() or _reinforcement_timer > 0.0 or _respawn_timer > 0.0:
 		return
 	_reinforcement_timer = maxf(profile.reinforcement_interval, 1.0)
 	_spawn_wave(profile)
@@ -102,6 +120,7 @@ func _on_level_changed(level: int, _maximum: int) -> void:
 		for npc: PursuitNPC in active_enemies.duplicate():
 			if is_instance_valid(npc):
 				_retire(npc)
+		_respawn_queue.clear()
 		_last_reported_position = Vector3.INF
 		_reinforcement_timer = 0.0
 	else:
@@ -126,26 +145,50 @@ func _update_reports() -> void:
 			_retire(npc)
 
 
-func _spawn_wave(profile: PursuitProfile) -> void:
+func _spawn_ready_respawns() -> void:
+	if _alert.get_photo_count() <= 0 or not navigation.is_ready_for_paths():
+		return
+	for index: int in range(_respawn_queue.size() - 1, -1, -1):
+		var request: RespawnRequest = _respawn_queue[index]
+		if request.remaining > 0.0:
+			continue
+		if _spawn_wave(request.profile, true) > 0:
+			_respawn_queue.remove_at(index)
+		else:
+			request.remaining = 0.5
+
+
+func _spawn_wave(profile: PursuitProfile, replacement: bool = false) -> int:
 	if not _last_reported_position.is_finite():
-		return
+		return 0
 	if _last_reported_position.distance_to(_player.global_position) > despawn_distance:
-		return
+		return 0
 	var faction_count: int = 0
 	for npc: PursuitNPC in active_enemies:
 		if is_instance_valid(npc) and npc.profile.stars == profile.stars:
 			faction_count += 1
+	var reserved_faction: int = 0
+	for request: RespawnRequest in _respawn_queue:
+		if request.profile.stars == profile.stars:
+			reserved_faction += 1
+	# Ondas novas não ocupam vagas reservadas para baixas de outras facções.
+	var reserved_total: int = _respawn_queue.size()
+	if replacement:
+		reserved_total -= 1
+		reserved_faction -= 1
 	var available: int = mini(
-		maximum_active_enemies - active_enemies.size(), profile.max_active - faction_count
+		maximum_active_enemies - active_enemies.size() - reserved_total,
+		profile.max_active - faction_count - reserved_faction
 	)
-	var remaining: int = mini(available, profile.wave_size)
+	var remaining: int = mini(available, 1 if replacement else profile.wave_size)
+	var spawned: int = 0
 	for attempt: int in range(spawn_attempts_per_wave):
 		if remaining <= 0:
 			break
 		var angle: float = randf() * TAU
 		var radius: float = randf_range(minimum_spawn_distance, maxf(maximum_spawn_distance, minimum_spawn_distance))
 		var requested: Vector3 = _last_reported_position + Vector3(cos(angle), 0.0, sin(angle)) * radius
-		var point: Vector3 = find_spawn_position(requested)
+		var point: Vector3 = find_spawn_position(requested, profile)
 		if not point.is_finite():
 			continue
 		var npc: PursuitNPC = agent_scene.instantiate() as PursuitNPC
@@ -162,9 +205,11 @@ func _spawn_wave(profile: PursuitProfile) -> void:
 		active_enemies.append(npc)
 		npc.tree_exiting.connect(_on_enemy_exiting.bind(npc), CONNECT_ONE_SHOT)
 		remaining -= 1
+		spawned += 1
+	return spawned
 
 
-func find_spawn_position(requested: Vector3) -> Vector3:
+func find_spawn_position(requested: Vector3, spawn_profile: PursuitProfile = null) -> Vector3:
 	if not navigation.is_ready_for_paths():
 		return Vector3.INF
 	var map: RID = navigation.get_navigation_map()
@@ -173,7 +218,7 @@ func find_spawn_position(requested: Vector3) -> Vector3:
 		return Vector3.INF
 	var target: Vector3 = NavigationServer3D.map_get_closest_point(map, _last_reported_position)
 	var path: PackedVector3Array = NavigationServer3D.map_get_path(map, point, target, true)
-	var profile: PursuitProfile = get_profile(_alert.get_photo_count())
+	var profile: PursuitProfile = spawn_profile if spawn_profile != null else get_profile(_alert.get_photo_count())
 	var approach_range: float = profile.attack_range if profile != null else 1.0
 	# Um ET atrás de uma cerca pode ser alcançado por tiro do lado de fora;
 	# exigir chegar aos seus pés impediria qualquer reforço nesse cercado.
@@ -200,12 +245,17 @@ func find_spawn_position(requested: Vector3) -> Vector3:
 
 
 func _retire(npc: PursuitNPC) -> void:
-	_alert.set_pursuer_observing(npc.get_instance_id(), false)
-	active_enemies.erase(npc)
+	_on_enemy_exiting(npc)
 	npc.process_mode = Node.PROCESS_MODE_DISABLED
 	npc.queue_free()
 
 
 func _on_enemy_exiting(npc: PursuitNPC) -> void:
 	_alert.set_pursuer_observing(npc.get_instance_id(), false)
+	if not active_enemies.has(npc):
+		return
 	active_enemies.erase(npc)
+	# Trocar de estrela reinicia a onda, mas não antecipa a reposição de uma baixa.
+	_respawn_timer = maxf(_respawn_timer, respawn_delay)
+	if _alert.get_photo_count() > 0:
+		_respawn_queue.append(RespawnRequest.new(npc.profile, respawn_delay))

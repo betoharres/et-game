@@ -122,7 +122,7 @@ enum ImpactReaction {
 @export_range(0.0, 30.0, 0.1) var eye_light_energy_cost_per_second : float = 3.5
 
 @onready var camera_pivot : CinematicCameraRig = $CameraHolder
-@onready var footstep_audio : Node = $FootstepAudio
+@onready var player_noise : PlayerNoise = $PlayerNoise
 @onready var collision_shape : CollisionShape3D = $CollisionShape3D
 @onready var character_visual : Node3D = $ET
 @onready var character_mesh : MeshInstance3D = $ET/ETArmature/Skeleton3D/ET
@@ -445,6 +445,8 @@ func _input(event: InputEvent) -> void:
 				_pickup_requested = true
 
 func _physics_process(delta: float) -> void:
+	if not can_emit_player_noise():
+		player_noise.stop_steps()
 	if _fall_state != FallState.NONE:
 		_update_fall(delta)
 
@@ -570,7 +572,7 @@ func _physics_process(delta: float) -> void:
 	_detect_body_impacts(velocity_before_move)
 
 	var horizontal_speed : float = velocity.slide(up_direction).length()
-	footstep_audio.set_motion(horizontal_speed, is_on_floor())
+	player_noise.update_motion(delta, horizontal_speed, is_on_floor(), _is_sprinting, is_crouching)
 	_update_animation_controller()
 
 
@@ -1058,7 +1060,7 @@ func _update_flight_movement(delta : float) -> void:
 
 	_update_stamina(delta, false)
 	move_and_slide()
-	footstep_audio.set_motion(0.0, false)
+	player_noise.stop_steps()
 	_jump_state = JumpState.AIRBORNE
 	_update_animation_controller()
 
@@ -1075,6 +1077,7 @@ func _update_jump_state(_delta : float) -> void:
 		_cancel_moving_turn()
 		velocity = velocity.slide(up_direction) + up_direction * jump_velocity
 		_jump_state = JumpState.AIRBORNE
+		player_noise.emit_jump_noise()
 
 
 func _update_stamina(delta : float, wants_to_sprint : bool) -> void:
@@ -1263,6 +1266,16 @@ func is_debug_flight_enabled() -> bool:
 
 func is_alive() -> bool:
 	return health > 0.0
+
+
+func can_emit_player_noise() -> bool:
+	return (
+		is_alive()
+		and not _is_dead
+		and not _movement_locked
+		and _fall_state == FallState.NONE
+		and not _debug_flight_enabled
+	)
 
 
 func set_intervention_signal_pose(active : bool) -> void:
@@ -1464,7 +1477,7 @@ func _enter_ragdoll(impact_direction : Vector3, comic : bool,
 	is_crouching = false
 	_crouch_amount = 0.0
 	character_visual.position = _standing_visual_position
-	footstep_audio.set_motion(0.0, false)
+	player_noise.stop_steps()
 
 	_drop_exploration_item()
 

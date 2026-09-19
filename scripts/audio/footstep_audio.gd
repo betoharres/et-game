@@ -25,9 +25,6 @@ const STONE_SURFACE_NAMES : Array[String] = [
 ]
 
 var _audio_player : AudioStreamPlayer
-var _horizontal_speed : float = 0.0
-var _grounded : bool = true
-var _step_elapsed : float = 0.0
 var _last_step_by_surface : Dictionary = {}
 var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -41,31 +38,8 @@ func _ready() -> void:
 	add_child(_audio_player)
 
 
-func set_motion(horizontal_speed : float, grounded : bool) -> void:
-	_horizontal_speed = horizontal_speed
-	_grounded = grounded
-
-
-func _physics_process(delta : float) -> void:
-	var character : Node = get_parent()
-	var can_step : bool = (
-		character.is_physics_processing()
-		and _grounded
-		and _horizontal_speed > 0.45
-	)
-
-	if not can_step:
-		_step_elapsed = minf(_step_elapsed, 0.12)
-		return
-
-	var speed_ratio : float = clampf((_horizontal_speed - 2.0) / 5.0, 0.0, 1.0)
-	var interval : float = lerpf(0.55, 0.32, speed_ratio)
-	_step_elapsed += delta
-
-	if _step_elapsed < interval:
-		return
-
-	_step_elapsed = fmod(_step_elapsed, interval)
+func play_movement_step(decibels : float) -> void:
+	_audio_player.volume_db = decibels - 64.0
 	_play_step(_get_surface())
 
 

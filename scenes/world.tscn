@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://cet0j5k6ljep3"]
 
 [ext_resource type="Script" uid="uid://cfd7bl5unq51x" path="res://scripts/world.gd" id="0_world"]
-[ext_resource type="PackedScene" path="res://scenes/Farm/FarmScavenging.tscn" id="farm_scavenging"]
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
@@ -168,7 +167,7 @@
 [ext_resource type="PackedScene" uid="uid://bhbub6jjfp0a7" path="res://scenes/Spaceship_Scraps4.tscn" id="190_t6th7"]
 [ext_resource type="PackedScene" uid="uid://dhba55x082ju" path="res://scenes/Spaceship_Scraps6.tscn" id="191_47d22"]
 [ext_resource type="ArrayMesh" uid="uid://dsbvmih3gx73j" path="res://PolygonCity/FBX/SM_Bld_Apartment_Corner_02.fbx" id="191_0480k"]
-[ext_resource type="PackedScene" path="res://scenes/NPCs/LivingLight.tscn" id="192_living_light"]
+[ext_resource type="PackedScene" uid="uid://bn3rc0bu5fr4l" path="res://scenes/NPCs/LivingLight.tscn" id="192_living_light"]
 [ext_resource type="ArrayMesh" uid="uid://2lwtnbbc4obj" path="res://PolygonCity/FBX/SM_Bld_Apartment_Corner_03.fbx" id="192_t6th7"]
 [ext_resource type="ArrayMesh" uid="uid://dwbwfw5t6pa3q" path="res://PolygonCity/FBX/SM_Bld_Apartment_Roof_Corner_01.fbx" id="193_so2em"]
 [ext_resource type="ArrayMesh" uid="uid://reya7cu86noc" path="res://PolygonCity/FBX/SM_Bld_Shop_01.fbx" id="194_47d22"]
@@ -200,7 +199,8 @@
 [ext_resource type="ArrayMesh" uid="uid://c7ivcrbemkcok" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Panel_02.fbx" id="205_oev46"]
 [ext_resource type="ArrayMesh" uid="uid://cq7vlqdg2hp5g" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_01.fbx" id="206_bdqdu"]
 [ext_resource type="ArrayMesh" uid="uid://bqmbwhp8ysq0a" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_02.fbx" id="207_ui3ty"]
-[ext_resource type="PackedScene" path="res://scenes/Quests/GorillaBananaQuest.tscn" id="gorilla_quest"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/FarmScavenging.tscn" id="farm_scavenging"]
+[ext_resource type="PackedScene" uid="uid://cxl4ji7qug4lv" path="res://scenes/Quests/GorillaBananaQuest.tscn" id="gorilla_quest"]
 [ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
@@ -1401,6 +1401,7 @@ script = ExtResource("0_world")
 script = ExtResource("80_audio")
 
 [node name="NightEnvironment" parent="." unique_id=40418275 instance=ExtResource("81_night_environment")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20319748, -0.15520477, -0.007217407)
 
 [node name="PauseMenu" parent="." unique_id=1267712706 instance=ExtResource("82_pause_menu")]
 
@@ -2469,6 +2470,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.390047, 5.9604645e-07)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5197754, 0)
 shape = SubResource("ConvexPolygonShape3D_5aihc")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/StaticBody3D/CollisionShape3D" unique_id=909317325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.038145542, 0)
+shape = SubResource("ConvexPolygonShape3D_5aihc")
+
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/StaticBody3D" unique_id=1317777084]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0147247, -0.37078857, 0.013000488)
 shape = SubResource("BoxShape3D_58by1")
@@ -2486,6 +2491,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7341156, -0.37078857, 1.152
 shape = SubResource("BoxShape3D_hg3bl")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/StaticBody3D" unique_id=1089373914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6934662, -0.37078857, 1.1524353)
+shape = SubResource("BoxShape3D_edbjg")
+
+[node name="SmBldGardenShed01" type="MeshInstance3D" parent="BuildingsHolder/SmBldGardenShed01" unique_id=147666302]
+transform = Transform3D(0.013365662, 0, 0.99991065, 0, 1, 0, -0.99991065, 0, 0.013365662, 5.7652397, 0, -42.724792)
+mesh = ExtResource("159_i688p")
+surface_material_override/0 = ExtResource("12_munwf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01" unique_id=196496732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.390047, 5.9604645e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=1167481530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5197754, 0)
+shape = SubResource("ConvexPolygonShape3D_5aihc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D/CollisionShape3D" unique_id=942030718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.038145542, 0)
+shape = SubResource("ConvexPolygonShape3D_5aihc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=407986573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0147247, -0.37078857, 0.013000488)
+shape = SubResource("BoxShape3D_58by1")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=746604775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9936981, -0.37078857, 0.013000488)
+shape = SubResource("BoxShape3D_5aihc")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=2008193350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0045318604, -0.37078857, -1.1365662)
+shape = SubResource("BoxShape3D_7echp")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=1575205386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7341156, -0.37078857, 1.1524353)
+shape = SubResource("BoxShape3D_hg3bl")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="BuildingsHolder/SmBldGardenShed01/SmBldGardenShed01/StaticBody3D" unique_id=608952636]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6934662, -0.37078857, 1.1524353)
 shape = SubResource("BoxShape3D_edbjg")
 
@@ -2508,27 +2549,27 @@ surface_material_override/0 = ExtResource("55_iexy4")
 [node name="Barn2" parent="BuildingsHolder" unique_id=1112714426 instance=ExtResource("168_3r8ca")]
 transform = Transform3D(0.29395762, 0, -0.9558184, 0, 1, 0, 0.9558184, 0, 0.29395762, 51.062424, 0, -52.53492)
 
-[node name="SM_Bld_Barn_02_Shutter_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="0" unique_id=2033813495]
+[node name="SM_Bld_Barn_02_Shutter_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="0" unique_id=1878238679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.736098, 5.179363, 0.70615774)
 mesh = SubResource("ArrayMesh_av6ia")
 
-[node name="SM_Bld_Barn_02_Door_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="1" unique_id=1313508311]
+[node name="SM_Bld_Barn_02_Door_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="1" unique_id=2004104010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8309684, -1.1608123e-05, -0.94508284)
 mesh = SubResource("ArrayMesh_trvmq")
 
-[node name="SM_Bld_Barn_02_Door_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="2" unique_id=183319575]
+[node name="SM_Bld_Barn_02_Door_01" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="2" unique_id=278362720]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8309684, -1.1608123e-05, 0.9491305)
 mesh = SubResource("ArrayMesh_555k2")
 
-[node name="SM_Bld_Barn_02_Door_04" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="3" unique_id=1246080086]
+[node name="SM_Bld_Barn_02_Door_04" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="3" unique_id=2114503256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.826652, -1.1608123e-05, -0.94508284)
 mesh = SubResource("ArrayMesh_cj5w6")
 
-[node name="SM_Bld_Barn_02_Door_03" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="4" unique_id=856160411]
+[node name="SM_Bld_Barn_02_Door_03" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="4" unique_id=1818045158]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.826652, -1.1608123e-05, 0.9491305)
 mesh = SubResource("ArrayMesh_f8sxl")
 
-[node name="SM_Bld_Barn_02_Shutter_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 765393297) index="5" unique_id=1761156861]
+[node name="SM_Bld_Barn_02_Shutter_02" parent="BuildingsHolder/Barn2/SM_Bld_Barn_02/SM_Bld_Barn_02" parent_id_path=PackedInt32Array(1112714426, 1659657639, 2070032605) index="5" unique_id=1740080215]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.758583, 5.179363, -0.68539375)
 mesh = SubResource("ArrayMesh_mkihn")
 
@@ -2542,27 +2583,27 @@ shape = SubResource("BoxShape3D_3r8ca")
 [node name="Barn3" parent="BuildingsHolder" unique_id=997954030 instance=ExtResource("168_3fb5j")]
 transform = Transform3D(0.732647, 0, 0.6806088, 0, 1, 0, -0.6806088, 0, 0.732647, -42.23614, 0, 45.51762)
 
-[node name="SM_Bld_Barn_03_Shutter_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="1" unique_id=986188886]
+[node name="SM_Bld_Barn_03_Shutter_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="1" unique_id=863734891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8732753, 5.179363, 0.70615846)
 mesh = SubResource("ArrayMesh_rjdrt")
 
-[node name="SM_Bld_Barn_03_Shutter_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="2" unique_id=1883354570]
+[node name="SM_Bld_Barn_03_Shutter_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="2" unique_id=2141143553]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8751464, 5.179363, -0.68539304)
 mesh = SubResource("ArrayMesh_kymbk")
 
-[node name="SM_Bld_Barn_03_Door_04" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="3" unique_id=57660015]
+[node name="SM_Bld_Barn_03_Door_04" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="3" unique_id=913450771]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9288373, -1.1608123e-05, -0.94508207)
 mesh = SubResource("ArrayMesh_006iv")
 
-[node name="SM_Bld_Barn_03_Door_03" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="4" unique_id=2114547866]
+[node name="SM_Bld_Barn_03_Door_03" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="4" unique_id=586393287]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9288373, -1.1608123e-05, 0.9491312)
 mesh = SubResource("ArrayMesh_bg8j3")
 
-[node name="SM_Bld_Barn_03_Door_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="5" unique_id=670229501]
+[node name="SM_Bld_Barn_03_Door_02" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="5" unique_id=774827074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9681454, -1.1608123e-05, -0.94508207)
 mesh = SubResource("ArrayMesh_inag0")
 
-[node name="SM_Bld_Barn_03_Door_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1897906288) index="6" unique_id=710889830]
+[node name="SM_Bld_Barn_03_Door_01" parent="BuildingsHolder/Barn3/SM_Bld_Barn_03/SM_Bld_Barn_03" parent_id_path=PackedInt32Array(997954030, 1641225226, 1509196626) index="6" unique_id=909336776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9681454, -1.1608123e-05, 0.9491312)
 mesh = SubResource("ArrayMesh_y0x8m")
 
@@ -2610,6 +2651,9 @@ shape = SubResource("CylinderShape3D_ec6vt")
 
 [node name="Garage" parent="BuildingsHolder" unique_id=309689098 instance=ExtResource("141_7huuw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.197973, 0, -52.273624)
+
+[node name="Garage" parent="BuildingsHolder/Garage" unique_id=2046030087 instance=ExtResource("141_7huuw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.103493, 0, -0.81622696)
 
 [node name="WaterWell" parent="BuildingsHolder" unique_id=1911915916 instance=ExtResource("176_hl1kq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9194388, 0, -8.587326)
@@ -13049,7 +13093,7 @@ wander_zone_center = Vector3(-20, 0, 18)
 transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.6160665, -49.656147, 0.017127872, -33.3789)
 awards_money = true
 
-[node name="FarmScavenging" parent="." instance=ExtResource("farm_scavenging")]
+[node name="FarmScavenging" parent="." unique_id=543243552 instance=ExtResource("farm_scavenging")]
 
 [node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 22)

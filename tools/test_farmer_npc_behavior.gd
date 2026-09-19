@@ -88,9 +88,10 @@ func _run() -> void:
 			break
 
 	# 3) Visão: jogador visível e próximo deve disparar perseguição.
-	player.global_position = farmer.global_position + Vector3(0, 0, 3)
 	var chased: bool = false
 	for i: int in range(SEE_FRAMES):
+		# O retorno à patrulha gira o NPC enquanto o sensor amostra a visão.
+		player.global_position = farmer.global_position + farmer.global_basis.z.normalized() * 3.0
 		await physics_frame
 		if farmer.state == &"chase":
 			chased = true

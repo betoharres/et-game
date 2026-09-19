@@ -7,6 +7,7 @@ extends CharacterBody3D
 ## (NPCVision/NPCHearing).
 
 enum ReactionMode { CHASE, FLEE }
+enum AwarenessState { NEUTRAL, ALERT, PURSUIT }
 
 @export_category("Activity")
 ## Zero keeps simulation running regardless of player distance.
@@ -65,6 +66,8 @@ var _saved_avoidance: bool = false
 
 var player: CharacterBody3D = null
 var state: StringName = &"idle"
+var awareness_state: AwarenessState = AwarenessState.NEUTRAL
+var _wanted_alert: bool = false
 var last_chat_time: float = -1000.0
 var navigation_failed: bool = false
 var _stuck_time: float = 0.0
@@ -76,6 +79,7 @@ var _detail_timer: float = 0.0
 var _simple_routine: bool = false
 
 signal state_changed(new_state: StringName)
+signal awareness_state_changed(new_state: StringName)
 
 
 func _ready() -> void:
@@ -84,6 +88,10 @@ func _ready() -> void:
 		add_to_group(social_group_name)
 
 	_find_player()
+	var alert_system: Node = get_node_or_null("/root/PhotoAlertSystem")
+	if alert_system != null:
+		alert_system.photo_count_changed.connect(_on_photo_count_changed)
+		_on_photo_count_changed(int(alert_system.get_photo_count()), int(alert_system.get_max_photo_count()))
 
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.8
@@ -163,11 +171,12 @@ func _suspend_branch(node: Node) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	refresh_awareness()
 	_detail_timer -= delta
 	if routine != null and _detail_timer <= 0.0:
 		_detail_timer = 0.5
 		var calm: bool = state in [&"idle", &"patrol", &"home", &"work", &"observe", &"wait", &"social"]
-		var alerted: bool = (vision != null and (vision.has_detected_player or vision.has_last_seen_position)) or (hearing != null and hearing.has_pending_noise())
+		var alerted: bool = (vision != null and (vision.has_detected_player or vision.has_last_seen_position)) or (hearing != null and hearing.has_noise_to_investigate())
 		var simplify: bool = is_instance_valid(player) and global_position.distance_to(player.global_position) > 90.0 and calm and not alerted
 		if simplify != _simple_routine:
 			var tree: BeehaveTree = get_node("NPCBehaviorTree") as BeehaveTree
@@ -198,6 +207,35 @@ func _find_player() -> void:
 		if character is CharacterBody3D and not character is NPCActor:
 			player = character
 			break
+
+
+func _on_photo_count_changed(count: int, _maximum: int) -> void:
+	_wanted_alert = count > 0 and reaction_mode == ReactionMode.CHASE
+	if vision != null:
+		vision.set_alerted(_wanted_alert)
+	refresh_awareness()
+
+
+func refresh_awareness() -> void:
+	var next_state: AwarenessState = AwarenessState.NEUTRAL
+	var investigating: bool = hearing != null and hearing.has_noise_to_investigate()
+	if vision != null and vision.has_detected_player and vision.is_currently_visible:
+		next_state = AwarenessState.PURSUIT
+	elif _wanted_alert or investigating or (vision != null and (vision.is_currently_visible or vision.has_last_seen_position)):
+		next_state = AwarenessState.ALERT
+	if next_state == awareness_state:
+		return
+	awareness_state = next_state
+	awareness_state_changed.emit(get_awareness_state())
+
+
+func get_awareness_state() -> StringName:
+	match awareness_state:
+		AwarenessState.ALERT:
+			return &"alert"
+		AwarenessState.PURSUIT:
+			return &"pursuit"
+	return &"neutral"
 
 
 func get_patrol_positions() -> Array[Vector3]:

@@ -8,6 +8,9 @@ extends Node3D
 ## `get_visibility_multiplier()`, `set_vision_contact()`), sem duplicar essa
 ## lógica no lado do jogador.
 
+const ALERT_SIGHT_DISTANCE: float = 21.0
+const ALERT_SIGHT_HALF_ANGLE_DEGREES: float = 56.0
+
 @export_range(1.0, 60.0, 0.5) var sight_distance: float = 14.0
 @export_range(5.0, 120.0, 1.0) var sight_half_angle_degrees: float = 45.0
 @export var eye_height: float = 1.6
@@ -25,6 +28,9 @@ var detection_progress: float = 0.0
 var time_since_lost: float = 0.0
 var last_seen_position: Vector3 = Vector3.ZERO
 var has_last_seen_position: bool = false
+var _alerted: bool = false
+var _neutral_sight_distance: float = 0.0
+var _neutral_sight_half_angle_degrees: float = 0.0
 var _sample_elapsed: float = 0.0
 var _sample_interval: float = 0.0
 
@@ -78,6 +84,25 @@ func _physics_process(delta: float) -> void:
 			has_detected_player = false
 
 
+func set_alerted(alerted: bool) -> void:
+	if _alerted == alerted:
+		return
+	_alerted = alerted
+	if alerted:
+		_neutral_sight_distance = sight_distance
+		_neutral_sight_half_angle_degrees = sight_half_angle_degrees
+		sight_distance = ALERT_SIGHT_DISTANCE
+		sight_half_angle_degrees = ALERT_SIGHT_HALF_ANGLE_DEGREES
+	else:
+		sight_distance = _neutral_sight_distance
+		sight_half_angle_degrees = _neutral_sight_half_angle_degrees
+	_sample_interval = 0.0
+
+
+func get_effective_sight_distance() -> float:
+	return sight_distance * _get_player_visibility_multiplier()
+
+
 func get_player_position() -> Vector3:
 	return player.global_position if player != null else global_position
 
@@ -102,7 +127,7 @@ func _can_see_player() -> bool:
 	to_player.y = 0.0
 	var distance: float = to_player.length()
 
-	var effective_distance: float = sight_distance * _get_player_visibility_multiplier()
+	var effective_distance: float = get_effective_sight_distance()
 	if distance > effective_distance:
 		return false
 

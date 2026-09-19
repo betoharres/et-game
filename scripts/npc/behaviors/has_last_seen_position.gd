@@ -9,6 +9,8 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var npc: NPCActor = actor as NPCActor
 	if npc == null or npc.vision == null:
 		return FAILURE
+	if npc.hearing != null and npc.hearing.has_noise_to_investigate():
+		return FAILURE
 	var vision: NPCVision = npc.vision
 	if vision.has_detected_player or vision.is_currently_visible:
 		return FAILURE

@@ -11,8 +11,9 @@ func _ready() -> void:
 	reaction_mode = ReactionMode.CHASE
 	require_navigation = true
 	grounded = true
-	super()
 	vision.sight_distance = profile.sight_distance
+	vision.sight_half_angle_degrees = profile.sight_half_angle_degrees
+	super()
 	navigation_agent.max_speed = alert_speed
 
 

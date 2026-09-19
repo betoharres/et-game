@@ -52,6 +52,11 @@ const GLOW_RING_ICON : Texture2D = preload(
 ## percorrer a árvore inteira a cada frame em mapas grandes.
 @export var actor_scan_interval : float = 0.5
 
+@export_category("Ruído")
+@export_range(0.5, 3.0, 0.1) var noise_pulse_duration : float = 1.4
+@export_color_no_alpha var noise_color : Color = Color(0.35, 0.9, 1.0)
+@export_color_no_alpha var heard_noise_color : Color = Color(1.0, 0.58, 0.16)
+
 @export_category("Atalho")
 @export var shortcut_action : StringName = &"debug_vision_map"
 @export var shortcut_text : String = "F3"
@@ -68,6 +73,24 @@ var _objective : Node3D = null
 var _vision_actors : Array[Node] = []
 var _landmarks : Array[Node3D] = []
 var _character_bodies : Array[Node] = []
+var _noise_source : Node = null
+var _noise_pulses : Array[NoisePulse] = []
+
+
+class NoisePulse:
+	extends RefCounted
+
+	var origin : Vector3
+	var decibels : float
+	var radius : float
+	var heard : bool
+	var age : float = 0.0
+
+	func _init(position : Vector3, level : float, reach : float, was_heard : bool) -> void:
+		origin = position
+		decibels = level
+		radius = reach
+		heard = was_heard
 
 
 func _ready() -> void:
@@ -88,14 +111,16 @@ func _input(event : InputEvent) -> void:
 
 func _process(delta : float) -> void:
 	_elapsed += delta
-	if not map_visible:
-		return
+	if not get_tree().paused:
+		_update_noise_pulses(delta)
 
 	_scan_timer -= delta
 	if _scan_timer <= 0.0:
 		_scan_timer = actor_scan_interval
 		_refresh_scene_references()
 
+	if not map_visible:
+		return
 	_update_map_geometry()
 	queue_redraw()
 
@@ -125,16 +150,46 @@ func _update_map_geometry() -> void:
 
 func _refresh_scene_references() -> void:
 	_player = _find_player()
+	_connect_noise_source()
 	_objective = _find_objective()
 	_landmarks = _find_landmarks()
 	_vision_actors = _find_vision_actors()
 
 
 func _find_player() -> Node3D:
+	var active_player : Node3D = get_tree().get_first_node_in_group(&"players") as Node3D
+	if active_player != null:
+		return active_player
 	for character : Node in get_tree().get_nodes_in_group(&"characters"):
 		if character is Node3D:
 			return character as Node3D
 	return null
+
+
+func _connect_noise_source() -> void:
+	var source : Node = _player.get_node_or_null("PlayerNoise") if is_instance_valid(_player) else null
+	if is_instance_valid(_noise_source) and _noise_source == source:
+		return
+	if is_instance_valid(_noise_source) and _noise_source.is_connected("noise_emitted", _on_noise_emitted):
+		_noise_source.disconnect("noise_emitted", _on_noise_emitted)
+	_noise_source = source
+	_noise_pulses.clear()
+	if _noise_source != null and _noise_source.has_signal("noise_emitted"):
+		_noise_source.connect("noise_emitted", _on_noise_emitted)
+
+
+func _on_noise_emitted(origin : Vector3, decibels : float, radius : float, heard : bool) -> void:
+	_noise_pulses.append(NoisePulse.new(origin, decibels, radius, heard))
+	if _noise_pulses.size() > 12:
+		_noise_pulses.pop_front()
+	queue_redraw()
+
+
+func _update_noise_pulses(delta : float) -> void:
+	for index : int in range(_noise_pulses.size() - 1, -1, -1):
+		_noise_pulses[index].age += delta
+		if _noise_pulses[index].age >= noise_pulse_duration:
+			_noise_pulses.remove_at(index)
 
 
 func _find_objective() -> Node3D:
@@ -168,7 +223,8 @@ func _on_scene_node_removed(node : Node) -> void:
 	if node is CharacterBody3D:
 		_character_bodies.erase(node)
 	_vision_actors.erase(node)
-	_landmarks.erase(node)
+	if node is Node3D:
+		_landmarks.erase(node as Node3D)
 
 
 func _find_vision_actors() -> Array[Node]:
@@ -239,6 +295,64 @@ func _draw() -> void:
 			_draw_vision_actor(actor, _player)
 
 	_draw_player_marker()
+	_draw_noise_pulses(_player)
+	_draw_noise_label()
+
+
+func _draw_noise_pulses(player : Node3D) -> void:
+	for pulse : NoisePulse in _noise_pulses:
+		var center : Vector2 = _world_to_map(pulse.origin, player)
+		var radius : float = pulse.radius / world_radius * map_radius
+		var fade : float = 1.0 - pulse.age / noise_pulse_duration
+		var color : Color = heard_noise_color if pulse.heard else noise_color
+		_draw_noise_ring(center, radius, Color(color, fade * 0.8))
+
+
+func _draw_noise_ring(center : Vector2, radius : float, color : Color) -> void:
+	var segments : int = 72
+	for index : int in range(segments):
+		var start : Vector2 = center + Vector2.from_angle(TAU * float(index) / segments) * radius
+		var end : Vector2 = center + Vector2.from_angle(TAU * float(index + 1) / segments) * radius
+		var clipped : PackedVector2Array = _clip_noise_segment(start, end)
+		if clipped.size() == 2:
+			draw_line(clipped[0], clipped[1], color, 1.6, true)
+
+
+func _clip_noise_segment(start : Vector2, end : Vector2) -> PackedVector2Array:
+	# Recortar os segmentos preserva o círculo na origem; prender os pontos à
+	# borda do radar desenharia um alcance diferente daquele usado pela audição.
+	var offset : Vector2 = start - map_center
+	var direction : Vector2 = end - start
+	var a : float = direction.length_squared()
+	if a < 0.000001:
+		return PackedVector2Array()
+	var b : float = 2.0 * offset.dot(direction)
+	var c : float = offset.length_squared() - pow(map_radius - 2.0, 2.0)
+	var discriminant : float = b * b - 4.0 * a * c
+	if discriminant < 0.0:
+		return PackedVector2Array()
+	var root : float = sqrt(discriminant)
+	var entry : float = maxf(0.0, (-b - root) / (2.0 * a))
+	var leave : float = minf(1.0, (-b + root) / (2.0 * a))
+	if entry >= leave:
+		return PackedVector2Array()
+	return PackedVector2Array([start + direction * entry, start + direction * leave])
+
+
+func _draw_noise_label() -> void:
+	if _noise_pulses.is_empty():
+		return
+	var pulse : NoisePulse = _noise_pulses.back()
+	for index : int in range(_noise_pulses.size() - 1, -1, -1):
+		if _noise_pulses[index].heard:
+			pulse = _noise_pulses[index]
+			break
+	var label : String = "%.0f dB · %s" % [pulse.decibels, "OUVIDO" if pulse.heard else "RUÍDO"]
+	var color : Color = heard_noise_color if pulse.heard else noise_color
+	var text_size : Vector2 = SHORTCUT_FONT.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 11)
+	var position : Vector2 = map_center + Vector2(-text_size.x * 0.5, map_radius * 0.7)
+	draw_rect(Rect2(position + Vector2(-4.0, -12.0), text_size + Vector2(8.0, 2.0)), Color(0.008, 0.018, 0.035, 0.9))
+	draw_string(SHORTCUT_FONT, position, label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 11, color)
 
 
 func _draw_shortcut_hint() -> void:
@@ -411,6 +525,12 @@ func _draw_vision_actor(actor : Node, player : Node3D) -> void:
 	)
 	if sees_player:
 		color = Color(1.0, 0.16, 0.2)
+	if actor.has_method("get_awareness_state"):
+		match StringName(actor.call("get_awareness_state")):
+			&"alert":
+				color = heard_noise_color
+			&"pursuit":
+				color = Color(1.0, 0.16, 0.2)
 
 	var center : Vector2 = _clamp_to_radar(
 		_world_to_map(actor_position, player),

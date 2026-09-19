@@ -6,9 +6,10 @@ extends Resource
 
 @export_category("Resistência e movimento")
 @export_range(1.0, 1000.0) var max_health: float = 60.0
-@export_range(0.1, 10.0) var walk_speed: float = 2.0
-@export_range(0.1, 10.0) var chase_speed: float = 3.6
-@export_range(1.0, 60.0) var sight_distance: float = 30.0
+@export_range(0.1, 10.0) var walk_speed: float = 1.6
+@export_range(0.1, 10.0) var chase_speed: float = 2.88
+@export_range(1.0, 60.0) var sight_distance: float = 21.0
+@export_range(1.0, 180.0) var sight_half_angle_degrees: float = 56.0
 
 @export_category("Arma")
 @export_range(1.0, 60.0) var attack_range: float = 14.0

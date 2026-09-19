@@ -131,18 +131,17 @@ func _test_system() -> void:
 	_check(director.active_enemies.size() == expected_total, "Recuperar estrela não duplica reforços")
 	for npc: PursuitNPC in director.active_enemies:
 		_check(retained_ids.has(npc.get_instance_id()), "Reescalada mantém os mesmos inimigos")
-	if not director.active_enemies.is_empty():
-		director.set_physics_process(false)
-		var victim: PursuitNPC = director.active_enemies.back()
-		victim.take_damage(victim.profile.max_health)
-		await _frames(2)
-		_check(director.active_enemies.size() == expected_total - 1, "Morte libera vaga")
-		director.set_physics_process(true)
-		await _frames(80)
-		_check(director.active_enemies.size() == expected_total, "Onda seguinte repõe vaga da facção atual")
+	await _test_respawn_delays(expected_total)
 	alert.reset()
 	await _frames(3)
 	_check(director.active_enemies.is_empty() and get_nodes_in_group("pursuit_enemies").is_empty(), "Zero estrelas remove perseguidores")
+	alert.register_photo(0, player.global_position)
+	director.call("_physics_process", 2.99)
+	_check(director.active_enemies.is_empty(), "Zerar e recuperar estrelas não ignora atraso de respawn")
+	director.call("_physics_process", 0.02)
+	_check(not director.active_enemies.is_empty(), "Reforços voltam após atraso de respawn ao recuperar estrela")
+	alert.reset()
+	await _frames(2)
 	director.set_physics_process(false)
 	await _test_navigation_and_combat()
 	alert.register_photo(0, player.global_position)
@@ -152,6 +151,85 @@ func _test_system() -> void:
 	await _frames(2)
 	_check(not alert.is_observed(), "Saída limpa observadores")
 	completed = true
+
+
+func _test_respawn_delays(expected_total: int) -> void:
+	director.set_physics_process(false)
+	for npc: PursuitNPC in director.active_enemies:
+		npc.get_node("NPCBehaviorTree").set("enabled", false)
+		npc.vision.set_physics_process(false)
+		npc.vision.is_currently_visible = false
+		npc.stop_moving()
+		alert.set_pursuer_observing(npc.get_instance_id(), false)
+	for profile: PursuitProfile in director.factions:
+		profile.reinforcement_interval = 12.0
+	director.set("_reinforcement_timer", 12.0)
+	var police: PursuitNPC = _enemy_of_faction(1)
+	var swat: PursuitNPC = _enemy_of_faction(2)
+	var mib: PursuitNPC = _enemy_of_faction(3)
+	if police == null or swat == null or mib == null:
+		_check(false, "Há reforços das três facções para testar respawn")
+		return
+	police.take_damage(police.profile.max_health)
+	await _frames(2)
+	_check(director.active_enemies.size() == expected_total - 1, "Morte libera vaga")
+	director.call("_physics_process", 1.0)
+	swat.take_damage(swat.profile.max_health)
+	await _frames(2)
+	alert.call("_process", 30.0)
+	alert.register_photo(0, player.global_position)
+	director.set("_reinforcement_timer", 12.0)
+	director.call("_physics_process", 1.99)
+	_check(_faction_count(1) == director.get_profile(1).max_active - 1,
+		"Polícia não respawna antes de 3 s mesmo mudando estrelas")
+	director.call("_physics_process", 0.02)
+	_check(_faction_count(1) == director.get_profile(1).max_active,
+		"Polícia respawna após 3 s com três estrelas e onda de 12 s")
+	_check(_faction_count(2) == director.get_profile(2).max_active - 1,
+		"Respawn da polícia não antecipa a vaga da SWAT")
+	mib.take_damage(mib.profile.max_health)
+	await _frames(2)
+	director.call("_physics_process", 0.98)
+	_check(_faction_count(2) == director.get_profile(2).max_active - 1, "SWAT aguarda seus próprios 3 s")
+	director.call("_physics_process", 0.02)
+	_check(_faction_count(2) == director.get_profile(2).max_active,
+		"SWAT retorna em 3 s sem ser atrasada por baixa posterior da MIB")
+	director.call("_physics_process", 1.99)
+	_check(_faction_count(3) == director.get_profile(3).max_active - 1, "MIB não respawna antes de 3 s")
+	director.call("_physics_process", 0.02)
+	_check(director.active_enemies.size() == expected_total, "Todas as facções repõem suas vagas sem ultrapassar teto")
+	var distant: PursuitNPC = _enemy_of_faction(1)
+	distant.global_position = player.global_position + Vector3.RIGHT * (director.despawn_distance + 10.0)
+	distant.vision.is_currently_visible = false
+	director.set("_report_timer", 0.0)
+	director.set("_reinforcement_timer", 0.0)
+	director.call("_physics_process", 0.2)
+	_check(director.active_enemies.size() == expected_total - 1,
+		"Saída por distância não permite reposição no mesmo quadro de uma onda vencida")
+	await _frames(2)
+	director.call("_physics_process", 2.99)
+	_check(director.active_enemies.size() == expected_total - 1, "Saída por distância também espera 3 s")
+	director.call("_physics_process", 0.02)
+	_check(director.active_enemies.size() == expected_total, "Saída por distância permite respawn da facção após 3 s")
+	_enemy_of_faction(2).take_damage(10000.0)
+	await _frames(2)
+	alert.reset()
+	_check((director.get("_respawn_queue") as Array).is_empty(), "Zerar estrelas cancela reposições pendentes")
+
+
+func _enemy_of_faction(level: int) -> PursuitNPC:
+	for npc: PursuitNPC in director.active_enemies:
+		if npc.profile.stars == level:
+			return npc
+	return null
+
+
+func _faction_count(level: int) -> int:
+	var count: int = 0
+	for npc: PursuitNPC in director.active_enemies:
+		if npc.profile.stars == level:
+			count += 1
+	return count
 
 
 func _test_pickups() -> void:

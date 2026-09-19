@@ -28,6 +28,7 @@ signal photo_taken(current_photo_count : int)
 @export var flash_duration : float = 0.1
 
 @onready var navigation_agent : NavigationAgent3D = $NavigationAgent3D
+@onready var awareness: LegacyEnemyAwareness = $EnemyAwareness
 @onready var camera_flash : Node3D = $CameraRig/CameraFlash
 @onready var flash_timer : Timer = $CameraRig/FlashTimer
 
@@ -111,7 +112,9 @@ func _physics_process(delta : float) -> void:
 			has_visual_contact
 		)
 
-	if has_visual_contact and has_detected_player:
+	if awareness.investigate(delta, chase_speed, rotation_speed):
+		focus_progress = 0.0
+	elif has_visual_contact and has_detected_player:
 		_follow_or_photograph(delta)
 	elif has_detected_player and has_last_known_position and time_without_visual_contact < lose_sight_after:
 		focus_progress = 0.0
@@ -350,7 +353,7 @@ func get_vision_forward() -> Vector3:
 
 
 func get_effective_sight_half_angle_degrees() -> float:
-	return (
+	return awareness.get_sight_half_angle(
 		alerted_sight_half_angle_degrees
 		if has_detected_player
 		else sight_half_angle_degrees
@@ -358,7 +361,11 @@ func get_effective_sight_half_angle_degrees() -> float:
 
 
 func get_effective_sight_distance() -> float:
-	return sight_distance * _get_player_visibility_multiplier()
+	return awareness.get_sight_distance(sight_distance) * _get_player_visibility_multiplier()
+
+
+func get_awareness_state() -> StringName:
+	return awareness.get_awareness_state()
 
 
 func _is_player_alive() -> bool:

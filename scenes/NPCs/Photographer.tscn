@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ctlyi6tcv6xdp"]
 
 [ext_resource type="Script" uid="uid://be7v6q604sshy" path="res://scripts/photographer.gd" id="1_photographer"]
+[ext_resource type="Script" path="res://scripts/npc/legacy_enemy_awareness.gd" id="awareness"]
 [ext_resource type="PackedScene" uid="uid://kucq5tb26ney" path="res://PolygonCity/Characters/SK_Character_Male_Hoodie.fbx" id="2_psxk5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q55lf"]
@@ -45,6 +46,9 @@ rings = 6
 
 [node name="Photographer" type="CharacterBody3D" unique_id=753964151 groups=["photographers"]]
 script = ExtResource("1_photographer")
+
+[node name="EnemyAwareness" type="Node3D" parent="."]
+script = ExtResource("awareness")
 
 [node name="SK_Character_Male_Hoodie" parent="." unique_id=637138292 instance=ExtResource("2_psxk5")]
 

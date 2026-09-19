@@ -11,6 +11,11 @@ const COUNTRY_TOWN_PATH : String = "res://scenes/CountryTown/CountryTown.tscn"
 const SETTLE_FRAMES : int = 5
 const LANDMARK_GROUP : StringName = &"test_landmarks"
 
+class FakeNoise:
+	extends Node
+	signal noise_emitted(origin : Vector3, decibels : float, radius : float, heard : bool)
+
+
 class FakePlayer:
 	extends CharacterBody3D
 
@@ -54,6 +59,9 @@ func _test_runtime_lookups() -> Array[String]:
 	var player : FakePlayer = FakePlayer.new()
 	player.add_to_group(&"characters")
 	player.position = Vector3(10.0, 0.0, 20.0)
+	var noise : FakeNoise = FakeNoise.new()
+	noise.name = "PlayerNoise"
+	player.add_child(noise)
 	world.add_child(player)
 
 	for index : int in range(3):
@@ -113,6 +121,39 @@ func _test_runtime_lookups() -> Array[String]:
 	if overlay.call("_read_flag", bare, &"has_visual_contact") != false:
 		failures.append("_read_flag nao devolveu false para propriedade ausente")
 	bare.free()
+
+	var origin : Vector3 = player.global_position
+	noise.noise_emitted.emit(origin, 44.0, 15.85, true)
+	var pulses : Array = overlay.get("_noise_pulses") as Array
+	if pulses.size() != 1 or not pulses[0].heard:
+		failures.append("minimapa nao recebeu confirmacao de som ouvido pelo inimigo")
+	else:
+		player.global_position += Vector3(4.0, 0.0, 0.0)
+		if pulses[0].origin != origin or not is_equal_approx(pulses[0].radius, 15.85) or pulses[0].decibels != 44.0:
+			failures.append("circulo de ruido nao preservou origem, dB e alcance emitidos")
+		var sound_point : Vector2 = overlay.call("_world_to_map", pulses[0].origin, player)
+		if not is_equal_approx(sound_point.length(), 4.0):
+			failures.append("som deve ficar no ponto de origem quando jogador se afasta")
+	var clipped : PackedVector2Array = overlay.call("_clip_noise_segment", Vector2(90.0, 0.0), Vector2(110.0, 0.0))
+	if clipped.size() != 2 or not clipped[0].is_equal_approx(Vector2(90.0, 0.0)) or not clipped[1].is_equal_approx(Vector2(98.0, 0.0)):
+		failures.append("circulo sonoro deve ser recortado dentro do minimapa sem deformar alcance")
+	var outside : PackedVector2Array = overlay.call("_clip_noise_segment", Vector2(110.0, 0.0), Vector2(120.0, 0.0))
+	if not outside.is_empty():
+		failures.append("circulo sonoro fora do minimapa nao deve aparecer sobre a HUD")
+	overlay.set("map_visible", false)
+	overlay.call("_process", 2.0)
+	if not (overlay.get("_noise_pulses") as Array).is_empty():
+		failures.append("ruidos antigos nao expiram com minimapa oculto")
+	overlay.set("map_visible", true)
+	noise.noise_emitted.emit(player.global_position, 26.0, 2.0, false)
+	pulses = overlay.get("_noise_pulses") as Array
+	if pulses.size() != 1 or pulses[0].heard:
+		failures.append("ruido nao ouvido nao deve aparecer como ouvido")
+	noise.queue_free()
+	await process_frame
+	overlay.call("_refresh_scene_references")
+	if not (overlay.get("_noise_pulses") as Array).is_empty():
+		failures.append("remover emissor deve limpar os circulos do player anterior")
 
 	print(
 		"cena sintetica - jogador: ", found_player == player,

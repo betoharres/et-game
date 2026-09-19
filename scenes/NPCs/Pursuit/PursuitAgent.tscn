@@ -25,7 +25,7 @@ path_height_offset = 0.15
 
 [node name="NPCVision" type="Node3D" parent="."]
 script = ExtResource("3")
-sight_half_angle_degrees = 80.0
+sight_half_angle_degrees = 56.0
 detection_time = 0.35
 lose_sight_after = 3.0
 

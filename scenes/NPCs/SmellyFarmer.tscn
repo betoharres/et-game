@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="6_jqnf7"]
 [ext_resource type="Script" path="res://scripts/smelly_farmer_animation.gd" id="7_animation"]
+[ext_resource type="Script" path="res://scripts/npc/legacy_enemy_awareness.gd" id="awareness"]
 [ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="8_idle_clip"]
 [ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="9_walk_clip"]
 
@@ -28,6 +29,9 @@ rings = 4
 
 [node name="Smelly" type="CharacterBody3D" unique_id=584213395]
 script = ExtResource("1_c8nde")
+
+[node name="EnemyAwareness" type="Node3D" parent="."]
+script = ExtResource("awareness")
 
 [node name="FarmerOld2" parent="." unique_id=1811171003 instance=ExtResource("2_vfalg")]
 

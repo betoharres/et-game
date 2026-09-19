@@ -3,6 +3,7 @@ extends CharacterBody3D
 # Navigation
 
 @onready var navigation_agent : NavigationAgent3D = $NavigationAgent3D
+@onready var awareness: LegacyEnemyAwareness = $EnemyAwareness
 
 @export var walk_speed : float = 2.0
 @export var chase_speed : float = 3.0
@@ -126,16 +127,19 @@ func _physics_process(delta : float) -> void:
 
 	update_vision(delta)
 
-	match current_state:
+	if awareness.investigate(delta, chase_speed, rotation_speed):
+		aim_progress = 0.0
+	else:
+		match current_state:
 
-		State.WANDERING:
-			random_walk(delta)
+			State.WANDERING:
+				random_walk(delta)
 
-		State.CHASING:
-			close_distance()
+			State.CHASING:
+				close_distance()
 
-		State.SHOOTING:
-			shoot(delta)
+			State.SHOOTING:
+				shoot(delta)
 
 	animation.set_moving(Vector2(velocity.x, velocity.z).length_squared() >= 0.0064)
 	update_head_look(delta)
@@ -402,7 +406,7 @@ func get_vision_forward() -> Vector3:
 
 
 func get_effective_sight_half_angle_degrees() -> float:
-	return (
+	return awareness.get_sight_half_angle(
 		alerted_sight_half_angle_degrees
 		if has_detected_player
 		else sight_half_angle_degrees
@@ -410,7 +414,11 @@ func get_effective_sight_half_angle_degrees() -> float:
 
 
 func get_effective_sight_distance() -> float:
-	return sight_distance * _get_player_visibility_multiplier()
+	return awareness.get_sight_distance(sight_distance) * _get_player_visibility_multiplier()
+
+
+func get_awareness_state() -> StringName:
+	return awareness.get_awareness_state()
 
 
 func _is_player_alive() -> bool:
@@ -739,6 +747,12 @@ func face_direction(direction : Vector3) -> void:
 func update_head_look(delta : float) -> void:
 
 	if player == null:
+		return
+
+	if awareness.investigating_noise:
+		target_marker.global_position = target_marker.global_position.lerp(
+			awareness.investigation_position + Vector3.UP * look_random_height, delta * look_speed
+		)
 		return
 
 	if current_state == State.CHASING or current_state == State.SHOOTING:

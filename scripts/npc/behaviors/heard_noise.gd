@@ -8,4 +8,4 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var npc: NPCActor = actor as NPCActor
 	if npc == null or npc.hearing == null:
 		return FAILURE
-	return SUCCESS if npc.hearing.has_pending_noise() else FAILURE
+	return SUCCESS if npc.hearing.has_noise_to_investigate() else FAILURE
