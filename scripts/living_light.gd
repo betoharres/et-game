@@ -2,8 +2,7 @@ class_name LivingLight
 extends CharacterBody3D
 
 ## Small floating creature that uses the ship navigation mesh while expressing
-## its state through steering, light, particles, squash/stretch, and the native
-## Trail3D introduced in Godot 4.8 dev4.
+## its state through steering, light, particles, squash/stretch, and a light trail.
 
 enum State {
 	WANDER,
@@ -81,7 +80,7 @@ const GROUND_PROBE_INTERVAL : float = 0.2
 @export_range(0.1, 20.0, 0.1) var spark_interval_min : float = 1.2
 @export_range(0.1, 20.0, 0.1) var spark_interval_max : float = 3.2
 
-@export_category("Trail3D (Godot 4.8)")
+@export_category("Light trail")
 @export var trail_color : Color = Color(1.0, 0.86, 0.4, 0.85)
 @export var trail_head_color : Color = Color(1.0, 0.95, 0.62, 1.0)
 @export var trail_tail_color : Color = Color(0.42, 0.95, 0.35, 0.0)
@@ -114,8 +113,8 @@ const GROUND_PROBE_INTERVAL : float = 0.2
 @onready var glow_light : OmniLight3D = $GlowLight
 @onready var sparks : GPUParticles3D = $Sparks
 @onready var wisps : GPUParticles3D = $Wisps
-@onready var trail : Trail3D = $Trail3D
-@onready var trail_core : Trail3D = $TrailCore
+@onready var trail : LivingLightTrail = $Trail3D
+@onready var trail_core : LivingLightTrail = $TrailCore
 @onready var debug_mesh : MeshInstance3D = $Debug/Lines
 @onready var debug_label : Label3D = $Debug/StateLabel
 
@@ -821,7 +820,7 @@ func _apply_halo_energy(energy : float) -> void:
 
 
 func _setup_trail() -> void:
-	# Trail3D samples width_curve and color_gradient with ratio 0 on the creature
+	# The ribbon samples width_curve and color_gradient with ratio 0 on the creature
 	# and ratio 1 on the oldest point, so the ribbon swells right behind the core
 	# and tapers into nothing at the tail.
 	var width_curve : Curve = Curve.new()
@@ -848,13 +847,13 @@ func _setup_trail() -> void:
 	])
 	_apply_trail_shape(trail_core, core_gradient, width_curve)
 
-	# Trail3D packs the vertex color as RGBA8, so trail.color alone can never go
+	# The mesh packs vertex color as RGBA8, so trail.color alone can never go
 	# overbright. The custom shader is what carries the intensity, and each ribbon
 	# drives its own copy of the material that comes from the scene.
-	var shared_material : ShaderMaterial = trail.material
+	var shared_material : ShaderMaterial = trail.material_override as ShaderMaterial
 	if shared_material != null:
 		_trail_material = shared_material.duplicate() as ShaderMaterial
-		trail.material = _trail_material
+		trail.material_override = _trail_material
 		_trail_material.set_shader_parameter(&"flow_speed", trail_flow_speed)
 		_trail_material.set_shader_parameter(&"noise_strength", trail_noise_strength)
 		_trail_material.set_shader_parameter(&"edge_softness", trail_edge_softness)
@@ -863,7 +862,7 @@ func _setup_trail() -> void:
 		# The inner ribbon runs the same shader with a tighter, less noisy and
 		# whiter profile, which is what reads as the hot core of the creature.
 		_trail_core_material = shared_material.duplicate() as ShaderMaterial
-		trail_core.material = _trail_core_material
+		trail_core.material_override = _trail_core_material
 		_trail_core_material.set_shader_parameter(&"flow_speed", trail_flow_speed * 1.4)
 		_trail_core_material.set_shader_parameter(
 			&"noise_strength",
@@ -887,12 +886,10 @@ func _setup_trail() -> void:
 
 
 func _apply_trail_shape(
-	target : Trail3D,
+	target : LivingLightTrail,
 	gradient : Gradient,
 	width_curve : Curve
 ) -> void:
-	target.limit_mode = Trail3D.LIMIT_MODE_LIFETIME
-	target.mesh_alignment = Line3D.MESH_ALIGNMENT_BILLBOARD
 	target.min_section_length = trail_min_section_length
 	target.color_gradient = gradient
 	target.width_curve = width_curve
@@ -997,7 +994,7 @@ func _update_trail(delta : float, speed : float, world_speed : float) -> void:
 		target_width = trail_width_max
 		target_alpha = trail_color.a
 		target_energy = 2.1
-	# Trail3D stores its points in world space. The ship rotates around a distant
+	# The trail stores its points in world space. The ship rotates around a distant
 	# pivot, so its inherited tangential speed can otherwise dwarf the creature's
 	# actual motion inside the room and make the trail look externally dragged.
 	if speed > 0.01 and world_speed > speed:

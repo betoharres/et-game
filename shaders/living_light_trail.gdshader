@@ -1,15 +1,9 @@
 shader_type spatial;
 render_mode blend_add, depth_draw_never, unshaded, cull_disabled;
 
-// Custom material for the LivingLight Trail3D.
-//
-// Trail3D builds the ribbon with UV.x running along the length, UV.y across it
-// (0 and 1 on the edges, 0.5 on the center line) and COLOR already carrying
-// color * color_gradient, sampled from the head (ratio 0, on the creature) to
-// the tail (ratio 1). When mesh_alignment is Billboard the side vertices are
-// collapsed onto the center line and CUSTOM0 carries the tangent plus the half
-// width, so the billboarding has to be redone here exactly like the built-in
-// trail shaders do, otherwise the ribbon renders with no width at all.
+// LivingLightTrail provides center-line vertex pairs, with tangent and signed
+// half-width in CUSTOM0. Expand them toward the camera here; UV.y spans the
+// ribbon and COLOR carries the head-to-tail gradient.
 
 uniform sampler2D flow_noise : hint_default_white, repeat_enable, filter_linear;
 uniform float flow_speed = 0.75;

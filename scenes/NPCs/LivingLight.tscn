@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnsx5lhkgdpn8" path="res://scripts/living_light.gd" id="1_living_light"]
 [ext_resource type="Shader" uid="uid://bwnot34ukydmt" path="res://shaders/living_light_trail.gdshader" id="2_trail_shader"]
+[ext_resource type="Script" path="res://scripts/living_light_trail.gd" id="3_trail"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial_core"]
 transparency = 1
@@ -158,28 +159,28 @@ light_energy = 1.8
 omni_range = 3.2
 omni_attenuation = 1.6
 
-[node name="Trail3D" type="Trail3D" parent="." unique_id=1252799293]
+[node name="Trail3D" type="MeshInstance3D" parent="." unique_id=1252799293]
 layers = 4
 custom_aabb = AABB(-0.05, -0.05, -0.05, 0.1, 0.1, 0.1)
+material_override = SubResource("ShaderMaterial_trail")
+script = ExtResource("3_trail")
 emitting = false
 lifetime = 0.16
 width = 0.05
 color = Color(1, 0.86, 0.4, 0.85)
-material_mode = 2
-material = SubResource("ShaderMaterial_trail")
 tiling_multiplier = 1.6
 pin_uv = true
 min_section_length = 0.06
 
-[node name="TrailCore" type="Trail3D" parent="." unique_id=1993815960]
+[node name="TrailCore" type="MeshInstance3D" parent="." unique_id=1993815960]
 layers = 4
 custom_aabb = AABB(-0.019, -0.019, -0.019, 0.038, 0.038, 0.038)
+material_override = SubResource("ShaderMaterial_trail")
+script = ExtResource("3_trail")
 emitting = false
 lifetime = 0.09
 width = 0.019
 color = Color(1, 0.95, 0.62, 0.85)
-material_mode = 2
-material = SubResource("ShaderMaterial_trail")
 tiling_multiplier = 2.4
 pin_uv = true
 min_section_length = 0.06
