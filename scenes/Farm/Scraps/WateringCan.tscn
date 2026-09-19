@@ -1,0 +1,145 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_green"]
+albedo_color = Color(0.1, 0.36, 0.2, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_1"]
+material = SubResource("Mat_green")
+top_radius = 0.12
+bottom_radius = 0.115
+height = 0.22
+radial_segments = 16
+rings = 1
+cap_top = false
+
+[sub_resource type="TorusMesh" id="Mesh_2"]
+material = SubResource("Mat_green")
+inner_radius = 0.107
+outer_radius = 0.12
+rings = 16
+ring_segments = 8
+
+[sub_resource type="CylinderMesh" id="Mesh_3"]
+material = SubResource("Mat_green")
+top_radius = 0.015
+bottom_radius = 0.024
+height = 0.27
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_4"]
+material = SubResource("Mat_green")
+top_radius = 0.046
+bottom_radius = 0.019
+height = 0.05
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_steel"]
+albedo_color = Color(0.47, 0.52, 0.55, 1)
+roughness = 0.32
+metallic = 0.65
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_5"]
+material = SubResource("Mat_steel")
+top_radius = 0.046
+bottom_radius = 0.046
+height = 0.006
+radial_segments = 12
+rings = 1
+
+[sub_resource type="TorusMesh" id="Mesh_6"]
+material = SubResource("Mat_green")
+inner_radius = 0.075
+outer_radius = 0.09
+rings = 16
+ring_segments = 8
+
+[sub_resource type="BoxMesh" id="Mesh_7"]
+material = SubResource("Mat_green")
+size = Vector3(0.022, 0.022, 0.24)
+
+[sub_resource type="BoxMesh" id="Mesh_8"]
+material = SubResource("Mat_green")
+size = Vector3(0.024, 0.062, 0.022)
+
+[sub_resource type="BoxMesh" id="Mesh_9"]
+material = SubResource("Mat_green")
+size = Vector3(0.024, 0.062, 0.022)
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.58, 0.31, 0.25)
+
+[node name="WateringCan" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 1.1
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_wateringcan"
+display_name = "Regador"
+score_value = 28
+cash_value = 28
+slot_cost = 2
+two_handed = false
+
+[node name="CanBody" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.11, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="OpeningRim" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.22, 0)
+mesh = SubResource("Mesh_2")
+
+[node name="WaterSpout" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.2, 0.2, 0)
+rotation_degrees = Vector3(0, 0, -55)
+mesh = SubResource("Mesh_3")
+
+[node name="SprinklerHead" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.332, 0.294, 0)
+rotation_degrees = Vector3(0, 0, -55)
+mesh = SubResource("Mesh_4")
+
+[node name="SprinklerFace" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.355, 0.31, 0)
+rotation_degrees = Vector3(0, 0, -55)
+mesh = SubResource("Mesh_5")
+
+[node name="BackHandle" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.145, 0.14, 0)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(1, 1, 1.35)
+mesh = SubResource("Mesh_6")
+
+[node name="TopGrip" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.25, 0)
+mesh = SubResource("Mesh_7")
+
+[node name="GripSupport1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.226, -0.108)
+mesh = SubResource("Mesh_8")
+
+[node name="GripSupport2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.226, 0.108)
+mesh = SubResource("Mesh_9")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0.045, 0.155, 0)
+shape = SubResource("Shape")

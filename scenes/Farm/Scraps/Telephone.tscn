@@ -1,0 +1,318 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_burgundy"]
+albedo_color = Color(0.3, 0.045, 0.04, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_1"]
+material = SubResource("Mat_burgundy")
+size = Vector3(0.23, 0.057, 0.23)
+
+[sub_resource type="StandardMaterial3D" id="Mat_ivory"]
+albedo_color = Color(0.88, 0.86, 0.72, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_2"]
+material = SubResource("Mat_ivory")
+size = Vector3(0.093, 0.006, 0.11)
+
+[sub_resource type="StandardMaterial3D" id="Mat_black"]
+albedo_color = Color(0.025, 0.032, 0.038, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_3"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_4"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_5"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_6"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_7"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_8"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_9"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_10"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_11"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_12"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_13"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="BoxMesh" id="Mesh_14"]
+material = SubResource("Mat_black")
+size = Vector3(0.02, 0.005, 0.018)
+
+[sub_resource type="SphereMesh" id="Mesh_15"]
+material = SubResource("Mat_burgundy")
+radius = 0.033
+height = 0.066
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_16"]
+material = SubResource("Mat_burgundy")
+radius = 0.033
+height = 0.066
+radial_segments = 16
+rings = 8
+
+[sub_resource type="BoxMesh" id="Mesh_17"]
+material = SubResource("Mat_burgundy")
+size = Vector3(0.155, 0.025, 0.032)
+
+[sub_resource type="TorusMesh" id="Mesh_18"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_19"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_20"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_21"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_22"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_23"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_24"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_25"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_26"]
+material = SubResource("Mat_black")
+inner_radius = 0.006
+outer_radius = 0.01
+rings = 16
+ring_segments = 8
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.27, 0.115, 0.23)
+
+[node name="Telephone" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.72
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_telephone"
+display_name = "Telefone fixo"
+score_value = 32
+cash_value = 32
+slot_cost = 1
+two_handed = false
+
+[node name="Base" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.0285, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="KeypadPanel" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.06, 0.028)
+mesh = SubResource("Mesh_2")
+
+[node name="Key00" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.028, 0.066, -0.01)
+mesh = SubResource("Mesh_3")
+
+[node name="Key01" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.066, -0.01)
+mesh = SubResource("Mesh_4")
+
+[node name="Key02" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.028, 0.066, -0.01)
+mesh = SubResource("Mesh_5")
+
+[node name="Key10" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.028, 0.066, 0.016)
+mesh = SubResource("Mesh_6")
+
+[node name="Key11" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.066, 0.016)
+mesh = SubResource("Mesh_7")
+
+[node name="Key12" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.028, 0.066, 0.016)
+mesh = SubResource("Mesh_8")
+
+[node name="Key20" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.028, 0.066, 0.042)
+mesh = SubResource("Mesh_9")
+
+[node name="Key21" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.066, 0.042)
+mesh = SubResource("Mesh_10")
+
+[node name="Key22" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.028, 0.066, 0.042)
+mesh = SubResource("Mesh_11")
+
+[node name="Key30" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.028, 0.066, 0.068)
+mesh = SubResource("Mesh_12")
+
+[node name="Key31" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.066, 0.068)
+mesh = SubResource("Mesh_13")
+
+[node name="Key32" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.028, 0.066, 0.068)
+mesh = SubResource("Mesh_14")
+
+[node name="HandsetEnd1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.092, 0.086, -0.074)
+scale = Vector3(1, 0.8, 1.35)
+mesh = SubResource("Mesh_15")
+
+[node name="HandsetEnd2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.092, 0.086, -0.074)
+scale = Vector3(1, 0.8, 1.35)
+mesh = SubResource("Mesh_16")
+
+[node name="HandsetGrip" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.1, -0.079)
+mesh = SubResource("Mesh_17")
+
+[node name="CordLoop1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, -0.07)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_18")
+
+[node name="CordLoop2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, -0.056)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_19")
+
+[node name="CordLoop3" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, -0.042)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_20")
+
+[node name="CordLoop4" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, -0.028)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_21")
+
+[node name="CordLoop5" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, -0.014)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_22")
+
+[node name="CordLoop6" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, 0)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_23")
+
+[node name="CordLoop7" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, 0.014)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_24")
+
+[node name="CordLoop8" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, 0.028)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_25")
+
+[node name="CordLoop9" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.126, 0.032, 0.042)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_26")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.0575, 0)
+shape = SubResource("Shape")

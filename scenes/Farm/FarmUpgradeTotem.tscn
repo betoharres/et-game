@@ -1,0 +1,117 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_upgrade_totem.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/menu/fonts/Oxanium-Regular.ttf" id="2_font"]
+
+[sub_resource type="StandardMaterial3D" id="MaterialHull"]
+albedo_color = Color(0.04, 0.075, 0.1, 1)
+metallic = 0.65
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="MaterialAccent"]
+albedo_color = Color(0.2, 0.86, 0.72, 1)
+emission_enabled = true
+emission = Color(0.12, 0.9, 0.7, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="MaterialPanel"]
+albedo_color = Color(0.01, 0.13, 0.15, 1)
+emission_enabled = true
+emission = Color(0.015, 0.25, 0.29, 1)
+emission_energy_multiplier = 0.7
+
+[sub_resource type="CylinderMesh" id="MeshBase"]
+material = SubResource("MaterialHull")
+top_radius = 0.52
+bottom_radius = 0.65
+height = 0.18
+radial_segments = 8
+
+[sub_resource type="BoxMesh" id="MeshColumn"]
+material = SubResource("MaterialHull")
+size = Vector3(0.42, 1.15, 0.4)
+
+[sub_resource type="BoxMesh" id="MeshStripe"]
+material = SubResource("MaterialAccent")
+size = Vector3(0.06, 0.82, 0.42)
+
+[sub_resource type="BoxMesh" id="MeshConsole"]
+material = SubResource("MaterialHull")
+size = Vector3(0.92, 0.62, 0.3)
+
+[sub_resource type="BoxMesh" id="MeshDisplay"]
+material = SubResource("MaterialPanel")
+size = Vector3(0.78, 0.46, 0.02)
+
+[sub_resource type="SphereMesh" id="MeshOrb"]
+material = SubResource("MaterialAccent")
+radius = 0.14
+height = 0.28
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CylinderShape3D" id="ShapeTotem"]
+radius = 0.56
+height = 1.85
+
+[node name="FarmUpgradeTotem" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Body" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.925, 0)
+shape = SubResource("ShapeTotem")
+
+[node name="Base" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 0.09, 0)
+mesh = SubResource("MeshBase")
+
+[node name="Column" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 0.75, 0)
+mesh = SubResource("MeshColumn")
+
+[node name="Stripe" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 0.72, 0)
+mesh = SubResource("MeshStripe")
+
+[node name="Console" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 1.48, 0)
+mesh = SubResource("MeshConsole")
+
+[node name="Display" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 1.48, 0.16)
+mesh = SubResource("MeshDisplay")
+
+[node name="DisplayText" type="Label3D" parent="Body"]
+position = Vector3(0, 1.48, 0.18)
+font = ExtResource("2_font")
+font_size = 40
+pixel_size = 0.0028
+text = "↑  ET  ↑\n$  MELHORIAS"
+modulate = Color(0.45, 1, 0.88, 1)
+outline_size = 0
+
+[node name="Beacon" type="MeshInstance3D" parent="Body"]
+position = Vector3(0, 1.98, 0)
+mesh = SubResource("MeshOrb")
+
+[node name="BeaconLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.1, 0)
+light_color = Color(0.2, 1, 0.77, 1)
+light_energy = 1.8
+omni_range = 4.0
+shadow_enabled = false
+
+[node name="Sign" type="Label3D" parent="."]
+position = Vector3(0, 2.55, 0)
+billboard = 1
+font = ExtResource("2_font")
+font_size = 42
+pixel_size = 0.004
+text = "MELHORIAS\nTROQUE SEU DINHEIRO"
+modulate = Color(0.5, 1, 0.84, 1)
+outline_modulate = Color(0.015, 0.05, 0.07, 1)
+outline_size = 10

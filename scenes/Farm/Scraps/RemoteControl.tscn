@@ -1,0 +1,227 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_black"]
+albedo_color = Color(0.025, 0.032, 0.038, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_1"]
+material = SubResource("Mat_black")
+size = Vector3(0.058, 0.018, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="Mat_grey"]
+albedo_color = Color(0.31, 0.35, 0.34, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_2"]
+material = SubResource("Mat_grey")
+size = Vector3(0.043, 0.002, 0.055)
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.7, 0.09, 0.065, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_3"]
+material = SubResource("Mat_red")
+top_radius = 0.007
+bottom_radius = 0.007
+height = 0.004
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_4"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_5"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_6"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_7"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_8"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_9"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_10"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_11"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_12"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_13"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_14"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_15"]
+material = SubResource("Mat_grey")
+top_radius = 0.0045
+bottom_radius = 0.0045
+height = 0.003
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.058, 0.021, 0.18)
+
+[node name="RemoteControl" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.11
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_remotecontrol"
+display_name = "Controle remoto"
+score_value = 12
+cash_value = 12
+slot_cost = 1
+two_handed = false
+
+[node name="Body" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.009, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="BatteryCover" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.019, -0.043)
+mesh = SubResource("Mesh_2")
+
+[node name="PowerButton" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.016, 0.02, 0.065)
+mesh = SubResource("Mesh_3")
+
+[node name="Button00" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.016, 0.02, 0.036)
+mesh = SubResource("Mesh_4")
+
+[node name="Button01" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.02, 0.036)
+mesh = SubResource("Mesh_5")
+
+[node name="Button02" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.016, 0.02, 0.036)
+mesh = SubResource("Mesh_6")
+
+[node name="Button10" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.016, 0.02, 0.014)
+mesh = SubResource("Mesh_7")
+
+[node name="Button11" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.02, 0.014)
+mesh = SubResource("Mesh_8")
+
+[node name="Button12" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.016, 0.02, 0.014)
+mesh = SubResource("Mesh_9")
+
+[node name="Button20" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.016, 0.02, -0.008)
+mesh = SubResource("Mesh_10")
+
+[node name="Button21" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.02, -0.008)
+mesh = SubResource("Mesh_11")
+
+[node name="Button22" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.016, 0.02, -0.008)
+mesh = SubResource("Mesh_12")
+
+[node name="Button30" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.016, 0.02, -0.03)
+mesh = SubResource("Mesh_13")
+
+[node name="Button31" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.02, -0.03)
+mesh = SubResource("Mesh_14")
+
+[node name="Button32" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.016, 0.02, -0.03)
+mesh = SubResource("Mesh_15")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.0105, 0)
+shape = SubResource("Shape")

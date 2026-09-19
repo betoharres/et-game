@@ -46,6 +46,10 @@ var _inventory_message : Label
 var _inventory_message_time : float = 0.0
 var _inventory_slots : HBoxContainer
 var _inventory_feedback_tween : Tween
+var _money_label : Label
+var _money_feedback : Label
+var _money_feedback_tween : Tween
+var _previous_money : int = 0
 var player : Node
 var _vignette_intensity : float = 0.0
 var _stamina_hide_timer : float = 0.0
@@ -62,6 +66,7 @@ func _ready() -> void:
 		return
 
 	_build_inventory_hud()
+	_build_farm_wallet.call_deferred()
 	_drop_prompt = _interaction_label(-132.0)
 	_recovery_prompt = _interaction_label(-240.0)
 	_pickup_prompt = _interaction_label(-166.0)
@@ -251,6 +256,53 @@ func _on_restart_pressed() -> void:
 		push_error("Could not restart the current scene: %s" % reload_error)
 
 
+func _build_farm_wallet() -> void:
+	if get_tree().get_first_node_in_group("farm_scavenging") == null:
+		return
+	var panel : PanelContainer = PanelContainer.new()
+	panel.name = "FarmWallet"
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$Interface.add_child(panel)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	panel.offset_left = 48.0
+	panel.offset_right = 348.0
+	panel.offset_top = -294.0
+	panel.offset_bottom = -164.0
+	var margin : MarginContainer = MarginContainer.new()
+	for side : String in ["left", "right", "top", "bottom"]:
+		margin.add_theme_constant_override("margin_" + side, 12)
+	panel.add_child(margin)
+	var rows : VBoxContainer = VBoxContainer.new()
+	margin.add_child(rows)
+	_money_label = Label.new()
+	_money_label.add_theme_font_size_override("font_size", 24)
+	_money_label.add_theme_color_override("font_color", Color(0.58, 1.0, 0.72))
+	rows.add_child(_money_label)
+	var instructions : Label = Label.new()
+	instructions.text = "Leve os objetos ao ponto de coleta.\nTroque dinheiro no totem ao lado."
+	instructions.add_theme_font_size_override("font_size", 14)
+	rows.add_child(instructions)
+	_money_feedback = Label.new()
+	_money_feedback.add_theme_font_size_override("font_size", 15)
+	rows.add_child(_money_feedback)
+	_previous_money = GlobalScore.money
+	_money_label.text = "DINHEIRO  $ %d" % _previous_money
+	GlobalScore.money_changed.connect(_on_money_changed)
+
+
+func _on_money_changed(balance : int) -> void:
+	_money_label.text = "DINHEIRO  $ %d" % balance
+	var difference : int = balance - _previous_money
+	_previous_money = balance
+	_money_feedback.text = "+ $ %d • Entrega concluída" % difference if difference > 0 else "Melhoria comprada"
+	_money_feedback.modulate.a = 1.0
+	if _money_feedback_tween != null:
+		_money_feedback_tween.kill()
+	_money_feedback_tween = create_tween()
+	_money_feedback_tween.tween_interval(3.0)
+	_money_feedback_tween.tween_property(_money_feedback, "modulate:a", 0.0, 0.4)
+
+
 func _build_inventory_hud() -> void:
 	_inventory_slots = HBoxContainer.new()
 	$Interface.add_child(_inventory_slots)
@@ -343,6 +395,14 @@ func _physics_process(delta : float) -> void:
 	_pickup_prompt.text = ""
 	if item != null and not Input.is_action_pressed("crouch"):
 		_pickup_prompt.text = "[%s] Coletar — %s" % [_interaction_key(), str(item.get("display_name"))]
+		if item.is_in_group("farm_scraps"):
+			_pickup_prompt.text += "  ($ %d na entrega)" % int(item.get("cash_value"))
+	for station : Node in get_tree().get_nodes_in_group("upgrade_stations"):
+		if station.has_method("get_interaction_prompt"):
+			var prompt : String = str(station.call("get_interaction_prompt", player))
+			if not prompt.is_empty():
+				_pickup_prompt.text = prompt
+				break
 	_talk_prompt.text = ""
 	if item == null:
 		for npc : Node in get_tree().get_nodes_in_group("dialogue_sources"):

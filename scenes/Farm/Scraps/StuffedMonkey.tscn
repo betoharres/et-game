@@ -1,0 +1,313 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_brown"]
+albedo_color = Color(0.3, 0.12, 0.055, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="SphereMesh" id="Mesh_1"]
+material = SubResource("Mat_brown")
+radius = 0.095
+height = 0.19
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_tan"]
+albedo_color = Color(0.73, 0.46, 0.24, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="SphereMesh" id="Mesh_2"]
+material = SubResource("Mat_tan")
+radius = 0.069
+height = 0.138
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_3"]
+material = SubResource("Mat_brown")
+radius = 0.087
+height = 0.174
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_4"]
+material = SubResource("Mat_brown")
+radius = 0.039
+height = 0.078
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_5"]
+material = SubResource("Mat_tan")
+radius = 0.025
+height = 0.05
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_6"]
+material = SubResource("Mat_brown")
+radius = 0.039
+height = 0.078
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_7"]
+material = SubResource("Mat_tan")
+radius = 0.025
+height = 0.05
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_8"]
+material = SubResource("Mat_tan")
+radius = 0.064
+height = 0.128
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_9"]
+material = SubResource("Mat_tan")
+radius = 0.041
+height = 0.082
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_black"]
+albedo_color = Color(0.025, 0.032, 0.038, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="SphereMesh" id="Mesh_10"]
+material = SubResource("Mat_black")
+radius = 0.007
+height = 0.014
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_11"]
+material = SubResource("Mat_black")
+radius = 0.007
+height = 0.014
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_12"]
+material = SubResource("Mat_brown")
+radius = 0.011
+height = 0.022
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_13"]
+material = SubResource("Mat_brown")
+radius = 0.039
+height = 0.078
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_14"]
+material = SubResource("Mat_tan")
+radius = 0.032
+height = 0.064
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_15"]
+material = SubResource("Mat_brown")
+radius = 0.039
+height = 0.078
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_16"]
+material = SubResource("Mat_tan")
+radius = 0.032
+height = 0.064
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_17"]
+material = SubResource("Mat_brown")
+radius = 0.041
+height = 0.082
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_18"]
+material = SubResource("Mat_tan")
+radius = 0.041
+height = 0.082
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_19"]
+material = SubResource("Mat_brown")
+radius = 0.041
+height = 0.082
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="Mesh_20"]
+material = SubResource("Mat_tan")
+radius = 0.041
+height = 0.082
+radial_segments = 16
+rings = 8
+
+[sub_resource type="TorusMesh" id="Mesh_21"]
+material = SubResource("Mat_brown")
+inner_radius = 0.034
+outer_radius = 0.049
+rings = 16
+ring_segments = 8
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.32, 0.39, 0.22)
+
+[node name="StuffedMonkey" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.3
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_stuffedmonkey"
+display_name = "Macaco de pelúcia"
+score_value = 26
+cash_value = 26
+slot_cost = 2
+two_handed = false
+
+[node name="Body" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.135, 0)
+scale = Vector3(0.85, 1.25, 0.75)
+mesh = SubResource("Mesh_1")
+
+[node name="Tummy" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.131, 0.059)
+scale = Vector3(0.8, 1.05, 0.4)
+mesh = SubResource("Mesh_2")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.3, 0)
+scale = Vector3(1, 1, 0.85)
+mesh = SubResource("Mesh_3")
+
+[node name="EarLeft" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.098, 0.3, 0)
+scale = Vector3(1, 1, 0.45)
+mesh = SubResource("Mesh_4")
+
+[node name="InnerEarLeft" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.098, 0.3, 0.019)
+scale = Vector3(1, 1, 0.3)
+mesh = SubResource("Mesh_5")
+
+[node name="EarRight" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.098, 0.3, 0)
+scale = Vector3(1, 1, 0.45)
+mesh = SubResource("Mesh_6")
+
+[node name="InnerEarRight" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.098, 0.3, 0.019)
+scale = Vector3(1, 1, 0.3)
+mesh = SubResource("Mesh_7")
+
+[node name="Face" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.3, 0.053)
+scale = Vector3(1, 0.85, 0.38)
+mesh = SubResource("Mesh_8")
+
+[node name="Muzzle" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.274, 0.077)
+scale = Vector3(1.05, 0.6, 0.65)
+mesh = SubResource("Mesh_9")
+
+[node name="Eye1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.025, 0.311, 0.079)
+scale = Vector3(0.75, 1, 0.65)
+mesh = SubResource("Mesh_10")
+
+[node name="Eye2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.025, 0.311, 0.079)
+scale = Vector3(0.75, 1, 0.65)
+mesh = SubResource("Mesh_11")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.281, 0.102)
+scale = Vector3(1, 0.65, 0.4)
+mesh = SubResource("Mesh_12")
+
+[node name="Arm1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.115, 0.145, 0.01)
+scale = Vector3(0.72, 1.9, 0.78)
+mesh = SubResource("Mesh_13")
+
+[node name="Hand1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.115, 0.084, 0.014)
+scale = Vector3(1, 1, 0.8)
+mesh = SubResource("Mesh_14")
+
+[node name="Arm2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.115, 0.145, 0.01)
+scale = Vector3(0.72, 1.9, 0.78)
+mesh = SubResource("Mesh_15")
+
+[node name="Hand2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.115, 0.084, 0.014)
+scale = Vector3(1, 1, 0.8)
+mesh = SubResource("Mesh_16")
+
+[node name="Leg1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.057, 0.044, 0.029)
+scale = Vector3(0.84, 1, 1.4)
+mesh = SubResource("Mesh_17")
+
+[node name="Foot1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(-0.057, 0.034, 0.068)
+scale = Vector3(1, 0.7, 1.1)
+mesh = SubResource("Mesh_18")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.057, 0.044, 0.029)
+scale = Vector3(0.84, 1, 1.4)
+mesh = SubResource("Mesh_19")
+
+[node name="Foot2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.057, 0.034, 0.068)
+scale = Vector3(1, 0.7, 1.1)
+mesh = SubResource("Mesh_20")
+
+[node name="CurledTail" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0.058, 0.095, -0.095)
+rotation_degrees = Vector3(90, 0, 25)
+mesh = SubResource("Mesh_21")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.195, 0)
+shape = SubResource("Shape")

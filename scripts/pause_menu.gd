@@ -134,6 +134,9 @@ func _ready() -> void:
 func _input(event : InputEvent) -> void:
 	if returning_to_menu:
 		return
+	for interface : Node in get_tree().get_nodes_in_group("modal_interfaces"):
+		if interface.has_method("is_open") and bool(interface.call("is_open")):
+			return
 
 	if rebinding_action != &"":
 		_handle_rebinding_input(event)

@@ -200,11 +200,16 @@ var carried_item : RigidBody3D = null
 var carried_character : Node3D = null
 var _carry_pickup_timer : float = 0.0
 var _pickup_requested : bool = false
+var _base_upgrade_stats : Dictionary[StringName, float] = {}
 
 func _ready() -> void:
 	exploration_inventory.changed.connect(func() -> void: exploration_inventory_changed.emit())
 	exploration_inventory.feedback.connect(func(message : String) -> void: exploration_inventory_feedback.emit(message))
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	for property : StringName in [&"speed", &"sprint_speed", &"crouch_speed", &"max_stamina", &"stamina_recovery_per_second"]:
+		_base_upgrade_stats[property] = float(get(property))
+	GlobalScore.upgrade_changed.connect(_apply_purchased_upgrades)
+	_apply_purchased_upgrades()
 	health = max_health
 	stamina = max_stamina
 	_balance = balance_max
@@ -236,6 +241,16 @@ func _ready() -> void:
 		energy_pool.get_energy(),
 		energy_pool.get_max_energy()
 	)
+
+
+func _apply_purchased_upgrades(_upgrade_id : StringName = &"", _level : int = 0) -> void:
+	var movement_multiplier : float = 1.0 + 0.1 * GlobalScore.get_upgrade_level(&"movement")
+	for property : StringName in [&"speed", &"sprint_speed", &"crouch_speed"]:
+		set(property, _base_upgrade_stats[property] * movement_multiplier)
+	max_stamina = _base_upgrade_stats[&"max_stamina"] + 25.0 * GlobalScore.get_upgrade_level(&"stamina")
+	stamina_recovery_per_second = _base_upgrade_stats[&"stamina_recovery_per_second"] * (1.0 + 0.25 * GlobalScore.get_upgrade_level(&"recovery"))
+	stamina = minf(stamina, max_stamina)
+	stamina_changed.emit(stamina, max_stamina)
 
 
 func get_appearance_profile() -> Dictionary:
@@ -414,7 +429,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("interact") and not event.is_echo():
-		if _is_door_interaction_reserved():
+		if _is_door_interaction_reserved() or _is_upgrade_interaction_reserved():
 			return
 		if carried_character != null:
 			release_carried_character()
@@ -1867,7 +1882,7 @@ func _can_stand() -> bool:
 func get_pickup_candidate() -> RigidBody3D:
 	if _movement_locked or carried_item != null or carried_character != null:
 		return null
-	if _is_door_interaction_reserved() or _is_delivery_interaction_reserved():
+	if _is_door_interaction_reserved() or _is_delivery_interaction_reserved() or _is_upgrade_interaction_reserved():
 		return null
 	var closest_item : RigidBody3D = null
 	var closest_distance : float = 2.0
@@ -1880,8 +1895,11 @@ func get_pickup_candidate() -> RigidBody3D:
 		var distance : float = global_position.distance_to(item.global_position)
 		if distance >= closest_distance:
 			continue
+		var target_position : Vector3 = item.global_position
+		if item.has_method("get_pickup_target_position"):
+			target_position = item.call("get_pickup_target_position") as Vector3
 		var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
-			global_position + global_basis.y, item.global_position, 1, [get_rid(), item.get_rid()]
+			global_position + global_basis.y, target_position, 1, [get_rid(), item.get_rid()]
 		)
 		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():
 			continue
@@ -2026,5 +2044,12 @@ func _is_delivery_interaction_reserved() -> bool:
 		if bool(area.call("reserves_interaction_for", self)):
 			return true
 
+	return false
+
+
+func _is_upgrade_interaction_reserved() -> bool:
+	for station : Node in get_tree().get_nodes_in_group("upgrade_stations"):
+		if station.has_method("reserves_interaction_for") and bool(station.call("reserves_interaction_for", self)):
+			return true
 	return false
 	

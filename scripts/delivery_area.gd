@@ -11,6 +11,7 @@ enum DeliveryState {
 }
 
 @export var default_score : int = 10
+@export var awards_money : bool = false
 @export_range(0.5, 10.0, 0.1) var signal_hold_duration : float = 3.0
 @export_range(1.0, 30.0, 0.5) var abduction_duration : float = 10.0
 @export_range(5.0, 60.0, 1.0) var fallback_capture_height : float = 32.0
@@ -543,12 +544,17 @@ func _get_capture_position() -> Vector3:
 
 
 func _finish_delivery() -> void:
+	if not is_instance_valid(_target_item) or _target_item.is_queued_for_deletion():
+		return
 	var item_score : int = default_score
 	var score_value : Variant = _target_item.get("score_value")
 	if score_value != null:
 		item_score = int(score_value)
 
 	GlobalScore.add_score(item_score)
+	if awards_money:
+		var cash_value : Variant = _target_item.get("cash_value")
+		GlobalScore.add_money(int(cash_value) if cash_value != null else item_score)
 	_target_item.queue_free()
 	_target_item = null
 	item_delivered.emit(item_score)

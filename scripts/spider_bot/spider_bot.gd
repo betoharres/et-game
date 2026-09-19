@@ -327,6 +327,8 @@ func _find_item_near_ship() -> RigidBody3D:
 func _is_valid_item(item : RigidBody3D) -> bool:
 	if item == null or not is_instance_valid(item):
 		return false
+	if item.has_method("is_available_for_automatic_pickup") and not bool(item.call("is_available_for_automatic_pickup")):
+		return false
 	if item.has_method("is_available_for_abduction"):
 		return bool(item.call("is_available_for_abduction"))
 	return not bool(item.get("carried"))

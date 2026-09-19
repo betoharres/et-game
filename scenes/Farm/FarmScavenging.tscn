@@ -1,0 +1,1168 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/SoccerBall.tscn" id="SoccerBall"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Hoe.tscn" id="Hoe"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Radio.tscn" id="Radio"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/RemoteControl.tscn" id="RemoteControl"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/StuffedMonkey.tscn" id="StuffedMonkey"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Toothpaste.tscn" id="Toothpaste"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Glasses.tscn" id="Glasses"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Bottle.tscn" id="Bottle"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/BaseballBat.tscn" id="BaseballBat"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Telephone.tscn" id="Telephone"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Bucket.tscn" id="Bucket"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/WateringCan.tscn" id="WateringCan"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/FarmUpgradeTotem.tscn" id="Totem"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Couch_01.tscn" id="Sofa"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Bed_Single_01.tscn" id="Bed"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_BathroomSink_01.tscn" id="Sink"]
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.32, 0.17, 0.07, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="DarkWood"]
+albedo_color = Color(0.15, 0.09, 0.05, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Ceramic"]
+albedo_color = Color(0.75, 0.81, 0.76, 1)
+roughness = 0.65
+
+[sub_resource type="StandardMaterial3D" id="Steps"]
+albedo_color = Color(0.35, 0.34, 0.3, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="Mesh4"]
+size = Vector3(1.3, 0.08, 0.7)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape4"]
+size = Vector3(1.3, 0.08, 0.7)
+
+[sub_resource type="BoxMesh" id="Mesh6"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape6"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh8"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape8"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh10"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape10"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh12"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape12"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh14"]
+size = Vector3(1, 0.08, 0.6)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape14"]
+size = Vector3(1, 0.08, 0.6)
+
+[sub_resource type="BoxMesh" id="Mesh16"]
+size = Vector3(0.09, 0.37, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape16"]
+size = Vector3(0.09, 0.37, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh18"]
+size = Vector3(0.09, 0.37, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape18"]
+size = Vector3(0.09, 0.37, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh20"]
+size = Vector3(0.09, 0.37, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape20"]
+size = Vector3(0.09, 0.37, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh22"]
+size = Vector3(0.09, 0.37, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape22"]
+size = Vector3(0.09, 0.37, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh24"]
+size = Vector3(0.7, 0.08, 0.6)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape24"]
+size = Vector3(0.7, 0.08, 0.6)
+
+[sub_resource type="BoxMesh" id="Mesh26"]
+size = Vector3(0.09, 0.44, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape26"]
+size = Vector3(0.09, 0.44, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh28"]
+size = Vector3(0.09, 0.44, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape28"]
+size = Vector3(0.09, 0.44, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh30"]
+size = Vector3(0.09, 0.44, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape30"]
+size = Vector3(0.09, 0.44, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh32"]
+size = Vector3(0.09, 0.44, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape32"]
+size = Vector3(0.09, 0.44, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh34"]
+size = Vector3(1, 0.08, 0.65)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape34"]
+size = Vector3(1, 0.08, 0.65)
+
+[sub_resource type="BoxMesh" id="Mesh36"]
+size = Vector3(0.09, 0.78, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape36"]
+size = Vector3(0.09, 0.78, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh38"]
+size = Vector3(0.09, 0.78, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape38"]
+size = Vector3(0.09, 0.78, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh40"]
+size = Vector3(0.09, 0.78, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape40"]
+size = Vector3(0.09, 0.78, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh42"]
+size = Vector3(0.09, 0.78, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape42"]
+size = Vector3(0.09, 0.78, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh44"]
+size = Vector3(0.48, 0.17, 1.6)
+material = SubResource("Steps")
+
+[sub_resource type="BoxShape3D" id="Shape44"]
+size = Vector3(0.48, 0.17, 1.6)
+
+[sub_resource type="BoxMesh" id="Mesh46"]
+size = Vector3(0.48, 0.34, 1.6)
+material = SubResource("Steps")
+
+[sub_resource type="BoxShape3D" id="Shape46"]
+size = Vector3(0.48, 0.34, 1.6)
+
+[sub_resource type="BoxMesh" id="Mesh48"]
+size = Vector3(0.8, 0.51, 1.6)
+material = SubResource("Steps")
+
+[sub_resource type="BoxShape3D" id="Shape48"]
+size = Vector3(0.8, 0.51, 1.6)
+
+[sub_resource type="BoxMesh" id="Mesh50"]
+size = Vector3(1.6, 0.08, 0.7)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape50"]
+size = Vector3(1.6, 0.08, 0.7)
+
+[sub_resource type="BoxMesh" id="Mesh52"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape52"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh54"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape54"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh56"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape56"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh58"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape58"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh60"]
+size = Vector3(1.4, 0.08, 0.65)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape60"]
+size = Vector3(1.4, 0.08, 0.65)
+
+[sub_resource type="BoxMesh" id="Mesh62"]
+size = Vector3(0.09, 0.7, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape62"]
+size = Vector3(0.09, 0.7, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh64"]
+size = Vector3(0.09, 0.7, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape64"]
+size = Vector3(0.09, 0.7, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh66"]
+size = Vector3(0.09, 0.7, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape66"]
+size = Vector3(0.09, 0.7, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh68"]
+size = Vector3(0.09, 0.7, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape68"]
+size = Vector3(0.09, 0.7, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh70"]
+size = Vector3(1.6, 0.08, 0.7)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape70"]
+size = Vector3(1.6, 0.08, 0.7)
+
+[sub_resource type="BoxMesh" id="Mesh72"]
+size = Vector3(0.09, 0.77, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape72"]
+size = Vector3(0.09, 0.77, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh74"]
+size = Vector3(0.09, 0.77, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape74"]
+size = Vector3(0.09, 0.77, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh76"]
+size = Vector3(0.09, 0.77, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape76"]
+size = Vector3(0.09, 0.77, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh78"]
+size = Vector3(0.09, 0.77, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape78"]
+size = Vector3(0.09, 0.77, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh80"]
+size = Vector3(1.4, 0.08, 0.65)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape80"]
+size = Vector3(1.4, 0.08, 0.65)
+
+[sub_resource type="BoxMesh" id="Mesh82"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape82"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh84"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape84"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh86"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape86"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh88"]
+size = Vector3(0.09, 0.72, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape88"]
+size = Vector3(0.09, 0.72, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh90"]
+size = Vector3(1.2, 0.08, 0.6)
+material = SubResource("Wood")
+
+[sub_resource type="BoxShape3D" id="Shape90"]
+size = Vector3(1.2, 0.08, 0.6)
+
+[sub_resource type="BoxMesh" id="Mesh92"]
+size = Vector3(0.09, 0.67, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape92"]
+size = Vector3(0.09, 0.67, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh94"]
+size = Vector3(0.09, 0.67, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape94"]
+size = Vector3(0.09, 0.67, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh96"]
+size = Vector3(0.09, 0.67, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape96"]
+size = Vector3(0.09, 0.67, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh98"]
+size = Vector3(0.09, 0.67, 0.09)
+material = SubResource("DarkWood")
+
+[sub_resource type="BoxShape3D" id="Shape98"]
+size = Vector3(0.09, 0.67, 0.09)
+
+[node name="FarmScavenging" type="Node3D" groups=["farm_scavenging"]]
+
+
+[node name="Farmhouse" type="Node3D" parent="."]
+transform = Transform3D(0.71888626, 0, 0.6951277, 0, 1, 0, -0.6951277, 0, 0.71888626, -1.1098022, 0, -20.736694)
+
+[node name="Interior" type="Node3D" parent="Farmhouse"]
+position = Vector3(-6.218536, -0.0056750774, -1.1798294)
+
+[node name="TelephoneTable" type="Node3D" parent="Farmhouse/Interior"]
+position = Vector3(3.1, 0.8534, 1.9)
+
+[node name="Top" type="StaticBody3D" parent="Farmhouse/Interior/TelephoneTable"]
+position = Vector3(0, 0.76, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/TelephoneTable/Top"]
+layers = 512
+mesh = SubResource("Mesh4")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/TelephoneTable/Top"]
+shape = SubResource("Shape4")
+
+[node name="Leg0" type="StaticBody3D" parent="Farmhouse/Interior/TelephoneTable"]
+position = Vector3(-0.57, 0.36, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/TelephoneTable/Leg0"]
+layers = 512
+mesh = SubResource("Mesh6")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/TelephoneTable/Leg0"]
+shape = SubResource("Shape6")
+
+[node name="Leg1" type="StaticBody3D" parent="Farmhouse/Interior/TelephoneTable"]
+position = Vector3(0.57, 0.36, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/TelephoneTable/Leg1"]
+layers = 512
+mesh = SubResource("Mesh8")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/TelephoneTable/Leg1"]
+shape = SubResource("Shape8")
+
+[node name="Leg2" type="StaticBody3D" parent="Farmhouse/Interior/TelephoneTable"]
+position = Vector3(-0.57, 0.36, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/TelephoneTable/Leg2"]
+layers = 512
+mesh = SubResource("Mesh10")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/TelephoneTable/Leg2"]
+shape = SubResource("Shape10")
+
+[node name="Leg3" type="StaticBody3D" parent="Farmhouse/Interior/TelephoneTable"]
+position = Vector3(0.57, 0.36, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/TelephoneTable/Leg3"]
+layers = 512
+mesh = SubResource("Mesh12")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/TelephoneTable/Leg3"]
+shape = SubResource("Shape12")
+
+[node name="HouseTelephone" parent="Farmhouse/Interior" instance=ExtResource("Telephone")]
+position = Vector3(2.78, 1.6634, 1.9)
+rotation = Vector3(0, 0.2, 0)
+metadata/placement_hint = "Telefone na mesa dentro da casa"
+
+[node name="HouseRadio" parent="Farmhouse/Interior" instance=ExtResource("Radio")]
+position = Vector3(3.38, 1.6634, 1.85)
+rotation = Vector3(0, -0.25, 0)
+metadata/placement_hint = "Radio na mesa da sala"
+
+[node name="CoffeeTable" type="Node3D" parent="Farmhouse/Interior"]
+position = Vector3(1.5, 0.8534, 0.5)
+
+[node name="Top" type="StaticBody3D" parent="Farmhouse/Interior/CoffeeTable"]
+position = Vector3(0, 0.41, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/CoffeeTable/Top"]
+layers = 512
+mesh = SubResource("Mesh14")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/CoffeeTable/Top"]
+shape = SubResource("Shape14")
+
+[node name="Leg0" type="StaticBody3D" parent="Farmhouse/Interior/CoffeeTable"]
+position = Vector3(-0.42, 0.185, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/CoffeeTable/Leg0"]
+layers = 512
+mesh = SubResource("Mesh16")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/CoffeeTable/Leg0"]
+shape = SubResource("Shape16")
+
+[node name="Leg1" type="StaticBody3D" parent="Farmhouse/Interior/CoffeeTable"]
+position = Vector3(0.42, 0.185, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/CoffeeTable/Leg1"]
+layers = 512
+mesh = SubResource("Mesh18")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/CoffeeTable/Leg1"]
+shape = SubResource("Shape18")
+
+[node name="Leg2" type="StaticBody3D" parent="Farmhouse/Interior/CoffeeTable"]
+position = Vector3(-0.42, 0.185, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/CoffeeTable/Leg2"]
+layers = 512
+mesh = SubResource("Mesh20")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/CoffeeTable/Leg2"]
+shape = SubResource("Shape20")
+
+[node name="Leg3" type="StaticBody3D" parent="Farmhouse/Interior/CoffeeTable"]
+position = Vector3(0.42, 0.185, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/CoffeeTable/Leg3"]
+layers = 512
+mesh = SubResource("Mesh22")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/CoffeeTable/Leg3"]
+shape = SubResource("Shape22")
+
+[node name="LoungeRemote" parent="Farmhouse/Interior" instance=ExtResource("RemoteControl")]
+position = Vector3(1.4, 1.3134, 0.45)
+rotation = Vector3(0, 0.3, 0)
+metadata/placement_hint = "Controle na mesa de centro da sala"
+
+[node name="LoungeBottle" parent="Farmhouse/Interior" instance=ExtResource("Bottle")]
+position = Vector3(1.77, 1.3134, 0.53)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Garrafa na mesa de centro"
+
+[node name="LoungeSofa" parent="Farmhouse/Interior" instance=ExtResource("Sofa")]
+position = Vector3(3.3, 0.8534, -0.3)
+rotation = Vector3(0, -1.570796, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="BedroomBed" parent="Farmhouse/Interior" instance=ExtResource("Bed")]
+position = Vector3(-3.45, 0.8534, -3.1)
+scale = Vector3(0.65, 0.65, 0.65)
+
+[node name="BedroomMonkey" parent="Farmhouse/Interior" instance=ExtResource("StuffedMonkey")]
+position = Vector3(-3.65, 0.8834, -1.55)
+rotation = Vector3(0, 0.5, 0)
+metadata/placement_hint = "Pelucia ao lado da cama"
+
+[node name="BedsideTable" type="Node3D" parent="Farmhouse/Interior"]
+position = Vector3(-2, 0.8534, -3.85)
+
+[node name="Top" type="StaticBody3D" parent="Farmhouse/Interior/BedsideTable"]
+position = Vector3(0, 0.48, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/BedsideTable/Top"]
+layers = 512
+mesh = SubResource("Mesh24")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/BedsideTable/Top"]
+shape = SubResource("Shape24")
+
+[node name="Leg0" type="StaticBody3D" parent="Farmhouse/Interior/BedsideTable"]
+position = Vector3(-0.27, 0.22, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/BedsideTable/Leg0"]
+layers = 512
+mesh = SubResource("Mesh26")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/BedsideTable/Leg0"]
+shape = SubResource("Shape26")
+
+[node name="Leg1" type="StaticBody3D" parent="Farmhouse/Interior/BedsideTable"]
+position = Vector3(0.27, 0.22, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/BedsideTable/Leg1"]
+layers = 512
+mesh = SubResource("Mesh28")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/BedsideTable/Leg1"]
+shape = SubResource("Shape28")
+
+[node name="Leg2" type="StaticBody3D" parent="Farmhouse/Interior/BedsideTable"]
+position = Vector3(-0.27, 0.22, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/BedsideTable/Leg2"]
+layers = 512
+mesh = SubResource("Mesh30")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/BedsideTable/Leg2"]
+shape = SubResource("Shape30")
+
+[node name="Leg3" type="StaticBody3D" parent="Farmhouse/Interior/BedsideTable"]
+position = Vector3(0.27, 0.22, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/BedsideTable/Leg3"]
+layers = 512
+mesh = SubResource("Mesh32")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/BedsideTable/Leg3"]
+shape = SubResource("Shape32")
+
+[node name="BedsideGlasses" parent="Farmhouse/Interior" instance=ExtResource("Glasses")]
+position = Vector3(-2, 1.3834, -3.85)
+rotation = Vector3(0, -0.2, 0)
+metadata/placement_hint = "Oculos no criado-mudo"
+
+[node name="Washstand" type="Node3D" parent="Farmhouse/Interior"]
+position = Vector3(-5.45, 0.8534, -4.18)
+
+[node name="Top" type="StaticBody3D" parent="Farmhouse/Interior/Washstand"]
+position = Vector3(0, 0.82, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/Washstand/Top"]
+layers = 512
+mesh = SubResource("Mesh34")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/Washstand/Top"]
+shape = SubResource("Shape34")
+
+[node name="Leg0" type="StaticBody3D" parent="Farmhouse/Interior/Washstand"]
+position = Vector3(-0.42, 0.39, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/Washstand/Leg0"]
+layers = 512
+mesh = SubResource("Mesh36")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/Washstand/Leg0"]
+shape = SubResource("Shape36")
+
+[node name="Leg1" type="StaticBody3D" parent="Farmhouse/Interior/Washstand"]
+position = Vector3(0.42, 0.39, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/Washstand/Leg1"]
+layers = 512
+mesh = SubResource("Mesh38")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/Washstand/Leg1"]
+shape = SubResource("Shape38")
+
+[node name="Leg2" type="StaticBody3D" parent="Farmhouse/Interior/Washstand"]
+position = Vector3(-0.42, 0.39, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/Washstand/Leg2"]
+layers = 512
+mesh = SubResource("Mesh40")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/Washstand/Leg2"]
+shape = SubResource("Shape40")
+
+[node name="Leg3" type="StaticBody3D" parent="Farmhouse/Interior/Washstand"]
+position = Vector3(0.42, 0.39, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/Washstand/Leg3"]
+layers = 512
+mesh = SubResource("Mesh42")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/Washstand/Leg3"]
+shape = SubResource("Shape42")
+
+[node name="WashBasin" parent="Farmhouse/Interior" instance=ExtResource("Sink")]
+position = Vector3(-5.58, 1.81, -4.35)
+
+[node name="WashstandToothpaste" parent="Farmhouse/Interior" instance=ExtResource("Toothpaste")]
+position = Vector3(-5.06, 1.7234, -4.05)
+rotation = Vector3(0, 0.1, 0)
+metadata/placement_hint = "Pasta de dente na bancada da pia"
+
+[node name="PorchBall" parent="Farmhouse/Interior" instance=ExtResource("SoccerBall")]
+position = Vector3(5.6, 0.6982, 2.1)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Bola esquecida na varanda"
+
+[node name="PorchWateringCan" parent="Farmhouse/Interior" instance=ExtResource("WateringCan")]
+position = Vector3(5.5, 0.6982, -3.35)
+rotation = Vector3(0, 1.2, 0)
+metadata/placement_hint = "Regador na varanda"
+
+[node name="EntryStep0" type="StaticBody3D" parent="Farmhouse/Interior"]
+position = Vector3(-2.39, 0.085, 4.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/EntryStep0"]
+layers = 512
+mesh = SubResource("Mesh44")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/EntryStep0"]
+shape = SubResource("Shape44")
+
+[node name="EntryStep1" type="StaticBody3D" parent="Farmhouse/Interior"]
+position = Vector3(-1.97, 0.17, 4.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/EntryStep1"]
+layers = 512
+mesh = SubResource("Mesh46")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/EntryStep1"]
+shape = SubResource("Shape46")
+
+[node name="EntryStep2" type="StaticBody3D" parent="Farmhouse/Interior"]
+position = Vector3(-1.55, 0.255, 4.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Farmhouse/Interior/EntryStep2"]
+layers = 512
+mesh = SubResource("Mesh48")
+
+[node name="Collision" type="CollisionShape3D" parent="Farmhouse/Interior/EntryStep2"]
+shape = SubResource("Shape48")
+
+[node name="PottingShed" type="Node3D" parent="."]
+position = Vector3(-51.4, 0, -5.3)
+
+[node name="PottingBench" type="Node3D" parent="PottingShed"]
+position = Vector3(0, 0, 0)
+
+[node name="Top" type="StaticBody3D" parent="PottingShed/PottingBench"]
+position = Vector3(0, 0.76, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="PottingShed/PottingBench/Top"]
+layers = 512
+mesh = SubResource("Mesh50")
+
+[node name="Collision" type="CollisionShape3D" parent="PottingShed/PottingBench/Top"]
+shape = SubResource("Shape50")
+
+[node name="Leg0" type="StaticBody3D" parent="PottingShed/PottingBench"]
+position = Vector3(-0.72, 0.36, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="PottingShed/PottingBench/Leg0"]
+layers = 512
+mesh = SubResource("Mesh52")
+
+[node name="Collision" type="CollisionShape3D" parent="PottingShed/PottingBench/Leg0"]
+shape = SubResource("Shape52")
+
+[node name="Leg1" type="StaticBody3D" parent="PottingShed/PottingBench"]
+position = Vector3(0.72, 0.36, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="PottingShed/PottingBench/Leg1"]
+layers = 512
+mesh = SubResource("Mesh54")
+
+[node name="Collision" type="CollisionShape3D" parent="PottingShed/PottingBench/Leg1"]
+shape = SubResource("Shape54")
+
+[node name="Leg2" type="StaticBody3D" parent="PottingShed/PottingBench"]
+position = Vector3(-0.72, 0.36, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="PottingShed/PottingBench/Leg2"]
+layers = 512
+mesh = SubResource("Mesh56")
+
+[node name="Collision" type="CollisionShape3D" parent="PottingShed/PottingBench/Leg2"]
+shape = SubResource("Shape56")
+
+[node name="Leg3" type="StaticBody3D" parent="PottingShed/PottingBench"]
+position = Vector3(0.72, 0.36, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="PottingShed/PottingBench/Leg3"]
+layers = 512
+mesh = SubResource("Mesh58")
+
+[node name="Collision" type="CollisionShape3D" parent="PottingShed/PottingBench/Leg3"]
+shape = SubResource("Shape58")
+
+[node name="ShedRadio" parent="PottingShed" instance=ExtResource("Radio")]
+position = Vector3(-0.45, 0.81, 0)
+rotation = Vector3(0, 0.2, 0)
+metadata/placement_hint = "Radio na bancada do galpao"
+
+[node name="ShedBottle" parent="PottingShed" instance=ExtResource("Bottle")]
+position = Vector3(0.55, 0.81, 0)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Garrafa na bancada do galpao"
+
+[node name="ShedHoe" parent="PottingShed" instance=ExtResource("Hoe")]
+position = Vector3(-1.25, 0.03, -0.5)
+rotation = Vector3(0, 0.35, 0)
+metadata/placement_hint = "Enxada junto ao galpao de ferramentas"
+
+[node name="ShedBucket" parent="PottingShed" instance=ExtResource("Bucket")]
+position = Vector3(0.55, 0.03, 0.8)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Balde junto ao galpao"
+
+[node name="ShedWateringCan" parent="PottingShed" instance=ExtResource("WateringCan")]
+position = Vector3(-0.5, 0.03, 0.9)
+rotation = Vector3(0, -0.2, 0)
+metadata/placement_hint = "Regador junto ao galpao"
+
+[node name="ChickenYard" type="Node3D" parent="."]
+
+
+[node name="CoopBucket" parent="ChickenYard" instance=ExtResource("Bucket")]
+position = Vector3(-21.9, 0.05, -16.25)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Balde junto ao galinheiro"
+
+[node name="YardWateringCan" parent="ChickenYard" instance=ExtResource("WateringCan")]
+position = Vector3(-18.9, 0.03, -10.4)
+rotation = Vector3(0, 1.8, 0)
+metadata/placement_hint = "Regador no jardim da casa"
+
+[node name="YardBall" parent="ChickenYard" instance=ExtResource("SoccerBall")]
+position = Vector3(-16, 0.03, -5.8)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Bola no quintal"
+
+[node name="DoghouseMonkey" parent="ChickenYard" instance=ExtResource("StuffedMonkey")]
+position = Vector3(-8.65, 0.03, -3.6)
+rotation = Vector3(0, -0.3, 0)
+metadata/placement_hint = "Pelucia junto a casinha do cachorro"
+
+[node name="YardBat" parent="ChickenYard" instance=ExtResource("BaseballBat")]
+position = Vector3(-15, 0.03, -6.2)
+rotation = Vector3(0, 0.9, 0)
+metadata/placement_hint = "Taco deixado junto a bola"
+
+[node name="Woodpile" type="Node3D" parent="."]
+position = Vector3(-26.5, 0, -9)
+
+[node name="WorkBench" type="Node3D" parent="Woodpile"]
+position = Vector3(0, 0, 0)
+
+[node name="Top" type="StaticBody3D" parent="Woodpile/WorkBench"]
+position = Vector3(0, 0.74, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Woodpile/WorkBench/Top"]
+layers = 512
+mesh = SubResource("Mesh60")
+
+[node name="Collision" type="CollisionShape3D" parent="Woodpile/WorkBench/Top"]
+shape = SubResource("Shape60")
+
+[node name="Leg0" type="StaticBody3D" parent="Woodpile/WorkBench"]
+position = Vector3(-0.62, 0.35, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Woodpile/WorkBench/Leg0"]
+layers = 512
+mesh = SubResource("Mesh62")
+
+[node name="Collision" type="CollisionShape3D" parent="Woodpile/WorkBench/Leg0"]
+shape = SubResource("Shape62")
+
+[node name="Leg1" type="StaticBody3D" parent="Woodpile/WorkBench"]
+position = Vector3(0.62, 0.35, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Woodpile/WorkBench/Leg1"]
+layers = 512
+mesh = SubResource("Mesh64")
+
+[node name="Collision" type="CollisionShape3D" parent="Woodpile/WorkBench/Leg1"]
+shape = SubResource("Shape64")
+
+[node name="Leg2" type="StaticBody3D" parent="Woodpile/WorkBench"]
+position = Vector3(-0.62, 0.35, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Woodpile/WorkBench/Leg2"]
+layers = 512
+mesh = SubResource("Mesh66")
+
+[node name="Collision" type="CollisionShape3D" parent="Woodpile/WorkBench/Leg2"]
+shape = SubResource("Shape66")
+
+[node name="Leg3" type="StaticBody3D" parent="Woodpile/WorkBench"]
+position = Vector3(0.62, 0.35, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="Woodpile/WorkBench/Leg3"]
+layers = 512
+mesh = SubResource("Mesh68")
+
+[node name="Collision" type="CollisionShape3D" parent="Woodpile/WorkBench/Leg3"]
+shape = SubResource("Shape68")
+
+[node name="WoodpileRadio" parent="Woodpile" instance=ExtResource("Radio")]
+position = Vector3(-0.25, 0.79, 0)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Radio na bancada junto a lenha"
+
+[node name="WoodpileBottle" parent="Woodpile" instance=ExtResource("Bottle")]
+position = Vector3(0.42, 0.79, 0.05)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Garrafa na bancada de trabalho"
+
+[node name="WoodpileHoe" parent="Woodpile" instance=ExtResource("Hoe")]
+position = Vector3(-0.5, 0.03, 1)
+rotation = Vector3(0, 1.1, 0)
+metadata/placement_hint = "Enxada junto a lenha"
+
+[node name="FieldEdges" type="Node3D" parent="."]
+
+
+[node name="GardenHoe" parent="FieldEdges" instance=ExtResource("Hoe")]
+position = Vector3(-22.5, 0.03, 1.8)
+rotation = Vector3(0, 0.75, 0)
+metadata/placement_hint = "Enxada na borda da plantacao"
+
+[node name="GardenWateringCan" parent="FieldEdges" instance=ExtResource("WateringCan")]
+position = Vector3(-21, 0.03, 3.2)
+rotation = Vector3(0, -0.8, 0)
+metadata/placement_hint = "Regador na borda da plantacao"
+
+[node name="FieldHoe" parent="FieldEdges" instance=ExtResource("Hoe")]
+position = Vector3(4.5, 0.03, 17.6)
+rotation = Vector3(0, 0.6, 0)
+metadata/placement_hint = "Enxada ao lado dos fardos e trator"
+
+[node name="Workshop" type="Node3D" parent="."]
+position = Vector3(8, 0, -46)
+
+[node name="WorkshopBench" type="Node3D" parent="Workshop"]
+position = Vector3(0, 0, 0)
+
+[node name="Top" type="StaticBody3D" parent="Workshop/WorkshopBench"]
+position = Vector3(0, 0.81, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Workshop/WorkshopBench/Top"]
+layers = 512
+mesh = SubResource("Mesh70")
+
+[node name="Collision" type="CollisionShape3D" parent="Workshop/WorkshopBench/Top"]
+shape = SubResource("Shape70")
+
+[node name="Leg0" type="StaticBody3D" parent="Workshop/WorkshopBench"]
+position = Vector3(-0.72, 0.385, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Workshop/WorkshopBench/Leg0"]
+layers = 512
+mesh = SubResource("Mesh72")
+
+[node name="Collision" type="CollisionShape3D" parent="Workshop/WorkshopBench/Leg0"]
+shape = SubResource("Shape72")
+
+[node name="Leg1" type="StaticBody3D" parent="Workshop/WorkshopBench"]
+position = Vector3(0.72, 0.385, -0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Workshop/WorkshopBench/Leg1"]
+layers = 512
+mesh = SubResource("Mesh74")
+
+[node name="Collision" type="CollisionShape3D" parent="Workshop/WorkshopBench/Leg1"]
+shape = SubResource("Shape74")
+
+[node name="Leg2" type="StaticBody3D" parent="Workshop/WorkshopBench"]
+position = Vector3(-0.72, 0.385, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Workshop/WorkshopBench/Leg2"]
+layers = 512
+mesh = SubResource("Mesh76")
+
+[node name="Collision" type="CollisionShape3D" parent="Workshop/WorkshopBench/Leg2"]
+shape = SubResource("Shape76")
+
+[node name="Leg3" type="StaticBody3D" parent="Workshop/WorkshopBench"]
+position = Vector3(0.72, 0.385, 0.27)
+
+[node name="Mesh" type="MeshInstance3D" parent="Workshop/WorkshopBench/Leg3"]
+layers = 512
+mesh = SubResource("Mesh78")
+
+[node name="Collision" type="CollisionShape3D" parent="Workshop/WorkshopBench/Leg3"]
+shape = SubResource("Shape78")
+
+[node name="WorkshopTelephone" parent="Workshop" instance=ExtResource("Telephone")]
+position = Vector3(-0.45, 0.86, 0)
+rotation = Vector3(0, 0.25, 0)
+metadata/placement_hint = "Telefone na bancada em frente a oficina"
+
+[node name="WorkshopRadio" parent="Workshop" instance=ExtResource("Radio")]
+position = Vector3(0.45, 0.86, 0)
+rotation = Vector3(0, -0.2, 0)
+metadata/placement_hint = "Radio na bancada da oficina"
+
+[node name="WorkshopGlasses" parent="Workshop" instance=ExtResource("Glasses")]
+position = Vector3(0, 0.86, 0.16)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Oculos de trabalho sobre a bancada"
+
+[node name="WorkshopBat" parent="Workshop" instance=ExtResource("BaseballBat")]
+position = Vector3(-1.3, 0.03, 0.5)
+rotation = Vector3(0, 1.3, 0)
+metadata/placement_hint = "Taco guardado junto a oficina"
+
+[node name="TruckMonkey" parent="Workshop" instance=ExtResource("StuffedMonkey")]
+position = Vector3(6.1, 0.03, -1.4)
+rotation = Vector3(0, 0.5, 0)
+metadata/placement_hint = "Pelucia perdida perto da caminhonete"
+
+[node name="SouthBarn" type="Node3D" parent="."]
+position = Vector3(32, 0, 22)
+
+[node name="BarnBench" type="Node3D" parent="SouthBarn"]
+position = Vector3(0, 0, 0)
+
+[node name="Top" type="StaticBody3D" parent="SouthBarn/BarnBench"]
+position = Vector3(0, 0.76, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="SouthBarn/BarnBench/Top"]
+layers = 512
+mesh = SubResource("Mesh80")
+
+[node name="Collision" type="CollisionShape3D" parent="SouthBarn/BarnBench/Top"]
+shape = SubResource("Shape80")
+
+[node name="Leg0" type="StaticBody3D" parent="SouthBarn/BarnBench"]
+position = Vector3(-0.62, 0.36, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="SouthBarn/BarnBench/Leg0"]
+layers = 512
+mesh = SubResource("Mesh82")
+
+[node name="Collision" type="CollisionShape3D" parent="SouthBarn/BarnBench/Leg0"]
+shape = SubResource("Shape82")
+
+[node name="Leg1" type="StaticBody3D" parent="SouthBarn/BarnBench"]
+position = Vector3(0.62, 0.36, -0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="SouthBarn/BarnBench/Leg1"]
+layers = 512
+mesh = SubResource("Mesh84")
+
+[node name="Collision" type="CollisionShape3D" parent="SouthBarn/BarnBench/Leg1"]
+shape = SubResource("Shape84")
+
+[node name="Leg2" type="StaticBody3D" parent="SouthBarn/BarnBench"]
+position = Vector3(-0.62, 0.36, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="SouthBarn/BarnBench/Leg2"]
+layers = 512
+mesh = SubResource("Mesh86")
+
+[node name="Collision" type="CollisionShape3D" parent="SouthBarn/BarnBench/Leg2"]
+shape = SubResource("Shape86")
+
+[node name="Leg3" type="StaticBody3D" parent="SouthBarn/BarnBench"]
+position = Vector3(0.62, 0.36, 0.245)
+
+[node name="Mesh" type="MeshInstance3D" parent="SouthBarn/BarnBench/Leg3"]
+layers = 512
+mesh = SubResource("Mesh88")
+
+[node name="Collision" type="CollisionShape3D" parent="SouthBarn/BarnBench/Leg3"]
+shape = SubResource("Shape88")
+
+[node name="BarnRadio" parent="SouthBarn" instance=ExtResource("Radio")]
+position = Vector3(-0.2, 0.81, 0)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Radio na bancada ao lado do celeiro"
+
+[node name="BarnGlasses" parent="SouthBarn" instance=ExtResource("Glasses")]
+position = Vector3(0.4, 0.81, 0.05)
+rotation = Vector3(0, -0.25, 0)
+metadata/placement_hint = "Oculos na bancada do celeiro"
+
+[node name="BarnBucket" parent="SouthBarn" instance=ExtResource("Bucket")]
+position = Vector3(0.8, 0.03, 1.1)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Balde ao lado do celeiro"
+
+[node name="BarnHoe" parent="SouthBarn" instance=ExtResource("Hoe")]
+position = Vector3(-0.9, 0.03, 1.2)
+rotation = Vector3(0, 0.7, 0)
+metadata/placement_hint = "Enxada encostada no patio do celeiro"
+
+[node name="NorthBarn" type="Node3D" parent="."]
+position = Vector3(43, 0, -45)
+
+[node name="HarvestBench" type="Node3D" parent="NorthBarn"]
+position = Vector3(0, 0, 0)
+
+[node name="Top" type="StaticBody3D" parent="NorthBarn/HarvestBench"]
+position = Vector3(0, 0.71, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="NorthBarn/HarvestBench/Top"]
+layers = 512
+mesh = SubResource("Mesh90")
+
+[node name="Collision" type="CollisionShape3D" parent="NorthBarn/HarvestBench/Top"]
+shape = SubResource("Shape90")
+
+[node name="Leg0" type="StaticBody3D" parent="NorthBarn/HarvestBench"]
+position = Vector3(-0.52, 0.335, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="NorthBarn/HarvestBench/Leg0"]
+layers = 512
+mesh = SubResource("Mesh92")
+
+[node name="Collision" type="CollisionShape3D" parent="NorthBarn/HarvestBench/Leg0"]
+shape = SubResource("Shape92")
+
+[node name="Leg1" type="StaticBody3D" parent="NorthBarn/HarvestBench"]
+position = Vector3(0.52, 0.335, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="NorthBarn/HarvestBench/Leg1"]
+layers = 512
+mesh = SubResource("Mesh94")
+
+[node name="Collision" type="CollisionShape3D" parent="NorthBarn/HarvestBench/Leg1"]
+shape = SubResource("Shape94")
+
+[node name="Leg2" type="StaticBody3D" parent="NorthBarn/HarvestBench"]
+position = Vector3(-0.52, 0.335, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="NorthBarn/HarvestBench/Leg2"]
+layers = 512
+mesh = SubResource("Mesh96")
+
+[node name="Collision" type="CollisionShape3D" parent="NorthBarn/HarvestBench/Leg2"]
+shape = SubResource("Shape96")
+
+[node name="Leg3" type="StaticBody3D" parent="NorthBarn/HarvestBench"]
+position = Vector3(0.52, 0.335, 0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="NorthBarn/HarvestBench/Leg3"]
+layers = 512
+mesh = SubResource("Mesh98")
+
+[node name="Collision" type="CollisionShape3D" parent="NorthBarn/HarvestBench/Leg3"]
+shape = SubResource("Shape98")
+
+[node name="HarvestRadio" parent="NorthBarn" instance=ExtResource("Radio")]
+position = Vector3(0, 0.76, 0)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Radio na bancada da colheita"
+
+[node name="HarvestWateringCan" parent="NorthBarn" instance=ExtResource("WateringCan")]
+position = Vector3(-0.9, 0.03, 0.8)
+rotation = Vector3(0, 0.4, 0)
+metadata/placement_hint = "Regador junto ao celeiro da colheita"
+
+[node name="HarvestBall" parent="NorthBarn" instance=ExtResource("SoccerBall")]
+position = Vector3(2.2, 0.03, 1.6)
+rotation = Vector3(0, 0, 0)
+metadata/placement_hint = "Bola no patio entre os celeiros"
+
+[node name="HarvestBat" parent="NorthBarn" instance=ExtResource("BaseballBat")]
+position = Vector3(1.2, 0.03, 1.7)
+rotation = Vector3(0, 1.2, 0)
+metadata/placement_hint = "Taco no patio entre os celeiros"
+
+[node name="PastureWateringCan" parent="FieldEdges" instance=ExtResource("WateringCan")]
+position = Vector3(6.4, 0.03, 18.9)
+rotation = Vector3(0, 0.2, 0)
+metadata/placement_hint = "Regador junto aos canteiros e trator"
+
+[node name="BarnGardenWateringCan" parent="SouthBarn" instance=ExtResource("WateringCan")]
+position = Vector3(-1.1, 0.03, -1.2)
+rotation = Vector3(0, 1.5, 0)
+metadata/placement_hint = "Regador junto ao canteiro do celeiro"
+
+[node name="AccessPath" type="Node3D" parent="Farmhouse/Interior"]
+
+
+[node name="Approach" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-3.15, 0, 4.1)
+
+[node name="LowerStep" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-2.39, 0.17, 4.1)
+
+[node name="MiddleStep" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-1.97, 0.34, 4.1)
+
+[node name="UpperStep" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-1.55, 0.51, 4.1)
+
+[node name="Porch" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-0.8, 0.6682, 4.1)
+
+[node name="DoorOutside" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(0.2, 0.6682, 3.5)
+
+[node name="DoorInside" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(0.2, 0.8534, 2.1)
+
+[node name="Hall" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(0.1, 0.8534, -1)
+
+[node name="BedroomDoor" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-1.1, 0.8534, -1)
+
+[node name="BedroomInside" type="Marker3D" parent="Farmhouse/Interior/AccessPath"]
+position = Vector3(-2, 0.8534, -1)
+
+[node name="LoungeLight" type="OmniLight3D" parent="Farmhouse/Interior"]
+position = Vector3(1.5, 2.9, 0.2)
+light_color = Color(1, 0.78, 0.49, 1)
+light_energy = 0.7
+omni_range = 5.0
+
+[node name="BedroomLight" type="OmniLight3D" parent="Farmhouse/Interior"]
+position = Vector3(-3.7, 2.9, -2)
+light_color = Color(1, 0.81, 0.55, 1)
+light_energy = 0.65
+omni_range = 4.5
+
+[node name="UpgradeTotem" parent="." instance=ExtResource("Totem")]
+position = Vector3(-55, 0.03, -28)
+rotation = Vector3(0, -0.8, 0)

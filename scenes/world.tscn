@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cet0j5k6ljep3"]
 
 [ext_resource type="Script" uid="uid://cfd7bl5unq51x" path="res://scripts/world.gd" id="0_world"]
+[ext_resource type="PackedScene" path="res://scenes/Farm/FarmScavenging.tscn" id="farm_scavenging"]
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
@@ -13046,6 +13047,9 @@ wander_zone_center = Vector3(-20, 0, 18)
 
 [node name="DeliveryArea" parent="." unique_id=741650013 instance=ExtResource("28_0nbtd")]
 transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.6160665, -49.656147, 0.017127872, -33.3789)
+awards_money = true
+
+[node name="FarmScavenging" parent="." instance=ExtResource("farm_scavenging")]
 
 [node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 22)
@@ -13070,7 +13074,7 @@ dungeon_path = NodePath("../Dungeon")
 [node name="ScrapsHolder" type="Node3D" parent="." unique_id=973279639]
 
 [node name="SpaceshipScraps" parent="ScrapsHolder" unique_id=626107039 instance=ExtResource("27_ts3gi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3174243, -4.7683716e-07, -12.069503)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0.03, -10.5)
 
 [node name="SpaceshipScraps2" parent="ScrapsHolder" unique_id=1950931597 instance=ExtResource("27_ts3gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.443676, -1.9073486e-06, -16.38624)

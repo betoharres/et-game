@@ -1,0 +1,180 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_brown"]
+albedo_color = Color(0.3, 0.12, 0.055, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_1"]
+material = SubResource("Mat_brown")
+top_radius = 0.013
+bottom_radius = 0.013
+height = 0.23
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.51, 0.29, 0.105, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_2"]
+material = SubResource("Mat_wood")
+top_radius = 0.022
+bottom_radius = 0.022
+height = 0.014
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_3"]
+material = SubResource("Mat_wood")
+top_radius = 0.031
+bottom_radius = 0.013
+height = 0.31
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_4"]
+material = SubResource("Mat_wood")
+top_radius = 0.031
+bottom_radius = 0.031
+height = 0.34
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_5"]
+material = SubResource("Mat_wood")
+top_radius = 0.031
+bottom_radius = 0.026
+height = 0.01
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_ivory"]
+albedo_color = Color(0.88, 0.86, 0.72, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_6"]
+material = SubResource("Mat_ivory")
+top_radius = 0.0135
+bottom_radius = 0.0135
+height = 0.013
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_7"]
+material = SubResource("Mat_ivory")
+top_radius = 0.0135
+bottom_radius = 0.0135
+height = 0.013
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_8"]
+material = SubResource("Mat_ivory")
+top_radius = 0.0135
+bottom_radius = 0.0135
+height = 0.013
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_9"]
+material = SubResource("Mat_ivory")
+top_radius = 0.0135
+bottom_radius = 0.0135
+height = 0.013
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_10"]
+material = SubResource("Mat_ivory")
+top_radius = 0.0135
+bottom_radius = 0.0135
+height = 0.013
+radial_segments = 12
+rings = 1
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.064, 0.064, 0.9)
+
+[node name="BaseballBat" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.9
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_baseballbat"
+display_name = "Taco de beisebol"
+score_value = 22
+cash_value = 22
+slot_cost = 1
+two_handed = true
+
+[node name="Grip" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.319)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="Knob" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.441)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_2")
+
+[node name="Taper" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.05)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_3")
+
+[node name="Barrel" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, 0.275)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_4")
+
+[node name="BarrelEnd" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, 0.45)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_5")
+
+[node name="GripTape1" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.39)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_6")
+
+[node name="GripTape2" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.357)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_7")
+
+[node name="GripTape3" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.324)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_8")
+
+[node name="GripTape4" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.291)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_9")
+
+[node name="GripTape5" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.032, -0.258)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_10")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.032, 0)
+shape = SubResource("Shape")

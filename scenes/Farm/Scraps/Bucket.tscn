@@ -1,0 +1,106 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_steel"]
+albedo_color = Color(0.47, 0.52, 0.55, 1)
+roughness = 0.32
+metallic = 0.65
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_1"]
+material = SubResource("Mat_steel")
+top_radius = 0.14
+bottom_radius = 0.1
+height = 0.24
+radial_segments = 16
+rings = 1
+cap_top = false
+
+[sub_resource type="StandardMaterial3D" id="Mat_grey"]
+albedo_color = Color(0.31, 0.35, 0.34, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="TorusMesh" id="Mesh_2"]
+material = SubResource("Mat_grey")
+inner_radius = 0.132
+outer_radius = 0.142
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_3"]
+material = SubResource("Mat_grey")
+inner_radius = 0.094
+outer_radius = 0.105
+rings = 16
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_4"]
+material = SubResource("Mat_grey")
+inner_radius = 0.135
+outer_radius = 0.141
+rings = 16
+ring_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.51, 0.29, 0.105, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_5"]
+material = SubResource("Mat_wood")
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.095
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.29, 0.3, 0.29)
+
+[node name="Bucket" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.8
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_bucket"
+display_name = "Balde de metal"
+score_value = 15
+cash_value = 15
+slot_cost = 2
+two_handed = false
+
+[node name="Pail" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.12, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="TopRim" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.24, 0)
+mesh = SubResource("Mesh_2")
+
+[node name="BottomRim" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.01, 0)
+mesh = SubResource("Mesh_3")
+
+[node name="WireHandle" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.245, 0)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_4")
+
+[node name="HandleGrip" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.383, 0)
+rotation_degrees = Vector3(0, 0, 90)
+mesh = SubResource("Mesh_5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.15, 0)
+shape = SubResource("Shape")

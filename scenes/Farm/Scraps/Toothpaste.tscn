@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_white"]
+albedo_color = Color(0.93, 0.93, 0.86, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_1"]
+material = SubResource("Mat_white")
+top_radius = 0.023
+bottom_radius = 0.012
+height = 0.14
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_blue"]
+albedo_color = Color(0.045, 0.28, 0.58, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_2"]
+material = SubResource("Mat_blue")
+size = Vector3(0.03, 0.007, 0.075)
+
+[sub_resource type="StandardMaterial3D" id="Mat_mint"]
+albedo_color = Color(0.58, 0.81, 0.69, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_3"]
+material = SubResource("Mat_mint")
+size = Vector3(0.022, 0.001, 0.01)
+
+[sub_resource type="CylinderMesh" id="Mesh_4"]
+material = SubResource("Mat_blue")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.025
+radial_segments = 12
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_5"]
+material = SubResource("Mat_white")
+size = Vector3(0.049, 0.005, 0.013)
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.052, 0.052, 0.18)
+
+[node name="Toothpaste" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.12
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_toothpaste"
+display_name = "Pasta de dente"
+score_value = 10
+cash_value = 10
+slot_cost = 1
+two_handed = false
+
+[node name="Tube" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.023, -0.012)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="BlueLabel" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.047, -0.009)
+mesh = SubResource("Mesh_2")
+
+[node name="LabelStripe" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.051, 0.006)
+mesh = SubResource("Mesh_3")
+
+[node name="ScrewCap" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.023, -0.088)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_4")
+
+[node name="FoldedEnd" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.023, 0.062)
+mesh = SubResource("Mesh_5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.026, 0)
+shape = SubResource("Shape")

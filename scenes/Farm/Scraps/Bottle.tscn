@@ -1,0 +1,114 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/farm/farm_scrap.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_glass"]
+albedo_color = Color(0.09, 0.28, 0.19, 1)
+roughness = 0.32
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_1"]
+material = SubResource("Mat_glass")
+top_radius = 0.036
+bottom_radius = 0.042
+height = 0.18
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_2"]
+material = SubResource("Mat_glass")
+top_radius = 0.019
+bottom_radius = 0.036
+height = 0.033
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_3"]
+material = SubResource("Mat_glass")
+top_radius = 0.018
+bottom_radius = 0.018
+height = 0.025
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_ivory"]
+albedo_color = Color(0.88, 0.86, 0.72, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="Mesh_4"]
+material = SubResource("Mat_ivory")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.016
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_5"]
+material = SubResource("Mat_ivory")
+top_radius = 0.04
+bottom_radius = 0.0425
+height = 0.072
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.7, 0.09, 0.065, 1)
+roughness = 0.85
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="Mesh_6"]
+material = SubResource("Mat_red")
+size = Vector3(0.024, 0.034, 0.001)
+
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(0.085, 0.255, 0.085)
+
+[node name="Bottle" type="RigidBody3D" groups=["farm_scraps", "pickup_items"]]
+collision_layer = 8
+collision_mask = 1
+mass = 0.36
+continuous_cd = true
+linear_damp = 0.5
+angular_damp = 1.5
+script = ExtResource("1")
+item_id = "farm_bottle"
+display_name = "Garrafa"
+score_value = 14
+cash_value = 14
+slot_cost = 1
+two_handed = false
+
+[node name="BottleBody" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.09, 0)
+mesh = SubResource("Mesh_1")
+
+[node name="Shoulder" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.1965, 0)
+mesh = SubResource("Mesh_2")
+
+[node name="Neck" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.2255, 0)
+mesh = SubResource("Mesh_3")
+
+[node name="Cap" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.246, 0)
+mesh = SubResource("Mesh_4")
+
+[node name="PaperLabel" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.101, 0)
+mesh = SubResource("Mesh_5")
+
+[node name="LabelMark" type="MeshInstance3D" parent="."]
+layers = 64
+position = Vector3(0, 0.101, 0.042)
+mesh = SubResource("Mesh_6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.1275, 0)
+shape = SubResource("Shape")
