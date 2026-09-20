@@ -25,6 +25,7 @@ extends Resource
 @export_range(-40.0, 24.0, 0.5) var shot_volume_db: float = -14.0
 
 @export_category("Reforços")
+@export_range(0.1, 3.0, 0.05) var spawn_distance_multiplier: float = 1.25
 @export_range(1, 20) var max_active: int = 2
 @export_range(1, 10) var wave_size: int = 2
 @export_range(1.0, 120.0) var reinforcement_interval: float = 12.0

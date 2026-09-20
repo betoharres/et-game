@@ -9,6 +9,8 @@
 [resource]
 script = ExtResource("1")
 shot_volume_db = 3.0
+max_active = 3
+wave_size = 3
 character_scene = ExtResource("2")
 character_material = ExtResource("3")
 weapon_mesh = ExtResource("4")

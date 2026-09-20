@@ -103,6 +103,16 @@ func get_effective_sight_distance() -> float:
 	return sight_distance * _get_player_visibility_multiplier()
 
 
+func get_effective_sight_half_angle_degrees() -> float:
+	return sight_half_angle_degrees * get_target_crouch_visibility(player)
+
+
+static func get_target_crouch_visibility(target: Node) -> float:
+	if is_instance_valid(target) and target.has_method("get_crouch_visibility_multiplier"):
+		return float(target.call("get_crouch_visibility_multiplier"))
+	return 1.0
+
+
 func get_player_position() -> Vector3:
 	return player.global_position if player != null else global_position
 
@@ -138,7 +148,7 @@ func _can_see_player() -> bool:
 		if forward.length_squared() > 0.001:
 			forward = forward.normalized()
 			var dot_product: float = clampf(forward.dot(to_player), -1.0, 1.0)
-			if rad_to_deg(acos(dot_product)) > sight_half_angle_degrees:
+			if rad_to_deg(acos(dot_product)) > get_effective_sight_half_angle_degrees():
 				return false
 
 	return _has_clear_line_of_sight()
@@ -165,9 +175,9 @@ func _has_clear_line_of_sight() -> bool:
 
 func _get_player_visibility_multiplier() -> float:
 	if player != null and player.has_method("get_stealth_visibility"):
-		return clampf(float(player.call("get_stealth_visibility")), 0.1, 1.0)
+		return clampf(float(player.call("get_stealth_visibility")), 0.065, 1.0)
 	if player != null and player.has_method("get_visibility_multiplier"):
-		return clampf(float(player.call("get_visibility_multiplier")), 0.1, 1.0)
+		return clampf(float(player.call("get_visibility_multiplier")), 0.065, 1.0)
 	return 1.0
 
 

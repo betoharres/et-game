@@ -68,9 +68,9 @@ enum ImpactReaction {
 @export var max_stamina : float = 100.0
 @export var stamina_drain_per_second : float = 15.0
 @export var stamina_recovery_per_second : float = 20.0
-@export var stamina_recovery_delay : float = 0.8
+@export var stamina_recovery_delay : float = 0.52
 @export var sprint_recovery_threshold : float = 20.0
-@export var stamina_exhaustion_cooldown : float = 3.0
+@export var stamina_exhaustion_cooldown : float = 1.95
 
 @export_category("Stealth")
 @export_range(0.1, 1.0, 0.05) var stealth : float = 1.0
@@ -1443,6 +1443,10 @@ func get_visibility_multiplier() -> float:
 	return get_stealth_visibility()
 
 
+func get_crouch_visibility_multiplier() -> float:
+	return 0.65 if is_crouching else 1.0
+
+
 func get_stealth_visibility() -> float:
 	var visibility_multiplier : float = clampf(stealth, 0.1, 1.0)
 
@@ -1452,10 +1456,7 @@ func get_stealth_visibility() -> float:
 			float(source_multiplier)
 		)
 
-	if is_crouching and visibility_multiplier < 1.0:
-		visibility_multiplier *= 0.65
-
-	return clampf(visibility_multiplier, 0.1, 1.0)
+	return clampf(visibility_multiplier, 0.1, 1.0) * get_crouch_visibility_multiplier()
 
 
 ## Shared entry into the ragdoll. Carries none of the side effects of dying, so

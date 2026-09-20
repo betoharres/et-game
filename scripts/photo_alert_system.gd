@@ -9,11 +9,11 @@ signal additional_photographers_requested(photographer_id : int)
 signal mib_response_requested(photographer_id : int)
 
 const MAX_PHOTO_COUNT : int = 3
-const HIDDEN_SECONDS_PER_PHOTO : float = 30.0
+const HIDDEN_SECONDS_PER_PHOTO : float = 22.5
 
 @export_range(0, 3) var stars_per_photo : int = 1
 @export_range(0, 3) var stars_per_theft : int = 1
-@export_range(1.0, 300.0, 1.0) var hidden_seconds_per_star : float = HIDDEN_SECONDS_PER_PHOTO
+@export_range(1.0, 300.0, 0.5) var hidden_seconds_per_star : float = HIDDEN_SECONDS_PER_PHOTO
 
 var photo_count : int = 0
 var hidden_time : float = 0.0

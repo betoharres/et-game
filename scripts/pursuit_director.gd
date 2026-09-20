@@ -10,7 +10,7 @@ extends Node3D
 @export_category("Regras de alerta")
 @export_range(0, 3) var stars_per_theft: int = 1
 @export_range(0, 3) var stars_per_photo: int = 1
-@export_range(1.0, 300.0) var hidden_seconds_per_star: float = 30.0
+@export_range(1.0, 300.0, 0.5) var hidden_seconds_per_star: float = 22.5
 
 @export_category("Limites de reforços")
 @export_range(1, 20) var maximum_active_enemies: int = 12
@@ -182,11 +182,13 @@ func _spawn_wave(profile: PursuitProfile, replacement: bool = false) -> int:
 	)
 	var remaining: int = mini(available, 1 if replacement else profile.wave_size)
 	var spawned: int = 0
+	var minimum_distance: float = minimum_spawn_distance * profile.spawn_distance_multiplier
+	var maximum_distance: float = maxf(maximum_spawn_distance, minimum_spawn_distance) * profile.spawn_distance_multiplier
 	for attempt: int in range(spawn_attempts_per_wave):
 		if remaining <= 0:
 			break
 		var angle: float = randf() * TAU
-		var radius: float = randf_range(minimum_spawn_distance, maxf(maximum_spawn_distance, minimum_spawn_distance))
+		var radius: float = randf_range(minimum_distance, maximum_distance)
 		var requested: Vector3 = _last_reported_position + Vector3(cos(angle), 0.0, sin(angle)) * radius
 		var point: Vector3 = find_spawn_position(requested, profile)
 		if not point.is_finite():
@@ -212,13 +214,15 @@ func _spawn_wave(profile: PursuitProfile, replacement: bool = false) -> int:
 func find_spawn_position(requested: Vector3, spawn_profile: PursuitProfile = null) -> Vector3:
 	if not navigation.is_ready_for_paths():
 		return Vector3.INF
+	var profile: PursuitProfile = spawn_profile if spawn_profile != null else get_profile(_alert.get_photo_count())
+	var distance_multiplier: float = profile.spawn_distance_multiplier if profile != null else 1.25
+	var minimum_distance: float = minimum_spawn_distance * distance_multiplier
 	var map: RID = navigation.get_navigation_map()
 	var point: Vector3 = NavigationServer3D.map_get_closest_point(map, requested)
-	if point.distance_to(requested) > 3.0 or point.distance_to(_player.global_position) < minimum_spawn_distance:
+	if point.distance_to(requested) > 3.0 or point.distance_to(_player.global_position) < minimum_distance:
 		return Vector3.INF
 	var target: Vector3 = NavigationServer3D.map_get_closest_point(map, _last_reported_position)
 	var path: PackedVector3Array = NavigationServer3D.map_get_path(map, point, target, true)
-	var profile: PursuitProfile = spawn_profile if spawn_profile != null else get_profile(_alert.get_photo_count())
 	var approach_range: float = profile.attack_range if profile != null else 1.0
 	# Um ET atrás de uma cerca pode ser alcançado por tiro do lado de fora;
 	# exigir chegar aos seus pés impediria qualquer reforço nesse cercado.

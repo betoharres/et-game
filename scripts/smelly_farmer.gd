@@ -379,14 +379,14 @@ func _get_player_visibility_multiplier() -> float:
 	if player != null and player.has_method("get_stealth_visibility"):
 		return clampf(
 			float(player.call("get_stealth_visibility")),
-			0.1,
+			0.065,
 			1.0
 		)
 
 	if player != null and player.has_method("get_visibility_multiplier"):
 		return clampf(
 			float(player.call("get_visibility_multiplier")),
-			0.1,
+			0.065,
 			1.0
 		)
 

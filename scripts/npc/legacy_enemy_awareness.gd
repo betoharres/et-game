@@ -36,7 +36,8 @@ func get_sight_distance(neutral_distance: float) -> float:
 
 
 func get_sight_half_angle(neutral_half_angle: float) -> float:
-	return NPCVision.ALERT_SIGHT_HALF_ANGLE_DEGREES if is_globally_alerted() else neutral_half_angle
+	var half_angle: float = NPCVision.ALERT_SIGHT_HALF_ANGLE_DEGREES if is_globally_alerted() else neutral_half_angle
+	return half_angle * NPCVision.get_target_crouch_visibility(_body.get("player") as Node)
 
 
 func investigate(delta: float, speed: float, turn_speed: float) -> bool:
