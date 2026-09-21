@@ -41,18 +41,19 @@ func _initialize() -> void:
 		_stamp_rect(field["rect"], 2.5, 1)
 	for clearing: Rect2 in Layout.SETTLEMENT_CLEARINGS:
 		_stamp_rect(clearing, 4.0, 0)
-	var scene: PackedScene = load("res://scenes/CountryTown/Layout/PointsOfInterest.tscn") as PackedScene
+	var scene: PackedScene = load("res://scenes/CountryTown/CountryTown.tscn") as PackedScene
 	if scene == null:
 		push_error("Missing Country Town POIs")
 		quit(1)
 		return
-	var pois: Node = scene.instantiate()
+	var country_town: Node = scene.instantiate()
+	var pois: Node = country_town.get_node("PointsOfInterest")
 	for child: Node in pois.get_children():
 		if child is Marker3D and str(child.name) in YARDS:
 			var marker: Marker3D = child as Marker3D
 			var point: Vector2 = Vector2(marker.position.x, marker.position.z)
 			_stamp_rect(Rect2(point - Vector2(7.0, 6.0), Vector2(14.0, 12.0)), 6.0, 0)
-	pois.free()
+	country_town.free()
 	for i: int in Layout.RIVER_PATH.size() - 1:
 		_stamp_segment(Layout.RIVER_PATH[i], Layout.RIVER_PATH[i + 1], Layout.river_width(i) * 0.35, 7.0, 2)
 	if not _save_image(_mask, "country_land_use"):

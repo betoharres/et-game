@@ -1,7 +1,6 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://b6ff2wdqgf4l4"]
 
-[ext_resource type="PackedScene" path="res://scenes/Props/TireTrack3D.tscn" id="1_1i5ei"]
-[ext_resource type="Script" path="res://scripts/terrain/tire_track_3d.gd" id="2_dldn1"]
+[ext_resource type="Script" path="res://scripts/terrain/tire_track_3d.gd" id="1_tire_track"]
 [ext_resource type="Material" path="res://Materiais/tire_track.tres" id="3_s8ucw"]
 
 [sub_resource type="Gradient" id="Gradient_50f5p"]
@@ -1094,7 +1093,6 @@ _surfaces = [{
 [node name="RoadNetwork" type="Node3D" unique_id=355948939]
 
 [node name="DirtRoadBed" type="MeshInstance3D" parent="." unique_id=1168174432]
-visible = false
 material_override = SubResource("StandardMaterial3D_k56l8")
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_1i5ei")
@@ -1127,10 +1125,9 @@ shape = SubResource("ConcavePolygonShape3D_0ho8u")
 
 [node name="TireTracks" type="Node3D" parent="." unique_id=1945731121]
 
-[node name="DirtRoad00PassA" type="Path3D" parent="TireTracks" unique_id=653303579 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad00PassA" parent="TireTracks" unique_id=653303579 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 30.4917)
 curve = SubResource("Curve3D_1i5ei")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 1559
@@ -1143,10 +1140,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_s8ucw")
 
-[node name="DirtRoad00PassB" type="Path3D" parent="TireTracks" unique_id=494329542 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad00PassB" parent="TireTracks" unique_id=494329542 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 30.4917)
 curve = SubResource("Curve3D_jblpt")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1161,10 +1157,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_50f5p")
 
-[node name="DirtRoad00PassC" type="Path3D" parent="TireTracks" unique_id=1114176230 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad00PassC" parent="TireTracks" unique_id=1114176230 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 30.4917)
 curve = SubResource("Curve3D_c0t1r")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1180,10 +1175,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_c0t1r")
 
-[node name="DirtRoad10PassA" type="Path3D" parent="TireTracks" unique_id=1010738592 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad10PassA" parent="TireTracks" unique_id=1010738592 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 96)
 curve = SubResource("Curve3D_k56l8")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 2648
@@ -1196,10 +1190,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_n44t1")
 
-[node name="DirtRoad10PassB" type="Path3D" parent="TireTracks" unique_id=424705952 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad10PassB" parent="TireTracks" unique_id=424705952 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 96)
 curve = SubResource("Curve3D_436il")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1214,10 +1207,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_k56l8")
 
-[node name="DirtRoad10PassC" type="Path3D" parent="TireTracks" unique_id=1301200948 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad10PassC" parent="TireTracks" unique_id=1301200948 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 96)
 curve = SubResource("Curve3D_82vtc")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1233,10 +1225,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_hkg7q")
 
-[node name="DirtRoad20PassA" type="Path3D" parent="TireTracks" unique_id=76051137 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad20PassA" parent="TireTracks" unique_id=76051137 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300.212, 0, 18.5811)
 curve = SubResource("Curve3D_ogb3r")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 3737
@@ -1249,10 +1240,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_436il")
 
-[node name="DirtRoad20PassB" type="Path3D" parent="TireTracks" unique_id=2058610075 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad20PassB" parent="TireTracks" unique_id=2058610075 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300.212, 0, 18.5811)
 curve = SubResource("Curve3D_oosd6")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1267,10 +1257,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_bkktq")
 
-[node name="DirtRoad20PassC" type="Path3D" parent="TireTracks" unique_id=9735325 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad20PassC" parent="TireTracks" unique_id=9735325 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300.212, 0, 18.5811)
 curve = SubResource("Curve3D_b0iu7")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1286,10 +1275,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_82vtc")
 
-[node name="DirtRoad30PassA" type="Path3D" parent="TireTracks" unique_id=1343126822 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad30PassA" parent="TireTracks" unique_id=1343126822 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 306.16733, 0, 24.5364)
 curve = SubResource("Curve3D_j8ri7")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 4826
@@ -1302,10 +1290,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_1blri")
 
-[node name="DirtRoad30PassB" type="Path3D" parent="TireTracks" unique_id=1682826502 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad30PassB" parent="TireTracks" unique_id=1682826502 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 306.16733, 0, 24.5364)
 curve = SubResource("Curve3D_kofmt")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1320,10 +1307,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_ogb3r")
 
-[node name="DirtRoad30PassC" type="Path3D" parent="TireTracks" unique_id=1742750134 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad30PassC" parent="TireTracks" unique_id=1742750134 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 306.16733, 0, 24.5364)
 curve = SubResource("Curve3D_8tt8d")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1339,10 +1325,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_7e7nu")
 
-[node name="DirtRoad40PassA" type="Path3D" parent="TireTracks" unique_id=1008552618 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad40PassA" parent="TireTracks" unique_id=1008552618 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 167.4636)
 curve = SubResource("Curve3D_h6ldm")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 5915
@@ -1355,10 +1340,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_xmlg4")
 
-[node name="DirtRoad40PassB" type="Path3D" parent="TireTracks" unique_id=1611641094 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad40PassB" parent="TireTracks" unique_id=1611641094 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 167.4636)
 curve = SubResource("Curve3D_ampp1")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1373,10 +1357,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_b0iu7")
 
-[node name="DirtRoad40PassC" type="Path3D" parent="TireTracks" unique_id=718619935 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad40PassC" parent="TireTracks" unique_id=718619935 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 167.4636)
 curve = SubResource("Curve3D_au8nb")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1392,10 +1375,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_3bn55")
 
-[node name="DirtRoad50PassA" type="Path3D" parent="TireTracks" unique_id=1588556291 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad50PassA" parent="TireTracks" unique_id=1588556291 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 298.4802)
 curve = SubResource("Curve3D_fmkie")
-script = ExtResource("2_dldn1")
 lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 7004
@@ -1408,10 +1390,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_j8ri7")
 
-[node name="DirtRoad50PassB" type="Path3D" parent="TireTracks" unique_id=267705734 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad50PassB" parent="TireTracks" unique_id=267705734 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 298.4802)
 curve = SubResource("Curve3D_n8oa3")
-script = ExtResource("2_dldn1")
 lane_offset = 1.35
 lateral_wander = 0.3
 sample_step = 0.5
@@ -1426,10 +1407,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_vjgun")
 
-[node name="DirtRoad50PassC" type="Path3D" parent="TireTracks" unique_id=1329408874 instance=ExtResource("1_1i5ei")]
+[node name="DirtRoad50PassC" parent="TireTracks" unique_id=1329408874 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9553, 0, 298.4802)
 curve = SubResource("Curve3D_w8o4b")
-script = ExtResource("2_dldn1")
 lanes = 1
 lane_offset = -1.9
 lateral_wander = 0.38
@@ -1445,10 +1425,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_0ho8u")
 
-[node name="Junction01Arc0" type="Path3D" parent="TireTracks" unique_id=1193233301 instance=ExtResource("1_1i5ei")]
+[node name="Junction01Arc0" parent="TireTracks" unique_id=1193233301 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 345.5779)
 curve = SubResource("Curve3D_qct36")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1463,10 +1442,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_8tt8d")
 
-[node name="Junction01Arc1" type="Path3D" parent="TireTracks" unique_id=1001961358 instance=ExtResource("1_1i5ei")]
+[node name="Junction01Arc1" parent="TireTracks" unique_id=1001961358 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 345.5779)
 curve = SubResource("Curve3D_hknf8")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1481,10 +1459,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_lsaeq")
 
-[node name="Junction02Arc0" type="Path3D" parent="TireTracks" unique_id=197510626 instance=ExtResource("1_1i5ei")]
+[node name="Junction02Arc0" parent="TireTracks" unique_id=197510626 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 102.5)
 curve = SubResource("Curve3D_6w5rr")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1499,10 +1476,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_h6ldm")
 
-[node name="Junction02Arc1" type="Path3D" parent="TireTracks" unique_id=1082657015 instance=ExtResource("1_1i5ei")]
+[node name="Junction02Arc1" parent="TireTracks" unique_id=1082657015 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 102.5)
 curve = SubResource("Curve3D_corjl")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1517,10 +1493,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_4ojl2")
 
-[node name="Junction02Arc2" type="Path3D" parent="TireTracks" unique_id=1495994325 instance=ExtResource("1_1i5ei")]
+[node name="Junction02Arc2" parent="TireTracks" unique_id=1495994325 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 102.5)
 curve = SubResource("Curve3D_u6vrm")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1535,10 +1510,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_vs4fu")
 
-[node name="Junction02Arc3" type="Path3D" parent="TireTracks" unique_id=852171007 instance=ExtResource("1_1i5ei")]
+[node name="Junction02Arc3" parent="TireTracks" unique_id=852171007 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.5, 0, 96)
 curve = SubResource("Curve3D_vt672")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1553,10 +1527,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_xexf6")
 
-[node name="Junction03Arc0" type="Path3D" parent="TireTracks" unique_id=1223799993 instance=ExtResource("1_1i5ei")]
+[node name="Junction03Arc0" parent="TireTracks" unique_id=1223799993 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.84602, 0, 162.46057)
 curve = SubResource("Curve3D_hkg7q")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1571,10 +1544,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_au8nb")
 
-[node name="Junction03Arc1" type="Path3D" parent="TireTracks" unique_id=1935525174 instance=ExtResource("1_1i5ei")]
+[node name="Junction03Arc1" parent="TireTracks" unique_id=1935525174 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.84602, 0, 162.46057)
 curve = SubResource("Curve3D_vs4fu")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1589,10 +1561,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_oin7y")
 
-[node name="Junction03Arc2" type="Path3D" parent="TireTracks" unique_id=9067608 instance=ExtResource("1_1i5ei")]
+[node name="Junction03Arc2" parent="TireTracks" unique_id=9067608 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 162.5, 0, 167.46)
 curve = SubResource("Curve3D_1n8si")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1607,10 +1578,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_fmkie")
 
-[node name="Junction03Arc3" type="Path3D" parent="TireTracks" unique_id=982508572 instance=ExtResource("1_1i5ei")]
+[node name="Junction03Arc3" parent="TireTracks" unique_id=982508572 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 175.5, 0, 167.46)
 curve = SubResource("Curve3D_nhx4j")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1625,10 +1595,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_hiety")
 
-[node name="Junction04Arc0" type="Path3D" parent="TireTracks" unique_id=1061770566 instance=ExtResource("1_1i5ei")]
+[node name="Junction04Arc0" parent="TireTracks" unique_id=1061770566 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206, 0, 173.96)
 curve = SubResource("Curve3D_mq77a")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1643,10 +1612,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_n8oa3")
 
-[node name="Junction04Arc1" type="Path3D" parent="TireTracks" unique_id=1712419019 instance=ExtResource("1_1i5ei")]
+[node name="Junction04Arc1" parent="TireTracks" unique_id=1712419019 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206, 0, 173.96)
 curve = SubResource("Curve3D_a1mt7")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1661,10 +1629,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_idrdf")
 
-[node name="Junction04Arc2" type="Path3D" parent="TireTracks" unique_id=1997624884 instance=ExtResource("1_1i5ei")]
+[node name="Junction04Arc2" parent="TireTracks" unique_id=1997624884 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.5, 0, 167.46)
 curve = SubResource("Curve3D_7wqob")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1679,10 +1646,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_w8o4b")
 
-[node name="Junction04Arc3" type="Path3D" parent="TireTracks" unique_id=566274271 instance=ExtResource("1_1i5ei")]
+[node name="Junction04Arc3" parent="TireTracks" unique_id=566274271 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 212.5, 0, 167.46)
 curve = SubResource("Curve3D_6djp2")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1697,10 +1663,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_ogyi2")
 
-[node name="Junction05Arc0" type="Path3D" parent="TireTracks" unique_id=488139139 instance=ExtResource("1_1i5ei")]
+[node name="Junction05Arc0" parent="TireTracks" unique_id=488139139 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.5, 0, 223)
 curve = SubResource("Curve3D_q5jol")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1715,10 +1680,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_qct36")
 
-[node name="Junction05Arc1" type="Path3D" parent="TireTracks" unique_id=117623301 instance=ExtResource("1_1i5ei")]
+[node name="Junction05Arc1" parent="TireTracks" unique_id=117623301 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.5, 0, 223)
 curve = SubResource("Curve3D_6t8p8")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1733,10 +1697,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_ku1ni")
 
-[node name="Junction05Arc2" type="Path3D" parent="TireTracks" unique_id=1378788386 instance=ExtResource("1_1i5ei")]
+[node name="Junction05Arc2" parent="TireTracks" unique_id=1378788386 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.5, 0, 223)
 curve = SubResource("Curve3D_eod5c")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1751,10 +1714,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_hknf8")
 
-[node name="Junction05Arc3" type="Path3D" parent="TireTracks" unique_id=2036260804 instance=ExtResource("1_1i5ei")]
+[node name="Junction05Arc3" parent="TireTracks" unique_id=2036260804 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 216.5)
 curve = SubResource("Curve3D_xovon")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1769,10 +1731,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_7p7fd")
 
-[node name="Junction06Arc0" type="Path3D" parent="TireTracks" unique_id=1296439008 instance=ExtResource("1_1i5ei")]
+[node name="Junction06Arc0" parent="TireTracks" unique_id=1296439008 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.40388, 0, 243.11372)
 curve = SubResource("Curve3D_ul7yj")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1787,10 +1748,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_6w5rr")
 
-[node name="Junction06Arc1" type="Path3D" parent="TireTracks" unique_id=1497857926 instance=ExtResource("1_1i5ei")]
+[node name="Junction06Arc1" parent="TireTracks" unique_id=1497857926 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.40388, 0, 243.11372)
 curve = SubResource("Curve3D_l0w63")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1805,10 +1765,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_tmwku")
 
-[node name="Junction06Arc2" type="Path3D" parent="TireTracks" unique_id=834293247 instance=ExtResource("1_1i5ei")]
+[node name="Junction06Arc2" parent="TireTracks" unique_id=834293247 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.40388, 0, 243.11372)
 curve = SubResource("Curve3D_c6pr5")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1823,10 +1782,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_corjl")
 
-[node name="Junction06Arc3" type="Path3D" parent="TireTracks" unique_id=1067788656 instance=ExtResource("1_1i5ei")]
+[node name="Junction06Arc3" parent="TireTracks" unique_id=1067788656 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 235.5)
 curve = SubResource("Curve3D_lrewg")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1841,10 +1799,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_nvyu3")
 
-[node name="Junction07Arc0" type="Path3D" parent="TireTracks" unique_id=1821802185 instance=ExtResource("1_1i5ei")]
+[node name="Junction07Arc0" parent="TireTracks" unique_id=1821802185 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 0, 291.98)
 curve = SubResource("Curve3D_cr7m6")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1859,10 +1816,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_u6vrm")
 
-[node name="Junction07Arc1" type="Path3D" parent="TireTracks" unique_id=1611011053 instance=ExtResource("1_1i5ei")]
+[node name="Junction07Arc1" parent="TireTracks" unique_id=1611011053 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 0, 291.98)
 curve = SubResource("Curve3D_ifpab")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1877,10 +1833,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_06hwk")
 
-[node name="Junction07Arc2" type="Path3D" parent="TireTracks" unique_id=1651373493 instance=ExtResource("1_1i5ei")]
+[node name="Junction07Arc2" parent="TireTracks" unique_id=1651373493 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.98033, 0, 303.58807)
 curve = SubResource("Curve3D_37tej")
-script = ExtResource("2_dldn1")
 lane_offset = 0.35
 lateral_wander = 0.12
 sample_step = 0.5
@@ -1895,10 +1850,9 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_vt672")
 
-[node name="Junction07Arc3" type="Path3D" parent="TireTracks" unique_id=97877385 instance=ExtResource("1_1i5ei")]
+[node name="Junction07Arc3" parent="TireTracks" unique_id=97877385 type="Path3D" script=ExtResource("1_tire_track")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.98033, 0, 303.58807)
 curve = SubResource("Curve3D_xfla3")
-script = ExtResource("2_dldn1")
 lane_offset = -0.35
 lateral_wander = 0.12
 sample_step = 0.5

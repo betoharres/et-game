@@ -13,7 +13,7 @@ extends SceneTree
 ## la; este script nunca escreve naquele diretorio.
 ##
 ## O relevo se adapta ao layout, e nao o contrario: as clareiras planas saem
-## dos marcadores de `Layout/PointsOfInterest.tscn`, e o corredor das estradas
+## dos marcadores de `CountryTown.tscn/PointsOfInterest`, e o corredor das estradas
 ## e o canal do rio saem da grade e do `RIVER_PATH` de
 ## `tools/build_country_town_layout.gd`. Mexeu no layout, rode este script
 ## logo depois -- os dois lados precisam contar a mesma historia.
@@ -28,7 +28,7 @@ const Layout := preload("res://tools/build_country_town_layout.gd")
 const DEST_DIR: String = "res://scenes/CountryTown/Terrain"
 const MATERIAL_PATH: String = "res://Materiais/country_terrain_material.tres"
 const ASSETS_PATH: String = "res://3dModelos/SICS Trees/ArrayTrees.tres"
-const POI_SCENE_PATH: String = "res://scenes/CountryTown/Layout/PointsOfInterest.tscn"
+const COUNTRY_TOWN_SCENE_PATH: String = "res://scenes/CountryTown/CountryTown.tscn"
 
 ## O heightmap cobre 1024 x 1024 m começando 256 m a oeste e ao norte da origem
 ## do mapa. 1 pixel = 1 m.
@@ -101,7 +101,7 @@ func _build() -> bool:
 
 	var poi_points: PackedVector2Array = _collect_marker_points()
 	if poi_points.is_empty():
-		push_error("Nenhum marcador em %s" % POI_SCENE_PATH)
+		push_error("Nenhum marcador em %s" % COUNTRY_TOWN_SCENE_PATH)
 		return false
 	_flatten_around(poi_points, POI_CLEARING_RADIUS)
 	print("Clareiras de POI: %d" % poi_points.size())
@@ -140,9 +140,10 @@ func _carve_rural_wear() -> void:
 	var cuts: Dictionary[Vector2i, float] = {}
 	var banks: Dictionary[Vector2i, float] = {}
 	for district: String in ["RoadNetwork", "SecondaryPaths"]:
-		var packed: PackedScene = load("res://scenes/CountryTown/Districts/%s.tscn" % district) as PackedScene
+		var scene_path: String = "res://scenes/CountryTown/CountryTown.tscn" if district == "RoadNetwork" else "res://scenes/CountryTown/Districts/SecondaryPaths.tscn"
+		var packed: PackedScene = load(scene_path) as PackedScene
 		var scene: Node = packed.instantiate()
-		var tracks: Node = scene.get_node_or_null("TireTracks")
+		var tracks: Node = scene.get_node_or_null("RoadNetwork/TireTracks" if district == "RoadNetwork" else "TireTracks")
 		if tracks == null:
 			scene.free()
 			continue
@@ -300,13 +301,17 @@ func _distance_to_segment(point: Vector2, a: Vector2, b: Vector2) -> float:
 ## cena: mover um marcador no editor move a clareira do terreno junto.
 func _collect_marker_points() -> PackedVector2Array:
 	var points: PackedVector2Array = PackedVector2Array()
-	var packed: PackedScene = load(POI_SCENE_PATH) as PackedScene
+	var packed: PackedScene = load(COUNTRY_TOWN_SCENE_PATH) as PackedScene
 	if packed == null:
-		push_error("Nao carregou %s" % POI_SCENE_PATH)
+		push_error("Nao carregou %s" % COUNTRY_TOWN_SCENE_PATH)
 		return points
 	var instance: Node = packed.instantiate()
 	root.add_child(instance)
-	for child: Node in instance.get_children():
+	var points_of_interest: Node = instance.get_node_or_null("PointsOfInterest")
+	if points_of_interest == null:
+		instance.free()
+		return points
+	for child: Node in points_of_interest.get_children():
 		var marker: Marker3D = child as Marker3D
 		if marker != null:
 			points.append(Vector2(marker.global_position.x, marker.global_position.z))

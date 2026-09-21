@@ -45,11 +45,12 @@ func _run() -> void:
 	_scene.name = "PedestrianLife"
 	_scene.set_script(load("res://scripts/town_pedestrian_navigation.gd"))
 	var source: NavigationMeshSourceGeometryData3D = NavigationMeshSourceGeometryData3D.new()
-	var roads: Node3D = (load("res://scenes/CountryTown/Districts/RoadNetwork.tscn") as PackedScene).instantiate() as Node3D
+	var country_town: Node3D = (load("res://scenes/CountryTown/CountryTown.tscn") as PackedScene).instantiate() as Node3D
+	var roads: Node3D = country_town.get_node("RoadNetwork") as Node3D
 	for label: String in ["Sidewalks", "Curbs"]:
 		var mesh: MeshInstance3D = roads.get_node(label) as MeshInstance3D
 		source.add_mesh(mesh.mesh, mesh.transform)
-	roads.free()
+	country_town.free()
 	_add_farm_links(source)
 	_build_crossings(source)
 	var nav: NavigationMesh = NavigationMesh.new()

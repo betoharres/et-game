@@ -3,7 +3,7 @@ extends SceneTree
 
 ## Confere o layout do mapa Country Town (`scenes/CountryTown/`).
 ##
-## Cada marcador de `Layout/PointsOfInterest.tscn` precisa: existir com o nome
+## Cada marcador de `CountryTown.tscn/PointsOfInterest` precisa: existir com o nome
 ## exato, estar no grupo `country_town_poi`, cair dentro do retangulo de
 ## 600 x 450 m do mapa, pousar no terreno gerado por
 ## `tools/build_country_town_terrain.gd` e ficar acima da linha d'agua dos
@@ -25,7 +25,7 @@ extends SceneTree
 
 const Layout := preload("res://tools/build_country_town_layout.gd")
 
-const POI_SCENE_PATH: String = "res://scenes/CountryTown/Layout/PointsOfInterest.tscn"
+const COUNTRY_TOWN_SCENE_PATH: String = "res://scenes/CountryTown/CountryTown.tscn"
 const RIVER_SCENE_PATH: String = "res://scenes/CountryTown/Districts/RiverWater.tscn"
 const TERRAIN_DIR: String = "res://scenes/CountryTown/Terrain"
 
@@ -63,7 +63,7 @@ func _run() -> void:
 
 	var markers: Dictionary = _read_markers()
 	if markers.is_empty():
-		_fail("Nao achei nenhum marcador em %s" % POI_SCENE_PATH)
+		_fail("Nao achei nenhum marcador em %s" % COUNTRY_TOWN_SCENE_PATH)
 		_report()
 		return
 
@@ -175,12 +175,16 @@ func _read_water_level() -> float:
 
 func _read_markers() -> Dictionary:
 	var markers: Dictionary = {}
-	var packed: PackedScene = load(POI_SCENE_PATH) as PackedScene
+	var packed: PackedScene = load(COUNTRY_TOWN_SCENE_PATH) as PackedScene
 	if packed == null:
 		return markers
 	var instance: Node = packed.instantiate()
 	root.add_child(instance)
-	for child: Node in instance.get_children():
+	var points_of_interest: Node = instance.get_node_or_null("PointsOfInterest")
+	if points_of_interest == null:
+		instance.free()
+		return markers
+	for child: Node in points_of_interest.get_children():
 		var marker: Marker3D = child as Marker3D
 		if marker != null:
 			markers[marker.name] = marker
