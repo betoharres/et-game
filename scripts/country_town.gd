@@ -20,7 +20,7 @@ const MISSION_OBJECTIVE_COLLECT : String = "Colete os destroços da nave e leve-
 @export_range(2.0, 12.0, 0.5) var descent_duration : float = 5.0
 
 @onready var player : CharacterBody3D = $Player
-@onready var crash_site_guide : MissionGiverNPC = $CrashSiteGuide
+@onready var crash_site_guide : MissionGiverNPC = $NPCsContainer/CrashSiteGuide
 @onready var mission_dialogue : MissionDialogueUI = $MissionDialogue
 
 var _crash_site : Node3D = null
