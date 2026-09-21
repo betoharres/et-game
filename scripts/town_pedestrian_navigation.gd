@@ -10,9 +10,16 @@ func _ready() -> void:
 	NavigationServer3D.map_set_cell_height(_pedestrian_map, navigation_mesh.cell_height)
 	NavigationServer3D.map_set_active(_pedestrian_map, true)
 	set_navigation_map(_pedestrian_map)
-	for child: Node in get_node("Pedestrians").get_children():
+	var pedestrian_nodes: Array[Node] = []
+	var local_pedestrians: Node = get_node_or_null("Pedestrians")
+	if local_pedestrians != null:
+		pedestrian_nodes = local_pedestrians.get_children()
+	else:
+		pedestrian_nodes = get_tree().get_nodes_in_group("town_pedestrians")
+	for child: Node in pedestrian_nodes:
 		var actor: NPCActor = child as NPCActor
-		actor.navigation_agent.set_navigation_map(_pedestrian_map)
+		if actor != null:
+			actor.navigation_agent.set_navigation_map(_pedestrian_map)
 
 
 func _exit_tree() -> void:
