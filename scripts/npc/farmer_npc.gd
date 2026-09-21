@@ -31,7 +31,7 @@ func randomize_appearance() -> void:
 		push_warning("No meshes found!")
 		return
 
-	# Select a random mesh, except scarecrow
+	# Select a random mesh, from 1 to exclude scarecrow
 	var random_index : int = randi_range(1, meshes.size() - 1)
 	selected_mesh = meshes[random_index]
 

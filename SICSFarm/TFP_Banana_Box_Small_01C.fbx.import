@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://cde8iqt3swshl"
-path="res://.godot/imported/TFP_Banana_Box_Small_01C.fbx-3b251de5ebcf6dc7905a78ac30ec10ff.scn"
+path="res://.godot/imported/TFP_Banana_Box_Small_01C.fbx-3b251de5ebcf6dc7905a78ac30ec10ff.res"
 
 [deps]
 
 source_file="res://SICSFarm/TFP_Banana_Box_Small_01C.fbx"
-dest_files=["res://.godot/imported/TFP_Banana_Box_Small_01C.fbx-3b251de5ebcf6dc7905a78ac30ec10ff.scn"]
+dest_files=["res://.godot/imported/TFP_Banana_Box_Small_01C.fbx-3b251de5ebcf6dc7905a78ac30ec10ff.res"]
 
 [params]
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpol0sa1w3r76" path="res://scripts/npc/farmer_npc.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://daope04nb1g3w" path="res://PolygonFarm/Models/Characters.fbx" id="2_dlike"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="3_material"]
 [ext_resource type="Script" uid="uid://4ygwe14yqajp" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
 [ext_resource type="Script" uid="uid://bo2ar30nqq2s" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
 [ext_resource type="Script" uid="uid://c48qn0b5837pj" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
@@ -21,21 +22,32 @@ flashlight_path = NodePath("Flashlight")
 
 [node name="SM_Chr_Scarecrow_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="0" unique_id=983708254]
 visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="SM_Chr_FarmGirl_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="1" unique_id=4343131]
 visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="SM_Chr_Farmer_Male_Old_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="2" unique_id=1363376578]
-visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="SM_Chr_Farmer_Male_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="3" unique_id=874653896]
 visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="SM_Chr_Farmer_Female_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="4" unique_id=1334791028]
 visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="SM_Chr_FarmBoy_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="5" unique_id=404889869]
 visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_material")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2040419758]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925, 0)
@@ -51,8 +63,9 @@ script = ExtResource("4_vision")
 script = ExtResource("5_hearing")
 
 [node name="Flashlight" type="SpotLight3D" parent="." unique_id=844302304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.3)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.5, 0.3)
 visible = false
+layers = 4
 light_color = Color(1, 0.92, 0.75, 1)
 light_energy = 2.5
 spot_range = 12.0
@@ -68,7 +81,7 @@ walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
 [node name="NPCBehaviorTree" parent="." unique_id=1208074523 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
-blackboard = NodePath("@Node@135864")
+blackboard = NodePath("@Node@186856")
 actor = NodePath("..")
 
 [editable path="Characters"]

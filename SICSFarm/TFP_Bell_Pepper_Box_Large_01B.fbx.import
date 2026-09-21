@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://ddxhxmmarctm8"
-path="res://.godot/imported/TFP_Bell_Pepper_Box_Large_01B.fbx-d5b963543cb38b6809b740192428a156.scn"
+path="res://.godot/imported/TFP_Bell_Pepper_Box_Large_01B.fbx-d5b963543cb38b6809b740192428a156.res"
 
 [deps]
 
 source_file="res://SICSFarm/TFP_Bell_Pepper_Box_Large_01B.fbx"
-dest_files=["res://.godot/imported/TFP_Bell_Pepper_Box_Large_01B.fbx-d5b963543cb38b6809b740192428a156.scn"]
+dest_files=["res://.godot/imported/TFP_Bell_Pepper_Box_Large_01B.fbx-d5b963543cb38b6809b740192428a156.res"]
 
 [params]
 

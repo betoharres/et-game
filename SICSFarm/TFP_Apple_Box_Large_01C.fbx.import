@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="ArrayMesh"
 importer_version=1
-type="PackedScene"
+type="ArrayMesh"
 uid="uid://emig06bmfjmp"
-path="res://.godot/imported/TFP_Apple_Box_Large_01C.fbx-13c5a73598c39e60b1b6156d042a7ba5.scn"
+path="res://.godot/imported/TFP_Apple_Box_Large_01C.fbx-13c5a73598c39e60b1b6156d042a7ba5.res"
 
 [deps]
 
 source_file="res://SICSFarm/TFP_Apple_Box_Large_01C.fbx"
-dest_files=["res://.godot/imported/TFP_Apple_Box_Large_01C.fbx-13c5a73598c39e60b1b6156d042a7ba5.scn"]
+dest_files=["res://.godot/imported/TFP_Apple_Box_Large_01C.fbx-13c5a73598c39e60b1b6156d042a7ba5.res"]
 
 [params]
 

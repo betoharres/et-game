@@ -43,7 +43,7 @@ walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
 [node name="NPCBehaviorTree" parent="." unique_id=1782222566 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
-blackboard = NodePath("@Node@146502")
+blackboard = NodePath("@Node@182616")
 actor = NodePath("..")
 
 [node name="SK_Character_Female_Police" parent="." unique_id=2126720018 instance=ExtResource("8_8nfhu")]

@@ -41,8 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://c7mvr5vf6p5ff" path="res://PolygonFarm/Models/SM_Prop_Ute_Wreck_01.fbx" id="39_7l8la"]
 [ext_resource type="PackedScene" uid="uid://c4imwwy3codri" path="res://PolygonFarm/Models/SM_Prop_Windmill_01.fbx" id="40_kp6st"]
 [ext_resource type="PackedScene" uid="uid://sro40n6fb7r5" path="res://SICSFarm/TFP_Calf_01.fbx" id="41_2i6sy"]
-[ext_resource type="Material" uid="uid://71wo3u0jxc4b" path="res://Materiais/SICS_nature_trees.tres" id="42_el0xb"]
-[ext_resource type="PackedScene" uid="uid://dqc6qst7uvpim" path="res://SICSFarm/TFP_Female_Beekeeper_01.fbx" id="43_0fj1n"]
+[ext_resource type="Material" uid="uid://ce0jnhh6w7vnk" path="res://Materiais/SICS_farm_ATLAS_1A.tres" id="42_5qber"]
 [ext_resource type="PackedScene" uid="uid://4762oq2bpyuo" path="res://SICSFarm/TFP_Horse_01.fbx" id="44_86civ"]
 [ext_resource type="PackedScene" uid="uid://b4iefwiqqfpnc" path="res://SICSFarm/TFP_Kid_01.fbx" id="45_sqbom"]
 [ext_resource type="PackedScene" uid="uid://do57nya763lmp" path="res://SICSFarm/TFP_Lamb_01.fbx" id="46_nutou"]
@@ -50,9 +49,55 @@
 [ext_resource type="PackedScene" uid="uid://comm65qky75i8" path="res://SICSFarm/TFP_Chicken_01.fbx" id="48_j6tm7"]
 [ext_resource type="PackedScene" uid="uid://bsgo04rjhvi1m" path="res://SICSFarm/TFP_Chick_01.fbx" id="49_fas80"]
 [ext_resource type="ArrayMesh" uid="uid://bi8w1itobi61n" path="res://PolygonFarm/Models/SM_Prop_Chicken_Coop_Cage_01.fbx" id="50_7jov0"]
+[ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="51_7l8la"]
 [ext_resource type="PackedScene" uid="uid://eh2qg4ryxncx" path="res://SICSFarm/TFP_Duckling_01.fbx" id="51_b21et"]
 [ext_resource type="PackedScene" uid="uid://b0yk6mh0hllgr" path="res://SICSFarm/TFP_Duck_01.fbx" id="52_y8gwg"]
 [ext_resource type="ArrayMesh" uid="uid://c8dbiu5j35y0o" path="res://PolygonFarm/Models/SM_Prop_Chicken_Coop_01.fbx" id="53_5qber"]
+[ext_resource type="PackedScene" uid="uid://d32vxx63dyu1q" path="res://PolygonCity/FBX/Veh/SM_Veh_Car_Ambo_01.fbx" id="54_86civ"]
+[ext_resource type="Material" uid="uid://cr62r3ush18xv" path="res://Materiais/PolygonCity1A.tres" id="55_sqbom"]
+[ext_resource type="PackedScene" uid="uid://cqw3m4kvw400k" path="res://PolygonHeist/FBX/SkeletalVehicles/SK_Veh_Car_Police_Heist_01.fbx" id="56_nutou"]
+[ext_resource type="Material" uid="uid://5hesgg1i11su" path="res://Materiais/PolygonHeist1A.tres" id="57_60mxw"]
+[ext_resource type="PackedScene" uid="uid://71msa54bsojm" path="res://PolygonHeist/FBX/SkeletalVehicles/SK_Veh_SwatVan_01.fbx" id="58_j6tm7"]
+[ext_resource type="PackedScene" uid="uid://2amllmqmo0ro" path="res://PolygonHeist/FBX/SkeletalVehicles/SK_Veh_Helicopter_01.fbx" id="59_fas80"]
+[ext_resource type="PackedScene" uid="uid://co5c2mj1daafm" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Bus_01.tscn" id="60_fas80"]
+[ext_resource type="PackedScene" uid="uid://dywbetky8hvxx" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Convertable_01.tscn" id="61_7jov0"]
+[ext_resource type="PackedScene" uid="uid://dkmrtm8xjx3fq" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_SchoolBus_01.tscn" id="62_b21et"]
+[ext_resource type="PackedScene" uid="uid://g7lcjecwr8gl" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Firetruck_01.tscn" id="63_y8gwg"]
+[ext_resource type="PackedScene" uid="uid://dbi6bge60iaov" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Pickup_01.tscn" id="64_isja3"]
+[ext_resource type="PackedScene" uid="uid://dw22qthj6mycg" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_Delivery_01.tscn" id="65_7jov0"]
+[ext_resource type="PackedScene" uid="uid://cff3asicknkww" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_Garbage_01.tscn" id="66_y8gwg"]
+[ext_resource type="PackedScene" uid="uid://dc8tgbh2pmvfq" path="res://PolygonTown/Prefabs/Vehicles/SM_Veh_Truck_01.tscn" id="67_isja3"]
+[ext_resource type="ArrayMesh" uid="uid://dwr1c00ygd8qp" path="res://PolygonFarm/Models/SM_Prop_Box_Apple_01.fbx" id="68_xj1l6"]
+[ext_resource type="ArrayMesh" uid="uid://1gaw6ngkckb2" path="res://PolygonFarm/Models/SM_Prop_Box_Apple_02.fbx" id="69_g37p8"]
+[ext_resource type="ArrayMesh" uid="uid://5isej5dm456c" path="res://PolygonFarm/Models/SM_Prop_Box_Apricot_01.fbx" id="70_upiae"]
+[ext_resource type="ArrayMesh" uid="uid://7h5upj3q8hiy" path="res://PolygonFarm/Models/SM_Prop_Box_Carrot_01.fbx" id="71_gaw60"]
+[ext_resource type="ArrayMesh" uid="uid://br1gcqhflu6ju" path="res://PolygonFarm/Models/SM_Prop_Box_Cucumber_01.fbx" id="72_nhve6"]
+[ext_resource type="ArrayMesh" uid="uid://f2j2xg32xrvn" path="res://PolygonFarm/Models/SM_Prop_Box_Eggplant_01.fbx" id="73_508ky"]
+[ext_resource type="ArrayMesh" uid="uid://dy7xoibvpbjt4" path="res://PolygonFarm/Models/SM_Prop_Box_Onion_01.fbx" id="74_2ve5s"]
+[ext_resource type="ArrayMesh" uid="uid://c85qynrwysbet" path="res://PolygonFarm/Models/SM_Prop_Box_Peach_01.fbx" id="75_46bq3"]
+[ext_resource type="ArrayMesh" uid="uid://coqfkajvkgqe4" path="res://PolygonFarm/Models/SM_Prop_Box_Plum_01.fbx" id="76_4jnb0"]
+[ext_resource type="ArrayMesh" uid="uid://b5rtq2whhs4ow" path="res://PolygonFarm/Models/SM_Prop_Box_Potato_01.fbx" id="77_sou4l"]
+[ext_resource type="ArrayMesh" uid="uid://bg81ndthwnrwg" path="res://SICSFarm/TFP_Apple_Box_Large_01A.fbx" id="78_xkwpb"]
+[ext_resource type="ArrayMesh" uid="uid://cjooq2mmxpe11" path="res://SICSFarm/TFP_Apple_Box_Large_01B.fbx" id="79_e5b2w"]
+[ext_resource type="ArrayMesh" uid="uid://emig06bmfjmp" path="res://SICSFarm/TFP_Apple_Box_Large_01C.fbx" id="80_w1qfa"]
+[ext_resource type="ArrayMesh" uid="uid://xlffrev0q8b5" path="res://SICSFarm/TFP_Apple_Box_Large_01D.fbx" id="81_apj2w"]
+[ext_resource type="ArrayMesh" uid="uid://dy6pldtj1bmfp" path="res://SICSFarm/TFP_Apple_Box_Small_01A.fbx" id="82_j4p8c"]
+[ext_resource type="ArrayMesh" uid="uid://mqj8k30jytkp" path="res://SICSFarm/TFP_Apple_Box_Small_01B.fbx" id="83_jdvqn"]
+[ext_resource type="ArrayMesh" uid="uid://dc0o07xd7jb5g" path="res://SICSFarm/TFP_Apple_Box_Small_01C.fbx" id="84_8mprh"]
+[ext_resource type="ArrayMesh" uid="uid://chuh5hegck255" path="res://SICSFarm/TFP_Apple_Box_Small_01D.fbx" id="85_tgedx"]
+[ext_resource type="ArrayMesh" uid="uid://d7x3xy5y0qpk" path="res://SICSFarm/TFP_Asparagus_Box_Small_01A.fbx" id="86_ji3fu"]
+[ext_resource type="ArrayMesh" uid="uid://drh774pjil2y7" path="res://SICSFarm/TFP_Banana_Box_Large_01A.fbx" id="87_fqhox"]
+[ext_resource type="ArrayMesh" uid="uid://ds2fswi5g8kld" path="res://SICSFarm/TFP_Banana_Box_Large_01B.fbx" id="88_dm7eq"]
+[ext_resource type="ArrayMesh" uid="uid://bd7pxvwmoubh4" path="res://SICSFarm/TFP_Banana_Box_Large_01C.fbx" id="89_tmlmy"]
+[ext_resource type="ArrayMesh" uid="uid://c3cc6fkk41nn8" path="res://SICSFarm/TFP_Banana_Box_Small_01A.fbx" id="90_tuacx"]
+[ext_resource type="ArrayMesh" uid="uid://cq14877xvdw6a" path="res://SICSFarm/TFP_Banana_Box_Small_01B.fbx" id="91_bhdft"]
+[ext_resource type="ArrayMesh" uid="uid://cde8iqt3swshl" path="res://SICSFarm/TFP_Banana_Box_Small_01C.fbx" id="92_eukk2"]
+[ext_resource type="ArrayMesh" uid="uid://d2s0ui4w2cpeh" path="res://SICSFarm/TFP_Bell_Pepper_Box_Large_01A.fbx" id="93_48y0b"]
+[ext_resource type="ArrayMesh" uid="uid://ddxhxmmarctm8" path="res://SICSFarm/TFP_Bell_Pepper_Box_Large_01B.fbx" id="94_phfmg"]
+[ext_resource type="ArrayMesh" uid="uid://bp0qjjiwpwakn" path="res://SICSFarm/TFP_Bell_Pepper_Box_Large_01C.fbx" id="95_xj78t"]
+[ext_resource type="ArrayMesh" uid="uid://m3cxvw75mljo" path="res://SICSFarm/TFP_Bell_Pepper_Box_Small_01A.fbx" id="96_i318l"]
+[ext_resource type="ArrayMesh" uid="uid://co6l1sdy3jdyh" path="res://SICSFarm/TFP_Bell_Pepper_Box_Small_01B.fbx" id="97_pcr0i"]
+[ext_resource type="ArrayMesh" uid="uid://3v0rxw1dt01x" path="res://SICSFarm/TFP_Bell_Pepper_Box_Small_01C.fbx" id="98_m8e2o"]
 
 [node name="CountryTown" type="Node3D" unique_id=1267138773]
 script = ExtResource("26_country_town")
@@ -280,244 +325,253 @@ surface_material_override/0 = ExtResource("32_akb4b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 129.12213, 5.5391474, 239.86473)
 
 [node name="TFP_Calf_01A" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="0" unique_id=846683324]
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01L" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="1" unique_id=1449912350]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01K" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="2" unique_id=1328773705]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01J" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="3" unique_id=422582327]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01I" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="4" unique_id=1579714467]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01H" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="5" unique_id=1194577643]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01G" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="6" unique_id=526533429]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01F" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="7" unique_id=277205043]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01E" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="8" unique_id=1284894188]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01D" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="9" unique_id=1995742974]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01C" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="10" unique_id=123376109]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Calf_01B" parent="TFP_Calf_01/RIG_Calf_01/Skeleton3D" parent_id_path=PackedInt32Array(1764964226, 601776355) index="11" unique_id=1690939829]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
-
-[node name="TFP_Female_Beekeeper_01" parent="." unique_id=1383998819 instance=ExtResource("43_0fj1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 129.26277, 5.542617, 238.26263)
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01" parent="." unique_id=540757246 instance=ExtResource("44_86civ")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.221954, 5.9707875, 234.2293)
 
 [node name="TFP_Horse_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="0" unique_id=1506453753]
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Bridles_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="1" unique_id=1876063452]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="2" unique_id=1896455196]
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_02A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="3" unique_id=652459205]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Saddle_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="4" unique_id=1099902500]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="5" unique_id=913001473]
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_02A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="6" unique_id=1117807029]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01G" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="7" unique_id=1472978908]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01F" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="8" unique_id=1814285251]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01E" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="9" unique_id=1124080265]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="10" unique_id=1921907580]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="11" unique_id=992787593]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="12" unique_id=1731595550]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01H" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="13" unique_id=1470573484]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_01I" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="14" unique_id=905386654]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_01B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="15" unique_id=575067439]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_02B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="16" unique_id=249264698]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_01B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="17" unique_id=1332776915]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_02B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="18" unique_id=1808834593]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_01C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="19" unique_id=1671795223]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_02C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="20" unique_id=1797819454]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_01C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="21" unique_id=1874940646]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_02C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="22" unique_id=1141667338]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_01D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="23" unique_id=1913215102]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_02D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="24" unique_id=2062959511]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_01D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="25" unique_id=1695746286]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_02D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="26" unique_id=2097646851]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_01E" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="27" unique_id=1934291114]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Mane_02E" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="28" unique_id=1533979263]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_01E" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="29" unique_id=629800065]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Tail_02E" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="30" unique_id=1638993614]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Bridles_01B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="31" unique_id=1413215326]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Saddle_01B" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="32" unique_id=2084376475]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Bridles_01C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="33" unique_id=1832307123]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Saddle_01C" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="34" unique_id=756703286]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Bridles_01D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="35" unique_id=1356676492]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Horse_Saddle_01D" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="36" unique_id=160933190]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Unicorn_Horn_01A" parent="TFP_Horse_01/RIG_Horse_01/Skeleton3D" parent_id_path=PackedInt32Array(540757246, 1205884374) index="37" unique_id=764640777]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Kid_01" parent="." unique_id=1789213020 instance=ExtResource("45_sqbom")]
 transform = Transform3D(-0.657649, -0.0343972, 0.7525387, -0.013919864, 0.9993413, 0.03351344, -0.75319576, 0.0115648685, -0.6576946, 131.69727, 5.560913, 239.39215)
@@ -525,38 +579,38 @@ transform = Transform3D(-0.657649, -0.0343972, 0.7525387, -0.013919864, 0.999341
 [node name="TFP_Kid_01A" parent="TFP_Kid_01/RIG_Kid_01/Skeleton3D" parent_id_path=PackedInt32Array(1789213020, 914120329) index="0" unique_id=1638266968]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Kid_01D" parent="TFP_Kid_01/RIG_Kid_01/Skeleton3D" parent_id_path=PackedInt32Array(1789213020, 914120329) index="1" unique_id=609496193]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Kid_01C" parent="TFP_Kid_01/RIG_Kid_01/Skeleton3D" parent_id_path=PackedInt32Array(1789213020, 914120329) index="2" unique_id=1562971753]
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Kid_01B" parent="TFP_Kid_01/RIG_Kid_01/Skeleton3D" parent_id_path=PackedInt32Array(1789213020, 914120329) index="3" unique_id=2046976661]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Lamb_01" parent="." unique_id=65638520 instance=ExtResource("46_nutou")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.87793, 5.772339, 228.10193)
 
 [node name="TFP_Lamb_01A" parent="TFP_Lamb_01/RIG_Lamb_01/Skeleton3D" parent_id_path=PackedInt32Array(65638520, 1826236738) index="0" unique_id=2085200789]
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Lamb_01C" parent="TFP_Lamb_01/RIG_Lamb_01/Skeleton3D" parent_id_path=PackedInt32Array(65638520, 1826236738) index="1" unique_id=2127803290]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Lamb_01B" parent="TFP_Lamb_01/RIG_Lamb_01/Skeleton3D" parent_id_path=PackedInt32Array(65638520, 1826236738) index="2" unique_id=327233675]
 visible = false
 layers = 16
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Sheep_01" parent="." unique_id=1884971035 instance=ExtResource("47_60mxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.38214, 6.012085, 235.48212)
@@ -605,67 +659,79 @@ bones/31/rotation = Quaternion(-0.432393, 1.8887779e-07, 4.144266e-07, 0.9016852
 bones/32/rotation = Quaternion(-0.34258622, 0.0013958492, -0.0011112716, 0.9394847)
 
 [node name="TFP_Sheep_01A" parent="TFP_Sheep_01/RIG_Sheep_01/Skeleton3D" index="0" unique_id=505679372]
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Sheep_01C" parent="TFP_Sheep_01/RIG_Sheep_01/Skeleton3D" index="1" unique_id=2124554241]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Sheep_01B" parent="TFP_Sheep_01/RIG_Sheep_01/Skeleton3D" index="2" unique_id=569747805]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01" parent="." unique_id=816487052 instance=ExtResource("48_j6tm7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.863953, 6.0018616, 233.81696)
 
 [node name="TFP_Chicken_01A" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="0" unique_id=715096620]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01B" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="1" unique_id=781574815]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01C" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="2" unique_id=1796877885]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01D" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="3" unique_id=1213185375]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01E" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="4" unique_id=1609234143]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01F" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="5" unique_id=1384823626]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01G" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="6" unique_id=941098357]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chicken_01H" parent="TFP_Chicken_01/RIG_Chicken_01/Skeleton3D" parent_id_path=PackedInt32Array(816487052, 863110731) index="7" unique_id=764337860]
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chick_01" parent="." unique_id=2029977697 instance=ExtResource("49_fas80")]
 transform = Transform3D(-0.8383696, 0, 0.54510224, 0, 1, 0, -0.54510224, 0, -0.8383696, 35.154602, 6.0119324, 233.26355)
 
 [node name="TFP_Chick_01A" parent="TFP_Chick_01/RIG_Chick_01/Skeleton3D" parent_id_path=PackedInt32Array(2029977697, 1084875396) index="0" unique_id=801665140]
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chick_01B" parent="TFP_Chick_01/RIG_Chick_01/Skeleton3D" parent_id_path=PackedInt32Array(2029977697, 1084875396) index="1" unique_id=1236251128]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chick_01C" parent="TFP_Chick_01/RIG_Chick_01/Skeleton3D" parent_id_path=PackedInt32Array(2029977697, 1084875396) index="2" unique_id=363152596]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Chick_01D" parent="TFP_Chick_01/RIG_Chick_01/Skeleton3D" parent_id_path=PackedInt32Array(2029977697, 1084875396) index="3" unique_id=1047369088]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="SmPropChickenCoopCage01" type="MeshInstance3D" parent="." unique_id=837451284]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 35.022404, 6.0181684, 233.04578)
@@ -677,47 +743,418 @@ surface_material_override/0 = ExtResource("32_akb4b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.68457, 6.2076416, 231.85779)
 
 [node name="TFP_Duckling_01A" parent="TFP_Duckling_01/RIG_Duckling_01/Skeleton3D" parent_id_path=PackedInt32Array(43675812, 371197858) index="0" unique_id=1317424840]
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("51_7l8la")
 
 [node name="TFP_Duckling_01D" parent="TFP_Duckling_01/RIG_Duckling_01/Skeleton3D" parent_id_path=PackedInt32Array(43675812, 371197858) index="1" unique_id=1773592047]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("51_7l8la")
 
 [node name="TFP_Duckling_01C" parent="TFP_Duckling_01/RIG_Duckling_01/Skeleton3D" parent_id_path=PackedInt32Array(43675812, 371197858) index="2" unique_id=303211347]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("51_7l8la")
 
 [node name="TFP_Duckling_01B" parent="TFP_Duckling_01/RIG_Duckling_01/Skeleton3D" parent_id_path=PackedInt32Array(43675812, 371197858) index="3" unique_id=879239975]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("51_7l8la")
 
 [node name="TFP_Duck_01" parent="." unique_id=583962245 instance=ExtResource("52_y8gwg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.00476, 6.2543945, 232.25958)
 
 [node name="TFP_Duck_01A" parent="TFP_Duck_01/RIG_Duck_01/Skeleton3D" parent_id_path=PackedInt32Array(583962245, 288281944) index="0" unique_id=25006674]
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Duck_01B" parent="TFP_Duck_01/RIG_Duck_01/Skeleton3D" parent_id_path=PackedInt32Array(583962245, 288281944) index="1" unique_id=2123400611]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Duck_01C" parent="TFP_Duck_01/RIG_Duck_01/Skeleton3D" parent_id_path=PackedInt32Array(583962245, 288281944) index="2" unique_id=40137390]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Duck_01D" parent="TFP_Duck_01/RIG_Duck_01/Skeleton3D" parent_id_path=PackedInt32Array(583962245, 288281944) index="3" unique_id=1749753601]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="TFP_Duck_01E" parent="TFP_Duck_01/RIG_Duck_01/Skeleton3D" parent_id_path=PackedInt32Array(583962245, 288281944) index="4" unique_id=1505055816]
 visible = false
-surface_material_override/0 = ExtResource("42_el0xb")
+layers = 16
+surface_material_override/0 = ExtResource("42_5qber")
 
 [node name="SmPropChickenCoop01" type="MeshInstance3D" parent="." unique_id=1248964821]
 transform = Transform3D(0.53398305, 0, 0.84549516, 0, 1, 0, -0.84549516, 0, 0.53398305, 33.28009, 5.9589844, 227.37225)
 layers = 128
 mesh = ExtResource("53_5qber")
 surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SM_Veh_Car_Ambo_01" parent="." unique_id=678543312 instance=ExtResource("54_86civ")]
+transform = Transform3D(0.020923236, 0, -0.9997811, 0, 1, 0, 0.9997811, 0, 0.020923236, 437.4193, 5.9740257, 215.338)
+
+[node name="SM_Veh_Car_Ambo_01" parent="SM_Veh_Car_Ambo_01" index="0" unique_id=8902281]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SM_Veh_Car_Ambo_Glass" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="0" unique_id=2128786205]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SM_Veh_Car_Ambo_Plates" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="1" unique_id=1387581418]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="Wheel_fl" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="2" unique_id=1643443806]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="Wheel_rl" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="3" unique_id=109513486]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="Wheel_fr" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="4" unique_id=528565237]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="Wheel_rr" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="5" unique_id=1292060463]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SteeringW" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="6" unique_id=938099380]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SM_Veh_Car_Ambo_Door_l" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="7" unique_id=1064553326]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SM_Veh_Car_Ambo_Door_r" parent="SM_Veh_Car_Ambo_01/SM_Veh_Car_Ambo_01" index="8" unique_id=323606889]
+layers = 8
+surface_material_override/0 = ExtResource("55_sqbom")
+
+[node name="SK_Veh_Car_Police_Heist_01" parent="." unique_id=1975445462 instance=ExtResource("56_nutou")]
+transform = Transform3D(-0.9868216, 0, 0.16181219, 0, 1, 0, -0.16181219, 0, -0.9868216, 468.01984, 5.879999, 182.15459)
+
+[node name="SK_Veh_Car_Police_Heist_01" parent="SK_Veh_Car_Police_Heist_01" index="0" unique_id=474090814]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Car_Police_Heist_Glass" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="0" unique_id=415082592]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Car_Police_Heist_Plates" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="1" unique_id=603238719]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_fr" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="2" unique_id=1424701316]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_rr" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="3" unique_id=1590534019]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_rl" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="4" unique_id=89139812]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_fl" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="5" unique_id=1933743125]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Car_Police_Heist_SteeringW" parent="SK_Veh_Car_Police_Heist_01/SK_Veh_Car_Police_Heist_01" index="6" unique_id=1480239243]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_SwatVan_01" parent="." unique_id=91769631 instance=ExtResource("58_j6tm7")]
+transform = Transform3D(-0.99975765, 0, 0.022013467, 0, 1, 0, -0.022013467, 0, -0.99975765, 476.0959, 5.909045, 182.46817)
+
+[node name="SK_Veh_SwatVan_01" parent="SK_Veh_SwatVan_01" index="0" unique_id=2016175736]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_SwatVan_Glass" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="0" unique_id=988617943]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_fr" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="1" unique_id=551135668]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_fl" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="2" unique_id=1678034773]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_rl" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="3" unique_id=2109118018]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="Wheel_rr" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="4" unique_id=1436792729]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_SwatVan_Door_r" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="5" unique_id=1496983431]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_SwatVan_Door_l" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01" index="6" unique_id=1304652597]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_SwatVan_Steering_01" parent="SK_Veh_SwatVan_01/SK_Veh_SwatVan_01/SK_Veh_SwatVan_Steering_01" parent_id_path=PackedInt32Array(91769631, 98126894) index="0" unique_id=1693926084]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_01" parent="." unique_id=608649392 instance=ExtResource("59_fas80")]
+transform = Transform3D(1.0000007, 0, -1.8626451e-09, 0, 1, 0, 1.8626451e-09, 0, 1.0000007, 535.383, 9.817177, 224.597)
+
+[node name="SK_Veh_Helicopter_01" parent="SK_Veh_Helicopter_01" index="0" unique_id=1301796477]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_Blades_Back_01" parent="SK_Veh_Helicopter_01/SK_Veh_Helicopter_01" index="0" unique_id=1488559967]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_Blades_Main_01" parent="SK_Veh_Helicopter_01/SK_Veh_Helicopter_01" index="1" unique_id=1795720438]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_Glass_01" parent="SK_Veh_Helicopter_01/SK_Veh_Helicopter_01" index="2" unique_id=998573412]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_Stick_01" parent="SK_Veh_Helicopter_01/SK_Veh_Helicopter_01" index="3" unique_id=1848773108]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SK_Veh_Helicopter_Stick_02" parent="SK_Veh_Helicopter_01/SK_Veh_Helicopter_01" index="4" unique_id=281930312]
+layers = 8
+surface_material_override/0 = ExtResource("57_60mxw")
+
+[node name="SM_Veh_Bus_01" parent="." unique_id=1018438488 instance=ExtResource("60_fas80")]
+transform = Transform3D(0.79210323, 0, -0.61038715, 0, 1, 0, 0.61038715, 0, 0.79210323, 526.2321, 5.8890095, 152.54744)
+layers = 8
+
+[node name="SM_Veh_Convertable_01" parent="." unique_id=1926716191 instance=ExtResource("61_7jov0")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 430.91748, 6.0557566, 325.39926)
+layers = 8
+
+[node name="SM_Veh_SchoolBus_01" parent="." unique_id=1237584294 instance=ExtResource("62_b21et")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 378.37854, 5.891616, 244.10243)
+layers = 8
+
+[node name="SM_Veh_Firetruck_01" parent="." unique_id=1564474710 instance=ExtResource("63_y8gwg")]
+transform = Transform3D(0.920684, 0, -0.39030892, 0, 1, 0, 0.39030892, 0, 0.920684, 541.00305, 6.0121603, 300.17084)
+layers = 8
+
+[node name="SM_Veh_Pickup_01" parent="." unique_id=389864728 instance=ExtResource("64_isja3")]
+transform = Transform3D(0.74737436, 0, -0.66440314, 0, 1, 0, 0.66440314, 0, 0.74737436, 328.23993, 5.880005, 367.5966)
+layers = 8
+
+[node name="SM_Veh_Truck_Delivery_01" parent="." unique_id=386257794 instance=ExtResource("65_7jov0")]
+transform = Transform3D(-0.86971277, 0, -0.49355823, 0, 1, 0, 0.49355823, 0, -0.86971277, 89.5488, 5.9390373, 110.46131)
+layers = 8
+
+[node name="SM_Veh_Truck_Garbage_01" parent="." unique_id=1112290404 instance=ExtResource("66_y8gwg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 508.4557, 5.914718, 78.56316)
+layers = 8
+
+[node name="SM_Veh_Truck_01" parent="." unique_id=1209554727 instance=ExtResource("67_isja3")]
+transform = Transform3D(0.036292106, 0, 0.99934125, 0, 1, 0, -0.99934125, 0, 0.036292106, 126.60957, 5.914718, 313.28885)
+layers = 8
+
+[node name="SmPropBoxApple01" type="MeshInstance3D" parent="." unique_id=2058758863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 123.797554, 7.1602683, 313.43228)
+layers = 512
+mesh = ExtResource("68_xj1l6")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxApple02" type="MeshInstance3D" parent="." unique_id=1054810996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.66871, 7.1602683, 313.48584)
+layers = 512
+mesh = ExtResource("69_g37p8")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxApricot01" type="MeshInstance3D" parent="." unique_id=344679307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.5118, 7.1602683, 313.49454)
+layers = 512
+mesh = ExtResource("70_upiae")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxCarrot01" type="MeshInstance3D" parent="." unique_id=1662093352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.26379, 7.1602683, 314.13058)
+layers = 512
+mesh = ExtResource("71_gaw60")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxCucumber01" type="MeshInstance3D" parent="." unique_id=1132360014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.188866, 7.1602683, 314.07703)
+layers = 512
+mesh = ExtResource("72_nhve6")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxEggplant01" type="MeshInstance3D" parent="." unique_id=536842081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.03824, 7.1602683, 314.09583)
+layers = 512
+mesh = ExtResource("73_508ky")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxOnion01" type="MeshInstance3D" parent="." unique_id=994329077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.51223, 7.2269506, 314.3322)
+layers = 512
+mesh = ExtResource("74_2ve5s")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxPeach01" type="MeshInstance3D" parent="." unique_id=1219878875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.61308, 7.2269506, 313.07413)
+layers = 512
+mesh = ExtResource("75_46bq3")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxPlum01" type="MeshInstance3D" parent="." unique_id=1422691463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.5771, 7.2269506, 313.74957)
+layers = 512
+mesh = ExtResource("76_4jnb0")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="SmPropBoxPotato01" type="MeshInstance3D" parent="." unique_id=1709615016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.59469, 7.2269506, 312.39764)
+layers = 512
+mesh = ExtResource("77_sou4l")
+surface_material_override/0 = ExtResource("32_akb4b")
+
+[node name="TfpAppleBoxLarge01a" type="MeshInstance3D" parent="." unique_id=692179655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.94805, 7.1612744, 312.4418)
+layers = 512
+mesh = ExtResource("78_xkwpb")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxLarge01b" type="MeshInstance3D" parent="." unique_id=34573415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.53512, 7.1612744, 312.4418)
+layers = 512
+mesh = ExtResource("79_e5b2w")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxLarge01c" type="MeshInstance3D" parent="." unique_id=1192779384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.12982, 7.1612744, 312.4418)
+layers = 512
+mesh = ExtResource("80_w1qfa")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxLarge01d" type="MeshInstance3D" parent="." unique_id=1270471580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.7225, 7.1612744, 312.4418)
+layers = 512
+mesh = ExtResource("81_apj2w")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxSmall01a" type="MeshInstance3D" parent="." unique_id=1491099212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.96913, 7.1612744, 312.15054)
+layers = 512
+mesh = ExtResource("82_j4p8c")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxSmall01b" type="MeshInstance3D" parent="." unique_id=1762181687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.630035, 7.1612744, 312.1502)
+layers = 512
+mesh = ExtResource("83_jdvqn")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxSmall01c" type="MeshInstance3D" parent="." unique_id=294969802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.27842, 7.1612744, 312.16028)
+layers = 512
+mesh = ExtResource("84_8mprh")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAppleBoxSmall01d" type="MeshInstance3D" parent="." unique_id=1515772822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 123.90729, 7.1612744, 312.256)
+layers = 512
+mesh = ExtResource("85_tgedx")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpAsparagusBoxSmall01a" type="MeshInstance3D" parent="." unique_id=48003056]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 123.524475, 7.1612744, 312.2766)
+layers = 512
+mesh = ExtResource("86_ji3fu")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxLarge01a" type="MeshInstance3D" parent="." unique_id=1678052595]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 123.524475, 7.1612744, 312.87698)
+layers = 512
+mesh = ExtResource("87_fqhox")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxLarge01b" type="MeshInstance3D" parent="." unique_id=1023136225]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 126.55801, 7.1612744, 313.1216)
+layers = 512
+mesh = ExtResource("88_dm7eq")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxLarge01c" type="MeshInstance3D" parent="." unique_id=1680697566]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 126.13072, 7.1612744, 313.11414)
+layers = 512
+mesh = ExtResource("89_tmlmy")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxSmall01a" type="MeshInstance3D" parent="." unique_id=941329956]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 124.9888, 7.1612744, 312.77206)
+layers = 512
+mesh = ExtResource("90_tuacx")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxSmall01b" type="MeshInstance3D" parent="." unique_id=216622887]
+transform = Transform3D(-0.049352773, 0, -0.9987815, 0, 1, 0, 0.9987815, 0, -0.049352773, 126.1754, 7.1612744, 313.64056)
+layers = 512
+mesh = ExtResource("91_bhdft")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBananaBoxSmall01c" type="MeshInstance3D" parent="." unique_id=526141693]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 125.35298, 7.1612744, 312.96838)
+layers = 512
+mesh = ExtResource("92_eukk2")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxLarge01a" type="MeshInstance3D" parent="." unique_id=1053867227]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 126.94114, 7.1612744, 313.58954)
+layers = 512
+mesh = ExtResource("93_48y0b")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxLarge01b" type="MeshInstance3D" parent="." unique_id=101591266]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 124.044624, 7.1612744, 312.83307)
+layers = 512
+mesh = ExtResource("94_phfmg")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxLarge01c" type="MeshInstance3D" parent="." unique_id=1239499980]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 124.54677, 7.161275, 312.76025)
+layers = 512
+mesh = ExtResource("95_xj78t")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxSmall01a" type="MeshInstance3D" parent="." unique_id=733438849]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 125.68148, 7.1612744, 313.00455)
+layers = 512
+mesh = ExtResource("96_i318l")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxSmall01b" type="MeshInstance3D" parent="." unique_id=1845081017]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 125.319, 7.1612744, 312.1629)
+layers = 512
+mesh = ExtResource("97_pcr0i")
+surface_material_override/0 = ExtResource("42_5qber")
+
+[node name="TfpBellPepperBoxSmall01c" type="MeshInstance3D" parent="." unique_id=818615082]
+transform = Transform3D(0.9987814, 0, -0.049352724, 0, 1, 0, 0.049352724, 0, 0.9987814, 127.00144, 7.1612744, 313.01443)
+layers = 512
+mesh = ExtResource("98_m8e2o")
+surface_material_override/0 = ExtResource("42_5qber")
 
 [editable path="Minimap"]
 [editable path="SM_Prop_Weathervane_01"]
@@ -738,3 +1175,7 @@ surface_material_override/0 = ExtResource("32_akb4b")
 [editable path="TFP_Chick_01"]
 [editable path="TFP_Duckling_01"]
 [editable path="TFP_Duck_01"]
+[editable path="SM_Veh_Car_Ambo_01"]
+[editable path="SK_Veh_Car_Police_Heist_01"]
+[editable path="SK_Veh_SwatVan_01"]
+[editable path="SK_Veh_Helicopter_01"]
