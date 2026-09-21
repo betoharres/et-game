@@ -1,59 +1,74 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://bdbjnmdq8g0f5"]
 
-[ext_resource type="Script" path="res://scripts/npc/farmer_npc.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="2_model"]
-[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="3_material"]
-[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
-[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
-[ext_resource type="Script" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="7_idle_clip"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
+[ext_resource type="Script" uid="uid://cpol0sa1w3r76" path="res://scripts/npc/farmer_npc.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://daope04nb1g3w" path="res://PolygonFarm/Models/Characters.fbx" id="2_dlike"]
+[ext_resource type="Script" uid="uid://4ygwe14yqajp" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
+[ext_resource type="Script" uid="uid://bo2ar30nqq2s" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
+[ext_resource type="Script" uid="uid://c48qn0b5837pj" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
+[ext_resource type="PackedScene" uid="uid://ccnak8wjfwngc" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="7_idle_clip"]
+[ext_resource type="PackedScene" uid="uid://fm0wcras3r2n" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_farmer"]
 radius = 0.186
 height = 1.79
 
-[node name="Farmer" type="CharacterBody3D"]
+[node name="Farmer" type="CharacterBody3D" unique_id=1957161880]
 script = ExtResource("1_script")
 flashlight_path = NodePath("Flashlight")
 
-[node name="Character" parent="." instance=ExtResource("2_model")]
+[node name="Characters" parent="." unique_id=1279983862 instance=ExtResource("2_dlike")]
 
-[node name="PolygonSyntyCharacterMesh" parent="Character/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("3_material")
+[node name="SM_Chr_Scarecrow_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="0" unique_id=983708254]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="SM_Chr_FarmGirl_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="1" unique_id=4343131]
+visible = false
+
+[node name="SM_Chr_Farmer_Male_Old_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="2" unique_id=1363376578]
+visible = false
+
+[node name="SM_Chr_Farmer_Male_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="3" unique_id=874653896]
+visible = false
+
+[node name="SM_Chr_Farmer_Female_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="4" unique_id=1334791028]
+visible = false
+
+[node name="SM_Chr_FarmBoy_01" parent="Characters/Skeleton3D" parent_id_path=PackedInt32Array(1279983862, 592543278) index="5" unique_id=404889869]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2040419758]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925, 0)
 shape = SubResource("CapsuleShape3D_farmer")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1291864643]
 path_height_offset = 0.5
 
-[node name="NPCVision" type="Node3D" parent="."]
+[node name="NPCVision" type="Node3D" parent="." unique_id=1709270297]
 script = ExtResource("4_vision")
-eye_height = 1.6
 
-[node name="NPCHearing" type="Node3D" parent="."]
+[node name="NPCHearing" type="Node3D" parent="." unique_id=1202983529]
 script = ExtResource("5_hearing")
 
-[node name="Flashlight" type="SpotLight3D" parent="."]
+[node name="Flashlight" type="SpotLight3D" parent="." unique_id=844302304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.3)
+visible = false
 light_color = Color(1, 0.92, 0.75, 1)
 light_energy = 2.5
 spot_range = 12.0
 spot_angle = 30.0
-visible = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Character")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1676111038]
+root_node = NodePath("")
 
-[node name="NPCAnimation" type="Node" parent="."]
+[node name="NPCAnimation" type="Node" parent="." unique_id=1146574930]
 script = ExtResource("6_animation")
 idle_clip = ExtResource("7_idle_clip")
 walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
-[node name="NPCBehaviorTree" parent="." instance=ExtResource("9_tree")]
+[node name="NPCBehaviorTree" parent="." unique_id=1208074523 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
+blackboard = NodePath("@Node@135864")
+actor = NodePath("..")
 
-[editable path="Character"]
+[editable path="Characters"]

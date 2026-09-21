@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ce0jnhh6w7vnk"]
+
+[ext_resource type="Texture2D" uid="uid://bw1cplsjie4f3" path="res://SICSFarm/textures/TFP_Atlas_1A.png" id="1_o1nfi"]
+
+[resource]
+albedo_texture = ExtResource("1_o1nfi")

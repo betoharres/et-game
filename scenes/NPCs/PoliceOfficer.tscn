@@ -1,50 +1,86 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://bi22jsfn6wpm0"]
 
-[ext_resource type="Script" path="res://scripts/npc/police_npc.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="2_model"]
-[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="3_material"]
-[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
-[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
-[ext_resource type="Script" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="7_idle_clip"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
+[ext_resource type="Script" uid="uid://d2swkxr36j4av" path="res://scripts/npc/police_npc.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://4ygwe14yqajp" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
+[ext_resource type="Script" uid="uid://bo2ar30nqq2s" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
+[ext_resource type="Script" uid="uid://c48qn0b5837pj" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
+[ext_resource type="PackedScene" uid="uid://ccnak8wjfwngc" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="7_idle_clip"]
+[ext_resource type="PackedScene" uid="uid://e8o2r1uoeidf" path="res://PolygonCity/Characters/SK_Character_Female_Police.fbx" id="8_8nfhu"]
+[ext_resource type="PackedScene" uid="uid://fm0wcras3r2n" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
+[ext_resource type="PackedScene" uid="uid://5l1q2c3jawkp" path="res://PolygonCity/Characters/SK_Character_Male_Police.fbx" id="9_egaoe"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
+[ext_resource type="PackedScene" uid="uid://ccw26705pyts2" path="res://PolygonHeist/FBX/Characters/SK_Character_Female_FBI.fbx" id="10_1ieu1"]
+[ext_resource type="Material" uid="uid://5hesgg1i11su" path="res://Materiais/PolygonHeist1A.tres" id="11_pj0l3"]
+[ext_resource type="PackedScene" uid="uid://bdwy6abm26cqq" path="res://PolygonHeist/FBX/Characters/SK_Character_Male_FBI.fbx" id="12_5ptbg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_police"]
 radius = 0.186
 height = 1.79
 
-[node name="PoliceOfficer" type="CharacterBody3D"]
+[node name="PoliceOfficer" type="CharacterBody3D" unique_id=333706218]
 script = ExtResource("1_script")
 
-[node name="Character" parent="." instance=ExtResource("2_model")]
-
-[node name="PolygonSyntyCharacterMesh" parent="Character/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("3_material")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=67381482]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925, 0)
 shape = SubResource("CapsuleShape3D_police")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=65688454]
 path_height_offset = 0.5
 
-[node name="NPCVision" type="Node3D" parent="."]
+[node name="NPCVision" type="Node3D" parent="." unique_id=975852193]
 script = ExtResource("4_vision")
-eye_height = 1.6
 
-[node name="NPCHearing" type="Node3D" parent="."]
+[node name="NPCHearing" type="Node3D" parent="." unique_id=744178476]
 script = ExtResource("5_hearing")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Character")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=913930306]
+root_node = NodePath("")
 
-[node name="NPCAnimation" type="Node" parent="."]
+[node name="NPCAnimation" type="Node" parent="." unique_id=2142012693]
 script = ExtResource("6_animation")
 idle_clip = ExtResource("7_idle_clip")
 walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
-[node name="NPCBehaviorTree" parent="." instance=ExtResource("9_tree")]
+[node name="NPCBehaviorTree" parent="." unique_id=1782222566 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
+blackboard = NodePath("@Node@146502")
+actor = NodePath("..")
 
-[editable path="Character"]
+[node name="SK_Character_Female_Police" parent="." unique_id=2126720018 instance=ExtResource("8_8nfhu")]
+
+[node name="Skeleton3D" parent="SK_Character_Female_Police/Root" parent_id_path=PackedInt32Array(2126720018, 1549842448) index="0" unique_id=1450919337]
+bones/2/rotation = Quaternion(0.99518615, 0.09800279, 5.2735594e-16, -3.8857806e-16)
+bones/3/rotation = Quaternion(0.99381036, 0.111090325, -1.9428906e-16, -9.15934e-16)
+bones/23/rotation = Quaternion(0.6324858, -0.57854754, -0.37547135, -0.3525134)
+bones/38/rotation = Quaternion(-0.04177525, 0.7058717, -0.70419, 0.064159356)
+bones/40/rotation = Quaternion(0.85767007, -0.507213, -0.03975271, -0.074543595)
+bones/43/rotation = Quaternion(-0.7058717, -0.041775245, 0.06415936, 0.70419)
+bones/45/rotation = Quaternion(0.85767007, -0.507213, -0.03975271, -0.074543595)
+
+[node name="Character_Female_Police" parent="SK_Character_Female_Police/Root/Skeleton3D" index="0" unique_id=1973918401]
+layers = 16
+
+[node name="SK_Character_Male_Police" parent="." unique_id=1440427923 instance=ExtResource("9_egaoe")]
+
+[node name="Character_Male_Police" parent="SK_Character_Male_Police/Root/Skeleton3D" parent_id_path=PackedInt32Array(1440427923, 1146463864) index="0" unique_id=2004581713]
+visible = false
+layers = 16
+
+[node name="SK_Character_Female_FBI" parent="." unique_id=173455825 instance=ExtResource("10_1ieu1")]
+
+[node name="Character_Female_FBI" parent="SK_Character_Female_FBI/Root/Skeleton3D" parent_id_path=PackedInt32Array(173455825, 1469020492) index="0" unique_id=1452361498]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("11_pj0l3")
+
+[node name="SK_Character_Male_FBI" parent="." unique_id=1862613651 instance=ExtResource("12_5ptbg")]
+
+[node name="Character_Male_FBI" parent="SK_Character_Male_FBI/Root/Skeleton3D" parent_id_path=PackedInt32Array(1862613651, 853261477) index="0" unique_id=1119706119]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("11_pj0l3")
+
+[editable path="SK_Character_Female_Police"]
+[editable path="SK_Character_Male_Police"]
+[editable path="SK_Character_Female_FBI"]
+[editable path="SK_Character_Male_FBI"]
