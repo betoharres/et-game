@@ -1,9 +1,5 @@
-[gd_scene format=3]
+﻿[gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Districts/RiverWater.tscn" id="1_riverwater"]
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/RiverBridge.tscn" id="2_riverbridge"]
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/WoodenDock.tscn" id="3_woodendock"]
-[ext_resource type="PackedScene" path="res://scenes/FX/FogZone.tscn" id="4_fogzone"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="5_rock_large_01"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="6_rock_large_02"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_01a.tscn" id="7_rock_medium_01"]
@@ -12,6 +8,126 @@
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_01a.tscn" id="10_rock_small_01"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="11_rock_small_02"]
 [ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_03a.tscn" id="12_rock_small_03"]
+
+[ext_resource type="Material" path="res://Materiais/ea_water_countryTown.tres" id="rd_water_1_x2fsn"]
+
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Underside_01.fbx" id="rd_bridge_1_sm_env_bridge_underside_01"]
+[ext_resource type="Material" path="res://Materiais/PolygonCity1A.tres" id="rd_bridge_2_polygoncity1a"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Edge_01.fbx" id="rd_bridge_3_sm_env_bridge_edge_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Wall_01.fbx" id="rd_bridge_4_sm_env_bridge_wall_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Support_01.fbx" id="rd_bridge_5_sm_env_bridge_support_01"]
+[ext_resource type="ArrayMesh" path="res://PolygonCity/FBX/SM_Env_Bridge_Pillar_01.fbx" id="rd_bridge_6_sm_env_bridge_pillar_01"]
+
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_01.tscn" id="rd_dock_1_sm_bld_house_deck_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_End_01.tscn" id="rd_dock_2_sm_bld_house_deck_end_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_02.tscn" id="rd_dock_3_sm_bld_house_deck_02"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_03.tscn" id="rd_dock_4_sm_bld_house_deck_03"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_Rail_01.tscn" id="rd_dock_5_sm_bld_house_deck_rail_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_Post_01.tscn" id="rd_dock_6_sm_bld_house_deck_post_01"]
+[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_DeckSteps_01.tscn" id="rd_dock_7_sm_bld_house_decksteps_01"]
+
+[ext_resource type="Script" path="res://scripts/fog_zone.gd" id="rd_fog_1_fog_zone"]
+
+
+
+[sub_resource type="StandardMaterial3D" id="rd_dock_wd_shelter_StandardMaterial3D_yv26m"]
+albedo_color = Color(0.23, 0.16, 0.1, 1)
+[sub_resource type="PrismMesh" id="rd_dock_wd_shelter_PrismMesh_lod8u"]
+size = Vector3(4.8, 1.7, 5.5)
+[sub_resource type="BoxMesh" id="rd_dock_wd_shelter_BoxMesh_tn23c"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="rd_dock_wd_shelter_BoxMesh_ww88k"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="rd_dock_wd_shelter_BoxMesh_vgjlq"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="rd_dock_wd_shelter_BoxMesh_mjsoe"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[sub_resource type="BoxShape3D" id="rd_bridge_BoxShape3D_deck"]
+size = Vector3(36.4, 0.4, 5)
+[sub_resource type="BoxShape3D" id="rd_bridge_BoxShape3D_parapet"]
+size = Vector3(35, 1.6, 0.7)
+
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_jy4bo"]
+size = Vector2(17, 84.91659)
+subdivide_width = 4
+subdivide_depth = 14
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_wud1u"]
+size = Vector2(17, 57.187046)
+subdivide_width = 4
+subdivide_depth = 9
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_masx7"]
+size = Vector2(17, 57.331398)
+subdivide_width = 4
+subdivide_depth = 9
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_2mcnt"]
+size = Vector2(17, 54.51316)
+subdivide_width = 4
+subdivide_depth = 9
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_rxmxx"]
+size = Vector2(17, 70.73008)
+subdivide_width = 4
+subdivide_depth = 11
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_agj7y"]
+size = Vector2(17, 61.107307)
+subdivide_width = 4
+subdivide_depth = 10
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_k4b7t"]
+size = Vector2(17, 51.157864)
+subdivide_width = 4
+subdivide_depth = 8
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_gmnu5"]
+size = Vector2(17, 45.57861)
+subdivide_width = 4
+subdivide_depth = 7
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_otqal"]
+size = Vector2(17, 42.014683)
+subdivide_width = 4
+subdivide_depth = 7
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_dqn3g"]
+size = Vector2(19, 43.847355)
+subdivide_width = 4
+subdivide_depth = 7
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_wym1u"]
+size = Vector2(22, 43.32121)
+subdivide_width = 4
+subdivide_depth = 7
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_fw15c"]
+size = Vector2(26, 28.02801)
+subdivide_width = 4
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_bd6cr"]
+size = Vector2(32, 22.939846)
+subdivide_width = 4
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_j0noq"]
+size = Vector2(45, 24.957397)
+subdivide_width = 5
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_gex37"]
+size = Vector2(60, 25.253984)
+subdivide_width = 7
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_b5ff4"]
+size = Vector2(80, 26.193352)
+subdivide_width = 10
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_r48io"]
+size = Vector2(105, 26.585405)
+subdivide_width = 13
+subdivide_depth = 4
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_7klxw"]
+size = Vector2(140, 36.666733)
+subdivide_width = 17
+subdivide_depth = 6
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_5tovh"]
+size = Vector2(180, 40.698174)
+subdivide_width = 22
+subdivide_depth = 6
+[sub_resource type="PlaneMesh" id="rd_water_PlaneMesh_px15k"]
+size = Vector2(230, 136.76888)
+subdivide_width = 28
+subdivide_depth = 22
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_river_rock_l"]
 size = Vector3(4, 3.5, 4)
@@ -23,17 +139,6 @@ size = Vector3(2.6, 2.2, 2.6)
 size = Vector3(1.8, 1.6, 1.8)
 
 [node name="RiverDistrict" type="Node3D"]
-
-[node name="RiverWater" parent="." instance=ExtResource("1_riverwater")]
-
-[node name="BridgeNorth" parent="." instance=ExtResource("2_riverbridge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 318.18723, 6.273, 167.46)
-
-[node name="BridgeSouth" parent="." instance=ExtResource("2_riverbridge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.9, 6.273, 298.48)
-
-[node name="Dock" parent="." instance=ExtResource("3_woodendock")]
-transform = Transform3D(0.5664, 0, -0.8241, 0, 1, 0, 0.8241, 0, 0.5664, 50, 6.15, 365)
 
 [node name="RiverRocks" type="Node3D" parent="."]
 
@@ -202,27 +307,567 @@ shape = SubResource("BoxShape3D_river_rock_s")
 
 [node name="RiverFog" type="Node3D" parent="."]
 
-[node name="FogRiver01" parent="RiverFog" instance=ExtResource("4_fogzone")]
+[node name="RiverWater" type="Node3D" parent="."]
+
+[node name="WaterPlane01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999527, 0, -0.030754918, 0, 1, 0, 0.030754918, 0, 0.999527, 351.27856, 3.6, -16.553802)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_jy4bo")
+
+[node name="WaterPlane02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.98386985, 0, -0.17888579, 0, 1, 0, 0.17888579, 0, 0.98386985, 345.04333, 3.6, 52.26175)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_wud1u")
+
+[node name="WaterPlane03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9895865, 0, -0.1439396, 0, 1, 0, 0.1439396, 0, 0.9895865, 335.93152, 3.6, 107.97084)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_masx7")
+
+[node name="WaterPlane04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.92015463, 0, -0.39155516, 0, 1, 0, 0.39155516, 0, 0.92015463, 321.85696, 3.6, 158.83612)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_2mcnt")
+
+[node name="WaterPlane05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6770565, 0, -0.73593104, 0, 1, 0, 0.73593104, 0, 0.6770565, 287.50647, 3.6, 204.53403)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_rxmxx")
+
+[node name="WaterPlane06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5943911, 0, -0.80417615, 0, 1, 0, 0.80417615, 0, 0.5943911, 237.9974, 3.6, 245.74103)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_agj7y")
+
+[node name="WaterPlane07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9647638, 0, -0.26311743, 0, 1, 0, 0.26311743, 0, 0.9647638, 210.11163, 3.6, 283.5907)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_k4b7t")
+
+[node name="WaterPlane08" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7310555, 0, -0.682318, 0, 1, 0, 0.682318, 0, 0.7310555, 190.05469, 3.6, 320.9414)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_gmnu5")
+
+[node name="WaterPlane09" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.36244616, 0, -0.9320047, 0, 1, 0, 0.9320047, 0, 0.36244616, 158.46295, 3.6, 342.81995)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_otqal")
+
+[node name="WaterPlane10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.14834036, 0, -0.98893636, 0, 1, 0, 0.98893636, 0, 0.14834036, 119.61325, 3.6, 353.058)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_dqn3g")
+
+[node name="WaterPlane11" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.50702, 0, -0.8619343, 0, 1, 0, 0.8619343, 0, 0.50702, 83.38284, 3.6, 365.7748)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_wym1u")
+
+[node name="WaterPlane12" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6866235, 0, -0.7270132, 0, 1, 0, 0.7270132, 0, 0.6866235, 57.06168, 3.6, 384.44174)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_fw15c")
+
+[node name="WaterPlane13" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.816968, 0, -0.576683, 0, 1, 0, 0.576683, 0, 0.816968, 42.452175, 3.6, 400.85944)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_bd6cr")
+
+[node name="WaterPlane14" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8192318, 0, -0.57346255, 0, 1, 0, 0.57346255, 0, 0.8192318, 29.0127, 3.6, 419.98187)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_j0noq")
+
+[node name="WaterPlane15" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.81923205, 0, -0.5734622, 0, 1, 0, 0.5734622, 0, 0.81923205, 14.902264, 3.6, 440.13965)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_gex37")
+
+[node name="WaterPlane16" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.83205044, 0, -0.5547, 0, 1, 0, 0.5547, 0, 0.83205044, 1.1260519, 3.6, 460.3109)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_b5ff4")
+
+[node name="WaterPlane17" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8320502, 0, -0.5547004, 0, 1, 0, 0.5547004, 0, 0.8320502, -13.234793, 3.6, 481.85217)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_r48io")
+
+[node name="WaterPlane18" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8137334, 0, -0.58123827, 0, 1, 0, 0.58123827, 0, 0.8137334, -29.854677, 3.6, 505.79657)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_7klxw")
+
+[node name="WaterPlane19" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8240416, 0, -0.5665293, 0, 1, 0, 0.5665293, 0, 0.8240416, -50.928787, 3.6, 535.8964)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_5tovh")
+
+[node name="WaterPlane20" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.81696784, 0, -0.5766832, 0, 1, 0, 0.5766832, 0, 0.81696784, -100.88162, 3.6, 607.0823)
+material_override = ExtResource("rd_water_1_x2fsn")
+cast_shadow = 0
+mesh = SubResource("rd_water_PlaneMesh_px15k")
+
+[node name="BridgeNorth" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 318.18723, 6.273, 167.46)
+
+[node name="Deck01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck05" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck06" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck07" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -12.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -7.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -2.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 2.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 7.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 12.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 17.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -17.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -12.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -7.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -2.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 2.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 7.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 12.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="AbutmentW" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -18.053, 1.266, 2.5)
+mesh = ExtResource("rd_bridge_4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="AbutmentE" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 18.053, 1.266, -2.5)
+mesh = ExtResource("rd_bridge_4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Support" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 0)
+mesh = ExtResource("rd_bridge_5_sm_env_bridge_support_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Pillar01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.03, 0)
+mesh = ExtResource("rd_bridge_6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Pillar02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -6.03, 0)
+mesh = ExtResource("rd_bridge_6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Deck" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("rd_bridge_BoxShape3D_deck")
+
+[node name="ParapetNorth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2.85)
+shape = SubResource("rd_bridge_BoxShape3D_parapet")
+
+[node name="ParapetSouth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2.85)
+shape = SubResource("rd_bridge_BoxShape3D_parapet")
+
+[node name="BridgeSouth" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.9, 6.273, 298.48)
+
+[node name="Deck01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck03" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck04" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck05" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck06" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Deck07" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.878, 2.5)
+mesh = ExtResource("rd_bridge_1_sm_env_bridge_underside_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -12.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -7.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, -2.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 2.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 7.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 12.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeN07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 0.62, 0, -1, 0, 0, 17.5, 0.5336, -2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -17.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS02" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -12.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS03" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -7.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS04" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, -2.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS05" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 2.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS06" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 7.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="EdgeS07" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 0.62, 0, 1, 0, 0, 12.5, 0.5336, 2.036)
+mesh = ExtResource("rd_bridge_3_sm_env_bridge_edge_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="AbutmentW" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -18.053, 1.266, 2.5)
+mesh = ExtResource("rd_bridge_4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="AbutmentE" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 18.053, 1.266, -2.5)
+mesh = ExtResource("rd_bridge_4_sm_env_bridge_wall_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Support" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 0)
+mesh = ExtResource("rd_bridge_5_sm_env_bridge_support_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Pillar01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.03, 0)
+mesh = ExtResource("rd_bridge_6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Pillar02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -6.03, 0)
+mesh = ExtResource("rd_bridge_6_sm_env_bridge_pillar_01")
+surface_material_override/0 = ExtResource("rd_bridge_2_polygoncity1a")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Deck" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("rd_bridge_BoxShape3D_deck")
+
+[node name="ParapetNorth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2.85)
+shape = SubResource("rd_bridge_BoxShape3D_parapet")
+
+[node name="ParapetSouth" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2.85)
+shape = SubResource("rd_bridge_BoxShape3D_parapet")
+
+[node name="Dock" type="Node3D" parent="."]
+transform = Transform3D(0.5664, 0, -0.8241, 0, 1, 0, 0.8241, 0, 0.5664, 50, 6.15, 365)
+
+[node name="Deck01" parent="Dock" instance=ExtResource("rd_dock_1_sm_bld_house_deck_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
+
+[node name="DeckEndW01" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
+
+[node name="DeckEndE01" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 2.76)
+
+[node name="Deck02" parent="Dock" instance=ExtResource("rd_dock_3_sm_bld_house_deck_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 2.55)
+
+[node name="DeckEndW02" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 2.55)
+
+[node name="DeckEndE02" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 5.31)
+
+[node name="Deck03" parent="Dock" instance=ExtResource("rd_dock_4_sm_bld_house_deck_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 5.1)
+
+[node name="DeckEndW03" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 5.1)
+
+[node name="DeckEndE03" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 7.86)
+
+[node name="Deck04" parent="Dock" instance=ExtResource("rd_dock_1_sm_bld_house_deck_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 7.65)
+
+[node name="DeckEndW04" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 7.65)
+
+[node name="DeckEndE04" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 10.41)
+
+[node name="Deck05" parent="Dock" instance=ExtResource("rd_dock_3_sm_bld_house_deck_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 10.2)
+
+[node name="DeckEndW05" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 10.2)
+
+[node name="DeckEndE05" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 12.96)
+
+[node name="Deck06" parent="Dock" instance=ExtResource("rd_dock_4_sm_bld_house_deck_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 12.75)
+
+[node name="DeckEndW06" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 12.75)
+
+[node name="DeckEndE06" parent="Dock" instance=ExtResource("rd_dock_2_sm_bld_house_deck_end_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.25, 0, 15.51)
+
+[node name="RailE04" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 10.2)
+
+[node name="RailW04" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 7.77)
+
+[node name="RailE05" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 12.75)
+
+[node name="RailW05" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 10.32)
+
+[node name="RailE06" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.18, 0, 15.3)
+
+[node name="RailW06" parent="Dock" instance=ExtResource("rd_dock_5_sm_bld_house_deck_rail_01")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.18, 0, 12.87)
+
+[node name="PostE" parent="Dock" instance=ExtResource("rd_dock_6_sm_bld_house_deck_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 0, 12.9)
+
+[node name="PostW" parent="Dock" instance=ExtResource("rd_dock_6_sm_bld_house_deck_post_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0, 12.9)
+
+[node name="Steps" parent="Dock" instance=ExtResource("rd_dock_7_sm_bld_house_decksteps_01")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, -0.15, -0.1)
+
+[node name="DockShelter" type="Node3D" parent="."]
+
+[node name="GabledRoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 2.5)
+layers = 128
+material_override = SubResource("rd_dock_wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("rd_dock_wd_shelter_PrismMesh_lod8u")
+
+[node name="Post1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("rd_dock_wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("rd_dock_wd_shelter_BoxMesh_tn23c")
+
+[node name="Post2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("rd_dock_wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("rd_dock_wd_shelter_BoxMesh_ww88k")
+
+[node name="Post3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("rd_dock_wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("rd_dock_wd_shelter_BoxMesh_vgjlq")
+
+[node name="Post4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("rd_dock_wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("rd_dock_wd_shelter_BoxMesh_mjsoe")
+
+[node name="FogRiver01" type="Node3D" parent="."]
+script = ExtResource("rd_fog_1_fog_zone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 344, 4.2, 55)
 radius = 34.0
 strength = 0.6
 
-[node name="FogRiver02" parent="RiverFog" instance=ExtResource("4_fogzone")]
+[node name="FogRiver02" type="Node3D" parent="."]
+script = ExtResource("rd_fog_1_fog_zone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 322, 4.2, 158)
 radius = 34.0
 strength = 0.6
 
-[node name="FogRiver03" parent="RiverFog" instance=ExtResource("4_fogzone")]
+[node name="FogRiver03" type="Node3D" parent="."]
+script = ExtResource("rd_fog_1_fog_zone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 238, 4.2, 245)
 radius = 34.0
 strength = 0.6
 
-[node name="FogRiver04" parent="RiverFog" instance=ExtResource("4_fogzone")]
+[node name="FogRiver04" type="Node3D" parent="."]
+script = ExtResource("rd_fog_1_fog_zone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188, 4.2, 322)
 radius = 34.0
 strength = 0.6
 
-[node name="FogRiver05" parent="RiverFog" instance=ExtResource("4_fogzone")]
+[node name="FogRiver05" type="Node3D" parent="."]
+script = ExtResource("rd_fog_1_fog_zone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 4.2, 362)
 radius = 34.0
 strength = 0.6
+
+
+

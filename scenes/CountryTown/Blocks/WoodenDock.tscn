@@ -1,6 +1,4 @@
-[gd_scene format=3]
-
-[ext_resource type="PackedScene" path="res://scenes/CountryTown/Blocks/DockShelter.tscn" id="20_shelter"]
+﻿[gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_01.tscn" id="1_sm_bld_house_deck_01"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_End_01.tscn" id="2_sm_bld_house_deck_end_01"]
@@ -10,9 +8,22 @@
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Deck_Post_01.tscn" id="6_sm_bld_house_deck_post_01"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_DeckSteps_01.tscn" id="7_sm_bld_house_decksteps_01"]
 
-[node name="WoodenDock" type="Node3D"]
 
-[node name="DockShelter" parent="." instance=ExtResource("20_shelter")]
+
+[sub_resource type="StandardMaterial3D" id="wd_shelter_StandardMaterial3D_yv26m"]
+albedo_color = Color(0.23, 0.16, 0.1, 1)
+[sub_resource type="PrismMesh" id="wd_shelter_PrismMesh_lod8u"]
+size = Vector3(4.8, 1.7, 5.5)
+[sub_resource type="BoxMesh" id="wd_shelter_BoxMesh_tn23c"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="wd_shelter_BoxMesh_ww88k"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="wd_shelter_BoxMesh_vgjlq"]
+size = Vector3(0.18, 3.1, 0.18)
+[sub_resource type="BoxMesh" id="wd_shelter_BoxMesh_mjsoe"]
+size = Vector3(0.18, 3.1, 0.18)
+
+[node name="WoodenDock" type="Node3D"]
 
 [node name="Deck01" parent="." instance=ExtResource("1_sm_bld_house_deck_01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
@@ -94,3 +105,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0, 12.9)
 
 [node name="Steps" parent="." instance=ExtResource("7_sm_bld_house_decksteps_01")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, -0.15, -0.1)
+
+[node name="DockShelter" type="Node3D" parent="."]
+
+[node name="GabledRoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 2.5)
+layers = 128
+material_override = SubResource("wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("wd_shelter_PrismMesh_lod8u")
+
+[node name="Post1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("wd_shelter_BoxMesh_tn23c")
+
+[node name="Post2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("wd_shelter_BoxMesh_ww88k")
+
+[node name="Post3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 0.3)
+layers = 128
+material_override = SubResource("wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("wd_shelter_BoxMesh_vgjlq")
+
+[node name="Post4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.55, 4.7)
+layers = 128
+material_override = SubResource("wd_shelter_StandardMaterial3D_yv26m")
+mesh = SubResource("wd_shelter_BoxMesh_mjsoe")
+

@@ -1,6 +1,5 @@
-[gd_scene format=4]
+﻿[gd_scene format=4]
 
-[ext_resource type="PackedScene" path="res://scenes/Props/TireTrack3D.tscn" id="2_nfgyg"]
 [ext_resource type="Script" path="res://scripts/terrain/tire_track_3d.gd" id="3_mxaje"]
 [ext_resource type="Material" path="res://Materiais/tire_track.tres" id="4_8khxp"]
 
@@ -208,7 +207,7 @@ _surfaces = [{
 
 [node name="TireTracks" type="Node3D" parent="." unique_id=1098173996]
 
-[node name="FarmService0PassA" type="Path3D" parent="TireTracks" unique_id=2060298678 instance=ExtResource("2_nfgyg")]
+[node name="FarmService0PassA" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 96)
 curve = SubResource("Curve3D_nfgyg")
 script = ExtResource("3_mxaje")
@@ -216,6 +215,7 @@ lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 6543
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/FarmService0PassA" unique_id=490488191]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -224,7 +224,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_nfgyg")
 
-[node name="FarmService0PassB" type="Path3D" parent="TireTracks" unique_id=1698900103 instance=ExtResource("2_nfgyg")]
+[node name="FarmService0PassB" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 0, 96)
 curve = SubResource("Curve3D_8khxp")
 script = ExtResource("3_mxaje")
@@ -234,6 +234,7 @@ sample_step = 0.5
 intensity = 0.5
 random_seed = 6544
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/FarmService0PassB" unique_id=1947998636]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -242,7 +243,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_mxaje")
 
-[node name="PenAccess0PassA" type="Path3D" parent="TireTracks" unique_id=77484336 instance=ExtResource("2_nfgyg")]
+[node name="PenAccess0PassA" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206, 0, 167.46)
 curve = SubResource("Curve3D_hk6wo")
 script = ExtResource("3_mxaje")
@@ -250,6 +251,7 @@ lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 8120
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/PenAccess0PassA" unique_id=566123793]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -258,7 +260,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_8khxp")
 
-[node name="PenAccess0PassB" type="Path3D" parent="TireTracks" unique_id=1730539098 instance=ExtResource("2_nfgyg")]
+[node name="PenAccess0PassB" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206, 0, 167.46)
 curve = SubResource("Curve3D_wg80p")
 script = ExtResource("3_mxaje")
@@ -268,6 +270,7 @@ sample_step = 0.5
 intensity = 0.5
 random_seed = 8121
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/PenAccess0PassB" unique_id=2089601671]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -276,7 +279,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_1o3rc")
 
-[node name="ShedAccess0PassA" type="Path3D" parent="TireTracks" unique_id=1375724181 instance=ExtResource("2_nfgyg")]
+[node name="ShedAccess0PassA" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 223)
 curve = SubResource("Curve3D_tmd56")
 script = ExtResource("3_mxaje")
@@ -284,6 +287,7 @@ lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 8453
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/ShedAccess0PassA" unique_id=2000657427]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -292,7 +296,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_hk6wo")
 
-[node name="ShedAccess0PassB" type="Path3D" parent="TireTracks" unique_id=1592374184 instance=ExtResource("2_nfgyg")]
+[node name="ShedAccess0PassB" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 223)
 curve = SubResource("Curve3D_v7drl")
 script = ExtResource("3_mxaje")
@@ -302,6 +306,7 @@ sample_step = 0.5
 intensity = 0.5
 random_seed = 8454
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/ShedAccess0PassB" unique_id=342212012]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -310,7 +315,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_quukk")
 
-[node name="MillTrail0PassA" type="Path3D" parent="TireTracks" unique_id=1717568443 instance=ExtResource("2_nfgyg")]
+[node name="MillTrail0PassA" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 242)
 curve = SubResource("Curve3D_el46g")
 script = ExtResource("3_mxaje")
@@ -318,6 +323,7 @@ lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 4333
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/MillTrail0PassA" unique_id=1291872934]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -326,7 +332,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_wg80p")
 
-[node name="MillTrail0PassB" type="Path3D" parent="TireTracks" unique_id=126486431 instance=ExtResource("2_nfgyg")]
+[node name="MillTrail0PassB" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 242)
 curve = SubResource("Curve3D_1xdv2")
 script = ExtResource("3_mxaje")
@@ -336,6 +342,7 @@ sample_step = 0.5
 intensity = 0.5
 random_seed = 4334
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/MillTrail0PassB" unique_id=1393636712]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -344,7 +351,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_neoja")
 
-[node name="DockTrail0PassA" type="Path3D" parent="TireTracks" unique_id=2041658230 instance=ExtResource("2_nfgyg")]
+[node name="DockTrail0PassA" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 0, 298.48)
 curve = SubResource("Curve3D_tdicp")
 script = ExtResource("3_mxaje")
@@ -352,6 +359,7 @@ lateral_wander = 0.22
 sample_step = 0.5
 random_seed = 5004
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/DockTrail0PassA" unique_id=1749339279]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -360,7 +368,7 @@ visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_tmd56")
 
-[node name="DockTrail0PassB" type="Path3D" parent="TireTracks" unique_id=188259874 instance=ExtResource("2_nfgyg")]
+[node name="DockTrail0PassB" type="Path3D" parent="TireTracks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 0, 298.48)
 curve = SubResource("Curve3D_uo8n3")
 script = ExtResource("3_mxaje")
@@ -370,6 +378,7 @@ sample_step = 0.5
 intensity = 0.5
 random_seed = 5005
 
+material = ExtResource("4_8khxp")
 [node name="Surface" type="MeshInstance3D" parent="TireTracks/DockTrail0PassB" unique_id=1928268512]
 material_override = ExtResource("4_8khxp")
 cast_shadow = 0
@@ -377,3 +386,4 @@ visibility_range_end = 150.0
 visibility_range_end_margin = 30.0
 visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_8p33g")
+
