@@ -165,6 +165,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.228541, 0)
 omni_range = 21.607758
 
 [node name="ET_Ship_New" parent="." unique_id=1242519539 instance=ExtResource("11_tindj")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="BottomGlass" parent="ET_Ship_New" index="0" unique_id=2058397105]
 layers = 8

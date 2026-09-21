@@ -1,51 +1,149 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://c0ir8r8dtg8yd"]
 
-[ext_resource type="Script" path="res://scripts/npc/townsperson_npc.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Meshes/PolygonSyntyCharacter.fbx" id="2_model"]
-[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="3_material"]
-[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
-[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
-[ext_resource type="Script" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Feminine/Idle/A_Idle_Standing_Femn.fbx" id="7_idle_clip"]
-[ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_F_Femn.fbx" id="8_walk_clip"]
+[ext_resource type="Script" uid="uid://ltaoyvaqcx1e" path="res://scripts/npc/townsperson_npc.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://b6bsqrv3imdms" path="res://PolygonTown/Models/Characters/Characters.fbx" id="2_ss70b"]
+[ext_resource type="Material" uid="uid://dg062jyvxx573" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="3_bm41n"]
+[ext_resource type="Script" uid="uid://4ygwe14yqajp" path="res://scripts/npc/npc_vision.gd" id="4_vision"]
+[ext_resource type="Shape3D" uid="uid://cj5gwdnnnm3q3" path="res://PolygonTown/Models/Characters/Synty_Character_Collider.tres" id="4_yyc6l"]
+[ext_resource type="Script" uid="uid://bo2ar30nqq2s" path="res://scripts/npc/npc_hearing.gd" id="5_hearing"]
+[ext_resource type="Script" uid="uid://c48qn0b5837pj" path="res://scripts/npc/npc_animation.gd" id="6_animation"]
+[ext_resource type="PackedScene" uid="uid://bhxmuy0xgr8n4" path="res://Temporarios/Animations/Polygon/Feminine/Idle/A_Idle_Standing_Femn.fbx" id="7_idle_clip"]
+[ext_resource type="PackedScene" uid="uid://cmr8u6anvy2ik" path="res://Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_F_Femn.fbx" id="8_walk_clip"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_townsperson"]
-radius = 0.186
-height = 1.79
-
-[node name="Townsperson" type="CharacterBody3D"]
+[node name="Townsperson" type="CharacterBody3D" unique_id=962646758]
 script = ExtResource("1_script")
 
-[node name="Character" parent="." instance=ExtResource("2_model")]
+[node name="Characters" parent="." unique_id=2031715876 instance=ExtResource("2_ss70b")]
 
-[node name="PolygonSyntyCharacterMesh" parent="Character/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("3_material")
+[node name="Skeleton3D" parent="Characters" index="0" unique_id=667801089]
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(0.99518615, 0.09800279, 5.2735594e-16, -3.8857803e-16)
+bones/3/skin_scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.99381036, 0.111090325, 7.771562e-16, -4.4408926e-16)
+bones/4/skin_scale = Vector3(1, 1, 1)
+bones/5/skin_scale = Vector3(1, 1, 1)
+bones/6/skin_scale = Vector3(1, 1, 1)
+bones/7/skin_scale = Vector3(1, 1, 1)
+bones/8/skin_scale = Vector3(1, 1, 1)
+bones/9/skin_scale = Vector3(1, 1, 1)
+bones/10/skin_scale = Vector3(1, 1, 1)
+bones/11/skin_scale = Vector3(1, 1, 1)
+bones/12/skin_scale = Vector3(1, 1, 1)
+bones/13/skin_scale = Vector3(1, 1, 1)
+bones/14/skin_scale = Vector3(1, 1, 1)
+bones/15/skin_scale = Vector3(1, 1, 1)
+bones/16/skin_scale = Vector3(1, 1, 1)
+bones/17/skin_scale = Vector3(1, 1, 1)
+bones/18/skin_scale = Vector3(1, 1, 1)
+bones/19/skin_scale = Vector3(1, 1, 1)
+bones/20/skin_scale = Vector3(1, 1, 1)
+bones/21/skin_scale = Vector3(1, 1, 1)
+bones/22/skin_scale = Vector3(1, 1, 1)
+bones/23/skin_scale = Vector3(1, 1, 1)
+bones/24/skin_scale = Vector3(1, 1, 1)
+bones/25/rotation = Quaternion(0.6324858, -0.57854754, -0.37547135, -0.3525134)
+bones/25/skin_scale = Vector3(1, 1, 1)
+bones/26/skin_scale = Vector3(1, 1, 1)
+bones/27/skin_scale = Vector3(1, 1, 1)
+bones/28/skin_scale = Vector3(1, 1, 1)
+bones/29/skin_scale = Vector3(1, 1, 1)
+bones/30/skin_scale = Vector3(1, 1, 1)
+bones/31/skin_scale = Vector3(1, 1, 1)
+bones/32/skin_scale = Vector3(1, 1, 1)
+bones/33/skin_scale = Vector3(1, 1, 1)
+bones/34/skin_scale = Vector3(1, 1, 1)
+bones/35/skin_scale = Vector3(1, 1, 1)
+bones/36/skin_scale = Vector3(1, 1, 1)
+bones/37/skin_scale = Vector3(1, 1, 1)
+bones/38/skin_scale = Vector3(1, 1, 1)
+bones/39/skin_scale = Vector3(1, 1, 1)
+bones/40/rotation = Quaternion(-0.04177525, 0.7058717, -0.70419, 0.064159356)
+bones/40/skin_scale = Vector3(1, 1, 1)
+bones/41/skin_scale = Vector3(1, 1, 1)
+bones/42/rotation = Quaternion(0.85767007, -0.507213, -0.03975271, -0.074543595)
+bones/42/skin_scale = Vector3(1, 1, 1)
+bones/43/skin_scale = Vector3(1, 1, 1)
+bones/44/skin_scale = Vector3(1, 1, 1)
+bones/45/rotation = Quaternion(-0.7058717, -0.041775245, 0.06415936, 0.70419)
+bones/45/skin_scale = Vector3(1, 1, 1)
+bones/46/skin_scale = Vector3(1, 1, 1)
+bones/47/rotation = Quaternion(0.85767007, -0.507213, -0.03975271, -0.074543595)
+bones/47/skin_scale = Vector3(1, 1, 1)
+bones/48/skin_scale = Vector3(1, 1, 1)
+bones/49/skin_scale = Vector3(1, 1, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Character_Father_01" parent="Characters/Skeleton3D" index="0" unique_id=1498053306]
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_Father_02" parent="Characters/Skeleton3D" index="1" unique_id=1864220900]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_Mother_01" parent="Characters/Skeleton3D" index="2" unique_id=752730754]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_Mother_02" parent="Characters/Skeleton3D" index="3" unique_id=592684812]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_Daughter_01" parent="Characters/Skeleton3D" index="4" unique_id=1615544388]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_SchoolGirl_01" parent="Characters/Skeleton3D" index="5" unique_id=230212140]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_Son_01" parent="Characters/Skeleton3D" index="6" unique_id=1882136124]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_SchoolBoy_01" parent="Characters/Skeleton3D" index="7" unique_id=510752255]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="Character_ShopKeeper_01" parent="Characters/Skeleton3D" index="8" unique_id=491164813]
+visible = false
+layers = 16
+surface_material_override/0 = ExtResource("3_bm41n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1230242571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8925, 0)
-shape = SubResource("CapsuleShape3D_townsperson")
+shape = ExtResource("4_yyc6l")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1386266619]
 path_height_offset = 0.5
 
-[node name="NPCVision" type="Node3D" parent="."]
+[node name="NPCVision" type="Node3D" parent="." unique_id=794982172]
 script = ExtResource("4_vision")
-eye_height = 1.6
 reports_vision_contact = false
 
-[node name="NPCHearing" type="Node3D" parent="."]
+[node name="NPCHearing" type="Node3D" parent="." unique_id=36838999]
 script = ExtResource("5_hearing")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Character")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1203042113]
+root_node = NodePath("")
 
-[node name="NPCAnimation" type="Node" parent="."]
+[node name="NPCAnimation" type="Node" parent="." unique_id=1804613731]
 script = ExtResource("6_animation")
 idle_clip = ExtResource("7_idle_clip")
 walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
-[node name="NPCBehaviorTree" parent="." instance=ExtResource("9_tree")]
+[node name="NPCBehaviorTree" parent="." unique_id=590059249 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
+blackboard = NodePath("@Node@21314")
+actor = NodePath("..")
 
-[editable path="Character"]
+[editable path="Characters"]

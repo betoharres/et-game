@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://0eufbctfdcyl"]
+
+[ext_resource type="Texture2D" uid="uid://botm6aw7biepc" path="res://PolygonSciFiWorlds/Textures/Alts/PolygonScifiWorlds_01_A.png" id="1_iq2xk"]
+[ext_resource type="Texture2D" uid="uid://ibnepj77sqwi" path="res://PolygonSciFiWorlds/Textures/Emissive/PolygonScifiWorlds_01_Emissive.png" id="2_2qocg"]
+[ext_resource type="Texture2D" uid="uid://b6v6li5ofo1du" path="res://PolygonSciFiWorlds/Textures/Misc/PolygonScifiWorlds_A_01_Normals.png" id="3_7132y"]
+
+[resource]
+albedo_texture = ExtResource("1_iq2xk")
+emission_enabled = true
+emission_texture = ExtResource("2_2qocg")
+normal_enabled = true
+normal_texture = ExtResource("3_7132y")
