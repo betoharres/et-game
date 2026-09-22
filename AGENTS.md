@@ -21,7 +21,7 @@ destroços e entregar. Entrada: `scenes/Menu/main_menu.tscn`; fazenda:
 
 ## Implementação
 
-- When creating level content, the AI may create self-contained scenes for unique buildings, vehicles, vegetation, or NPCs. Each such asset scene must contain all of its own nodes and must not instance or nest other scenes. A level scene may instance those self-contained assets directly, organized under `VehiclesContainer`, `VegetationContainer`, `BuildingContainers`, and NPC containers. Do not create nested construction scenes for level sections.
+- When creating level content, the AI may create self-contained scenes for unique buildings, vehicles, vegetation, or NPCs. Each such asset scene must contain all of its own nodes and must not instance or nest other scenes. A level scene may instance those self-contained assets directly, organized under `VehiclesContainer`, `VegetationContainer`, `BuildingContainers`, props and NPC containers. Do not create nested construction scenes for level sections.
 - Use recursos nativos e GDScript com tipos explícitos em variáveis, parâmetros
   e retornos. Prefira sinais, grupos, composição e cenas reutilizáveis, com
   responsabilidades pequenas; evite managers globais. `GlobalScore` é só para

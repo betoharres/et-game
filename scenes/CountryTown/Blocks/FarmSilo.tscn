@@ -1,10 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b3c6b876jv1ew"]
 
-[ext_resource type="Material" path="res://Materiais/PolygonFarm1A.tres" id="1_rkobf"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="1_rkobf"]
 [ext_resource type="ArrayMesh" path="res://scenes/CountryTown/Blocks/Meshes/SM_Bld_Silo_02.res" id="2_v7pka"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vh60q"]
-size = Vector3(5.111867, 18.592762, 5.4727225)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_blqt6"]
+radius = 2.536621
+height = 21.189941
 
 [node name="FarmSilo" type="Node3D" unique_id=676104863]
 
@@ -16,8 +17,8 @@ visibility_range_end_margin = 30.0
 mesh = ExtResource("2_v7pka")
 metadata/country_town_block = true
 
-[node name="@StaticBody3D@16" type="StaticBody3D" parent="Bld_Silo_021" unique_id=1195747275]
+[node name="StaticBody3D16" type="StaticBody3D" parent="Bld_Silo_021" unique_id=1195747275]
 
-[node name="@CollisionShape3D@15" type="CollisionShape3D" parent="Bld_Silo_021/@StaticBody3D@16" unique_id=1475364327]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.296381, 2.3841858e-07)
-shape = SubResource("BoxShape3D_vh60q")
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="Bld_Silo_021/StaticBody3D16" unique_id=1475364327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.9826603, -0.15313983)
+shape = SubResource("CapsuleShape3D_blqt6")

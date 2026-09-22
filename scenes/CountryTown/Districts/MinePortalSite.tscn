@@ -1,11 +1,10 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cyf57skbkmy16"]
 
-[ext_resource type="PackedScene" path="res://scenes/Portal/portal.tscn" id="1_portal"]
-[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="2_tem_rock_large_02a"]
-[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="3_tem_rock_large_01a"]
-[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="4_tem_rock_medium_02a"]
-[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="5_tem_rock_small_02a"]
-[ext_resource type="PackedScene" path="res://scenes/SICS Rocks/tem_rock_idol_01a.tscn" id="6_tem_rock_idol_01a"]
+[ext_resource type="PackedScene" uid="uid://bdjq1ysjslfct" path="res://scenes/SICS Rocks/tem_rock_large_02a.tscn" id="2_tem_rock_large_02a"]
+[ext_resource type="PackedScene" uid="uid://2n70bsio3ekq" path="res://scenes/SICS Rocks/tem_rock_large_01a.tscn" id="3_tem_rock_large_01a"]
+[ext_resource type="PackedScene" uid="uid://dqplaxph2n1w0" path="res://scenes/SICS Rocks/tem_rock_medium_02a.tscn" id="4_tem_rock_medium_02a"]
+[ext_resource type="PackedScene" uid="uid://boloit6cip0ik" path="res://scenes/SICS Rocks/tem_rock_small_02a.tscn" id="5_tem_rock_small_02a"]
+[ext_resource type="PackedScene" uid="uid://b1kelty2fgbct" path="res://scenes/SICS Rocks/tem_rock_idol_01a.tscn" id="6_tem_rock_idol_01a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_portal_glow"]
 albedo_color = Color(0.1, 0.25, 0.6, 1)
@@ -61,79 +60,46 @@ _data = {
 &"spin": SubResource("Animation_ring_spin")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_01"]
-size = Vector3(4.5, 4, 6)
+[node name="MinePortalSite" type="Node3D" unique_id=114939353]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_02"]
-size = Vector3(4.5, 4, 6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_03"]
-size = Vector3(8, 5, 8)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_04"]
-size = Vector3(3.5, 2.5, 6)
-
-[node name="MinePortalSite" type="Node3D"]
-
-[node name="Portal" parent="." instance=ExtResource("1_portal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 6, 16)
-
-[node name="ArchPillarL" parent="." instance=ExtResource("6_tem_rock_idol_01a")]
+[node name="ArchPillarL" parent="." unique_id=341092425 instance=ExtResource("6_tem_rock_idol_01a")]
 transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 325.3, 6, 16)
 
-[node name="ArchPillarR" parent="." instance=ExtResource("6_tem_rock_idol_01a")]
+[node name="ArchPillarR" parent="." unique_id=1770498636 instance=ExtResource("6_tem_rock_idol_01a")]
 transform = Transform3D(-0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 330.7, 6, 16)
 
-[node name="ArchLintel" parent="." instance=ExtResource("3_tem_rock_large_01a")]
+[node name="ArchLintel" parent="." unique_id=1162954988 instance=ExtResource("3_tem_rock_large_01a")]
 transform = Transform3D(0.62, 0, 0, 0, 0.35, 0, 0, 0, 0.5, 328, 9.6, 16)
 
-[node name="RingOuter" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 4.371139e-08, -1, 0, 1, 4.371139e-08, 328, 7, 16)
+[node name="RingOuter" type="MeshInstance3D" parent="." unique_id=519971037]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 328, 7, 16)
 mesh = SubResource("TorusMesh_ring_outer")
 
-[node name="RingInner" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 4.371139e-08, -1, 0, 1, 4.371139e-08, 328, 7, 16)
+[node name="RingInner" type="MeshInstance3D" parent="." unique_id=1178664285]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 328, 7, 16)
 mesh = SubResource("TorusMesh_ring_inner")
 
-[node name="PortalGlow" type="OmniLight3D" parent="."]
+[node name="PortalGlow" type="OmniLight3D" parent="." unique_id=1889013302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 7, 16)
 light_color = Color(0.35, 0.65, 1, 1)
 light_energy = 3.0
 omni_range = 14.0
 
-[node name="RingSpin" type="AnimationPlayer" parent="."]
+[node name="RingSpin" type="AnimationPlayer" parent="." unique_id=997073302]
 libraries/ = SubResource("AnimationLibrary_ring_spin")
-autoplay = "spin"
+autoplay = &"spin"
 
-[node name="RockLeft" parent="." instance=ExtResource("2_tem_rock_large_02a")]
+[node name="RockLeft" parent="." unique_id=853191978 instance=ExtResource("2_tem_rock_large_02a")]
 transform = Transform3D(0.342, 0, -0.9397, 0, 1, 0, 0.9397, 0, 0.342, 320, 5, 13)
 
-[node name="RockRight" parent="." instance=ExtResource("2_tem_rock_large_02a")]
+[node name="RockRight" parent="." unique_id=667215351 instance=ExtResource("2_tem_rock_large_02a")]
 transform = Transform3D(-0.342, 0, 0.9397, 0, 1, 0, -0.9397, 0, -0.342, 333, 5, 13)
 
-[node name="RockTop" parent="." instance=ExtResource("3_tem_rock_large_01a")]
+[node name="RockTop" parent="." unique_id=1992743474 instance=ExtResource("3_tem_rock_large_01a")]
 transform = Transform3D(0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, 0.9659, 328, 3.5, 8)
 
-[node name="RockSide" parent="." instance=ExtResource("4_tem_rock_medium_02a")]
+[node name="RockSide" parent="." unique_id=1662711650 instance=ExtResource("4_tem_rock_medium_02a")]
 transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 314, 5.2, 10)
 
-[node name="Boulder" parent="." instance=ExtResource("5_tem_rock_small_02a")]
+[node name="Boulder" parent="." unique_id=141555777 instance=ExtResource("5_tem_rock_small_02a")]
 transform = Transform3D(-0.5, 0, -0.866, 0, 1, 0, 0.866, 0, -0.5, 312, 5.8, 18)
-
-[node name="Collision" type="StaticBody3D" parent="."]
-
-[node name="RockLeft" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 320, 7.5, 13)
-shape = SubResource("BoxShape3D_01")
-
-[node name="RockRight" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 333, 7.5, 13)
-shape = SubResource("BoxShape3D_02")
-
-[node name="RockTop" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 328, 7.5, 8)
-shape = SubResource("BoxShape3D_03")
-
-[node name="RockSide" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314, 7, 10)
-shape = SubResource("BoxShape3D_04")

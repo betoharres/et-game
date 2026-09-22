@@ -1,8 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ct8j4tfhcnsmm"]
 
-[ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Door_01.tscn" id="1_vvwah"]
-[ext_resource type="ArrayMesh" path="res://PolygonTown/Models/Buildings/extracted/SM_Bld_House_Door_01.res" id="2_f33sw"]
-[ext_resource type="Material" path="res://PolygonTown/Materials/PolygonTown_01_A_mat.tres" id="3_ba48a"]
+[ext_resource type="PackedScene" uid="uid://b28mqn1a70ch1" path="res://PolygonTown/Prefabs/Buildings/SM_Bld_House_Door_01.tscn" id="1_vvwah"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrm8y"]
 albedo_color = Color(0.38, 0.32, 0.22, 1)
@@ -197,11 +195,8 @@ layers = 128
 material_override = SubResource("StandardMaterial3D_7f0se")
 mesh = SubResource("CylinderMesh_wgjfh")
 
-[node name="MillDoor" type="MeshInstance3D" parent="." unique_id=1278736184 instance=ExtResource("1_vvwah")]
+[node name="MillDoor" parent="." unique_id=1278736184 instance=ExtResource("1_vvwah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.8)
-gi_mode = 2
-mesh = ExtResource("2_f33sw")
-surface_material_override/0 = ExtResource("3_ba48a")
 metadata/country_town_block = true
 
 [node name="Rotor" type="Node3D" parent="." unique_id=1385300098]
@@ -410,9 +405,9 @@ layers = 128
 material_override = SubResource("StandardMaterial3D_tp0da")
 mesh = SubResource("BoxMesh_bx26a")
 
-[node name="@StaticBody3D@18" type="StaticBody3D" parent="." unique_id=2101567249]
+[node name="StaticBody3D18" type="StaticBody3D" parent="." unique_id=2101567249]
 
-[node name="@CollisionShape3D@17" type="CollisionShape3D" parent="@StaticBody3D@18" unique_id=987083193]
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="StaticBody3D18" unique_id=987083193]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 shape = SubResource("CylinderShape3D_mec5i")
 
