@@ -1,28 +1,39 @@
-[gd_scene format=3 uid="uid://c2kgsgr8do3r"]
+[gd_scene format=3 uid="uid://bsj2sa7cnigpu"]
 
 [ext_resource type="Script" uid="uid://cku5uaskgnbiu" path="res://scenes/AlienText/alien_text_test.gd" id="1_script"]
-[ext_resource type="Shader" uid="uid://mlgdh3m7mkhs" path="res://scenes/AlienText/alien_text_test.gdshader" id="2_shader"]
+[ext_resource type="Shader" uid="uid://xjnbgfbo1mom" path="res://scenes/AlienText/alien_circle_texture.gdshader" id="2_circle_shader"]
+[ext_resource type="Shader" uid="uid://2iuafbpbymjx" path="res://scenes/AlienText/alien_text_distorted.gdshader" id="3_text_shader"]
+[ext_resource type="Texture2D" uid="uid://d0qlx6nb4dccq" path="res://Texturas/AlienTextCircle.png" id="4_circle_texture"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_alien_text"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_text"]
 render_priority = 0
-shader = ExtResource("2_shader")
+shader = ExtResource("3_text_shader")
 shader_parameter/ink_color = Color(0.025, 0.022, 0.018, 1)
-shader_parameter/near_distance = 3.0
-shader_parameter/far_distance = 12.0
-shader_parameter/ring_thickness = 0.035
-shader_parameter/ink_irregularity = 0.18
+shader_parameter/morph_progress = 0.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_alien_text"]
-size = Vector2(2.8, 0.7)
+[sub_resource type="QuadMesh" id="QuadMesh_text"]
+size = Vector2(2.3, 0.7)
 
-[node name="AlienTextTest" type="Node3D" unique_id=1701292279]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_circle"]
+render_priority = 0
+shader = ExtResource("2_circle_shader")
+shader_parameter/circle_texture = ExtResource("4_circle_texture")
+shader_parameter/ink_color = Color(0.025, 0.022, 0.018, 1)
+shader_parameter/morph_progress = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_circle"]
+size = Vector2(2.8, 2.8)
+
+[node name="AlienTextTest" type="Node3D" unique_id=1686980939]
 script = ExtResource("1_script")
+near_distance = 6.0
+far_distance = 24.0
 
-[node name="TextViewport" type="SubViewport" parent="." unique_id=234264245]
+[node name="TextViewport" type="SubViewport" parent="." unique_id=1440558961]
 transparent_bg = true
 size = Vector2i(512, 128)
 
-[node name="Text" type="Label" parent="TextViewport" unique_id=1749749098]
+[node name="Text" type="Label" parent="TextViewport" unique_id=779267772]
 offset_right = 512.0
 offset_bottom = 128.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -31,7 +42,16 @@ text = "WELCOME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextMesh" type="MeshInstance3D" parent="." unique_id=1024010519]
+[node name="Display" type="Node3D" parent="." unique_id=447621899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
-material_override = SubResource("ShaderMaterial_alien_text")
-mesh = SubResource("QuadMesh_alien_text")
+
+[node name="ReadableText" type="MeshInstance3D" parent="Display" unique_id=764339185]
+layers = 32
+material_override = SubResource("ShaderMaterial_text")
+mesh = SubResource("QuadMesh_text")
+
+[node name="AlienCircle" type="MeshInstance3D" parent="Display" unique_id=864212900]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.02)
+layers = 32
+material_override = SubResource("ShaderMaterial_circle")
+mesh = SubResource("QuadMesh_circle")
