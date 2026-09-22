@@ -359,23 +359,27 @@ radius = 0.14526787
 height = 1.70245
 radius = 0.14526787
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rk6c1"]
-size = Vector3(1.2622528, 1.5820062, 1.2188523)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vgolx"]
+height = 1.5820062
+radius = 0.6311264
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kfapn"]
-size = Vector3(1.1424775, 1.211915, 1.1457001)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rpa6l"]
+height = 1.211915
+radius = 0.57123876
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_axdj4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_blgsl"]
 size = Vector3(1.9094145, 0.94737583, 1.411694)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ex6yk"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ol37o"]
 size = Vector3(1.6775384, 0.76966876, 1.0903709)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tja6i"]
-size = Vector3(0.90794367, 1.1596844, 0.90794367)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1ag3u"]
+height = 1.1596844
+radius = 0.45397183
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0guv2"]
-size = Vector3(0.9200907, 1.1596847, 0.9200907)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rk6c1"]
+height = 1.1596847
+radius = 0.46004534
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qut2l"]
 size = Vector3(0.7557361, 0.47673413, 0.45261496)
@@ -1780,65 +1784,65 @@ transform = Transform3D(0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, 0.9397, 88, 6, 128
 mesh = ExtResource("10_sm_prop_hay_bale_round_01")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Hay01" unique_id=165262700]
+[node name="StaticBody3D" type="StaticBody3D" parent="Hay01" unique_id=322899485]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay01/StaticBody3D" unique_id=976919594]
-shape = SubResource("BoxShape3D_rk6c1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay01/StaticBody3D" unique_id=173923681]
+shape = SubResource("CylinderShape3D_vgolx")
 
 [node name="Hay02" type="MeshInstance3D" parent="." unique_id=710947691]
 transform = Transform3D(-0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9397, 91, 6, 131)
 mesh = ExtResource("11_sm_prop_hay_bale_round_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Hay02" unique_id=721383173]
+[node name="StaticBody3D" type="StaticBody3D" parent="Hay02" unique_id=2003115965]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9604645e-08, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay02/StaticBody3D" unique_id=1277119648]
-shape = SubResource("BoxShape3D_kfapn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay02/StaticBody3D" unique_id=1692428617]
+shape = SubResource("CylinderShape3D_rpa6l")
 
 [node name="Hay03" type="MeshInstance3D" parent="." unique_id=1536890448]
 transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 84, 6, 96)
 mesh = ExtResource("12_sm_prop_hay_bale_square_01")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Hay03" unique_id=280558356]
+[node name="StaticBody3D" type="StaticBody3D" parent="Hay03" unique_id=2088907565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, -2.9802322e-08, 1.7881393e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay03/StaticBody3D" unique_id=1455742413]
-shape = SubResource("BoxShape3D_axdj4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay03/StaticBody3D" unique_id=1850286052]
+shape = SubResource("BoxShape3D_blgsl")
 
 [node name="Hay04" type="MeshInstance3D" parent="." unique_id=335712843]
 transform = Transform3D(0.9659, 0, -0.2588, 0, 1, 0, 0.2588, 0, 0.9659, 86.5, 6, 98)
 mesh = ExtResource("13_sm_prop_hay_bale_square_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Hay04" unique_id=378138157]
+[node name="StaticBody3D" type="StaticBody3D" parent="Hay04" unique_id=974325876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018413126, -0.026284903, 0.015240848)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay04/StaticBody3D" unique_id=1671782496]
-shape = SubResource("BoxShape3D_ex6yk")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hay04/StaticBody3D" unique_id=1741393505]
+shape = SubResource("BoxShape3D_ol37o")
 
 [node name="Barrel01" type="MeshInstance3D" parent="." unique_id=725455484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52, 6, 66)
 mesh = ExtResource("14_sm_prop_barrel_01")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Barrel01" unique_id=1303876441]
+[node name="StaticBody3D" type="StaticBody3D" parent="Barrel01" unique_id=399460810]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5798423, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel01/StaticBody3D" unique_id=1022975599]
-shape = SubResource("BoxShape3D_tja6i")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel01/StaticBody3D" unique_id=938168770]
+shape = SubResource("CylinderShape3D_1ag3u")
 
 [node name="Barrel02" type="MeshInstance3D" parent="." unique_id=892284881]
 transform = Transform3D(0.766, 0, -0.6428, 0, 1, 0, 0.6428, 0, 0.766, 53.5, 6, 67.5)
 mesh = ExtResource("15_sm_prop_barrel_02")
 surface_material_override/0 = ExtResource("2_polygonfarm1a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Barrel02" unique_id=585530905]
+[node name="StaticBody3D" type="StaticBody3D" parent="Barrel02" unique_id=193203364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9604645e-08, 0.61036134, -2.9802322e-08)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel02/StaticBody3D" unique_id=178671775]
-shape = SubResource("BoxShape3D_0guv2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel02/StaticBody3D" unique_id=773487558]
+shape = SubResource("CylinderShape3D_rk6c1")
 
 [node name="Crate01" type="MeshInstance3D" parent="." unique_id=791366789]
 transform = Transform3D(0.9063, 0, -0.4226, 0, 1, 0, 0.4226, 0, 0.9063, 68, 6, 84)
