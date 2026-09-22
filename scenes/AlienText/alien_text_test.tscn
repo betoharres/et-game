@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c2kgsgr8do3r"]
+
+[ext_resource type="Script" uid="uid://cku5uaskgnbiu" path="res://scenes/AlienText/alien_text_test.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://mlgdh3m7mkhs" path="res://scenes/AlienText/alien_text_test.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_alien_text"]
+render_priority = 0
+shader = ExtResource("2_shader")
+shader_parameter/ink_color = Color(0.025, 0.022, 0.018, 1)
+shader_parameter/near_distance = 3.0
+shader_parameter/far_distance = 12.0
+shader_parameter/ring_thickness = 0.035
+shader_parameter/ink_irregularity = 0.18
+
+[sub_resource type="QuadMesh" id="QuadMesh_alien_text"]
+size = Vector2(2.8, 0.7)
+
+[node name="AlienTextTest" type="Node3D" unique_id=1701292279]
+script = ExtResource("1_script")
+
+[node name="TextViewport" type="SubViewport" parent="." unique_id=234264245]
+transparent_bg = true
+size = Vector2i(512, 128)
+
+[node name="Text" type="Label" parent="TextViewport" unique_id=1749749098]
+offset_right = 512.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 54
+text = "WELCOME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextMesh" type="MeshInstance3D" parent="." unique_id=1024010519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+material_override = SubResource("ShaderMaterial_alien_text")
+mesh = SubResource("QuadMesh_alien_text")
