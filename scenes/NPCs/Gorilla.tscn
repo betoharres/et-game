@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dxa7kca3d2nv2" path="res://PolygonTown/Prefabs/Props/SM_Prop_Toilet_01.tscn" id="4_g4t8j"]
 [ext_resource type="Texture2D" uid="uid://7h3sirjuravm" path="res://PolygonKaiju/Textures/Kaiju_04_01_A.png" id="5"]
 [ext_resource type="ArrayMesh" uid="uid://dacar8srbesat" path="res://PolygonTown/Models/Items/extracted/SM_Item_ToiletRoll_02.res" id="13_61deg"]
-[ext_resource type="PackedScene" path="res://scenes/AlienText/alien_text_test.tscn" id="15_4re6i"]
 [ext_resource type="PackedScene" uid="uid://dcnt7u4mqrfr" path="res://scenes/Spaceship_Scraps1.tscn" id="r1"]
 [ext_resource type="PackedScene" uid="uid://jnnbvr00yg2w" path="res://scenes/spaceship_Scraps2.tscn" id="r2"]
 [ext_resource type="PackedScene" uid="uid://c1706107vicuy" path="res://scenes/Spaceship_Scraps3.tscn" id="r3"]
@@ -77,15 +76,13 @@ shape = SubResource("Shape")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=967748569]
 
 [node name="NPCBehaviorTree" parent="." unique_id=145745752 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("3")]
-blackboard = NodePath("@Node@25563")
+blackboard = NodePath("@Node@28679")
 actor = NodePath("..")
 
 [node name="BananaTrade" type="Node3D" parent="." unique_id=1401699260]
 visible = false
 script = ExtResource("4")
 rewards = Array[PackedScene]([ExtResource("r1"), ExtResource("r2"), ExtResource("r3"), ExtResource("r4"), ExtResource("r5"), ExtResource("r6"), ExtResource("r7")])
-
-[node name="AlienTextTest" parent="." unique_id=1981091759 instance=ExtResource("15_4re6i")]
 
 [node name="RewardSpawn" type="Marker3D" parent="." unique_id=1021947804]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.4, 0.6)
