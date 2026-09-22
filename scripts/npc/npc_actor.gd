@@ -77,6 +77,8 @@ var _navigation_failure_until: float = 0.0
 var _report_cooldown: float = 0.0
 var _detail_timer: float = 0.0
 var _simple_routine: bool = false
+var _pending_safe_velocity: Vector3 = Vector3.ZERO
+var _has_pending_safe_velocity: bool = false
 
 signal state_changed(new_state: StringName)
 signal awareness_state_changed(new_state: StringName)
@@ -143,6 +145,7 @@ func _set_dormant(sleeping: bool) -> void:
 			routine.interrupt()
 		stop_moving()
 		velocity = Vector3.ZERO
+		_has_pending_safe_velocity = false
 		if vision != null:
 			vision.suspend_contact()
 		_saved_avoidance = navigation_agent.avoidance_enabled
@@ -187,8 +190,10 @@ func _physics_process(delta: float) -> void:
 		routine.tick(delta)
 	_report_cooldown -= delta
 	if routine == null or vision == null or not vision.has_detected_player:
+		_flush_pending_movement()
 		return
 	if _report_cooldown > 0.0 or not vision.is_currently_visible:
+		_flush_pending_movement()
 		return
 	_report_cooldown = 8.0
 	# Um grito local informa apenas a posição vista; nunca confirma visão alheia.
@@ -198,6 +203,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		if global_position.distance_to(other.global_position) <= 18.0:
 			other.hearing.hear_report(global_position, vision.last_seen_position)
+	_flush_pending_movement()
 
 
 func _find_player() -> void:
@@ -343,6 +349,15 @@ func stop_moving() -> void:
 func _apply_safe_velocity(safe_velocity: Vector3) -> void:
 	if is_dormant:
 		return
+	_pending_safe_velocity = safe_velocity
+	_has_pending_safe_velocity = true
+
+
+func _flush_pending_movement() -> void:
+	if not _has_pending_safe_velocity:
+		return
+	_has_pending_safe_velocity = false
+	var safe_velocity: Vector3 = _pending_safe_velocity
 	var vertical: float = velocity.y
 	velocity = safe_velocity
 	if grounded:
