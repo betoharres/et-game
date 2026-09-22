@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://fm0wcras3r2n" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="8_walk_clip"]
 [ext_resource type="PackedScene" uid="uid://5l1q2c3jawkp" path="res://PolygonCity/Characters/SK_Character_Male_Police.fbx" id="9_egaoe"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
-[ext_resource type="PackedScene" uid="uid://ccw26705pyts2" path="res://PolygonHeist/FBX/Characters/SK_Character_Female_FBI.fbx" id="10_1ieu1"]
-[ext_resource type="Material" uid="uid://5hesgg1i11su" path="res://Materiais/PolygonHeist1A.tres" id="11_pj0l3"]
-[ext_resource type="PackedScene" uid="uid://bdwy6abm26cqq" path="res://PolygonHeist/FBX/Characters/SK_Character_Male_FBI.fbx" id="12_5ptbg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_police"]
 radius = 0.186
@@ -43,7 +40,7 @@ walk_clip = ExtResource("8_walk_clip")
 animation_player_path = NodePath("../AnimationPlayer")
 
 [node name="NPCBehaviorTree" parent="." unique_id=1782222566 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
-blackboard = NodePath("@Node@182616")
+blackboard = NodePath("@Node@160421")
 actor = NodePath("..")
 
 [node name="SK_Character_Female_Police" parent="." unique_id=2126720018 instance=ExtResource("8_8nfhu")]
@@ -66,21 +63,5 @@ layers = 16
 visible = false
 layers = 16
 
-[node name="SK_Character_Female_FBI" parent="." unique_id=173455825 instance=ExtResource("10_1ieu1")]
-
-[node name="Character_Female_FBI" parent="SK_Character_Female_FBI/Root/Skeleton3D" parent_id_path=PackedInt32Array(173455825, 1469020492) index="0" unique_id=1452361498]
-visible = false
-layers = 16
-surface_material_override/0 = ExtResource("11_pj0l3")
-
-[node name="SK_Character_Male_FBI" parent="." unique_id=1862613651 instance=ExtResource("12_5ptbg")]
-
-[node name="Character_Male_FBI" parent="SK_Character_Male_FBI/Root/Skeleton3D" parent_id_path=PackedInt32Array(1862613651, 853261477) index="0" unique_id=1119706119]
-visible = false
-layers = 16
-surface_material_override/0 = ExtResource("11_pj0l3")
-
 [editable path="SK_Character_Female_Police"]
 [editable path="SK_Character_Male_Police"]
-[editable path="SK_Character_Female_FBI"]
-[editable path="SK_Character_Male_FBI"]

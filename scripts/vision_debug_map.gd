@@ -350,9 +350,9 @@ func _draw_noise_label() -> void:
 	var label : String = "%.0f dB · %s" % [pulse.decibels, "OUVIDO" if pulse.heard else "RUÍDO"]
 	var color : Color = heard_noise_color if pulse.heard else noise_color
 	var text_size : Vector2 = SHORTCUT_FONT.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 11)
-	var position : Vector2 = map_center + Vector2(-text_size.x * 0.5, map_radius * 0.7)
-	draw_rect(Rect2(position + Vector2(-4.0, -12.0), text_size + Vector2(8.0, 2.0)), Color(0.008, 0.018, 0.035, 0.9))
-	draw_string(SHORTCUT_FONT, position, label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 11, color)
+	var position2 : Vector2 = map_center + Vector2(-text_size.x * 0.5, map_radius * 0.7)
+	draw_rect(Rect2(position2 + Vector2(-4.0, -12.0), text_size + Vector2(8.0, 2.0)), Color(0.008, 0.018, 0.035, 0.9))
+	draw_string(SHORTCUT_FONT, position2, label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 11, color)
 
 
 func _draw_shortcut_hint() -> void:

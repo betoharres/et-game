@@ -61,11 +61,11 @@ func _scan_ambient_noise() -> void:
 ## Registra um evento de ruído se estiver dentro do alcance efetivo
 ## (`hearing_radius * loudness`). `loudness = 1.0` é o padrão de um passo ou
 ## motor próximo; eventos mais altos (tiro, buzina) podem usar um valor maior.
-func hear_noise(position: Vector3, loudness: float = 1.0) -> void:
+func hear_noise(position2: Vector3, loudness: float = 1.0) -> void:
 	var effective_radius: float = hearing_radius * maxf(loudness, 0.1)
-	if global_position.distance_to(position) > effective_radius:
+	if global_position.distance_to(position2) > effective_radius:
 		return
-	_remember_noise(position)
+	_remember_noise(position2)
 
 
 func hear_sound(origin: Vector3, decibels: float, radius: float) -> bool:

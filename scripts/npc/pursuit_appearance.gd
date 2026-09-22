@@ -145,7 +145,7 @@ func _point_bone(bone: int, child: int, target: Vector3) -> void:
 	_set_global_basis(bone, Basis(Quaternion(from, to)) * pose.basis)
 
 
-func _set_global_basis(bone: int, basis: Basis) -> void:
+func _set_global_basis(bone: int, basis2: Basis) -> void:
 	var parent: int = _skeleton.get_bone_parent(bone)
 	var parent_basis: Basis = _skeleton.get_bone_global_pose(parent).basis if parent >= 0 else Basis.IDENTITY
-	_skeleton.set_bone_pose_rotation(bone, (parent_basis.inverse() * basis).orthonormalized().get_rotation_quaternion())
+	_skeleton.set_bone_pose_rotation(bone, (parent_basis.inverse() * basis2).orthonormalized().get_rotation_quaternion())
