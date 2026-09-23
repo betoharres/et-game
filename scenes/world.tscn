@@ -1395,6 +1395,9 @@ size = Vector3(20.08585, 8.745322, 10.052998)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6glxd"]
 size = Vector3(10.173867, 8.745322, 2.470231)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsaxv"]
+resource_local_to_scene = true
+
 [node name="World" type="Node3D" unique_id=1407078805]
 script = ExtResource("0_world")
 
@@ -1414,6 +1417,7 @@ terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
 
 [node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.594955, 129.23634, -12.485317)
+visible = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
@@ -13151,17 +13155,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.284893, 0.1958563, -22.78
 [node name="PortalPair" parent="." unique_id=182802936 instance=ExtResource("203_j2dbt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.204247, 0, -24.746723)
 
-[node name="Mesh2" parent="PortalPair" index="0" unique_id=1155961728]
-transform = Transform3D(-0.01495155, 0, 0.9998882, 0, 0.9999999, 0, -0.9998882, 0, -0.014951549, -56.555534, 3.4647188, -3.7483616)
+[node name="Mesh1" parent="PortalPair" index="0" unique_id=754199913]
+transform = Transform3D(4.5, 0, 0, 0, -4.371139e-08, -4.5, 0, 1, -1.9670125e-07, 230.46591, 3.4639354, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_jsaxv")
 
-[node name="Mesh1" parent="PortalPair" index="1" unique_id=754199913]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 230.43518, 3.5002856, -15.433723)
+[node name="Mesh2" parent="PortalPair" index="1" unique_id=1155961728]
+transform = Transform3D(-1.9670125e-07, 1, -1.9670124e-07, 0, -4.3711385e-08, -4.5, -4.5, -4.371139e-08, -7.389127e-15, -61.34179, 3.461132, 0.33229256)
+surface_material_override/0 = SubResource("StandardMaterial3D_jsaxv")
 
 [node name="SmBldPortal01" parent="PortalPair" index="2" unique_id=1334734506]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.7392, -0.05562842, -15.433723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.76993, -0.05562842, 0)
 
 [node name="SmBldPortal02" parent="PortalPair" index="3" unique_id=416463312]
-transform = Transform3D(-0.01495155, 0, 0.99988824, 0, 1, 0, -0.99988824, 0, -0.01495155, -56.56556, -0.05562842, -4.0696735)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -61.020584, -0.05562842, 0)
 
 [editable path="PropsHolder/Root3"]
 [editable path="PropsHolder/Root3/SM_Veh_Pickup_01"]
