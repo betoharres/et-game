@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://cku5uaskgnbiu" path="res://scenes/AlienText/alien_text_test.gd" id="1_script"]
 [ext_resource type="Shader" uid="uid://xjnbgfbo1mom" path="res://scenes/AlienText/alien_circle_texture.gdshader" id="2_circle_shader"]
 [ext_resource type="Shader" uid="uid://2iuafbpbymjx" path="res://scenes/AlienText/alien_text_distorted.gdshader" id="3_text_shader"]
-[ext_resource type="Texture2D" uid="uid://d0qlx6nb4dccq" path="res://Texturas/AlienTextCircle.png" id="4_circle_texture"]
+[ext_resource type="Texture2D" uid="uid://bn8jlktysi3o7" path="res://Texturas/FX/AlienTextCircleAnimated1.png" id="4_circle_texture"]
+[ext_resource type="SpriteFrames" uid="uid://ku786j252s6q" path="res://Texturas/FX/alien_text_spriteFrames.tres" id="5_0l5hi"]
+[ext_resource type="Script" uid="uid://bo7aeivvhwxgw" path="res://scenes/AlienText/animated_sprite_3d.gd" id="6_tob1f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_text"]
 render_priority = 0
@@ -52,6 +54,17 @@ mesh = SubResource("QuadMesh_text")
 
 [node name="AlienCircle" type="MeshInstance3D" parent="Display" unique_id=864212900]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.02)
+visible = false
 layers = 32
 material_override = SubResource("ShaderMaterial_circle")
 mesh = SubResource("QuadMesh_circle")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Display" unique_id=1677416142]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+layers = 4
+billboard = 2
+sprite_frames = ExtResource("5_0l5hi")
+animation = &"Circles"
+autoplay = "Circles"
+frame_progress = 0.99646044
+script = ExtResource("6_tob1f")

@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ku786j252s6q"]
+
+[ext_resource type="Texture2D" uid="uid://bn8jlktysi3o7" path="res://Texturas/FX/AlienTextCircleAnimated1.png" id="1_8eoqs"]
+[ext_resource type="Texture2D" uid="uid://ciu4llgummwlw" path="res://Texturas/FX/AlienTextCircleAnimated2.png" id="2_6igi5"]
+[ext_resource type="Texture2D" uid="uid://cpg3dsjqqjdyn" path="res://Texturas/FX/AlienTextCircleAnimated3.png" id="3_12g12"]
+[ext_resource type="Texture2D" uid="uid://ckqr48d5206dw" path="res://Texturas/FX/AlienTextCircleAnimated4.png" id="4_2tvwq"]
+[ext_resource type="Texture2D" uid="uid://ckd4301hte0l1" path="res://Texturas/FX/AlienTextCircleAnimated5.png" id="5_ge7f7"]
+[ext_resource type="Texture2D" uid="uid://cc2kqxep1vb7f" path="res://Texturas/FX/AlienTextCircleAnimated6.png" id="6_5l5ab"]
+[ext_resource type="Texture2D" uid="uid://cx2xjyqjqidh8" path="res://Texturas/FX/AlienTextCircleAnimated7.png" id="7_y50eu"]
+[ext_resource type="Texture2D" uid="uid://c4l16bubyg2j5" path="res://Texturas/FX/AlienTextCircleAnimated8.png" id="8_euttq"]
+[ext_resource type="Texture2D" uid="uid://byqcrmo3p7717" path="res://Texturas/FX/AlienTextCircleAnimated9.png" id="9_gjvhf"]
+[ext_resource type="Texture2D" uid="uid://cgiwv6n5qec0a" path="res://Texturas/FX/AlienTextCircleAnimated10.png" id="10_ayn4f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8eoqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8eoqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6igi5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_12g12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2tvwq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ge7f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5l5ab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y50eu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_euttq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gjvhf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ayn4f")
+}],
+"loop": 1,
+"name": &"Circles",
+"speed": 10.0
+}]

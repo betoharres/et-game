@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0qlx6nb4dccq"
-path.s3tc="res://.godot/imported/AlienTextCircle.png-16a94b0190912f9af807200c0a9c9299.s3tc.ctex"
+uid="uid://ciu4llgummwlw"
+path.s3tc="res://.godot/imported/AlienTextCircleAnimated2.png-a4ef0887a978e4adf41659314afc5b4a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Texturas/AlienTextCircle.png"
-dest_files=["res://.godot/imported/AlienTextCircle.png-16a94b0190912f9af807200c0a9c9299.s3tc.ctex"]
+source_file="res://Texturas/FX/AlienTextCircleAnimated2.png"
+dest_files=["res://.godot/imported/AlienTextCircleAnimated2.png-a4ef0887a978e4adf41659314afc5b4a.s3tc.ctex"]
 
 [params]
 
