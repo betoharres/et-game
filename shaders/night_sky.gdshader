@@ -15,6 +15,7 @@ uniform float moon_brightness : hint_range(0.0, 6.0, 0.05) = 2.4;
 uniform float moon_halo_strength : hint_range(0.0, 2.0, 0.01) = 0.48;
 uniform float cloud_speed : hint_range(0.0, 0.1, 0.001) = 0.008;
 uniform float cloud_opacity : hint_range(0.0, 0.5, 0.01) = 0.11;
+uniform float orbit_rotation : hint_range(-6.283, 6.283, 0.001) = 0.0;
 
 
 float hash21(vec2 point) {
@@ -86,12 +87,15 @@ void sky() {
 		// The animated details do not need to enter ambient lighting/reflections.
 		COLOR = vec3(0.007, 0.012, 0.03);
 	} else {
-		vec3 direction = normalize(EYEDIR);
+		mat2 sky_rotation = mat2(vec2(cos(orbit_rotation), sin(orbit_rotation)), vec2(-sin(orbit_rotation), cos(orbit_rotation)));
+		vec2 rotated_direction = sky_rotation * EYEDIR.xz;
+		vec3 direction = normalize(vec3(rotated_direction.x, EYEDIR.y, rotated_direction.y));
 		float upper_mix = pow(clamp(direction.y * 0.82 + 0.18, 0.0, 1.0), 0.58);
 		vec3 background = mix(horizon_color, zenith_color, upper_mix);
 		background = mix(lower_sky_color, background, smoothstep(-0.20, 0.08, direction.y));
 
-		vec2 cloud_uv = SKY_COORDS * vec2(8.0, 3.2);
+		vec2 sky_coords = sky_rotation * SKY_COORDS;
+		vec2 cloud_uv = sky_coords * vec2(8.0, 3.2);
 		cloud_uv.x += TIME * cloud_speed;
 		float cloud_a = value_noise(cloud_uv);
 		float cloud_b = value_noise(cloud_uv * 2.07 + vec2(4.3, 1.7));
@@ -99,7 +103,7 @@ void sky() {
 		clouds *= smoothstep(0.02, 0.30, direction.y) * (1.0 - smoothstep(0.62, 0.90, direction.y));
 		background *= 1.0 - clouds * cloud_opacity;
 
-		vec3 stars = procedural_stars(direction, SKY_COORDS) * (1.0 - clouds * 0.55);
+		vec3 stars = procedural_stars(direction, sky_coords) * (1.0 - clouds * 0.55);
 		vec3 moon = procedural_moon(direction) * (1.0 - clouds * 0.32);
 		COLOR = background + stars + moon;
 	}

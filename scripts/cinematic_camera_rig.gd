@@ -218,6 +218,9 @@ func _input(event : InputEvent) -> void:
 	# the whole frame, and _input() runs once per event, so mouse motion in the
 	# same frame would toggle the binoculars a second time and cancel it out.
 	if event.is_action_pressed("binos"):
+		var owner_player: Node = get_parent()
+		if owner_player != null and owner_player.has_method("can_use_xray_goggles") and not bool(owner_player.call("can_use_xray_goggles")):
+			return
 		if binos_active:
 			deactivate_binos()
 		else:

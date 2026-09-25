@@ -18,10 +18,16 @@ signal descend_requested
 
 var _descend_trigger_enabled : bool = false
 var _activate_on_enter : bool = false
+var _descend_action : StringName = &"interact"
 var _characters_on_pad : Array[CharacterBody3D] = []
 
 
+func is_player_inside(player: Node3D) -> bool:
+	return _characters_on_pad.has(player) or global_position.distance_squared_to(player.global_position) < 64.0
+
+
 func _ready() -> void:
+	add_to_group("ship_interiors")
 	descend_trigger.body_entered.connect(_on_pad_body_entered)
 	descend_trigger.body_exited.connect(_on_pad_body_exited)
 	descend_prompt.visible = false
@@ -38,7 +44,7 @@ func _process(_delta : float) -> void:
 	if (
 		character_on_pad
 		and not _activate_on_enter
-		and Input.is_action_just_pressed("interact")
+		and Input.is_action_just_pressed(_descend_action)
 	):
 		_request_descend()
 
@@ -56,6 +62,15 @@ func set_descend_trigger_enabled(
 		descend_prompt.visible = false
 	elif _activate_on_enter:
 		call_deferred("_request_descend_if_character_present")
+
+
+func request_descend() -> void:
+	if _descend_trigger_enabled:
+		_request_descend()
+
+
+func set_descend_action(action: StringName) -> void:
+	_descend_action = action
 
 
 func _on_pad_body_entered(body : Node3D) -> void:

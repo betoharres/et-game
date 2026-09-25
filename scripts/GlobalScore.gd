@@ -9,6 +9,7 @@ const UPGRADE_COSTS : Array[int] = [60, 100, 150]
 var score : int = 0
 var inventory : Array[String] = []
 var money : int = 0
+var xray_goggles_owned : bool = false
 var _upgrade_levels : Dictionary[StringName, int] = {}
 
 func add_score(amount : int) -> void:

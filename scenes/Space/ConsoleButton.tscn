@@ -4,10 +4,12 @@
 [ext_resource type="ArrayMesh" uid="uid://dqyxp4y33733t" path="res://PolygonScifiCity/FBX/SM_Prop_ControlPanel_01.fbx" id="2_panel_scene"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="3_ie0ij"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_console_body"]
-size = Vector3(0.5, 1.1, 0.8)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ie0ij"]
+radius = 0.19873047
+height = 1.4658203
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_console_trigger"]
+height = 1.8095703
 radius = 0.95
 
 [node name="ConsoleButton" type="Node3D" unique_id=181004001]
@@ -20,14 +22,14 @@ surface_material_override/0 = ExtResource("3_ie0ij")
 [node name="StaticBody3D" type="StaticBody3D" parent="Panel" unique_id=181004003]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Panel/StaticBody3D" unique_id=181004004]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-shape = SubResource("BoxShape3D_console_body")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38544923, 0)
+shape = SubResource("CapsuleShape3D_ie0ij")
 
 [node name="Trigger" type="Area3D" parent="." unique_id=181004005]
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger" unique_id=181004006]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84521484, 0)
 shape = SubResource("CylinderShape3D_console_trigger")
 
 [node name="PanelLight" type="OmniLight3D" parent="." unique_id=181004009]

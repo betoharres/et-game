@@ -4,6 +4,7 @@ extends Node3D
 ## O terminal usa o feixe da nave grande; o resgate embarca na Saucer.
 
 const MISSION_FLOW = preload("res://scripts/levels/mission_flow.gd")
+const GAME_PROGRESS = preload("res://scripts/levels/game_progress.gd")
 const MISSION_SAUCER : PackedScene = preload("res://scenes/Space/MissionSaucer.tscn")
 
 ## A missão do tripulante usa a Saucer após a escolha de quando partir.
@@ -57,21 +58,26 @@ var _mission_transport : Node3D = null
 @onready var mission_npc : MissionGiverNPC = $AlienShip/MissionGiver
 @onready var mission_dialogue : MissionDialogueUI = $MissionDialogue
 @onready var player : CharacterBody3D = $CharacterBody3D
-@onready var earth : Node3D = $Earth
-@onready var sun_light : DirectionalLight3D = $SunLight
+@onready var earth : Node3D = $SkyRotation/Earth
+@onready var sun_light : DirectionalLight3D = $SkyRotation/SunLight
+@onready var rotation_pivot : Node3D = $SkyRotation
+#@onready var sky_material: ShaderMaterial = $WorldEnvironment.environment.sky.sky_material
+var _orbit_angle: float = 0.0
 
 
 func _ready() -> void:
+	MISSION_FLOW.ship_oxygen_remaining = GAME_PROGRESS.ship_oxygen_seconds
 	_earth_home_scale = earth.scale
+	rotation_pivot.set_meta("orbit_position", rotation_pivot.position)
+	_orbit_angle = 0.0
 
-	var spawn_offset : Vector3 = ship.spawn_point.global_position - player.global_position
-	player.apply_carry(Transform3D(Basis.IDENTITY, spawn_offset), 0.0)
+	player.global_position = ship.spawn_point.global_position
 	ship.set_player_inside(player, true)
 
 	console.activated.connect(_on_console_activated)
 	mission_ui.level_chosen.connect(_on_level_chosen)
 	mission_ui.closed.connect(_on_mission_ui_closed)
-	mission_npc.activated.connect(_on_mission_npc_activated)
+	#mission_npc.activated.connect(_on_mission_npc_activated)
 	mission_dialogue.accepted.connect(_on_rescue_mission_accepted)
 	mission_dialogue.declined.connect(_on_rescue_mission_declined)
 	ship.descend_requested.connect(_on_transport_beam_entered)
@@ -81,16 +87,28 @@ func _ready() -> void:
 func _on_console_activated() -> void:
 	if _traveling or mission_dialogue.visible:
 		return
-	mission_npc.set_armed(false)
+	#mission_npc.set_armed(false)
 	player.set_movement_locked(true)
 	mission_ui.open()
+
+
+func _physics_process(delta: float) -> void:
+	if not _traveling:
+		_orbit_angle += 0.18 * delta
+		_set_orbit_angle(_orbit_angle)
+
+
+func _set_orbit_angle(angle: float) -> void:
+	_orbit_angle = angle
+	rotation_pivot.position = rotation_pivot.get_meta("orbit_position", rotation_pivot.position).rotated(Vector3.UP, _orbit_angle)
+	#sky_material.set_shader_parameter("orbit_rotation", _orbit_angle)
 
 
 func _on_mission_ui_closed() -> void:
 	if _traveling:
 		return
 	console.set_armed(true)
-	mission_npc.set_armed(true)
+	#mission_npc.set_armed(true)
 	player.set_movement_locked(false)
 
 
@@ -143,7 +161,6 @@ func _launch_rescue() -> void:
 	console.set_armed(false)
 	ship.set_transport_beam_enabled(false)
 	ship.set_player_inside(player, false)
-	ship.get_node("CarryField").release_passenger(player)
 	_mission_transport = MISSION_SAUCER.instantiate() as Node3D
 	_mission_transport.position = Vector3(110.0, 25.0, -10.0)
 	add_child(_mission_transport)
@@ -165,6 +182,9 @@ func _on_rescue_mission_declined() -> void:
 func _on_level_chosen(level : LevelDefinition) -> void:
 	if _traveling or not level.can_launch():
 		return
+	var catalog: LevelCatalog = load("res://scenes/Space/Levels/level_catalog.tres") as LevelCatalog
+	if catalog != null and catalog.levels.find(level) >= GAME_PROGRESS.highest_repaired_level:
+		return
 	if level.scene_path == "res://scenes/CountryTown/CountryTown.tscn":
 		mission_ui.close()
 		_on_mission_npc_activated()
@@ -172,7 +192,7 @@ func _on_level_chosen(level : LevelDefinition) -> void:
 	_pending_level = level
 	mission_ui.close()
 	ship.play_security_alert()
-	ship.set_transport_beam_enabled(true)
+	_on_transport_beam_entered()
 
 
 func _on_transport_beam_entered() -> void:
@@ -182,10 +202,8 @@ func _on_transport_beam_entered() -> void:
 	_pending_level = null
 	_traveling = true
 	console.set_armed(false)
-	ship.set_transport_beam_enabled(false)
 	MISSION_FLOW.arrived_from_orbit = true
 	MISSION_FLOW.arrival_by_saucer = false
-	ship.begin_approach_audio(WINDOW_ALIGN_DURATION + APPROACH_DURATION)
 	_play_approach(destination, ship)
 
 
@@ -197,7 +215,11 @@ func _play_approach(level : LevelDefinition, transport : Node3D) -> void:
 	# e confirmada a janela pode estar apontada para o lado oposto ao da Terra.
 	# Parar o giro alinhando a vista e o que garante que o arremesso seja
 	# assistido, e nao ouvido de costas para uma parede.
-	var alignment : Tween = transport.stop_spin_facing(earth.global_position, WINDOW_ALIGN_DURATION)
+	var alignment : Tween
+	if transport == ship:
+		alignment = _face_earth_with_orbit(WINDOW_ALIGN_DURATION)
+	else:
+		alignment = transport.stop_spin_facing(earth.global_position, WINDOW_ALIGN_DURATION)
 	await alignment.finished
 
 	player.camera_pivot.add_shake(APPROACH_SHAKE)
@@ -206,7 +228,11 @@ func _play_approach(level : LevelDefinition, transport : Node3D) -> void:
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	tween.tween_property(earth, "position", _approach_position(), APPROACH_DURATION)
+	var orbit_target: Vector3 = Vector3(0.0, earth.position.y, -EARTH_RADIUS - APPROACH_SURFACE_CLEARANCE)
+	if transport == ship:
+		tween.tween_property(earth, "position", orbit_target, APPROACH_DURATION)
+	else:
+		tween.tween_property(earth, "position", _approach_position(), APPROACH_DURATION)
 	tween.tween_property(
 		earth, "scale", _earth_home_scale * APPROACH_SCALE, APPROACH_DURATION
 	)
@@ -218,6 +244,14 @@ func _play_approach(level : LevelDefinition, transport : Node3D) -> void:
 
 	var scene_transition : Node = get_node("/root/SceneTransition")
 	scene_transition.warp_to(level.scene_path, Color.BLACK)
+
+
+func _face_earth_with_orbit(duration: float) -> Tween:
+	var target_angle: float = _orbit_angle - wrapf(_orbit_angle, -PI, PI)
+	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_method(_set_orbit_angle, _orbit_angle, target_angle, duration)
+	return tween
 
 
 ## Onde a Terra para no fim da aproximacao. A distancia sai do raio da esfera

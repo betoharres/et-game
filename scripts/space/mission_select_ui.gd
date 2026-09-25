@@ -11,6 +11,7 @@ signal level_chosen(level : LevelDefinition)
 signal closed
 
 const CATALOG_PATH : String = "res://scenes/Space/Levels/level_catalog.tres"
+const GAME_PROGRESS = preload("res://scripts/levels/game_progress.gd")
 
 const LOCKED_COLOR : Color = Color(0.5, 0.55, 0.62, 1.0)
 const AVAILABLE_COLOR : Color = Color(0.42, 0.92, 1.0, 1.0)
@@ -54,6 +55,7 @@ func _unhandled_input(event : InputEvent) -> void:
 
 
 func open() -> void:
+	_build_level_list()
 	visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	for button : Button in _level_buttons:
@@ -87,7 +89,10 @@ func _build_level_list() -> void:
 		button.custom_minimum_size = Vector2(0, 46)
 		button.toggle_mode = true
 		button.text = level.display_name
-		button.modulate = AVAILABLE_COLOR if level.can_launch() else LOCKED_COLOR
+		var catalog_index: int = _catalog.levels.find(level)
+		var unlocked: bool = catalog_index < GAME_PROGRESS.highest_repaired_level
+		button.modulate = AVAILABLE_COLOR if level.can_launch() and unlocked else LOCKED_COLOR
+		button.disabled = not unlocked or not level.can_launch()
 		button.pressed.connect(_on_level_button_pressed.bind(level, button))
 		level_list.add_child(button)
 		_level_buttons.append(button)
@@ -96,6 +101,9 @@ func _build_level_list() -> void:
 func _on_level_button_pressed(level : LevelDefinition, pressed_button : Button) -> void:
 	for button : Button in _level_buttons:
 		button.button_pressed = button == pressed_button
+	if pressed_button.disabled:
+		_show_selection(null)
+		return
 	_show_selection(level)
 
 
@@ -109,16 +117,22 @@ func _show_selection(level : LevelDefinition) -> void:
 		return
 
 	title_label.text = level.display_name
-	if not level.available:
+	var level_index: int = _catalog.levels.find(level) if _catalog != null else 0
+	if level_index >= GAME_PROGRESS.highest_repaired_level:
+		briefing_label.text = "Nave danificada. Repare-a no terminal da fase anterior para liberar este destino."
+	elif not level.available:
 		briefing_label.text = level.locked_reason
 	elif not level.can_launch():
 		briefing_label.text = "Cena da fase nao configurada."
 	else:
 		briefing_label.text = level.briefing
-	go_button.disabled = not level.can_launch()
+	go_button.disabled = not level.can_launch() or level_index >= GAME_PROGRESS.highest_repaired_level
 
 
 func _on_go_pressed() -> void:
 	if _selected_level == null or not _selected_level.can_launch():
+		return
+	var index: int = _catalog.levels.find(_selected_level) if _catalog != null else 0
+	if index >= GAME_PROGRESS.highest_repaired_level:
 		return
 	level_chosen.emit(_selected_level)

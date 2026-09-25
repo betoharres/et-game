@@ -1,61 +1,20 @@
 [gd_scene format=3 uid="uid://duf0kjdsouqft"]
 
 [ext_resource type="Script" uid="uid://dqphh8yd7ftp1" path="res://scripts/space/orbit.gd" id="1_orbit_script"]
-[ext_resource type="Shader" uid="uid://cge75rbpo8nsw" path="res://shaders/night_sky.gdshader" id="2_night_sky"]
+[ext_resource type="Script" uid="uid://ddvqgduusoso3" path="res://scenes/Space/sky_rotation.gd" id="2_8v0pj"]
 [ext_resource type="Shader" uid="uid://bfyjgsqafa2o3" path="res://shaders/earth_planet.gdshader" id="3_earth_surface"]
 [ext_resource type="Shader" uid="uid://cj3ga6hdytjqm" path="res://shaders/planet_atmosphere.gdshader" id="4_earth_atmosphere"]
-[ext_resource type="Script" uid="uid://dv4esnl121dfq" path="res://scripts/space/orbital_earth.gd" id="5_earth_script"]
+[ext_resource type="Texture2D" uid="uid://bnocoerli3l6w" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Back.png" id="5_jlk75"]
 [ext_resource type="PackedScene" uid="uid://bhp4ucmofsbp1" path="res://scenes/Space/AlienShip.tscn" id="6_ship"]
+[ext_resource type="Texture2D" uid="uid://t8sii0repmxi" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Front.png" id="6_t3yo3"]
+[ext_resource type="Texture2D" uid="uid://cysdi5kelxc32" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Left.png" id="7_pfq7m"]
+[ext_resource type="Texture2D" uid="uid://l2f22ytlyaer" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Down.png" id="7_t3yo3"]
+[ext_resource type="Texture2D" uid="uid://cfvgxs06gqa0r" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Right.png" id="8_1tyn7"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionSelectUI.tscn" id="8_mission_ui"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="9_player"]
+[ext_resource type="Texture2D" uid="uid://bgo6a5jx76n1y" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Up.png" id="10_kn4mw"]
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="10_pause_menu"]
-[ext_resource type="PackedScene" path="res://scenes/NPCs/ShipCrewAlien.tscn" id="11_crew_alien"]
-[ext_resource type="Script" uid="uid://cgrdgx2m5ggfh" path="res://scripts/space/mission_giver_npc.gd" id="12_mission_npc_script"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="13_mission_dialogue"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_night_sky"]
-shader = ExtResource("2_night_sky")
-shader_parameter/zenith_color = Color(0.012, 0.025, 0.075, 1)
-shader_parameter/horizon_color = Color(0.018, 0.038, 0.09, 1)
-shader_parameter/lower_sky_color = Color(0.005, 0.008, 0.022, 1)
-shader_parameter/star_density = 0.56
-shader_parameter/star_brightness = 1.15
-shader_parameter/twinkle_speed = 0.42
-shader_parameter/twinkle_amount = 0.16
-shader_parameter/star_seed = 73021.0
-shader_parameter/moon_direction = Vector3(0.48, 0.34, 0.81)
-shader_parameter/moon_color = Color(0.68, 0.76, 0.9, 1)
-shader_parameter/moon_angular_size = 0.028
-shader_parameter/moon_brightness = 2.4
-shader_parameter/moon_halo_strength = 0.48
-shader_parameter/cloud_speed = 0.008
-shader_parameter/cloud_opacity = 0.11
-
-[sub_resource type="Sky" id="Sky_space"]
-sky_material = SubResource("ShaderMaterial_night_sky")
-process_mode = 1
-
-[sub_resource type="Environment" id="Environment_space"]
-background_mode = 2
-background_energy_multiplier = 0.5
-sky = SubResource("Sky_space")
-ambient_light_source = 2
-ambient_light_color = Color(0.12, 0.18, 0.3, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.22
-reflected_light_source = 1
-tonemap_mode = 4
-tonemap_exposure = 0.86
-tonemap_agx_contrast = 1.14
-glow_enabled = true
-glow_levels/2 = 0.4
-glow_levels/3 = 0.3
-glow_normalized = true
-glow_intensity = 0.18
-glow_strength = 0.48
-glow_bloom = 0.08
-glow_hdr_threshold = 0.9
-glow_hdr_scale = 1.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_surface"]
 render_priority = 0
@@ -98,45 +57,118 @@ material = SubResource("ShaderMaterial_earth_atmosphere")
 radius = 115.0
 height = 230.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfq7m"]
+shading_mode = 0
+albedo_texture = ExtResource("5_jlk75")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5s01q"]
+material = SubResource("StandardMaterial3D_pfq7m")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tyn7"]
+shading_mode = 0
+albedo_texture = ExtResource("6_t3yo3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_emb0l"]
+material = SubResource("StandardMaterial3D_1tyn7")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bysux"]
+shading_mode = 0
+albedo_texture = ExtResource("7_pfq7m")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ub6ff"]
+material = SubResource("StandardMaterial3D_bysux")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub6ff"]
+shading_mode = 0
+albedo_texture = ExtResource("8_1tyn7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_viot7"]
+material = SubResource("StandardMaterial3D_ub6ff")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn4mw"]
+shading_mode = 0
+albedo_texture = ExtResource("7_t3yo3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uowjm"]
+material = SubResource("StandardMaterial3D_kn4mw")
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_viot7"]
+shading_mode = 0
+albedo_texture = ExtResource("10_kn4mw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_viot7"]
+material = SubResource("StandardMaterial3D_viot7")
+size = Vector2(1000, 1000)
+
 [node name="Orbit" type="Node3D" unique_id=1388629007]
 script = ExtResource("1_orbit_script")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=181005001]
-environment = SubResource("Environment_space")
+[node name="SkyRotation" type="Node3D" parent="." unique_id=848358122]
+script = ExtResource("2_8v0pj")
 
-[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=181005002]
-transform = Transform3D(0.381033, 0.00014539808, 0.92456144, 0.2864248, 0.9507847, -0.118191764, -0.879076, 0.30985227, 0.3622387, 0, 14, 0)
+[node name="SunLight" type="DirectionalLight3D" parent="SkyRotation" unique_id=181005002]
+transform = Transform3D(0.38103303, 0.0001453981, 0.92456144, 0.28642482, 0.95078474, -0.11819177, -0.87907606, 0.3098523, 0.36223873, 0, 14, 0)
+layers = 4
 light_color = Color(1, 0.97, 0.92, 1)
 light_energy = 1.35
 light_angular_distance = 0.5
 shadow_enabled = true
 
-[node name="Earth" type="Node3D" parent="." unique_id=181005003 node_paths=PackedStringArray("sun")]
+[node name="Earth" type="Node3D" parent="SkyRotation" unique_id=181005003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 57.438316, -274.22003)
-script = ExtResource("5_earth_script")
-sun = NodePath("../SunLight")
 
-[node name="Surface" type="MeshInstance3D" parent="Earth" unique_id=181005004]
-material_override = SubResource("ShaderMaterial_earth_surface")
+[node name="Surface" type="MeshInstance3D" parent="SkyRotation/Earth" unique_id=181005004]
+cast_shadow = 0
 mesh = SubResource("SphereMesh_earth")
+surface_material_override/0 = SubResource("ShaderMaterial_earth_surface")
 
-[node name="Atmosphere" type="MeshInstance3D" parent="Earth" unique_id=181005005]
-material_override = SubResource("ShaderMaterial_earth_atmosphere")
+[node name="Atmosphere" type="MeshInstance3D" parent="SkyRotation/Earth" unique_id=181005005]
 cast_shadow = 0
 mesh = SubResource("SphereMesh_atmosphere")
+surface_material_override/0 = SubResource("ShaderMaterial_earth_atmosphere")
+
+[node name="DeepSpaceBack" type="MeshInstance3D" parent="SkyRotation" unique_id=1380442212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -500)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_5s01q")
+
+[node name="DeeoSpaceFront" type="MeshInstance3D" parent="SkyRotation" unique_id=1050425344]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 500)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_emb0l")
+
+[node name="DeepSpaceLeft" type="MeshInstance3D" parent="SkyRotation" unique_id=896513876]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -500, 0, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_ub6ff")
+
+[node name="DeepSpaceRight" type="MeshInstance3D" parent="SkyRotation" unique_id=1630744587]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 500, 0, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_viot7")
+
+[node name="DeepSpaceUp" type="MeshInstance3D" parent="SkyRotation" unique_id=32658632]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -500, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_uowjm")
+
+[node name="DeepSpaceDown" type="MeshInstance3D" parent="SkyRotation" unique_id=973167595]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 500, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_viot7")
 
 [node name="AlienShip" parent="." unique_id=349197007 instance=ExtResource("6_ship")]
-spin_speed = 0.18
-
-[node name="MissionGiver" parent="AlienShip" unique_id=1830754002 instance=ExtResource("11_crew_alien")]
-transform = Transform3D(0.7453582, 0, -0.6666642, 0, 1, 0, 0.6666642, 0, 0.7453582, 2.308728, 0.1438101, -3.29812)
-script = ExtResource("12_mission_npc_script")
-interact_radius = 2.2
-marker_height = 1.7
-marker_bob_amount = 0.08
-marker_bob_speed = 2.0
-marker_color = Color(1, 0.85, 0.2, 1)
-wander_extents = Vector2(0.6, 0.6)
 
 [node name="MissionSelectUI" parent="." unique_id=782099217 instance=ExtResource("8_mission_ui")]
 
@@ -145,4 +177,10 @@ wander_extents = Vector2(0.6, 0.6)
 [node name="CharacterBody3D" parent="." unique_id=50976619 instance=ExtResource("9_player")]
 transform = Transform3D(0.7164074, 0, 0.69768214, 0, 1, 0, -0.69768214, 0, 0.7164074, -3.293518, 0.14523011, -2)
 
+[node name="Camera3D" parent="CharacterBody3D/CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" parent_id_path=PackedInt32Array(50976619, 1571529631) index="0" unique_id=1582696248]
+far = 10000.0
+
 [node name="PauseMenu" parent="." unique_id=1646783495 instance=ExtResource("10_pause_menu")]
+
+[editable path="CharacterBody3D"]
+[editable path="CharacterBody3D/ET"]

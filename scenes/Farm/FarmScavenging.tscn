@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Telephone.tscn" id="Telephone"]
 [ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/Bucket.tscn" id="Bucket"]
 [ext_resource type="PackedScene" path="res://scenes/Farm/Scraps/WateringCan.tscn" id="WateringCan"]
-[ext_resource type="PackedScene" path="res://scenes/Farm/FarmUpgradeTotem.tscn" id="Totem"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Couch_01.tscn" id="Sofa"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_Bed_Single_01.tscn" id="Bed"]
 [ext_resource type="PackedScene" path="res://PolygonTown/Prefabs/Props/SM_Prop_BathroomSink_01.tscn" id="Sink"]
@@ -1162,7 +1161,3 @@ position = Vector3(-3.7, 2.9, -2)
 light_color = Color(1, 0.81, 0.55, 1)
 light_energy = 0.65
 omni_range = 4.5
-
-[node name="UpgradeTotem" parent="." instance=ExtResource("Totem")]
-position = Vector3(-55, 0.03, -28)
-rotation = Vector3(0, -0.8, 0)

@@ -12,6 +12,7 @@ signal descend_requested
 ## devagar" em vez de carrossel. Zero desliga o giro -- e o caso do deck de
 ## chegada de uma fase, que so desce em linha reta.
 @export_range(0.0, 1.0, 0.01) var spin_speed : float = 0.0
+@export var orbit_scene_behavior: bool = false
 
 ## Direcao local para onde a janela panoramica aponta. Usada por
 ## stop_spin_facing() para alinhar a vista antes de uma cutscene.
@@ -39,21 +40,13 @@ var _approach_audio_started : bool = false
 
 @onready var interior : Node3D = $Interior
 @onready var spawn_point : Marker3D = $SpawnPoint
-@onready var fall_guard : Area3D = $FallGuard
+@onready var fall_guard : Area3D = get_node_or_null("FallGuard") as Area3D
 @onready var interior_ambience : AudioStreamPlayer = $ShipAudio/InteriorAmbience
 @onready var movement_hum : AudioStreamPlayer = $ShipAudio/MovementHum
 @onready var heavy_engine : AudioStreamPlayer = $ShipAudio/HeavyEngine
 @onready var security_alert : AudioStreamPlayer = $ShipAudio/SecurityAlert
-@onready var beam_lights : Array[SpotLight3D] = [
-	$BeamLights/BeamFront,
-	$BeamLights/BeamRight,
-	$BeamLights/BeamLeft,
-]
-@onready var beam_volumes : Array[MeshInstance3D] = [
-	$BeamLights/BeamFrontVolume,
-	$BeamLights/BeamRightVolume,
-	$BeamLights/BeamLeftVolume,
-]
+@onready var beam_lights : Array[SpotLight3D] = _get_beam_lights()
+@onready var beam_volumes : Array[MeshInstance3D] = _get_beam_volumes()
 
 var _fall_guard_enabled : bool = true
 
@@ -61,7 +54,8 @@ var _fall_guard_enabled : bool = true
 func _ready() -> void:
 	process_physics_priority = SPIN_PHYSICS_PRIORITY
 	interior.descend_requested.connect(_on_interior_descend_requested)
-	fall_guard.body_entered.connect(_on_fall_guard_body_entered)
+	if fall_guard != null:
+		fall_guard.body_entered.connect(_on_fall_guard_body_entered)
 	for beam_light : SpotLight3D in beam_lights:
 		_base_beam_energies.append(beam_light.light_energy)
 	_set_mp3_loop_enabled(interior_ambience.stream, true)
@@ -70,7 +64,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta : float) -> void:
-	if not _spin_active or is_zero_approx(spin_speed):
+	if not orbit_scene_behavior or not _spin_active or is_zero_approx(spin_speed):
 		return
 	# No _physics_process, nunca no _process: a colisao do interior e lida pelo
 	# servidor de fisica neste mesmo tick, e o ShipCarryField mede o delta daqui.
@@ -235,6 +229,8 @@ func configure_external_beam(
 	ground_light : OmniLight3D,
 	volume : MeshInstance3D
 ) -> void:
+	if beam_lights.is_empty() or beam_volumes.is_empty():
+		return
 	spotlight.light_color = beam_lights[0].light_color
 	spotlight.light_energy = BEAM_LIGHT_ENERGY
 	spotlight.shadow_enabled = _atmosphere_quality_level > 0
@@ -255,7 +251,7 @@ func _apply_debug_lighting() -> void:
 		var beam_light : SpotLight3D = beam_lights[index]
 		beam_light.visible = _debug_lighting_enabled
 		beam_light.light_energy = (
-			_base_beam_energies[index]
+			(_base_beam_energies[index] if index < _base_beam_energies.size() else BEAM_LIGHT_ENERGY)
 			* _debug_lighting_intensity
 			* alien_scale
 		)
@@ -263,6 +259,32 @@ func _apply_debug_lighting() -> void:
 		beam_volume.visible = (
 			_debug_lighting_enabled and _atmosphere_quality_level > 0
 		)
+
+
+func _get_beam_lights() -> Array[SpotLight3D]:
+	var lights: Array[SpotLight3D] = []
+	for path: NodePath in [
+		^"BeamLights/BeamFront",
+		^"BeamLights/BeamRight",
+		^"BeamLights/BeamLeft",
+	]:
+		var light: SpotLight3D = get_node_or_null(path) as SpotLight3D
+		if light != null:
+			lights.append(light)
+	return lights
+
+
+func _get_beam_volumes() -> Array[MeshInstance3D]:
+	var volumes: Array[MeshInstance3D] = []
+	for path: NodePath in [
+		^"BeamLights/BeamFrontVolume",
+		^"BeamLights/BeamRightVolume",
+		^"BeamLights/BeamLeftVolume",
+	]:
+		var volume: MeshInstance3D = get_node_or_null(path) as MeshInstance3D
+		if volume != null:
+			volumes.append(volume)
+	return volumes
 
 
 func _set_mp3_loop_enabled(stream : AudioStream, enabled : bool) -> void:

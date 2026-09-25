@@ -10,3 +10,4 @@ extends RefCounted
 ## cutscene automatica de chegada para testes rapidos.
 static var arrived_from_orbit : bool = false
 static var arrival_by_saucer : bool = false
+static var ship_oxygen_remaining: float = 4800.0

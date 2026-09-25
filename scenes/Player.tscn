@@ -14,14 +14,21 @@
 [ext_resource type="Script" uid="uid://bttmbvxpmu3e6" path="res://scripts/cinematic_camera_rig.gd" id="10_camera_rig"]
 [ext_resource type="Shader" uid="uid://5a18c6an3aec" path="res://shaders/xray_binos.gdshader" id="10_d3wef"]
 [ext_resource type="Material" uid="uid://cyxh6pxy8ds4g" path="res://PolygonTown/Models/Vehicles/extracted/default.material" id="10_o4126"]
+[ext_resource type="ArrayMesh" uid="uid://5y4gc4cytx7u" path="res://PolygonScifiCity/FBX/SM_Env_Living_Dome_Skybox_01.fbx" id="11_6e537"]
 [ext_resource type="Script" uid="uid://b7pf8tfxvuqaa" path="res://scripts/energy_pool.gd" id="11_energy"]
 [ext_resource type="Script" uid="uid://cppy11s77ubxb" path="res://scripts/character_proportions.gd" id="12_proportions"]
 [ext_resource type="Script" uid="uid://2r3hwqim1oj4" path="res://scripts/exploration_inventory.gd" id="13_inventory"]
 [ext_resource type="AnimationLibrary" path="res://animations/mixamo/ET_animations.res" id="14_clips"]
-[ext_resource type="Script" path="res://scripts/audio/player_hit_audio.gd" id="15_hit_audio"]
-[ext_resource type="Script" path="res://scripts/player_hit_reaction.gd" id="16_hit_reaction"]
+[ext_resource type="Script" uid="uid://b7hf155avlp1f" path="res://scripts/audio/player_hit_audio.gd" id="15_hit_audio"]
+[ext_resource type="Script" uid="uid://etydkis7mu43" path="res://scripts/player_hit_reaction.gd" id="16_hit_reaction"]
 [ext_resource type="PackedScene" path="res://scenes/FX/PlayerDeathEffect.tscn" id="17_death_effect"]
-[ext_resource type="Script" path="res://scripts/player_noise.gd" id="18_noise"]
+[ext_resource type="Script" uid="uid://bdo2es3ww116r" path="res://scripts/player_noise.gd" id="18_noise"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emb0l"]
+cull_mode = 1
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 16.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
@@ -43,17 +50,18 @@ size = Vector3(1, 1.1122437, 0.9169922)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player", "players"]]
 script = ExtResource("1_p0vlq")
+rotation_speed = 30.0
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]
 script = ExtResource("4_footsteps")
 
-[node name="PlayerNoise" type="Node" parent="."]
+[node name="PlayerNoise" type="Node" parent="." unique_id=1442189026]
 script = ExtResource("18_noise")
 
-[node name="HitAudio" type="AudioStreamPlayer" parent="."]
+[node name="HitAudio" type="AudioStreamPlayer" parent="." unique_id=706976186]
 script = ExtResource("15_hit_audio")
 
-[node name="DeathEffect" parent="." instance=ExtResource("17_death_effect")]
+[node name="DeathEffect" parent="." unique_id=104448343 instance=ExtResource("17_death_effect")]
 
 [node name="PlayerHUD" parent="." unique_id=1616169788 instance=ExtResource("5_hud")]
 
@@ -72,6 +80,13 @@ blend_shapes/Head = 0.0
 blend_shapes/Eyes = 0.0
 surface_material_override/0 = ExtResource("6_61ith")
 surface_material_override/1 = ExtResource("7_61ith")
+
+[node name="EnergyShield" type="MeshInstance3D" parent="ET/ETArmature/Skeleton3D/ET" index="1" unique_id=572610389]
+transform = Transform3D(-0.01, 0, 0, 0, -0.01, 0, 0, 0, -0.01, 0, 0.5407829, 0)
+visible = false
+layers = 4
+mesh = ExtResource("11_6e537")
+surface_material_override/0 = SubResource("StandardMaterial3D_emb0l")
 
 [node name="CharacterProportions" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="1" unique_id=1369742478]
 unique_name_in_owner = false
@@ -118,7 +133,23 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 1.3089969
 secondary_damp_threshold = 1.0
 
-[node name="HitReaction" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="4"]
+[node name="HitReaction" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="4" unique_id=1785120568]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
 script = ExtResource("16_hit_reaction")
 
 [node name="HandR" type="TwoBoneIK3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="5" unique_id=1183812581]

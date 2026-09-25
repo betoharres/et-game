@@ -397,9 +397,15 @@ func _physics_process(delta : float) -> void:
 		_pickup_prompt.text = "[%s] Coletar — %s" % [_interaction_key(), str(item.get("display_name"))]
 		if item.is_in_group("farm_scraps"):
 			_pickup_prompt.text += "  ($ %d na entrega)" % int(item.get("cash_value"))
+	for exit_node : Node in get_tree().get_nodes_in_group("level_exits"):
+		if exit_node.has_method("get_interaction_prompt"):
+			var exit_prompt: String = str(exit_node.call("get_interaction_prompt", player))
+			if not exit_prompt.is_empty():
+				_pickup_prompt.text = exit_prompt
+				break
 	for station : Node in get_tree().get_nodes_in_group("upgrade_stations"):
 		if station.has_method("get_interaction_prompt"):
-			var prompt : String = str(station.call("get_interaction_prompt", player))
+			var prompt: String = str(station.call("get_interaction_prompt", player))
 			if not prompt.is_empty():
 				_pickup_prompt.text = prompt
 				break
@@ -409,7 +415,6 @@ func _physics_process(delta : float) -> void:
 			if bool(npc.call("is_player_nearby")):
 				_talk_prompt.text = "[%s] Falar" % _interaction_key()
 				break
-
 
 func _interaction_key(action : StringName = &"interact") -> String:
 	for event : InputEvent in InputMap.action_get_events(action):

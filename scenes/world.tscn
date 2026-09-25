@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://bhp4ucmofsbp1" path="res://scenes/Space/AlienShip.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/Vehicles/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/Vehicles/TractorOld.tscn" id="8_4mrxx"]
+[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="8_lr1th"]
 [ext_resource type="PackedScene" uid="uid://1dpav48qe8yh" path="res://scenes/Vehicles/Harvester01.tscn" id="9_7r4gi"]
+[ext_resource type="ArrayMesh" uid="uid://c5t5ck1jx7shq" path="res://PolygonSciFiWorlds/Models/SM_Prop_Chair_01.fbx" id="9_pafgt"]
+[ext_resource type="ArrayMesh" uid="uid://xteudfsy5jho" path="res://PolygonSciFiWorlds/Models/SM_Prop_Monitor_02.fbx" id="10_lr1th"]
 [ext_resource type="PackedScene" uid="uid://ccf5fvks4od7s" path="res://scenes/AnimatedCrops/WheatField.tscn" id="10_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://dq4h6uwraybej" path="res://scenes/AnimatedCrops/SunflowersPatch.tscn" id="11_e3hyu"]
 [ext_resource type="ArrayMesh" uid="uid://c07muvbbfftcp" path="res://PolygonFarm/Models/SM_Prop_Hay_Bale_Round_01.fbx" id="11_xgqkh"]
@@ -202,7 +204,9 @@
 [ext_resource type="ArrayMesh" uid="uid://bqmbwhp8ysq0a" path="res://PolygonCity/FBX/SM_Env_Sidewalk_Straight_02.fbx" id="207_ui3ty"]
 [ext_resource type="PackedScene" path="res://scenes/Farm/FarmScavenging.tscn" id="farm_scavenging"]
 [ext_resource type="PackedScene" uid="uid://cxl4ji7qug4lv" path="res://scenes/Quests/GorillaBananaQuest.tscn" id="gorilla_quest"]
+[ext_resource type="PackedScene" uid="uid://cdc1y7p1ymj0s" path="res://scenes/InLevelShip.tscn" id="in_level_ship"]
 [ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
+[ext_resource type="Script" uid="uid://ciahfw8ggnra1" path="res://scripts/space/ship_shop.gd" id="ship_shop_script"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
@@ -1395,7 +1399,7 @@ size = Vector3(20.08585, 8.745322, 10.052998)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6glxd"]
 size = Vector3(10.173867, 8.745322, 2.470231)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsaxv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bf6hq"]
 resource_local_to_scene = true
 
 [node name="World" type="Node3D" unique_id=1407078805]
@@ -1414,10 +1418,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20319748, -0.15520477, -0.
 [node name="PursuitSystem" parent="." unique_id=2058831106 instance=ExtResource("pursuit_system")]
 player_path = NodePath("../CharacterBody3D")
 terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
+hidden_seconds_per_star = 10.0
+maximum_active_enemies = 3
+initial_response_delay = 5.0
+respawn_delay = 10.0
 
-[node name="SpaceShip" parent="." unique_id=1163053841 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.594955, 129.23634, -12.485317)
-visible = false
+[node name="SpaceShip" parent="." unique_id=612400507 instance=ExtResource("in_level_ship")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.656147, 28, -33.3789)
+
+[node name="BottomGlass" parent="SpaceShip/ET_Ship_New" parent_id_path=PackedInt32Array(612400507, 1242519539) index="0" unique_id=2058397105]
+surface_material_override/0 = ExtResource("8_lr1th")
+
+[node name="TopGlass" parent="SpaceShip/ET_Ship_New" parent_id_path=PackedInt32Array(612400507, 1242519539) index="2" unique_id=1381140732]
+surface_material_override/0 = ExtResource("8_lr1th")
+
+[node name="ShopTerminal" type="Node3D" parent="SpaceShip" unique_id=1257305819]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 10.5, 0.7498417, 6.1510086)
+script = ExtResource("ship_shop_script")
+
+[node name="SmPropChair01" type="MeshInstance3D" parent="SpaceShip/ShopTerminal" unique_id=39218763]
+transform = Transform3D(-2.9802322e-08, 0, 1, 0, 1, 0, -1, 0, -2.9802322e-08, 0, -0.46938705, 0)
+layers = 512
+mesh = ExtResource("9_pafgt")
+
+[node name="SmPropMonitor02" type="MeshInstance3D" parent="SpaceShip/ShopTerminal" unique_id=70318809]
+transform = Transform3D(-8.940697e-08, 0, -1, 0, 1, 0, 1, 0, -8.940697e-08, 1.2333374, -0.46938705, 0.07722664)
+layers = 512
+mesh = ExtResource("10_lr1th")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1282658020]
 navigation_mesh = SubResource("NavigationMesh_ec6vt")
@@ -13157,11 +13184,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.204247, 0, -24.746723)
 
 [node name="Mesh1" parent="PortalPair" index="0" unique_id=754199913]
 transform = Transform3D(4.5, 0, 0, 0, -4.371139e-08, -4.5, 0, 1, -1.9670125e-07, 230.46591, 3.4639354, 0)
-surface_material_override/0 = SubResource("StandardMaterial3D_jsaxv")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf6hq")
 
 [node name="Mesh2" parent="PortalPair" index="1" unique_id=1155961728]
 transform = Transform3D(-1.9670125e-07, 1, -1.9670124e-07, 0, -4.3711385e-08, -4.5, -4.5, -4.371139e-08, -7.389127e-15, -61.34179, 3.461132, 0.33229256)
-surface_material_override/0 = SubResource("StandardMaterial3D_jsaxv")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf6hq")
 
 [node name="SmBldPortal01" parent="PortalPair" index="2" unique_id=1334734506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.76993, -0.05562842, 0)
@@ -13169,6 +13196,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.76993, -0.05562842, 0)
 [node name="SmBldPortal02" parent="PortalPair" index="3" unique_id=416463312]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -61.020584, -0.05562842, 0)
 
+[editable path="SpaceShip"]
+[editable path="SpaceShip/Interior"]
+[editable path="SpaceShip/ET_Ship_New"]
 [editable path="PropsHolder/Root3"]
 [editable path="PropsHolder/Root3/SM_Veh_Pickup_01"]
 [editable path="BuildingsHolder/Barn2"]

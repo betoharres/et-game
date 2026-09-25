@@ -201,6 +201,10 @@ var carried_character : Node3D = null
 var _carry_pickup_timer : float = 0.0
 var _pickup_requested : bool = false
 var _base_upgrade_stats : Dictionary[StringName, float] = {}
+const GAME_PROGRESS = preload("res://scripts/levels/game_progress.gd")
+const OXYGEN_LEVEL_SECONDS: float = 1200.0
+var _oxygen_seconds: float = OXYGEN_LEVEL_SECONDS
+var _oxygen_hud: Label
 
 func _ready() -> void:
 	exploration_inventory.changed.connect(func() -> void: exploration_inventory_changed.emit())
@@ -210,6 +214,14 @@ func _ready() -> void:
 		_base_upgrade_stats[property] = float(get(property))
 	GlobalScore.upgrade_changed.connect(_apply_purchased_upgrades)
 	_apply_purchased_upgrades()
+	_oxygen_seconds = minf(OXYGEN_LEVEL_SECONDS, GAME_PROGRESS.ship_oxygen_seconds)
+	_oxygen_hud = Label.new()
+	_oxygen_hud.name = "ETOxygen"
+	_oxygen_hud.add_theme_font_size_override("font_size", 20)
+	_oxygen_hud.add_theme_color_override("font_color", Color(0.65, 0.92, 1.0))
+	$PlayerHUD/Interface.add_child(_oxygen_hud)
+	_oxygen_hud.position = Vector2(48, 24)
+	_update_oxygen_display()
 	health = max_health
 	stamina = max_stamina
 	_balance = balance_max
@@ -379,6 +391,8 @@ func apply_carry(carry_transform : Transform3D, carry_yaw : float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("return_to_orbit") and not event.is_echo() and _is_level_ship_return_reserved():
+		return
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			var mouse_motion: Vector2 = event.relative
@@ -398,7 +412,9 @@ func _input(event: InputEvent) -> void:
 					_look_center_yaw + _look_yaw_limit
 				)
 
-	if _movement_locked:
+	if _movement_locked and not _is_ship_exit_reserved():
+		return
+	if not can_use_xray_goggles() and event.is_action_pressed("binos"):
 		return
 
 	for slot : int in range(4):
@@ -429,7 +445,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("interact") and not event.is_echo():
-		if _is_door_interaction_reserved() or _is_upgrade_interaction_reserved():
+		if _is_door_interaction_reserved() or _is_upgrade_interaction_reserved() or _is_ship_exit_reserved():
 			return
 		if carried_character != null:
 			release_carried_character()
@@ -445,6 +461,14 @@ func _input(event: InputEvent) -> void:
 				_pickup_requested = true
 
 func _physics_process(delta: float) -> void:
+	if not _movement_locked and is_alive() and GAME_PROGRESS.ship_oxygen_seconds > 0.0:
+		_oxygen_seconds = maxf(_oxygen_seconds - delta, 0.0)
+		GAME_PROGRESS.ship_oxygen_seconds = maxf(GAME_PROGRESS.ship_oxygen_seconds - delta, 0.0)
+		_update_oxygen_display()
+		if _oxygen_seconds <= 0.0:
+			_die()
+	elif is_inside_ship() and GAME_PROGRESS.ship_oxygen_seconds < GAME_PROGRESS.oxygen_capacity_seconds:
+		GAME_PROGRESS.ship_oxygen_seconds = minf(GAME_PROGRESS.oxygen_capacity_seconds, GAME_PROGRESS.ship_oxygen_seconds + delta)
 	if not can_emit_player_noise():
 		player_noise.stop_steps()
 	if _fall_state != FallState.NONE:
@@ -2064,6 +2088,46 @@ func _is_delivery_interaction_reserved() -> bool:
 func _is_upgrade_interaction_reserved() -> bool:
 	for station : Node in get_tree().get_nodes_in_group("upgrade_stations"):
 		if station.has_method("reserves_interaction_for") and bool(station.call("reserves_interaction_for", self)):
+			return true
+	return false
+
+
+func can_use_xray_goggles() -> bool:
+	return GlobalScore.xray_goggles_owned or GlobalScore.has_item("xray_goggles")
+
+
+func is_inside_ship() -> bool:
+	for interior: Node in get_tree().get_nodes_in_group("ship_interiors"):
+		if interior.has_method("is_player_inside") and bool(interior.call("is_player_inside", self)):
+			return true
+	return false
+
+
+func grant_xray_goggles() -> void:
+	GlobalScore.xray_goggles_owned = true
+	if not GlobalScore.has_item("xray_goggles"):
+		GlobalScore.add_item("xray_goggles")
+
+
+func _update_oxygen_display() -> void:
+	if not is_instance_valid(_oxygen_hud):
+		return
+	var minutes: int = floori(_oxygen_seconds / 60.0)
+	var seconds: int = floori(fmod(_oxygen_seconds, 60.0))
+	_oxygen_hud.text = "ET OXYGEN  %02d:%02d" % [minutes, seconds]
+	_oxygen_hud.modulate = Color(1.0, 0.42, 0.32) if _oxygen_seconds <= 120.0 else Color.WHITE
+
+
+func _is_ship_exit_reserved() -> bool:
+	for exit_node: Node in get_tree().get_nodes_in_group("level_exits"):
+		if exit_node.has_method("reserves_interaction_for") and bool(exit_node.call("reserves_interaction_for", self)):
+			return true
+	return false
+
+
+func _is_level_ship_return_reserved() -> bool:
+	for level_ship: Node in get_tree().get_nodes_in_group("level_ships"):
+		if level_ship.has_method("player_is_on_pad") and bool(level_ship.call("player_is_on_pad")):
 			return true
 	return false
 	

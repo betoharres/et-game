@@ -53,6 +53,8 @@ var _nearby_characters : Array[CharacterBody3D] = []
 var _target_item : RigidBody3D = null
 var _signaling_character : CharacterBody3D = null
 var _target_start_position : Vector3
+var _abduction_items: Array[RigidBody3D] = []
+var _abduction_start_positions: Array[Vector3] = []
 var _ufo : Node3D = null
 var _ufo_start_position : Vector3
 var _ufo_target_position : Vector3
@@ -259,13 +261,25 @@ func _complete_charge() -> void:
 		_cancel_charge()
 		return
 
-	if _target_item.has_method("begin_abduction"):
-		if not bool(_target_item.call("begin_abduction")):
-			_cancel_charge()
-			return
-	else:
-		_target_item.freeze = true
-		_target_item.remove_from_group("pickup_items")
+	_abduction_items.clear()
+	_abduction_start_positions.clear()
+	for item: RigidBody3D in _candidate_items:
+		if not is_instance_valid(item) or item.is_in_group("quest_items"):
+			continue
+		var available: bool = not item.has_method("is_available_for_abduction") or bool(item.call("is_available_for_abduction"))
+		if not available:
+			continue
+		if item.has_method("begin_abduction") and not bool(item.call("begin_abduction")):
+			continue
+		if not item.has_method("begin_abduction"):
+			item.freeze = true
+			item.remove_from_group("pickup_items")
+		_abduction_items.append(item)
+		_abduction_start_positions.append(item.global_position)
+	if _abduction_items.is_empty():
+		_cancel_charge()
+		return
+	_target_item = _abduction_items[0]
 
 	_set_character_signal_pose(false)
 	_signaling_character = null
@@ -329,14 +343,23 @@ func _find_available_item() -> RigidBody3D:
 			if not bool(item.call("is_available_for_abduction")):
 				continue
 
-		var distance : float = item.global_position.distance_squared_to(
-			abduction_origin.global_position
-		)
+		var distance: float = item.global_position.distance_squared_to(abduction_origin.global_position)
 		if distance < closest_distance:
 			closest_distance = distance
 			closest_item = item
 
 	return closest_item
+
+
+func _get_available_items() -> Array[RigidBody3D]:
+	var available_items: Array[RigidBody3D] = []
+	for item: RigidBody3D in _candidate_items:
+		if not is_instance_valid(item) or item.is_in_group("quest_items"):
+			continue
+		if item.has_method("is_available_for_abduction") and not bool(item.call("is_available_for_abduction")):
+			continue
+		available_items.append(item)
+	return available_items
 
 
 func _find_available_character() -> CharacterBody3D:
@@ -453,7 +476,6 @@ func _start_abduction() -> void:
 	_state_elapsed = 0.0
 	signal_marker.visible = false
 	abduction_beam.visible = true
-	_target_start_position = _target_item.global_position
 	_configure_beam()
 	get_tree().call_group(
 		&"alien_post_process",
@@ -495,16 +517,18 @@ func _update_abduction(delta : float) -> void:
 	var progress : float = clampf(_state_elapsed / abduction_duration, 0.0, 1.0)
 	var lift_progress : float = smoothstep(0.0, 1.0, progress)
 	var capture_position : Vector3 = _get_capture_position()
-	var item_position : Vector3 = _target_start_position.lerp(
-		capture_position,
-		lift_progress
-	)
-	var wobble_strength : float = sin(progress * PI) * 0.22
-	item_position.x += sin(_state_elapsed * 2.4) * wobble_strength
-	item_position.z += cos(_state_elapsed * 2.1) * wobble_strength
-	_target_item.global_position = item_position
-	_target_item.rotate_y(delta * 1.8)
-	_target_item.rotate_x(delta * 0.7)
+	for index: int in range(_abduction_items.size()):
+		var item: RigidBody3D = _abduction_items[index]
+		if not is_instance_valid(item):
+			continue
+		var item_position: Vector3 = _abduction_start_positions[index].lerp(capture_position, lift_progress)
+		var wobble_strength: float = sin(progress * PI) * 0.22
+		var phase: float = float(index) * 0.9
+		item_position.x += sin(_state_elapsed * 2.4 + phase) * wobble_strength
+		item_position.z += cos(_state_elapsed * 2.1 + phase) * wobble_strength
+		item.global_position = item_position
+		item.rotate_y(delta * 1.8)
+		item.rotate_x(delta * 0.7)
 
 	var beam_pulse : float = 1.0 + sin(_state_elapsed * 7.0) * 0.05
 	beam_volume.scale.x = beam_pulse
@@ -544,20 +568,22 @@ func _get_capture_position() -> Vector3:
 
 
 func _finish_delivery() -> void:
-	if not is_instance_valid(_target_item) or _target_item.is_queued_for_deletion():
-		return
-	var item_score : int = default_score
-	var score_value : Variant = _target_item.get("score_value")
-	if score_value != null:
-		item_score = int(score_value)
-
-	GlobalScore.add_score(item_score)
-	if awards_money:
-		var cash_value : Variant = _target_item.get("cash_value")
-		GlobalScore.add_money(int(cash_value) if cash_value != null else item_score)
-	_target_item.queue_free()
+	for item: RigidBody3D in _abduction_items:
+		if not is_instance_valid(item) or item.is_queued_for_deletion():
+			continue
+		var item_score: int = default_score
+		var score_value: Variant = item.get("score_value")
+		if score_value != null:
+			item_score = int(score_value)
+		GlobalScore.add_score(item_score)
+		if awards_money:
+			var cash_value: Variant = item.get("cash_value")
+			GlobalScore.add_money(int(cash_value) if cash_value != null else item_score)
+		item.queue_free()
+		item_delivered.emit(item_score)
+	_abduction_items.clear()
+	_abduction_start_positions.clear()
 	_target_item = null
-	item_delivered.emit(item_score)
 	_reset_sequence()
 
 
@@ -567,6 +593,8 @@ func _reset_sequence() -> void:
 	_state = DeliveryState.IDLE
 	_state_elapsed = 0.0
 	_automatic_request = false
+	_abduction_items.clear()
+	_abduction_start_positions.clear()
 	_signaling_character = null
 	signal_marker.visible = false
 	signal_marker.scale = Vector3.ONE

@@ -242,3 +242,7 @@ text = "Próximo slot"
 [node name="DropItemButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
 layout_mode = 2
 text = "Largar item: G"
+
+[node name="ReturnToOrbitButton" type="Button" parent="Overlay/CenterContainer/MenuPanel/MarginContainer/ControlsPanel/Actions"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
