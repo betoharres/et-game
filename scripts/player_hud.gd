@@ -1,4 +1,4 @@
-extends CanvasLayer
+﻿extends CanvasLayer
 
 const STAMINA_HIDE_DELAY : float = 1.4
 const IDLE_STATUS_OPACITY : float = 0.78
@@ -88,6 +88,8 @@ func _ready() -> void:
 	mission_hud.offset_top = 24.0
 	mission_hud.offset_bottom = 120.0
 	player.connect("health_changed", _on_health_changed)
+	player.connect("energy_shield_changed", _on_equipment_energy_changed)
+	player.connect("predator_cloak_energy_changed", _on_equipment_energy_changed)
 	player.connect("damaged", _play_damage_feedback)
 	player.connect("stamina_changed", _on_stamina_changed)
 	player.connect("energy_changed", _on_energy_changed)
@@ -98,6 +100,7 @@ func _ready() -> void:
 		float(player.call("get_health")),
 		float(player.call("get_max_health"))
 	)
+	_on_equipment_energy_changed(0.0, 0.0)
 	_on_stamina_changed(
 		float(player.call("get_stamina")),
 		float(player.call("get_max_stamina"))
@@ -121,6 +124,10 @@ func _on_health_changed(current : float, maximum : float) -> void:
 	health_bar.max_value = maximum
 	health_bar.value = current
 	health_value.text = str(roundi(current))
+
+
+func _on_equipment_energy_changed(_current : float, _maximum : float) -> void:
+	_refresh_inventory()
 
 
 func _on_stamina_changed(current : float, maximum : float) -> void:
@@ -337,9 +344,23 @@ func _refresh_inventory() -> void:
 	for index : int in range(_inventory_slots.get_child_count()):
 		var slot : Panel = _inventory_slots.get_child(index) as Panel
 		var item : RigidBody3D = inventory.call("item_at", index) as RigidBody3D
-		var occupied : bool = is_instance_valid(item)
+		var reserved : bool = bool(inventory.call("is_slot_reserved", index))
+		var occupied : bool = is_instance_valid(item) or reserved
 		var caption : Label = slot.get_node("Caption") as Label
-		caption.text = "%d\n%s" % [index + 1, str(item.get("display_name")) if occupied else "—"]
+		var equipment_labels : Array[String] = []
+		if bool(player.call("can_use_xray_goggles")):
+			equipment_labels.append("X-Ray")
+		if bool(player.call("can_use_energy_shield")):
+			equipment_labels.append("Shield %d" % roundi(float(player.get("energy_shield"))))
+		if bool(player.call("can_use_predator_watch")):
+			equipment_labels.append("Watch %d" % roundi(float(player.get("predator_cloak_energy"))))
+		var reserved_index : int = index - (int(inventory.get("capacity")) - int(inventory.get("reserved_slots")))
+		var item_name : String = "-"
+		if is_instance_valid(item):
+			item_name = str(item.get("display_name"))
+		elif reserved and reserved_index < equipment_labels.size():
+			item_name = equipment_labels[reserved_index]
+		caption.text = "%d\n%s" % [index + 1, item_name]
 		var selected : bool = index == int(inventory.get("selected_slot"))
 		var style : StyleBoxFlat = StyleBoxFlat.new()
 		style.bg_color = Color(0.12, 0.32, 0.37, 0.92) if occupied else Color(0.025, 0.035, 0.045, 0.72)

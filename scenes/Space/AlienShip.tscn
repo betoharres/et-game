@@ -77,7 +77,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.382, -3.783)
 [node name="Props" type="Node3D" parent="." unique_id=471547840]
 
 [node name="ConsoleButton" parent="." unique_id=181004001 instance=ExtResource("70_hioj5")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.61126083, -0.771)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.25772995, -0.771)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2130051324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.008738, 0)

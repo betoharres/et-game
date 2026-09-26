@@ -66,7 +66,6 @@ var _orbit_angle: float = 0.0
 
 
 func _ready() -> void:
-	MISSION_FLOW.ship_oxygen_remaining = GAME_PROGRESS.ship_oxygen_seconds
 	_earth_home_scale = earth.scale
 	rotation_pivot.set_meta("orbit_position", rotation_pivot.position)
 	_orbit_angle = 0.0

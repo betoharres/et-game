@@ -571,14 +571,21 @@ func _finish_delivery() -> void:
 	for item: RigidBody3D in _abduction_items:
 		if not is_instance_valid(item) or item.is_queued_for_deletion():
 			continue
+		if item.has_method("reject_abduction") and bool(item.call("reject_abduction", self)):
+			if item.has_method("restore_after_rejection"):
+				item.call("restore_after_rejection")
+			item.global_position = _get_capture_position()
+			item.linear_velocity = Vector3(randf_range(-5.0, 5.0), 8.0, randf_range(-5.0, 5.0))
+			item.angular_velocity = Vector3(randf_range(-8.0, 8.0), randf_range(-8.0, 8.0), randf_range(-8.0, 8.0))
+			continue
 		var item_score: int = default_score
 		var score_value: Variant = item.get("score_value")
 		if score_value != null:
 			item_score = int(score_value)
 		GlobalScore.add_score(item_score)
-		if awards_money:
-			var cash_value: Variant = item.get("cash_value")
-			GlobalScore.add_money(int(cash_value) if cash_value != null else item_score)
+		var cash_value: Variant = item.get("cash_value")
+		if cash_value != null:
+			GlobalScore.add_money(int(cash_value))
 		item.queue_free()
 		item_delivered.emit(item_score)
 	_abduction_items.clear()

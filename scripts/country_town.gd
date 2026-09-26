@@ -28,6 +28,7 @@ var _debris_revealed : bool = false
 
 
 func _ready() -> void:
+	add_to_group("level_atmospheres")
 	_hide_alien_debris()
 	_crash_site = _find_crash_site()
 	crash_site_guide.activated.connect(_on_crash_site_guide_activated)

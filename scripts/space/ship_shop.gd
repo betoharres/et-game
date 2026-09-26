@@ -9,9 +9,10 @@ const UPGRADE_DESCRIPTIONS: Array[String] = [
 	"+10% velocidade por nível.", "+25 stamina máxima por nível.", "+25% recuperação de stamina por nível."
 ]
 const REPAIR_COST: int = 1000
-const OXYGEN_COST: int = 40
-const OXYGEN_PURCHASE_SECONDS: float = 600.0
+const RADON_COST: int = 40
+const RADON_PURCHASE_SECONDS: float = 600.0
 const SHIELD_COST: int = 180
+const PREDATOR_WATCH_COST: int = 650
 
 @export_range(1.0, 5.0, 0.1) var interaction_radius: float = 3.0
 var _opened: bool = false
@@ -23,10 +24,12 @@ var _overlay: Control
 var _status: Label
 var _balance: Label
 var _repair_button: Button
-var _oxygen_button: Button
+var _radon_button: Button
 var _upgrade_buttons: Array[Button] = []
 var _goggles_button: Button
 var _shield_button: Button
+var _watch_button: Button
+var _next_level_button: Button
 
 
 func _ready() -> void:
@@ -115,42 +118,59 @@ func _buy_upgrade(index: int) -> void:
 	_refresh()
 
 
-func _buy_oxygen() -> void:
-	if not GlobalScore.spend_money(OXYGEN_COST):
-		_status.text = "Saldo insuficiente para oxigênio."
+func _buy_radon() -> void:
+	if not GlobalScore.spend_money(RADON_COST):
+		_status.text = "Saldo insuficiente para Radon."
 		return
-	GAME_PROGRESS.ship_oxygen_seconds = minf(
-		GAME_PROGRESS.ship_oxygen_seconds + OXYGEN_PURCHASE_SECONDS,
-		GAME_PROGRESS.oxygen_capacity_seconds
+	GAME_PROGRESS.radon_seconds = minf(
+		GAME_PROGRESS.radon_seconds + RADON_PURCHASE_SECONDS,
+		GAME_PROGRESS.radon_capacity_seconds
 	)
-	_status.text = "Oxigênio da nave reabastecido em 10 minutos."
+	_status.text = "Reserva de Radon ampliada em 10 minutos."
 	_refresh()
 
 
 func _repair_ship() -> void:
+	if GAME_PROGRESS.highest_repaired_level > 1:
+		_status.text = "A nave já foi reparada."
+		return
 	if not GlobalScore.spend_money(REPAIR_COST):
 		_status.text = "Reparo custa $ %d. Saldo insuficiente." % REPAIR_COST
 		return
-	_status.text = "Reparo comprado. A liberacao da proxima fase ainda nao esta ativa."
+	GAME_PROGRESS.unlock_next_level()
+	_status.text = "Nave reparada. A próxima fase foi liberada."
 	_refresh()
+
+
+func _go_to_next_level() -> void:
+	if GAME_PROGRESS.highest_repaired_level <= 1:
+		return
+	close()
+	var world: Node = get_tree().current_scene
+	if world.has_method("go_to_next_level"):
+		world.call("go_to_next_level")
 
 
 func _refresh(_value: Variant = null, _level: Variant = null) -> void:
 	if not is_instance_valid(_balance):
 		return
-	_balance.text = "SALDO  $ %d     OXIGÊNIO DA NAVE  %s" % [GlobalScore.money, _format_time(GAME_PROGRESS.ship_oxygen_seconds)]
+	_balance.text = "SALDO  $ %d     RADON  %s" % [GlobalScore.money, _format_time(GAME_PROGRESS.radon_seconds)]
 	for i: int in range(_upgrade_buttons.size()):
 		var cost: int = GlobalScore.get_upgrade_cost(UPGRADE_IDS[i])
-		_upgrade_buttons[i].text = "NÍVEL MÁXIMO" if cost < 0 else "MELHORAR · $ %d" % cost
+		_upgrade_buttons[i].text = "%s · NÍVEL MÁXIMO" % UPGRADE_TITLES[i] if cost < 0 else "%s · $ %d" % [UPGRADE_TITLES[i], cost]
 		_upgrade_buttons[i].disabled = cost < 0 or GlobalScore.money < cost
-	_oxygen_button.disabled = GAME_PROGRESS.ship_oxygen_seconds >= GAME_PROGRESS.oxygen_capacity_seconds or GlobalScore.money < OXYGEN_COST
-	_oxygen_button.text = "OXIGÊNIO +10 MIN · $ %d" % OXYGEN_COST
-	_repair_button.disabled = GlobalScore.money < REPAIR_COST
-	_repair_button.text = "REPARAR NAVE · $ %d" % REPAIR_COST
-	_goggles_button.text = "ÓCULOS DE RAIO X INSTALADOS" if GlobalScore.has_item("xray_goggles") else "COMPRAR ÓCULOS DE RAIO X · $ 500"
-	_goggles_button.disabled = GlobalScore.has_item("xray_goggles") or GlobalScore.money < 500
-	_shield_button.text = "ESCUDO DE ENERGIA · EM BREVE"
-	_shield_button.disabled = true
+	_radon_button.disabled = GAME_PROGRESS.radon_seconds >= GAME_PROGRESS.radon_capacity_seconds or GlobalScore.money < RADON_COST
+	_radon_button.text = "RADON +10 MIN · $ %d" % RADON_COST
+	_repair_button.disabled = GAME_PROGRESS.highest_repaired_level > 1 or GlobalScore.money < REPAIR_COST
+	_repair_button.text = "NAVE REPARADA" if GAME_PROGRESS.highest_repaired_level > 1 else "REPARAR NAVE · $ %d" % REPAIR_COST
+	_next_level_button.disabled = GAME_PROGRESS.highest_repaired_level <= 1
+	var goggles_owned: bool = GlobalScore.xray_goggles_owned or GlobalScore.has_item("xray_goggles")
+	_goggles_button.text = "ÓCULOS DE RAIO X INSTALADOS" if goggles_owned else "COMPRAR ÓCULOS DE RAIO X · $ 500"
+	_goggles_button.disabled = goggles_owned or GlobalScore.money < 500
+	_shield_button.text = "ESCUDO DE ENERGIA INSTALADO" if GlobalScore.energy_shield_owned or GlobalScore.has_item("energy_shield") else "COMPRAR ESCUDO DE ENERGIA · $ %d" % SHIELD_COST
+	_shield_button.disabled = GlobalScore.energy_shield_owned or GlobalScore.has_item("energy_shield") or GlobalScore.money < SHIELD_COST
+	_watch_button.text = "RELOGIO PREDADOR INSTALADO" if GlobalScore.predator_watch_owned or GlobalScore.has_item("predator_watch") else "COMPRAR RELOGIO PREDADOR · $ %d" % PREDATOR_WATCH_COST
+	_watch_button.disabled = GlobalScore.predator_watch_owned or GlobalScore.has_item("predator_watch") or GlobalScore.money < PREDATOR_WATCH_COST
 
 
 func _build_interface() -> void:
@@ -195,19 +215,27 @@ func _build_interface() -> void:
 	_repair_button.custom_minimum_size.y = 52
 	_repair_button.pressed.connect(_repair_ship)
 	content.add_child(_repair_button)
-	_oxygen_button = Button.new()
-	_oxygen_button.custom_minimum_size.y = 48
-	_oxygen_button.pressed.connect(_buy_oxygen)
-	content.add_child(_oxygen_button)
+	_next_level_button = Button.new()
+	_next_level_button.custom_minimum_size.y = 52
+	_next_level_button.text = "IR PARA A PRÓXIMA FASE"
+	_next_level_button.pressed.connect(_go_to_next_level)
+	content.add_child(_next_level_button)
+	_radon_button = Button.new()
+	_radon_button.custom_minimum_size.y = 48
+	_radon_button.pressed.connect(_buy_radon)
+	content.add_child(_radon_button)
 	_goggles_button = Button.new()
 	_goggles_button.custom_minimum_size.y = 48
 	_goggles_button.pressed.connect(_buy_item.bind("xray_goggles", 500, "ÓCULOS DE RAIO X"))
 	content.add_child(_goggles_button)
 	_shield_button = Button.new()
 	_shield_button.custom_minimum_size.y = 48
-	_shield_button.text = "ESCUDO DE ENERGIA · EM BREVE"
-	_shield_button.disabled = true
+	_shield_button.pressed.connect(_buy_item.bind("energy_shield", SHIELD_COST, "ESCUDO DE ENERGIA"))
 	content.add_child(_shield_button)
+	_watch_button = Button.new()
+	_watch_button.custom_minimum_size.y = 48
+	_watch_button.pressed.connect(_buy_item.bind("predator_watch", PREDATOR_WATCH_COST, "RELOGIO PREDADOR"))
+	content.add_child(_watch_button)
 	_status = _label("", 17)
 	content.add_child(_status)
 	var close_button: Button = Button.new()
@@ -224,6 +252,11 @@ func _buy_item(item_id: String, cost: int, title: String) -> void:
 	if GlobalScore.has_item(item_id):
 		_status.text = "%s já está instalado." % title
 		return
+	if item_id in ["xray_goggles", "energy_shield", "predator_watch"] and is_instance_valid(_character):
+		var inventory: Node = _character.get_node("ExplorationInventory")
+		if int(inventory.call("used_slots")) >= int(inventory.get("capacity")):
+			_status.text = "Liberte um slot do inventario para instalar este equipamento."
+			return
 	if not GlobalScore.spend_money(cost):
 		_status.text = "%s custa $ %d." % [title, cost]
 		return
@@ -232,6 +265,20 @@ func _buy_item(item_id: String, cost: int, title: String) -> void:
 		GlobalScore.xray_goggles_owned = true
 		if is_instance_valid(_character):
 			_character.call("grant_xray_goggles")
+	elif item_id == "energy_shield":
+		GlobalScore.energy_shield_owned = true
+		if is_instance_valid(_character):
+			_character.call("grant_energy_shield")
+		_status.text = "Energy shield installed. It regenerates 2 points per second after 10 seconds without damage."
+		_refresh()
+		return
+	elif item_id == "predator_watch":
+		GlobalScore.predator_watch_owned = true
+		if is_instance_valid(_character):
+			_character.call("grant_predator_watch")
+		_status.text = "Relogio instalado. H ativa o manto; carga completa dura 20 segundos."
+		_refresh()
+		return
 	_status.text = "%s instalado no inventário. B ativa o raio X." % title
 	_refresh()
 

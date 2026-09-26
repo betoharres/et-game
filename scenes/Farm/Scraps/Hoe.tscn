@@ -57,8 +57,8 @@ item_id = "farm_hoe"
 display_name = "Enxada"
 score_value = 24
 cash_value = 24
-slot_cost = 1
-two_handed = true
+slot_cost = 2
+two_handed = false
 
 [node name="WoodenHandle" type="MeshInstance3D" parent="."]
 layers = 64

@@ -7,6 +7,7 @@ signal feedback(message : String)
 
 var items : Array[RigidBody3D] = []
 var selected_slot : int = 0
+var reserved_slots : int = 0
 var _slots : Array[RigidBody3D] = []
 
 
@@ -16,8 +17,18 @@ func item_at(slot : int) -> RigidBody3D:
 
 
 func select_slot(slot : int) -> void:
-	selected_slot = wrapi(slot, 0, capacity)
+	selected_slot = wrapi(slot, 0, maxi(capacity - reserved_slots, 1))
 	changed.emit()
+
+
+func set_reserved_slots(count : int) -> void:
+	reserved_slots = clampi(count, 0, capacity - 1)
+	selected_slot = wrapi(selected_slot, 0, maxi(capacity - reserved_slots, 1))
+	changed.emit()
+
+
+func is_slot_reserved(slot : int) -> bool:
+	return slot >= capacity - reserved_slots and slot < capacity
 
 
 func cycle_slot(direction : int) -> void:
@@ -35,7 +46,7 @@ func used_slots() -> int:
 	for item : RigidBody3D in items:
 		if is_instance_valid(item):
 			used += int(item.get("slot_cost"))
-	return used
+	return used + reserved_slots
 
 
 func store_item(item : RigidBody3D, player : Node3D) -> bool:

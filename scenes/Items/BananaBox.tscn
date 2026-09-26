@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="4"]
 
 [sub_resource type="BoxShape3D" id="Shape"]
-size = Vector3(0.74449706, 0.36, 0.45391113)
+size = Vector3(1.559, 0.555, 1.099)
 
 [node name="BananaBox" type="RigidBody3D" unique_id=801654880 groups=["pickup_items", "quest_items"]]
 collision_layer = 8
@@ -14,7 +14,11 @@ mass = 2.0
 script = ExtResource("1")
 item_id = "banana_box"
 score_value = 0
+cash_value = 5
+rejected_by_delivery = true
 display_name = "Caixa de bananas"
+slot_cost = 2
+two_handed = false
 
 [node name="Crate" type="MeshInstance3D" parent="." unique_id=366662807]
 layers = 512

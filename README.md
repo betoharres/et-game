@@ -119,6 +119,7 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 | Primeira pessoa (a pé ou na caminhonete)                          | `V`                                        |
 | Binóculos / zoom                                                  | `B` / `+` e `-` do teclado numérico        |
 | Minimapa circular                                                 | `F3`                                       |
+| Manto de invisibilidade: ativar/desativar                          | `H`                                        |
 | Velocidade e voo (a cada toque)                                   | `F4`                                       |
 | Debug de iluminação                                               | `F6`                                       |
 | Menu de pausa                                                     | `Esc`                                      |

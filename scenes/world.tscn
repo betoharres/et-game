@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/Vehicles/PickUp01.tscn" id="4_qfnet"]
 [ext_resource type="PackedScene" uid="uid://ccemyj5fbmvdc" path="res://scenes/Vehicles/TractorOld.tscn" id="8_4mrxx"]
-[ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="8_lr1th"]
 [ext_resource type="PackedScene" uid="uid://1dpav48qe8yh" path="res://scenes/Vehicles/Harvester01.tscn" id="9_7r4gi"]
 [ext_resource type="ArrayMesh" uid="uid://c5t5ck1jx7shq" path="res://PolygonSciFiWorlds/Models/SM_Prop_Chair_01.fbx" id="9_pafgt"]
 [ext_resource type="ArrayMesh" uid="uid://xteudfsy5jho" path="res://PolygonSciFiWorlds/Models/SM_Prop_Monitor_02.fbx" id="10_lr1th"]
@@ -1399,7 +1398,7 @@ size = Vector3(20.08585, 8.745322, 10.052998)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6glxd"]
 size = Vector3(10.173867, 8.745322, 2.470231)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bf6hq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pafgt"]
 resource_local_to_scene = true
 
 [node name="World" type="Node3D" unique_id=1407078805]
@@ -1425,12 +1424,6 @@ respawn_delay = 10.0
 
 [node name="SpaceShip" parent="." unique_id=612400507 instance=ExtResource("in_level_ship")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.656147, 28, -33.3789)
-
-[node name="BottomGlass" parent="SpaceShip/ET_Ship_New" parent_id_path=PackedInt32Array(612400507, 1242519539) index="0" unique_id=2058397105]
-surface_material_override/0 = ExtResource("8_lr1th")
-
-[node name="TopGlass" parent="SpaceShip/ET_Ship_New" parent_id_path=PackedInt32Array(612400507, 1242519539) index="2" unique_id=1381140732]
-surface_material_override/0 = ExtResource("8_lr1th")
 
 [node name="ShopTerminal" type="Node3D" parent="SpaceShip" unique_id=1257305819]
 transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 10.5, 0.7498417, 6.1510086)
@@ -13184,11 +13177,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.204247, 0, -24.746723)
 
 [node name="Mesh1" parent="PortalPair" index="0" unique_id=754199913]
 transform = Transform3D(4.5, 0, 0, 0, -4.371139e-08, -4.5, 0, 1, -1.9670125e-07, 230.46591, 3.4639354, 0)
-surface_material_override/0 = SubResource("StandardMaterial3D_bf6hq")
+surface_material_override/0 = SubResource("StandardMaterial3D_pafgt")
 
 [node name="Mesh2" parent="PortalPair" index="1" unique_id=1155961728]
 transform = Transform3D(-1.9670125e-07, 1, -1.9670124e-07, 0, -4.3711385e-08, -4.5, -4.5, -4.371139e-08, -7.389127e-15, -61.34179, 3.461132, 0.33229256)
-surface_material_override/0 = SubResource("StandardMaterial3D_bf6hq")
+surface_material_override/0 = SubResource("StandardMaterial3D_pafgt")
 
 [node name="SmBldPortal01" parent="PortalPair" index="2" unique_id=1334734506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.76993, -0.05562842, 0)

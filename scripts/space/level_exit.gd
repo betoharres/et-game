@@ -1,9 +1,6 @@
 class_name LevelExit
 extends Node3D
 
-const GAME_PROGRESS = preload("res://scripts/levels/game_progress.gd")
-const MISSION_FLOW = preload("res://scripts/levels/mission_flow.gd")
-
 @export_range(1.0, 5.0, 0.1) var interaction_radius: float = 4.0
 var _traveling: bool = false
 
@@ -39,7 +36,6 @@ func _input(event: InputEvent) -> void:
 		_traveling = true
 		if player.has_method("set_movement_locked"):
 			player.call("set_movement_locked", true)
-		MISSION_FLOW.ship_oxygen_remaining = GAME_PROGRESS.ship_oxygen_seconds
 		var transition: Node = get_node("/root/SceneTransition")
 		transition.warp_to("res://scenes/Space/Orbit.tscn", Color.BLACK)
 		get_viewport().set_input_as_handled()

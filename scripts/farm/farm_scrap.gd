@@ -1,12 +1,10 @@
 extends "res://scripts/spaceship_scraps.gd"
 
 
-@export_range(1, 1000) var cash_value : int = 15
-
-
 func _ready() -> void:
-	add_to_group("pickup_items")
-	add_to_group("farm_scraps")
+	add_to_group(&"pickup_items")
+	add_to_group(&"farm_scraps")
+	two_handed = false
 
 
 func is_available_for_automatic_pickup() -> bool:

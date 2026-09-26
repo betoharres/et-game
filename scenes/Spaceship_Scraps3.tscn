@@ -10,6 +10,7 @@ size = Vector3(0.9392456, 0.6965546, 0.64208585)
 [node name="SpaceshipScraps3" type="RigidBody3D" unique_id=921262471 groups=["pickup_items"]]
 script = ExtResource("1_nqaen")
 display_name = "Unidade de refrigeração"
+cash_value = 65
 slot_cost = 2
 two_handed = false
 

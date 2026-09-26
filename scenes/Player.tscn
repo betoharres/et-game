@@ -48,6 +48,10 @@ radius = 0.22
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(1, 1.1122437, 0.9169922)
 
+[sub_resource type="BoxMesh" id="CubeMesh_watch"]
+material = SubResource("StandardMaterial3D_emb0l")
+size = Vector3(0.16, 0.07, 0.12)
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player", "players"]]
 script = ExtResource("1_p0vlq")
 rotation_speed = 30.0
@@ -87,6 +91,12 @@ visible = false
 layers = 4
 mesh = ExtResource("11_6e537")
 surface_material_override/0 = SubResource("StandardMaterial3D_emb0l")
+
+[node name="PredatorWatch" type="MeshInstance3D" parent="ET/ETArmature/Skeleton3D/ET" index="2"]
+position = Vector3(0.15, 0.52, 0.08)
+visible = false
+layers = 256
+mesh = SubResource("CubeMesh_watch")
 
 [node name="CharacterProportions" type="SkeletonModifier3D" parent="ET/ETArmature/Skeleton3D" parent_id_path=PackedInt32Array(306698158, 1381960427) index="1" unique_id=1369742478]
 unique_name_in_owner = false

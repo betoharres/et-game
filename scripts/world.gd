@@ -83,6 +83,7 @@ var _returning_to_orbit: bool = false
 var _ground_spawn_position : Vector3
 var _arrival_ship : Node3D
 var _airborne_atmosphere : bool = false
+var _radon_paused: bool = false
 
 @onready var player : CharacterBody3D = $CharacterBody3D
 @onready var spaceship : Node3D = $SpaceShip
@@ -90,15 +91,14 @@ var _airborne_atmosphere : bool = false
 
 
 func _ready() -> void:
-	GAME_PROGRESS.ship_oxygen_seconds = minf(
-		GAME_PROGRESS.ship_oxygen_seconds,
-		MISSION_FLOW.ship_oxygen_remaining
-	)
+	add_to_group("level_atmospheres")
 	_ground_spawn_position = player.global_position
 
 	var arrived_from_orbit : bool = MISSION_FLOW.arrived_from_orbit
 	MISSION_FLOW.arrived_from_orbit = false
+	_arrival_ship = level_ship
 	level_ship.connect("return_to_orbit_requested", _return_to_orbit)
+	level_ship.connect("descend_requested", _on_descend_requested)
 	if arrived_from_orbit:
 		_animate_ship_arrival()
 	else:
@@ -156,7 +156,6 @@ func _animate_ship_arrival() -> void:
 	_arrival_ship.call("end_approach_audio", 0.8)
 	player.set_movement_locked(false)
 
-	_arrival_ship.connect("descend_requested", _on_descend_requested)
 	_arrival_ship.call("set_descend_trigger_enabled", true)
 
 
@@ -220,6 +219,7 @@ func _place_player_on_ship() -> void:
 
 
 func _on_descend_requested() -> void:
+	_radon_paused = true
 	_play_arrival_intro()
 
 
@@ -308,6 +308,7 @@ func _on_touchdown(beam : ArrivalBeam) -> void:
 	# Only meaningful on the orbital path, where the atmosphere was switched to
 	# its airborne settings; on the direct path both calls are already no-ops.
 	_exit_airborne_atmosphere()
+	_radon_paused = false
 	player.camera_pivot.add_shake(LANDING_SHAKE)
 	player.camera_pivot.kick_fov(LANDING_FOV_KICK)
 	player.set_movement_locked(false)
@@ -346,8 +347,19 @@ func _return_to_orbit() -> void:
 	tween.tween_property(player, "global_position", end_position, travel_duration)
 	await tween.finished
 	_beam_audio.release(BEAM_FADE_DURATION)
-	level_ship.call("set_player_inside", player, false)
-	MISSION_FLOW.ship_oxygen_remaining = GAME_PROGRESS.ship_oxygen_seconds
+	level_ship.call("set_player_inside", player, true)
+	player.set_movement_locked(false)
+	_radon_paused = false
+	_returning_to_orbit = false
+
+
+func go_to_next_level() -> void:
+	if GAME_PROGRESS.highest_repaired_level <= 1 or not player.is_inside_ship():
+		return
+	var inventory: Node = player.get_node_or_null("ExplorationInventory")
+	if inventory != null:
+		while int(inventory.call("used_slots")) > 0:
+			inventory.call("drop_last", player)
 	var transition: Node = get_node("/root/SceneTransition")
 	transition.warp_to("res://scenes/Space/Orbit.tscn", Color.BLACK)
 

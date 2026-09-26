@@ -112,8 +112,8 @@ item_id = "farm_baseballbat"
 display_name = "Taco de beisebol"
 score_value = 22
 cash_value = 22
-slot_cost = 1
-two_handed = true
+slot_cost = 2
+two_handed = false
 
 [node name="Grip" type="MeshInstance3D" parent="."]
 layers = 64

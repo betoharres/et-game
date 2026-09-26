@@ -3,6 +3,8 @@ extends RigidBody3D
 
 @export var item_id : String = "item"
 @export var score_value : int = 10
+@export_range(1, 1000) var cash_value : int = 10
+@export var rejected_by_delivery : bool = false
 @export var display_name : String = "Destroço"
 @export_range(1, 4) var slot_cost : int = 1
 @export var two_handed : bool = false
@@ -80,10 +82,29 @@ func begin_abduction() -> bool:
 	return true
 
 
+func reject_abduction(delivery : Node3D) -> bool:
+	if not rejected_by_delivery:
+		return false
+	return true
+
+
+func restore_after_rejection() -> void:
+	being_abducted = false
+	carried = false
+	carrier = null
+	freeze = false
+	collision_layer = _saved_collision_layer if _saved_collision_layer != 0 else 8
+	collision_mask = _saved_collision_mask if _saved_collision_mask != 0 else 1
+	if not is_in_group("pickup_items"):
+		add_to_group("pickup_items")
+
+
 func store_in_inventory(player : Node3D) -> bool:
-	if two_handed or carried or being_abducted:
+	if carried or being_abducted:
 		return false
 	pickup(player)
+	if not carried or carrier != player:
+		return false
 	_stored = true
 	hide()
 	return true

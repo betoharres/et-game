@@ -53,7 +53,9 @@ var _bone_ids : Dictionary = {}
 var _visual_root : Node3D
 var _character_mesh : MeshInstance3D
 var _goggles_mesh : MeshInstance3D
+var _watch_mesh : MeshInstance3D
 var _goggles_head_offset : Transform3D = Transform3D.IDENTITY
+var _watch_hand_offset : Transform3D = Transform3D.IDENTITY
 var _base_visual_scale : Vector3 = Vector3.ONE
 var _base_visual_position : Vector3 = Vector3.ZERO
 var _body_material : ShaderMaterial
@@ -65,11 +67,13 @@ func _ready() -> void:
 	_character_mesh = get_node_or_null(character_mesh_path) as MeshInstance3D
 	if _character_mesh != null:
 		_goggles_mesh = _character_mesh.get_node_or_null("FarSightGoggles") as MeshInstance3D
+		_watch_mesh = _character_mesh.get_node_or_null("PredatorWatch") as MeshInstance3D
 	if _visual_root != null:
 		_base_visual_scale = _visual_root.scale
 		_base_visual_position = _visual_root.position
 	_cache_bones()
 	_bind_goggles_to_head()
+	_bind_watch_to_hand()
 	_setup_body_material()
 	_setup_eye_material()
 
@@ -163,6 +167,32 @@ func _update_goggles_transform() -> void:
 		skeleton.global_transform
 		* skeleton.get_bone_global_pose(head)
 		* _goggles_head_offset
+	)
+
+
+func _bind_watch_to_hand() -> void:
+	var skeleton : Skeleton3D = get_skeleton()
+	var hand : int = int(_bone_ids.get("right_hand", -1))
+	if _watch_mesh == null or skeleton == null or hand < 0:
+		return
+	_watch_hand_offset = (
+		skeleton.get_bone_global_rest(hand).affine_inverse()
+		* skeleton.global_transform.affine_inverse()
+		* _watch_mesh.global_transform
+	)
+	skeleton.skeleton_updated.connect(_update_watch_transform)
+	_update_watch_transform()
+
+
+func _update_watch_transform() -> void:
+	var skeleton : Skeleton3D = get_skeleton()
+	var hand : int = int(_bone_ids.get("right_hand", -1))
+	if not is_instance_valid(_watch_mesh) or skeleton == null or hand < 0:
+		return
+	_watch_mesh.global_transform = (
+		skeleton.global_transform
+		* skeleton.get_bone_global_pose(hand)
+		* _watch_hand_offset
 	)
 
 

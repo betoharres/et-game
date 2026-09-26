@@ -11,6 +11,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dtvrgxcps57fu" path="res://PolygonScifiCity/FBX/FX_Circle.fbx" id="9_6mr4k"]
 [ext_resource type="Script" uid="uid://b7c046qsa8gjf" path="res://scripts/space/level_ship.gd" id="10_level_ship"]
 [ext_resource type="Material" uid="uid://8wrgxhntfoa0" path="res://PolygonTown/Materials/Misc/Fridge_Glass_mat.tres" id="10_mwkir"]
+[ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="11_563sw"]
 
 [sub_resource type="CylinderShape3D" id="ShipPadShape"]
 height = 0.7007446
@@ -55,8 +56,7 @@ transform = Transform3D(1.76, 0, 0, 0, 1.76, 0, 0, 0, 1.76, 0, 0.04126489, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.30741462)
 
 [node name="TransportBeam" parent="Interior/DescendPad" index="0" unique_id=1759453405]
-transform = Transform3D(1, 0, 0, 0, 11, 0, 0, 0, 1, 0, -9.711253, 0)
-visible = true
+transform = Transform3D(1, 0, 0, 0, 11, 0, 0, 0, 1, 0, -9.00764, 0)
 
 [node name="CollisionShape3D" parent="Interior/DescendPad/DescendTrigger" parent_id_path=PackedInt32Array(1809059096, 998617697) index="0" unique_id=1259563017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38314813, 0)
@@ -99,8 +99,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.382, -3.783)
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.24611562, -0.771)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1553745206]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.228541, 0)
-omni_range = 21.607758
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8785882, 0)
+layers = 4
+light_energy = 3.0
+light_bake_mode = 1
+omni_range = 45.0
 
 [node name="ET_Ship_New" parent="." unique_id=1242519539 instance=ExtResource("1_3tus7")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -117,6 +120,8 @@ shape = SubResource("ConcavePolygonShape3D_tindj")
 
 [node name="BottomShip" parent="ET_Ship_New" index="1" unique_id=1709674805]
 layers = 8
+surface_material_override/0 = ExtResource("11_563sw")
+surface_material_override/2 = ExtResource("11_563sw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ET_Ship_New/BottomShip" index="0" unique_id=437553300]
 
@@ -124,6 +129,7 @@ layers = 8
 shape = SubResource("ConcavePolygonShape3D_ee52w")
 
 [node name="TopGlass" parent="ET_Ship_New" index="2" unique_id=1381140732]
+visible = false
 layers = 8
 transparency = 0.3
 surface_material_override/0 = ExtResource("10_mwkir")
@@ -135,6 +141,8 @@ shape = SubResource("ConcavePolygonShape3D_tkn35")
 
 [node name="TopShip" parent="ET_Ship_New" index="3" unique_id=878175475]
 layers = 8
+surface_material_override/0 = ExtResource("11_563sw")
+surface_material_override/1 = ExtResource("11_563sw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ET_Ship_New/TopShip" index="0" unique_id=1080955786]
 

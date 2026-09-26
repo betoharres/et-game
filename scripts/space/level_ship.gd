@@ -18,6 +18,7 @@ var _beam_action_enabled: bool = true
 
 func _ready() -> void:
 	add_to_group("level_ships")
+	add_to_group("ship_interiors")
 	interior.descend_requested.connect(func() -> void: descend_requested.emit())
 	interior.call("set_descend_action", return_action)
 	return_field.body_entered.connect(_on_return_field_body_entered)
@@ -37,16 +38,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	for station: Node in get_tree().get_nodes_in_group("upgrade_stations"):
 		if station.has_method("is_open") and bool(station.call("is_open")):
 			return
-	if bool(interior.call("is_player_inside", character)):
-		interior.call("request_descend")
-	elif return_field.overlaps_body(character):
+	if return_field.overlaps_body(character):
 		return_to_orbit_requested.emit()
+	elif bool(interior.call("is_player_inside", character)):
+		interior.call("request_descend")
 	else:
 		return
 	get_viewport().set_input_as_handled()
 
 
 func set_player_inside(character: CharacterBody3D, inside: bool) -> void:
+	#interior.call("set_player_inside", character, inside)
 	var camera_rig: CinematicCameraRig = character.get("camera_pivot") as CinematicCameraRig
 	if camera_rig != null:
 		camera_rig.set_interior_camera_mode(inside)

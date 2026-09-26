@@ -10,8 +10,9 @@ size = Vector3(0.510362, 1.3164215, 0.5689614)
 [node name="SpaceshipScraps7" type="RigidBody3D" unique_id=1544427752 groups=["pickup_items"]]
 script = ExtResource("1_miye6")
 display_name = "Cápsula"
+cash_value = 45
 slot_cost = 1
-two_handed = true
+two_handed = false
 
 [node name="SmPropJarHanging01" type="MeshInstance3D" parent="." unique_id=867010082]
 layers = 64
