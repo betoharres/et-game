@@ -30,6 +30,10 @@ emission_enabled = true
 emission = Color(0, 1, 1, 1)
 emission_energy_multiplier = 16.0
 
+[sub_resource type="BoxMesh" id="CubeMesh_watch"]
+material = SubResource("StandardMaterial3D_emb0l")
+size = Vector3(0.16, 0.07, 0.12)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.1
 height = 1.0
@@ -48,13 +52,13 @@ radius = 0.22
 [sub_resource type="BoxShape3D" id="BoxShape3D_ec6vt"]
 size = Vector3(1, 1.1122437, 0.9169922)
 
-[sub_resource type="BoxMesh" id="CubeMesh_watch"]
-material = SubResource("StandardMaterial3D_emb0l")
-size = Vector3(0.16, 0.07, 0.12)
-
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=760738079 groups=["characters", "debug_player", "players"]]
 script = ExtResource("1_p0vlq")
-rotation_speed = 30.0
+rotation_speed = 60.0
+ground_acceleration = 64.0
+stationary_pivot_angle_degrees = 160.0
+reversal_minimum_speed = 3.0
+fall_recovery_delay = 0.5
 
 [node name="FootstepAudio" type="Node" parent="." unique_id=1262407700]
 script = ExtResource("4_footsteps")
@@ -92,8 +96,8 @@ layers = 4
 mesh = ExtResource("11_6e537")
 surface_material_override/0 = SubResource("StandardMaterial3D_emb0l")
 
-[node name="PredatorWatch" type="MeshInstance3D" parent="ET/ETArmature/Skeleton3D/ET" index="2"]
-position = Vector3(0.15, 0.52, 0.08)
+[node name="PredatorWatch" type="MeshInstance3D" parent="ET/ETArmature/Skeleton3D/ET" index="2" unique_id=438454792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.52, 0.08)
 visible = false
 layers = 256
 mesh = SubResource("CubeMesh_watch")

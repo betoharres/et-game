@@ -69,6 +69,7 @@ enum ImpactReaction {
 @export var max_health : float = 100.0
 @export_range(0.0, 10.0, 0.5) var energy_shield_recovery_per_second : float = 2.0
 @export_range(0.0, 60.0, 0.5) var energy_shield_recovery_delay : float = 10.0
+@export_range(0.0, 2.0, 0.05) var energy_shield_effect_duration : float = 0.2
 @export_range(0.1, 20.0, 0.5) var predator_cloak_drain_per_second : float = 5.0
 @export_range(0.1, 10.0, 0.1) var predator_cloak_recovery_per_second : float = 1.0
 @export var max_stamina : float = 100.0
@@ -164,6 +165,7 @@ var health : float = 100.0
 var energy_shield : float = 100.0
 const ENERGY_SHIELD_MAX : float = 100.0
 var _energy_shield_recovery_timer : float = 0.0
+var _energy_shield_effect_timer : float = 0.0
 const PREDATOR_CLOAK_MAX_ENERGY : float = 100.0
 var predator_cloak_energy : float = 100.0
 var predator_cloak_active : bool = false
@@ -415,8 +417,6 @@ func apply_carry(carry_transform : Transform3D, carry_yaw : float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("return_to_orbit") and not event.is_echo() and _is_level_ship_return_reserved():
-		return
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			var mouse_motion: Vector2 = event.relative
@@ -441,12 +441,11 @@ func _input(event: InputEvent) -> void:
 	if not can_use_xray_goggles() and event.is_action_pressed("binos"):
 		return
 	if event.is_action_pressed("toggle_predator_cloak"):
+		if camera_pivot.binos_active:
+			return
 		toggle_predator_cloak()
 		get_viewport().set_input_as_handled()
 		return
-	if predator_cloak_active and event.is_action_pressed("binos"):
-		camera_pivot.deactivate_binos()
-		_update_predator_cloak_visuals()
 
 	for slot : int in range(4):
 		if event.is_action_pressed("inventory_slot_%d" % (slot + 1)) and not event.is_echo():
@@ -494,6 +493,7 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_update_energy_shield(delta)
 	_update_predator_cloak(delta)
+	_update_energy_shield_effect(delta)
 	if _is_in_level_atmosphere() and not _movement_locked and is_alive() and GAME_PROGRESS.radon_seconds > 0.0:
 		GAME_PROGRESS.radon_seconds = maxf(GAME_PROGRESS.radon_seconds - delta, 0.0)
 		_update_oxygen_display()
@@ -1194,6 +1194,7 @@ func take_damage(amount : float, hit_direction : Vector3 = Vector3.ZERO,
 	var remaining_damage : float = amount
 	if can_use_energy_shield():
 		_energy_shield_recovery_timer = energy_shield_recovery_delay
+		_energy_shield_effect_timer = energy_shield_effect_duration
 		if energy_shield > 0.0:
 			var absorbed_damage : float = minf(energy_shield, remaining_damage)
 			energy_shield = maxf(energy_shield - absorbed_damage, 0.0)
@@ -2187,7 +2188,7 @@ func grant_predator_watch() -> void:
 
 
 func toggle_predator_cloak() -> void:
-	if not can_use_predator_watch():
+	if not can_use_predator_watch() or camera_pivot.binos_active:
 		return
 	if predator_cloak_active:
 		predator_cloak_active = false
@@ -2226,9 +2227,9 @@ func _update_predator_cloak_visuals() -> void:
 	if is_instance_valid(farsight_goggles_mesh):
 		farsight_goggles_mesh.visible = can_use_xray_goggles() and camera_pivot.binos_active and not predator_cloak_active
 	if is_instance_valid(energy_shield_mesh):
-		energy_shield_mesh.visible = can_use_energy_shield() and energy_shield > 0.0 and not predator_cloak_active
+		energy_shield_mesh.visible = can_use_energy_shield() and _energy_shield_effect_timer > 0.0 and not predator_cloak_active and not camera_pivot.binos_active
 	if is_instance_valid(predator_watch_mesh):
-		predator_watch_mesh.visible = can_use_predator_watch()
+		predator_watch_mesh.visible = can_use_predator_watch() and not predator_cloak_active and not camera_pivot.binos_active
 
 
 func _sync_equipment_inventory_slots() -> void:
@@ -2251,6 +2252,13 @@ func _update_energy_shield(delta : float) -> void:
 	energy_shield = minf(energy_shield + energy_shield_recovery_per_second * delta, ENERGY_SHIELD_MAX)
 	_update_predator_cloak_visuals()
 	energy_shield_changed.emit(energy_shield, ENERGY_SHIELD_MAX)
+
+
+func _update_energy_shield_effect(delta : float) -> void:
+	if _energy_shield_effect_timer <= 0.0:
+		return
+	_energy_shield_effect_timer = maxf(_energy_shield_effect_timer - delta, 0.0)
+	_update_predator_cloak_visuals()
 
 
 func _update_oxygen_display() -> void:
@@ -2276,10 +2284,3 @@ func _is_ship_exit_reserved() -> bool:
 			return true
 	return false
 
-
-func _is_level_ship_return_reserved() -> bool:
-	for level_ship: Node in get_tree().get_nodes_in_group("level_ships"):
-		if level_ship.has_method("player_is_on_pad") and bool(level_ship.call("player_is_on_pad")):
-			return true
-	return false
-	

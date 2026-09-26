@@ -221,10 +221,14 @@ func _input(event : InputEvent) -> void:
 		var owner_player: Node = get_parent()
 		if owner_player != null and owner_player.has_method("can_use_xray_goggles") and not bool(owner_player.call("can_use_xray_goggles")):
 			return
+		if owner_player != null and bool(owner_player.get("predator_cloak_active")):
+			return
 		if binos_active:
 			deactivate_binos()
 		else:
 			activate_binos()
+		if owner_player != null and owner_player.has_method("_update_predator_cloak_visuals"):
+			owner_player.call("_update_predator_cloak_visuals")
 
 func _process(delta : float) -> void:
 	if not _has_target:
