@@ -10,6 +10,8 @@ sinais ([arquitetura.md](arquitetura.md)).
 | Country Town | `scenes/CountryTown/CountryTown.tscn` | Em construção, **fora do catálogo**, quase todo gerado por ferramentas — ver [country-town.md](country-town.md) |
 | Casa modular | `scenes/Buildings/House01.tscn` | Interior autocontido — ver [casas-interiores.md](casas-interiores.md) |
 | Masmorra | `scenes/Dungeon/` | Corredores procedurais, gerados a partir de uma porta na fazenda |
+| Arena co-op | `scenes/Multiplayer/PortalCoop.tscn` | Sessão independente, portais e quatro destroços |
+| Fazenda co-op | `scenes/Multiplayer/FarmCoop.tscn` | Protótipo separado de `world.tscn`, chão nativo, celeiro, guarda, portais e entrega; [multiplayer.md](multiplayer.md) |
 
 ## Fazenda (`world.tscn`)
 
@@ -91,8 +93,21 @@ detecção dos NPCs.
 ## Portais
 
 `scenes/Portal/portal.tscn` + `scripts/portal/portal.gd`: par de portais com
-renderização cruzada (`SubViewport` por portal e frustum oblíquo para recortar o
-que fica atrás do plano) e teletransporte com cooldown. Cena de teste isolada.
+renderização cruzada e recorte no plano de saída por frustum nativo assimétrico.
+O teletransporte ocorre ao cruzar o plano; a referência de entrada/saída é
+trocada para evitar retorno involuntário, sem cooldown de tempo.
+
+`portal_recursive_views.gd` cria câmeras, viewports e superfícies intermediárias
+para recursão. As camadas 14–19 isolam essas vistas; a camada 20 contém as
+superfícies principais. Não reutilize essas camadas como se estivessem livres.
+`portal_traveller_visual.gd` fatia malhas, copia a pose final dos esqueletos e
+mostra clones na saída. `refresh_traveller_visual()` reconstrói essa lista
+quando um coletável entra ou sai das mãos durante a travessia.
+
+A cena é usada na [arena e fazenda multiplayer](multiplayer.md). O render segue a câmera
+ativa do viewport local; réplicas remotas podem ter clones, mas não executam
+teletransporte próprio. `Player.apply_portal_transform()` transporta também
+velocidade, direção de olhar e rig de câmera.
 
 ## Ao alterar
 

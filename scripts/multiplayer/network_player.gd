@@ -5,6 +5,116 @@ var _has_snapshot: bool = false
 var _portal_epoch: int = 0
 var _remote_epoch: int = -1
 var _remote_on_floor: bool = true
+var life_generation: int = 0
+var _combat_revision: int = -1
+var _applying_damage: bool = false
+
+
+func take_damage(amount: float, hit_direction: Vector3 = Vector3.ZERO, push_distance: float = 0.0) -> void:
+	var session: Node = get_parent().get_parent()
+	if multiplayer.is_server():
+		session.call("damage_player", get_multiplayer_authority(), amount, hit_direction, push_distance)
+
+
+func apply_host_damage(amount: float, direction: Vector3, push: float) -> void:
+	_applying_damage = true
+	super.take_damage(amount, direction, push)
+	_applying_damage = false
+
+
+func _die(direction: Vector3 = Vector3.ZERO) -> void:
+	if not _applying_damage:
+		return
+	var mouse_mode: Input.MouseMode = Input.mouse_mode
+	super._die(direction)
+	if not is_local_player():
+		Input.mouse_mode = mouse_mode
+
+
+func _update_energy_shield(delta: float) -> void:
+	# Shield recovery belongs to the host, including for remote players.
+	if _applying_damage:
+		super._update_energy_shield(delta)
+
+
+func recover_host_shield(delta: float) -> bool:
+	var previous: float = energy_shield
+	_applying_damage = true
+	_update_energy_shield(delta)
+	_applying_damage = false
+	return not is_equal_approx(previous, energy_shield)
+
+
+func receive_combat_state(state: Dictionary) -> void:
+	if int(state["generation"]) != life_generation or int(state["revision"]) <= _combat_revision:
+		return
+	_combat_revision = state["revision"]
+	var previous: float = health
+	var previous_shield: float = energy_shield
+	health = state["health"]
+	energy_shield = state["shield"]
+	health_changed.emit(health, max_health)
+	energy_shield_changed.emit(energy_shield, ENERGY_SHIELD_MAX)
+	if energy_shield < previous_shield:
+		_energy_shield_effect_timer = energy_shield_effect_duration
+	_update_predator_cloak_visuals()
+	if health < previous:
+		damaged.emit(previous - health, state["direction"])
+		if health > 0.0:
+			_trigger_impact_reaction(state["direction"], ImpactReaction.HIT)
+	if health <= 0.0 and not _is_dead:
+		_applying_damage = true
+		_die(state["direction"])
+		_applying_damage = false
+
+
+func _owned_purchases() -> Dictionary:
+	var session: Node = get_parent().get_parent()
+	var owned: Dictionary = session.get("purchases")
+	return owned.get(get_multiplayer_authority(), {})
+
+
+func _apply_purchased_upgrades(_upgrade_id: StringName = &"", _level: int = 0) -> void:
+	var owned: Dictionary = _owned_purchases()
+	var movement: float = 1.0 + 0.1 * int(owned.get(&"movement", 0))
+	for property: StringName in [&"speed", &"sprint_speed", &"crouch_speed"]:
+		set(property, _base_upgrade_stats[property] * movement)
+	max_stamina = _base_upgrade_stats[&"max_stamina"] + 25.0 * int(owned.get(&"stamina", 0))
+	stamina_recovery_per_second = _base_upgrade_stats[&"stamina_recovery_per_second"] * (1.0 + 0.25 * int(owned.get(&"recovery", 0)))
+	stamina = minf(stamina, max_stamina)
+	stamina_changed.emit(stamina, max_stamina)
+
+
+func can_use_xray_goggles() -> bool:
+	return _owned_purchases().has(&"xray_goggles")
+
+
+func can_use_energy_shield() -> bool:
+	return _owned_purchases().has(&"energy_shield")
+
+
+func can_use_predator_watch() -> bool:
+	return _owned_purchases().has(&"predator_watch")
+
+
+func grant_xray_goggles() -> void:
+	_update_predator_cloak_visuals()
+	_sync_equipment_inventory_slots()
+
+
+func grant_energy_shield() -> void:
+	grant_xray_goggles()
+	energy_shield_changed.emit(energy_shield, ENERGY_SHIELD_MAX)
+
+
+func grant_predator_watch() -> void:
+	grant_xray_goggles()
+	predator_cloak_energy_changed.emit(predator_cloak_energy, PREDATOR_CLOAK_MAX_ENERGY)
+
+
+func apply_team_purchases() -> void:
+	_apply_purchased_upgrades()
+	grant_xray_goggles()
 
 
 func is_local_player() -> bool:
@@ -15,8 +125,15 @@ func get_pickup_candidate() -> RigidBody3D:
 	if not is_local_player() or _movement_locked:
 		return null
 	var session: Node = get_parent().get_parent()
-	var item: RigidBody3D = session.get("shared_item") as RigidBody3D
-	return item if item != null and bool(item.call("can_pickup", self)) else null
+	var candidates: Dictionary = session.get("items")
+	var closest: RigidBody3D = null
+	var nearest: float = INF
+	for item: RigidBody3D in candidates.values():
+		var distance: float = global_position.distance_squared_to(item.global_position)
+		if distance < nearest and bool(item.call("can_pickup", self)):
+			closest = item
+			nearest = distance
+	return closest
 
 
 func try_pickup() -> void:
@@ -39,6 +156,10 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	var previous_mouse_mode: Input.MouseMode = Input.mouse_mode
 	super._ready()
+	var hud: Node = get_node("PlayerHUD")
+	if died.is_connected(hud._on_player_died):
+		died.disconnect(hud._on_player_died)
+	died.connect(func() -> void: get_parent().get_parent().call("on_player_death", get_multiplayer_authority()))
 	if is_local_player():
 		camera_pivot.get_camera().make_current()
 	else:
@@ -77,11 +198,12 @@ func make_snapshot() -> Dictionary:
 		"crouching": is_crouching, "jump": _jump_state,
 		"eye_light": is_eye_light_enabled(), "epoch": _portal_epoch,
 		"yaw": camera_yaw, "pitch": camera_pitch,
+		"generation": life_generation,
 	}
 
 
 func receive_snapshot(state: Dictionary) -> void:
-	if is_local_player():
+	if is_local_player() or not is_alive() or int(state.get("generation", -1)) != life_generation:
 		return
 	_target_transform = state["transform"]
 	var epoch: int = state["epoch"]

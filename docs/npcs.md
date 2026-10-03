@@ -92,6 +92,11 @@ sofá, cozinha, mesa de jantar, varanda) — ver [casas-interiores.md](casas-int
 
 ## NPCs da geração anterior (fazenda)
 
+O guarda de `FarmCoop.tscn` também usa o chassi composto, com cena autocontida,
+visão e Beehave. Apenas o host simula; convidados recebem pose/estado/alvo.
+Seu roster e combate pertencem à sessão, sem `PhotoAlertSystem` single-player.
+Detalhes e limitações: [multiplayer.md](multiplayer.md#npc-da-fazenda-co-op).
+
 Ainda vivos em `world.tscn`, com visão e navegação próprias dentro do script:
 
 | Arquivo | Papel |

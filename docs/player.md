@@ -90,8 +90,12 @@ CharacterBody3D (player.gd)
   O Player, a prévia e os tripulantes usam `ET_animations.res` como biblioteca
   do `AnimationPlayer`, independente das animações embutidas no modelo.
   `get_appearance_replication_payload()` e o RPC
-  `sync_appearance()` existem para uma futura camada multiplayer, que **não**
-  deve ser construída sem pedido explícito.
+  `sync_appearance()` fornecem o contrato usado pela arena co-op para aplicar
+  a aparência de cada peer. `NetworkPlayer.tscn` herda esta cena; seu script
+  isola input/HUD/câmera locais, interpola réplicas e aplica compras pessoais
+  da economia compartilhada. Vida/escudo são publicados pelo host; a morte
+  mantém o ragdoll local e oferece respawn da sessão, sem o restart single-player.
+  Ver [multiplayer.md](multiplayer.md).
 - **Acessório preso à cabeça** (`FarSightGoggles`, filho da malha `ET`):
   `CharacterProportions` calcula o offset local ao osso da cabeça uma vez
   (`_bind_goggles_to_head`) e recalcula o transform global do acessório a cada
@@ -104,6 +108,11 @@ CharacterBody3D (player.gd)
 - **Câmera**: `CinematicCameraRig` cuida de enquadramento, colisão, shake e do
   modo primeira pessoa (`set_first_person`), além dos binóculos com zoom e do
   material XRAY (a câmera secundária mostra o que a camada 6 esconde).
+- **Equipamento e visibilidade**: óculos aparecem durante o uso dos binóculos;
+  o escudo mostra efeito transitório ao receber dano. Binóculos e manto predador
+  não podem ser ativados juntos; o manto esconde acessórios, e os binóculos
+  escondem relógio e efeito do escudo. No single-player, a propriedade de
+  equipamento vem de `GlobalScore`; na arena, de compras por peer na sessão.
 - **Modos de depuração**: `set_debug_god_mode_enabled()` e
   `set_debug_flight_enabled()` são acionados pelo ciclo do `F4`
   (`DebugMenus`); o Player entra no grupo `debug_player` para ser encontrado.

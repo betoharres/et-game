@@ -1,8 +1,9 @@
 # Instruções para agentes — ET Game
 
 Regras compartilhadas por Codex e Claude Code; `CLAUDE.md` importa este arquivo.
-Protótipo 3D single-player em Godot 4.8 dev4, preset Windows: explorar, coletar
-destroços e entregar. Entrada: `scenes/Menu/main_menu.tscn`; fazenda:
+Protótipo 3D com fluxo single-player e arena co-op em Godot 4.8 dev7, preset
+Windows: explorar, coletar destroços e entregar. Entrada:
+`scenes/Menu/main_menu.tscn`; fazenda:
 `scenes/world.tscn`. Godot 4.7 não é garantido (`living_light.gd` usa `Trail3D`).
 
 ## Antes de alterar

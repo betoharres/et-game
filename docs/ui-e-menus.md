@@ -21,6 +21,16 @@ dessa mesma ferramenta, para não quebrar a unidade visual.
 | Transição de cena | `scripts/scene_transition.gd` | Autoload; limpeza circular e a variante de abdução |
 | Painel de parâmetros | `scenes/UI_ParameterPanel.tscn` | Demo isolada da água; nada é gravado em disco |
 
+## Menu e loja co-op
+
+`scripts/multiplayer/portal_session.gd` constrói o painel de host/join,
+desconexão, seletor de mapa, saldo/pontos da equipe e loja em `PortalCoop.tscn`
+e `FarmCoop.tscn`. A morte abre este painel com **Respawn**, substituindo o
+restart single-player; o personagem novo mantém compras e slot. `Esc` bloqueia
+apenas movimento e input do ET local, sem pausar a partida ou o polling da rede.
+As compras enviam pedidos ao host; a atualização de saldo e posse vem da sessão.
+Ver [multiplayer.md](multiplayer.md#economia-e-compras).
+
 ## Remapeamento de teclas
 
 Duas telas dividem o trabalho: o **menu de opções** remapeia o movimento e o

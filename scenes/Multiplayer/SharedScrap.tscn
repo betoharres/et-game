@@ -24,6 +24,7 @@ freeze = true
 script = ExtResource("1_scrap")
 item_id = "coop_scrap"
 display_name = "Destroço compartilhado"
+cash_value = 60
 two_handed = true
 
 [node name="Mesh" type="MeshInstance3D" parent="."]

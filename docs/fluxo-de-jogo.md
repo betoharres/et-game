@@ -8,6 +8,12 @@ nave descendo no céu da fase → raio trator → explorar → coletar → entre
 Nenhum manager global conduz isso: cada etapa é uma cena que sabe apenas o
 suficiente para chamar a próxima.
 
+O menu também abre `scenes/Multiplayer/PortalCoop.tscn`, uma arena independente
+com host/join, coleta compartilhada, entrega e loja com dinheiro da equipe.
+O lobby também seleciona `FarmCoop.tscn`, com guarda, combate e respawn da
+sessão. Esses mapas não percorrem as etapas acima. Ver [multiplayer.md](multiplayer.md) e as
+[instruções de entrada](../README.md#co-op-de-portais).
+
 ## Etapas e quem responde por cada uma
 
 | Etapa | Cena / script | Notas |

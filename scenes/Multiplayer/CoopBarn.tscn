@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.55, 0.13, 0.08, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="RoofMaterial"]
+albedo_color = Color(0.16, 0.18, 0.2, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="SideMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(0.3, 4, 10)
+
+[sub_resource type="BoxShape3D" id="SideShape"]
+size = Vector3(0.3, 4, 10)
+
+[sub_resource type="BoxMesh" id="BackMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(8, 4, 0.3)
+
+[sub_resource type="BoxShape3D" id="BackShape"]
+size = Vector3(8, 4, 0.3)
+
+[sub_resource type="BoxMesh" id="FrontMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(2.5, 4, 0.3)
+
+[sub_resource type="BoxShape3D" id="FrontShape"]
+size = Vector3(2.5, 4, 0.3)
+
+[sub_resource type="PrismMesh" id="RoofMesh"]
+material = SubResource("RoofMaterial")
+size = Vector3(8.8, 2.4, 10.8)
+
+[node name="CoopBarn" type="StaticBody3D"]
+
+[node name="LeftWall" type="MeshInstance3D" parent="."]
+position = Vector3(-4, 2, 0)
+layers = 128
+mesh = SubResource("SideMesh")
+
+[node name="LeftCollision" type="CollisionShape3D" parent="."]
+position = Vector3(-4, 2, 0)
+shape = SubResource("SideShape")
+
+[node name="RightWall" type="MeshInstance3D" parent="."]
+position = Vector3(4, 2, 0)
+layers = 128
+mesh = SubResource("SideMesh")
+
+[node name="RightCollision" type="CollisionShape3D" parent="."]
+position = Vector3(4, 2, 0)
+shape = SubResource("SideShape")
+
+[node name="BackWall" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2, -5)
+layers = 128
+mesh = SubResource("BackMesh")
+
+[node name="BackCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 2, -5)
+shape = SubResource("BackShape")
+
+[node name="FrontLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.75, 2, 5)
+layers = 128
+mesh = SubResource("FrontMesh")
+
+[node name="FrontLeftCollision" type="CollisionShape3D" parent="."]
+position = Vector3(-2.75, 2, 5)
+shape = SubResource("FrontShape")
+
+[node name="FrontRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.75, 2, 5)
+layers = 128
+mesh = SubResource("FrontMesh")
+
+[node name="FrontRightCollision" type="CollisionShape3D" parent="."]
+position = Vector3(2.75, 2, 5)
+shape = SubResource("FrontShape")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+position = Vector3(0, 5.2, 0)
+layers = 128
+mesh = SubResource("RoofMesh")

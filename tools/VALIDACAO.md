@@ -41,6 +41,16 @@ render, screenshot, culling — porque o driver dummy não desenha nada:
 Não rode uma segunda instância do Godot enquanto o editor estiver aberto no
 mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 
+O projeto atualmente usa dev7, mas o wrapper ainda procura os nomes dev4 acima.
+Se o dev7 não estiver no PATH, use o console instalado diretamente, por exemplo:
+
+```powershell
+& 'D:\Program Files\Godot\Godot_v4.8\Godot_v4.8-dev7_mono_win64_console.exe' --headless --path . --script res://tools/test_portal_multiplayer.gd
+```
+
+Substitua o caminho pelo da instalação local. O executável não é um arquivo do
+repositório. Esse mesmo prefixo serve para os demais comandos desta página.
+
 ## Qual ferramenta para cada sistema
 
 | Sistema alterado | Ferramenta |
@@ -56,6 +66,7 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Ciclo de velocidade e voo do `F4` | `tools/test_player_debug_modes.gd` |
 | Enquadramento e colisão da câmera | `tools/test_cinematic_camera.gd` |
 | Travessia, velocidade e recorte dos portais | `tools/test_portal_teleportation.gd` |
+| Sessão co-op, coletável, entrega, dinheiro da equipe e compras concorrentes | `tools/test_portal_multiplayer.gd`; [escopo e roteiro](#multiplayer-de-portais) |
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
@@ -75,6 +86,53 @@ mesmo projeto: as duas concorrem pelo cache em `.godot/`.
 | Coleta de destroços no Country Town: aproximação, raycast de parede, inventário cheio, item não transportável | `tools/test_country_town_debris_gameplay.gd` |
 | Diálogo do `MissionGiverNPC`, escolha de partida e chegada via `MissionSaucer` | `tools/test_mission_departure.gd` |
 | `RecoveryZone`/`RecoveryShip`: itens elegíveis, voo até a zona e entrega | `tools/test_recovery_ship.gd` |
+
+## Multiplayer de portais
+
+`tools/test_portal_multiplayer.gd` cria peers ENet de loopback no mesmo processo,
+com um `MultiplayerAPI` e um `SubViewport`/`World3D` separado por peer. Usa a
+porta de teste definida em `PORT`; feche outra execução do teste antes de iniciar.
+
+Cobre roster de quatro jogadores, recusa do quinto, câmeras/HUD locais,
+aparências, movimento e travessia replicados, disputa de posse, alcance e
+obstrução para coletar, exclusividade de drop, clones do objeto carregado,
+revisões de movimento, entrega única e respawn, saldo/pontos da equipe, compras
+concorrentes, equipamento pessoal, late join e saída do portador/host. Também
+confere que a economia multiplayer não altera dinheiro/equipamento single-player.
+Inclui múltiplos coletáveis independentes, seleção/recusa de mapas diferentes,
+fazenda com quatro peers, dano e recuperação do escudo no host, morte/drop,
+respawn com compras preservadas, rejeição de snapshots de vidas anteriores,
+patrulha/ataque do guarda no host e estado de NPC/morte para convidados tardios.
+
+Esse teste headless verifica estado, física e associação dos nós; não comprova
+a imagem dos portais, o visual dos efeitos, conexão em outra máquina ou na internet.
+Para mudanças no recorte/travessia, selecione também `test_portal_teleportation.gd`
+conforme a política de validação.
+
+O mesmo teste aceita `-- --visual` sem `--headless`: exibe o mundo do host e
+salva uma captura da fazenda em `%TEMP%/et_coop_farm_test.png`. Esse modo aguarda
+mais tempo por estado durante a compilação inicial de shaders. Para testar
+Vulkan em vez do driver padrão do Windows, acrescente `--rendering-driver vulkan`.
+Cinco mundos de teste com portais no mesmo processo podem exceder o heap de
+samplers do D3D12; isso não representa cinco processos independentes de jogo.
+
+Roteiro manual da arena:
+
+1. Abra instâncias separadas, hospede uma sessão e entre com os convidados.
+2. Confira câmeras independentes e observe outro ET e o destroço pelos portais.
+3. Dispute a coleta, atravesse carregando e largue para outro jogador recolher.
+4. Largue no pad verde: saldo, pontos e entregas devem mudar juntos em todos os
+   peers, apenas uma vez; o destroço deve reaparecer no spawn.
+5. Abra a loja com `Esc`, compre em peers diferentes e confira o débito do mesmo
+   pool e a concessão ao comprador. O menu não deve pausar os outros ETs.
+6. Entre depois de entregas/compras, desconecte o portador e depois o host;
+   confira o estado inicial do convidado, o drop e o retorno ao painel de conexão.
+7. Repita host/join em duas máquinas na mesma rede para verificar o transporte
+   fora do loopback, usando as [instruções do README](../README.md#co-op-de-portais).
+8. Selecione **Farm prototype** em todos os peers. Confira patrulha, perseguição
+   e ataque do guarda a convidados; morra carregando, observe o drop e use
+   **Respawn**. Confira HUD, câmera, compras preservadas e entrada de outro peer
+   enquanto um ET está morto. O host morrer não deve encerrar a sessão.
 
 ## Geração do Country Town
 

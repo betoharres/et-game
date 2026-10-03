@@ -4,6 +4,7 @@ signal pickup_requested(player: Node3D)
 signal drop_requested(player: Node3D)
 
 const PICKUP_RADIUS: float = 2.0
+@export var network_id: StringName = &""
 var _home: Node3D
 var _target_pose: Transform3D
 var _has_world_pose: bool = false

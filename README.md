@@ -1,6 +1,7 @@
 # ET Game
 
-Protótipo 3D single-player em Godot no qual um extraterrestre explora uma
+Protótipo 3D em Godot, com fluxo single-player e arena co-op de até quatro
+jogadores. No fluxo single-player, um extraterrestre explora uma
 fazenda, coleta destroços de uma nave e os leva até uma área de entrega. O
 cenário inclui vegetação reativa, uma caminhonete dirigível, um fazendeiro que
 persegue o jogador e um fotógrafo que o expõe.
@@ -20,6 +21,7 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 - [Estrutura principal](#estrutura-principal) — pastas do projeto e cenas de entrada.
 - [Executar](#executar) — abrir no editor e rodar pelo PowerShell.
 - [Fluxo atual](#fluxo-atual) — menu, órbita, missão, coleta e entrega.
+- [Co-op de portais](#co-op-de-portais) — host/join, entrega e compras com dinheiro da equipe.
 - [Controles](#controles) — teclas e ações do Input Map.
 - [Arquitetura](#arquitetura) — como as cenas e os sistemas se ligam, em resumo.
 - [Mapas e cenas geradas](#mapas-e-cenas-geradas) — fazenda, Country Town, casa modular e masmorra.
@@ -29,8 +31,8 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 
 ## Tecnologias e ambiente
 
-- Godot `4.8 dev4` com GDScript e cenas `.tscn`; essa versão é necessária para
-  o `Trail3D` nativo da luz viva.
+- Godot `4.8 dev7` com GDScript e cenas `.tscn`; Godot 4.7 não é garantido,
+  pois a luz viva usa `Trail3D` nativo.
 - Renderer `Forward Plus` com Direct3D 12 no Windows, em tela cheia com
   resolução-base `1920×1080`.
 - Física 3D com Jolt Physics.
@@ -62,13 +64,17 @@ A cena principal é `scenes/Menu/main_menu.tscn`; a fazenda é
 
 ## Executar
 
-Abra `project.godot` no Godot 4.8 dev4 ou mais novo e pressione `F5`. Pelo
+Abra `project.godot` no Godot 4.8 dev7 e pressione `F5`. Pelo
 PowerShell, use o wrapper do projeto (`tools/godot.cmd`):
 
 ```powershell
 .\tools\godot.cmd --path .            # rodar o jogo
 .\tools\godot.cmd --editor --path .   # abrir o editor
 ```
+
+O wrapper ainda procura executáveis dev4 ou `godot` no PATH. Se apenas o dev7
+estiver instalado, invoque seu executável diretamente; caminhos e comandos
+ficam em [tools/VALIDACAO.md](tools/VALIDACAO.md#comandos).
 
 ## Fluxo atual
 
@@ -100,7 +106,44 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 `Portal/portal.tscn` (par de portais com renderização cruzada) e
 `FlyablePlane.tscn` (avião controlável).
 
+## Co-op de portais
+
+No menu principal, escolha **CO-OP · PORTAIS (4 JOGADORES)**, ou abra
+`scenes/Multiplayer/PortalCoop.tscn` no editor. No lobby, todos selecionam o mesmo
+mapa: **Portal arena** ou **Farm prototype** (`FarmCoop.tscn`). Um jogador escolhe **Host game**;
+os demais informam o IP do host e escolhem **Join game**, usando a mesma porta
+(padrão `7000`, UDP). No mesmo computador, use `127.0.0.1`; na mesma rede, use
+o IP local do host. Não há matchmaking ou relay; o host precisa estar alcançável
+para uma conexão fora da rede local.
+
+Aproxime-se de um dos quatro destroços azuis de duas mãos e pressione `E` para coletar; `G` ou
+`E` enquanto carrega larga o objeto. Ele acompanha o ET pelos portais, incluindo
+as cópias fatiadas. Cada ET pode carregar um objeto; vários jogadores podem
+carregar objetos diferentes. Se o portador morrer ou desconectar, o destroço volta ao chão.
+
+Largue o objeto no pad verde **TEAM DELIVERY** para creditar dinheiro e pontos
+à equipe. Ele reaparece no spawn para repetir o ciclo. Os valores de entrega
+ficam na cena do coletável. O HUD mostra saldo, pontos e número de entregas;
+convidados que entram depois recebem o estado atual.
+
+`Esc` abre a loja e o menu da sessão, sem pausar os demais. Todos compram da
+mesma reserva de dinheiro; equipamento ou melhoria vai para o comprador.
+A loja inclui movimento, stamina, recuperação, escudo, óculos de raio X e
+relógio predador. A sessão começa sem dinheiro e não persiste saldo ou compras.
+Sair remove as compras pessoais, sem reembolso; reentrar não as restaura.
+Se o host sair, a partida termina para todos.
+
+Na fazenda protótipo, um guarda vermelho patrulha, detecta ETs visíveis,
+persegue e ataca de perto. O host controla sua IA, dano, vida e recuperação
+do escudo. A morte aparece para todos; **Respawn** no menu da sessão recria
+o ET sem perder compras ou dinheiro da equipe. Cair para fora do mapa mata.
+
+Esse modo é independente da fazenda, órbita e lojas single-player.
+Arquitetura e limites: [docs/multiplayer.md](docs/multiplayer.md).
+
 ## Controles
+
+No modo co-op, `Esc` abre o menu de sessão e loja, sem pausar os outros jogadores.
 
 | Ação                                                              | Tecla                                      |
 | ----------------------------------------------------------------- | ------------------------------------------ |
@@ -155,12 +198,17 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
 - O disparo usa dano instantâneo e clarão provisório, sem projétil físico.
 - Polícia, imprensa e MIB existem apenas como sinais e mensagens de
   placeholder, sem cenas nem spawn.
-- A pontuação não tem HUD (aparece só no console de depuração), objetivo final
+- No fluxo single-player, a pontuação não tem HUD (aparece só no console de depuração), objetivo final
   nem persistência, e o inventário do autoload não está integrado ao fluxo de
   coleta.
 - Opções e remapeamentos não são salvos entre execuções.
-- Não há sessão multiplayer nem arquitetura de servidor; apenas o payload e o
-  ponto de aplicação das proporções estão prontos para replicação futura.
+- O multiplayer tem arena e fazenda protótipo; não sincroniza o fluxo de
+  missões, mapas single-player, seus NPCs ou veículos. Vida, morte, respawn,
+  escudo e guarda co-op são compartilhados; ossos do ragdoll são simulados
+  localmente. Outros efeitos transitórios de equipamento não são sincronizados.
+  O guarda usa cápsula nativa e não atravessa portais. Movimento do ET é
+  simulado pelo cliente dono; coletáveis, combate e economia ficam no host.
+  Não há split-screen, matchmaking, relay, persistência ou migração de host.
 - A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
   desligada, feixes e holofotes não formam cones de luz no ar.
 - A queda não causa dano nem é percebida pelos NPCs, e durante o ragdoll a

@@ -1,6 +1,7 @@
 # Arquitetura geral
 
-Protótipo 3D single-player em Godot 4.8 dev4 (ver **Tecnologias e ambiente** no
+Protótipo 3D com fluxo single-player e arena co-op em Godot 4.8 dev7
+(ver **Tecnologias e ambiente** no
 [`../README.md`](../README.md)). Não há manager global orquestrando a partida:
 um mapa é uma cena que instancia terreno, ambiente, jogador, NPCs, veículos,
 itens e área de entrega, e os sistemas se falam por **sinais**, **grupos** e
@@ -9,6 +10,11 @@ itens e área de entrega, e os sistemas se falam por **sinais**, **grupos** e
 As cenas de entrada e seus responsáveis estão em
 [fluxo-de-jogo.md](fluxo-de-jogo.md#etapas-e-quem-responde-por-cada-uma);
 a composição dos mapas, em [mundo.md](mundo.md).
+
+A arena `PortalCoop.tscn` e a fazenda `FarmCoop.tscn` usam um controlador de
+sessão local à cena. Autoridade, roster, coletáveis, economia, combate e NPC
+do host ficam em [multiplayer.md](multiplayer.md).
+Seu dinheiro e suas compras não usam `GlobalScore` nem alteram o estado single-player.
 
 ## Autoloads
 
@@ -111,6 +117,10 @@ Definidas em `project.godot` (`[layer_names]`, `[physics]`):
   6 XRAY (o que deve sumir com os binóculos), 7 destroços, 8 prédios,
   9 jogadores, 10 props comuns, 12 casco da nave (removido da câmera quando o
   ET está dentro — ver `scripts/space/alien_ship.gd`).
+
+Os portais reservam as camadas de render 14–19 para vistas recursivas e 20 para
+superfícies principais, mesmo sem nomes em `project.godot`.
+Ver [mundo.md](mundo.md#portais).
 
 ## Input
 

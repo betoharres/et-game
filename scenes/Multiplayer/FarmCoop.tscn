@@ -4,24 +4,27 @@
 [ext_resource type="PackedScene" path="res://scenes/Portal/portal.tscn" id="2_portal"]
 [ext_resource type="PackedScene" path="res://scenes/Multiplayer/SharedScrap.tscn" id="3_scrap"]
 
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopBarn.tscn" id="4_barn"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopGuard.tscn" id="5_guard"]
+
 [sub_resource type="Environment" id="Environment_arena"]
 background_mode = 1
-background_color = Color(0.055, 0.075, 0.12, 1)
+background_color = Color(0.45, 0.65, 0.85, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.65, 0.75, 1, 1)
 ambient_light_energy = 0.6
 tonemap_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
-albedo_color = Color(0.18, 0.23, 0.28, 1)
+albedo_color = Color(0.25, 0.38, 0.14, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
 material = SubResource("Material_floor")
-size = Vector3(44, 1, 36)
+size = Vector3(80, 1, 64)
 
 [sub_resource type="BoxShape3D" id="Shape_floor"]
-size = Vector3(44, 1, 36)
+size = Vector3(80, 1, 64)
 
 [sub_resource type="StandardMaterial3D" id="Material_marker"]
 albedo_color = Color(0.95, 0.35, 0.12, 1)
@@ -44,6 +47,7 @@ size = Vector3(4, 0.08, 4)
 
 [node name="CoopSession" type="Node3D"]
 script = ExtResource("1_session")
+session_title = "FARM CO-OP · UP TO 4 PLAYERS"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_arena")
@@ -97,18 +101,28 @@ position = Vector3(0, 0.5, 5)
 network_id = &"scrap_01"
 
 [node name="SharedScrap2" parent="PickupItemsContainer" instance=ExtResource("3_scrap")]
-position = Vector3(-6, 0.5, 5)
+position = Vector3(-12, 0.5, -6)
 network_id = &"scrap_02"
 
 [node name="SharedScrap3" parent="PickupItemsContainer" instance=ExtResource("3_scrap")]
-position = Vector3(6, 0.5, 5)
+position = Vector3(7, 0.5, 15)
 network_id = &"scrap_03"
 
 [node name="SharedScrap4" parent="PickupItemsContainer" instance=ExtResource("3_scrap")]
-position = Vector3(19, 0.5, -3)
+position = Vector3(26, 0.5, -15)
 network_id = &"scrap_04"
 
 [node name="LobbyCamera" type="Camera3D" parent="."]
 position = Vector3(5, 8, 17)
 rotation_degrees = Vector3(-20, 0, 0)
 current = true
+
+[node name="BuildingContainers" type="Node3D" parent="."]
+
+[node name="Barn" parent="BuildingContainers" instance=ExtResource("4_barn")]
+position = Vector3(-12, 0, -8)
+
+[node name="NPCsContainer" type="Node3D" parent="."]
+
+[node name="Guard" parent="NPCsContainer" instance=ExtResource("5_guard")]
+position = Vector3(8, 0, 13)
