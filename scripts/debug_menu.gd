@@ -106,7 +106,11 @@ func _unhandled_input(event : InputEvent) -> void:
 
 	if event.is_action_pressed("debug_player_modes"):
 		cycle_player_modes()
-		GlobalScore.add_money(10000)
+		var player: Node = _get_first_target(PLAYER_GROUP)
+		if player != null and player.has_method("debug_add_team_money"):
+			player.call("debug_add_team_money")
+		else:
+			GlobalScore.add_money(10000)
 		print("Debug: +$10000")
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("debug_lighting_menu"):

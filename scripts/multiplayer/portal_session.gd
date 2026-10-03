@@ -16,6 +16,23 @@ var _combat_revisions: Dictionary[int, int] = {}
 var npcs: Dictionary[StringName, NPCActor] = {}
 
 
+func debug_add_team_money() -> void:
+	if not players.has(multiplayer.get_unique_id()):
+		return
+	if multiplayer.is_server():
+		team_money += 10000
+		_publish_economy()
+	else:
+		_request_debug_money.rpc_id(1)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_debug_money() -> void:
+	if multiplayer.is_server() and players.has(multiplayer.get_remote_sender_id()):
+		team_money += 10000
+		_publish_economy()
+
+
 func damage_player(peer_id: int, amount: float, direction: Vector3 = Vector3.ZERO, push: float = 0.0) -> void:
 	if not multiplayer.is_server() or not players.has(peer_id) or not is_finite(amount) or amount <= 0.0 or not direction.is_finite():
 		return

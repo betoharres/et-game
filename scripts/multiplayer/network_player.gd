@@ -10,6 +10,10 @@ var _combat_revision: int = -1
 var _applying_damage: bool = false
 
 
+func debug_add_team_money() -> void:
+	get_parent().get_parent().call("debug_add_team_money")
+
+
 func take_damage(amount: float, hit_direction: Vector3 = Vector3.ZERO, push_distance: float = 0.0) -> void:
 	var session: Node = get_parent().get_parent()
 	if multiplayer.is_server():
@@ -178,6 +182,7 @@ func _physics_process(delta: float) -> void:
 	if is_local_player():
 		super._physics_process(delta)
 		return
+	_update_energy_shield_effect(delta)
 	if not _has_snapshot:
 		return
 	global_transform = global_transform.interpolate_with(_target_transform, 1.0 - exp(-20.0 * delta))

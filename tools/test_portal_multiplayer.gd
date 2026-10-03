@@ -215,6 +215,16 @@ func _test_combat() -> void:
 	var peer_id: int = guest.multiplayer.get_unique_id()
 	var target: CharacterBody3D = guest.players[peer_id]
 	var previous: float = target.health
+	var solo_money: int = int(root.get_node("GlobalScore").get("money"))
+	var initial_money: int = host.team_money
+	host.players[1].debug_add_team_money()
+	target.debug_add_team_money()
+	_check(await _wait_for(func() -> bool:
+		for index: int in 4:
+			if _sessions[index].team_money != initial_money + 20000:
+				return false
+		return true), "Host and guest money cheats credit the shared team pool")
+	_check(int(root.get_node("GlobalScore").get("money")) == solo_money, "Co-op money cheat leaves single-player wallet unchanged")
 	target.take_damage(1000.0)
 	await create_timer(0.1).timeout
 	_check(target.health == previous and host.players[peer_id].health == previous, "Guest cannot author damage")
@@ -222,9 +232,15 @@ func _test_combat() -> void:
 	host.damage_player(peer_id, 10.0)
 	_check(await _wait_for(func() -> bool: return is_equal_approx(target.energy_shield, shield - 10.0)), "Host shield absorption replicates")
 	_check(target.health == previous, "Shield protects health")
+	var observer: CharacterBody3D = _sessions[2].players[peer_id]
+	_check(await _wait_for(func() -> bool: return observer.energy_shield_mesh.visible), "Shield hit is visible on remote replica")
+	_check(await _wait_for(func() -> bool: return not observer.energy_shield_mesh.visible), "Remote shield hit effect expires")
 	host.players[peer_id]._energy_shield_recovery_timer = 0.05
 	_check(await _wait_for(func() -> bool: return target.energy_shield > shield - 10.0), "Host shield recovery reaches its owner")
 	await _claim_item(guest)
+	host.damage_player(peer_id, host.players[peer_id].energy_shield)
+	_check(await _wait_for(func() -> bool: return target.energy_shield == 0.0 and observer.energy_shield == 0.0), "Shield can be depleted without killing its owner")
+	_check(target.is_alive() and not target.energy_shield_mesh.visible and not observer.energy_shield_mesh.visible, "Depleted shield is hidden on owner and observer")
 	var money: int = host.team_money
 	var owned: Dictionary = host.purchases[peer_id].duplicate(true)
 	var stale_motion: Dictionary = target.make_snapshot()
@@ -235,6 +251,8 @@ func _test_combat() -> void:
 				return false
 		return true), "Fatal damage and death reach all four peers")
 	_check(host._item_owner == 0 and guest.shared_item.carrier == null, "Death releases carried item")
+	for index: int in 4:
+		_check(not _sessions[index].players[peer_id].energy_shield_mesh.visible, "Dead player's shield is hidden on every peer")
 	_check(guest._respawn_button.visible and not target.get_node("PlayerHUD").defeat_menu.visible, "Death offers multiplayer respawn instead of scene reload")
 	guest.request_respawn()
 	guest.request_respawn()

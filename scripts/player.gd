@@ -2234,7 +2234,7 @@ func _update_predator_cloak_visuals() -> void:
 	if is_instance_valid(farsight_goggles_mesh):
 		farsight_goggles_mesh.visible = can_use_xray_goggles() and camera_pivot.binos_active and not predator_cloak_active
 	if is_instance_valid(energy_shield_mesh):
-		energy_shield_mesh.visible = can_use_energy_shield() and _energy_shield_effect_timer > 0.0 and not predator_cloak_active and not camera_pivot.binos_active
+		energy_shield_mesh.visible = is_alive() and energy_shield > 0.0 and can_use_energy_shield() and _energy_shield_effect_timer > 0.0 and not predator_cloak_active and not camera_pivot.binos_active
 	if is_instance_valid(predator_watch_mesh):
 		predator_watch_mesh.visible = can_use_predator_watch() and not predator_cloak_active and not camera_pivot.binos_active
 
