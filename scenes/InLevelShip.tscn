@@ -57,6 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.30741462)
 
 [node name="TransportBeam" parent="Interior/DescendPad" index="0" unique_id=1759453405]
 transform = Transform3D(1, 0, 0, 0, 11, 0, 0, 0, 1, 0, -9.00764, 0)
+layers = 32
 
 [node name="CollisionShape3D" parent="Interior/DescendPad/DescendTrigger" parent_id_path=PackedInt32Array(1809059096, 998617697) index="0" unique_id=1259563017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38314813, 0)

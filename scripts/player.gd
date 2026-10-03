@@ -355,6 +355,13 @@ func set_movement_locked(locked : bool, yaw_limit_degrees : float = 0.0) -> void
 		_look_yaw_limit = 0.0
 
 
+func apply_portal_transform(mapping: Transform3D) -> void:
+	var forward: Vector3 = mapping.basis * Vector3(-sin(camera_yaw), 0.0, -cos(camera_yaw))
+	var mapped_yaw: float = atan2(-forward.x, -forward.z)
+	var yaw_delta: float = wrapf(mapped_yaw - camera_yaw, -PI, PI)
+	apply_carry(mapping, yaw_delta)
+
+
 ## Transporta o ET junto com uma plataforma que gira ou translada -- o interior
 ## da nave. Chamado pelo ShipCarryField ANTES do _physics_process deste no (ver
 ## ShipCarryField.CARRY_PHYSICS_PRIORITY), para que o move_and_slide() e o alvo
@@ -2283,4 +2290,3 @@ func _is_ship_exit_reserved() -> bool:
 		if exit_node.has_method("reserves_interaction_for") and bool(exit_node.call("reserves_interaction_for", self)):
 			return true
 	return false
-
