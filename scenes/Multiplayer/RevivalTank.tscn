@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Glass"]
+albedo_color = Color(0.05, 0.8, 0.6, 0.3)
+transparency = 1
+
+[sub_resource type="CylinderMesh" id="Tank"]
+top_radius = 0.85
+bottom_radius = 0.85
+height = 2.4
+material = SubResource("Glass")
+
+[sub_resource type="StandardMaterial3D" id="HullMaterial"]
+albedo_color = Color(0.2, 0.27, 0.31, 1)
+metallic = 0.7
+
+[sub_resource type="CylinderMesh" id="Hull"]
+top_radius = 2.2
+bottom_radius = 4.5
+height = 0.9
+material = SubResource("HullMaterial")
+
+[sub_resource type="CylinderMesh" id="Pad"]
+top_radius = 4.5
+bottom_radius = 4.5
+height = 0.1
+material = SubResource("HullMaterial")
+
+[sub_resource type="BoxMesh" id="Support"]
+size = Vector3(0.2, 3.5, 0.2)
+material = SubResource("HullMaterial")
+
+[node name="RevivalTank" type="Node3D"]
+
+[node name="Tank" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.2, 0)
+mesh = SubResource("Tank")
+layers = 128
+
+[node name="Label" type="Label3D" parent="."]
+position = Vector3(0, 2.8, 0)
+text = "SHIP REVIVAL TANK · $200\nDROP A TEAMMATE'S BODY INSIDE"
+billboard = 1
+font_size = 36
+
+[node name="ShipHull" type="MeshInstance3D" parent="."]
+position = Vector3(1.3, 4, 0)
+mesh = SubResource("Hull")
+layers = 128
+
+[node name="RecoveryDeck" type="MeshInstance3D" parent="."]
+position = Vector3(1.3, 0, 0)
+mesh = SubResource("Pad")
+layers = 128
+
+[node name="SupportLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 1.75, -1.5)
+mesh = SubResource("Support")
+layers = 128
+
+[node name="SupportRight" type="MeshInstance3D" parent="."]
+position = Vector3(4.5, 1.75, -1.5)
+mesh = SubResource("Support")
+layers = 128

@@ -8,6 +8,11 @@ const PICKUP_RADIUS: float = 2.0
 var _home: Node3D
 var _target_pose: Transform3D
 var _has_world_pose: bool = false
+var network_consumed: bool = false
+
+
+func is_available_for_abduction() -> bool:
+	return not network_consumed and super.is_available_for_abduction()
 
 
 func _ready() -> void:
@@ -32,11 +37,18 @@ func can_pickup(player: CharacterBody3D) -> bool:
 	if player.global_position.distance_to(global_position) >= PICKUP_RADIUS:
 		return false
 	var ray: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
-		player.global_position + player.global_basis.y, global_position, 1, [player.get_rid(), get_rid()])
+		player.global_position + player.global_basis.y, get_pickup_target_position(), 1, [player.get_rid(), get_rid()])
 	return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 
 
+func get_pickup_target_position() -> Vector3:
+	var shape: CollisionShape3D = get_node_or_null("CollisionShape3D") as CollisionShape3D
+	return shape.global_position if shape != null else global_position
+
+
 func apply_network_state(player: Node3D, pose: Transform3D, motion: Vector3, simulate_world: bool) -> void:
+	if network_consumed:
+		return
 	if is_instance_valid(carrier) and carrier == player:
 		return
 	freeze = true
@@ -50,7 +62,7 @@ func apply_network_state(player: Node3D, pose: Transform3D, motion: Vector3, sim
 		super.pickup(player)
 		player.set("carried_item", self)
 		tree_exiting.connect(player._clear_exploration_hands, CONNECT_ONE_SHOT)
-		player.animation_controller.set_carry_mode(true)
+		player.animation_controller.set_carry_mode(two_handed)
 		player.emit_signal("exploration_inventory_changed")
 		if bool(player.call("is_local_player")):
 			player.emit_signal("item_collected", self)

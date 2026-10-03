@@ -7,11 +7,36 @@ var _remote_epoch: int = -1
 var _remote_on_floor: bool = true
 var life_generation: int = 0
 var _combat_revision: int = -1
+var _snapshot_sequence: int = 0
+var _remote_sequence: int = -1
 var _applying_damage: bool = false
 
 
 func debug_add_team_money() -> void:
 	get_parent().get_parent().call("debug_add_team_money")
+
+
+func toggle_predator_cloak() -> void:
+	get_parent().get_parent().call("request_cloak_toggle")
+
+
+func apply_host_cloak_toggle() -> void:
+	super.toggle_predator_cloak()
+
+
+func _update_predator_cloak(_delta: float) -> void:
+	return
+
+
+func _is_in_level_atmosphere() -> bool:
+	return false
+
+
+func _update_oxygen_display() -> void:
+	if not is_instance_valid(_oxygen_hud):
+		return
+	var seconds: float = float(get_parent().get_parent().get("team_radon"))
+	_oxygen_hud.text = "TEAM RADON %02d:%02d" % [floori(seconds / 60.0), floori(fmod(seconds, 60.0))]
 
 
 func take_damage(amount: float, hit_direction: Vector3 = Vector3.ZERO, push_distance: float = 0.0) -> void:
@@ -45,6 +70,7 @@ func recover_host_shield(delta: float) -> bool:
 	var previous: float = energy_shield
 	_applying_damage = true
 	_update_energy_shield(delta)
+	super._update_predator_cloak(delta)
 	_applying_damage = false
 	return not is_equal_approx(previous, energy_shield)
 
@@ -57,6 +83,9 @@ func receive_combat_state(state: Dictionary) -> void:
 	var previous_shield: float = energy_shield
 	health = state["health"]
 	energy_shield = state["shield"]
+	predator_cloak_active = state["cloak"]
+	predator_cloak_energy = state["cloak_energy"]
+	predator_cloak_energy_changed.emit(predator_cloak_energy, PREDATOR_CLOAK_MAX_ENERGY)
 	health_changed.emit(health, max_health)
 	energy_shield_changed.emit(energy_shield, ENERGY_SHIELD_MAX)
 	if energy_shield < previous_shield:
@@ -179,6 +208,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if has_meta("coop_seated"):
+		_update_camera_target()
+		return
 	if is_local_player():
 		super._physics_process(delta)
 		return
@@ -190,6 +222,11 @@ func _physics_process(delta: float) -> void:
 	animation_controller.set_motion_state(velocity, _remote_on_floor, _is_sprinting, is_crouching, _jump_state)
 
 
+func try_carry_character() -> bool:
+	# Dead teammates use the shared corpse item, so a second local body cannot be picked up.
+	return false
+
+
 func apply_portal_transform(mapping: Transform3D) -> void:
 	if is_local_player():
 		super.apply_portal_transform(mapping)
@@ -197,7 +234,9 @@ func apply_portal_transform(mapping: Transform3D) -> void:
 
 
 func make_snapshot() -> Dictionary:
+	_snapshot_sequence += 1
 	return {
+		"sequence": _snapshot_sequence,
 		"transform": global_transform, "velocity": velocity,
 		"on_floor": is_on_floor(), "sprinting": _is_sprinting,
 		"crouching": is_crouching, "jump": _jump_state,
@@ -210,6 +249,9 @@ func make_snapshot() -> Dictionary:
 func receive_snapshot(state: Dictionary) -> void:
 	if is_local_player() or not is_alive() or int(state.get("generation", -1)) != life_generation:
 		return
+	if int(state.get("sequence", -1)) <= _remote_sequence or int(state["epoch"]) < _remote_epoch:
+		return
+	_remote_sequence = state["sequence"]
 	_target_transform = state["transform"]
 	var epoch: int = state["epoch"]
 	# Portal crossings must jump directly to the exit instead of sliding through the map.

@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scripts/multiplayer/portal_session.gd" id="1_session"]
 [ext_resource type="PackedScene" path="res://scenes/Portal/portal.tscn" id="2_portal"]
 [ext_resource type="PackedScene" path="res://scenes/Multiplayer/SharedScrap.tscn" id="3_scrap"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="6_shop"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/RevivalTank.tscn" id="7_tank"]
 
 [sub_resource type="Environment" id="Environment_arena"]
 background_mode = 1
@@ -62,6 +64,12 @@ mesh = SubResource("Mesh_floor")
 shape = SubResource("Shape_floor")
 
 [node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="RevivalTank" parent="PropsContainer" instance=ExtResource("7_tank")]
+position = Vector3(10, 0, -9)
+
+[node name="ShopTerminal" parent="PropsContainer" instance=ExtResource("6_shop")]
+position = Vector3(13, 0, -9)
 
 [node name="ExitMarker" type="MeshInstance3D" parent="PropsContainer"]
 position = Vector3(13, 1.5, -5)

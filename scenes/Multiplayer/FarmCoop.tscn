@@ -6,6 +6,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopBarn.tscn" id="4_barn"]
 [ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopGuard.tscn" id="5_guard"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="6_shop"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/RevivalTank.tscn" id="7_tank"]
 
 [sub_resource type="Environment" id="Environment_arena"]
 background_mode = 1
@@ -66,6 +68,12 @@ mesh = SubResource("Mesh_floor")
 shape = SubResource("Shape_floor")
 
 [node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="RevivalTank" parent="PropsContainer" instance=ExtResource("7_tank")]
+position = Vector3(10, 0, -9)
+
+[node name="ShopTerminal" parent="PropsContainer" instance=ExtResource("6_shop")]
+position = Vector3(13, 0, -9)
 
 [node name="ExitMarker" type="MeshInstance3D" parent="PropsContainer"]
 position = Vector3(13, 1.5, -5)
