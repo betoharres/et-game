@@ -21,7 +21,7 @@ comandos das ferramentas de geração e de checagem ficam em `tools/VALIDACAO.md
 - [Estrutura principal](#estrutura-principal) — pastas do projeto e cenas de entrada.
 - [Executar](#executar) — abrir no editor e rodar pelo PowerShell.
 - [Fluxo atual](#fluxo-atual) — menu, órbita, missão, coleta e entrega.
-- [Co-op de portais](#co-op-de-portais) — host/join, entrega e compras com dinheiro da equipe.
+- [Co-op de portais](#co-op-de-portais) — lobby, missão compartilhada, dinheiro da equipe e recuperação de colegas.
 - [Controles](#controles) — teclas e ações do Input Map.
 - [Arquitetura](#arquitetura) — como as cenas e os sistemas se ligam, em resumo.
 - [Mapas e cenas geradas](#mapas-e-cenas-geradas) — fazenda, Country Town, casa modular e masmorra.
@@ -113,10 +113,14 @@ No menu principal, escolha **CO-OP · PORTAIS (4 JOGADORES)**, ou abra
 mapa: **Portal arena** ou **Farm prototype** (`FarmCoop.tscn`). Um jogador escolhe **Host game**;
 os demais informam o IP do host e escolhem **Join game**, usando a mesma porta
 (padrão `7000`, UDP). No mesmo computador, use `127.0.0.1`; na mesma rede, use
-o IP local do host. Não há matchmaking ou relay; o host precisa estar alcançável
-para uma conexão fora da rede local.
+o IP local do host. Para internet, use o IP público do host; ele precisa liberar
+Godot no firewall e encaminhar essa porta UDP no roteador. Não há matchmaking
+ou relay; redes sem encaminhamento acessível podem impedir a conexão direta.
+Informe seu nome, confirme **Toggle ready** em cada jogador e deixe o host
+escolher **Start expedition**. Um convidado pode entrar durante a coleta;
+durante a partida, `Esc` abre o painel de sessão.
 
-Aproxime-se de um dos quatro destroços azuis de duas mãos e pressione `E` para coletar; `G` ou
+Aproxime-se de um destroço azul ou dos scraps provenientes das cenas SP e pressione `E` para coletar; `G` ou
 `E` enquanto carrega larga o objeto. Ele acompanha o ET pelos portais, incluindo
 as cópias fatiadas. Cada ET pode carregar um objeto; vários jogadores podem
 carregar objetos diferentes. Se o portador morrer ou desconectar, o destroço volta ao chão.
@@ -129,14 +133,32 @@ convidados que entram depois recebem o estado atual.
 `Esc` abre a loja e o menu da sessão, sem pausar os demais. Todos compram da
 mesma reserva de dinheiro; equipamento ou melhoria vai para o comprador.
 A loja inclui movimento, stamina, recuperação, escudo, óculos de raio X e
-relógio predador. A sessão começa sem dinheiro e não persiste saldo ou compras.
-Sair remove as compras pessoais, sem reembolso; reentrar não as restaura.
-Se o host sair, a partida termina para todos.
+relógio predador. Escudo e invisibilidade têm estado e energia controlados pelo
+host; raio X ainda aguarda revisão específica multiplayer. A sessão começa sem
+dinheiro e não persiste saldo ou compras em disco. Sair não reembolsa compras;
+reentrar pela mesma instância da sessão recupera compras e vida, sem cura gratuita.
+Recriar a cena ou fechar o jogo perde essa identidade de reconexão.
+Se o host sair, a partida termina para todos; não há migração de host.
 
-Na fazenda protótipo, um guarda vermelho patrulha, detecta ETs visíveis,
-persegue e ataca de perto. O host controla sua IA, dano, vida e recuperação
-do escudo. A morte aparece para todos; **Respawn** no menu da sessão recria
-o ET sem perder compras ou dinheiro da equipe. Cair para fora do mapa mata.
+Use a máquina junto à nave para comprar equipamento, repor Radon, reparar e
+lançar a expedição. Venda scraps para financiar o reparo; após reparar, reúna
+todos os jogadores vivos no terminal para liberar o lançamento. A equipe recebe
+resultados e troca de mapa em conjunto, preservando dinheiro, compras e Radon;
+o reparo precisa ser feito novamente na próxima rodada. Radon esgotado é fatal.
+
+Na fazenda protótipo, guarda, fazendeiro e fotógrafos detectam qualquer colega
+visível; o host controla IA, ataques e fotos. A criatura luminosa reage aos
+colegas próximos. Qualquer ET pode iniciar a quest do Gorilla e outro entregar
+a caixa de bananas; progresso e recompensa pertencem à equipe. Porta do celeiro
+e veículos também são compartilhados. `E` entra/sai: caminhonete tem motorista,
+passageiro e dois lugares na caçamba; avião aceita somente piloto.
+
+Não existe respawn imediato. Carregue o corpo de um colega como um scrap e
+largue dentro do **SHIP REVIVAL TANK**: o host debita **$200** do dinheiro da
+equipe e revive o ET junto à nave, preservando compras. Sem saldo suficiente,
+o corpo aguarda enquanto os sobreviventes coletam scraps. Cair fora do mapa
+mata. Se todos os ETs conectados morrerem, o run é zerado e todos permanecem
+conectados no lobby para confirmar readiness e iniciar outra expedição.
 
 Esse modo é independente da fazenda, órbita e lojas single-player.
 Arquitetura e limites: [docs/multiplayer.md](docs/multiplayer.md).
@@ -153,7 +175,7 @@ No modo co-op, `Esc` abre o menu de sessão e loja, sem pausar os outros jogador
 | Pular / agachar                                                   | `Espaço` / segure `C`                      |
 | Coletar ou largar item                                            | `E`                                        |
 | Pegar no colo ou soltar um ET caído                               | `E`                                        |
-| Interagir: portas, terminal, pad de descida, entrar e sair da caminhonete | `E`                                        |
+| Interagir: portas, terminal, pad de descida, caminhonete e veículos co-op | `E`                                        |
 | Solicitar a abdução de um item na área de entrega                 | Segure `E`                                 |
 | Selecionar slot do inventário de exploração                       | `1`-`4`                                    |
 | Trocar de slot do inventário de exploração                        | Roda do mouse                              |
@@ -202,12 +224,13 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
   nem persistência, e o inventário do autoload não está integrado ao fluxo de
   coleta.
 - Opções e remapeamentos não são salvos entre execuções.
-- O multiplayer tem arena e fazenda protótipo; não sincroniza o fluxo de
-  missões, mapas single-player, seus NPCs ou veículos. Vida, morte, respawn,
-  escudo e guarda co-op são compartilhados; ossos do ragdoll são simulados
-  localmente. Outros efeitos transitórios de equipamento não são sincronizados.
-  O guarda usa cápsula nativa e não atravessa portais. Movimento do ET é
-  simulado pelo cliente dono; coletáveis, combate e economia ficam no host.
+- O multiplayer tem ciclo compartilhado entre arena e fazenda protótipo, com
+  recuperação de colegas, quest, NPCs e veículos adaptados. Os mapas e fluxo
+  single-player completos continuam separados. NPCs e veículos não atravessam
+  portais; ocupantes não têm animação específica de sentar. Raio X aguarda
+  revisão multiplayer. Movimento do ET é simulado pelo cliente dono; coletáveis,
+  combate, veículos e economia ficam no host. Validação de snapshots não é
+  anticheat; simulação de atraso/perda nos testes cobre snapshots de movimento.
   Não há split-screen, matchmaking, relay, persistência ou migração de host.
 - A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
   desligada, feixes e holofotes não formam cones de luz no ar.
