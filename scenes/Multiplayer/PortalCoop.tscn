@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/multiplayer/portal_session.gd" id="1_session"]
+[ext_resource type="PackedScene" path="res://scenes/Portal/portal.tscn" id="2_portal"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/SharedScrap.tscn" id="3_scrap"]
+
+[sub_resource type="Environment" id="Environment_arena"]
+background_mode = 1
+background_color = Color(0.055, 0.075, 0.12, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.65, 0.75, 1, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.18, 0.23, 0.28, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Mesh_floor"]
+material = SubResource("Material_floor")
+size = Vector3(44, 1, 36)
+
+[sub_resource type="BoxShape3D" id="Shape_floor"]
+size = Vector3(44, 1, 36)
+
+[sub_resource type="StandardMaterial3D" id="Material_marker"]
+albedo_color = Color(0.95, 0.35, 0.12, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_marker"]
+material = SubResource("Material_marker")
+size = Vector3(1, 3, 1)
+
+[node name="PortalCoop" type="Node3D"]
+script = ExtResource("1_session")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_arena")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-55, -30, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(4, -0.5, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("Mesh_floor")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("Shape_floor")
+
+[node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="ExitMarker" type="MeshInstance3D" parent="PropsContainer"]
+position = Vector3(13, 1.5, -5)
+mesh = SubResource("Mesh_marker")
+
+[node name="PortalPair" parent="." instance=ExtResource("2_portal")]
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="PickupItemsContainer" type="Node3D" parent="."]
+
+[node name="SharedScrap" parent="PickupItemsContainer" instance=ExtResource("3_scrap")]
+position = Vector3(0, 0.5, 5)
+
+[node name="LobbyCamera" type="Camera3D" parent="."]
+position = Vector3(5, 8, 17)
+rotation_degrees = Vector3(-20, 0, 0)
+current = true

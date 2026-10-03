@@ -159,6 +159,8 @@ func _bind_goggles_to_head() -> void:
 
 
 func _update_goggles_transform() -> void:
+	if not is_inside_tree():
+		return
 	var skeleton : Skeleton3D = get_skeleton()
 	var head : int = int(_bone_ids.get("head", -1))
 	if not is_instance_valid(_goggles_mesh) or skeleton == null or head < 0:
@@ -185,6 +187,8 @@ func _bind_watch_to_hand() -> void:
 
 
 func _update_watch_transform() -> void:
+	if not is_inside_tree():
+		return
 	var skeleton : Skeleton3D = get_skeleton()
 	var hand : int = int(_bone_ids.get("right_hand", -1))
 	if not is_instance_valid(_watch_mesh) or skeleton == null or hand < 0:

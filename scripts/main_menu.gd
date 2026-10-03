@@ -71,6 +71,20 @@ func _ready() -> void:
 	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
 	menu_button_3.pressed.connect(_on_exit_pressed)
+	var coop_button: Button = menu_button_2.duplicate(0) as Button
+	coop_button.name = "CoopButton"
+	coop_button.text = "CO-OP · PORTAIS (4 JOGADORES)"
+	coop_button.focus_neighbor_top = NodePath("../MenuButton1")
+	coop_button.focus_neighbor_bottom = NodePath("../MenuButton2")
+	main_menu_container.add_child(coop_button)
+	main_menu_container.move_child(coop_button, menu_button_2.get_index())
+	menu_button_1.focus_neighbor_bottom = NodePath("../CoopButton")
+	menu_button_2.focus_neighbor_top = NodePath("../CoopButton")
+	coop_button.pressed.connect(func() -> void:
+		if transition_started:
+			return
+		transition_started = true
+		get_node("/root/SceneTransition").warp_to("res://scenes/Multiplayer/PortalCoop.tscn"))
 	audio_toggle.toggled.connect(_on_audio_toggled)
 	audio_toggle.mouse_entered.connect(_on_audio_hover.bind(true))
 	audio_toggle.mouse_exited.connect(_on_audio_hover.bind(false))

@@ -13087,7 +13087,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.611904, 0.002077967, -50.6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.156744, 0, -49.7861)
 
 [node name="CharacterBody3D" parent="." unique_id=760738079 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -64.25314, 0.1560452, -13.301771)
+transform = Transform3D(-0.8873273, 0, 0.46114013, 0, 1, 0, -0.46114013, 0, -0.8873273, -49.666153, 0.1560452, -33.352203)
 
 [node name="LivingLightFarm" parent="." unique_id=1401452183 instance=ExtResource("192_living_light")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.75314, 1.4060452, -11.801771)

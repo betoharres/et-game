@@ -75,6 +75,9 @@ func _physics_process(_delta: float) -> void:
 		if absf(side) < 0.0001:
 			continue
 		if side * float(traveller["side"]) < 0.0:
+			if body.has_method("is_local_player") and not bool(body.call("is_local_player")):
+				traveller["side"] = side
+				continue
 			_teleport_body(body, entrance, exit)
 			traveller["entrance"] = exit
 			traveller["exit"] = entrance
@@ -229,6 +232,27 @@ func _on_portal_body_entered(body: Node3D, entrance: MeshInstance3D, exit: MeshI
 		"entrance": entrance, "exit": exit,
 		"side": _side_of_portal(entrance, body.global_position)
 	}
+	var exit_callback: Callable = _on_traveller_tree_exiting.bind(body.get_instance_id())
+	if not body.tree_exiting.is_connected(exit_callback):
+		body.tree_exiting.connect(exit_callback, CONNECT_ONE_SHOT)
+
+
+func _on_traveller_tree_exiting(body_id: int) -> void:
+	if _travellers.has(body_id):
+		_remove_traveller(body_id)
+
+
+func refresh_traveller_visual(body: Node3D) -> void:
+	var body_id: int = body.get_instance_id()
+	if not _travellers.has(body_id):
+		return
+	var old_visual: Node3D = _travellers[body_id]["visual"]
+	remove_child(old_visual)
+	old_visual.queue_free()
+	var visual: Node3D = TRAVELLER_VISUAL.new()
+	add_child(visual)
+	visual.setup(body)
+	_travellers[body_id]["visual"] = visual
 
 
 func _on_portal_body_exited(body: Node3D, entrance: MeshInstance3D) -> void:
