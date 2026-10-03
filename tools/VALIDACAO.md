@@ -66,7 +66,7 @@ repositório. Esse mesmo prefixo serve para os demais comandos desta página.
 | Ciclo de velocidade e voo do `F4` | `tools/test_player_debug_modes.gd` |
 | Enquadramento e colisão da câmera | `tools/test_cinematic_camera.gd` |
 | Travessia, velocidade e recorte dos portais | `tools/test_portal_teleportation.gd` |
-| Sessão co-op, coletável, entrega, dinheiro da equipe e compras concorrentes | `tools/test_portal_multiplayer.gd`; [escopo e roteiro](#multiplayer-de-portais) |
+| Lobby/reconexão, missão, coletáveis, economia, revival, NPCs, quest, veículos e porta co-op | `tools/test_portal_multiplayer.gd`; [escopo e roteiro](#multiplayer-de-portais) |
 | Presets de névoa e evento alienígena | `tools/test_atmosphere_presets.gd` |
 | Filtro de interferência alienígena | `tools/test_alien_interference.gd` |
 | Casco interno da nave (frestas) | `tools/check_tapered_shell.gd` |
@@ -96,13 +96,28 @@ porta de teste definida em `PORT`; feche outra execução do teste antes de inic
 Cobre roster de quatro jogadores, recusa do quinto, câmeras/HUD locais,
 aparências, movimento e travessia replicados, disputa de posse, alcance e
 obstrução para coletar, exclusividade de drop, clones do objeto carregado,
-revisões de movimento, entrega única e respawn, saldo/pontos da equipe, compras
+revisões de movimento, entrega única e reposição de scrap, saldo/pontos da equipe, compras
 concorrentes, equipamento pessoal, late join e saída do portador/host. Também
 confere que a economia multiplayer não altera dinheiro/equipamento single-player.
 Inclui múltiplos coletáveis independentes, seleção/recusa de mapas diferentes,
 fazenda com quatro peers, dano e recuperação do escudo no host, morte/drop,
-respawn com compras preservadas, rejeição de snapshots de vidas anteriores,
-patrulha/ataque do guarda no host e estado de NPC/morte para convidados tardios.
+transporte de corpo e revival pago com compras preservadas, falta de saldo,
+rejeição de snapshots de vidas anteriores, patrulha/ataque do guarda e estado
+de NPC/morte para convidados tardios. Também cobre readiness/início, máquina SP
+adaptada, reparos concorrentes, reserva compartilhada de Radon, lançamento,
+troca de mapa e reset da expedição no lobby conectado após morte de todos.
+
+Na fazenda, verifica quatro assentos da caminhonete, entrada/saída, exclusividade
+do piloto e física do avião no host, quest iniciada e entregue por colegas
+diferentes, consumo da caixa/recompensa, porta aberta por convidado, ativação e
+consumo de invisibilidade, fazendeiro atacando jogador três, fotógrafo capturando
+jogador quatro e alvo/réplica da living light. Reconexão preserva vida/compras.
+
+`tools/network_fault_session.gd` é uma subclasse usada somente pelo teste para
+perder um terço dos snapshots de movimento encaminhados pelo host e atrasar
+os restantes, alternando 40–120 ms. O teste verifica convergência com reordenação
+e rejeição de velocidade excessiva/base escalada. Não simula falhas em todos os
+canais ENet nem comprova robustez de uma conexão real de internet.
 
 Esse teste headless verifica estado, física e associação dos nós; não comprova
 a imagem dos portais, o visual dos efeitos, conexão em outra máquina ou na internet.
@@ -118,7 +133,8 @@ samplers do D3D12; isso não representa cinco processos independentes de jogo.
 
 Roteiro manual da arena:
 
-1. Abra instâncias separadas, hospede uma sessão e entre com os convidados.
+1. Abra instâncias separadas com o mesmo mapa, informe nomes, hospede e entre.
+   Confirme **Toggle ready** em todos e **Start expedition** no host.
 2. Confira câmeras independentes e observe outro ET e o destroço pelos portais.
 3. Dispute a coleta, atravesse carregando e largue para outro jogador recolher.
 4. Largue no pad verde: saldo, pontos e entregas devem mudar juntos em todos os
@@ -130,9 +146,18 @@ Roteiro manual da arena:
 7. Repita host/join em duas máquinas na mesma rede para verificar o transporte
    fora do loopback, usando as [instruções do README](../README.md#co-op-de-portais).
 8. Selecione **Farm prototype** em todos os peers. Confira patrulha, perseguição
-   e ataque do guarda a convidados; morra carregando, observe o drop e use
-   **Respawn**. Confira HUD, câmera, compras preservadas e entrada de outro peer
-   enquanto um ET está morto. O host morrer não deve encerrar a sessão.
+   e ataques a convidados, fotos e invisibilidade. Morra carregando e confira
+   o drop; leve o corpo ao tanque, teste saldo insuficiente e revival pago.
+   Confira HUD, câmera, compras e entrada de outro peer com um ET morto.
+   Morte do host sozinho não encerra a sessão; morte de todos reseta o run e
+   mantém conexões no lobby, exigindo readiness novamente.
+9. Embarque quatro colegas na caminhonete e tente disputar o único lugar do
+   avião. Confira direção apenas pelo motorista/piloto, câmeras e saída.
+   Inicie a quest do Gorilla com um ET e entregue a caixa com outro; confira
+   recompensa única. Abra/feche a porta pelo convidado.
+10. Venda scraps, repare pela máquina e reúna todos no terminal para lançar.
+    Confira troca conjunta de mapa, compras/saldo preservados e novo reparo.
+    Desconecte/reentre pela mesma instância e confira compras/vida sem cura grátis.
 
 ## Geração do Country Town
 

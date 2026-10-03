@@ -4,6 +4,11 @@ Todo veículo dirigível entra no grupo `vehicles` (grupo global declarado em
 `project.godot`), o que faz a vegetação reagir a ele e as portas de casa se
 abrirem na sua chegada. As cenas ficam em `scenes/Vehicles/`.
 
+Na fazenda co-op, `coop_vehicle.gd` acrescenta `CoopSeats` às cenas da
+caminhonete e do avião, desativa controle/câmeras SP e simula no host.
+Assentos, comandos e réplicas: [multiplayer — veículos e porta](multiplayer.md#veículos-e-porta).
+Os contratos abaixo descrevem o controle single-player dessas cenas.
+
 ## Caminhonete dirigível — a referência
 
 `scenes/Vehicles/DriveableTruck.tscn` + `scripts/driveable_truck.gd`

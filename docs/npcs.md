@@ -92,9 +92,11 @@ sofá, cozinha, mesa de jantar, varanda) — ver [casas-interiores.md](casas-int
 
 ## NPCs da geração anterior (fazenda)
 
-O guarda de `FarmCoop.tscn` também usa o chassi composto, com cena autocontida,
+Em `FarmCoop.tscn`, guarda, fazendeiro e fotógrafos usam o chassi composto,
 visão e Beehave. Apenas o host simula; convidados recebem pose/estado/alvo.
-Seu roster e combate pertencem à sessão, sem `PhotoAlertSystem` single-player.
+As adaptações reaproveitam os assets SP, com roster e combate da sessão,
+sem `PhotoAlertSystem` single-player. Living light recebe uma adaptação própria;
+Gorilla fica estacionário e sua quest aceita interação/entrega de qualquer colega.
 Detalhes e limitações: [multiplayer.md](multiplayer.md#npc-da-fazenda-co-op).
 
 Ainda vivos em `world.tscn`, com visão e navegação próprias dentro do script:
