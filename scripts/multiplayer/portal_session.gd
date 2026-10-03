@@ -14,6 +14,11 @@ const FARM_SCRAPS: Array[String] = ["Bucket", "Radio", "Telephone", "Glasses", "
 const RECOVERY_SCRIPT: Script = preload("res://scripts/multiplayer/coop_recovery.gd")
 const VEHICLE_SCRIPT: Script = preload("res://scripts/multiplayer/coop_vehicle.gd")
 const BANANA_SCRIPT: Script = preload("res://scripts/multiplayer/coop_banana_trade.gd")
+const MIGRATION_SCRIPT: Script = preload("res://scripts/multiplayer/host_migration.gd")
+var host_migration: Node
+var _migration_address: LineEdit
+var _migration_port: SpinBox
+var _migration_hint: Label
 var recovery: Node3D
 var player_names: Dictionary[int, String] = {}
 var ready_players: Dictionary[int, bool] = {}
@@ -41,13 +46,13 @@ func _request_ready() -> void:
 
 
 func _set_ready_peer(peer_id: int) -> void:
-	if mission_phase == &"lobby" and players.has(peer_id):
+	if not host_migration.active and mission_phase == &"lobby" and players.has(peer_id):
 		ready_players[peer_id] = not ready_players.get(peer_id, false)
 		_publish_lobby()
 
 
 func start_expedition() -> void:
-	if not multiplayer.is_server() or mission_phase != &"lobby" or players.is_empty():
+	if host_migration.active or not multiplayer.is_server() or mission_phase != &"lobby" or players.is_empty():
 		return
 	for peer_id: int in players:
 		if not ready_players.get(peer_id, false):
@@ -472,6 +477,8 @@ func _toggle_cloak(peer_id: int) -> void:
 
 
 func on_player_death(peer_id: int) -> void:
+	if host_migration.is_restoring:
+		return
 	if multiplayer.is_server():
 		for item_id: StringName in items:
 			if _item_owners[item_id] == peer_id:
@@ -589,6 +596,10 @@ var _item_requests: Array[Dictionary] = []
 
 
 func _ready() -> void:
+	host_migration = Node.new()
+	host_migration.name = "HostMigration"
+	host_migration.set_script(MIGRATION_SCRIPT)
+	add_child(host_migration)
 	recovery = Node3D.new()
 	recovery.name = "Recovery"
 	recovery.set_script(RECOVERY_SCRIPT)
@@ -618,6 +629,8 @@ func host_game(port: int = DEFAULT_PORT) -> Error:
 		_set_status("Could not host: %s" % error_string(error))
 		return error
 	multiplayer.multiplayer_peer = peer
+	_port.value = port
+	_peer_tokens[1] = _reconnect_token
 	var profile: Dictionary = _local_appearance()
 	mission_phase = &"lobby"
 	player_names[1] = _name_entry.text.strip_edges().left(24) if not _name_entry.text.strip_edges().is_empty() else "ET Host"
@@ -644,6 +657,7 @@ func join_game(address: String, port: int = DEFAULT_PORT) -> Error:
 		_set_status("Could not join: %s" % error_string(error))
 		return error
 	multiplayer.multiplayer_peer = peer
+	_port.value = port
 	_connecting = true
 	_connecting_elapsed = 0.0
 	_refresh_ui()
@@ -652,6 +666,14 @@ func join_game(address: String, port: int = DEFAULT_PORT) -> Error:
 
 
 func disconnect_game(message: String = "Disconnected. Host or join another session.") -> void:
+	if not _disconnecting and not host_migration.active and host_migration.enabled and multiplayer.is_server() and multiplayer.multiplayer_peer is ENetMultiplayerPeer and players.size() > 1:
+		host_migration.publish_checkpoint()
+		_disconnecting = true
+		host_migration.pause_world()
+		_set_status("Passing the expedition to the next host...")
+		_disconnect_after_handoff(message)
+		return
+	host_migration.reset()
 	_disconnecting = true
 	var quest: Node = get_node_or_null("NPCsContainer/Gorilla/BananaTrade")
 	if quest != null:
@@ -706,6 +728,17 @@ func disconnect_game(message: String = "Disconnected. Host or join another sessi
 	_disconnecting = false
 
 
+func _disconnect_after_handoff(message: String) -> void:
+	var leaving_peer: MultiplayerPeer = multiplayer.multiplayer_peer
+	var deadline: int = Time.get_ticks_msec() + 1500
+	while not host_migration.acknowledged() and Time.get_ticks_msec() < deadline:
+		if multiplayer.multiplayer_peer != leaving_peer:
+			return
+		await get_tree().process_frame
+	if multiplayer.multiplayer_peer == leaving_peer:
+		disconnect_game(message)
+
+
 func _close_peer() -> void:
 	if multiplayer.multiplayer_peer is ENetMultiplayerPeer:
 		multiplayer.multiplayer_peer.close()
@@ -713,7 +746,10 @@ func _close_peer() -> void:
 
 
 func _on_connected() -> void:
-	_register_player.rpc_id(1, _local_appearance(), scene_file_path, _static_item_ids(), _name_entry.text.strip_edges().left(24), _reconnect_token)
+	if host_migration.active:
+		host_migration.connected()
+		return
+	_register_player.rpc_id(1, _local_appearance(), scene_file_path, _static_item_ids(), _name_entry.text.strip_edges().left(24), _reconnect_token, _migration_address.text.strip_edges(), int(_migration_port.value))
 
 
 func _static_item_ids() -> Array:
@@ -730,22 +766,37 @@ func _reject_connection(reason: String) -> void:
 
 
 func _on_connection_failed() -> void:
+	if host_migration.active:
+		host_migration.fail("Could not reach the replacement host. Check its advertised IP and UDP forwarding.")
+		return
 	disconnect_game("Could not connect. Check host IP, matching UDP port and map, Windows firewall, and router UDP forwarding for internet play.")
 
 
 func _on_server_disconnected() -> void:
-	disconnect_game("The host disconnected.")
+	if host_migration.active:
+		host_migration.fail("The replacement host disconnected during migration.")
+	elif not host_migration.begin():
+		disconnect_game("The host disconnected. No migration checkpoint is available.")
 
 
 @rpc("any_peer", "call_remote", "reliable")
-func _register_player(profile: Dictionary, level_path: String, item_ids: Array, display_name: String = "ET", token: String = "") -> void:
-	if not multiplayer.is_server():
+func _register_player(profile: Dictionary, level_path: String, item_ids: Array, display_name: String = "ET", token: String = "", hosting_address: String = "", hosting_port: int = 0) -> void:
+	if not multiplayer.is_server() or host_migration.active:
 		return
 	var peer_id: int = multiplayer.get_remote_sender_id()
 	if peer_id <= 1 or players.has(peer_id) or not multiplayer.get_peers().has(peer_id):
 		return
+	if _disconnecting:
+		_reject_connection.rpc_id(peer_id, "The host is leaving. Join the replacement host after migration completes.")
+		return
 	if token.length() != 32 or _peer_tokens.values().has(token):
 		_reject_connection.rpc_id(peer_id, "Invalid or already connected player identity.")
+		return
+	if not hosting_address.is_empty() and not hosting_address.is_valid_ip_address():
+		_reject_connection.rpc_id(peer_id, "Your hosting address must be an IP address, or left empty for auto-detection.")
+		return
+	if hosting_port != 0 and (hosting_port < 1024 or hosting_port > 65535):
+		_reject_connection.rpc_id(peer_id, "Your hosting UDP port must be 1024-65535, or 0 for automatic selection.")
 		return
 	if mission_phase not in [&"collecting", &"lobby"]:
 		_reject_connection.rpc_id(peer_id, "The team is departing. Join after the next round starts.")
@@ -804,7 +855,9 @@ func _register_player(profile: Dictionary, level_path: String, item_ids: Array, 
 		_receive_item_state.rpc_id(peer_id, _item_owners[item_id], item.global_transform, item.linear_velocity, _item_revisions[item_id], item_id)
 	_publish_economy()
 	_receive_mission.rpc_id(peer_id, _mission_snapshot())
+	host_migration.record_endpoint(peer_id, hosting_address, hosting_port)
 	_publish_lobby()
+	host_migration.publish_checkpoint()
 
 
 @rpc("authority", "call_remote", "reliable")
@@ -829,6 +882,9 @@ func _spawn_player(peer_id: int, slot: int, profile: Dictionary, initial_transfo
 
 
 func _on_peer_disconnected(peer_id: int) -> void:
+	if host_migration.active:
+		host_migration.peer_disconnected(peer_id)
+		return
 	if _disconnecting or not players.has(peer_id):
 		return
 	if multiplayer.is_server():
@@ -836,6 +892,7 @@ func _on_peer_disconnected(peer_id: int) -> void:
 			var player: CharacterBody3D = players[peer_id]
 			_departed[_peer_tokens[peer_id]] = {"purchases": purchases.get(peer_id, {}).duplicate(true), "health": player.health, "shield": player.energy_shield, "cloak_energy": player.predator_cloak_energy}
 		_peer_tokens.erase(peer_id)
+		host_migration.endpoints.erase(peer_id)
 		recovery.call("remove_peer", peer_id)
 		for item_id: StringName in items:
 			if _item_owners[item_id] == peer_id:
@@ -863,6 +920,8 @@ func _remove_player(peer_id: int) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if host_migration.active or _disconnecting:
+		return
 	if multiplayer.is_server() and not players.is_empty():
 		if mission_phase == &"collecting":
 			_process_terminal_requests()
@@ -1203,6 +1262,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _set_menu_open(open: bool) -> void:
+	if host_migration.active:
+		open = true
 	_menu_open = open
 	_panel.visible = open
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if open else Input.MOUSE_MODE_CAPTURED
@@ -1219,9 +1280,20 @@ func _refresh_ui() -> void:
 	if _status == null:
 		return
 	var active: bool = not players.is_empty() or _connecting
+	if _migration_hint != null:
+		var local_id: int = multiplayer.get_unique_id()
+		if players.has(local_id) and not host_migration.active:
+			var endpoint: Dictionary = host_migration.checkpoint.get("endpoints", {}).get(local_id, {})
+			var hosting_port: int = int(_migration_port.value) if _migration_port.value > 0 else mini(65535, int(_port.value) + _slots[local_id] + 1)
+			hosting_port = int(endpoint.get("port", hosting_port))
+			_migration_hint.text = "Hosting UDP: %d" % int(_port.value) if multiplayer.is_server() else "Your hosting UDP: %d. Forward this port for internet migration." % hosting_port
+		else:
+			_migration_hint.text = "A replacement host needs a reachable IP and forwarded UDP port. Automatic port is shown after joining."
 	_host_button.disabled = active
 	_join_button.disabled = active
 	_address.editable = not active
+	_migration_address.editable = not active
+	_migration_port.editable = not active
 	_port.editable = not active
 	_map_choice.disabled = active
 	if _ready_button != null:
@@ -1235,7 +1307,7 @@ func _refresh_ui() -> void:
 	var dead: bool = local != null and not local.is_alive()
 	_respawn_button.visible = false
 	_respawn_button.disabled = mission_phase != &"collecting"
-	_resume_button.disabled = dead or mission_phase != &"collecting"
+	_resume_button.disabled = dead or mission_phase != &"collecting" or host_migration.active
 	_team_label.text = "TEAM MONEY $%d · SCORE %d · DELIVERIES %d" % [team_money, team_score, deliveries]
 	if _mission_label != null:
 		_mission_label.text = "ROUND %d · %s · %s" % [mission_round, str(mission_phase).to_upper(), "SHIP REPAIRED — GATHER AT TERMINAL" if ship_repaired else "SELL SCRAP → REPAIR SHIP ($1000)"]
@@ -1245,7 +1317,7 @@ func _refresh_ui() -> void:
 		_results_panel.visible = mission_phase == &"departing" or mission_phase == &"failed"
 		_results_label.text = "MISSION COMPLETE\n%d sales · $%d earned\nShip repaired. Departing together…" % [last_round_deliveries, last_round_money] if mission_phase == &"departing" else "TEAM LOST\n%d sales · $%d earned\nReturning to lobby. Run reset." % [last_round_deliveries, last_round_money]
 
-	_shop_panel.visible = _menu_open and not players.is_empty() and mission_phase == &"collecting"
+	_shop_panel.visible = _menu_open and not players.is_empty() and mission_phase == &"collecting" and not host_migration.active
 	var local_id: int = multiplayer.get_unique_id()
 	for item_id: StringName in _shop_buttons:
 		var cost: int = get_purchase_cost(local_id, item_id)
@@ -1323,6 +1395,16 @@ func _build_ui() -> void:
 	_address.text = "127.0.0.1"
 	_address.placeholder_text = "Host IP address"
 	column.add_child(_address)
+	_migration_address = LineEdit.new()
+	_migration_address.placeholder_text = "Your hosting IP (optional; auto-detected)"
+	column.add_child(_migration_address)
+	_migration_port = SpinBox.new()
+	_migration_port.max_value = 65535
+	_migration_port.prefix = "Hosting UDP (0 = automatic): "
+	column.add_child(_migration_port)
+	_migration_hint = Label.new()
+	_migration_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	column.add_child(_migration_hint)
 	var guidance: Label = Label.new()
 	guidance.text = "Internet: host forwards the UDP port and allows Godot through the firewall. Guests use the host's public IP; on the same network, use its LAN IP."
 	guidance.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

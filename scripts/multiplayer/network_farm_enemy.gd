@@ -62,3 +62,15 @@ func make_network_state() -> Dictionary:
 func receive_network_state(snapshot: Dictionary) -> void:
 	super.receive_network_state(snapshot)
 	photo_count = snapshot.get("photos", 0)
+
+
+func make_migration_state() -> Dictionary:
+	var snapshot: Dictionary = super.make_migration_state()
+	snapshot["focus"] = _focus
+	return snapshot
+
+
+func restore_migration_state(snapshot: Dictionary) -> void:
+	super.restore_migration_state(snapshot)
+	photo_count = snapshot.photos
+	_focus = snapshot.focus

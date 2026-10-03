@@ -58,3 +58,30 @@ func receive_network_state(snapshot: Dictionary) -> void:
 	if not _has_network_state:
 		global_transform = _target_pose
 	_has_network_state = true
+
+
+func make_migration_state() -> Dictionary:
+	var snapshot: Dictionary = make_network_state()
+	snapshot["behavior"] = {"phase": _curious_phase, "target": _target_local, "has_target": _has_target,
+		"destination": _destination_time, "state_time": _state_time, "hesitation": _hesitation_time,
+		"interest": _interest_cooldown, "orbit": _orbit_angle, "orbit_direction": _orbit_direction,
+		"rest_arrived": _rest_arrived, "stationary": _stationary_position_local, "random_state": _rng.state}
+	return snapshot
+
+
+func restore_migration_state(snapshot: Dictionary) -> void:
+	global_transform = snapshot.pose
+	velocity = snapshot.velocity
+	current_state = snapshot.state
+	_curious_phase = snapshot.behavior.phase
+	_target_local = snapshot.behavior.target
+	_has_target = snapshot.behavior.has_target
+	_destination_time = snapshot.behavior.destination
+	_state_time = snapshot.behavior.state_time
+	_hesitation_time = snapshot.behavior.hesitation
+	_interest_cooldown = snapshot.behavior.interest
+	_orbit_angle = snapshot.behavior.orbit
+	_orbit_direction = snapshot.behavior.orbit_direction
+	_rest_arrived = snapshot.behavior.rest_arrived
+	_stationary_position_local = snapshot.behavior.stationary
+	_rng.state = snapshot.behavior.random_state

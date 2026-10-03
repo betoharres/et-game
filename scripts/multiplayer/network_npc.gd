@@ -104,3 +104,29 @@ func receive_network_state(snapshot: Dictionary) -> void:
 	velocity = snapshot["velocity"]
 	target_peer_id = snapshot["target"]
 	set_state(snapshot["state"])
+
+
+func make_migration_state() -> Dictionary:
+	var snapshot: Dictionary = make_network_state()
+	snapshot["cooldown"] = _cooldown
+	snapshot["vision"] = {"visible": vision.is_currently_visible, "detected": vision.has_detected_player,
+		"progress": vision.detection_progress, "lost": vision.time_since_lost,
+		"last": vision.last_seen_position, "has_last": vision.has_last_seen_position, "alerted": vision._alerted}
+	return snapshot
+
+
+func restore_migration_state(snapshot: Dictionary) -> void:
+	global_transform = snapshot.pose
+	velocity = snapshot.velocity
+	set_state(snapshot.state)
+	_cooldown = snapshot.cooldown
+	target_peer_id = snapshot.target
+	player = _session.players.get(target_peer_id) as CharacterBody3D
+	vision.player = player
+	vision.is_currently_visible = snapshot.vision.visible and player != null
+	vision.has_detected_player = snapshot.vision.detected and player != null
+	vision.detection_progress = snapshot.vision.progress
+	vision.time_since_lost = snapshot.vision.lost
+	vision.last_seen_position = snapshot.vision.last
+	vision.has_last_seen_position = snapshot.vision.has_last
+	vision.set_alerted(snapshot.vision.alerted)

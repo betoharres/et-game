@@ -28,7 +28,7 @@ func _configure() -> void:
 	_body.set_process_input(false)
 	_body.set_process_unhandled_input(false)
 	_body.set_physics_process(false)
-	_body.freeze = true
+	_body.freeze = not multiplayer.is_server() or occupants[0] == 0
 	if plane:
 		_body.set("standalone_control_if_no_player", false)
 	else:

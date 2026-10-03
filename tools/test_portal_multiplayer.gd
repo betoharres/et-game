@@ -29,6 +29,7 @@ func _run() -> void:
 		var session: Node3D = session_scene.instantiate() as Node3D
 		session.set_script(load("res://tools/network_fault_session.gd"))
 		viewport.add_child(session)
+		session.host_migration.enabled = false
 		_sessions.append(session)
 		_viewports.append(viewport)
 		if _visual and index == 0:
@@ -181,6 +182,7 @@ func _test_farm() -> void:
 		old.free()
 		var farm: Node3D = farm_scene.instantiate() as Node3D
 		_viewports[index].add_child(farm)
+		farm.host_migration.enabled = false
 		_sessions[index] = farm
 	await process_frame
 	var host: Node3D = _sessions[0]
@@ -224,6 +226,7 @@ func _test_farm() -> void:
 		old.free()
 		var farm: Node3D = farm_scene.instantiate() as Node3D
 		_viewports[index].add_child(farm)
+		farm.host_migration.enabled = false
 		_sessions[index] = farm
 		_check(farm.join_game("127.0.0.1", PORT + 1) == OK, "Late farm guest connects")
 		_check(await _wait_for(func() -> bool: return farm.players.size() == index + 1 and not farm.players[peer_id].is_alive()), "Late farm join receives the dead guest")
