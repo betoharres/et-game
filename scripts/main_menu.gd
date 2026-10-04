@@ -63,7 +63,6 @@ func _process(delta : float) -> void:
 
 
 func _ready() -> void:
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	game_title.text = str(ProjectSettings.get_setting("application/config/name", "ETs"))
 	menu_atmosphere.set_menu_state("play")
 	_start_menu_music()
@@ -130,6 +129,9 @@ func _on_play_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	_play_click()
+	setup_resolutions()
+	update_vsync_check_box()
+	update_window_mode_button()
 	menu_atmosphere.set_menu_state("options")
 	main_menu_container.visible = false
 	options_panel.visible = true
@@ -309,7 +311,7 @@ func start_rebinding(action_name : String, button : Button) -> void:
 	rebinding_action = action_name
 	rebinding_button = button
 
-	button.text = "Press a key..."
+	button.text = "Pressione uma tecla..."
 
 
 func _input(event : InputEvent) -> void:
@@ -326,26 +328,30 @@ func _input(event : InputEvent) -> void:
 		rebinding_button = null
 
 		update_keybind_buttons()
+		get_viewport().set_input_as_handled()
 
 
 func update_keybind_buttons() -> void:
-	forward_button.text = "Forward: " + get_action_key("ui_up")
-	backward_button.text = "Backward: " + get_action_key("ui_down")
-	left_button.text = "Left: " + get_action_key("ui_left")
-	right_button.text = "Right: " + get_action_key("ui_right")
+	forward_button.text = "Avançar: " + get_action_key("ui_up")
+	backward_button.text = "Recuar: " + get_action_key("ui_down")
+	left_button.text = "Esquerda: " + get_action_key("ui_left")
+	right_button.text = "Direita: " + get_action_key("ui_right")
 
 
 func get_action_key(action_name : String) -> String:
 	var events : Array[InputEvent] = InputMap.action_get_events(action_name)
 
 	if events.is_empty():
-		return "Unbound"
+		return "Sem tecla"
 
 	for event in events:
 		if event is InputEventKey:
-			return OS.get_keycode_string(event.keycode)
+			var key_event : InputEventKey = event as InputEventKey
+			return OS.get_keycode_string(
+				key_event.physical_keycode if key_event.physical_keycode != 0 else key_event.keycode
+			)
 
-	return "Unbound"
+	return "Sem tecla"
 
 
 # Resolution
@@ -359,8 +365,8 @@ func setup_resolutions() -> void:
 	resolution_button.add_item("2560 × 1440")
 	resolution_button.add_item("3840 × 2160")
 
-	var current_size : Vector2i = DisplayServer.window_get_size()
-	var selected_index : int = 2
+	var current_size : Vector2i = get_window().content_scale_size
+	var selected_index : int = -1
 
 	for i in range(resolution_button.item_count):
 		var resolution : Vector2i = get_resolution(i)
@@ -369,13 +375,21 @@ func setup_resolutions() -> void:
 			selected_index = i
 			break
 
+	if selected_index == -1:
+		selected_index = resolution_button.item_count
+		resolution_button.add_item("%d × %d" % [current_size.x, current_size.y])
+		resolution_button.set_item_metadata(selected_index, current_size)
 	resolution_button.select(selected_index)
+	resolution_button.tooltip_text = "Resolução de renderização; em modo janela, também altera o tamanho da janela."
 
 
 func _on_resolution_selected(index : int) -> void:
 	var resolution : Vector2i = get_resolution(index)
 
-	DisplayServer.window_set_size(resolution)
+	# Fullscreen keeps the desktop size; viewport stretch controls render resolution.
+	get_window().content_scale_size = resolution
+	if get_window().mode == Window.MODE_WINDOWED:
+		get_window().size = resolution
 
 
 func get_resolution(index : int) -> Vector2i:
@@ -395,7 +409,11 @@ func get_resolution(index : int) -> Vector2i:
 		4:
 			return Vector2i(3840, 2160)
 
-	return Vector2i(1920, 1080)
+	if index >= 0 and index < resolution_button.item_count:
+		var custom_resolution : Variant = resolution_button.get_item_metadata(index)
+		if custom_resolution is Vector2i:
+			return custom_resolution
+	return get_window().content_scale_size
 
 
 # V-Sync
@@ -409,37 +427,34 @@ func _on_vsync_toggled(enabled : bool) -> void:
 		DisplayServer.window_set_vsync_mode(
 			DisplayServer.VSYNC_DISABLED
 		)
+	update_vsync_check_box()
 
 
 func update_vsync_check_box() -> void:
 	var mode : int = DisplayServer.window_get_vsync_mode()
 
-	vsync_check_box.button_pressed = (
-		mode == DisplayServer.VSYNC_ENABLED
-	)
+	vsync_check_box.set_pressed_no_signal(mode != DisplayServer.VSYNC_DISABLED)
+	vsync_check_box.text = "V-Sync (adaptativo)" if mode == DisplayServer.VSYNC_ADAPTIVE else "V-Sync"
 
 
 # Window Mode
 
 func _on_window_mode_pressed() -> void:
-	var current_mode : int = DisplayServer.window_get_mode()
+	var current_mode : Window.Mode = get_window().mode
 
-	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
-		DisplayServer.window_set_mode(
-			DisplayServer.WINDOW_MODE_FULLSCREEN
-		)
+	if current_mode == Window.MODE_WINDOWED:
+		get_window().mode = Window.MODE_FULLSCREEN
 	else:
-		DisplayServer.window_set_mode(
-			DisplayServer.WINDOW_MODE_WINDOWED
-		)
+		get_window().mode = Window.MODE_WINDOWED
+		get_window().size = get_window().content_scale_size
 
 	update_window_mode_button()
 
 
 func update_window_mode_button() -> void:
-	var mode : int = DisplayServer.window_get_mode()
+	var mode : Window.Mode = get_window().mode
 
-	if mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
-		window_mode_button.text = "Window Mode: Fullscreen"
+	if mode == Window.MODE_FULLSCREEN or mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		window_mode_button.text = "Modo: Tela cheia"
 	else:
-		window_mode_button.text = "Window Mode: Windowed"
+		window_mode_button.text = "Modo: Janela"
