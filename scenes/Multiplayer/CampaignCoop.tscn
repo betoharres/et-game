@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/multiplayer/portal_session.gd" id="1"]
+
+[node name="CoopSession" type="Node3D"]
+script = ExtResource("1")
+full_campaign = true
+session_title = "CO-OP EXPEDITION"
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="PickupItemsContainer" type="Node3D" parent="."]
+
+[node name="NPCsContainer" type="Node3D" parent="."]
+
+[node name="BuildingContainers" type="Node3D" parent="."]
+
+[node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="VehiclesContainer" type="Node3D" parent="."]

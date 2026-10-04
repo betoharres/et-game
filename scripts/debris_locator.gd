@@ -31,6 +31,8 @@ func sample(character : Node3D) -> Dictionary:
 		var debris : AlienDebris = node as AlienDebris
 		if debris == null or debris.is_queued_for_deletion() or debris.state != AlienTechnologyItem.State.WORLD:
 			continue
+		if debris.get_world_3d() != character.get_world_3d() or not debris.is_available_for_abduction():
+			continue
 		var candidate_distance : float = character.global_position.distance_squared_to(debris.global_position)
 		if candidate_distance < distance_squared:
 			distance_squared = candidate_distance

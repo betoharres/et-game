@@ -84,7 +84,7 @@ func _ready() -> void:
 		if transition_started:
 			return
 		transition_started = true
-		get_node("/root/SceneTransition").warp_to("res://scenes/Multiplayer/PortalCoop.tscn"))
+		get_node("/root/SceneTransition").warp_to("res://scenes/Multiplayer/CampaignCoop.tscn"))
 	audio_toggle.toggled.connect(_on_audio_toggled)
 	audio_toggle.mouse_entered.connect(_on_audio_hover.bind(true))
 	audio_toggle.mouse_exited.connect(_on_audio_hover.bind(false))

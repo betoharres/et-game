@@ -18,6 +18,8 @@ func _ready() -> void:
 	_body = get_parent() as RigidBody3D
 	_spawn = _body.global_transform
 	_session = _body.get_parent().get_parent() as Node3D
+	while _session != null and not _session.has_method("damage_player"):
+		_session = _session.get_parent() as Node3D
 	occupants.resize(1 if plane else 4)
 	occupants.fill(0)
 	add_to_group(&"house_doors")
@@ -28,11 +30,13 @@ func _configure() -> void:
 	_body.set_process_input(false)
 	_body.set_process_unhandled_input(false)
 	_body.set_physics_process(false)
-	_body.freeze = not multiplayer.is_server() or occupants[0] == 0
+	_body.freeze = not multiplayer.is_server() or (occupants[0] == 0 and _body.get_node_or_null("AIDriver") == null)
 	if plane:
 		_body.set("standalone_control_if_no_player", false)
 	else:
-		_body.get_node("ET2").hide()
+		var avatar: Node3D = _body.get_node_or_null("ET2") as Node3D
+		if avatar != null:
+			avatar.hide()
 	for node: Node in _body.find_children("*", "Camera3D", true, false):
 		(node as Camera3D).current = false
 	for node: Node in _body.find_children("*", "Node3D", true, false):
@@ -103,7 +107,7 @@ func _receive_seats(seats: Array) -> void:
 		player.collision_mask = 0
 		player.set_meta("coop_seated", true)
 		player.call("set_movement_locked", true)
-	_body.freeze = not multiplayer.is_server() or occupants[0] == 0
+	_body.freeze = not multiplayer.is_server() or (occupants[0] == 0 and _body.get_node_or_null("AIDriver") == null)
 	controls = Vector2.ZERO
 
 
@@ -153,6 +157,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			_body.brake = 0.0
 			_body.call("_apply_driving_input", controls.x, controls.y, delta)
+	elif multiplayer.is_server() and not plane and _session.mission_phase == &"collecting":
+		var driver: VehicleAIDriver = _body.get_node_or_null("AIDriver") as VehicleAIDriver
+		if driver != null:
+			var input: Vector2 = driver.get_control_input(_body.global_position, _body.global_transform, _body.linear_velocity)
+			_body.brake = 0.0
+			_body.call("_apply_driving_input", input.x, input.y, delta)
 	for seat: int in occupants.size():
 		var peer_id: int = occupants[seat]
 		if peer_id == 0 or not _session.players.has(peer_id):

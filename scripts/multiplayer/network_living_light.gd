@@ -8,7 +8,9 @@ var _session: Node3D
 
 
 func _ready() -> void:
-	_session = get_parent().get_parent() as Node3D
+	_session = get_parent() as Node3D
+	while _session != null and not _session.has_method("damage_player"):
+		_session = _session.get_parent() as Node3D
 	super._ready()
 	_spawn = global_transform
 

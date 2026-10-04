@@ -3,6 +3,7 @@ extends Node
 
 signal health_changed(current: float, maximum: float)
 signal died
+signal shot_fired(end: Vector3)
 
 const LASER_SHOT: AudioStream = preload("res://assets/audio/gun/laser-gun-shooting-sound.mp3")
 const FIREARM_SHOT: AudioStream = preload("res://assets/audio/gun/firearm-shooting-sound.mp3")
@@ -60,6 +61,7 @@ func aim_and_fire(delta: float) -> void:
 	var end: Vector3 = hit.get("position", origin + shot_direction * _npc.profile.attack_range)
 	_appearance.show_shot(end)
 	_audio.play()
+	shot_fired.emit(end)
 	_burst_shots += 1
 	if _burst_shots >= _npc.profile.burst_size:
 		_burst_shots = 0
@@ -75,6 +77,8 @@ func interrupt_aim() -> void:
 
 
 func take_damage(amount: float) -> void:
+	if _npc.has_node("CoopSync") and not multiplayer.is_server():
+		return
 	if amount <= 0.0 or health <= 0.0:
 		return
 	health = maxf(health - amount, 0.0)

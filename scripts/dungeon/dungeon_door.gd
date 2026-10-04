@@ -39,11 +39,16 @@ func _enter_dungeon() -> void:
 
 	for character : CharacterBody3D in _characters_nearby:
 		if is_instance_valid(character):
-			character.global_position = entry_position
+			if character.has_method("is_local_player"):
+				character.call("apply_portal_transform", Transform3D(Basis.IDENTITY, entry_position - character.global_position))
+			else:
+				character.global_position = entry_position
 			character.velocity = Vector3.ZERO
 
 
 func _on_body_entered(body : Node3D) -> void:
+	if body.has_method("is_local_player") and not bool(body.call("is_local_player")):
+		return
 	if body is CharacterBody3D and body.is_in_group("characters"):
 		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_nearby.has(character):

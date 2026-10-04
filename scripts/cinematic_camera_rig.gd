@@ -77,6 +77,7 @@ var _interior_spring_shape : SphereShape3D
 var binos_active : bool = false
 var current_fov : float = 60.0
 var _xray_states : Array[Dictionary] = []
+var _xray_registered: Dictionary[int, bool] = {}
 
 func _ready() -> void:
 	top_level = true
@@ -102,6 +103,8 @@ func _ready() -> void:
 
 	## XRAY Stuff
 	xray_camera.current = false
+	xray_material = xray_material.duplicate() as ShaderMaterial
+	get_tree().node_added.connect(_on_xray_geometry_added)
 
 	current_fov = normal_fov
 
@@ -475,32 +478,45 @@ func _apply_xray_materials() -> void:
 	):
 		return
 
-	for node : Node in scene_root.find_children("*", "GeometryInstance3D", true, false):
-		var geometry : GeometryInstance3D = node as GeometryInstance3D
-		if geometry == null:
-			continue
+	for node: Node in scene_root.find_children("*", "GeometryInstance3D", true, false):
+		_register_xray_geometry(node as GeometryInstance3D)
 
-		var state : Dictionary = {
-			"geometry": weakref(geometry),
-			"material_override": geometry.material_override,
-			"surface_overrides": [],
-		}
-		if geometry is MeshInstance3D:
-			var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
-			var surface_overrides : Array[Material] = []
-			if mesh_instance.mesh != null:
-				for surface_index : int in range(mesh_instance.mesh.get_surface_count()):
-					surface_overrides.append(
-						mesh_instance.get_surface_override_material(surface_index)
-					)
-					mesh_instance.set_surface_override_material(
-						surface_index,
-						xray_material
-					)
-			state["surface_overrides"] = surface_overrides
 
-		_xray_states.append(state)
-		geometry.material_override = xray_material
+func _on_xray_geometry_added(node: Node) -> void:
+	if binos_active and node is GeometryInstance3D:
+		_register_xray_geometry.call_deferred(node)
+
+
+func _register_xray_geometry(geometry: GeometryInstance3D) -> void:
+	if not binos_active or not is_instance_valid(geometry) or not geometry.is_inside_tree() or _xray_registered.has(geometry.get_instance_id()):
+		return
+	if geometry.get_world_3d() != get_world_3d() or (geometry.layers & xray_camera.cull_mask) == 0:
+		return
+	var override: ShaderMaterial = geometry.material_override as ShaderMaterial
+	if override != null and override.shader != null and override.shader.resource_path == "res://shaders/portal_surface.gdshader":
+		return
+	_xray_registered[geometry.get_instance_id()] = true
+	var state : Dictionary = {
+		"geometry": weakref(geometry),
+		"material_override": geometry.material_override,
+		"surface_overrides": [],
+	}
+	if geometry is MeshInstance3D:
+		var mesh_instance : MeshInstance3D = geometry as MeshInstance3D
+		var surface_overrides : Array[Material] = []
+		if mesh_instance.mesh != null:
+			for surface_index : int in range(mesh_instance.mesh.get_surface_count()):
+				surface_overrides.append(
+					mesh_instance.get_surface_override_material(surface_index)
+				)
+				mesh_instance.set_surface_override_material(
+					surface_index,
+					xray_material
+				)
+		state["surface_overrides"] = surface_overrides
+
+	_xray_states.append(state)
+	geometry.material_override = xray_material
 
 
 func _restore_materials() -> void:
@@ -532,3 +548,4 @@ func _restore_materials() -> void:
 		geometry.material_override = original_override
 
 	_xray_states.clear()
+	_xray_registered.clear()

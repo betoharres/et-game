@@ -8,6 +8,12 @@ const EQUIPMENT_COSTS: Dictionary[StringName, int] = {&"xray_goggles": 500, &"en
 const UPGRADE_IDS: Array[StringName] = [&"movement", &"stamina", &"recovery"]
 const UPGRADE_COSTS: Array[int] = [60, 100, 150]
 const LEVEL_PATHS: Array[String] = ["res://scenes/Multiplayer/PortalCoop.tscn", "res://scenes/Multiplayer/FarmCoop.tscn"]
+const CAMPAIGN_SCRIPT: Script = preload("res://scripts/multiplayer/coop_campaign.gd")
+const CAMPAIGN_SCENE: String = "res://scenes/Multiplayer/CampaignCoop.tscn"
+@export var full_campaign: bool = false
+var campaign: Node
+var _campaign_loaded: Dictionary[int, bool] = {}
+var portable_assets: Dictionary[StringName, Dictionary] = {}
 const SHIP_SHOP = preload("res://scripts/space/ship_shop.gd")
 const SHARED_SCRAP_SCRIPT: Script = preload("res://scripts/multiplayer/shared_scrap.gd")
 const FARM_SCRAPS: Array[String] = ["Bucket", "Radio", "Telephone", "Glasses", "BaseballBat", "Bottle", "Hoe", "WateringCan", "Toothpaste", "StuffedMonkey", "SoccerBall", "RemoteControl"]
@@ -30,6 +36,56 @@ var _reconnect_token: String = Crypto.new().generate_random_bytes(16).hex_encode
 var _peer_tokens: Dictionary[int, String] = {}
 var _departed: Dictionary[String, Dictionary] = {}
 var _disconnecting: bool = false
+var _noise_received: Dictionary[int, Vector3] = {}
+var _noise_requests: Array[Dictionary] = []
+
+
+func request_player_noise(decibels: float, sequence: int, generation: int) -> void:
+	if multiplayer.is_server():
+		_accept_player_noise(multiplayer.get_unique_id(), decibels, sequence, generation)
+	else:
+		_request_player_noise.rpc_id(1, decibels, sequence, generation)
+
+
+@rpc("any_peer", "call_remote", "unreliable_ordered", 6)
+func _request_player_noise(decibels: float, sequence: int, generation: int) -> void:
+	if multiplayer.is_server():
+		_accept_player_noise(multiplayer.get_remote_sender_id(), decibels, sequence, generation)
+
+
+func _accept_player_noise(peer_id: int, decibels: float, sequence: int, generation: int) -> void:
+	if host_migration.active or mission_phase != &"collecting" or not players.has(peer_id):
+		return
+	var player: CharacterBody3D = players[peer_id]
+	var noise: PlayerNoise = player.get_node("PlayerNoise") as PlayerNoise
+	if generation != player.life_generation or not player.can_emit_player_noise() or decibels not in [noise.crouch_decibels, noise.walk_decibels, noise.run_decibels, noise.jump_decibels, noise.theft_decibels]:
+		return
+	var previous: Vector3 = _noise_received.get(peer_id, Vector3(-1, -1, -1))
+	var now: float = float(Time.get_ticks_msec()) / 1000.0
+	if int(previous.x) == generation and (sequence <= int(previous.y) or now - previous.z < 0.1):
+		return
+	_noise_received[peer_id] = Vector3(generation, sequence, now)
+	if _noise_requests.size() < 64:
+		_noise_requests.append({"peer": peer_id, "decibels": decibels, "generation": generation})
+
+
+func _process_noise_requests() -> void:
+	for request: Dictionary in _noise_requests:
+		_receive_player_noise(request.peer, request.decibels, request.generation)
+		_receive_player_noise.rpc(request.peer, request.decibels, request.generation)
+	_noise_requests.clear()
+
+
+@rpc("authority", "call_remote", "unreliable_ordered", 6)
+func _receive_player_noise(peer_id: int, decibels: float, generation: int) -> void:
+	if not players.has(peer_id) or players[peer_id].life_generation != generation or not players[peer_id].is_alive():
+		return
+	var player: CharacterBody3D = players[peer_id]
+	var noise: PlayerNoise = player.get_node("PlayerNoise") as PlayerNoise
+	if multiplayer.is_server():
+		noise.emit_noise(decibels, true)
+	if not player.is_local_player():
+		player.call("queue_network_noise", decibels)
 
 
 func set_ready() -> void:
@@ -67,7 +123,7 @@ func start_expedition() -> void:
 func _begin_expedition() -> void:
 	mission_phase = &"collecting"
 	_set_menu_open(false)
-	for npc: CharacterBody3D in npcs.values():
+	for npc: Node3D in npcs.values():
 		npc.call("set_host_simulation", multiplayer.is_server())
 
 
@@ -129,12 +185,15 @@ func _reset_run() -> void:
 	deliveries = 0
 	team_radon = 1200.0
 	_departed.clear()
-	_commit_round(scene_file_path, mission_round + 1)
+	if campaign != null:
+		campaign.reset_progress()
+		portable_assets.clear()
+	_commit_round(campaign.ORBIT if campaign != null else scene_file_path, mission_round + 1)
 	mission_round = 1
 	mission_phase = &"lobby"
 	for peer_id: int in players:
 		ready_players[peer_id] = false
-	for npc: CharacterBody3D in npcs.values():
+	for npc: Node3D in npcs.values():
 		npc.set_host_simulation(false)
 	_set_menu_open(true)
 	_set_status("Everyone died. Run reset - ready up for a new expedition.")
@@ -167,6 +226,8 @@ func _process_terminal_requests() -> void:
 			if not ship_repaired and team_money >= SHIP_SHOP.REPAIR_COST:
 				team_money -= SHIP_SHOP.REPAIR_COST
 				ship_repaired = true
+				if campaign != null and not campaign.unlocked.has(campaign.COUNTRY):
+					campaign.unlocked.append(campaign.COUNTRY)
 				_publish_economy()
 				_publish_mission()
 		elif action == &"radon":
@@ -196,7 +257,10 @@ func _process_terminal_requests() -> void:
 
 
 func _mission_snapshot() -> Dictionary:
-	return {"round": mission_round, "phase": mission_phase, "repaired": ship_repaired, "radon": team_radon, "remaining": _departure_remaining, "last_deliveries": last_round_deliveries, "last_money": last_round_money}
+	var state: Dictionary = {"round": mission_round, "phase": mission_phase, "repaired": ship_repaired, "radon": team_radon, "remaining": _departure_remaining, "last_deliveries": last_round_deliveries, "last_money": last_round_money}
+	if campaign != null:
+		state["campaign"] = campaign.capture()
+	return state
 
 
 func _publish_mission() -> void:
@@ -209,6 +273,7 @@ func _publish_mission() -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func _receive_mission(state: Dictionary) -> void:
+	var previous_phase: StringName = mission_phase
 	mission_round = state["round"]
 	mission_phase = state["phase"]
 	ship_repaired = state["repaired"]
@@ -216,6 +281,12 @@ func _receive_mission(state: Dictionary) -> void:
 	_departure_remaining = state["remaining"]
 	last_round_deliveries = state["last_deliveries"]
 	last_round_money = state["last_money"]
+	if campaign != null and state.has("campaign"):
+		campaign.restore(state.campaign)
+		_set_campaign_load_timeout(not campaign.loading_ready or mission_phase in [&"departing", &"arriving"])
+		if mission_phase == &"collecting" and previous_phase != &"collecting":
+			for npc: Node3D in npcs.values():
+				npc.call("set_host_simulation", multiplayer.is_server())
 	for player: CharacterBody3D in players.values():
 		player.call("_update_oxygen_display")
 	if mission_phase != &"collecting":
@@ -224,13 +295,16 @@ func _receive_mission(state: Dictionary) -> void:
 			terminal.call("close")
 		for player: CharacterBody3D in players.values():
 			player.call("set_movement_locked", true)
-		for npc: CharacterBody3D in npcs.values():
+		for npc: Node3D in npcs.values():
 			npc.call("set_host_simulation", false)
 	_refresh_ui()
 	team_state_changed.emit()
 
 
 func _advance_mission() -> void:
+	if campaign != null:
+		campaign.advance()
+		return
 	var next_path: String = LEVEL_PATHS[(LEVEL_PATHS.find(scene_file_path) + 1) % LEVEL_PATHS.size()]
 	_commit_round.rpc(next_path, mission_round + 1)
 	_commit_round(next_path, mission_round + 1)
@@ -240,9 +314,20 @@ func _advance_mission() -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func _commit_round(level_path: String, round_number: int) -> void:
-	if not LEVEL_PATHS.has(level_path) or round_number <= mission_round:
+	if (not LEVEL_PATHS.has(level_path) and not (campaign != null and level_path in [campaign.ORBIT, campaign.FARM, campaign.COUNTRY])) or round_number <= mission_round:
 		return
-	var source: Node3D = (load(level_path) as PackedScene).instantiate() as Node3D
+	if campaign != null:
+		campaign.loading_ready = false
+		_campaign_loaded.clear()
+		_set_campaign_load_timeout(true)
+	var travelling_items: Array[Dictionary] = []
+	if campaign != null and not host_migration.is_restoring:
+		for id: StringName in items:
+			if _item_owners[id] != 0 and not recovery.victims.has(id):
+				var path: String = items[id].scene_file_path
+				if not path.is_empty():
+					travelling_items.append({"id": id, "owner": _item_owners[id], "path": path})
+	var source: Node3D = (load(level_path) as PackedScene).instantiate() as Node3D if campaign == null else null
 	recovery.call("reset")
 	for item_id: StringName in items:
 		items[item_id].call("apply_network_state", null, _item_spawns[item_id], Vector3.ZERO, false)
@@ -267,24 +352,46 @@ func _commit_round(level_path: String, round_number: int) -> void:
 	ship_repaired = false
 	_round_start_deliveries = deliveries
 	_round_sales_money = 0
-	for child: Node in source.get_children():
-		if child.name == &"Players":
-			continue
-		source.remove_child(child)
-		add_child(child)
-	source.free()
+	if campaign != null:
+		_make_campaign_containers()
+		portable_assets.clear()
+		campaign.load_world(level_path)
+		if level_path == campaign.ORBIT:
+			mission_phase = &"loading"
+	else:
+		for child: Node in source.get_children():
+			if child.name == &"Players":
+				continue
+			source.remove_child(child)
+			add_child(child)
+		source.free()
 	_register_world_items()
 	for peer_id: int in players.keys():
 		_replace_player(peer_id, _life_generations[peer_id] + 1)
-	for npc: CharacterBody3D in npcs.values():
-		npc.call("set_host_simulation", multiplayer.is_server())
+	for npc: Node3D in npcs.values():
+		npc.call("set_host_simulation", multiplayer.is_server() and mission_phase == &"collecting")
 	for item_id: StringName in items:
 		items[item_id].call("apply_network_state", null, _item_spawns[item_id], Vector3.ZERO, multiplayer.is_server())
-	_map_choice.select(LEVEL_PATHS.find(level_path))
+	for record: Dictionary in travelling_items:
+		var id: StringName = StringName("travel/" + str(record.owner) + "/" + str(travelling_items.find(record)))
+		portable_assets[id] = {"path": record.path}
+		spawn_shared_asset(id, record.path, _spawn_position(_slots[record.owner]))
+		_receive_item_state(record.owner, items[id].global_transform, Vector3.ZERO, _item_revisions[id] + 1, id)
+	if campaign != null:
+		if not host_migration.is_restoring:
+			if multiplayer.is_server():
+				_campaign_player_loaded(1, round_number)
+			else:
+				_campaign_world_loaded.rpc_id(1, round_number)
+		_map_choice.select(2)
+	else:
+		_map_choice.select(LEVEL_PATHS.find(level_path))
 	_refresh_ui()
 
 
 func _register_world_items() -> void:
+	if campaign != null:
+		return
 	var container: Node = $PickupItemsContainer
 	for index: int in FARM_SCRAPS.size():
 		var item: RigidBody3D = (load("res://scenes/Farm/Scraps/%s.tscn" % FARM_SCRAPS[index]) as PackedScene).instantiate() as RigidBody3D
@@ -311,14 +418,23 @@ func _register_world_items() -> void:
 	_setup_farm_content()
 
 
+func _make_campaign_containers() -> void:
+	for container_name: String in ["PickupItemsContainer", "NPCsContainer", "BuildingContainers", "PropsContainer", "VehiclesContainer"]:
+		var container: Node3D = Node3D.new()
+		container.name = container_name
+		add_child(container)
+
+
 func spawn_shared_asset(id: StringName, path: String, position: Vector3) -> void:
 	if items.has(id):
 		return
 	var item: RigidBody3D = (load(path) as PackedScene).instantiate() as RigidBody3D
 	var properties: Dictionary = {}
+	var item_definition: Resource = item.get("definition") as Resource if item is AlienTechnologyItem else null
 	for property: StringName in [&"item_id", &"cash_value", &"score_value", &"display_name", &"two_handed", &"slot_cost", &"rejected_by_delivery"]:
 		properties[property] = item.get(property)
 	item.set_script(SHARED_SCRAP_SCRIPT)
+	item.set("definition", item_definition)
 	for property: StringName in properties:
 		item.set(property, properties[property])
 	item.name = str(id)
@@ -411,11 +527,15 @@ func _register_items() -> void:
 		var item: RigidBody3D = node as RigidBody3D
 		if item == null:
 			continue
+		register_shared_item(item)
+
+
+func register_shared_item(item: RigidBody3D) -> void:
 		var item_id: StringName = item.get("network_id")
 		if item_id == &"" or items.has(item_id):
 			_registry_valid = false
 			push_error("Collectibles need unique, nonempty network_id values.")
-			continue
+			return
 		items[item_id] = item
 		_item_owners[item_id] = 0
 		_item_revisions[item_id] = mission_round * 1000000
@@ -427,7 +547,7 @@ var _map_choice: OptionButton
 var _respawn_button: Button
 var _life_generations: Dictionary[int, int] = {}
 var _combat_revisions: Dictionary[int, int] = {}
-var npcs: Dictionary[StringName, CharacterBody3D] = {}
+var npcs: Dictionary[StringName, Node3D] = {}
 
 
 func debug_add_team_money() -> void:
@@ -496,7 +616,7 @@ func on_player_death(peer_id: int) -> void:
 func _combat_state(peer_id: int, direction: Vector3) -> Dictionary:
 	return {"generation": _life_generations[peer_id], "revision": _combat_revisions.get(peer_id, 0),
 		"health": players[peer_id].health, "shield": players[peer_id].energy_shield, "direction": direction,
-		"cloak": players[peer_id].predator_cloak_active, "cloak_energy": players[peer_id].predator_cloak_energy}
+		"cloak": players[peer_id].predator_cloak_active, "cloak_energy": players[peer_id].predator_cloak_energy, "stealth": players[peer_id].get_stealth_alert()}
 
 
 func _publish_combat(peer_id: int, direction: Vector3 = Vector3.ZERO) -> void:
@@ -534,6 +654,7 @@ func _respawn_player(peer_id: int) -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func _replace_player(peer_id: int, generation: int, spawn: Vector3 = Vector3.INF) -> void:
+	_noise_received.erase(peer_id)
 	if not players.has(peer_id) or generation <= _life_generations.get(peer_id, -1):
 		return
 	var old: CharacterBody3D = players[peer_id]
@@ -592,7 +713,7 @@ var _item_spawn_pose: Transform3D:
 var _item_requests: Array[Dictionary] = []
 
 @onready var player_container: Node3D = $Players
-@onready var shared_item: RigidBody3D = $PickupItemsContainer/SharedScrap
+@onready var shared_item: RigidBody3D = get_node_or_null("PickupItemsContainer/SharedScrap") as RigidBody3D
 
 
 func _ready() -> void:
@@ -604,6 +725,14 @@ func _ready() -> void:
 	recovery.name = "Recovery"
 	recovery.set_script(RECOVERY_SCRIPT)
 	add_child(recovery)
+	if full_campaign:
+		campaign = Node.new()
+		campaign.name = "Campaign"
+		campaign.set_script(CAMPAIGN_SCRIPT)
+		campaign.set("session", self)
+		add_child(campaign)
+		scene_file_path = campaign.ORBIT
+		campaign.load_world(scene_file_path)
 	_register_world_items()
 	_build_ui()
 	multiplayer.connected_to_server.connect(_on_connected)
@@ -619,7 +748,7 @@ func _exit_tree() -> void:
 
 
 func host_game(port: int = DEFAULT_PORT) -> Error:
-	if not _registry_valid or items.is_empty():
+	if not _registry_valid or (items.is_empty() and campaign == null):
 		return ERR_INVALID_DATA
 	if _connecting or not players.is_empty():
 		return ERR_ALREADY_IN_USE
@@ -636,7 +765,7 @@ func host_game(port: int = DEFAULT_PORT) -> Error:
 	player_names[1] = _name_entry.text.strip_edges().left(24) if not _name_entry.text.strip_edges().is_empty() else "ET Host"
 	ready_players[1] = false
 	_spawn_player(1, 0, profile, Transform3D(Basis.IDENTITY, _spawn_position(0)))
-	for npc: CharacterBody3D in npcs.values():
+	for npc: Node3D in npcs.values():
 		npc.call("set_host_simulation", false)
 	for item_id: StringName in items:
 		_publish_item_state(0, _item_spawns[item_id], Vector3.ZERO, item_id)
@@ -695,7 +824,7 @@ func disconnect_game(message: String = "Disconnected. Host or join another sessi
 	_round_start_deliveries = 0
 	last_round_deliveries = 0
 	last_round_money = 0
-	for npc: CharacterBody3D in npcs.values():
+	for npc: Node3D in npcs.values():
 		npc.call("set_host_simulation", false)
 	for item_id: StringName in items:
 		items[item_id].call("apply_network_state", null, _item_spawns[item_id], Vector3.ZERO, false)
@@ -708,6 +837,8 @@ func disconnect_game(message: String = "Disconnected. Host or join another sessi
 		player_container.remove_child(player)
 		player.queue_free()
 	players.clear()
+	_noise_received.clear()
+	_noise_requests.clear()
 	_profiles.clear()
 	_slots.clear()
 	_life_generations.clear()
@@ -721,7 +852,9 @@ func disconnect_game(message: String = "Disconnected. Host or join another sessi
 	_peer_tokens.clear()
 	_departed.clear()
 	_purchase_requests.clear()
-	$LobbyCamera.make_current()
+	var lobby_camera: Camera3D = get_node_or_null("LobbyCamera") as Camera3D
+	if lobby_camera != null:
+		lobby_camera.make_current()
 	_set_menu_open(true)
 	_refresh_ui()
 	_set_status(message)
@@ -746,6 +879,8 @@ func _close_peer() -> void:
 
 
 func _on_connected() -> void:
+	if campaign != null:
+		_set_campaign_load_timeout(true)
 	if host_migration.active:
 		host_migration.connected()
 		return
@@ -755,7 +890,7 @@ func _on_connected() -> void:
 func _static_item_ids() -> Array:
 	var ids: Array = []
 	for id: StringName in items:
-		if not str(id).begins_with("corpse_") and id != &"quest_reward":
+		if not str(id).begins_with("corpse_") and not str(id).begins_with("travel/") and id != &"quest_reward":
 			ids.append(id)
 	return ids
 
@@ -784,6 +919,8 @@ func _register_player(profile: Dictionary, level_path: String, item_ids: Array, 
 	if not multiplayer.is_server() or host_migration.active:
 		return
 	var peer_id: int = multiplayer.get_remote_sender_id()
+	if campaign != null:
+		_set_campaign_load_timeout(true, peer_id)
 	if peer_id <= 1 or players.has(peer_id) or not multiplayer.get_peers().has(peer_id):
 		return
 	if _disconnecting:
@@ -802,6 +939,9 @@ func _register_player(profile: Dictionary, level_path: String, item_ids: Array, 
 		_reject_connection.rpc_id(peer_id, "The team is departing. Join after the next round starts.")
 		return
 	if not _registry_valid or level_path != scene_file_path or item_ids.size() != _static_item_ids().size():
+		if campaign != null and level_path == campaign.ORBIT and scene_file_path != campaign.ORBIT:
+			_prepare_campaign_join.rpc_id(peer_id, scene_file_path, mission_round)
+			return
 		_reject_connection.rpc_id(peer_id, "Select the same map as the host before joining.")
 		return
 	var unique_ids: Dictionary = {}
@@ -850,6 +990,9 @@ func _register_player(profile: Dictionary, level_path: String, item_ids: Array, 
 	if vehicles != null:
 		for vehicle: Node in vehicles.get_children():
 			vehicle.get_node("CoopSeats").call("send_snapshot", peer_id)
+	_receive_economy.rpc_id(peer_id, team_money, team_score, deliveries, purchases)
+	if campaign != null:
+		_receive_mission.rpc_id(peer_id, _mission_snapshot())
 	for item_id: StringName in items:
 		var item: RigidBody3D = items[item_id]
 		_receive_item_state.rpc_id(peer_id, _item_owners[item_id], item.global_transform, item.linear_velocity, _item_revisions[item_id], item_id)
@@ -869,6 +1012,8 @@ func _spawn_player(peer_id: int, slot: int, profile: Dictionary, initial_transfo
 	player.set_multiplayer_authority(peer_id)
 	player.transform = initial_transform
 	player.set("life_generation", generation)
+	if campaign != null and mission_phase == &"arriving":
+		player.set_meta("coop_arrival", true)
 	_life_generations[peer_id] = generation
 	player_container.add_child(player)
 	player.call("sync_appearance", profile)
@@ -899,6 +1044,8 @@ func _on_peer_disconnected(peer_id: int) -> void:
 				_release_item(peer_id, item_id)
 		_remove_player(peer_id)
 		_remove_player.rpc(peer_id)
+		if campaign != null and not campaign.loading_ready:
+			_campaign_player_loaded(1, mission_round)
 		_publish_lobby()
 
 
@@ -924,6 +1071,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if multiplayer.is_server() and not players.is_empty():
 		if mission_phase == &"collecting":
+			_process_noise_requests()
 			_process_terminal_requests()
 			_process_item_requests()
 			_check_delivery()
@@ -1062,6 +1210,8 @@ func _process_item_requests() -> void:
 		if request["pickup"]:
 			if _item_owners[item_id] == 0 and bool(item.call("can_pickup", players[peer_id])):
 				_publish_item_state(peer_id, item.global_transform, Vector3.ZERO, item_id)
+				if campaign != null and campaign.pursuit != null:
+					campaign.pursuit.report_theft(item, players[peer_id])
 		elif _item_owners[item_id] == peer_id:
 			_release_item(peer_id, item_id)
 	_item_requests.clear()
@@ -1091,10 +1241,12 @@ func _receive_item_state(owner_id: int, pose: Transform3D, motion: Vector3, revi
 	_item_owners[item_id] = owner_id
 	_item_revisions[item_id] = revision
 	items[item_id].call("apply_network_state", new_owner, pose, motion, multiplayer.is_server() and not players.is_empty())
-	var pair: Node3D = $PortalPair
-	if is_instance_valid(previous_owner):
+	var pair: Node3D = get_node_or_null("PortalPair") as Node3D
+	if pair == null and campaign != null:
+		pair = campaign.world.get_node_or_null("PortalPair") as Node3D
+	if pair != null and is_instance_valid(previous_owner):
 		pair.call("refresh_traveller_visual", previous_owner)
-	if new_owner != null and new_owner != previous_owner:
+	if pair != null and new_owner != null and new_owner != previous_owner:
 		pair.call("refresh_traveller_visual", new_owner)
 
 
@@ -1112,7 +1264,11 @@ func _receive_item_motion(revision: int, pose: Transform3D, motion: Vector3, ite
 
 
 func _check_delivery() -> void:
-	var zone: Area3D = $DeliveryZone
+	if campaign != null and (scene_file_path == campaign.COUNTRY or campaign.delivery != null):
+		return
+	var zone: Area3D = get_node_or_null("DeliveryZone") as Area3D
+	if zone == null:
+		return
 	var shape: BoxShape3D = $DeliveryZone/Collision.shape as BoxShape3D
 	var credited: bool = false
 	for item_id: StringName in items:
@@ -1121,15 +1277,31 @@ func _check_delivery() -> void:
 			continue
 		if bool(item.get("rejected_by_delivery")):
 			continue
+		if campaign != null and not campaign.deliver(item_id):
+			continue
 		team_money += int(item.get("cash_value"))
 		_round_sales_money += int(item.get("cash_value"))
 		team_score += int(item.get("score_value"))
 		deliveries += 1
 		# Reset each delivered object before the next tick can credit it again.
-		_publish_item_state(0, _item_spawns[item_id], Vector3.ZERO, item_id)
+		if campaign == null:
+			_publish_item_state(0, _item_spawns[item_id], Vector3.ZERO, item_id)
 		credited = true
 	if credited:
 		_publish_economy()
+		if campaign != null:
+			_publish_mission()
+
+
+func credit_shared_delivery(item: RigidBody3D) -> void:
+	if not multiplayer.is_server() or campaign == null or not campaign.deliver(item.network_id):
+		return
+	team_money += item.cash_value
+	team_score += item.score_value
+	_round_sales_money += item.cash_value
+	deliveries += 1
+	_publish_economy()
+	_publish_mission()
 
 
 func get_purchase_cost(peer_id: int, item_id: StringName) -> int:
@@ -1170,11 +1342,13 @@ func _process_purchases() -> void:
 		if not players.has(peer_id):
 			continue
 		var cost: int = get_purchase_cost(peer_id, item_id)
-		if cost <= 0 or team_money < cost:
+		var inventory: Node = players[peer_id].exploration_inventory
+		var needs_slot: bool = item_id in [&"energy_shield", &"predator_watch"] and int(purchases.get(peer_id, {}).get(item_id, 0)) == 0
+		if cost <= 0 or team_money < cost or (needs_slot and inventory.used_slots() >= inventory.capacity):
 			if peer_id == 1:
-				_purchase_result("Purchase refused: insufficient team funds, or item already owned.")
+				_purchase_result("Purchase refused: insufficient funds, equipment already owned, or inventory full.")
 			elif multiplayer.get_peers().has(peer_id):
-				_purchase_result.rpc_id(peer_id, "Purchase refused: insufficient team funds, or item already owned.")
+				_purchase_result.rpc_id(peer_id, "Purchase refused: insufficient funds, equipment already owned, or inventory full.")
 			continue
 		team_money -= cost
 		var owned: Dictionary = purchases.get(peer_id, {}).duplicate()
@@ -1216,7 +1390,24 @@ func _receive_economy(balance: int, points: int, count: int, owned: Dictionary) 
 
 
 func _valid_snapshot(state: Dictionary) -> bool:
-	if state.size() != 12 or not state.get("generation") is int or state["generation"] < 0:
+	if state.size() != 13 or not state.get("generation") is int or state["generation"] < 0:
+		return false
+	var visual: Variant = state.get("visual")
+	if not visual is Dictionary or not visual.get("fall") is int or visual.fall not in [0, 1, 2] or not visual.get("face_up") is bool or not visual.get("binos") is bool:
+		return false
+	if not visual.get("recovery") is float or not is_finite(visual.recovery) or visual.recovery < 0.0 or visual.recovery > 1.0:
+		return false
+	for key: String in ["fall_time", "stand_time"]:
+		if not visual.get(key) is float or not is_finite(visual[key]) or visual[key] < 0.0 or visual[key] > 60.0:
+			return false
+	if not visual.get("pose") is PackedFloat32Array or visual.pose.size() > 512:
+		return false
+	for value: float in visual.pose:
+		if not is_finite(value) or absf(value) > 100.0:
+			return false
+	if not visual.get("reaction_sequence") is int or visual.reaction_sequence < 0 or not visual.get("reaction") is Array or visual.reaction.size() != 3:
+		return false
+	if not visual.reaction[0] is int or visual.reaction[0] not in [0, 1, 2] or not visual.reaction[1] is Vector3 or not visual.reaction[1].is_finite() or not visual.reaction[2] is float or not is_finite(visual.reaction[2]):
 		return false
 	if not state.get("transform") is Transform3D or not state.get("velocity") is Vector3:
 		return false
@@ -1239,6 +1430,8 @@ func _valid_snapshot(state: Dictionary) -> bool:
 
 
 func _spawn_position(slot: int) -> Vector3:
+	if campaign != null:
+		return campaign.spawn_position + Vector3(float(slot % 2) * 0.7, 0.1, float(slot / 2) * 0.7)
 	return Vector3(-2.25 + float(slot) * 1.5, 1.0, 7.0)
 
 
@@ -1386,10 +1579,11 @@ func _build_ui() -> void:
 	_map_choice = OptionButton.new()
 	_map_choice.add_item("Portal arena")
 	_map_choice.add_item("Farm prototype")
-	_map_choice.select(maxi(0, LEVEL_PATHS.find(scene_file_path)))
+	_map_choice.add_item("SP campaign - Orbit")
+	_map_choice.select(2 if campaign != null else maxi(0, LEVEL_PATHS.find(scene_file_path)))
 	_map_choice.item_selected.connect(func(index: int) -> void:
 		if players.is_empty() and not _connecting:
-			get_tree().change_scene_to_file(LEVEL_PATHS[index]))
+			get_tree().change_scene_to_file(CAMPAIGN_SCENE if index == 2 else LEVEL_PATHS[index]))
 	column.add_child(_map_choice)
 	_address = LineEdit.new()
 	_address.text = "127.0.0.1"
@@ -1451,3 +1645,48 @@ func _button(parent: VBoxContainer, caption: String, callback: Callable) -> Butt
 	button.pressed.connect(callback)
 	parent.add_child(button)
 	return button
+
+
+@rpc("authority", "call_remote", "reliable")
+func _prepare_campaign_join(path: String, round_number: int) -> void:
+	if campaign == null or not _connecting or path not in [campaign.FARM, campaign.COUNTRY]:
+		return
+	_commit_round(path, maxi(round_number, mission_round + 1))
+	mission_round = round_number
+	_on_connected()
+
+
+func _set_campaign_load_timeout(loading: bool, target: int = 0) -> void:
+	var peer: ENetMultiplayerPeer = multiplayer.multiplayer_peer as ENetMultiplayerPeer
+	if peer == null or peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		return
+	var connected: Array[int] = []
+	if multiplayer.is_server():
+		connected.assign(multiplayer.get_peers())
+	else:
+		connected.append(1)
+	for id: int in connected:
+		if target == 0 or target == id:
+			var packet_peer: ENetPacketPeer = peer.get_peer(id)
+			if packet_peer != null:
+				packet_peer.set_timeout(32, 300000 if loading else 5000, 300000 if loading else 30000)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _campaign_world_loaded(round_number: int) -> void:
+	if multiplayer.is_server():
+		_campaign_player_loaded(multiplayer.get_remote_sender_id(), round_number)
+
+
+func _campaign_player_loaded(peer_id: int, round_number: int) -> void:
+	if campaign == null or round_number != mission_round or not players.has(peer_id):
+		return
+	_campaign_loaded[peer_id] = true
+	for id: int in players:
+		if not _campaign_loaded.get(id, false):
+			return
+	campaign.loading_ready = true
+	if mission_phase == &"loading":
+		mission_phase = &"collecting"
+		_begin_expedition()
+	_publish_mission()

@@ -29,8 +29,13 @@ func attack_target() -> bool:
 	_cooldown = attack_interval
 	if photographer:
 		photo_count += 1
-		for npc: CharacterBody3D in _session.npcs.values():
-			if npc is NPCActor and npc != self:
+		if _session.campaign != null and _session.campaign.pursuit != null:
+			_session.campaign.pursuit.report_photo(self, player)
+		for node: Node3D in _session.npcs.values():
+			var npc: NPCActor = node as NPCActor
+			if npc == null:
+				npc = node.get_parent() as NPCActor
+			if npc != null and npc != self and npc.vision != null:
 				npc.vision.set_alerted(true)
 	else:
 		_session.damage_player(target_peer_id, attack_damage, (player.global_position - global_position).normalized())

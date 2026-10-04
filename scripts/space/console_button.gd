@@ -72,6 +72,8 @@ func _on_body_entered(body : Node3D) -> void:
 	var character : CharacterBody3D = body as CharacterBody3D
 	if character == null or not character.is_in_group("characters"):
 		return
+	if character.has_method("is_local_player") and not bool(character.call("is_local_player")):
+		return
 	if not _characters_nearby.has(character):
 		_characters_nearby.append(character)
 

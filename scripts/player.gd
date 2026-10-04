@@ -1577,6 +1577,9 @@ func _die(impact_direction : Vector3 = Vector3.ZERO) -> void:
 		return
 
 	_is_dead = true
+	if camera_pivot.binos_active:
+		camera_pivot.deactivate_binos()
+	camera_pivot.set_process_input(false)
 	predator_cloak_active = false
 	_update_predator_cloak_visuals()
 	_fall_state = FallState.NONE

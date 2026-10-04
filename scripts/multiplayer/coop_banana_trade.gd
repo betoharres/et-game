@@ -2,10 +2,13 @@ extends "res://scripts/npc/banana_trade.gd"
 
 var _session: Node3D
 var _reward_path: String = ""
+var _consumed_id: StringName = &"banana_box"
 
 
 func _ready() -> void:
-	_session = get_parent().get_parent().get_parent() as Node3D
+	_session = get_parent() as Node3D
+	while _session != null and not _session.has_method("damage_player"):
+		_session = _session.get_parent() as Node3D
 	super._ready()
 
 
@@ -43,21 +46,23 @@ func _interact_peer(peer_id: int) -> void:
 		for id: StringName in _session.items:
 			if _session._item_owners[id] == peer_id and str(_session.items[id].item_id) == requested_item_id:
 				_session.call("_publish_item_state", 0, _session._item_spawns[id], Vector3.ZERO, id)
+				_consumed_id = id
 				completed = true
 				_reward_path = rewards[0].resource_path
 				break
-	_receive_state(accepted, completed, _reward_path)
-	_receive_state.rpc(accepted, completed, _reward_path)
+	_receive_state(accepted, completed, _reward_path, _consumed_id)
+	_receive_state.rpc(accepted, completed, _reward_path, _consumed_id)
 
 
 @rpc("authority", "call_remote", "reliable")
-func _receive_state(started: bool, finished: bool, reward_path: String) -> void:
+func _receive_state(started: bool, finished: bool, reward_path: String, consumed_id: StringName = &"banana_box") -> void:
+	_consumed_id = consumed_id
 	accepted = started
 	completed = finished
 	_reward_path = reward_path
 	_label.text = "Thanks, team! Your scrap is beside me." if completed else "Team quest: bring me a banana box." if accepted else "!\nBigfoot — bananas for scrap"
 	if completed:
-		var banana: RigidBody3D = _session.items.get(&"banana_box") as RigidBody3D
+		var banana: RigidBody3D = _session.items.get(_consumed_id) as RigidBody3D
 		if banana != null:
 			banana.set("network_consumed", true)
 			banana.hide()
@@ -69,7 +74,7 @@ func _receive_state(started: bool, finished: bool, reward_path: String) -> void:
 
 
 func send_snapshot(peer_id: int) -> void:
-	_receive_state.rpc_id(peer_id, accepted, completed, _reward_path)
+	_receive_state.rpc_id(peer_id, accepted, completed, _reward_path, _consumed_id)
 
 
 func reset() -> void:
@@ -77,7 +82,7 @@ func reset() -> void:
 	completed = false
 	_reward_path = ""
 	_label.text = "!\nBigfoot ? bananas for scrap"
-	var banana: RigidBody3D = _session.items.get(&"banana_box") as RigidBody3D
+	var banana: RigidBody3D = _session.items.get(_consumed_id) as RigidBody3D
 	if banana != null:
 		banana.network_consumed = false
 		banana.show()

@@ -206,6 +206,53 @@ func is_active() -> bool:
 	return _active
 
 
+func capture_network_pose() -> PackedFloat32Array:
+	var result: PackedFloat32Array = PackedFloat32Array()
+	if _skeleton == null or not _active:
+		return result
+	var globals: Array[Transform3D] = _capture_fallen_global_poses()
+	for bone: int in globals.size():
+		var parent: int = _skeleton.get_bone_parent(bone)
+		var local: Transform3D = globals[bone] if parent < 0 else globals[parent].affine_inverse() * globals[bone]
+		var rotation: Quaternion = local.basis.orthonormalized().get_rotation_quaternion()
+		result.append_array(PackedFloat32Array([rotation.x, rotation.y, rotation.z, rotation.w]))
+		if parent < 0:
+			result.append_array(PackedFloat32Array([local.origin.x, local.origin.y, local.origin.z]))
+	return result
+
+
+func apply_network_pose(pose: PackedFloat32Array) -> void:
+	if _skeleton == null or _recovery_modifier == null:
+		return
+	var rotations: Array[Quaternion] = []
+	var roots: PackedInt32Array = PackedInt32Array()
+	var positions: PackedVector3Array = PackedVector3Array()
+	var cursor: int = 0
+	for bone: int in _skeleton.get_bone_count():
+		if cursor + 4 > pose.size():
+			return
+		var rotation: Quaternion = Quaternion(pose[cursor], pose[cursor + 1], pose[cursor + 2], pose[cursor + 3])
+		if not rotation.is_finite() or rotation.length_squared() < 0.001:
+			return
+		rotations.append(rotation.normalized())
+		cursor += 4
+		if _skeleton.get_bone_parent(bone) < 0:
+			if cursor + 3 > pose.size():
+				return
+			roots.append(bone)
+			positions.append(Vector3(pose[cursor], pose[cursor + 1], pose[cursor + 2]))
+			cursor += 3
+	if cursor == pose.size():
+		_recovery_modifier.begin(rotations, roots, positions)
+		_recovering = true
+
+
+func finish_network_pose() -> void:
+	_recovering = false
+	if _recovery_modifier != null:
+		_recovery_modifier.finish()
+
+
 ## Transporta a simulacao junto com uma plataforma em movimento -- o interior de
 ## uma nave que gira. Os PhysicalBone3D sao simulados em espaco de mundo e sao
 ## filhos do Skeleton3D, entao carregar o CharacterBody3D raiz nao os move: sem

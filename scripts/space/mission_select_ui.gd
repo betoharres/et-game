@@ -19,6 +19,13 @@ const AVAILABLE_COLOR : Color = Color(0.42, 0.92, 1.0, 1.0)
 var _catalog : LevelCatalog
 var _level_buttons : Array[Button] = []
 var _selected_level : LevelDefinition = null
+var session_unlocked_paths: PackedStringArray = PackedStringArray()
+
+
+func _is_unlocked(level: LevelDefinition) -> bool:
+	if not session_unlocked_paths.is_empty():
+		return session_unlocked_paths.has(level.scene_path)
+	return _catalog != null and _catalog.levels.find(level) < GAME_PROGRESS.highest_repaired_level
 
 @onready var level_list : VBoxContainer = (
 	$Overlay/Center/Panel/Margin/Columns/LevelColumn/ListPanel/ListMargin/LevelList
@@ -89,8 +96,7 @@ func _build_level_list() -> void:
 		button.custom_minimum_size = Vector2(0, 46)
 		button.toggle_mode = true
 		button.text = level.display_name
-		var catalog_index: int = _catalog.levels.find(level)
-		var unlocked: bool = catalog_index < GAME_PROGRESS.highest_repaired_level
+		var unlocked: bool = _is_unlocked(level)
 		button.modulate = AVAILABLE_COLOR if level.can_launch() and unlocked else LOCKED_COLOR
 		button.disabled = not unlocked or not level.can_launch()
 		button.pressed.connect(_on_level_button_pressed.bind(level, button))
@@ -117,8 +123,7 @@ func _show_selection(level : LevelDefinition) -> void:
 		return
 
 	title_label.text = level.display_name
-	var level_index: int = _catalog.levels.find(level) if _catalog != null else 0
-	if level_index >= GAME_PROGRESS.highest_repaired_level:
+	if not _is_unlocked(level):
 		briefing_label.text = "Nave danificada. Repare-a no terminal da fase anterior para liberar este destino."
 	elif not level.available:
 		briefing_label.text = level.locked_reason
@@ -126,13 +131,12 @@ func _show_selection(level : LevelDefinition) -> void:
 		briefing_label.text = "Cena da fase nao configurada."
 	else:
 		briefing_label.text = level.briefing
-	go_button.disabled = not level.can_launch() or level_index >= GAME_PROGRESS.highest_repaired_level
+	go_button.disabled = not level.can_launch() or not _is_unlocked(level)
 
 
 func _on_go_pressed() -> void:
 	if _selected_level == null or not _selected_level.can_launch():
 		return
-	var index: int = _catalog.levels.find(_selected_level) if _catalog != null else 0
-	if index >= GAME_PROGRESS.highest_repaired_level:
+	if not _is_unlocked(_selected_level):
 		return
 	level_chosen.emit(_selected_level)

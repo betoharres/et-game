@@ -15,7 +15,9 @@ var _session: Node3D
 
 func _ready() -> void:
 	super._ready()
-	_session = get_parent().get_parent() as Node3D
+	_session = get_parent() as Node3D
+	while _session != null and not _session.has_method("damage_player"):
+		_session = _session.get_parent() as Node3D
 	_spawn = global_transform
 	_activity_timer.stop()
 	var alerts: Node = get_node_or_null("/root/PhotoAlertSystem")

@@ -199,7 +199,7 @@ func _physics_process(delta: float) -> void:
 	# Um grito local informa apenas a posição vista; nunca confirma visão alheia.
 	for listener: Node in get_tree().get_nodes_in_group(&"npc_actors"):
 		var other: NPCActor = listener as NPCActor
-		if other == self or other == null or other.hearing == null:
+		if other == self or other == null or other.hearing == null or other.get_world_3d() != get_world_3d():
 			continue
 		if global_position.distance_to(other.global_position) <= 18.0:
 			other.hearing.hear_report(global_position, vision.last_seen_position)

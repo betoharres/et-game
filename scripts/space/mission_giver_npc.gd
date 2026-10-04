@@ -29,6 +29,10 @@ func _ready() -> void:
 	super._ready()
 	add_to_group(DIALOGUE_GROUP)
 	_player = get_tree().get_first_node_in_group("characters") as CharacterBody3D
+	for candidate: Node in get_tree().get_nodes_in_group(&"players"):
+		if candidate.get_viewport() == get_viewport() and candidate.has_method("is_local_player") and bool(candidate.call("is_local_player")):
+			_player = candidate as CharacterBody3D
+			break
 	_marker = _build_marker()
 	_update_marker_visibility()
 
@@ -63,6 +67,7 @@ func is_player_nearby() -> bool:
 	return (
 		_armed
 		and is_instance_valid(_player)
+		and _player.is_inside_tree()
 		and global_position.distance_to(_player.global_position) <= interact_radius
 	)
 

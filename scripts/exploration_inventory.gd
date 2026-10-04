@@ -22,7 +22,19 @@ func select_slot(slot : int) -> void:
 
 
 func set_reserved_slots(count : int) -> void:
-	reserved_slots = clampi(count, 0, capacity - 1)
+	var next_reserved: int = clampi(count, 0, capacity - 1)
+	if next_reserved > reserved_slots:
+		_slots.clear()
+		_slots.resize(capacity)
+		var slot: int = 0
+		for item: RigidBody3D in items:
+			if not is_instance_valid(item):
+				continue
+			for index: int in maxi(1, int(item.get("slot_cost"))):
+				if slot < capacity - next_reserved:
+					_slots[slot] = item
+					slot += 1
+	reserved_slots = next_reserved
 	selected_slot = wrapi(selected_slot, 0, maxi(capacity - reserved_slots, 1))
 	changed.emit()
 
@@ -85,9 +97,26 @@ func drop_last(player : Node3D) -> void:
 	_drop_item(items.back(), player)
 
 
+func accept_network_item(item: RigidBody3D) -> void:
+	if items.has(item):
+		return
+	_slots.resize(capacity)
+	var remaining: int = maxi(1, int(item.get("slot_cost")))
+	for slot: int in range(capacity - reserved_slots):
+		if not is_instance_valid(_slots[slot]):
+			_slots[slot] = item
+			remaining -= 1
+			if remaining == 0:
+				break
+	items.append(item)
+	item.tree_exiting.connect(_on_item_exiting.bind(item), CONNECT_ONE_SHOT)
+	changed.emit()
+
+
 func _drop_item(item : RigidBody3D, player : Node3D) -> void:
 	# Reparentar em drop emite tree_exiting e remove a referência do inventário.
-	item.global_position = player.global_position + player.global_basis.z * 1.2 + player.global_basis.y * 0.3
+	if not player.has_method("is_local_player"):
+		item.global_position = player.global_position + player.global_basis.z * 1.2 + player.global_basis.y * 0.3
 	item.call("drop")
 
 

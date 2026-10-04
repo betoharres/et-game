@@ -1,4 +1,4 @@
-extends "res://scripts/spaceship_scraps.gd"
+extends AlienDebris
 
 signal pickup_requested(player: Node3D)
 signal drop_requested(player: Node3D)
@@ -17,6 +17,12 @@ func is_available_for_abduction() -> bool:
 
 func _ready() -> void:
 	_home = get_parent() as Node3D
+	if definition != null:
+		super._ready()
+		if definition.is_locator:
+			remove_from_group(&"alien_debris")
+	else:
+		add_to_group(&"pickup_items")
 	freeze = true
 
 
@@ -34,6 +40,12 @@ func can_pickup(player: CharacterBody3D) -> bool:
 		return false
 	if not bool(player.call("is_alive")) or player.get("carried_item") != null or player.get("carried_character") != null:
 		return false
+	if not inventory_rejection().is_empty():
+		return false
+	if not two_handed:
+		var inventory: Node = player.get_node("ExplorationInventory")
+		if int(inventory.used_slots()) + slot_cost > int(inventory.capacity):
+			return false
 	if player.global_position.distance_to(global_position) >= PICKUP_RADIUS:
 		return false
 	var ray: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
@@ -58,11 +70,20 @@ func apply_network_state(player: Node3D, pose: Transform3D, motion: Vector3, sim
 		reparent(_home)
 		collision_layer = _saved_collision_layer
 		collision_mask = _saved_collision_mask
+		_stored = false
+		show()
 	if player != null:
-		super.pickup(player)
-		player.set("carried_item", self)
-		tree_exiting.connect(player._clear_exploration_hands, CONNECT_ONE_SHOT)
-		player.animation_controller.set_carry_mode(two_handed)
+		if two_handed:
+			super.pickup(player)
+			player.set("carried_item", self)
+			tree_exiting.connect(player._clear_exploration_hands, CONNECT_ONE_SHOT)
+			player.animation_controller.set_carry_mode(true)
+		else:
+			# Apply the host's accepted state without issuing another pickup request.
+			super.pickup(player)
+			_stored = true
+			hide()
+			player.get_node("ExplorationInventory").call("accept_network_item", self)
 		player.emit_signal("exploration_inventory_changed")
 		if bool(player.call("is_local_player")):
 			player.emit_signal("item_collected", self)
@@ -72,7 +93,18 @@ func apply_network_state(player: Node3D, pose: Transform3D, motion: Vector3, sim
 		_has_world_pose = true
 		linear_velocity = motion
 		angular_velocity = Vector3.ZERO
-		freeze = not simulate_world
+		freeze = not simulate_world or being_abducted
+		set_meta("recovery_dropped", true)
+
+
+func store_in_inventory(_player: Node3D) -> bool:
+	return false
+
+
+func begin_abduction() -> bool:
+	if not multiplayer.is_server():
+		return false
+	return super.begin_abduction()
 
 
 func receive_world_pose(pose: Transform3D, motion: Vector3) -> void:
@@ -84,5 +116,5 @@ func receive_world_pose(pose: Transform3D, motion: Vector3) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if freeze and not carried and _has_world_pose:
+	if not multiplayer.is_server() and freeze and not carried and _has_world_pose:
 		global_transform = global_transform.interpolate_with(_target_pose, 1.0 - exp(-20.0 * delta))

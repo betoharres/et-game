@@ -157,6 +157,9 @@ func _refresh_scene_references() -> void:
 
 
 func _find_player() -> Node3D:
+	for candidate: Node in get_tree().get_nodes_in_group(&"players"):
+		if candidate is Node3D and candidate.get_viewport() == get_viewport() and candidate.has_method("is_local_player") and bool(candidate.call("is_local_player")):
+			return candidate as Node3D
 	var active_player : Node3D = get_tree().get_first_node_in_group(&"players") as Node3D
 	if active_player != null:
 		return active_player
@@ -278,7 +281,7 @@ func _draw() -> void:
 	)
 	_draw_shortcut_hint()
 
-	if _player == null or not is_instance_valid(_player):
+	if _player == null or not is_instance_valid(_player) or not _player.is_inside_tree():
 		return
 
 	_draw_north_tick(_player)

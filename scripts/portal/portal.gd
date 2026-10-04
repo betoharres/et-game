@@ -4,7 +4,7 @@ extends Node3D
 
 const RECURSIVE_VIEWS: GDScript = preload("res://scripts/portal/portal_recursive_views.gd")
 const TRAVELLER_VISUAL: GDScript = preload("res://scripts/portal/portal_traveller_visual.gd")
-const PORTAL_LAYER: int = 1 << 19
+const PORTAL_LAYER: int = 1 << 5
 const CLIP_PLANE_OFFSET: float = 0.01
 
 var player_camera: Camera3D

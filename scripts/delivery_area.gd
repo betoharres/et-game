@@ -582,11 +582,7 @@ func _finish_delivery() -> void:
 		var score_value: Variant = item.get("score_value")
 		if score_value != null:
 			item_score = int(score_value)
-		GlobalScore.add_score(item_score)
-		var cash_value: Variant = item.get("cash_value")
-		if cash_value != null:
-			GlobalScore.add_money(int(cash_value))
-		item.queue_free()
+		_credit_delivery(item, item_score)
 		item_delivered.emit(item_score)
 	_abduction_items.clear()
 	_abduction_start_positions.clear()
@@ -626,3 +622,11 @@ func _cleanup_tracked_bodies() -> void:
 	for index : int in range(_nearby_characters.size() - 1, -1, -1):
 		if not is_instance_valid(_nearby_characters[index]):
 			_nearby_characters.remove_at(index)
+
+
+func _credit_delivery(item: RigidBody3D, item_score: int) -> void:
+	GlobalScore.add_score(item_score)
+	var cash_value: Variant = item.get("cash_value")
+	if cash_value != null:
+		GlobalScore.add_money(int(cash_value))
+	item.queue_free()

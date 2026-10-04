@@ -100,7 +100,7 @@ func capture() -> Dictionary:
 	var quest_state: Dictionary = {}
 	var quest: Node = _session.get_node_or_null("NPCsContainer/Gorilla/BananaTrade")
 	if quest != null:
-		quest_state = {"accepted": quest.accepted, "completed": quest.completed, "reward": quest._reward_path}
+		quest_state = {"accepted": quest.accepted, "completed": quest.completed, "reward": quest._reward_path, "item": quest._consumed_id}
 	var door_state: Dictionary = {}
 	var door: Node = _session.get_node_or_null("BuildingContainers/BarnDoor")
 	if door != null:
@@ -254,6 +254,7 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 		player.camera_pitch = record.motion.pitch
 		player._portal_epoch = record.motion.epoch
 		player._snapshot_sequence = record.motion.sequence
+		player.call("restore_motion_visual", record.motion.visual)
 		player.receive_combat_state(record.combat)
 		_session._combat_revisions[id] = record.combat.revision
 		if id != 1 and state.endpoints.has(old_id):
@@ -266,7 +267,12 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 			"health": record.combat.health, "shield": record.combat.shield, "cloak_energy": record.combat.cloak_energy}
 	var quest: Node = _session.get_node_or_null("NPCsContainer/Gorilla/BananaTrade")
 	if quest != null and not state.quest.is_empty():
-		quest._receive_state(state.quest.accepted, state.quest.completed, state.quest.reward)
+		quest._receive_state(state.quest.accepted, state.quest.completed, state.quest.reward, state.quest.get("item", &"banana_box"))
+	if _session.campaign != null and state.mission.has("campaign"):
+		if not state.mission.campaign.get("delivery", {}).is_empty():
+			state.mission.campaign.delivery.target = mapping.get(state.mission.campaign.delivery.target, 0)
+		_session.mission_phase = state.mission.phase
+		_session.campaign.restore(state.mission.campaign)
 	for old_id: StringName in state.items:
 		var id: StringName = old_id
 		if str(old_id).begins_with("corpse_"):
@@ -285,7 +291,7 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 	for id: StringName in state.npcs:
 		if not _session.npcs.has(id):
 			continue
-		var npc: CharacterBody3D = _session.npcs[id]
+		var npc: Node3D = _session.npcs[id]
 		npc.set_host_simulation(false)
 		var snapshot: Dictionary = state.npcs[id].duplicate(true)
 		if snapshot.has("target"):
@@ -308,6 +314,10 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 	if door != null and not state.door.is_empty():
 		door._receive_state(state.door.angle, state.door.locked)
 		door._target = state.door.target
+	if _session.campaign != null and not _session.campaign.loading_ready:
+		_session.campaign.loading_ready = true
+		if _session.mission_phase == &"loading":
+			_session.mission_phase = &"collecting"
 	active = false
 	is_restoring = false
 	_paused_modes.clear()
@@ -319,6 +329,8 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 	_session.team_state_changed.emit()
 	checkpoint = {}
 	if multiplayer.is_server():
+		if _session.campaign != null:
+			_session._publish_mission()
 		publish_checkpoint()
 		if _session.mission_phase == &"loading":
 			_session._advance_mission.call_deferred()

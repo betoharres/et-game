@@ -268,6 +268,8 @@ func _on_restart_pressed() -> void:
 func _build_farm_wallet() -> void:
 	if not is_inside_tree():
 		return
+	if player.has_method("is_local_player"):
+		return
 	if get_tree().get_first_node_in_group("farm_scavenging") == null:
 		return
 	var panel : PanelContainer = PanelContainer.new()

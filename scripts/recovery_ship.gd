@@ -40,12 +40,12 @@ func _physics_process(delta : float) -> void:
 		_cargo.rotate_y(delta)
 		if _cargo.global_position.distance_to(global_position + Vector3.DOWN) < 0.1:
 			var score : int = int(_cargo.get("score_value"))
-			GlobalScore.add_score(score)
-			_cargo.queue_free()
+			_credit_cargo(_cargo)
 			_cargo = null
 			_set_tractor_beam(false)
 			zone.item_delivered.emit(score)
 		return
+
 	beam.hide()
 	var items : Array[RigidBody3D] = zone.available_items()
 	if not items.is_empty():
@@ -105,3 +105,8 @@ func _move_to(target : Vector3, delta : float) -> void:
 	if Vector2(direction.x, direction.z).length() > 0.1:
 		rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), minf(delta * 2.0, 1.0))
 	global_position = global_position.move_toward(target, flight_speed * delta)
+
+
+func _credit_cargo(item: RigidBody3D) -> void:
+	GlobalScore.add_score(int(item.get("score_value")))
+	item.queue_free()

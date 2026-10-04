@@ -5,7 +5,9 @@ var _elapsed: float = 0.0
 
 
 func _ready() -> void:
-	_session = get_parent().get_parent() as Node3D
+	_session = get_parent() as Node3D
+	while _session != null and not _session.has_method("damage_player"):
+		_session = _session.get_parent() as Node3D
 	super._ready()
 
 

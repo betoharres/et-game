@@ -10,6 +10,80 @@ var _combat_revision: int = -1
 var _snapshot_sequence: int = 0
 var _remote_sequence: int = -1
 var _applying_damage: bool = false
+var _noise_sequence: int = 0
+var _reaction_sequence: int = 0
+var _remote_reaction_sequence: int = -1
+var _last_reaction: Array = [0, Vector3.ZERO, 1.0]
+var _get_up_face_up: bool = false
+var _remote_binos: bool = false
+var _host_stealth_alert: float = 0.0
+var _network_noises: Array[float] = []
+
+
+func queue_network_noise(decibels: float) -> void:
+	if _network_noises.size() < 16:
+		_network_noises.append(decibels)
+
+
+func _trigger_impact_reaction(direction: Vector3, reaction: ImpactReaction, fall_strength: float = 1.0) -> void:
+	if is_local_player():
+		_reaction_sequence += 1
+		_last_reaction = [int(reaction), direction, fall_strength]
+	super._trigger_impact_reaction(direction, reaction, fall_strength)
+
+
+func _begin_stand_up() -> void:
+	_get_up_face_up = ragdoll.is_face_up()
+	super._begin_stand_up()
+
+
+func _receive_visual_state(state: Dictionary) -> void:
+	var fall: int = state.fall
+	if fall != _fall_state:
+		if fall == FallState.FALLEN:
+			animation_controller.set_ragdoll_active(true)
+		elif fall == FallState.STANDING_UP:
+			animation_controller.begin_get_up(state.face_up)
+		else:
+			ragdoll.finish_network_pose()
+			animation_controller.set_ragdoll_active(false)
+			animation_controller.finish_get_up()
+		collision_shape.set_deferred("disabled", fall == FallState.FALLEN)
+		_fall_state = fall
+	if fall == FallState.FALLEN:
+		ragdoll.apply_network_pose(state.pose)
+	elif fall == FallState.STANDING_UP:
+		ragdoll.apply_recovery(state.recovery)
+	if state.reaction_sequence > _remote_reaction_sequence:
+		_remote_reaction_sequence = state.reaction_sequence
+		var reaction: Array = state.reaction
+		if fall == FallState.NONE and reaction[0] == ImpactReaction.STUMBLE:
+			animation_controller.trigger_stumble(reaction[1])
+	binos_active_visual(state.binos)
+
+
+func binos_active_visual(active: bool) -> void:
+	# Remote goggles are a visual state; their rigs must never swap world materials.
+	_remote_binos = active and not predator_cloak_active
+	_update_predator_cloak_visuals()
+
+
+func restore_motion_visual(state: Dictionary) -> void:
+	_receive_visual_state(state)
+	_fall_timer = float(state.get("fall_time", 0.0))
+	_stand_up_elapsed = float(state.get("stand_time", 0.0))
+	if is_local_player() and _fall_state == FallState.FALLEN:
+		ragdoll.start_comic_fall(Vector3.ZERO, 0.2)
+	if is_local_player() and state.binos and can_use_xray_goggles() and is_alive() and not predator_cloak_active:
+		camera_pivot.activate_binos()
+
+
+func _update_predator_cloak_visuals() -> void:
+	super._update_predator_cloak_visuals()
+	if not is_local_player() and is_instance_valid(farsight_goggles_mesh):
+		farsight_goggles_mesh.visible = _remote_binos and is_alive() and not predator_cloak_active
+		energy_shield_mesh.visible = energy_shield_mesh.visible and not _remote_binos
+		predator_watch_mesh.visible = predator_watch_mesh.visible and not _remote_binos
 
 
 func debug_add_team_money() -> void:
@@ -17,10 +91,14 @@ func debug_add_team_money() -> void:
 
 
 func toggle_predator_cloak() -> void:
+	if not is_local_player() or camera_pivot.binos_active:
+		return
 	get_parent().get_parent().call("request_cloak_toggle")
 
 
 func apply_host_cloak_toggle() -> void:
+	if _remote_binos:
+		return
 	super.toggle_predator_cloak()
 
 
@@ -84,7 +162,11 @@ func receive_combat_state(state: Dictionary) -> void:
 	health = state["health"]
 	energy_shield = state["shield"]
 	predator_cloak_active = state["cloak"]
+	if is_local_player() and predator_cloak_active and camera_pivot.binos_active:
+		camera_pivot.deactivate_binos()
 	predator_cloak_energy = state["cloak_energy"]
+	_host_stealth_alert = float(state.get("stealth", 0.0))
+	stealth_alert_changed.emit(get_stealth_alert())
 	predator_cloak_energy_changed.emit(predator_cloak_energy, PREDATOR_CLOAK_MAX_ENERGY)
 	health_changed.emit(health, max_health)
 	energy_shield_changed.emit(energy_shield, ENERGY_SHIELD_MAX)
@@ -154,6 +236,14 @@ func is_local_player() -> bool:
 	return is_multiplayer_authority()
 
 
+func request_noise(decibels: float) -> void:
+	if not is_local_player():
+		return
+	_noise_sequence += 1
+	var session: Node = get_parent().get_parent()
+	session.call("request_player_noise", decibels, _noise_sequence, life_generation)
+
+
 func get_pickup_candidate() -> RigidBody3D:
 	if not is_local_player() or _movement_locked:
 		return null
@@ -208,6 +298,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	for decibels: float in _network_noises:
+		player_noise.play_network_action(decibels)
+	_network_noises.clear()
+	if has_meta("coop_arrival"):
+		_update_camera_target()
+		return
 	if has_meta("coop_seated"):
 		_update_camera_target()
 		return
@@ -243,6 +339,11 @@ func make_snapshot() -> Dictionary:
 		"eye_light": is_eye_light_enabled(), "epoch": _portal_epoch,
 		"yaw": camera_yaw, "pitch": camera_pitch,
 		"generation": life_generation,
+		"visual": {"fall": _fall_state, "face_up": _get_up_face_up,
+			"fall_time": _fall_timer, "stand_time": _stand_up_elapsed,
+			"recovery": clampf(_stand_up_elapsed / maxf(ragdoll_pose_blend_duration, 0.001), 0.0, 1.0),
+			"pose": ragdoll.capture_network_pose(), "reaction_sequence": _reaction_sequence,
+			"reaction": _last_reaction, "binos": camera_pivot.binos_active},
 	}
 
 
@@ -266,4 +367,9 @@ func receive_snapshot(state: Dictionary) -> void:
 	_jump_state = state["jump"]
 	camera_yaw = state["yaw"]
 	camera_pitch = state["pitch"]
+	_receive_visual_state(state["visual"])
 	set_eye_light_enabled(state["eye_light"], true)
+
+
+func get_stealth_alert() -> float:
+	return super.get_stealth_alert() if multiplayer.is_server() else _host_stealth_alert

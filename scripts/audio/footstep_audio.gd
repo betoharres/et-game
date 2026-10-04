@@ -25,6 +25,7 @@ const STONE_SURFACE_NAMES : Array[String] = [
 ]
 
 var _audio_player : AudioStreamPlayer
+var _spatial_audio: AudioStreamPlayer3D
 var _last_step_by_surface : Dictionary = {}
 var _random : RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -36,6 +37,12 @@ func _ready() -> void:
 	_audio_player.volume_db = -20.0
 	_audio_player.max_polyphony = 2
 	add_child(_audio_player)
+	if get_parent().has_method("is_local_player"):
+		_spatial_audio = AudioStreamPlayer3D.new()
+		_spatial_audio.max_distance = 30.0
+		_spatial_audio.max_polyphony = 2
+		_spatial_audio.top_level = true
+		add_child(_spatial_audio)
 
 
 func play_movement_step(decibels : float) -> void:
@@ -58,7 +65,14 @@ func _play_step(surface : String) -> void:
 	_last_step_by_surface[surface] = index
 	_audio_player.stream = samples[index]
 	_audio_player.pitch_scale = _random.randf_range(0.94, 1.06)
-	_audio_player.play()
+	if _spatial_audio != null:
+		_spatial_audio.global_position = (get_parent() as Node3D).global_position
+		_spatial_audio.stream = _audio_player.stream
+		_spatial_audio.volume_db = _audio_player.volume_db
+		_spatial_audio.pitch_scale = _audio_player.pitch_scale
+		_spatial_audio.play()
+	else:
+		_audio_player.play()
 
 
 func _get_samples(surface : String) -> Array[AudioStream]:

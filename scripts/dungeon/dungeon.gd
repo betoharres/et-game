@@ -464,13 +464,18 @@ func _is_inside_grid(cell : Vector2i) -> bool:
 func _return_to_farm() -> void:
 	for character : CharacterBody3D in _characters_at_exit:
 		if is_instance_valid(character):
-			character.global_position = _farm_return_position
+			if character.has_method("is_local_player"):
+				character.call("apply_portal_transform", Transform3D(Basis.IDENTITY, _farm_return_position - character.global_position))
+			else:
+				character.global_position = _farm_return_position
 			character.velocity = Vector3.ZERO
 
 	_characters_at_exit.clear()
 
 
 func _on_exit_body_entered(body : Node3D) -> void:
+	if body.has_method("is_local_player") and not bool(body.call("is_local_player")):
+		return
 	if body is CharacterBody3D and body.is_in_group("characters"):
 		var character : CharacterBody3D = body as CharacterBody3D
 		if not _characters_at_exit.has(character):

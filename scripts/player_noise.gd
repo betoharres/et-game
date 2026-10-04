@@ -16,6 +16,7 @@ const THEFT_SOUND: AudioStream = preload("res://assets/audio/footsteps/stone/ste
 
 var _step_elapsed: float = 0.0
 var _action_audio: AudioStreamPlayer
+var _spatial_audio: AudioStreamPlayer3D
 @onready var _footstep_audio: Node = get_node_or_null("../FootstepAudio")
 
 
@@ -25,6 +26,12 @@ func _ready() -> void:
 	_action_audio.max_polyphony = 2
 	add_child(_action_audio)
 	var player: Node = get_parent()
+	if player.has_method("is_local_player"):
+		_spatial_audio = AudioStreamPlayer3D.new()
+		_spatial_audio.max_distance = 30.0
+		_spatial_audio.max_polyphony = 2
+		_spatial_audio.top_level = true
+		add_child(_spatial_audio)
 	if player.has_signal("item_collected"):
 		player.connect("item_collected", _on_item_collected)
 
@@ -75,22 +82,44 @@ func _play_action_sound(stream: AudioStream, decibels: float, pitch: float) -> v
 	_action_audio.stream = stream
 	_action_audio.volume_db = decibels - 64.0
 	_action_audio.pitch_scale = pitch
-	_action_audio.play()
+	if _spatial_audio != null:
+		_spatial_audio.global_position = (get_parent() as Node3D).global_position
+		_spatial_audio.stream = stream
+		_spatial_audio.volume_db = decibels - 64.0
+		_spatial_audio.pitch_scale = pitch
+		_spatial_audio.play()
+	else:
+		_action_audio.play()
 
 
-func emit_noise(decibels: float) -> void:
+func emit_noise(decibels: float, network_delivery: bool = false) -> void:
 	if not _can_emit_noise():
+		return
+	var player: Node3D = get_parent() as Node3D
+	if player.has_method("request_noise") and not network_delivery:
+		player.call("request_noise", decibels)
 		return
 	var origin: Vector3 = (get_parent() as Node3D).global_position
 	var radius: float = radius_for_decibels(decibels)
 	var heard: bool = false
 	for listener: Node in get_tree().get_nodes_in_group(&"npc_hearing_listeners"):
+		if listener is Node3D and (listener as Node3D).get_world_3d() != player.get_world_3d():
+			continue
 		if not listener.has_method("hear_sound"):
 			continue
 		var received: bool = bool(listener.call("hear_sound", origin, decibels, radius))
 		if received and listener.has_method("is_enemy_listener"):
 			heard = bool(listener.call("is_enemy_listener")) or heard
 	noise_emitted.emit(origin, decibels, radius, heard)
+
+
+func play_network_action(decibels: float) -> void:
+	if decibels == jump_decibels:
+		_play_action_sound(JUMP_SOUND, decibels, 0.86)
+	elif decibels == theft_decibels:
+		_play_action_sound(THEFT_SOUND, decibels, 1.18)
+	elif _footstep_audio != null:
+		_footstep_audio.call("play_movement_step", decibels)
 
 
 func _can_emit_noise() -> bool:
