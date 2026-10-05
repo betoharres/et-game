@@ -89,6 +89,20 @@ repositório. Esse mesmo prefixo serve para os demais comandos desta página.
 
 ## Multiplayer de portais
 
+Testes específicos adicionais (selecione somente o sistema alterado):
+
+| Script em `tools/` | Cobertura |
+| --- | --- |
+| `test_host_migration.gd` | Saída voluntária e abrupta, migrações sucessivas, remapeamento de posse/corpos/assentos, economia e missão, lobby, partida e porta ocupada |
+| `test_coop_campaign.gd` | Órbita → fazenda → órbita → Country Town, chegada, inventário em viagem, consumo de vendas, quest nativa, desbloqueios, late join, migração e nave de recuperação |
+| `test_coop_player_state.gd` | Ruído do convidado ouvido no host, óculos remotos, raio X restrito ao mundo do dono, exclusão com invisibilidade, colisão de queda/recuperação e limpeza na morte |
+| `test_coop_pursuit.gd` | Estrelas compartilhadas, roubo sem duplicação, isolamento do alerta SP, criação/remoção de reforços e captura de seu estado para migração |
+
+Execute cada script com o mesmo binário Godot 4.8 dev7 e opções
+`--headless --path . --script res://tools/<script>.gd` do comando acima.
+Esses testes de loopback não comprovam encaminhamento UDP, conexão entre
+máquinas nem os visuais de ragdoll, raio X, feixes e crescimento no tanque.
+
 `tools/test_portal_multiplayer.gd` cria peers ENet de loopback no mesmo processo,
 com um `MultiplayerAPI` e um `SubViewport`/`World3D` separado por peer. Usa a
 porta de teste definida em `PORT`; feche outra execução do teste antes de iniciar.
@@ -142,7 +156,9 @@ Roteiro manual da arena:
 5. Abra a loja com `Esc`, compre em peers diferentes e confira o débito do mesmo
    pool e a concessão ao comprador. O menu não deve pausar os outros ETs.
 6. Entre depois de entregas/compras, desconecte o portador e depois o host;
-   confira o estado inicial do convidado, o drop e o retorno ao painel de conexão.
+   confira o estado inicial do convidado, o drop e a pausa/migração para o
+   convidado de menor slot. Teste também porta do sucessor inacessível: a falha
+   deve voltar ao painel de conexão com uma mensagem.
 7. Repita host/join em duas máquinas na mesma rede para verificar o transporte
    fora do loopback, usando as [instruções do README](../README.md#co-op-de-portais).
 8. Selecione **Farm prototype** em todos os peers. Confira patrulha, perseguição

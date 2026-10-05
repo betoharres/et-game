@@ -11,10 +11,12 @@ As cenas de entrada e seus responsáveis estão em
 [fluxo-de-jogo.md](fluxo-de-jogo.md#etapas-e-quem-responde-por-cada-uma);
 a composição dos mapas, em [mundo.md](mundo.md).
 
-A arena `PortalCoop.tscn` e a fazenda `FarmCoop.tscn` usam um controlador de
+A campanha `CampaignCoop.tscn`, a arena `PortalCoop.tscn` e a fazenda
+`FarmCoop.tscn` usam um controlador de
 sessão local à cena, preservada nas transições compartilhadas de mapa.
 Autoridade, lobby/reconexão, coletáveis, economia, missão, recuperação de colegas,
-NPCs, quest e veículos do host ficam em [multiplayer.md](multiplayer.md).
+migração de host, adaptação das cenas SP, NPCs, quest e veículos do host ficam
+em [multiplayer.md](multiplayer.md).
 Seu dinheiro e suas compras não usam `GlobalScore` nem alteram o estado single-player.
 
 ## Autoloads

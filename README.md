@@ -108,9 +108,10 @@ Cenas de teste isoladas: `interior_space_ship_room_1.tscn` (gravidade radial),
 
 ## Co-op de portais
 
-No menu principal, escolha **CO-OP · PORTAIS (4 JOGADORES)**, ou abra
-`scenes/Multiplayer/PortalCoop.tscn` no editor. No lobby, todos selecionam o mesmo
-mapa: **Portal arena** ou **Farm prototype** (`FarmCoop.tscn`). Um jogador escolhe **Host game**;
+No menu principal, escolha **CO-OP (4 JOGADORES)** para abrir
+`scenes/Multiplayer/CampaignCoop.tscn`. No lobby, todos selecionam o mesmo
+modo: **SP campaign - Orbit**, **Portal arena** (`PortalCoop.tscn`) ou
+**Farm prototype** (`FarmCoop.tscn`). Um jogador escolhe **Host game**;
 os demais informam o IP do host e escolhem **Join game**, usando a mesma porta
 (padrão `7000`, UDP). No mesmo computador, use `127.0.0.1`; na mesma rede, use
 o IP local do host. Para internet, use o IP público do host; ele precisa liberar
@@ -120,12 +121,22 @@ Informe seu nome, confirme **Toggle ready** em cada jogador e deixe o host
 escolher **Start expedition**. Um convidado pode entrar durante a coleta;
 durante a partida, `Esc` abre o painel de sessão.
 
+A campanha começa na órbita: reúna toda a equipe viva a bordo e escolha a
+fazenda no console. Repare a nave para desbloquear o resgate em Country Town;
+o diálogo de resgate leva a equipe ao mapa. Qualquer colega pode descobrir o
+acidente, revelando os destroços para todos. Entregue na fazenda usando o sinal
+de abdução; no Country Town, largue os destroços no ponto de recuperação para
+a nave recolher. Vendas consomem esses objetos uma única vez. Lançamento retorna
+à órbita; saldo, compras, Radon e inventário guardado acompanham a equipe.
+
 Aproxime-se de um destroço azul ou dos scraps provenientes das cenas SP e pressione `E` para coletar; `G` ou
 `E` enquanto carrega larga o objeto. Ele acompanha o ET pelos portais, incluindo
 as cópias fatiadas. Cada ET pode carregar um objeto; vários jogadores podem
-carregar objetos diferentes. Se o portador morrer ou desconectar, o destroço volta ao chão.
+carregar objetos diferentes. Itens menores entram no inventário, respeitando
+capacidade; objetos de duas mãos e corpos ocupam as mãos. Se o portador morrer
+ou desconectar, seus objetos são largados.
 
-Largue o objeto no pad verde **TEAM DELIVERY** para creditar dinheiro e pontos
+Nos mapas protótipo, largue o objeto no pad verde **TEAM DELIVERY** para creditar dinheiro e pontos
 à equipe. Ele reaparece no spawn para repetir o ciclo. Os valores de entrega
 ficam na cena do coletável. O HUD mostra saldo, pontos e número de entregas;
 convidados que entram depois recebem o estado atual.
@@ -134,11 +145,17 @@ convidados que entram depois recebem o estado atual.
 mesma reserva de dinheiro; equipamento ou melhoria vai para o comprador.
 A loja inclui movimento, stamina, recuperação, escudo, óculos de raio X e
 relógio predador. Escudo e invisibilidade têm estado e energia controlados pelo
-host; raio X ainda aguarda revisão específica multiplayer. A sessão começa sem
+host; raio X funciona no mundo do dono, com óculos visíveis nas réplicas e sem
+ativação simultânea com invisibilidade. A sessão começa sem
 dinheiro e não persiste saldo ou compras em disco. Sair não reembolsa compras;
 reentrar pela mesma instância da sessão recupera compras e vida, sem cura gratuita.
 Recriar a cena ou fechar o jogo perde essa identidade de reconexão.
-Se o host sair, a partida termina para todos; não há migração de host.
+Se o host sair, a partida pausa e o convidado de menor slot assume usando o
+último checkpoint. Antes de entrar, configure **Your hosting IP** e **Hosting
+UDP** se necessário; porta zero escolhe automaticamente uma porta exibida após
+a conexão. Para migração pela internet, cada possível sucessor precisa liberar
+Godot e encaminhar sua própria porta UDP. Falha de conexão retorna ao painel;
+perda abrupta do host pode perder progresso posterior ao último checkpoint.
 
 Use a máquina junto à nave para comprar equipamento, repor Radon, reparar e
 lançar a expedição. Venda scraps para financiar o reparo; após reparar, reúna
@@ -154,13 +171,15 @@ e veículos também são compartilhados. `E` entra/sai: caminhonete tem motorist
 passageiro e dois lugares na caçamba; avião aceita somente piloto.
 
 Não existe respawn imediato. Carregue o corpo de um colega como um scrap e
-largue dentro do **SHIP REVIVAL TANK**: o host debita **$200** do dinheiro da
-equipe e revive o ET junto à nave, preservando compras. Sem saldo suficiente,
+largue junto ao console do **SHIP REVIVAL TANK**: o host debita **$200** do dinheiro da
+equipe e inicia um processamento de **20 segundos** em um dos quatro tanques.
+Ao terminar, revive o ET junto à nave, preservando compras. Sem saldo suficiente,
 o corpo aguarda enquanto os sobreviventes coletam scraps. Cair fora do mapa
 mata. Se todos os ETs conectados morrerem, o run é zerado e todos permanecem
 conectados no lobby para confirmar readiness e iniciar outra expedição.
 
-Esse modo é independente da fazenda, órbita e lojas single-player.
+O estado da equipe é independente do dinheiro e progresso single-player,
+mesmo quando a campanha reutiliza seus mapas.
 Arquitetura e limites: [docs/multiplayer.md](docs/multiplayer.md).
 
 ## Controles
@@ -224,14 +243,16 @@ ferramentas, em [`tools/VALIDACAO.md`](tools/VALIDACAO.md).
   nem persistência, e o inventário do autoload não está integrado ao fluxo de
   coleta.
 - Opções e remapeamentos não são salvos entre execuções.
-- O multiplayer tem ciclo compartilhado entre arena e fazenda protótipo, com
-  recuperação de colegas, quest, NPCs e veículos adaptados. Os mapas e fluxo
-  single-player completos continuam separados. NPCs e veículos não atravessam
-  portais; ocupantes não têm animação específica de sentar. Raio X aguarda
-  revisão multiplayer. Movimento do ET é simulado pelo cliente dono; coletáveis,
+- O multiplayer tem campanha compartilhada entre órbita, fazenda e Country Town,
+  além de arena/fazenda protótipo, com recuperação, quest, NPCs e veículos adaptados.
+  A adaptação não cobre automaticamente scripts novos; spider bots e o sistema
+  SP de scavenging ficam desativados na campanha. NPCs e veículos não atravessam
+  portais; ocupantes não têm animação específica de sentar.
+  Movimento do ET é simulado pelo cliente dono; coletáveis,
   combate, veículos e economia ficam no host. Validação de snapshots não é
   anticheat; simulação de atraso/perda nos testes cobre snapshots de movimento.
-  Não há split-screen, matchmaking, relay, persistência ou migração de host.
+  Não há split-screen, matchmaking, relay ou persistência em disco. Migração
+  exige um sucessor acessível por IP/UDP e usa o último checkpoint recebido.
 - A névoa rasteira não recebe luz das fontes do mapa; com a volumetria
   desligada, feixes e holofotes não formam cones de luz no ar.
 - A queda não causa dano nem é percebida pelos NPCs, e durante o ragdoll a

@@ -64,7 +64,7 @@ números de linha. Ao renomear um símbolo listado, ajuste sua entrada.
 | [arquitetura.md](arquitetura.md) | Autoloads, grupos globais, contratos, camadas de física/render, convenções locais | Mudanças que cruzam sistemas |
 | [fluxo-de-jogo.md](fluxo-de-jogo.md) | Menu → criador de ET → órbita → catálogo de fases → chegada → coleta → entrega | Menu, catálogo de fases, chegada na fase, área de entrega, pontuação |
 | [player.md](player.md) | `Player.tscn`, movimento, stamina/vida/equilíbrio, câmera, aparência, ragdoll, carregar itens e personagens | `scripts/player.gd` e tudo que pendura no ET |
-| [multiplayer.md](multiplayer.md) | Lobby/reconexão, missão compartilhada, câmeras, economia, revival, NPCs, quest, veículos e porta co-op | `scenes/Multiplayer/`, `scripts/multiplayer/` |
+| [multiplayer.md](multiplayer.md) | Campanha órbita/fazenda/Country Town, lobby/reconexão e migração, inventário, missão, câmeras, economia, revival, NPCs e perseguição, quest, veículos e portas | `scenes/Multiplayer/`, `scripts/multiplayer/` |
 | [npcs.md](npcs.md) | `NPCActor` + Beehave, visão/audição, rotina e atividades, papéis (fazendeiro, morador, policial) e os NPCs legados da fazenda | `scripts/npc/`, `scenes/NPCs/`, comportamento de qualquer NPC |
 | [animacoes.md](animacoes.md) | Dois rigs incompatíveis: Mixamo (Player) e Synty (NPCs); `AnimationTree`, IK e modificadores | Animação do Player ou dos NPCs, troca de clipe, rig novo |
 | [veiculos.md](veiculos.md) | Caminhonete dirigível, viatura com IA, avião, nave alienígena | `scripts/driveable_truck.gd`, `vehicle_ai_driver.gd`, `plane/`, `space/` |

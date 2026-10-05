@@ -36,8 +36,10 @@ reparo e partida. O terminal single-player mantém o tema base.
 
 `scripts/multiplayer/portal_session.gd` constrói o painel de host/join,
 desconexão, seletor de mapa, saldo/pontos da equipe e loja em `PortalCoop.tscn`
-e `FarmCoop.tscn`. A morte abre este painel com **Respawn**, substituindo o
-restart single-player; o personagem novo mantém compras e slot. `Esc` bloqueia
+e `FarmCoop.tscn`, além de `CampaignCoop.tscn`. O painel informa IP/porta para
+hospedar após migração. A morte abre o painel sem respawn imediato: o retorno
+depende do [tanque de revival](multiplayer.md#dano-morte-e-recuperação).
+A campanha reutiliza o seletor e diálogos SP com desbloqueios da sessão. `Esc` bloqueia
 apenas movimento e input do ET local, sem pausar a partida ou o polling da rede.
 As compras enviam pedidos ao host; a atualização de saldo e posse vem da sessão.
 Ver [multiplayer.md](multiplayer.md#economia-e-compras).
