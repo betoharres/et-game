@@ -238,10 +238,10 @@ func _process_terminal_requests() -> void:
 				_publish_economy()
 				_publish_mission()
 		elif action == &"launch":
-			var ready: bool = ship_repaired
+			var departure_ready: bool = ship_repaired
 			for player: CharacterBody3D in players.values():
-				ready = ready and player.is_alive() and player.global_position.distance_to(terminal.global_position) <= 6.0
-			if ready:
+				departure_ready = departure_ready and player.is_alive() and player.global_position.distance_to(terminal.global_position) <= 6.0
+			if departure_ready:
 				mission_phase = &"departing"
 				_departure_remaining = 3.0
 				last_round_deliveries = deliveries - _round_start_deliveries
@@ -426,7 +426,7 @@ func _make_campaign_containers() -> void:
 		add_child(container)
 
 
-func spawn_shared_asset(id: StringName, path: String, position: Vector3) -> void:
+func spawn_shared_asset(id: StringName, path: String, spawn_position: Vector3) -> void:
 	if items.has(id):
 		return
 	var item: RigidBody3D = (load(path) as PackedScene).instantiate() as RigidBody3D
@@ -440,7 +440,7 @@ func spawn_shared_asset(id: StringName, path: String, position: Vector3) -> void
 		item.set(property, properties[property])
 	item.name = str(id)
 	item.set("network_id", id)
-	item.position = position
+	item.position = spawn_position
 	$PickupItemsContainer.add_child(item)
 	items[id] = item
 	_item_owners[id] = 0
@@ -1418,8 +1418,8 @@ func _valid_snapshot(state: Dictionary) -> bool:
 		return false
 	if motion.length() > 150.0 or pose.origin.length() > 10000.0:
 		return false
-	var scale: Vector3 = pose.basis.get_scale()
-	if scale.distance_to(Vector3.ONE) > 0.05:
+	var pose_scale: Vector3 = pose.basis.get_scale()
+	if pose_scale.distance_to(Vector3.ONE) > 0.05:
 		return false
 	for key: String in ["on_floor", "sprinting", "crouching", "eye_light"]:
 		if not state.get(key) is bool:
@@ -1474,8 +1474,8 @@ func _refresh_ui() -> void:
 	if _status == null:
 		return
 	var active: bool = not players.is_empty() or _connecting
+	var local_id: int = multiplayer.get_unique_id()
 	if _migration_hint != null:
-		var local_id: int = multiplayer.get_unique_id()
 		if players.has(local_id) and not host_migration.active:
 			var endpoint: Dictionary = host_migration.checkpoint.get("endpoints", {}).get(local_id, {})
 			var hosting_port: int = int(_migration_port.value) if _migration_port.value > 0 else mini(65535, int(_port.value) + _slots[local_id] + 1)
@@ -1512,7 +1512,6 @@ func _refresh_ui() -> void:
 		_results_label.text = "MISSION COMPLETE\n%d sales · $%d earned\nShip repaired. Departing together…" % [last_round_deliveries, last_round_money] if mission_phase == &"departing" else "TEAM LOST\n%d sales · $%d earned\nReturning to lobby. Run reset." % [last_round_deliveries, last_round_money]
 
 	_shop_panel.visible = _menu_open and not players.is_empty() and mission_phase == &"collecting" and not host_migration.active
-	var local_id: int = multiplayer.get_unique_id()
 	for item_id: StringName in _shop_buttons:
 		var cost: int = get_purchase_cost(local_id, item_id)
 		var title: String = str(item_id).replace("_", " ").capitalize()

@@ -304,8 +304,8 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 		var body: RigidBody3D = _session.get_node("VehiclesContainer").get_node(NodePath(str(id))) as RigidBody3D
 		var vehicle: Dictionary = state.vehicles[id]
 		var occupants: Array[int] = []
-		for owner: int in vehicle.seats:
-			occupants.append(mapping.get(owner, 0))
+		for occupant_id: int in vehicle.seats:
+			occupants.append(mapping.get(occupant_id, 0))
 		body.get_node("CoopSeats")._receive_seats(occupants)
 		body.global_transform = vehicle.pose
 		body.linear_velocity = vehicle.velocity
@@ -348,7 +348,7 @@ func reset() -> void:
 	_attempt += 1
 	for node: Node in _paused_modes:
 		if is_instance_valid(node):
-			node.process_mode = _paused_modes[node]
+			node.process_mode = _paused_modes[node] as Node.ProcessMode
 	_paused_modes.clear()
 	active = false
 	checkpoint.clear()

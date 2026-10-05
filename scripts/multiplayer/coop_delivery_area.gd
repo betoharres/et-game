@@ -47,7 +47,10 @@ func _process(delta: float) -> void:
 	prompt_root.visible = nearby and (available != null or _state == DeliveryState.CHARGING)
 	if prompt_root.visible:
 		_update_key_icon()
-		_update_charge_prompt() if _state == DeliveryState.CHARGING else _update_waiting_prompt()
+		if _state == DeliveryState.CHARGING:
+			_update_charge_prompt()
+		else:
+			_update_waiting_prompt()
 	_heartbeat += delta
 	if _heartbeat >= 0.1:
 		_heartbeat = 0.0

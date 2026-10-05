@@ -111,12 +111,12 @@ func _restore_units(state: Dictionary) -> void:
 	for npc: PursuitNPC in active_enemies.duplicate():
 		if not state.units.has(str(npc.name)):
 			_retire(npc)
-	for name: String in state.units:
-		if _units.has_node(NodePath(name)):
+	for unit_name: String in state.units:
+		if _units.has_node(NodePath(unit_name)):
 			continue
-		var record: Dictionary = state.units[name]
+		var record: Dictionary = state.units[unit_name]
 		var npc: PursuitNPC = agent_scene.instantiate() as PursuitNPC
-		npc.name = name
+		npc.name = unit_name
 		npc.profile = load(record.profile) as PursuitProfile
 		_units.add_child(npc)
 		npc.global_transform = record.pose

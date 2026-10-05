@@ -783,7 +783,7 @@ func _set_character_visual_hidden(hidden : bool) -> void:
 		if not is_instance_valid(geometry):
 			continue
 		var shadow_mode : int = _first_person_shadow_modes[geometry]
-		geometry.cast_shadow = shadow_mode
+		geometry.cast_shadow = shadow_mode as GeometryInstance3D.ShadowCastingSetting
 	_first_person_shadow_modes.clear()
 
 
