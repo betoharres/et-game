@@ -1546,31 +1546,34 @@ func _build_ui() -> void:
 	layer.add_child(_mission_label)
 	_results_panel = PanelContainer.new()
 	_results_panel.theme = COOP_MENU_THEME
-	_results_panel.position = Vector2(430, 140)
-	_results_panel.custom_minimum_size = Vector2(450, 180)
-	layer.add_child(_results_panel)
+	_results_panel.custom_minimum_size.y = 180
 	var results: VBoxContainer = VBoxContainer.new()
 	_results_panel.add_child(results)
 	_results_label = Label.new()
 	_results_label.add_theme_font_size_override("font_size", 24)
+	_results_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	results.add_child(_results_label)
 	_panel = PanelContainer.new()
 	_panel.theme = COOP_MENU_THEME
-	_panel.position = Vector2(24, 140)
-	_panel.custom_minimum_size = Vector2(380, 0)
 	layer.add_child(_panel)
+	_panel.anchor_left = 0.2
+	_panel.anchor_right = 0.8
+	_panel.anchor_top = 0.18
+	_panel.anchor_bottom = 0.9
+	_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	var margin: MarginContainer = MarginContainer.new()
 	for side: String in ["left", "top", "right", "bottom"]:
 		margin.add_theme_constant_override("margin_" + side, 0)
 	_panel.add_child(margin)
 	var scroll: ScrollContainer = ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(340, clampf(get_viewport().get_visible_rect().size.y - 200.0, 280.0, 600.0))
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	margin.add_child(scroll)
 	var column: VBoxContainer = VBoxContainer.new()
 	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	column.add_theme_constant_override("separation", 12)
 	scroll.add_child(column)
+	column.add_child(_results_panel)
 	var title: Label = Label.new()
 	title.theme_type_variation = &"CoopHeading"
 	title.text = session_title
@@ -1637,9 +1640,7 @@ func _build_ui() -> void:
 		get_tree().change_scene_to_file("res://scenes/Menu/main_menu.tscn"))
 	_shop_panel = PanelContainer.new()
 	_shop_panel.theme = COOP_MENU_THEME
-	_shop_panel.position = Vector2(430, 140)
-	_shop_panel.custom_minimum_size.x = 320
-	layer.add_child(_shop_panel)
+	column.add_child(_shop_panel)
 	var shop: VBoxContainer = VBoxContainer.new()
 	_shop_panel.add_child(shop)
 	var shop_title: Label = Label.new()

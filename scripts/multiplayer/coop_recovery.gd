@@ -1,13 +1,21 @@
 extends Node3D
 
-const COST: int = 200
+signal recovery_tick(delta: float)
+
+const TANK_SCRIPT: Script = preload("res://scripts/multiplayer/revival_tank.gd")
+const COST: int = TANK_SCRIPT.COST
 const CORPSE_SCRIPT: Script = preload("res://scripts/multiplayer/shared_scrap.gd")
 var victims: Dictionary[StringName, int] = {}
+var revivals: Dictionary[int, Dictionary] = {}
 var _session: Node3D
 
 
 func _ready() -> void:
 	_session = get_parent() as Node3D
+
+
+func _physics_process(delta: float) -> void:
+	recovery_tick.emit(delta)
 
 
 func create_corpse(peer_id: int) -> void:
@@ -94,26 +102,36 @@ func _spawn_corpse(peer_id: int, pose: Transform3D) -> void:
 		player_name.hide()
 
 
-func _physics_process(_delta: float) -> void:
-	if not multiplayer.is_server() or _session.mission_phase != &"collecting":
-		return
+func _publish_revivals() -> void:
+	_receive_revivals(revivals)
+	_receive_revivals.rpc(revivals)
+
+
+@rpc("authority", "call_remote", "reliable")
+func _receive_revivals(state: Dictionary) -> void:
+	revivals.assign(state.duplicate(true))
+	for peer_id: int in revivals:
+		if not _session.players.has(peer_id):
+			continue
+		var player: CharacterBody3D = _session.players[peer_id]
+		player.ragdoll.stop_ragdoll()
+		player.character_visual.hide()
+		player.collision_layer = 0
+		player.collision_mask = 0
+		var player_name: Label3D = player.get_node_or_null("PlayerName") as Label3D
+		if player_name != null:
+			player_name.hide()
 	var tank: Node3D = _session.get_node_or_null("PropsContainer/RevivalTank")
-	if tank == null:
-		return
-	var label: Label3D = tank.get_node("Label") as Label3D
-	label.text = "SHIP REVIVAL TANK - $200\nDROP A TEAMMATE'S BODY INSIDE" if _session.team_money >= COST else "SHIP REVIVAL TANK - $200\nTEAM NEEDS $%d MORE - SELL SCRAP" % (COST - _session.team_money)
-	for id: StringName in victims.keys():
-		if not _session.items.has(id) or _session._item_owners[id] != 0 or _session.team_money < COST:
-			continue
-		var body: RigidBody3D = _session.items[id]
-		if tank.to_local(body.global_position).distance_to(Vector3(0, 0.4, 0)) > 1.2:
-			continue
-		var peer_id: int = victims[id]
-		_session.team_money -= COST
-		_remove_corpse(id)
-		_remove_corpse.rpc(id)
-		_session.call("_respawn_player", peer_id)
-		_session.call("_publish_economy")
+	if tank != null:
+		tank.update_visuals(revivals, _session.team_money, _session.player_names)
+
+
+func restore_revivals(state: Dictionary, mapping: Dictionary) -> void:
+	revivals.clear()
+	for old_id: int in state:
+		if mapping.has(old_id):
+			revivals[int(mapping[old_id])] = state[old_id].duplicate(true)
+	_receive_revivals(revivals)
 
 
 @rpc("authority", "call_remote", "reliable")
@@ -128,11 +146,15 @@ func _remove_corpse(id: StringName) -> void:
 
 
 func reset() -> void:
+	_receive_revivals({})
 	for id: StringName in victims.keys():
 		_remove_corpse(id)
 
 
 func remove_peer(peer_id: int) -> void:
+	if revivals.has(peer_id):
+		revivals.erase(peer_id)
+		_publish_revivals()
 	var id: StringName = StringName("corpse_%d" % peer_id)
 	if victims.has(id):
 		_remove_corpse(id)
@@ -140,5 +162,6 @@ func remove_peer(peer_id: int) -> void:
 
 
 func send_snapshot(peer_id: int) -> void:
+	_receive_revivals.rpc_id(peer_id, revivals)
 	for id: StringName in victims:
 		_spawn_corpse.rpc_id(peer_id, victims[id], _session.items[id].global_transform)

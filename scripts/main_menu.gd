@@ -17,6 +17,7 @@ var transition_started : bool = false
 var button_base_positions : Dictionary = {}
 
 @onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
+@onready var coop_button : Button = $ColorRect/MenuBar/VSeparator/CoopButton
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
 @onready var menu_button_3 : Button = $ColorRect/MenuBar/VSeparator/MenuButton3
 @onready var main_menu_container : Control = $ColorRect/MenuBar/VSeparator
@@ -70,20 +71,7 @@ func _ready() -> void:
 	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
 	menu_button_3.pressed.connect(_on_exit_pressed)
-	var coop_button: Button = menu_button_2.duplicate(0) as Button
-	coop_button.name = "CoopButton"
-	coop_button.text = "CO-OP · PORTAIS (4 JOGADORES)"
-	coop_button.focus_neighbor_top = NodePath("../MenuButton1")
-	coop_button.focus_neighbor_bottom = NodePath("../MenuButton2")
-	main_menu_container.add_child(coop_button)
-	main_menu_container.move_child(coop_button, menu_button_2.get_index())
-	menu_button_1.focus_neighbor_bottom = NodePath("../CoopButton")
-	menu_button_2.focus_neighbor_top = NodePath("../CoopButton")
-	coop_button.pressed.connect(func() -> void:
-		if transition_started:
-			return
-		transition_started = true
-		get_node("/root/SceneTransition").warp_to("res://scenes/Multiplayer/CampaignCoop.tscn"))
+	coop_button.pressed.connect(_on_coop_pressed)
 	audio_toggle.toggled.connect(_on_audio_toggled)
 	audio_toggle.mouse_entered.connect(_on_audio_hover.bind(true))
 	audio_toggle.mouse_exited.connect(_on_audio_hover.bind(false))
@@ -127,6 +115,14 @@ func _on_play_pressed() -> void:
 	var scene_transition : Node = get_node("/root/SceneTransition")
 	scene_transition.warp_to("res://scenes/Menu/CharacterCreator.tscn")
 
+func _on_coop_pressed() -> void:
+	if transition_started:
+		return
+	transition_started = true
+	_play_click()
+	get_node("/root/SceneTransition").warp_to("res://scenes/Multiplayer/CampaignCoop.tscn")
+
+
 func _on_options_pressed() -> void:
 	_play_click()
 	setup_resolutions()
@@ -169,7 +165,7 @@ func _on_keybinds_back_pressed() -> void:
 
 
 func _setup_menu_motion() -> void:
-	var buttons : Array[Button] = [menu_button_1, menu_button_2, menu_button_3]
+	var buttons : Array[Button] = [menu_button_1, coop_button, menu_button_2, menu_button_3]
 	for button : Button in buttons:
 		button_base_positions[button] = button.position.x
 		button.mouse_entered.connect(_on_menu_button_hover.bind(button, true))
@@ -189,7 +185,7 @@ func _on_menu_button_hover(button : Button, hovered : bool) -> void:
 
 
 func _set_atmosphere_state(button : Button) -> void:
-	if button == menu_button_1:
+	if button == menu_button_1 or button == coop_button:
 		menu_atmosphere.set_menu_state("play")
 	elif button == menu_button_2:
 		menu_atmosphere.set_menu_state("options")
@@ -203,7 +199,7 @@ func _play_menu_intro() -> void:
 	# rates. The emblem pulses once at the end so the eye lands on it.
 	var header : Control = $ColorRect/Header
 	var elements : Array[Control] = [
-		header, menu_bar, menu_button_1, menu_button_2, menu_button_3
+		header, menu_bar, menu_button_1, coop_button, menu_button_2, menu_button_3
 	]
 	for element : Control in elements:
 		element.modulate.a = 0.0
@@ -211,9 +207,10 @@ func _play_menu_intro() -> void:
 	_tune_in(header, 0.0, 0.34)
 	_tune_in(menu_bar, 0.12, 0.3)
 	_tune_in(menu_button_1, 0.26, 0.26)
-	_tune_in(menu_button_2, 0.32, 0.24)
-	_tune_in(menu_button_3, 0.38, 0.22)
-	_pulse_emblem(0.44)
+	_tune_in(coop_button, 0.32, 0.24)
+	_tune_in(menu_button_2, 0.38, 0.24)
+	_tune_in(menu_button_3, 0.44, 0.22)
+	_pulse_emblem(0.50)
 
 
 ## Fades a control in as an unstable signal: a few irregular alpha steps that

@@ -1,50 +1,48 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://xx1rcyn87uma"]
 
-[ext_resource type="Script" path="res://scripts/multiplayer/coop_ship_shop.gd" id="1"]
-
-[sub_resource type="StandardMaterial3D" id="Hull"]
-albedo_color = Color(0.04, 0.075, 0.1, 1)
-metallic = 0.65
-roughness = 0.3
-
-[sub_resource type="StandardMaterial3D" id="Screen"]
-albedo_color = Color(0.1, 0.85, 0.65, 1)
-emission_enabled = true
-emission = Color(0.1, 0.85, 0.65, 1)
-
-[sub_resource type="BoxMesh" id="HullMesh"]
-size = Vector3(1.3, 1.8, 0.7)
-material = SubResource("Hull")
+[ext_resource type="Script" uid="uid://b1iiig6b3bf0j" path="res://scripts/multiplayer/coop_ship_shop.gd" id="1"]
+[ext_resource type="ArrayMesh" uid="uid://dn8yyxy1c5gpu" path="res://PolygonSciFiWorlds/Models/SM_Prop_Locker_01.fbx" id="2_26016"]
+[ext_resource type="ArrayMesh" uid="uid://dw25vop4nsia1" path="res://PolygonSciFiWorlds/Models/SM_Prop_Monitor_03.fbx" id="3_sqqo7"]
+[ext_resource type="Material" uid="uid://0eufbctfdcyl" path="res://Materiais/SciFiWorlds1A.tres" id="3_vjpo1"]
+[ext_resource type="ArrayMesh" uid="uid://de7uhqany7twu" path="res://PolygonSciFiWorlds/Models/SM_Prop_TrashBin_01.fbx" id="5_3n6a0"]
 
 [sub_resource type="BoxShape3D" id="HullShape"]
-size = Vector3(1.3, 1.8, 0.7)
+size = Vector3(2.0164063, 2.213965, 0.9169434)
 
-[sub_resource type="BoxMesh" id="ScreenMesh"]
-size = Vector3(1.0, 0.65, 0.04)
-material = SubResource("Screen")
+[sub_resource type="BoxShape3D" id="BoxShape3D_vjpo1"]
+size = Vector3(1.666333, 1.7262452, 1.9595826)
 
-[node name="ShopTerminal" type="Node3D"]
+[node name="ShopTerminal" type="Node3D" unique_id=2063256209]
 script = ExtResource("1")
 
-[node name="Hull" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.9, 0)
-layers = 128
-mesh = SubResource("HullMesh")
+[node name="Body" type="StaticBody3D" parent="." unique_id=176877791]
 
-[node name="Body" type="StaticBody3D" parent="."]
-
-[node name="Collision" type="CollisionShape3D" parent="Body"]
-position = Vector3(0, 0.9, 0)
+[node name="Collision" type="CollisionShape3D" parent="Body" unique_id=19771918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43417978, 1.1069825, 0.003881812)
 shape = SubResource("HullShape")
 
-[node name="Screen" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.2, 0.38)
-layers = 128
-mesh = SubResource("ScreenMesh")
+[node name="Collision2" type="CollisionShape3D" parent="Body" unique_id=2146945537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9694917, 0.8631226, 1.5278088)
+shape = SubResource("BoxShape3D_vjpo1")
 
-[node name="Label" type="Label3D" parent="."]
-position = Vector3(0, 2.2, 0)
-text = "SHIP SHOP / EXTRACTION\n[E] · SELL SCRAP ON GREEN PAD"
-font_size = 36
+[node name="Label" type="Label3D" parent="." unique_id=960493187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 pixel_size = 0.008
 billboard = 1
+text = "SHIP SHOP / EXTRACTION
+[E] · SELL SCRAP ON GREEN PAD"
+font_size = 36
+
+[node name="SmPropLocker01" type="MeshInstance3D" parent="." unique_id=2032739082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+mesh = ExtResource("2_26016")
+surface_material_override/0 = ExtResource("3_vjpo1")
+
+[node name="SmPropMonitor03" type="MeshInstance3D" parent="." unique_id=1684197610]
+mesh = ExtResource("3_sqqo7")
+surface_material_override/0 = ExtResource("3_vjpo1")
+
+[node name="SmPropTrashBin01" type="MeshInstance3D" parent="." unique_id=2137627227]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.9706644, 0, 1.5300499)
+mesh = ExtResource("5_3n6a0")
+surface_material_override/0 = ExtResource("3_vjpo1")

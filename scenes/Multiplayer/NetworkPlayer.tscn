@@ -1,7 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dbd66tt3yy552"]
 
-[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_player"]
-[ext_resource type="Script" path="res://scripts/multiplayer/network_player.gd" id="2_network"]
+[ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://bbox3inel0prg" path="res://scripts/multiplayer/network_player.gd" id="2_network"]
 
-[node name="NetworkPlayer" instance=ExtResource("1_player")]
+[node name="NetworkPlayer" unique_id=2146132597 instance=ExtResource("1_player")]
 script = ExtResource("2_network")
+
+[node name="Camera3D" parent="CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" parent_id_path=PackedInt32Array(1571529631) index="0" unique_id=1582696248]
+far = 50000.0
+
+[editable path="ET"]

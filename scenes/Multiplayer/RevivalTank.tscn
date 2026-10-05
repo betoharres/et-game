@@ -1,71 +1,296 @@
 [gd_scene format=3 uid="uid://b56xl3fkj24h"]
 
-[sub_resource type="StandardMaterial3D" id="Glass"]
-transparency = 1
-albedo_color = Color(0.05, 0.8, 0.6, 0.3)
+[ext_resource type="ArrayMesh" uid="uid://c8vqrt8camsfb" path="res://PolygonSciFiWorlds/Models/FX_Cylinder_01.fbx" id="1_720pu"]
+[ext_resource type="Material" uid="uid://0eufbctfdcyl" path="res://Materiais/SciFiWorlds1A.tres" id="2_du3xh"]
+[ext_resource type="ArrayMesh" uid="uid://bvvf04rgfx23b" path="res://PolygonSciFiWorlds/Models/SM_Prop_Monitor_06.fbx" id="3_0t80s"]
+[ext_resource type="ArrayMesh" uid="uid://d1udu5nipkj1u" path="res://PolygonSciFiWorlds/Models/SM_Prop_PowerGenerator_03.fbx" id="4_ftfmy"]
+[ext_resource type="ArrayMesh" uid="uid://c451q7hvk0gh8" path="res://PolygonScifiCity/FBX/SM_Prop_Detail_01.fbx" id="6_f446a"]
+[ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="7_7yh4b"]
+[ext_resource type="ArrayMesh" uid="uid://c52he44g0dyxp" path="res://PolygonSciFiWorlds/Models/SM_Env_Plant_Flower_Large_03.fbx" id="8_pjept"]
+[ext_resource type="ArrayMesh" uid="uid://b3iy3trxd8f0u" path="res://PolygonSciFiWorlds/Models/SM_Env_Plant_Flower_Large_Pod_02.fbx" id="9_qhp7m"]
+[ext_resource type="PackedScene" uid="uid://dqt2028vars56" path="res://3dModelos/ET.glb" id="10_7yh4b"]
+[ext_resource type="Shader" uid="uid://c4exthf0b8suh" path="res://shaders/bacta_liquid.gdshader" id="11_liquid"]
 
-[sub_resource type="CylinderMesh" id="Tank"]
-material = SubResource("Glass")
-top_radius = 0.85
-bottom_radius = 0.85
-height = 2.4
+[ext_resource type="Script" path="res://scripts/multiplayer/revival_tank.gd" id="12_behavior"]
 
-[sub_resource type="StandardMaterial3D" id="HullMaterial"]
-albedo_color = Color(0.2, 0.27, 0.31, 1)
-metallic = 0.7
+[sub_resource type="BoxShape3D" id="BoxShape3D_7yh4b"]
+size = Vector3(0.4497715, 1.101123, 0.5022598)
 
-[sub_resource type="CylinderMesh" id="Hull"]
-material = SubResource("HullMaterial")
-top_radius = 2.2
-bottom_radius = 4.5
-height = 0.9
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7j5wg"]
+height = 2.2491417
+radius = 0.5776367
 
-[sub_resource type="CylinderMesh" id="Pad"]
-material = SubResource("HullMaterial")
-top_radius = 4.5
-bottom_radius = 4.5
-height = 0.1
+[sub_resource type="BoxShape3D" id="BoxShape3D_gqvrd"]
+size = Vector3(1.7383423, 2.2475586, 0.40966797)
 
-[sub_resource type="BoxMesh" id="Support"]
-material = SubResource("HullMaterial")
-size = Vector3(0.2, 3.5, 0.2)
+[sub_resource type="ShaderMaterial" id="ShaderMaterialBacta"]
+render_priority = 0
+shader = ExtResource("11_liquid")
+shader_parameter/liquid_color = Color(0.08, 0.55, 0.25, 0.28)
+shader_parameter/bubble_speed = 0.18
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7yh4b"]
+height = 10.626884
+radius = 2.6775088
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pjept"]
+height = 10.626884
+radius = 2.6775088
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qhp7m"]
+height = 10.626884
+radius = 2.6775088
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b5nff"]
+height = 10.626884
+radius = 2.6775088
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_owbfc"]
+height = 10.626884
+radius = 2.6775088
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_upd1p"]
+height = 10.626884
+radius = 2.6775088
 
 [node name="RevivalTank" type="Node3D" unique_id=1712886466]
-
-[node name="Tank" type="MeshInstance3D" parent="." unique_id=162878486]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-layers = 128
-mesh = SubResource("Tank")
+script = ExtResource("12_behavior")
 
 [node name="Label" type="Label3D" parent="." unique_id=1623374813]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6738367, 1.4511154, -0.5998056)
 billboard = 1
 text = "SHIP REVIVAL TANK · $200
 DROP A TEAMMATE'S BODY INSIDE"
 font_size = 36
 
-[node name="ShipHull" type="MeshInstance3D" parent="." unique_id=909321697]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 4, 0)
-layers = 128
-mesh = SubResource("Hull")
+[node name="SmPropMonitor06" type="MeshInstance3D" parent="." unique_id=237103664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.68559647, 0, -0.5585803)
+layers = 512
+mesh = ExtResource("3_0t80s")
+surface_material_override/0 = ExtResource("2_du3xh")
 
-[node name="RecoveryDeck" type="MeshInstance3D" parent="." unique_id=1105713310]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0)
-layers = 128
-mesh = SubResource("Pad")
+[node name="StaticBody3D" type="StaticBody3D" parent="SmPropMonitor06" unique_id=816645527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5505615, -0.018351644)
 
-[node name="SupportLeft" type="MeshInstance3D" parent="." unique_id=1010269640]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.75, -1.5)
-layers = 128
-mesh = SubResource("Support")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmPropMonitor06/StaticBody3D" unique_id=1341122707]
+shape = SubResource("BoxShape3D_7yh4b")
 
-[node name="SupportRight" type="MeshInstance3D" parent="." unique_id=1848090304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 1.75, -1.5)
-layers = 128
-mesh = SubResource("Support")
+[node name="SmPropPowerGenerator03" type="MeshInstance3D" parent="." unique_id=800882686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2676144, 0, 0.38520467)
+layers = 512
+mesh = ExtResource("4_ftfmy")
+surface_material_override/0 = ExtResource("2_du3xh")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=502617060]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.153739, 1.4913406, 0)
-layers = 4
-light_bake_mode = 1
-omni_range = 4096.0
+[node name="StaticBody3D" type="StaticBody3D" parent="SmPropPowerGenerator03" unique_id=251504081]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.6908176, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmPropPowerGenerator03/StaticBody3D" unique_id=1429455730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025458336, 0.006037116, 0.09672868)
+shape = SubResource("CylinderShape3D_7j5wg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SmPropPowerGenerator03/StaticBody3D" unique_id=1196637430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004407406, 0.0067695677, -0.49042958)
+shape = SubResource("BoxShape3D_gqvrd")
+
+[node name="Tank1" type="Node3D" parent="." unique_id=1759181021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3374381, 0, -1.6284955)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank1" unique_id=162878486]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank1/Tank" unique_id=1943186646]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank1/Tank/StaticBody3D" unique_id=1559057404]
+shape = SubResource("CylinderShape3D_7yh4b")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank1" unique_id=492716381]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank1" unique_id=1081976903]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmEnvPlantFlowerLarge03" type="MeshInstance3D" parent="Tank1" unique_id=1225340615]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0.22244942, 0)
+layers = 2
+mesh = ExtResource("8_pjept")
+surface_material_override/0 = ExtResource("2_du3xh")
+
+[node name="Tank2" type="Node3D" parent="." unique_id=1055602770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6625619, 0, -1.6284955)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank2" unique_id=1426651264]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank2/Tank" unique_id=778908689]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank2/Tank/StaticBody3D" unique_id=1628168419]
+shape = SubResource("CylinderShape3D_pjept")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank2" unique_id=2112462756]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank2" unique_id=525659043]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmEnvPlantFlowerLargePod02" type="MeshInstance3D" parent="Tank2" unique_id=1154203596]
+transform = Transform3D(0.285, 0, 0, 0, 0.285, 0, 0, 0, 0.285, 0, 0.26788247, 0)
+layers = 2
+mesh = ExtResource("9_qhp7m")
+surface_material_override/0 = ExtResource("2_du3xh")
+
+[node name="Tank3" type="Node3D" parent="." unique_id=184299877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.662562, 0, -1.6284955)
+
+[node name="ET1" parent="Tank3" unique_id=1291502949 instance=ExtResource("10_7yh4b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011824846, 0.4842592, 0.0032306314)
+visible = false
+
+[node name="Skeleton3D" parent="Tank3/ET1/ETArmature" parent_id_path=PackedInt32Array(1291502949, 1717691870) index="0" unique_id=898453532]
+bones/3/rotation = Quaternion(-0.022403, 0.011373, -0.006353, 0.872972)
+bones/8/rotation = Quaternion(0.138844, -0.011065, 0.006285, 0.869457)
+bones/15/rotation = Quaternion(0.462188, 0.303186, 0.014072, 0.991697)
+bones/30/rotation = Quaternion(0.162731, 0, 0, 0.999742)
+bones/31/rotation = Quaternion(0.145, 0, 0, 1)
+bones/34/rotation = Quaternion(0.5366, -0.109672, -0.002533, 0.991719)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank3" unique_id=200852916]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank3/Tank" unique_id=1860325244]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank3/Tank/StaticBody3D" unique_id=978596516]
+shape = SubResource("CylinderShape3D_qhp7m")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank3" unique_id=1855341629]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank3" unique_id=483570281]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="Tank4" type="Node3D" parent="." unique_id=1078190013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.662562, 0, 2.3715045)
+
+[node name="ET2" parent="Tank4" unique_id=755572022 instance=ExtResource("10_7yh4b")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.010006428, 0.48747087, 0.00044107437)
+visible = false
+
+[node name="Skeleton3D" parent="Tank4/ET2/ETArmature" parent_id_path=PackedInt32Array(755572022, 1717691870) index="0" unique_id=898453532]
+bones/3/rotation = Quaternion(-0.022403, 0.011373, -0.006353, 0.872972)
+bones/8/rotation = Quaternion(0.138844, -0.011065, 0.006285, 0.869457)
+bones/15/rotation = Quaternion(0.462188, 0.303186, 0.014072, 0.991697)
+bones/30/rotation = Quaternion(0.162731, 0, 0, 0.999742)
+bones/31/rotation = Quaternion(0.145, 0, 0, 1)
+bones/34/rotation = Quaternion(0.5366, -0.109672, -0.002533, 0.991719)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank4" unique_id=1608114969]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank4/Tank" unique_id=625519856]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank4/Tank/StaticBody3D" unique_id=432838840]
+shape = SubResource("CylinderShape3D_b5nff")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank4" unique_id=382195288]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank4" unique_id=914128363]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="Tank5" type="Node3D" parent="." unique_id=140667444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6625619, 0, 2.3715045)
+
+[node name="ET3" parent="Tank5" unique_id=2136832006 instance=ExtResource("10_7yh4b")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.002445221, 0.4842592, -0.0018658638)
+visible = false
+
+[node name="Skeleton3D" parent="Tank5/ET3/ETArmature" parent_id_path=PackedInt32Array(2136832006, 1717691870) index="0" unique_id=898453532]
+bones/3/rotation = Quaternion(-0.022403, 0.011373, -0.006353, 0.872972)
+bones/8/rotation = Quaternion(0.138844, -0.011065, 0.006285, 0.869457)
+bones/15/rotation = Quaternion(0.462188, 0.303186, 0.014072, 0.991697)
+bones/30/rotation = Quaternion(0.162731, 0, 0, 0.999742)
+bones/31/rotation = Quaternion(0.145, 0, 0, 1)
+bones/34/rotation = Quaternion(0.5366, -0.109672, -0.002533, 0.991719)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank5" unique_id=224574049]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank5/Tank" unique_id=1790727816]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank5/Tank/StaticBody3D" unique_id=1683990017]
+shape = SubResource("CylinderShape3D_owbfc")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank5" unique_id=1784338788]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank5" unique_id=1377564276]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="Tank6" type="Node3D" parent="." unique_id=757398961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3374381, 0, 2.3715045)
+
+[node name="ET4" parent="Tank6" unique_id=1403486592 instance=ExtResource("10_7yh4b")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.0058802366, 0.4842592, -0.0008587837)
+visible = false
+
+[node name="Skeleton3D" parent="Tank6/ET4/ETArmature" parent_id_path=PackedInt32Array(1403486592, 1717691870) index="0" unique_id=898453532]
+bones/3/rotation = Quaternion(-0.022403, 0.011373, -0.006353, 0.872972)
+bones/8/rotation = Quaternion(0.138844, -0.011065, 0.006285, 0.869457)
+bones/15/rotation = Quaternion(0.462188, 0.303186, 0.014072, 0.991697)
+bones/30/rotation = Quaternion(0.162731, 0, 0, 0.999742)
+bones/31/rotation = Quaternion(0.145, 0, 0, 1)
+bones/34/rotation = Quaternion(0.5366, -0.109672, -0.002533, 0.991719)
+
+[node name="Tank" type="MeshInstance3D" parent="Tank6" unique_id=404812195]
+transform = Transform3D(0.15909901, 0, 0.15909901, 0, 0.16, 0, -0.15909901, 0, 0.15909901, 0, 1, 0)
+layers = 128
+mesh = ExtResource("1_720pu")
+surface_material_override/0 = SubResource("ShaderMaterialBacta")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tank6/Tank" unique_id=1324501359]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tank6/Tank/StaticBody3D" unique_id=1119729511]
+shape = SubResource("CylinderShape3D_upd1p")
+
+[node name="SmPropDetail01" type="MeshInstance3D" parent="Tank6" unique_id=1430333499]
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[node name="SmPropDetail02" type="MeshInstance3D" parent="Tank6" unique_id=1300188899]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("6_f446a")
+surface_material_override/0 = ExtResource("7_7yh4b")
+
+[editable path="Tank3/ET1"]
+[editable path="Tank4/ET2"]
+[editable path="Tank5/ET3"]
+[editable path="Tank6/ET4"]

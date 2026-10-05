@@ -262,7 +262,7 @@ func _test_farm_features() -> void:
 	_check(not host.players[guest_id].is_alive() and host.team_money == 199, "Insufficient team funds keep deposited teammate dead")
 	host.team_money = 200
 	host._publish_economy()
-	_check(await _wait_for(func() -> bool: return guest.players[guest_id].is_alive()), "Earning the remaining dollar allows revival")
+	_check(await _wait_for(func() -> bool: return guest.players[guest_id].is_alive(), 25.0), "Earning the remaining dollar allows revival after regeneration")
 	_check(host.team_money == 0, "Recovery debits $200 exactly once")
 	for index: int in 4:
 		_sessions[index].players[_sessions[index].multiplayer.get_unique_id()].set_physics_process(false)
@@ -484,7 +484,10 @@ func _test_combat() -> void:
 
 func _recover_body(host: Node3D, peer_id: int) -> void:
 	var id: StringName = StringName("corpse_%d" % peer_id)
-	_check(await _wait_for(func() -> bool: return host.items.has(id)), "Recoverable body exists")
+	_check(await _wait_for(func() -> bool: return host.items.has(id) or host.recovery.revivals.has(peer_id)), "Recoverable body or active tank revival exists")
+	if host.recovery.revivals.has(peer_id):
+		_check(await _wait_for(func() -> bool: return host.players[peer_id].is_alive(), 25.0), "Body already at tank completes regeneration")
+		return
 	if not host.items.has(id):
 		return
 	var carrier_session: Node3D = _sessions[0] if peer_id != 1 else _sessions[1]
@@ -498,7 +501,16 @@ func _recover_body(host: Node3D, peer_id: int) -> void:
 	carrier.global_position = host.get_node("PropsContainer/RevivalTank").global_position - carrier.global_basis.z * 1.2
 	_check(await _wait_for(func() -> bool: return host.players[carrier_id].global_position.distance_to(carrier.global_position) < 0.05), "Rescuer carries body to ship")
 	carrier_session.items[id].drop()
-	_check(await _wait_for(func() -> bool: return host.players[peer_id].is_alive()), "Deposited body revives at tank")
+	_check(await _wait_for(func() -> bool: return host.recovery.revivals.has(peer_id)), "Deposited body starts timed regeneration")
+	_check(not host.players[peer_id].is_alive(), "Regenerating teammate remains dead")
+	_check(await _wait_for(func() -> bool: return _sessions[1].recovery.revivals.has(peer_id)), "Regeneration state reaches guests")
+	var slot: int = int(host.recovery.revivals[peer_id].slot) if host.recovery.revivals.has(peer_id) else 0
+	var tank_visual: Node3D = host.get_node("PropsContainer/RevivalTank/Tank%d/ET%d" % [slot + 3, slot + 1])
+	_check(tank_visual.visible and tank_visual.scale.length() < 0.5, "Tank ET starts visible and small")
+	await create_timer(0.5).timeout
+	_check(not host.players[peer_id].is_alive(), "Revival does not complete immediately")
+	_check(await _wait_for(func() -> bool: return host.players[peer_id].is_alive(), 25.0), "Deposited body revives after 20 seconds")
+	_check(not tank_visual.visible and not host.recovery.revivals.has(peer_id), "Completed revival frees and hides tank")
 
 
 func _test_collectible() -> void:
@@ -672,8 +684,8 @@ func _deliver_scrap(session: Node3D) -> void:
 	_check(host.deliveries == count + 1 and host.shared_item.global_position.distance_to(host._item_spawn_pose.origin) < 0.6, "Delivery pays exactly once and respawns the scrap")
 
 
-func _wait_for(predicate: Callable) -> bool:
-	var deadline: int = Time.get_ticks_msec() + (30000 if _visual else 5000)
+func _wait_for(predicate: Callable, timeout_seconds: float = 5.0) -> bool:
+	var deadline: int = Time.get_ticks_msec() + int(maxf(30.0 if _visual else 5.0, timeout_seconds) * 1000.0)
 	while Time.get_ticks_msec() < deadline:
 		if bool(predicate.call()):
 			return true

@@ -428,7 +428,7 @@ horizontal_alignment = 1
 [node name="MenuButton1" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=1654815041]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../MenuButton2")
+focus_neighbor_bottom = NodePath("../CoopButton")
 theme_override_colors/font_color = Color(0.96, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -448,10 +448,34 @@ icon = ExtResource("7_2q8my")
 alignment = 0
 expand_icon = true
 
-[node name="MenuButton2" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=517891902]
+[node name="CoopButton" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=889564672]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MenuButton1")
+focus_neighbor_bottom = NodePath("../MenuButton2")
+theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
+theme_override_colors/font_focus_color = Color(0.82, 0.97, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.82, 0.97, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.45, 0.55, 1)
+theme_override_colors/icon_normal_color = Color(0.42, 0.78, 1, 0.9)
+theme_override_colors/icon_focus_color = Color(0.78, 0.97, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.78, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxButtonNormal")
+theme_override_styles/pressed = SubResource("StyleBoxButtonPressed")
+theme_override_styles/hover = SubResource("StyleBoxButtonHover")
+theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
+theme_override_styles/focus = SubResource("StyleBoxButtonHover")
+text = "CO-OP (4 JOGADORES)"
+icon = ExtResource("12_23s28")
+alignment = 0
+expand_icon = true
+
+[node name="MenuButton2" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=517891902]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+focus_neighbor_top = NodePath("../CoopButton")
 focus_neighbor_bottom = NodePath("../MenuButton3")
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
 theme_override_colors/font_focus_color = Color(0.82, 0.97, 1, 1)

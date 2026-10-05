@@ -111,6 +111,7 @@ func capture() -> Dictionary:
 		"sales": _session._round_sales_money, "start_deliveries": _session._round_start_deliveries,
 		"mission_elapsed": _session._mission_elapsed, "items": item_states, "npcs": npc_states,
 		"vehicles": vehicles, "quest": quest_state, "door": door_state,
+		"revivals": _session.recovery.revivals.duplicate(true),
 		"departed": _session._departed.duplicate(true)}
 
 
@@ -287,6 +288,7 @@ func _restore(state: Dictionary, connected_roster: Dictionary) -> void:
 		_session._item_spawns[id] = item.spawn
 		_session._item_revisions[id] = item.revision - 1
 		_session._receive_item_state(mapping.get(item.owner, 0), item.pose, item.motion, item.revision, id)
+	_session.recovery.restore_revivals(state.get("revivals", {}), mapping)
 	_session._receive_mission(state.mission)
 	for id: StringName in state.npcs:
 		if not _session.npcs.has(id):
