@@ -9,6 +9,9 @@ func _ready() -> void:
 	add_to_group("upgrade_stations")
 	add_to_group("modal_interfaces")
 	_build_interface()
+	_overlay.theme = preload("res://Materiais/coop_menu_theme.tres")
+	_repair_button.theme_type_variation = &"CoopPrimary"
+	_next_level_button.theme_type_variation = &"CoopPrimary"
 	_session.team_state_changed.connect(_refresh)
 	_refresh()
 

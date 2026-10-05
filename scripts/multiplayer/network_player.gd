@@ -282,6 +282,12 @@ func _ready() -> void:
 	var hud: Node = get_node("PlayerHUD")
 	if died.is_connected(hud._on_player_died):
 		died.disconnect(hud._on_player_died)
+	if not is_local_player():
+		# Inherited scene connections also fire for replicas on this peer.
+		var death_effect: CanvasLayer = get_node("DeathEffect") as CanvasLayer
+		var death_audio: AudioStreamPlayer = get_node("DeathEffect/DeathAudio") as AudioStreamPlayer
+		died.disconnect(death_effect.show)
+		died.disconnect(death_audio.play)
 	died.connect(func() -> void: get_parent().get_parent().call("on_player_death", get_multiplayer_authority()))
 	if is_local_player():
 		camera_pivot.get_camera().make_current()

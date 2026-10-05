@@ -14,6 +14,7 @@ const CAMPAIGN_SCENE: String = "res://scenes/Multiplayer/CampaignCoop.tscn"
 var campaign: Node
 var _campaign_loaded: Dictionary[int, bool] = {}
 var portable_assets: Dictionary[StringName, Dictionary] = {}
+const COOP_MENU_THEME: Theme = preload("res://Materiais/coop_menu_theme.tres")
 const SHIP_SHOP = preload("res://scripts/space/ship_shop.gd")
 const SHARED_SCRAP_SCRIPT: Script = preload("res://scripts/multiplayer/shared_scrap.gd")
 const FARM_SCRAPS: Array[String] = ["Bucket", "Radio", "Telephone", "Glasses", "BaseballBat", "Bottle", "Hoe", "WateringCan", "Toothpaste", "StuffedMonkey", "SoccerBall", "RemoteControl"]
@@ -1533,14 +1534,19 @@ func _build_ui() -> void:
 	add_child(layer)
 	_status = Label.new()
 	_status.position = Vector2(24, 72)
+	_status.theme = COOP_MENU_THEME
 	layer.add_child(_status)
 	_team_label = Label.new()
 	_team_label.position = Vector2(24, 100)
+	_team_label.theme = COOP_MENU_THEME
+	_team_label.add_theme_color_override("font_color", Color(0.4, 0.92, 1.0))
 	layer.add_child(_team_label)
 	_mission_label = Label.new()
 	_mission_label.position = Vector2(24, 120)
+	_mission_label.theme = COOP_MENU_THEME
 	layer.add_child(_mission_label)
 	_results_panel = PanelContainer.new()
+	_results_panel.theme = COOP_MENU_THEME
 	_results_panel.position = Vector2(430, 140)
 	_results_panel.custom_minimum_size = Vector2(450, 180)
 	layer.add_child(_results_panel)
@@ -1550,13 +1556,13 @@ func _build_ui() -> void:
 	_results_label.add_theme_font_size_override("font_size", 24)
 	results.add_child(_results_label)
 	_panel = PanelContainer.new()
-	_panel.theme = SHIP_SHOP.HUD_THEME
+	_panel.theme = COOP_MENU_THEME
 	_panel.position = Vector2(24, 140)
 	_panel.custom_minimum_size = Vector2(380, 0)
 	layer.add_child(_panel)
 	var margin: MarginContainer = MarginContainer.new()
 	for side: String in ["left", "top", "right", "bottom"]:
-		margin.add_theme_constant_override("margin_" + side, 20)
+		margin.add_theme_constant_override("margin_" + side, 0)
 	_panel.add_child(margin)
 	var scroll: ScrollContainer = ScrollContainer.new()
 	scroll.custom_minimum_size = Vector2(340, clampf(get_viewport().get_visible_rect().size.y - 200.0, 280.0, 600.0))
@@ -1567,12 +1573,15 @@ func _build_ui() -> void:
 	column.add_theme_constant_override("separation", 12)
 	scroll.add_child(column)
 	var title: Label = Label.new()
+	title.theme_type_variation = &"CoopHeading"
 	title.text = session_title
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	column.add_child(title)
 	_name_entry = LineEdit.new()
 	_name_entry.text = "ET"
 	_name_entry.placeholder_text = "Your name"
 	_name_entry.max_length = 24
+	_name_entry.custom_minimum_size.y = 40
 	column.add_child(_name_entry)
 	_roster_label = Label.new()
 	column.add_child(_roster_label)
@@ -1584,10 +1593,12 @@ func _build_ui() -> void:
 	_map_choice.item_selected.connect(func(index: int) -> void:
 		if players.is_empty() and not _connecting:
 			get_tree().change_scene_to_file(CAMPAIGN_SCENE if index == 2 else LEVEL_PATHS[index]))
+	_map_choice.custom_minimum_size.y = 44
 	column.add_child(_map_choice)
 	_address = LineEdit.new()
 	_address.text = "127.0.0.1"
 	_address.placeholder_text = "Host IP address"
+	_address.custom_minimum_size.y = 40
 	column.add_child(_address)
 	_migration_address = LineEdit.new()
 	_migration_address.placeholder_text = "Your hosting IP (optional; auto-detected)"
@@ -1614,9 +1625,11 @@ func _build_ui() -> void:
 	_port.value = DEFAULT_PORT
 	port_row.add_child(_port)
 	_host_button = _button(column, "Host game", func() -> void: host_game(int(_port.value)))
+	_host_button.theme_type_variation = &"CoopPrimary"
 	_join_button = _button(column, "Join game", func() -> void: join_game(_address.text, int(_port.value)))
 	_ready_button = _button(column, "Toggle ready", set_ready)
 	_start_button = _button(column, "Start expedition", start_expedition)
+	_start_button.theme_type_variation = &"CoopPrimary"
 	_resume_button = _button(column, "Resume", func() -> void: _set_menu_open(false))
 	_respawn_button = _button(column, "Respawn", request_respawn)
 	_disconnect_button = _button(column, "Disconnect", func() -> void: disconnect_game())
@@ -1624,14 +1637,20 @@ func _build_ui() -> void:
 		disconnect_game()
 		get_tree().change_scene_to_file("res://scenes/Menu/main_menu.tscn"))
 	_shop_panel = PanelContainer.new()
+	_shop_panel.theme = COOP_MENU_THEME
 	_shop_panel.position = Vector2(430, 140)
 	_shop_panel.custom_minimum_size.x = 320
 	layer.add_child(_shop_panel)
 	var shop: VBoxContainer = VBoxContainer.new()
 	_shop_panel.add_child(shop)
 	var shop_title: Label = Label.new()
-	shop_title.text = "TEAM FUNDS · EQUIPMENT FOR YOU"
+	shop_title.theme_type_variation = &"CoopHeading"
+	shop_title.text = "EQUIPAMENTO"
 	shop.add_child(shop_title)
+	var shop_hint: Label = Label.new()
+	shop_hint.text = "SALDO DA EQUIPE · MELHORIAS PARA VOCÊ"
+	shop_hint.add_theme_font_size_override("font_size", 12)
+	shop.add_child(shop_hint)
 	for item_id: StringName in [&"movement", &"stamina", &"recovery", &"energy_shield", &"xray_goggles", &"predator_watch"]:
 		_shop_buttons[item_id] = _button(shop, str(item_id), buy_item.bind(item_id))
 	_refresh_ui()
@@ -1641,7 +1660,7 @@ func _build_ui() -> void:
 func _button(parent: VBoxContainer, caption: String, callback: Callable) -> Button:
 	var button: Button = Button.new()
 	button.text = caption
-	button.custom_minimum_size.y = 36
+	button.custom_minimum_size.y = 44
 	button.pressed.connect(callback)
 	parent.add_child(button)
 	return button

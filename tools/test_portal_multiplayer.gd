@@ -457,6 +457,10 @@ func _test_combat() -> void:
 	_check(host._item_owner == 0 and guest.shared_item.carrier == null, "Death releases carried item")
 	for index: int in 4:
 		_check(not _sessions[index].players[peer_id].energy_shield_mesh.visible, "Dead player's shield is hidden on every peer")
+		var replica: CharacterBody3D = _sessions[index].players[peer_id]
+		_check(replica.get_node("DeathEffect").visible == replica.is_local_player(), "Death grayscale appears only on the victim's peer")
+		if not replica.is_local_player():
+			_check(not replica.get_node("DeathEffect/DeathAudio").playing, "Remote death does not play death music")
 	_check(not guest._respawn_button.visible and not target.get_node("PlayerHUD").defeat_menu.visible, "Death requires team recovery")
 	guest.request_respawn()
 	await create_timer(0.1).timeout

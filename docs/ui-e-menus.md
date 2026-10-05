@@ -1,7 +1,10 @@
 # UI, menus e HUDs
 
-Todas as telas compartilham o tema `Materiais/hud_theme.tres` e uma família
-única de ícones em `Texturas/ui/`, gerada dos meshes low-poly do pacote
+O tema base das interfaces é `Materiais/hud_theme.tres`. O menu principal
+define seus estilos na própria cena; os menus co-op usam
+`Materiais/coop_menu_theme.tres`, com fontes Oxanium, painéis azul-escuros,
+bordas arredondadas e destaques ciano seguindo esse menu. A família
+de ícones em `Texturas/ui/` é gerada dos meshes low-poly do pacote
 *Polygon Prototype* por `tools/render_prototype_icons.py`. Ícone novo sai
 dessa mesma ferramenta, para não quebrar a unidade visual.
 
@@ -22,6 +25,14 @@ dessa mesma ferramenta, para não quebrar a unidade visual.
 | Painel de parâmetros | `scenes/UI_ParameterPanel.tscn` | Demo isolada da água; nada é gravado em disco |
 
 ## Menu e loja co-op
+
+O tema `Materiais/coop_menu_theme.tres` é aplicado por
+`scripts/multiplayer/portal_session.gd` ao painel de sessão, à loja de
+equipamentos, aos resultados e aos rótulos de status, saldo e missão.
+`CoopHeading` diferencia títulos e `CoopPrimary` destaca ações principais.
+`scripts/multiplayer/coop_ship_shop.gd` reutiliza a interface construída por
+`scripts/space/ship_shop.gd` e aplica o tema co-op ao seu overlay, destacando
+reparo e partida. O terminal single-player mantém o tema base.
 
 `scripts/multiplayer/portal_session.gd` constrói o painel de host/join,
 desconexão, seletor de mapa, saldo/pontos da equipe e loja em `PortalCoop.tscn`
@@ -89,7 +100,8 @@ certo — não edite o menu para conhecê-lo.
 
 ## Ao alterar
 
-1. Elemento visual novo: reaproveite `hud_theme.tres` e os ícones existentes.
+1. Elemento visual novo: reaproveite `hud_theme.tres` ou, nos menus co-op,
+   `coop_menu_theme.tres`, além dos ícones existentes.
 2. Texto: o jogo é em português; siga o tom das telas já escritas.
 3. Tecla nova: Input Map + `README.md` + menu de rebind (acima).
 4. Validação: `tools/test_minimap.gd` (busca por grupos, escala e fiação) e
