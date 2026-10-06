@@ -4,7 +4,14 @@ var _session: Node3D
 
 
 func _ready() -> void:
-	_session = get_parent().get_parent() as Node3D
+	var ancestor: Node = get_parent()
+	while ancestor != null and not ancestor.has_method("get_shop_terminal"):
+		ancestor = ancestor.get_parent()
+	_session = ancestor as Node3D
+	if _session == null:
+		queue_free()
+		return
+	add_to_group("coop_shop_terminals")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group("upgrade_stations")
 	add_to_group("modal_interfaces")
@@ -17,7 +24,7 @@ func _ready() -> void:
 
 
 func reserves_interaction_for(character: Node3D) -> bool:
-	return character != null and character.get_world_3d() == get_world_3d() and bool(character.call("is_local_player")) and bool(character.call("is_alive")) and super.reserves_interaction_for(character)
+	return _session != null and character != null and character.has_method("is_local_player") and character.get_world_3d() == get_world_3d() and bool(character.call("is_local_player")) and bool(character.call("is_alive")) and super.reserves_interaction_for(character)
 
 
 func open(character: CharacterBody3D) -> bool:

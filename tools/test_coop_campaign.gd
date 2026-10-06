@@ -118,7 +118,7 @@ func _run() -> void:
 		host._publish_item_state(guest_id, host.items[held_id].global_transform, Vector3.ZERO, held_id)
 		_check(await _wait(func() -> bool: return guest.players[guest_id].exploration_inventory.items.size() == 1), "Guest stores an item before return travel")
 	host.debug_add_team_money()
-	var terminal: Node3D = host.get_node("PropsContainer/ShopTerminal") as Node3D
+	var terminal: Node3D = host.get_shop_terminal() as Node3D
 	host.players[1].global_position = terminal.global_position + Vector3(0, 0, 1.2)
 	guest.players[guest_id].global_position = terminal.global_position + Vector3(0.6, 0, 1.2)
 	await _wait(func() -> bool: return host.players[guest_id].global_position.distance_to(terminal.global_position) < 3.0)

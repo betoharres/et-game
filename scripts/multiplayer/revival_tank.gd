@@ -8,10 +8,15 @@ var _visual_bases: Dictionary[Node3D, Transform3D] = {}
 
 
 func _ready() -> void:
-	var candidate: Node = get_parent().get_parent() if get_parent() != null else null
-	if candidate != null and candidate.has_method("_respawn_player"):
-		_session = candidate as Node3D
-		_connect_recovery.call_deferred()
+	var ancestor: Node = get_parent()
+	while ancestor != null and not ancestor.has_method("get_revival_tank"):
+		ancestor = ancestor.get_parent()
+	_session = ancestor as Node3D
+	if _session == null:
+		queue_free()
+		return
+	add_to_group("coop_revival_tanks")
+	_connect_recovery.call_deferred()
 	for slot: int in TANK_COUNT:
 		var visual: Node3D = get_node("Tank%d/ET%d" % [slot + 3, slot + 1]) as Node3D
 		_visual_bases[visual] = visual.transform
@@ -19,7 +24,8 @@ func _ready() -> void:
 
 
 func _connect_recovery() -> void:
-	_session.recovery.recovery_tick.connect(_on_recovery_tick)
+	if is_instance_valid(_session):
+		_session.recovery.recovery_tick.connect(_on_recovery_tick)
 
 
 func _on_recovery_tick(delta: float) -> void:

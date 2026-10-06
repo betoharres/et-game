@@ -207,6 +207,9 @@
 [ext_resource type="PackedScene" path="res://scenes/PursuitSystem.tscn" id="pursuit_system"]
 [ext_resource type="Script" uid="uid://ciahfw8ggnra1" path="res://scripts/space/ship_shop.gd" id="ship_shop_script"]
 
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="coop_shop"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/RevivalTank.tscn" id="coop_revival"]
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_ec6vt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5p8eo"]
@@ -13199,3 +13202,11 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -61.
 [editable path="BuildingsHolder/Barn3"]
 [editable path="BuildingsHolder/Barn3/SM_Bld_Barn_03"]
 [editable path="PortalPair"]
+
+[node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="ShopTerminal" parent="PropsContainer" instance=ExtResource("coop_shop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.666153, 0.1560452, -33.352203)
+
+[node name="RevivalTank" parent="PropsContainer" instance=ExtResource("coop_revival")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.666153, 0.1560452, -33.352203)

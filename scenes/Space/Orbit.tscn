@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="10_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="13_mission_dialogue"]
 
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="coop_shop"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/RevivalTank.tscn" id="coop_revival"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_surface"]
 render_priority = 0
 shader = ExtResource("3_earth_surface")
@@ -184,3 +187,11 @@ far = 10000.0
 
 [editable path="CharacterBody3D"]
 [editable path="CharacterBody3D/ET"]
+
+[node name="PropsContainer" type="Node3D" parent="."]
+
+[node name="ShopTerminal" parent="PropsContainer" instance=ExtResource("coop_shop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.382, -3.783)
+
+[node name="RevivalTank" parent="PropsContainer" instance=ExtResource("coop_revival")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.382, -3.783)

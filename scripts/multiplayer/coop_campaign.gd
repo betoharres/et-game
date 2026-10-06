@@ -149,6 +149,8 @@ func load_world(path: String) -> void:
 
 func _prepare(node: Node) -> void:
 	for child: Node in node.get_children():
+		if child.get_script() in [preload("res://scripts/multiplayer/coop_ship_shop.gd"), preload("res://scripts/multiplayer/revival_tank.gd")]:
+			continue
 		if child.get_script() == preload("res://scripts/player.gd") or child.name == &"PauseMenu" or child.name == &"PhotoAlertHUD":
 			if child is Node3D and child.get_script() == preload("res://scripts/player.gd"):
 				spawn_position = (child as Node3D).position
@@ -280,15 +282,6 @@ func _prepare_enemy(enemy: CharacterBody3D, photographer: bool) -> void:
 
 
 func _setup_services() -> void:
-	var props: Node3D = session.get_node("PropsContainer") as Node3D
-	var terminal: Node3D = (load("res://scenes/Multiplayer/CoopShopTerminal.tscn") as PackedScene).instantiate() as Node3D
-	terminal.name = "ShopTerminal"
-	terminal.position = spawn_position + Vector3(3, 0, 0)
-	props.add_child(terminal)
-	var tank: Node3D = (load("res://scenes/Multiplayer/RevivalTank.tscn") as PackedScene).instantiate() as Node3D
-	tank.name = "RevivalTank"
-	tank.position = spawn_position + Vector3(-3, 0, 0)
-	props.add_child(tank)
 	var zone: Area3D = Area3D.new()
 	zone.name = "DeliveryZone"
 	var shape: CollisionShape3D = CollisionShape3D.new()

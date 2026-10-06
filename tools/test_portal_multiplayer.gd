@@ -256,7 +256,7 @@ func _test_farm_features() -> void:
 	host.team_money = 199
 	host._publish_economy()
 	var corpse_id: StringName = StringName("corpse_%d" % guest_id)
-	var tank: Node3D = host.get_node("PropsContainer/RevivalTank")
+	var tank: Node3D = host.get_revival_tank()
 	host._publish_item_state(0, Transform3D(Basis.IDENTITY, tank.global_position + Vector3(0, 0.4, 0)), Vector3.ZERO, corpse_id)
 	await create_timer(0.25).timeout
 	_check(not host.players[guest_id].is_alive() and host.team_money == 199, "Insufficient team funds keep deposited teammate dead")
@@ -355,7 +355,7 @@ func _test_mission_loop() -> void:
 	var guest_id: int = guest.multiplayer.get_unique_id()
 	var solo_money: int = int(root.get_node("GlobalScore").get("money"))
 	var solo_progress: int = int(load("res://scripts/levels/game_progress.gd").highest_repaired_level)
-	var terminal: Node3D = host.get_node("PropsContainer/ShopTerminal")
+	var terminal: Node3D = host.get_shop_terminal()
 	var buyer: CharacterBody3D = guest.players[guest_id]
 	for index: int in [0, 2, 3]:
 		var session: Node3D = _sessions[index]
@@ -372,7 +372,7 @@ func _test_mission_loop() -> void:
 	_check(await _wait_for(func() -> bool: return guest.team_money == before + 15), "SP scrap sells for its authored price into team funds")
 	buyer.global_position = terminal.global_position + Vector3(1.3, 0, 1.3)
 	_check(await _wait_for(func() -> bool: return host.players[guest_id].global_position.distance_to(buyer.global_position) < 0.05), "Buyer reaches machine")
-	var guest_terminal: Node3D = guest.get_node("PropsContainer/ShopTerminal")
+	var guest_terminal: Node3D = guest.get_shop_terminal()
 	_check(guest_terminal.open(buyer) and not paused, "SP machine interface opens without pausing co-op")
 	guest_terminal._repair_ship()
 	await create_timer(0.15).timeout
@@ -498,14 +498,14 @@ func _recover_body(host: Node3D, peer_id: int) -> void:
 	_check(await _wait_for(func() -> bool: return host.players[carrier_id].global_position.distance_to(carrier.global_position) < 0.05), "Rescuer reaches corpse")
 	carrier_session.items[id].pickup(carrier)
 	_check(await _wait_for(func() -> bool: return host._item_owners[id] == carrier_id), "Teammate picks up shared corpse")
-	carrier.global_position = host.get_node("PropsContainer/RevivalTank").global_position - carrier.global_basis.z * 1.2
+	carrier.global_position = host.get_revival_tank().global_position - carrier.global_basis.z * 1.2
 	_check(await _wait_for(func() -> bool: return host.players[carrier_id].global_position.distance_to(carrier.global_position) < 0.05), "Rescuer carries body to ship")
 	carrier_session.items[id].drop()
 	_check(await _wait_for(func() -> bool: return host.recovery.revivals.has(peer_id)), "Deposited body starts timed regeneration")
 	_check(not host.players[peer_id].is_alive(), "Regenerating teammate remains dead")
 	_check(await _wait_for(func() -> bool: return _sessions[1].recovery.revivals.has(peer_id)), "Regeneration state reaches guests")
 	var slot: int = int(host.recovery.revivals[peer_id].slot) if host.recovery.revivals.has(peer_id) else 0
-	var tank_visual: Node3D = host.get_node("PropsContainer/RevivalTank/Tank%d/ET%d" % [slot + 3, slot + 1])
+	var tank_visual: Node3D = host.get_revival_tank().get_node("Tank%d/ET%d" % [slot + 3, slot + 1])
 	_check(tank_visual.visible and tank_visual.scale.length() < 0.5, "Tank ET starts visible and small")
 	await create_timer(0.5).timeout
 	_check(not host.players[peer_id].is_alive(), "Revival does not complete immediately")

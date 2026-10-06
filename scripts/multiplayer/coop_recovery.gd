@@ -121,7 +121,7 @@ func _receive_revivals(state: Dictionary) -> void:
 		var player_name: Label3D = player.get_node_or_null("PlayerName") as Label3D
 		if player_name != null:
 			player_name.hide()
-	var tank: Node3D = _session.get_node_or_null("PropsContainer/RevivalTank")
+	var tank: Node3D = _session.get_revival_tank()
 	if tank != null:
 		tank.update_visuals(revivals, _session.team_money, _session.player_names)
 

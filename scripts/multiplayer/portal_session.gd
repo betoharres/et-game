@@ -215,7 +215,7 @@ func _request_terminal_action(action: StringName) -> void:
 
 
 func _process_terminal_requests() -> void:
-	var terminal: Node3D = get_node_or_null("PropsContainer/ShopTerminal")
+	var terminal: Node3D = get_shop_terminal()
 	for request: Dictionary in _terminal_requests:
 		var peer_id: int = request["peer"]
 		if terminal == null or not players.has(peer_id) or not players[peer_id].is_alive() or mission_phase != &"collecting":
@@ -291,7 +291,7 @@ func _receive_mission(state: Dictionary) -> void:
 	for player: CharacterBody3D in players.values():
 		player.call("_update_oxygen_display")
 	if mission_phase != &"collecting":
-		var terminal: Node = get_node_or_null("PropsContainer/ShopTerminal")
+		var terminal: Node = get_shop_terminal()
 		if terminal != null:
 			terminal.call("close")
 		for player: CharacterBody3D in players.values():
@@ -606,7 +606,7 @@ func on_player_death(peer_id: int) -> void:
 				_release_item(peer_id, item_id)
 		recovery.call("create_corpse", peer_id)
 	if peer_id == multiplayer.get_unique_id():
-		var terminal: Node = get_node_or_null("PropsContainer/ShopTerminal")
+		var terminal: Node = get_shop_terminal()
 		if terminal != null:
 			terminal.call("close")
 		_set_menu_open(true)
@@ -647,7 +647,10 @@ func _respawn_player(peer_id: int) -> void:
 	if mission_phase != &"collecting" or not players.has(peer_id) or players[peer_id].is_alive():
 		return
 	var generation: int = _life_generations[peer_id] + 1
-	var revival_position: Vector3 = $PropsContainer/RevivalTank.global_position + Vector3(0, 1, 2)
+	var tank: Node3D = get_revival_tank()
+	if tank == null:
+		return
+	var revival_position: Vector3 = tank.to_global(Vector3(0, 1, 2))
 	_replace_player(peer_id, generation, revival_position)
 	_replace_player.rpc(peer_id, generation, revival_position)
 	_publish_combat(peer_id)
@@ -813,7 +816,7 @@ func disconnect_game(message: String = "Disconnected. Host or join another sessi
 	if vehicles != null:
 		for vehicle: Node in vehicles.get_children():
 			vehicle.get_node("CoopSeats").call("reset")
-	var terminal: Node = get_node_or_null("PropsContainer/ShopTerminal")
+	var terminal: Node = get_shop_terminal()
 	if terminal != null:
 		terminal.call("close")
 	ship_repaired = false
@@ -1366,7 +1369,7 @@ func _process_purchases() -> void:
 @rpc("authority", "call_remote", "reliable")
 func _purchase_result(message: String) -> void:
 	_set_status(message)
-	var terminal: Node = get_node_or_null("PropsContainer/ShopTerminal")
+	var terminal: Node = get_shop_terminal()
 	if terminal != null and bool(terminal.call("is_open")):
 		terminal.call("show_result", message)
 
@@ -1447,7 +1450,7 @@ func _sanitize_appearance(payload: Dictionary) -> Dictionary:
 
 
 func _input(event: InputEvent) -> void:
-	var terminal: Node = get_node_or_null("PropsContainer/ShopTerminal")
+	var terminal: Node = get_shop_terminal()
 	if terminal != null and bool(terminal.call("is_open")):
 		return
 	if event.is_action_pressed("ui_cancel") and not event.is_echo() and not players.is_empty():
@@ -1709,3 +1712,18 @@ func _campaign_player_loaded(peer_id: int, round_number: int) -> void:
 		mission_phase = &"collecting"
 		_begin_expedition()
 	_publish_mission()
+
+
+func get_shop_terminal() -> Node3D:
+	return _find_session_service(&"coop_shop_terminals")
+
+
+func get_revival_tank() -> Node3D:
+	return _find_session_service(&"coop_revival_tanks")
+
+
+func _find_session_service(group: StringName) -> Node3D:
+	for candidate: Node in get_tree().get_nodes_in_group(group):
+		if is_ancestor_of(candidate) and not candidate.is_queued_for_deletion():
+			return candidate as Node3D
+	return null
