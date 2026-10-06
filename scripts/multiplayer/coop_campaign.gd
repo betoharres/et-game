@@ -55,6 +55,11 @@ func load_world(path: String) -> void:
 	world = (load(path) as PackedScene).instantiate() as Node3D
 	spawn_position = (world.get_node("SpawnPoint") as Node3D).position
 	world.name = "CampaignWorld"
+	var scraps_holder: Node = world.get_node_or_null("ScrapsHolder")
+	if scraps_holder != null and scraps_holder.has_method("ensure_generated"):
+		# Generate before preparation so every peer registers the same item paths and types.
+		scraps_holder.set("generation_seed", 1337)
+		scraps_holder.call("ensure_generated")
 	_prepare(world)
 	session.add_child(world)
 	var dungeon: Node3D = world.get_node_or_null("Dungeon") as Node3D

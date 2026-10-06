@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cet0j5k6ljep3"]
 
+[ext_resource type="Script" path="res://scripts/scraps_holder.gd" id="scraps_holder_script"]
 [ext_resource type="PackedScene" uid="uid://dda3p71q4ryjb" path="res://scenes/Buildings/FarmHouse01.tscn" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx1ao3wlr47dc" path="res://scenes/Buildings/Silo02.tscn" id="2_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://cut8qchy5b2rx" path="res://scenes/Vehicles/PickUp01.tscn" id="4_qfnet"]
@@ -13108,32 +13109,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 0, -110)
 dungeon_path = NodePath("../Dungeon")
 
 [node name="ScrapsHolder" type="Node3D" parent="." unique_id=973279639]
+script = ExtResource("scraps_holder_script")
 
-[node name="SpaceshipScraps" parent="ScrapsHolder" unique_id=626107039 instance=ExtResource("27_ts3gi")]
+[node name="ScrapSpawn" type="Marker3D" parent="ScrapsHolder" unique_id=626107039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0.03, -10.5)
 
-[node name="SpaceshipScraps2" parent="ScrapsHolder" unique_id=1950931597 instance=ExtResource("27_ts3gi")]
+[node name="ScrapSpawn2" type="Marker3D" parent="ScrapsHolder" unique_id=1950931597]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.443676, -1.9073486e-06, -16.38624)
 
-[node name="SpaceshipScraps3" parent="ScrapsHolder" unique_id=1030946306 instance=ExtResource("186_0tnqy")]
+[node name="ScrapSpawn3" type="Marker3D" parent="ScrapsHolder" unique_id=1030946306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.278774, -2.861023e-06, 26.517572)
 
-[node name="SpaceshipScraps7" parent="ScrapsHolder" unique_id=1544427752 instance=ExtResource("187_u6w7b")]
+[node name="ScrapSpawn7" type="Marker3D" parent="ScrapsHolder" unique_id=1544427752]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.32552, -8.497826, 28.067389)
 
-[node name="SpaceshipScraps5" parent="ScrapsHolder" unique_id=611257175 instance=ExtResource("188_so2em")]
+[node name="ScrapSpawn5" type="Marker3D" parent="ScrapsHolder" unique_id=611257175]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.251408, 0, -46.93089)
 
-[node name="SpaceshipScraps4" parent="ScrapsHolder" unique_id=921262471 instance=ExtResource("189_0480k")]
+[node name="ScrapSpawn4" type="Marker3D" parent="ScrapsHolder" unique_id=921262471]
 transform = Transform3D(0.68158257, 0, 0.73174125, 0, 1, 0, -0.73174125, 0, 0.68158257, -7.6655707, 0.7498075, -14.977326)
 
-[node name="SpaceshipScraps6" parent="ScrapsHolder" unique_id=1681236300 instance=ExtResource("190_t6th7")]
+[node name="ScrapSpawn6" type="Marker3D" parent="ScrapsHolder" unique_id=1681236300]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.619029, 0, -46.900146)
 
-[node name="SpaceshipScraps8" parent="ScrapsHolder" unique_id=174749796 instance=ExtResource("191_47d22")]
+[node name="ScrapSpawn8" type="Marker3D" parent="ScrapsHolder" unique_id=174749796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.950242, 0, 6.880688)
 
-[node name="SpaceshipScraps9" parent="ScrapsHolder" unique_id=1704994491 instance=ExtResource("187_u6w7b")]
+[node name="ScrapSpawn9" type="Marker3D" parent="ScrapsHolder" unique_id=1704994491]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.468, 3.226, -14.255)
 
 [node name="GorillaBananaQuest" parent="." unique_id=677496972 instance=ExtResource("gorilla_quest")]
