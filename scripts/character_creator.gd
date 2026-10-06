@@ -330,7 +330,7 @@ func _on_confirm_pressed() -> void:
 		appearance.call("set_profile", _profile, true)
 	_fade_music()
 	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.call("abduction_warp_to", "res://scenes/Space/Orbit.tscn")
+	scene_transition.call("abduction_warp_to", "res://scenes/Multiplayer/CampaignCoop.tscn")
 
 
 func _on_back_pressed() -> void:

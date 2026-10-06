@@ -8,6 +8,21 @@ const SCENE_NAMES : Array[String] = [
 	"Glasses", "Bottle", "BaseballBat", "Telephone", "Bucket", "WateringCan",
 ]
 
+class AnimationProbe:
+	extends RefCounted
+	func set_carry_mode(_enabled: bool) -> void:
+		pass
+
+class ItemPlayer:
+	extends CharacterBody3D
+	signal exploration_inventory_changed
+	var carried_item: RigidBody3D
+	var animation_controller: AnimationProbe = AnimationProbe.new()
+	func is_local_player() -> bool:
+		return false
+	func _clear_exploration_hands() -> void:
+		carried_item = null
+
 var failures : int = 0
 
 
@@ -19,13 +34,14 @@ func _run() -> void:
 	var world : Node3D = Node3D.new()
 	root.add_child(world)
 	current_scene = world
-	var player : CharacterBody3D = CharacterBody3D.new()
+	var player: ItemPlayer = ItemPlayer.new()
 	world.add_child(player)
 	var carry_socket : Marker3D = Marker3D.new()
 	carry_socket.name = "CarrySocket"
 	carry_socket.position = Vector3(0.0, 1.1, 0.65)
 	player.add_child(carry_socket)
 	var inventory : Node = INVENTORY_SCRIPT.new()
+	inventory.name = "ExplorationInventory"
 	player.add_child(inventory)
 	# O filtro é independente da árvore e não precisa do rig de animação do bot.
 	var bot : Node3D = SPIDER_BOT_SCRIPT.new()
@@ -57,13 +73,18 @@ func _test_item(scene_name : String, world : Node3D, player : Node3D, inventory 
 	_check(not bool(bot.call("_is_valid_item", item)), "%s: bot não recolhe objeto disponível" % scene_name)
 	var original_layer : int = item.collision_layer
 	var original_mask : int = item.collision_mask
+	var requests: Array[Node3D] = []
+	item.connect("pickup_requested", func(candidate: Node3D) -> void: requests.append(candidate))
+	item.call("pickup", player)
+	_check(requests == [player] and item.get_parent() == world, "%s: pickup requests host approval before changing ownership" % scene_name)
 	if bool(item.get("two_handed")):
 		_check(not bool(inventory.call("store_item", item, player)), "%s: ferramenta comprida não entra no inventário" % scene_name)
-		item.call("pickup", player)
+		item.call("apply_network_state", player, item.global_transform, Vector3.ZERO, false)
 		_check(item.visible and item.get_parent() == player, "%s: permanece visível nas mãos" % scene_name)
 		_check(item.position.is_equal_approx((player.get_node("CarrySocket") as Marker3D).position), "%s: usa o encaixe de transporte" % scene_name)
 	else:
-		_check(bool(inventory.call("store_item", item, player)), "%s: entra no inventário" % scene_name)
+		_check(not bool(inventory.call("store_item", item, player)), "%s: local inventory cannot bypass host approval" % scene_name)
+		item.call("apply_network_state", player, item.global_transform, Vector3.ZERO, false)
 		_check(not item.visible and item.get_parent() == player, "%s: objeto guardado sai do cenário" % scene_name)
 		_check(int(inventory.call("used_slots")) > 0, "%s: ocupa espaço no inventário" % scene_name)
 		_check(not bool(inventory.call("store_item", item, player)), "%s: guardar novamente não duplica" % scene_name)
@@ -74,6 +95,7 @@ func _test_item(scene_name : String, world : Node3D, player : Node3D, inventory 
 	else:
 		inventory.call("select_slot", 0)
 		inventory.call("drop_selected", player)
+	item.call("apply_network_state", null, Transform3D(Basis.IDENTITY, player.global_position + Vector3(0, 0.3, 1.2)), Vector3.ZERO, true)
 	_check(item.get_parent() == world and item.visible and not item.freeze, "%s: soltar restaura o objeto no mundo" % scene_name)
 	_check(item.collision_layer == original_layer and item.collision_mask == original_mask, "%s: colisão restaurada após soltar" % scene_name)
 	_check(int(inventory.call("used_slots")) == 0, "%s: soltar libera todos os slots" % scene_name)
@@ -122,11 +144,14 @@ func _test_repeated_objects(world : Node3D, player : Node3D, inventory : Node) -
 	var second : RigidBody3D = packed.instantiate() as RigidBody3D
 	world.add_child(first)
 	world.add_child(second)
-	_check(bool(inventory.call("store_item", first, player)), "Primeira bola cabe no inventário")
-	_check(bool(inventory.call("store_item", second, player)), "Segundo exemplar do mesmo tipo é coletável independentemente")
+	first.call("apply_network_state", player, first.global_transform, Vector3.ZERO, false)
+	_check(inventory.get("items").has(first), "Primeira bola cabe no inventário")
+	second.call("apply_network_state", player, second.global_transform, Vector3.ZERO, false)
+	_check(inventory.get("items").has(second), "Segundo exemplar do mesmo tipo é coletável independentemente")
 	_check(int(inventory.call("used_slots")) == 4, "Dois objetos volumosos preenchem os quatro slots iniciais")
 	inventory.call("select_slot", 1)
 	inventory.call("drop_selected", player)
+	first.call("apply_network_state", null, Transform3D.IDENTITY, Vector3.ZERO, true)
 	_check(first.get_parent() == world and second.get_parent() == player, "Soltar um exemplar não solta o outro")
 	_check(int(inventory.call("used_slots")) == 2, "Soltar libera os dois slots do objeto selecionado")
 	first.free()

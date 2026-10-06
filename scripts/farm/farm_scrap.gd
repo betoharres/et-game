@@ -1,8 +1,8 @@
-extends "res://scripts/spaceship_scraps.gd"
+extends "res://scripts/multiplayer/shared_scrap.gd"
 
 
 func _ready() -> void:
-	add_to_group(&"pickup_items")
+	super._ready()
 	add_to_group(&"farm_scraps")
 	two_handed = false
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bn3rc0bu5fr4l"]
 
-[ext_resource type="Script" uid="uid://cnsx5lhkgdpn8" path="res://scripts/living_light.gd" id="1_living_light"]
+[ext_resource type="Script" path="res://scripts/multiplayer/network_living_light.gd" id="1_living_light"]
 [ext_resource type="Shader" uid="uid://bwnot34ukydmt" path="res://shaders/living_light_trail.gdshader" id="2_trail_shader"]
 [ext_resource type="Script" path="res://scripts/living_light_trail.gd" id="3_trail"]
 

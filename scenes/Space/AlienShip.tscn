@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dhmv48cx5jvg7" path="res://3dModelos/ET_Ship_New.glb" id="11_tindj"]
 [ext_resource type="Material" uid="uid://pub0ino6y5bw" path="res://PolygonTown/Materials/Misc/Window_Glass_mat.tres" id="12_ee52w"]
 [ext_resource type="ArrayMesh" uid="uid://dtvrgxcps57fu" path="res://PolygonScifiCity/FBX/FX_Circle.fbx" id="13_ee52w"]
+[ext_resource type="PackedScene" uid="uid://xx1rcyn87uma" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="13_jtixe"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="13_tkn35"]
+[ext_resource type="PackedScene" uid="uid://b56xl3fkj24h" path="res://scenes/Multiplayer/RevivalTank.tscn" id="14_b1pjy"]
 [ext_resource type="PackedScene" uid="uid://dqv27hgdfchu2" path="res://scenes/Space/ConsoleButton.tscn" id="70_hioj5"]
 [ext_resource type="AudioStream" uid="uid://kmgc5qgqytum" path="res://assets/audio/spaceship/freesound_community-industrial-ambience-67112.mp3" id="120_ship_ambience"]
 [ext_resource type="AudioStream" uid="uid://bapufg1g0ohfg" path="res://assets/audio/spaceship/gregorquendel-sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" id="121_circuits_hum"]
@@ -134,6 +136,14 @@ transform = Transform3D(11.55, 0, 0, 0, 11.55, 0, 0, 0, 11.55, 0, 0.13272095, 0)
 layers = 32
 transparency = 1.0
 mesh = ExtResource("13_ee52w")
+
+[node name="PropsContainer" type="Node3D" parent="." unique_id=1218901603]
+
+[node name="ShopTerminal" parent="PropsContainer" unique_id=2063256209 instance=ExtResource("13_jtixe")]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -9.857624, 0.382, 5.7017617)
+
+[node name="RevivalTank" parent="PropsContainer" unique_id=1712886466 instance=ExtResource("14_b1pjy")]
+transform = Transform3D(0.49999997, 0, -0.8660253, 0, 1, 0, 0.8660253, 0, 0.49999997, 0.5982914, 0.382, -10.737017)
 
 [editable path="Interior"]
 [editable path="ET_Ship_New"]

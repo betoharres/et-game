@@ -52,7 +52,7 @@ func _run() -> void:
 	await _wait(func() -> bool: return host.ready_players.values().count(true) == 2)
 	host.start_expedition()
 	await _wait(func() -> bool: return guest.mission_phase == &"collecting")
-	_check(host.scene_file_path == host.campaign.ORBIT, "Expedition begins inside the SP orbital ship")
+	_check(host.scene_file_path == host.campaign.ORBIT, "Expedition begins inside the shared orbital ship")
 	var guest_id: int = guest.multiplayer.get_unique_id()
 	guest.players[guest_id].set_physics_process(false)
 	host.players[1].set_physics_process(false)
@@ -62,6 +62,7 @@ func _run() -> void:
 		_finish()
 		return
 	_check(host.items.size() > 0 and guest.items.size() == host.items.size(), "Authored farm collectibles have matching network IDs")
+	_check(host._registry_valid and guest._registry_valid, "Farm and generated dungeon collectibles register exactly once")
 	await _wait(func() -> bool: return guest.mission_phase == &"collecting")
 	host.players[1].set_physics_process(false)
 	guest.players[guest_id].set_physics_process(false)
@@ -88,7 +89,7 @@ func _run() -> void:
 		Input.action_press("request_abduction")
 		var delivered: bool = await _wait(func() -> bool: return host.team_money > balance, 30.0)
 		Input.action_release("request_abduction")
-		_check(delivered, "A guest's held signal delivers through the SP tractor beam")
+		_check(delivered, "A guest's held signal delivers through the shared tractor beam")
 		_check(int(root.get_node("GlobalScore").get("money")) == solo_money, "Co-op delivery preserves single-player money")
 		_check(await _wait(func() -> bool: return guest.items[selected].network_consumed), "Sold campaign item is consumed on both peers")
 	var trade: Node3D = host.campaign.world.find_child("BananaTrade", true, false) as Node3D
@@ -128,6 +129,10 @@ func _run() -> void:
 	_check(await _wait(func() -> bool: return host.scene_file_path == host.campaign.ORBIT and guest.scene_file_path == guest.campaign.ORBIT, 30.0), "Shared departure returns the team to Orbit")
 	if held_id != &"":
 		_check(await _wait(func() -> bool: return guest.players[guest_id].exploration_inventory.items.size() == 1), "Inventory survives shared travel back to Orbit")
+	if not await _wait(func() -> bool: return host.mission_phase == &"collecting" and guest.mission_phase == &"collecting", 30.0):
+		_check(false, "Orbital loading completes before late join")
+		_finish()
+		return
 	var late_view: SubViewport = SubViewport.new()
 	late_view.name = "CampaignLatePeer"
 	late_view.own_world_3d = true
@@ -139,7 +144,11 @@ func _run() -> void:
 	_views.append(late_view)
 	_sessions.append(late)
 	_check(late.join_game("127.0.0.1", 17085) == OK, "A late guest joins the current Orbit expedition")
-	_check(await _wait(func() -> bool: return late.players.size() == 3 and late.campaign.unlocked.has(late.campaign.COUNTRY) and late.players[guest_id].exploration_inventory.items.size() == 1), "Late join restores unlocked destinations and travelling inventory")
+	var late_join_ready: bool = await _wait(func() -> bool: return late.players.size() == 3 and late.campaign.unlocked.has(late.campaign.COUNTRY) and late.players[guest_id].exploration_inventory.items.size() == 1)
+	_check(late_join_ready, "Late join restores unlocked destinations and travelling inventory")
+	if not late_join_ready:
+		_finish()
+		return
 	for session: Node3D in _sessions:
 		session.host_migration.enabled = true
 	host.host_migration.publish_checkpoint()

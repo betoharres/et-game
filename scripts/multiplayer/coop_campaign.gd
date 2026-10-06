@@ -5,9 +5,6 @@ const FARM: String = "res://scenes/world.tscn"
 const COUNTRY: String = "res://scenes/CountryTown/CountryTown.tscn"
 const ACTOR_SYNC: Script = preload("res://scripts/multiplayer/coop_actor_sync.gd")
 const DOOR_SCRIPT: Script = preload("res://scripts/multiplayer/coop_door.gd")
-const ENEMY_SCRIPT: Script = preload("res://scripts/multiplayer/network_farm_enemy.gd")
-const LIGHT_SCRIPT: Script = preload("res://scripts/multiplayer/network_living_light.gd")
-const GUARD: PackedScene = preload("res://scenes/Multiplayer/CoopGuard.tscn")
 const RECOVERY_SHIP: Script = preload("res://scripts/multiplayer/coop_recovery_ship.gd")
 const DELIVERY: Script = preload("res://scripts/multiplayer/coop_delivery_area.gd")
 const PURSUIT: Script = preload("res://scripts/multiplayer/coop_pursuit.gd")
@@ -56,7 +53,7 @@ func load_world(path: String) -> void:
 	_ship = null
 	discovered = false
 	world = (load(path) as PackedScene).instantiate() as Node3D
-	world.set_script(null)
+	spawn_position = (world.get_node("SpawnPoint") as Node3D).position
 	world.name = "CampaignWorld"
 	_prepare(world)
 	session.add_child(world)
@@ -67,9 +64,9 @@ func load_world(path: String) -> void:
 		dungeon.call("ensure_generated", dungeon_door.global_position)
 		for candidate: Node in dungeon.find_children("*", "RigidBody3D", true, false):
 			if candidate.has_method("is_available_for_abduction"):
-				_convert_runtime_item(candidate as RigidBody3D)
+				_assign_runtime_item_id(candidate as RigidBody3D)
 	for item: Node in world.find_children("*", "RigidBody3D", true, false):
-		if item.get_script() == session.SHARED_SCRAP_SCRIPT:
+		if item.has_method("apply_network_state") and item.has_method("can_pickup"):
 			session.register_shared_item(item as RigidBody3D)
 	for body: Node in world.find_children("*", "RigidBody3D", true, false):
 		if body.has_node("CoopSeats"):
@@ -121,7 +118,7 @@ func load_world(path: String) -> void:
 		else:
 			title = "Farm expedition"
 			objective = "Collect scrap, repair the ship and return to orbit."
-			_ship = world.get_node_or_null("SpaceShip") as Node3D
+			_ship = world.get_node_or_null("AlienShip") as Node3D
 		_setup_services()
 		if path == COUNTRY:
 			_set_discovered(false)
@@ -151,12 +148,6 @@ func _prepare(node: Node) -> void:
 	for child: Node in node.get_children():
 		if child.get_script() in [preload("res://scripts/multiplayer/coop_ship_shop.gd"), preload("res://scripts/multiplayer/revival_tank.gd")]:
 			continue
-		if child.get_script() == preload("res://scripts/player.gd") or child.name == &"PauseMenu" or child.name == &"PhotoAlertHUD":
-			if child is Node3D and child.get_script() == preload("res://scripts/player.gd"):
-				spawn_position = (child as Node3D).position
-			node.remove_child(child)
-			child.free()
-			continue
 		if child is Terrain3D and int(child.get("collision_mode")) == 4:
 			# Full terrain coverage supports teammates splitting up, without editor collider nodes.
 			child.set("collision_mode", 3)
@@ -175,24 +166,13 @@ func _prepare(node: Node) -> void:
 				pursuit = child as Node3D
 			else:
 				delivery = child as Node3D
-		elif child is RigidBody3D and child.has_method("is_available_for_abduction"):
-			var item: RigidBody3D = child as RigidBody3D
-			var properties: Dictionary = {}
-			for key: StringName in [&"item_id", &"cash_value", &"score_value", &"display_name", &"two_handed", &"slot_cost", &"rejected_by_delivery"]:
-				properties[key] = item.get(key)
-			var definition: Resource = item.get("definition") as Resource if item is AlienTechnologyItem else null
-			var id: StringName = StringName("sp/" + str(world.get_path_to(item)))
-			item.set_script(session.SHARED_SCRAP_SCRIPT)
-			for key: StringName in properties:
-				item.set(key, properties[key])
-			item.set("definition", definition)
-			item.set("network_id", id)
+		elif child is RigidBody3D and child.has_method("apply_network_state") and child.has_method("can_pickup"):
+			child.set("network_id", StringName("world/" + str(world.get_path_to(child))))
+		elif child.has_method("make_network_state") and child.has_method("set_host_simulation"):
+			pass
 		elif child is NPCActor:
-			var sync: Node3D = Node3D.new()
-			sync.name = "CoopSync"
-			sync.set_script(ACTOR_SYNC)
+			var sync: Node3D = child.get_node("CoopSync") as Node3D
 			sync.set("session", session)
-			child.add_child(sync)
 		elif child is ShipCrewAlien:
 			_add_dynamic_sync(child as Node3D)
 		elif child is RigidBody3D:
@@ -204,14 +184,6 @@ func _prepare(node: Node) -> void:
 				child.add_child(seats)
 			else:
 				_add_dynamic_sync(child as Node3D)
-		elif script_path.ends_with("smelly_farmer.gd") or script_path.ends_with("photographer.gd"):
-			_prepare_enemy(child as CharacterBody3D, script_path.ends_with("photographer.gd"))
-		elif script_path.ends_with("living_light.gd"):
-			child.set_script(LIGHT_SCRIPT)
-		elif script_path.ends_with("banana_trade.gd"):
-			var rewards: Array[PackedScene] = child.get("rewards")
-			child.set_script(session.BANANA_SCRIPT)
-			child.set("rewards", rewards)
 		elif child is HouseDoor:
 			var values: Dictionary = {}
 			for property: Dictionary in child.get_property_list():
@@ -222,7 +194,7 @@ func _prepare(node: Node) -> void:
 				child.set(key, values[key])
 			_doors.append(child as Node3D)
 		elif script_path.ends_with("ship_shop.gd"):
-			# The session's shared terminal is installed after the world enters the tree.
+			# Only scene-authored network terminals participate in the session.
 			child.set_script(null)
 		elif child is CharacterBody3D:
 			_add_dynamic_sync(child as Node3D)
@@ -237,21 +209,8 @@ func _prepare(node: Node) -> void:
 		_prepare(child)
 
 
-func _convert_runtime_item(item: RigidBody3D) -> void:
-	var id: StringName = StringName("sp/" + str(world.get_path_to(item)))
-	var parent: Node = item.get_parent()
-	var pose: Transform3D = item.transform
-	var properties: Dictionary = {}
-	for key: StringName in [&"item_id", &"cash_value", &"score_value", &"display_name", &"two_handed", &"slot_cost", &"rejected_by_delivery"]:
-		properties[key] = item.get(key)
-	parent.remove_child(item)
-	item.set_script(session.SHARED_SCRAP_SCRIPT)
-	for key: StringName in properties:
-		item.set(key, properties[key])
-	item.set("network_id", id)
-	item.request_ready()
-	parent.add_child(item)
-	item.transform = pose
+func _assign_runtime_item_id(item: RigidBody3D) -> void:
+	item.set("network_id", StringName("world/" + str(world.get_path_to(item))))
 
 
 func _add_dynamic_sync(body: Node3D) -> void:
@@ -260,25 +219,6 @@ func _add_dynamic_sync(body: Node3D) -> void:
 	sync.set_script(DYNAMIC_SYNC)
 	sync.set("session", session)
 	body.add_child(sync)
-
-
-func _prepare_enemy(enemy: CharacterBody3D, photographer: bool) -> void:
-	var awareness: Node = enemy.get_node_or_null("EnemyAwareness")
-	if awareness != null:
-		enemy.remove_child(awareness)
-		awareness.free()
-	var brain: Node = GUARD.instantiate()
-	for component_name: String in ["NPCVision", "NPCBehaviorTree"]:
-		var component: Node = brain.get_node(component_name)
-		brain.remove_child(component)
-		enemy.add_child(component)
-	brain.free()
-	enemy.set_script(ENEMY_SCRIPT)
-	enemy.set("photographer", photographer)
-	enemy.set("activity_distance", 0.0)
-	enemy.set("grounded", true)
-	enemy.set("attack_range", 9.0 if photographer else 12.0)
-	enemy.set("attack_interval", 6.0 if photographer else 2.0)
 
 
 func _setup_services() -> void:

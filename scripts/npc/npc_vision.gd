@@ -4,7 +4,7 @@ extends Node3D
 ## Sensor de visão reutilizável: distância, ângulo (FOV) e linha de visão por
 ## raycast, com progressão de detecção e memória de curto prazo da última
 ## posição vista. Consome os mesmos ganchos de camuflagem já usados por
-## `smelly_farmer.gd`/`photographer.gd` (`get_stealth_visibility()`,
+## pelo jogador (`get_stealth_visibility()`,
 ## `get_visibility_multiplier()`, `set_vision_contact()`), sem duplicar essa
 ## lógica no lado do jogador.
 

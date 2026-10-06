@@ -4,6 +4,7 @@ const PLAYER_SCENE: PackedScene = preload("res://scenes/Multiplayer/NetworkPlaye
 const MAX_PLAYERS: int = 4
 const DEFAULT_PORT: int = 7000
 const SNAPSHOT_INTERVAL: float = 1.0 / 20.0
+const SNAPSHOT_PAYLOAD_BUDGET: int = 1000
 const EQUIPMENT_COSTS: Dictionary[StringName, int] = {&"xray_goggles": 500, &"energy_shield": 180, &"predator_watch": 650}
 const UPGRADE_IDS: Array[StringName] = [&"movement", &"stamina", &"recovery"]
 const UPGRADE_COSTS: Array[int] = [60, 100, 150]
@@ -396,12 +397,6 @@ func _register_world_items() -> void:
 	var container: Node = $PickupItemsContainer
 	for index: int in FARM_SCRAPS.size():
 		var item: RigidBody3D = (load("res://scenes/Farm/Scraps/%s.tscn" % FARM_SCRAPS[index]) as PackedScene).instantiate() as RigidBody3D
-		var properties: Dictionary = {}
-		for property: StringName in [&"item_id", &"cash_value", &"score_value", &"display_name", &"two_handed", &"slot_cost", &"rejected_by_delivery"]:
-			properties[property] = item.get(property)
-		item.set_script(SHARED_SCRAP_SCRIPT)
-		for property: StringName in properties:
-			item.set(property, properties[property])
 		item.set("network_id", StringName("farm_%02d" % index))
 		item.name = "FarmScrap%d" % index
 		item.position = Vector3(-8 + (index % 6) * 4, 0.5, -5 - (index / 6) * 3)
@@ -430,14 +425,6 @@ func spawn_shared_asset(id: StringName, path: String, spawn_position: Vector3) -
 	if items.has(id):
 		return
 	var item: RigidBody3D = (load(path) as PackedScene).instantiate() as RigidBody3D
-	var properties: Dictionary = {}
-	var item_definition: Resource = item.get("definition") as Resource if item is AlienTechnologyItem else null
-	for property: StringName in [&"item_id", &"cash_value", &"score_value", &"display_name", &"two_handed", &"slot_cost", &"rejected_by_delivery"]:
-		properties[property] = item.get(property)
-	item.set_script(SHARED_SCRAP_SCRIPT)
-	item.set("definition", item_definition)
-	for property: StringName in properties:
-		item.set(property, properties[property])
 	item.name = str(id)
 	item.set("network_id", id)
 	item.position = spawn_position
@@ -457,23 +444,13 @@ func _setup_farm_content() -> void:
 	var gorilla: Node3D = (load("res://scenes/NPCs/Gorilla.tscn") as PackedScene).instantiate() as Node3D
 	gorilla.name = "Gorilla"
 	gorilla.position = Vector3(-6, 0, 16)
-	var trade: Node = gorilla.get_node("BananaTrade")
-	var rewards: Array[PackedScene] = trade.get("rewards")
-	trade.set_script(BANANA_SCRIPT)
-	trade.set("rewards", rewards)
 	$NPCsContainer.add_child(gorilla)
 	gorilla.set_physics_process(false)
 	gorilla.get_node("NPCBehaviorTree").set("enabled", false)
 	gorilla.get_node("ActivityCheck").call("stop")
-	var enemy_scene: PackedScene = load("res://scenes/Multiplayer/CoopGuard.tscn") as PackedScene
 	var enemy_paths: Array[String] = ["SmellyFarmer", "Photographer", "Photographer"]
 	for index: int in enemy_paths.size():
 		var enemy: CharacterBody3D = (load("res://scenes/NPCs/%s.tscn" % enemy_paths[index]) as PackedScene).instantiate() as CharacterBody3D
-		var awareness: Node = enemy.get_node_or_null("EnemyAwareness")
-		if awareness != null:
-			enemy.remove_child(awareness)
-			awareness.free()
-		enemy.set_script(load("res://scripts/multiplayer/network_farm_enemy.gd"))
 		enemy.name = "Farmer" if index == 0 else "Photographer%d" % index
 		enemy.position = Vector3(18 + index * 4, 0, 18)
 		enemy.set("grounded", true)
@@ -484,16 +461,9 @@ func _setup_farm_content() -> void:
 		enemy.set("attack_damage", 30.0)
 		var patrol: Array[Vector3] = [enemy.position, enemy.position + Vector3(0, 0, -8)]
 		enemy.set("patrol_points", patrol)
-		var brain: CharacterBody3D = enemy_scene.instantiate() as CharacterBody3D
-		for component_name: String in ["NPCVision", "NPCBehaviorTree"]:
-			var component: Node = brain.get_node(component_name)
-			brain.remove_child(component)
-			enemy.add_child(component)
-		brain.free()
 		$NPCsContainer.add_child(enemy)
 		npcs[enemy.name] = enemy
 	var light: CharacterBody3D = (load("res://scenes/NPCs/LivingLight.tscn") as PackedScene).instantiate() as CharacterBody3D
-	light.set_script(load("res://scripts/multiplayer/network_living_light.gd"))
 	light.name = "LivingLight"
 	light.position = Vector3(11, 1, -12)
 	$NPCsContainer.add_child(light)
@@ -1117,30 +1087,52 @@ func _physics_process(delta: float) -> void:
 	if _send_elapsed < SNAPSHOT_INTERVAL:
 		return
 	_send_elapsed = 0.0
-	var state: Dictionary = players[local_id].call("make_snapshot")
+	var state: Dictionary = {}
+	# Dead owners cannot submit motion; their shared corpses replicate separately.
+	if players[local_id].is_alive():
+		state = players[local_id].call("make_snapshot")
 	if multiplayer.is_server():
-		_relay_snapshot(local_id, state)
+		if not state.is_empty():
+			_relay_snapshot(local_id, state)
 		var npc_states: Dictionary = {}
 		for npc_id: StringName in npcs:
 			npc_states[npc_id] = npcs[npc_id].call("make_network_state")
+		for batch: Dictionary in _snapshot_batches(npc_states):
+			_send_npc_states(batch)
 		for peer_id: int in players:
 			_publish_combat(peer_id)
-			if peer_id != 1:
-				_receive_npc_states.rpc_id(peer_id, npc_states, mission_round)
 		var motions: Dictionary = {}
 		for item_id: StringName in items:
 			if _item_owners[item_id] == 0:
 				motions[item_id] = [_item_revisions[item_id], items[item_id].global_transform, items[item_id].linear_velocity]
-		var batch: Dictionary = {}
-		for id: StringName in motions:
-			batch[id] = motions[id]
-			if batch.size() >= 6:
-				_send_item_motions(batch)
-				batch = {}
-		if not batch.is_empty():
+		for batch: Dictionary in _snapshot_batches(motions):
 			_send_item_motions(batch)
-	else:
+	elif not state.is_empty():
 		_submit_snapshot.rpc_id(1, state)
+
+
+func _snapshot_batches(states: Dictionary) -> Array[Dictionary]:
+	var batches: Array[Dictionary] = []
+	var batch: Dictionary = {}
+	var bytes: int = 0
+	for id: StringName in states:
+		var entry_bytes: int = var_to_bytes({id: states[id]}).size()
+		# Leave room for RPC headers below ENet's MTU.
+		if not batch.is_empty() and bytes + entry_bytes > SNAPSHOT_PAYLOAD_BUDGET:
+			batches.append(batch)
+			batch = {}
+			bytes = 0
+		batch[id] = states[id]
+		bytes += entry_bytes
+	if not batch.is_empty():
+		batches.append(batch)
+	return batches
+
+
+func _send_npc_states(states: Dictionary) -> void:
+	for target_id: int in players:
+		if target_id != 1:
+			_receive_npc_states.rpc_id(target_id, states, mission_round)
 
 
 func _send_item_motions(motions: Dictionary) -> void:
@@ -1225,6 +1217,17 @@ func _release_item(peer_id: int, item_id: StringName = &"scrap_01") -> void:
 	var player: CharacterBody3D = players[peer_id]
 	var pose: Transform3D = player.global_transform
 	pose.origin += player.global_basis.z * 1.2 + player.global_basis.y * 0.4
+	var item: RigidBody3D = items[item_id]
+	var lowest: float = 0.0
+	for collider: Node in item.find_children("*", "CollisionShape3D", true, false):
+		var shape: CollisionShape3D = collider as CollisionShape3D
+		if shape.disabled or shape.shape == null:
+			continue
+		var relative: Transform3D = item.global_transform.affine_inverse() * shape.global_transform
+		var bounds: AABB = Transform3D(pose.basis, Vector3.ZERO) * relative * shape.shape.get_debug_mesh().get_aabb()
+		lowest = minf(lowest, bounds.position.y)
+	# Offset colliders must clear the player's ground plane before physics resumes.
+	pose.origin.y = maxf(pose.origin.y, player.global_position.y - lowest + 0.1)
 	_publish_item_state(0, pose, player.velocity, item_id)
 
 
@@ -1593,7 +1596,7 @@ func _build_ui() -> void:
 	_map_choice = OptionButton.new()
 	_map_choice.add_item("Portal arena")
 	_map_choice.add_item("Farm prototype")
-	_map_choice.add_item("SP campaign - Orbit")
+	_map_choice.add_item("Co-op campaign - Orbit")
 	_map_choice.select(2 if campaign != null else maxi(0, LEVEL_PATHS.find(scene_file_path)))
 	_map_choice.item_selected.connect(func(index: int) -> void:
 		if players.is_empty() and not _connecting:

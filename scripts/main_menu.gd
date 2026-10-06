@@ -16,7 +16,6 @@ var rebinding_button : Button = null
 var transition_started : bool = false
 var button_base_positions : Dictionary = {}
 
-@onready var menu_button_1 : Button = $ColorRect/MenuBar/VSeparator/MenuButton1
 @onready var coop_button : Button = $ColorRect/MenuBar/VSeparator/CoopButton
 @onready var menu_button_2 : Button = $ColorRect/MenuBar/VSeparator/MenuButton2
 @onready var menu_button_3 : Button = $ColorRect/MenuBar/VSeparator/MenuButton3
@@ -68,7 +67,6 @@ func _ready() -> void:
 	menu_atmosphere.set_menu_state("play")
 	_start_menu_music()
 
-	menu_button_1.pressed.connect(_on_play_pressed)
 	menu_button_2.pressed.connect(_on_options_pressed)
 	menu_button_3.pressed.connect(_on_exit_pressed)
 	coop_button.pressed.connect(_on_coop_pressed)
@@ -90,7 +88,7 @@ func _ready() -> void:
 
 	options_panel.visible = false
 	keybinds_panel.visible = false
-	menu_button_1.grab_focus.call_deferred()
+	coop_button.grab_focus.call_deferred()
 	_setup_menu_motion()
 
 	setup_resolutions()
@@ -101,19 +99,6 @@ func _ready() -> void:
 
 
 # Main Menu
-
-func _on_play_pressed() -> void:
-	if transition_started:
-		return
-	transition_started = true
-	_play_click()
-	var photo_alert_system : Node = get_node_or_null("/root/PhotoAlertSystem")
-	if photo_alert_system != null:
-		photo_alert_system.reset()
-	var music_tween : Tween = create_tween()
-	music_tween.tween_property(menu_music, "volume_db", -60.0, 0.45)
-	var scene_transition : Node = get_node("/root/SceneTransition")
-	scene_transition.warp_to("res://scenes/Menu/CharacterCreator.tscn")
 
 func _on_coop_pressed() -> void:
 	if transition_started:
@@ -165,7 +150,7 @@ func _on_keybinds_back_pressed() -> void:
 
 
 func _setup_menu_motion() -> void:
-	var buttons : Array[Button] = [menu_button_1, coop_button, menu_button_2, menu_button_3]
+	var buttons : Array[Button] = [coop_button, menu_button_2, menu_button_3]
 	for button : Button in buttons:
 		button_base_positions[button] = button.position.x
 		button.mouse_entered.connect(_on_menu_button_hover.bind(button, true))
@@ -185,7 +170,7 @@ func _on_menu_button_hover(button : Button, hovered : bool) -> void:
 
 
 func _set_atmosphere_state(button : Button) -> void:
-	if button == menu_button_1 or button == coop_button:
+	if button == coop_button:
 		menu_atmosphere.set_menu_state("play")
 	elif button == menu_button_2:
 		menu_atmosphere.set_menu_state("options")
@@ -199,14 +184,13 @@ func _play_menu_intro() -> void:
 	# rates. The emblem pulses once at the end so the eye lands on it.
 	var header : Control = $ColorRect/Header
 	var elements : Array[Control] = [
-		header, menu_bar, menu_button_1, coop_button, menu_button_2, menu_button_3
+		header, menu_bar, coop_button, menu_button_2, menu_button_3
 	]
 	for element : Control in elements:
 		element.modulate.a = 0.0
 
 	_tune_in(header, 0.0, 0.34)
 	_tune_in(menu_bar, 0.12, 0.3)
-	_tune_in(menu_button_1, 0.26, 0.26)
 	_tune_in(coop_button, 0.32, 0.24)
 	_tune_in(menu_button_2, 0.38, 0.24)
 	_tune_in(menu_button_3, 0.44, 0.22)

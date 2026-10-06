@@ -1,15 +1,25 @@
 [gd_scene format=3 uid="uid://bkp3s55pwy4em"]
 
-[ext_resource type="Script" uid="uid://bpmik52gtl1o0" path="res://scripts/smelly_farmer.gd" id="1_c8nde"]
+[ext_resource type="Script" path="res://scripts/multiplayer/network_farm_enemy.gd" id="1_c8nde"]
 [ext_resource type="Material" uid="uid://btwcyckm76qbu" path="res://Materiais/text2A.tres" id="2_88yto"]
 [ext_resource type="PackedScene" uid="uid://bvu3tflayqwfg" path="res://3dModelos/FarmerOld2.glb" id="2_vfalg"]
 [ext_resource type="PackedScene" uid="uid://8k1jwoir1oh0" path="res://PolygonFarm/Models/SM_Wep_Shotgun_01.fbx" id="3_88yto"]
 [ext_resource type="Script" uid="uid://b2icujg1ub2tj" path="res://scripts/audio/farmer_gunshot_audio.gd" id="5_gunshot"]
 [ext_resource type="Material" uid="uid://c08ymfckvdpwk" path="res://Materiais/PolygonFarm1A.tres" id="6_jqnf7"]
 [ext_resource type="Script" path="res://scripts/smelly_farmer_animation.gd" id="7_animation"]
-[ext_resource type="Script" path="res://scripts/npc/legacy_enemy_awareness.gd" id="awareness"]
 [ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="8_idle_clip"]
 [ext_resource type="PackedScene" path="res://Temporarios/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_F_Masc.fbx" id="9_walk_clip"]
+
+[ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="network_2"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="network_3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="network_4"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="network_5"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/can_see_player.gd" id="network_6"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/chase_player.gd" id="network_7"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="network_8"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/is_noticing_player.gd" id="network_9"]
+[ext_resource type="Script" path="res://scripts/npc/behaviors/alert_pose.gd" id="network_10"]
+[ext_resource type="Script" path="res://scripts/multiplayer/npc_attack.gd" id="network_11"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec6vt"]
 radius = 0.18603516
@@ -29,9 +39,11 @@ rings = 4
 
 [node name="Smelly" type="CharacterBody3D" unique_id=584213395]
 script = ExtResource("1_c8nde")
-
-[node name="EnemyAwareness" type="Node3D" parent="."]
-script = ExtResource("awareness")
+activity_distance = 0.0
+grounded = true
+photographer = false
+attack_range = 12.0
+attack_interval = 2.0
 
 [node name="FarmerOld2" parent="." unique_id=1811171003 instance=ExtResource("2_vfalg")]
 
@@ -209,6 +221,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12149116, 0.009710908, 0.23
 
 [node name="HeadTarget" type="Marker3D" parent="IKcontainer" unique_id=404352808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493148, 6.7135515)
+
+
+[node name="NPCVision" type="Node3D" parent="."]
+script = ExtResource("network_2")
+reports_vision_contact = false
+
+[node name="NPCBehaviorTree" type="Node" parent="."]
+script = ExtResource("network_3")
+actor_node_path = NodePath("..")
+enabled = false
+
+[node name="Root" type="Node" parent="NPCBehaviorTree"]
+script = ExtResource("network_4")
+
+[node name="Attack" type="Node" parent="NPCBehaviorTree/Root"]
+script = ExtResource("network_11")
+
+[node name="Chase" type="Node" parent="NPCBehaviorTree/Root"]
+script = ExtResource("network_5")
+
+[node name="CanSeePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
+script = ExtResource("network_6")
+
+[node name="ChasePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
+script = ExtResource("network_7")
+
+[node name="Alert" type="Node" parent="NPCBehaviorTree/Root"]
+script = ExtResource("network_5")
+
+[node name="IsNoticingPlayer" type="Node" parent="NPCBehaviorTree/Root/Alert"]
+script = ExtResource("network_9")
+
+[node name="AlertPose" type="Node" parent="NPCBehaviorTree/Root/Alert"]
+script = ExtResource("network_10")
+
+[node name="Patrol" type="Node" parent="NPCBehaviorTree/Root"]
+script = ExtResource("network_8")
 
 [editable path="FarmerOld2"]
 [editable path="IKcontainer/HandR/SM_Wep_Shotgun_01"]

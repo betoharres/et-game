@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca65j4w5wksmi"]
 
-[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_inju5"]
+[ext_resource type="Script" path="res://scripts/multiplayer/shared_scrap.gd" id="1_inju5"]
 [ext_resource type="ArrayMesh" uid="uid://ce8b7xq1qevy7" path="res://PolygonScifiCity/FBX/SM_Prop_Box_Supplies_01.fbx" id="1_mokn6"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_qkouk"]
 

@@ -2,7 +2,7 @@ class_name AlienDebris
 extends "res://scripts/alien_technology_item.gd"
 
 ## Continua disponível por padrão: quem quiser um destroço só revelado depois
-## de um objetivo (ver scripts/country_town.gd) chama set_discovered(false) na
+## de um objetivo chama set_discovered(false) na
 ## hora de montar a cena, em vez de mudar esse valor default.
 var _discovered : bool = true
 var _hidden_collision_layer : int = 0

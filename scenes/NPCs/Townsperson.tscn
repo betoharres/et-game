@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cmr8u6anvy2ik" path="res://Temporarios/Animations/Polygon/Feminine/Locomotion/Walk/A_Walk_F_Femn.fbx" id="8_walk_clip"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
 
+[ext_resource type="Script" path="res://scripts/multiplayer/coop_actor_sync.gd" id="network_sync"]
+
 [node name="Townsperson" type="CharacterBody3D" unique_id=962646758]
 script = ExtResource("1_script")
 
@@ -134,7 +136,7 @@ reports_vision_contact = false
 script = ExtResource("5_hearing")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1203042113]
-root_node = NodePath("")
+root_node = NodePath("../Characters")
 
 [node name="NPCAnimation" type="Node" parent="." unique_id=1804613731]
 script = ExtResource("6_animation")
@@ -145,5 +147,9 @@ animation_player_path = NodePath("../AnimationPlayer")
 [node name="NPCBehaviorTree" parent="." unique_id=590059249 node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("9_tree")]
 blackboard = NodePath("@Node@21314")
 actor = NodePath("..")
+
+
+[node name="CoopSync" type="Node3D" parent="."]
+script = ExtResource("network_sync")
 
 [editable path="Characters"]

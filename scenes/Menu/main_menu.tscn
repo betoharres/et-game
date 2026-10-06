@@ -425,33 +425,10 @@ theme_override_font_sizes/font_size = 11
 text = "MISSION CONTROL"
 horizontal_alignment = 1
 
-[node name="MenuButton1" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=1654815041]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../CoopButton")
-theme_override_colors/font_color = Color(0.96, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.4, 0.45, 0.55, 1)
-theme_override_colors/icon_normal_color = Color(0.4, 0.92, 1, 1)
-theme_override_colors/icon_focus_color = Color(0.72, 0.97, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxPrimaryNormal")
-theme_override_styles/pressed = SubResource("StyleBoxPrimaryPressed")
-theme_override_styles/hover = SubResource("StyleBoxPrimaryHover")
-theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
-theme_override_styles/focus = SubResource("StyleBoxPrimaryFocus")
-text = "JOGAR"
-icon = ExtResource("7_2q8my")
-alignment = 0
-expand_icon = true
-
 [node name="CoopButton" type="Button" parent="ColorRect/MenuBar/VSeparator" unique_id=889564672]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
-focus_neighbor_top = NodePath("../MenuButton1")
+focus_neighbor_top = NodePath("../MenuButton3")
 focus_neighbor_bottom = NodePath("../MenuButton2")
 theme_override_colors/font_color = Color(0.86, 0.9, 0.99, 1)
 theme_override_colors/font_focus_color = Color(0.82, 0.97, 1, 1)
@@ -467,7 +444,7 @@ theme_override_styles/pressed = SubResource("StyleBoxButtonPressed")
 theme_override_styles/hover = SubResource("StyleBoxButtonHover")
 theme_override_styles/disabled = SubResource("StyleBoxButtonDisabled")
 theme_override_styles/focus = SubResource("StyleBoxButtonHover")
-text = "CO-OP (4 JOGADORES)"
+text = "CO-OP (1 A 4 JOGADORES)"
 icon = ExtResource("12_23s28")
 alignment = 0
 expand_icon = true

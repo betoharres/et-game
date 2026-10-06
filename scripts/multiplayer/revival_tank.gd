@@ -29,7 +29,7 @@ func _connect_recovery() -> void:
 
 
 func _on_recovery_tick(delta: float) -> void:
-	if _session == null or _session.get("recovery") == null:
+	if not is_inside_tree() or not is_instance_valid(_session) or _session.get("recovery") == null:
 		return
 	var recovery: Node3D = _session.recovery
 	if _session.host_migration.active or _session.mission_phase != &"collecting":

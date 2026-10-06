@@ -22,6 +22,8 @@ func _run() -> void:
 	player.position = Vector3(1000, 0, 0)
 	world.add_child(player)
 	var npc: NPCActor = FARMER.instantiate() as NPCActor
+	# This fixture exercises the common AI without a network session.
+	npc.get_node("CoopSync").free()
 	npc.patrol_points = [Vector3.ZERO, Vector3(6, 0, 0)]
 	world.add_child(npc)
 	var explicit_child: Node = Node.new()

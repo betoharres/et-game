@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c1706107vicuy"]
 
 [ext_resource type="ArrayMesh" uid="uid://v26r12ib22n0" path="res://PolygonScifiCity/FBX/SM_Prop_AirConditioningUnit_01.fbx" id="1_5olyg"]
-[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_nqaen"]
+[ext_resource type="Script" path="res://scripts/multiplayer/shared_scrap.gd" id="1_nqaen"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_wfx3u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k73sd"]

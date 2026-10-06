@@ -1,6 +1,6 @@
 extends SceneTree
 
-const AlienTechnologyItem : Script = preload("res://scripts/alien_technology_item.gd")
+const SharedScrap: Script = preload("res://scripts/multiplayer/shared_scrap.gd")
 const AlienItemDefinition : Script = preload("res://scripts/alien_item_definition.gd")
 
 const OUTPUT : String = "res://scenes/CountryTown/Districts/AlienDebrisTest.tscn"
@@ -34,7 +34,7 @@ func _build() -> void:
 			district.free()
 			quit(1)
 			return
-		var item : AlienTechnologyItem = (LOCATOR if is_locator else DEBRIS).instantiate() as AlienTechnologyItem
+		var item : SharedScrap = (LOCATOR if is_locator else DEBRIS).instantiate() as SharedScrap
 		item.name = "DebrisLocator" if is_locator else "Debris%d" % (index + 1)
 		if not is_locator:
 			var type_id : String = "engine_wreck" if index == 7 else TYPES[index % TYPES.size()]

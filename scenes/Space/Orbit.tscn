@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://duf0kjdsouqft"]
 
-[ext_resource type="Script" uid="uid://dqphh8yd7ftp1" path="res://scripts/space/orbit.gd" id="1_orbit_script"]
 [ext_resource type="Script" uid="uid://ddvqgduusoso3" path="res://scenes/Space/sky_rotation.gd" id="2_8v0pj"]
 [ext_resource type="Shader" uid="uid://bfyjgsqafa2o3" path="res://shaders/earth_planet.gdshader" id="3_earth_surface"]
 [ext_resource type="Shader" uid="uid://cj3ga6hdytjqm" path="res://shaders/planet_atmosphere.gdshader" id="4_earth_atmosphere"]
@@ -11,13 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://l2f22ytlyaer" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Down.png" id="7_t3yo3"]
 [ext_resource type="Texture2D" uid="uid://cfvgxs06gqa0r" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Right.png" id="8_1tyn7"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionSelectUI.tscn" id="8_mission_ui"]
-[ext_resource type="PackedScene" uid="uid://ct8axay17kyjg" path="res://scenes/Player.tscn" id="9_player"]
 [ext_resource type="Texture2D" uid="uid://bgo6a5jx76n1y" path="res://PolygonSciFiWorlds/Textures/Misc/Skybox/PolygonSciFiWorlds_Skybox_01_Up.png" id="10_kn4mw"]
-[ext_resource type="PackedScene" path="res://scenes/Menu/PauseMenu.tscn" id="10_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/Space/MissionDialogue.tscn" id="13_mission_dialogue"]
-
-[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShopTerminal.tscn" id="coop_shop"]
-[ext_resource type="PackedScene" path="res://scenes/Multiplayer/RevivalTank.tscn" id="coop_revival"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_surface"]
 render_priority = 0
@@ -109,7 +103,6 @@ material = SubResource("StandardMaterial3D_viot7")
 size = Vector2(1000, 1000)
 
 [node name="Orbit" type="Node3D" unique_id=1388629007]
-script = ExtResource("1_orbit_script")
 
 [node name="SkyRotation" type="Node3D" parent="." unique_id=848358122]
 script = ExtResource("2_8v0pj")
@@ -173,25 +166,12 @@ mesh = SubResource("PlaneMesh_viot7")
 
 [node name="AlienShip" parent="." unique_id=349197007 instance=ExtResource("6_ship")]
 
+[node name="TransportBeam" parent="AlienShip/Interior/DescendPad" parent_id_path=PackedInt32Array(349197007, 842449527, 1099926139) index="0" unique_id=1759453405]
+visible = false
+
 [node name="MissionSelectUI" parent="." unique_id=782099217 instance=ExtResource("8_mission_ui")]
 
 [node name="MissionDialogue" parent="." unique_id=2141754955 instance=ExtResource("13_mission_dialogue")]
 
-[node name="CharacterBody3D" parent="." unique_id=50976619 instance=ExtResource("9_player")]
+[node name="SpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(0.7164074, 0, 0.69768214, 0, 1, 0, -0.69768214, 0, 0.7164074, -3.293518, 0.14523011, -2)
-
-[node name="Camera3D" parent="CharacterBody3D/CameraHolder/PitchPivot/ShoulderOffset/SpringArm3D" parent_id_path=PackedInt32Array(50976619, 1571529631) index="0" unique_id=1582696248]
-far = 10000.0
-
-[node name="PauseMenu" parent="." unique_id=1646783495 instance=ExtResource("10_pause_menu")]
-
-[editable path="CharacterBody3D"]
-[editable path="CharacterBody3D/ET"]
-
-[node name="PropsContainer" type="Node3D" parent="."]
-
-[node name="ShopTerminal" parent="PropsContainer" instance=ExtResource("coop_shop")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.382, -3.783)
-
-[node name="RevivalTank" parent="PropsContainer" instance=ExtResource("coop_revival")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.382, -3.783)

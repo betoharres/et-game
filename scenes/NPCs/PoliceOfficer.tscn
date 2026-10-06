@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://5l1q2c3jawkp" path="res://PolygonCity/Characters/SK_Character_Male_Police.fbx" id="9_egaoe"]
 [ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="9_tree"]
 
+[ext_resource type="Script" path="res://scripts/multiplayer/coop_actor_sync.gd" id="network_sync"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_police"]
 radius = 0.186
 height = 1.79
@@ -31,7 +33,7 @@ script = ExtResource("4_vision")
 script = ExtResource("5_hearing")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=913930306]
-root_node = NodePath("")
+root_node = NodePath("../SK_Character_Female_Police/Root")
 
 [node name="NPCAnimation" type="Node" parent="." unique_id=2142012693]
 script = ExtResource("6_animation")
@@ -62,6 +64,10 @@ layers = 16
 [node name="Character_Male_Police" parent="SK_Character_Male_Police/Root/Skeleton3D" parent_id_path=PackedInt32Array(1440427923, 1146463864) index="0" unique_id=2004581713]
 visible = false
 layers = 16
+
+
+[node name="CoopSync" type="Node3D" parent="."]
+script = ExtResource("network_sync")
 
 [editable path="SK_Character_Female_Police"]
 [editable path="SK_Character_Male_Police"]

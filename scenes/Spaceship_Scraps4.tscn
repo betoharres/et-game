@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhbub6jjfp0a7"]
 
 [ext_resource type="ArrayMesh" uid="uid://ev48gg4uh387" path="res://PolygonScifiCity/FBX/SM_Prop_Box_RobotParts_01.fbx" id="1_675ax"]
-[ext_resource type="Script" uid="uid://bnhknfsj4joua" path="res://scripts/spaceship_scraps.gd" id="1_rcdat"]
+[ext_resource type="Script" path="res://scripts/multiplayer/shared_scrap.gd" id="1_rcdat"]
 [ext_resource type="Material" uid="uid://c2jqfpf32mxog" path="res://Materiais/ScifiCity1A.tres" id="2_kl4ln"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k7pxw"]

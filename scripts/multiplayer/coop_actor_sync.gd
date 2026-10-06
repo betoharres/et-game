@@ -6,9 +6,16 @@ var _target: Transform3D
 var _has_pose: bool = false
 var _host: bool = false
 var _simulating: bool = false
+# Identical scene assets give every peer the same mesh order without repeating paths.
+var _appearance_meshes: Array[MeshInstance3D] = []
 
 
 func _ready() -> void:
+	if session == null:
+		var ancestor: Node = get_parent()
+		while ancestor != null and not ancestor.has_method("damage_player"):
+			ancestor = ancestor.get_parent()
+		session = ancestor as Node3D
 	_actor = get_parent() as NPCActor
 	if _actor.is_node_ready():
 		_initialize_actor()
@@ -17,6 +24,11 @@ func _ready() -> void:
 
 
 func _initialize_actor() -> void:
+	for mesh: Node in _actor.find_children("*", "MeshInstance3D", true, false):
+		_appearance_meshes.append(mesh as MeshInstance3D)
+	if session == null:
+		_apply_simulation(false)
+		return
 	process_physics_priority = -1
 	if _actor._activity_timer != null:
 		_actor._activity_timer.stop()
@@ -88,9 +100,9 @@ func _physics_process(_delta: float) -> void:
 
 
 func make_network_state() -> Dictionary:
-	var meshes: Dictionary = {}
-	for mesh: Node in _actor.find_children("*", "MeshInstance3D", true, false):
-		meshes[str(_actor.get_path_to(mesh))] = (mesh as MeshInstance3D).visible
+	var meshes: PackedByteArray = PackedByteArray()
+	for mesh: MeshInstance3D in _appearance_meshes:
+		meshes.append(1 if is_instance_valid(mesh) and mesh.visible else 0)
 	var combat: Node = _actor.get_node_or_null("NPCCombat")
 	return {"health": float(combat.health) if combat != null else -1.0, "pose": _actor.global_transform, "velocity": _actor.velocity, "state": _actor.state, "meshes": meshes, "target": _actor.player.get_multiplayer_authority() if is_instance_valid(_actor.player) else 0}
 
@@ -107,10 +119,11 @@ func receive_network_state(state: Dictionary) -> void:
 	var combat: Node = _actor.get_node_or_null("NPCCombat")
 	if combat != null:
 		combat.health = float(state.get("health", combat.health))
-	for path: String in state.get("meshes", {}):
-		var mesh: MeshInstance3D = _actor.get_node_or_null(NodePath(path)) as MeshInstance3D
-		if mesh != null:
-			mesh.visible = state.meshes[path]
+	var meshes: Variant = state.get("meshes", PackedByteArray())
+	if meshes is PackedByteArray and meshes.size() == _appearance_meshes.size():
+		for index: int in _appearance_meshes.size():
+			if is_instance_valid(_appearance_meshes[index]):
+				_appearance_meshes[index].visible = meshes[index] != 0
 
 
 func make_migration_state() -> Dictionary:

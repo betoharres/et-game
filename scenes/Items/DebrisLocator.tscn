@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/alien_technology_item.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/multiplayer/shared_scrap.gd" id="1"]
 [ext_resource type="Resource" path="res://resources/alien_items/debris_locator.tres" id="2"]
 
 [node name="DebrisLocator" type="RigidBody3D" groups=["pickup_items"]]
