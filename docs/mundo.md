@@ -37,6 +37,40 @@ Pontos a saber antes de mexer:
   `.tscn`); a do Country Town usa o instancer do Terrain3D. Não copie o padrão
   da fazenda para mapas novos.
 
+## Destroços por marcadores (`ScrapsHolder`)
+
+Na fazenda, `scenes/world.tscn` contém um `ScrapsHolder` com o script
+`scripts/scraps_holder.gd` e nove filhos `Marker3D`, nas posições dos antigos
+itens fixos. Ao entrar na árvore, o container gera destroços uma única vez;
+não há reposição automática após coleta. Cada item recebe a transformação
+local do marcador escolhido e nasce como filho do container.
+
+Para usar em outro mapa, adicione um `Node3D` chamado `ScrapsHolder`, anexe o
+script e coloque os `Marker3D` diretamente nele. Marcadores dentro de
+subcontainers não são consultados. Ajuste posição e orientação no editor;
+os destroços são instanciados apenas em execução.
+
+| Propriedade no Inspector | Comportamento |
+| --- | --- |
+| `scrap_scenes` | Tipos possíveis; por padrão, os sete destroços existentes. Cada cena deve ter raiz `RigidBody3D`, grupo `pickup_items` e propriedade `cash_value`. |
+| `spawn_count` | `0` ocupa todos os marcadores. Um valor positivo sorteia essa quantidade de locais distintos, limitada aos marcadores disponíveis. |
+| `cost_weight_power` | Intensidade da preferência por itens baratos; padrão `1.0`. `0` dá chances iguais; valores maiores tornam os itens caros mais raros. |
+| `generation_seed` | `0` sorteia a cada execução; outro valor reproduz a seleção para a mesma configuração e ordem dos marcadores. |
+
+O peso de cada tipo é `1 / max(cash_value, 1)^cost_weight_power`; sua
+probabilidade é esse peso dividido pela soma dos pesos dos tipos válidos.
+Com a potência padrão, um item de $20 é duas vezes mais provável que um de
+$40. O custo vem da cena do item, não de `score_value`. Tipos podem se repetir
+em marcadores diferentes; locais são selecionados sem repetição.
+
+Na campanha co-op, `scripts/multiplayer/coop_campaign.gd` procura o
+`ScrapsHolder` diretamente na raiz do mapa, define a seed como `1337` e chama
+`ensure_generated()` antes da preparação e do registro dos itens de rede.
+Isso mantém tipos e caminhos iguais entre peers; nessa campanha, a seed do
+Inspector é sobrescrita e a seleção se repete entre partidas. Esse fluxo não
+altera a geração própria da masmorra, dos destroços do Country Town ou das
+arenas co-op separadas.
+
 ## Terreno
 
 - Addon **Terrain3D** (`addons/terrain_3d/`), com o material derivado em

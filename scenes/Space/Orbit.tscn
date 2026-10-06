@@ -169,9 +169,16 @@ mesh = SubResource("PlaneMesh_viot7")
 [node name="TransportBeam" parent="AlienShip/Interior/DescendPad" parent_id_path=PackedInt32Array(349197007, 842449527, 1099926139) index="0" unique_id=1759453405]
 visible = false
 
+[node name="TransportConsole" parent="AlienShip/PropsContainer" parent_id_path=PackedInt32Array(349197007, 1218901603) index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.382, -3.783)
+
 [node name="MissionSelectUI" parent="." unique_id=782099217 instance=ExtResource("8_mission_ui")]
 
 [node name="MissionDialogue" parent="." unique_id=2141754955 instance=ExtResource("13_mission_dialogue")]
 
-[node name="SpawnPoint" type="Marker3D" parent="."]
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=1868026728]
 transform = Transform3D(0.7164074, 0, 0.69768214, 0, 1, 0, -0.69768214, 0, 0.7164074, -3.293518, 0.14523011, -2)
+
+[editable path="AlienShip"]
+[editable path="AlienShip/Interior"]
+[editable path="AlienShip/ET_Ship_New"]
