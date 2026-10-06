@@ -13,8 +13,19 @@ func _ready() -> void:
 		_effect.hide()
 
 
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	if photographer and _session == null:
+		PhotoAlertSystem.set_photographer_observing(get_instance_id(), vision.is_currently_visible)
+
+
+func _exit_tree() -> void:
+	if photographer and _session == null:
+		PhotoAlertSystem.unregister_photographer(get_instance_id())
+
+
 func attack_target() -> bool:
-	if not _host_simulation or not is_instance_valid(player) or not player.is_alive() or not vision.has_detected_player or not vision.is_currently_visible or global_position.distance_to(player.global_position) > attack_range:
+	if not _host_simulation or not is_instance_valid(player) or not is_player_alive() or not vision.has_detected_player or not vision.is_currently_visible or global_position.distance_to(player.global_position) > attack_range:
 		_focus = 0.0
 		return false
 	stop_moving()
@@ -29,18 +40,22 @@ func attack_target() -> bool:
 	_cooldown = attack_interval
 	if photographer:
 		photo_count += 1
-		if _session.campaign != null and _session.campaign.pursuit != null:
+		if _session != null and _session.campaign != null and _session.campaign.pursuit != null:
 			_session.campaign.pursuit.report_photo(self, player)
-		for node: Node3D in _session.npcs.values():
+		elif _session == null:
+			PhotoAlertSystem.register_photo(get_instance_id(), player.global_position)
+		var actors: Array[Node] = get_tree().get_nodes_in_group("npc_actors")
+		for node: Node in actors:
 			var npc: NPCActor = node as NPCActor
 			if npc == null:
 				npc = node.get_parent() as NPCActor
-			if npc != null and npc != self and npc.vision != null:
+			if npc != null and npc != self and npc.get_world_3d() == get_world_3d() and npc.vision != null:
 				npc.vision.set_alerted(true)
 	else:
-		_session.damage_player(target_peer_id, attack_damage, (player.global_position - global_position).normalized())
+		_damage_target(attack_damage)
 	_show_effect(photo_count)
-	_show_effect.rpc(photo_count)
+	if _session != null and multiplayer.has_multiplayer_peer():
+		_show_effect.rpc(photo_count)
 	return true
 
 

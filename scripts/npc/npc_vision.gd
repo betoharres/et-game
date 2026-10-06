@@ -40,7 +40,7 @@ var _sample_interval: float = 0.0
 func _ready() -> void:
 	var characters: Array[Node] = get_tree().get_nodes_in_group("characters")
 	for character in characters:
-		if character is CharacterBody3D:
+		if character is CharacterBody3D and not character is NPCActor and character.get_world_3d() == get_world_3d():
 			player = character
 			break
 
@@ -133,52 +133,57 @@ func _clear_contact() -> void:
 
 
 func _can_see_player() -> bool:
-	var to_player: Vector3 = player.global_position - global_position
-	to_player.y = 0.0
-	var distance: float = to_player.length()
+	return can_see_target(player)
 
-	var effective_distance: float = get_effective_sight_distance()
-	if distance > effective_distance:
+
+func can_see_target(target: CharacterBody3D) -> bool:
+	if not is_instance_valid(target) or target.get_world_3d() != get_world_3d():
 		return false
-
+	if target.has_method("is_alive") and not bool(target.call("is_alive")):
+		return false
+	var visibility: float = get_target_visibility(target)
+	if visibility <= 0.0:
+		return false
+	var to_target: Vector3 = target.global_position - global_position
+	to_target.y = 0.0
+	var distance: float = to_target.length()
+	if distance > sight_distance * visibility:
+		return false
 	if distance > 0.01:
-		to_player = to_player.normalized()
-		var forward: Vector3 = global_transform.basis.z
+		var forward: Vector3 = global_basis.z
 		forward.y = 0.0
 		if forward.length_squared() > 0.001:
-			forward = forward.normalized()
-			var dot_product: float = clampf(forward.dot(to_player), -1.0, 1.0)
-			if rad_to_deg(acos(dot_product)) > get_effective_sight_half_angle_degrees():
+			var angle: float = rad_to_deg(acos(clampf(forward.normalized().dot(to_target.normalized()), -1.0, 1.0)))
+			if angle > sight_half_angle_degrees * get_target_crouch_visibility(target):
 				return false
+	return _has_clear_line_of_sight(target)
 
-	return _has_clear_line_of_sight()
 
-
-func _has_clear_line_of_sight() -> bool:
-	if get_world_3d() == null:
-		return false
-
+func _has_clear_line_of_sight(target: CharacterBody3D) -> bool:
 	var origin: Vector3 = global_position + Vector3.UP * eye_height
-	var target: Vector3 = player.global_position + Vector3.UP * player_target_height
-
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, target)
+	var endpoint: Vector3 = target.global_position + Vector3.UP * player_target_height
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, endpoint)
 	query.exclude = [_actor.get_rid()] if _actor != null else []
 	query.collide_with_areas = false
-
 	var hit: Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
 	if hit.is_empty():
 		return true
-
 	var collider: Object = hit.get("collider")
-	return collider == player or (collider is Node and player.is_ancestor_of(collider as Node))
+	return collider == target or (collider is Node and target.is_ancestor_of(collider as Node))
+
+
+static func get_target_visibility(target: Node) -> float:
+	if not is_instance_valid(target):
+		return 1.0
+	if target.has_method("get_stealth_visibility"):
+		return clampf(float(target.call("get_stealth_visibility")), 0.0, 1.0)
+	if target.has_method("get_visibility_multiplier"):
+		return clampf(float(target.call("get_visibility_multiplier")), 0.0, 1.0)
+	return 1.0
 
 
 func _get_player_visibility_multiplier() -> float:
-	if player != null and player.has_method("get_stealth_visibility"):
-		return clampf(float(player.call("get_stealth_visibility")), 0.065, 1.0)
-	if player != null and player.has_method("get_visibility_multiplier"):
-		return clampf(float(player.call("get_visibility_multiplier")), 0.065, 1.0)
-	return 1.0
+	return get_target_visibility(player)
 
 
 func _is_player_alive() -> bool:

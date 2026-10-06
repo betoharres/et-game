@@ -15,15 +15,17 @@ var _session: Node3D
 
 func _ready() -> void:
 	super._ready()
-	_session = get_parent() as Node3D
-	while _session != null and not _session.has_method("damage_player"):
-		_session = _session.get_parent() as Node3D
+	var ancestor: Node = get_parent()
+	while ancestor != null and not ancestor.has_method("damage_player"):
+		ancestor = ancestor.get_parent()
+	_session = ancestor as Node3D
 	_spawn = global_transform
-	_activity_timer.stop()
+	if _session != null:
+		_activity_timer.stop()
 	var alerts: Node = get_node_or_null("/root/PhotoAlertSystem")
-	if alerts != null and alerts.photo_count_changed.is_connected(_on_photo_count_changed):
+	if _session != null and alerts != null and alerts.photo_count_changed.is_connected(_on_photo_count_changed):
 		alerts.photo_count_changed.disconnect(_on_photo_count_changed)
-	set_host_simulation(false)
+	set_host_simulation(_session == null)
 
 
 func set_host_simulation(enabled: bool) -> void:
@@ -31,6 +33,10 @@ func set_host_simulation(enabled: bool) -> void:
 	var tree: BeehaveTree = get_node("NPCBehaviorTree") as BeehaveTree
 	tree.interrupt()
 	tree.enabled = enabled
+	navigation_agent.avoidance_enabled = enabled and require_navigation
+	_has_pending_safe_velocity = false
+	if hearing != null:
+		hearing.process_mode = Node.PROCESS_MODE_INHERIT if enabled else Node.PROCESS_MODE_DISABLED
 	vision.process_mode = Node.PROCESS_MODE_INHERIT if enabled else Node.PROCESS_MODE_DISABLED
 	vision.suspend_contact()
 	vision.player = null
@@ -54,31 +60,45 @@ func _physics_process(delta: float) -> void:
 
 
 func attack_target() -> bool:
-	if not _host_simulation or not is_instance_valid(player) or not player.is_alive() or not vision.has_detected_player or not vision.is_currently_visible or global_position.distance_to(player.global_position) > attack_range:
+	if not _host_simulation or not is_instance_valid(player) or not is_player_alive() or not vision.has_detected_player or not vision.is_currently_visible or global_position.distance_to(player.global_position) > attack_range:
 		return false
 	stop_moving()
 	face_direction(player.global_position - global_position)
 	set_state(&"attack")
 	if _cooldown <= 0.0:
 		_cooldown = attack_interval
-		_session.call("damage_player", target_peer_id, attack_damage, (player.global_position - global_position).normalized())
+		_damage_target(attack_damage)
 	return true
+
+
+func _damage_target(amount: float) -> void:
+	var direction: Vector3 = (player.global_position - global_position).normalized()
+	if _session != null:
+		_session.call("damage_player", target_peer_id, amount, direction)
+	elif player.has_method("take_damage"):
+		player.call("take_damage", amount, direction, 0.0)
 
 
 func _select_target() -> void:
 	var selected: CharacterBody3D = null
 	var nearest: float = INF
-	var roster: Dictionary = _session.get("players")
-	for candidate: CharacterBody3D in roster.values():
-		if not candidate.is_alive():
+	var candidates: Array[CharacterBody3D] = []
+	if _session != null:
+		var roster: Dictionary = _session.get("players")
+		for candidate: CharacterBody3D in roster.values():
+			candidates.append(candidate)
+	else:
+		for node: Node in get_tree().get_nodes_in_group("characters"):
+			if node is CharacterBody3D and not node is NPCActor and (node as Node3D).get_world_3d() == get_world_3d():
+				candidates.append(node as CharacterBody3D)
+	for candidate: CharacterBody3D in candidates:
+		if candidate.has_method("is_alive") and not candidate.is_alive():
 			continue
-		vision.player = candidate
 		var distance: float = global_position.distance_squared_to(candidate.global_position)
-		if distance < nearest and vision._can_see_player():
+		if distance < nearest and vision.can_see_target(candidate):
 			selected = candidate
 			nearest = distance
-	vision.player = player if is_instance_valid(player) else null
-	if selected == null and is_instance_valid(player) and player.is_alive():
+	if selected == null and is_instance_valid(player) and is_player_alive():
 		return
 	if selected != player:
 		vision.suspend_contact()

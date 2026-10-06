@@ -18,12 +18,16 @@ var is_dormant: bool = false
 var _activity_timer: Timer
 var _saved_process_modes: Dictionary[Node, int] = {}
 var _saved_avoidance: bool = false
+var _navigation_configured: bool = false
+var _patrol_marker_positions: Array[Vector3] = []
 
 @export_category("Movimento")
 @export var walk_speed: float = 2.0
 @export var alert_speed: float = 3.4
 @export var rotation_speed: float = 2.5
-@export var require_navigation: bool = false
+@export var require_navigation: bool = true
+@export var navigation_region_path: NodePath
+@export var patrol_markers_path: NodePath
 @export var grounded: bool = false
 
 @export_category("Rotina")
@@ -95,6 +99,8 @@ func _ready() -> void:
 		alert_system.photo_count_changed.connect(_on_photo_count_changed)
 		_on_photo_count_changed(int(alert_system.get_photo_count()), int(alert_system.get_max_photo_count()))
 
+	# Actor origins are at their feet; a vertical offset can prevent waypoint arrival.
+	navigation_agent.path_height_offset = 0.0
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.8
 
@@ -116,6 +122,22 @@ func _ready() -> void:
 	_activity_timer.timeout.connect(_check_activity)
 	add_child(_activity_timer)
 	_activity_timer.start(randf_range(0.01, 0.5))
+	_configure_navigation.call_deferred()
+
+
+func _configure_navigation() -> void:
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	if not is_inside_tree():
+		return
+	var region: NavigationRegion3D = await NPCNavigation.wait_for_region(self, navigation_region_path)
+	if not is_inside_tree():
+		return
+	if region == null:
+		push_warning("%s: no saved navigation mesh found in this level. Bake navigation in the editor and assign navigation_region_path if needed." % get_path())
+		return
+	navigation_agent.set_navigation_map(region.get_navigation_map())
+	_navigation_configured = true
 
 
 func _check_activity() -> void:
@@ -126,7 +148,7 @@ func _check_activity() -> void:
 	var radius: float = maxf(0.0, activity_distance - activity_hysteresis) if is_dormant else activity_distance
 	for candidate: Node in get_tree().get_nodes_in_group(&"characters"):
 		var character: CharacterBody3D = candidate as CharacterBody3D
-		if character == null or character is NPCActor:
+		if character == null or character is NPCActor or character.get_world_3d() != get_world_3d():
 			continue
 		if global_position.distance_squared_to(character.global_position) <= radius * radius:
 			nearby = true
@@ -174,6 +196,10 @@ func _suspend_branch(node: Node) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not is_instance_valid(player):
+		_find_player()
+		if vision != null:
+			vision.player = player
 	refresh_awareness()
 	_detail_timer -= delta
 	if routine != null and _detail_timer <= 0.0:
@@ -210,7 +236,7 @@ func _find_player() -> void:
 	player = null
 	var characters: Array[Node] = get_tree().get_nodes_in_group("characters")
 	for character in characters:
-		if character is CharacterBody3D and not character is NPCActor:
+		if character is CharacterBody3D and not character is NPCActor and character.get_world_3d() == get_world_3d():
 			player = character
 			break
 
@@ -245,6 +271,17 @@ func get_awareness_state() -> StringName:
 
 
 func get_patrol_positions() -> Array[Vector3]:
+	var markers: Node = get_node_or_null(patrol_markers_path) if not patrol_markers_path.is_empty() else get_node_or_null("PatrolPoints")
+	if markers != null:
+		var points: Array[Vector3] = []
+		for child: Node in markers.get_children():
+			if child is Marker3D:
+				points.append((child as Marker3D).global_position)
+		if is_ancestor_of(markers):
+			if _patrol_marker_positions.is_empty():
+				_patrol_marker_positions.assign(points)
+			return _patrol_marker_positions
+		return points
 	return patrol_points
 
 
@@ -255,11 +292,6 @@ func set_state(new_state: StringName) -> void:
 	state_changed.emit(new_state)
 
 
-## Avança um passo em direção a `point`. Retorna `true` quando chegou perto o
-## bastante (`target_desired_distance` do NavigationAgent3D). Usa o caminho do
-## NavigationAgent3D quando há malha bakeada contribuindo para o mapa; sem
-## isso (caso do Country Town hoje), cai para ir direto ao ponto em linha
-## reta, em vez de ficar parado esperando uma malha que não existe.
 func move_toward_point(point: Vector3, speed: float) -> bool:
 	navigation_failed = false
 	if _motion_target.distance_to(point) > 1.0:
@@ -282,6 +314,11 @@ func move_toward_point(point: Vector3, speed: float) -> bool:
 	var has_synced_navmesh: bool = (
 		nav_map.is_valid() and NavigationServer3D.map_get_iteration_id(nav_map) != 0
 	)
+
+	if require_navigation and not _navigation_configured:
+		navigation_failed = true
+		stop_moving()
+		return false
 
 	if has_synced_navmesh:
 		if navigation_agent.target_position.distance_to(point) > 0.05:

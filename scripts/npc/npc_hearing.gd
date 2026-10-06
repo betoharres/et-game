@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func hear_report(source: Vector3, last_seen: Vector3) -> void:
-	if global_position.distance_to(source) > 18.0:
+	if not _can_hear() or not source.is_finite() or not last_seen.is_finite() or global_position.distance_to(source) > 18.0:
 		return
 	_remember_noise(last_seen)
 
@@ -43,7 +43,10 @@ func _scan_ambient_noise() -> void:
 	sources.append_array(get_tree().get_nodes_in_group("vehicles"))
 
 	for source in sources:
-		if source == get_parent() or not (source is Node3D) or source.has_node("PlayerNoise"):
+		if source == get_parent() or not (source is Node3D) or source.get_node_or_null("PlayerNoise") is PlayerNoise:
+			continue
+
+		if (source as Node3D).get_world_3d() != get_world_3d():
 			continue
 
 		var speed: float = 0.0
@@ -62,6 +65,8 @@ func _scan_ambient_noise() -> void:
 ## (`hearing_radius * loudness`). `loudness = 1.0` é o padrão de um passo ou
 ## motor próximo; eventos mais altos (tiro, buzina) podem usar um valor maior.
 func hear_noise(position2: Vector3, loudness: float = 1.0) -> void:
+	if not _can_hear() or not position2.is_finite() or not is_finite(loudness):
+		return
 	var effective_radius: float = hearing_radius * maxf(loudness, 0.1)
 	if global_position.distance_to(position2) > effective_radius:
 		return
@@ -69,10 +74,7 @@ func hear_noise(position2: Vector3, loudness: float = 1.0) -> void:
 
 
 func hear_sound(origin: Vector3, decibels: float, radius: float) -> bool:
-	var actor: Node = get_parent()
-	if not is_inside_tree() or not can_process() or actor.is_queued_for_deletion():
-		return false
-	if actor.has_method("is_alive") and not bool(actor.call("is_alive")):
+	if not _can_hear():
 		return false
 	if not origin.is_finite() or not is_finite(decibels) or not is_finite(radius) or radius <= 0.0:
 		return false
@@ -83,6 +85,13 @@ func hear_sound(origin: Vector3, decibels: float, radius: float) -> bool:
 		return false
 	_remember_noise(origin)
 	return true
+
+
+func _can_hear() -> bool:
+	if not is_inside_tree() or not can_process():
+		return false
+	var actor: Node = get_parent()
+	return not actor.is_queued_for_deletion() and (not actor.has_method("is_alive") or bool(actor.call("is_alive")))
 
 
 func is_enemy_listener() -> bool:

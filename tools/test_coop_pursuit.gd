@@ -21,7 +21,6 @@ func _run() -> void:
 		director.agent_scene = agent
 		director.factions = factions
 		director.session = session
-		director._built_navigation = true
 		session.add_child(director)
 		session.npcs[&"pursuit"] = director
 		directors.append(director)

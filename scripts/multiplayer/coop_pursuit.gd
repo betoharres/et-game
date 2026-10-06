@@ -4,7 +4,6 @@ const ACTOR_SYNC: Script = preload("res://scripts/multiplayer/coop_actor_sync.gd
 const ALERT_SCRIPT: Script = preload("res://scripts/photo_alert_system.gd")
 var session: Node3D
 var _host: bool = false
-var _built_navigation: bool = false
 var _next_unit: int = 0
 
 
@@ -28,10 +27,7 @@ func set_host_simulation(enabled: bool) -> void:
 	_host = enabled
 	set_physics_process(enabled)
 	_alert.set_process(enabled)
-	if enabled and not _built_navigation:
-		_built_navigation = true
-		var terrain: Terrain3D = get_node_or_null(terrain_path) as Terrain3D if not terrain_path.is_empty() else null
-		navigation.build.call_deferred(get_parent() as Node3D, terrain)
+
 
 
 func _physics_process(delta: float) -> void:

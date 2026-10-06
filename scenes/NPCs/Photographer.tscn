@@ -1,18 +1,11 @@
 [gd_scene format=3 uid="uid://ctlyi6tcv6xdp"]
 
+[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="shared_hearing"]
 [ext_resource type="Script" path="res://scripts/multiplayer/network_farm_enemy.gd" id="1_photographer"]
 [ext_resource type="PackedScene" uid="uid://kucq5tb26ney" path="res://PolygonCity/Characters/SK_Character_Male_Hoodie.fbx" id="2_psxk5"]
 
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="shared_behavior"]
 [ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="network_2"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="network_3"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="network_4"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="network_5"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/can_see_player.gd" id="network_6"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/chase_player.gd" id="network_7"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="network_8"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/is_noticing_player.gd" id="network_9"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/alert_pose.gd" id="network_10"]
-[ext_resource type="Script" path="res://scripts/multiplayer/npc_attack.gd" id="network_11"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q55lf"]
 radius = 0.185
@@ -123,36 +116,10 @@ outline_size = 8
 script = ExtResource("network_2")
 reports_vision_contact = false
 
-[node name="NPCBehaviorTree" type="Node" parent="."]
-script = ExtResource("network_3")
-actor_node_path = NodePath("..")
-enabled = false
 
-[node name="Root" type="Node" parent="NPCBehaviorTree"]
-script = ExtResource("network_4")
+[node name="NPCHearing" type="Node3D" parent="."]
+script = ExtResource("shared_hearing")
 
-[node name="Attack" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("network_11")
-
-[node name="Chase" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("network_5")
-
-[node name="CanSeePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
-script = ExtResource("network_6")
-
-[node name="ChasePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
-script = ExtResource("network_7")
-
-[node name="Alert" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("network_5")
-
-[node name="IsNoticingPlayer" type="Node" parent="NPCBehaviorTree/Root/Alert"]
-script = ExtResource("network_9")
-
-[node name="AlertPose" type="Node" parent="NPCBehaviorTree/Root/Alert"]
-script = ExtResource("network_10")
-
-[node name="Patrol" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("network_8")
+[node name="NPCBehaviorTree" parent="." instance=ExtResource("shared_behavior")]
 
 [editable path="SK_Character_Male_Hoodie"]

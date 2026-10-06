@@ -27,7 +27,7 @@ func _initialize_actor() -> void:
 	for mesh: Node in _actor.find_children("*", "MeshInstance3D", true, false):
 		_appearance_meshes.append(mesh as MeshInstance3D)
 	if session == null:
-		_apply_simulation(false)
+		_apply_simulation(true)
 		return
 	process_physics_priority = -1
 	if _actor._activity_timer != null:
@@ -81,9 +81,7 @@ func _physics_process(_delta: float) -> void:
 			near_team = true
 		if _actor.activity_distance > 0.0 and distance > _actor.activity_distance * _actor.activity_distance:
 			continue
-		if _actor.vision != null:
-			_actor.vision.player = candidate
-		if distance < nearest and (_actor.vision == null or _actor.vision._can_see_player()):
+		if distance < nearest and (_actor.vision == null or _actor.vision.can_see_target(candidate)):
 			selected = candidate
 			nearest = distance
 	if near_team != _simulating:

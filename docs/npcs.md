@@ -1,17 +1,18 @@
 # NPCs
 
-Existem **duas gerações** de NPC no projeto. A atual é composta: um chassi
-(`NPCActor`) + sensores + uma behavior tree Beehave compartilhada. A anterior
-são scripts monolíticos da fazenda, ainda em uso em `world.tscn`. Não misture
-as duas: NPC novo nasce na arquitetura composta.
+Os NPCs terrestres usam `NPCActor`, sensores compartilhados e a árvore Beehave
+`NPCBehaviorTree.tscn`. Isso inclui fazendeiro, fotógrafo, guarda de teste e
+reforços Police/SWAT/MIB. Criaturas e máquinas com scripts próprios continuam
+fora dessa composição; veja [NPCs com comportamento próprio](#npcs-com-comportamento-próprio).
 
 ## Arquitetura atual (composição + Beehave)
 
 | Arquivo | Papel |
 | --- | --- |
 | `scripts/npc/npc_actor.gd` (`NPCActor`) | Chassi: navegação, movimento, patrulha, velocidades, `reaction_mode`, estado e propagação de alerta. Entra sozinho no grupo `npc_actors` |
-| `scripts/npc/npc_vision.gd` (`NPCVision`) | Cone de visão, linha de visada, tempo de detecção, última posição vista |
-| `scripts/npc/npc_hearing.gd` (`NPCHearing`) | Raio de audição, ruído de movimento do ET, memória de ruído, `hear_report()` de outro NPC |
+| `scripts/npc/npc_vision.gd` (`NPCVision`) | Visibilidade do ET, cone, raycast, detecção e memória; `can_see_target()` consulta candidatos sem mudar o alvo do sensor |
+| `scripts/npc/npc_hearing.gd` (`NPCHearing`) | Eventos de `PlayerNoise`, ruídos de outras fontes e relatos; memória e investigação |
+| `scripts/npc/npc_navigation.gd` (`NPCNavigation`) | Localiza regiões com malha salva no mesmo `World3D` e aguarda sincronização do servidor |
 | `scripts/npc/npc_routine.gd` (`NPCRoutine`) | Percorre as atividades do NPC e cuida da conversa entre vizinhos |
 | `scripts/npc/npc_activity.gd` (`NPCActivity`) | `Marker3D` de parada com vagas (`slots`), duração e reserva/liberação por ocupante |
 | `scripts/npc/npc_animation.gd` (`NPCAnimation`) | Idle/Walk a partir dos clipes Synty — ver [animacoes.md](animacoes.md) |
@@ -43,11 +44,14 @@ em ordem de prioridade:
 
 | Ramo | Tipo | Condições → ação |
 | --- | --- | --- |
+| `EnemyAttack` | Ação | chama `attack_target()` quando o papel oferece esse método |
+| `RangedAttack` | Ação | `NPCCombat` pode engajar → mira e dispara |
 | `Chase` | `SequenceReactive` | vê o ET **e** `reaction_mode == CHASE` → persegue |
 | `Flee` | `SequenceReactive` | vê o ET **e** `reaction_mode == FLEE` → foge para o refúgio |
 | `Alert` | `SequenceReactive` | está notando o ET (detecção parcial) → pose de alerta |
 | `Search` | `SequenceReactive` | tem última posição vista → procura ali, depois volta à patrulha |
 | `Investigate` | `SequenceReactive` | ouviu ruído → investiga a posição, depois volta à patrulha |
+| `WaitForTraffic` | Ação | aguarda o tráfego quando necessário |
 | `Routine` | `Selector` | `TalkToNeighbor` → `DailyRoutine` → `Idle` → `Patrol` |
 
 Padrões que a árvore assume:
@@ -80,34 +84,88 @@ No Country Town as atividades são geradas por `tools/build_country_town_populat
 dentro da casa modular elas ficam no nó `Atividades` de `House01.tscn` (cama,
 sofá, cozinha, mesa de jantar, varanda) — ver [casas-interiores.md](casas-interiores.md).
 
+### Colocação, navegação e patrulha
+
+Instancie `SmellyFarmer.tscn`, `Photographer.tscn`, `Multiplayer/CoopGuard.tscn`
+ou `Pursuit/PursuitAgent.tscn` em um nível com navegação salva. O nome da pasta
+`Multiplayer` não impede o guarda de funcionar em single-player. Farmer e
+fotógrafo herdam `network_npc.gd` por `network_farm_enemy.gd`: sem sessão,
+simulam localmente; com sessão, usam roster e autoridade do host. Reforços
+usam `PursuitNPC`, `PursuitProfile` e o adaptador `CoopSync` na campanha co-op.
+
+- `require_navigation` é `true` por padrão. Não ocorre bake de navegação em
+  runtime. A malha deve ser assada e salva no editor ou por ferramenta de autoria.
+- `navigation_region_path` escolhe uma `NavigationRegion3D` explicitamente.
+  Sem esse caminho, `NPCNavigation` procura regiões habilitadas com polígonos
+  no mesmo `World3D`, escolhendo o mapa mais próximo com superfície a até 3 m
+  da origem do NPC. Aguarda a sincronização antes de decidir que falta navegação.
+- Sem região adequada, o NPC emite warning e falha nas tentativas de movimento
+  que exigem navegação. `PursuitSystem/Navigation` usa a mesma descoberta e não
+  permite novos reforços sem malha disponível. Seu caminho explícito é relativo
+  ao nó `Navigation`. Níveis sem cobertura salva precisam de autoria no editor.
+- Para patrulha, defina `patrol_markers_path` para um container com filhos diretos
+  `Marker3D`, ou crie um filho `PatrolPoints` no NPC. Marcadores internos são
+  convertidos em posições fixas na primeira consulta, para não seguirem o NPC.
+  Containers externos são consultados em coordenadas globais. Na ausência de
+  marcadores, `patrol_points` continua aceitando posições absolutas do mundo.
+- O guarda traz dois marcadores locais. Sem rota, o NPC fica ocioso até reagir
+  a visão ou ruído. Tipos Police/SWAT/MIB são escolhidos pelo `profile` da cena
+  de reforço; o diretor configura alvo, rota inicial e mapa ao gerar uma unidade.
+
 ### Percepção e alerta
 
-- `NPCVision` respeita a furtividade do ET: consulta o multiplicador de
-  visibilidade do Player (vegetação, agachamento) antes de confirmar contato, e
-  reporta contato de volta ao Player (`set_vision_contact`).
-- Um NPC que perde o alvo guarda `last_seen_position`; o ramo `Search` usa isso.
-- O alerta se propaga pelo grupo `npc_actors`: quem vê avisa os vizinhos, que
-  recebem por `NPCHearing.hear_report()`.
-- Ruído de movimento do ET acima de um limiar de velocidade também é ouvido.
+Todos esses inimigos usam `NPCVision.can_see_target()`: valida alvo vivo no
+mesmo `World3D`, aplica visibilidade, cone e oclusão por raycast. A seleção
+co-op consulta candidatos sem sobrescrever `vision.player` durante a busca.
+O multiplicador do Player reduz tanto o alcance quanto a velocidade de
+confirmação da detecção; agachamento também reduz o ângulo do cone. Visibilidade
+zero impede contato visual, inclusive com o manto predador.
 
-## NPCs da geração anterior (fazenda)
+As áreas dos cultivos chamam `enter_concealment()` e `exit_concealment()` no ET.
+Os multiplicadores atuais são `0.5` no milho, `0.35` no trigo e `0.5` nos
+girassóis. O Player combina isso com seu valor de stealth e agachamento;
+ao sair da área, restaura a visibilidade sem esse cultivo. O host aplica as
+mesmas áreas às réplicas dos colegas.
 
-Em `FarmCoop.tscn`, guarda, fazendeiro e fotógrafos usam o chassi composto,
-visão e Beehave. Apenas o host simula; convidados recebem pose/estado/alvo.
-As adaptações reaproveitam os assets SP, com roster e combate da sessão,
-sem `PhotoAlertSystem` single-player. Living light recebe uma adaptação própria;
-Gorilla fica estacionário e sua quest aceita interação/entrega de qualquer colega.
-Detalhes e limitações: [multiplayer.md](multiplayer.md#npc-da-fazenda-co-op).
+`PlayerNoise` emite passos por movimento: agachado `22 dB` (cerca de `1.26 m`),
+andando `26 dB` (`2 m`) e correndo `44 dB` (`15.85 m`). O raio é
+`10^((dB - 20) / 20)` e chega aos `NPCHearing` do mesmo `World3D` pelo grupo
+`npc_hearing_listeners`. O sensor usa distância horizontal, guarda a posição
+ouvida e alimenta investigação. Cultivos reduzem visão, mas não abafam passos:
+correr ainda denuncia o ET. Este modelo não calcula oclusão acústica por paredes.
 
-Ainda vivos em `world.tscn`, com visão e navegação próprias dentro do script:
+`hear_sound()`, `hear_noise()` e `hear_report()` ignoram listeners inativos,
+em remoção ou mortos quando o papel expõe `is_alive()`. A varredura por velocidade
+continua para veículos e personagens sem `PlayerNoise`; o ET usa seus eventos
+para evitar ruído duplicado. Relatos de outros NPCs guardam a última posição
+vista, sem confirmar visão própria. Perder contato visual também alimenta
+`Search` pela memória de `last_seen_position`.
+
+### Ataques dos inimigos
+
+| Papel | Dano e aleatoriedade |
+| --- | --- |
+| Fazendeiro (`SmellyFarmer`) | Dano direto após alcance e contato visual confirmado; raycast de percepção, sem teste de tiro na boca da arma e sem RNG de precisão. |
+| Guarda de cápsula | Dano direto de curto alcance após contato visual e cooldown, sem RNG. |
+| Fotógrafo | Não causa dano; acumula foco, fotografa e alimenta o alerta SP ou o da campanha co-op. |
+| Police/SWAT/MIB | Hitscan por raycast da arma; mira, cooldown/rajadas e desvio aleatório do `PursuitProfile`. Só causa dano se o raio atingir o alvo. Tracers e lasers são visuais. |
+
+`npc_ranged_combat.gd` aplica spread angular configurado por perfil: Police
+`2.5°`, SWAT `1.8°` e MIB `1°`. O antigo `smelly_farmer.gd`, com probabilidade
+de acerto e penalidades por movimento/distância/ocultamento, não está mais em uso.
+
+## NPCs com comportamento próprio
+
+Living light, Gorilla e máquinas não passam automaticamente a usar os sensores
+dos inimigos terrestres. Na fazenda co-op, living light recebe adaptação própria;
+o Gorilla fica estacionário e sua quest aceita qualquer colega. Detalhes em
+[multiplayer.md](multiplayer.md#npc-da-fazenda-co-op).
 
 | Arquivo | Papel |
 | --- | --- |
-| `scripts/smelly_farmer.gd` | Fazendeiro que patrulha, persegue e atira (dano instantâneo, sem projétil) |
-| `scripts/photographer.gd` | Fotógrafo: fotografa o ET e alimenta o `PhotoAlertSystem` |
-| `scripts/generic_NPC.gd` (`GenericNPC`) | NPC simples de patrulha da nave; usa o rig de `CharactersScifiCity.glb`, e `RobotNPC.tscn` deixa somente a malha de robô visível |
+| `scripts/generic_NPC.gd` (`GenericNPC`) | Patrulha simples da nave; rig `CharactersScifiCity.glb`, com variante visual `RobotNPC.tscn` |
 | `scripts/living_light.gd` (`LivingLight`) | Criatura-luz que vagueia, se assusta e foge |
-| `scripts/drone_02.gd`, `scripts/spy_cam.gd`, `scripts/spider_bot/` | Máquinas: drone de patrulha, câmera espiã e o robô de pernas com IK que ajuda na coleta |
+| `scripts/drone_02.gd`, `scripts/spy_cam.gd`, `scripts/spider_bot/` | Drone, câmera espiã e robô auxiliar de coleta |
 
 O `CharactersScifiCity.glb` atual não traz `AnimationPlayer`; por isso o
 `GenericNPC` mantém a patrulha funcional sem exigir clipes, mas sua malha fica
@@ -125,7 +183,11 @@ decisão mais rica, migre o papel para `NPCActor` + árvore compartilhada.
    `scenes/NPCs/` com a árvore compartilhada instanciada.
 4. Animação: o rig Synty é o único que aceita os clipes de
    `Temporarios/Animations/Polygon/` — ver [animacoes.md](animacoes.md).
-5. Validação: `tools/test_farmer_npc_behavior.gd` (IA, visão, audição, rotina),
+5. Validação: `tools/test_enemy_placement.gd` (colocação, malha salva e isolamento),
+   `tools/test_player_noise.gd` (passos e percepção dos inimigos nos três cultivos),
+   `tools/test_coop_player_state.gd` (ruído e ocultamento no host/owner),
+   `tools/test_pursuit_system.gd` (reforços, navegação e combate),
+   `tools/test_farmer_npc_behavior.gd` (IA, visão, audição, rotina),
    `tools/test_npc_animation.gd` (rig e trilhas),
    `tools/test_generic_npc_navigation.gd` (NPC genérico da nave). População do
    Country Town: `tools/build_country_town_population.gd` (gera) — ver

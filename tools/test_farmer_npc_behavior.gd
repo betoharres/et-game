@@ -1,10 +1,5 @@
 extends SceneTree
 
-## Smoke test do sistema de NPCs com Beehave (fazendeiro), no padrão de
-## tools/test_generic_npc_navigation.gd: sem malha de navegação bakeada,
-## como no Country Town hoje, valida patrulha em linha reta, investigação de
-## ruído e o ciclo perseguição -> busca -> retorno à rotina.
-
 const FARMER_SCENE: PackedScene = preload("res://scenes/NPCs/Farmer.tscn")
 const SETTLE_FRAMES: int = 5
 const PATROL_FRAMES: int = 300
@@ -35,6 +30,9 @@ func _initialize() -> void:
 func _run() -> void:
 	var world: Node3D = Node3D.new()
 	root.add_child(world)
+	var region: NavigationRegion3D = NavigationRegion3D.new()
+	region.navigation_mesh = load("res://tools/fixtures/enemy_navigation.tres") as NavigationMesh
+	world.add_child(region)
 
 	var player: FakePlayer = FakePlayer.new()
 	player.add_to_group(&"characters")
@@ -58,14 +56,14 @@ func _run() -> void:
 	farmer.search_duration = 1.0
 	farmer.vision.lose_sight_after = 1.0
 
-	# 1) Patrulha sem malha bakeada: deve degradar para linha reta e se mover.
+	# 1) Patrulha usa a malha salva da fixture.
 	var start_position: Vector3 = farmer.global_position
 	for i: int in range(PATROL_FRAMES):
 		await physics_frame
 	var patrol_displacement: float = start_position.distance_to(farmer.global_position)
 	print("Patrulha - deslocamento: ", patrol_displacement)
 	if patrol_displacement < MINIMUM_PATROL_DISPLACEMENT:
-		push_error("Farmer nao se moveu na patrulha sem malha de navegacao bakeada.")
+		push_error("Farmer nao se moveu na patrulha com malha de navegacao salva.")
 		quit(1)
 		return
 

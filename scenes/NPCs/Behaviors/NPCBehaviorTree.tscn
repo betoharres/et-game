@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="0_tree"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="0_selectorreactive"]
@@ -22,12 +22,17 @@
 [ext_resource type="Script" path="res://scripts/npc/behaviors/wait_for_traffic.gd" id="16_traffic"]
 [ext_resource type="Script" path="res://scripts/npc/behaviors/ranged_attack.gd" id="17_attack"]
 
+[ext_resource type="Script" path="res://scripts/npc/behaviors/enemy_attack.gd" id="18_attack"]
+
 [node name="NPCBehaviorTree" type="Node"]
 script = ExtResource("0_tree")
 actor_node_path = NodePath("..")
 
 [node name="Root" type="Node" parent="."]
 script = ExtResource("0_selectorreactive")
+
+[node name="EnemyAttack" type="Node" parent="Root"]
+script = ExtResource("18_attack")
 
 [node name="RangedAttack" type="Node" parent="Root"]
 script = ExtResource("17_attack")

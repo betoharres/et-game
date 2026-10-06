@@ -180,7 +180,9 @@ desconectar remove o corpo daquele peer.
 
 ## NPC da fazenda co-op
 
-Guarda, fazendeiro e fotógrafos usam NPCActor, NPCVision e Beehave no host.
+Guarda, fazendeiro e fotógrafos usam NPCActor, NPCVision, NPCHearing e a árvore
+Beehave compartilhada no host. Suas cenas também simulam em single-player quando
+não existe sessão. Police/SWAT/MIB usam a mesma base com `CoopSync` na campanha.
 O alvo é o jogador vivo visível mais próximo do roster, respeitando cone,
 oclusão e furtividade, com memória de contato perdido. O guarda ataca perto;
 o fazendeiro dispara com dano pelo host. Fotógrafos acumulam foco, replicam
@@ -188,8 +190,19 @@ contagem/flash e alertam outros NPCActors da sessão. Vínculo com
 `PhotoAlertSystem` SP e dormência global ficam desligados nessas adaptações.
 
 Convidados interpolam pose/estado/alvo sem executar sensores ou árvore.
-Sem navmesh, o protótipo usa movimento direto com colisão e recuperação de
-caminho bloqueado. A living light preserva seu comportamento próprio, escolhe
+Os inimigos terrestres procuram navegação salva no nível; não há bake em runtime.
+Sem malha adequada, emitem warning e não movem por caminhos; o diretor também
+não gera novos reforços. Marcadores e caminhos explícitos são descritos em
+[NPCs](npcs.md#colocação-navegação-e-patrulha).
+
+`NPCVision.can_see_target()` aplica as mesmas penalidades dos cultivos e do
+agachamento às réplicas do host, sem trocar o alvo do sensor durante a seleção.
+Os eventos de `PlayerNoise` são enviados pela sessão e entregues aos sensores
+apenas no host, no mesmo `World3D`; clientes reproduzem áudio. Os níveis de
+passos e alcance são comuns aos inimigos. Cultivos não abafam passos, e
+listeners inativos ou mortos ignoram eventos e relatos.
+
+A living light preserva seu comportamento próprio, escolhe
 o colega vivo detectável mais próximo e replica pose, velocidade e estado.
 
 O Gorilla fica estacionário no protótipo. Qualquer colega inicia ou continua

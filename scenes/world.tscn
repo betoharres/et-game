@@ -1404,7 +1404,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20319748, -0.15520477, -0.
 
 [node name="PursuitSystem" parent="." unique_id=2058831106 instance=ExtResource("pursuit_system")]
 player_path = NodePath("../CharacterBody3D")
-terrain_path = NodePath("../NavigationRegion3D/Terrain3D")
 hidden_seconds_per_star = 10.0
 maximum_active_enemies = 3
 initial_response_delay = 5.0
@@ -13079,11 +13078,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.75, 0.156, -16.3)
 
 [node name="Smelly" parent="." unique_id=584213395 instance=ExtResource("26_munwf")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 0.0016009558, -20)
-wander_zone_center = Vector3(24, 0, -20)
 
 [node name="Photographer" parent="." unique_id=109059724 instance=ExtResource("83_photographer")]
 transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -20, 0, 18)
-wander_zone_center = Vector3(-20, 0, 18)
 
 [node name="DeliveryArea" parent="." unique_id=741650013 instance=ExtResource("28_0nbtd")]
 transform = Transform3D(0.6160665, 0, -0.78769416, 0, 1, 0, 0.78769416, 0, 0.6160665, -49.656147, 0.017127872, -33.3789)
@@ -13093,7 +13090,6 @@ awards_money = true
 
 [node name="Photographer2" parent="." unique_id=1134980579 instance=ExtResource("83_photographer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 22)
-wander_zone_center = Vector3(25, 0, 22)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=619820748]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.4729, 100.13428, 0)

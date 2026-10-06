@@ -46,6 +46,26 @@ func _run() -> void:
 	player.player_noise.emit_jump_noise()
 	_check(await _wait(func() -> bool: return probes[0].heard > 0), "Guest jump noise reaches host hearing")
 	_check(probes[1].heard == 0, "Client hearing never simulates host noise")
+	var crops: Array[Area3D] = []
+	for session: Node3D in _sessions:
+		var crop: Area3D = Area3D.new()
+		crop.set_script(load("res://scripts/vegetation_concealment.gd"))
+		crop.set("visibility_multiplier", 0.35)
+		crop.collision_layer = 0
+		var shape: BoxShape3D = BoxShape3D.new()
+		shape.size = Vector3(4, 3, 4)
+		var collision: CollisionShape3D = CollisionShape3D.new()
+		collision.shape = shape
+		crop.add_child(collision)
+		crop.position = session.players[id].global_position + Vector3.UP
+		session.add_child(crop)
+		crops.append(crop)
+	_check(await _wait(func() -> bool: return is_equal_approx(NPCVision.get_target_visibility(host.players[id]), 0.35) and is_equal_approx(NPCVision.get_target_visibility(player), 0.35)), "Host sensors and owner share crop concealment penalties")
+	for crop: Area3D in crops:
+		crop.position += Vector3.RIGHT * 100
+	_check(await _wait(func() -> bool: return is_equal_approx(NPCVision.get_target_visibility(host.players[id]), 1.0) and is_equal_approx(NPCVision.get_target_visibility(player), 1.0)), "Leaving crops restores visibility on host and owner")
+	for crop: Area3D in crops:
+		crop.queue_free()
 	host.purchases[id] = {&"predator_watch": 1}
 	host._publish_economy()
 	await _wait(func() -> bool: return player.can_use_predator_watch())

@@ -54,6 +54,7 @@ func _run() -> void:
 	_check(absf(PlayerNoise.radius_for_decibels(44.0) - 15.8489) < 0.001,
 		"Corrida alcança aproximadamente 15,85 m")
 	_test_dispatch()
+	await _test_enemy_perception()
 	await _test_movement()
 	_test_inactive_states()
 	await _test_pickup()
@@ -88,6 +89,66 @@ func _test_dispatch() -> void:
 	enemy_a.free()
 	enemy_b.free()
 	civilian.free()
+
+
+func _test_enemy_perception() -> void:
+	var enemy_paths: Array[String] = ["res://scenes/NPCs/SmellyFarmer.tscn", "res://scenes/NPCs/Photographer.tscn", "res://scenes/Multiplayer/CoopGuard.tscn", "res://scenes/NPCs/Pursuit/PursuitAgent.tscn"]
+	var crop_paths: Array[String] = ["res://scenes/AnimatedCrops/corn_field_root.tscn", "res://scenes/AnimatedCrops/WheatField.tscn", "res://scenes/AnimatedCrops/SunflowersPatch.tscn"]
+	for enemy_path: String in enemy_paths:
+		var npc: NPCActor = (load(enemy_path) as PackedScene).instantiate() as NPCActor
+		npc.position = _player.global_position - Vector3(0, 0, 8)
+		_world.add_child(npc)
+		npc.set_physics_process(false)
+		npc.get_node("NPCBehaviorTree").set("enabled", false)
+		npc.vision.set_physics_process(false)
+		npc.hearing.set_physics_process(false)
+		npc.vision.player = _player
+		await _perception_frames(3)
+		_check(npc.vision.can_see_target(_player), "%s sees ET in open ground" % npc.name)
+		for crop_path: String in crop_paths:
+			var crop: Node3D = (load(crop_path) as PackedScene).instantiate() as Node3D
+			var area: Area3D = crop.get_node("ConcealmentArea") as Area3D
+			crop.remove_child(area)
+			crop.free()
+			area.position = _player.global_position + Vector3.UP * 0.8
+			_world.add_child(area)
+			await _perception_frames(6)
+			var multiplier: float = float(area.get("visibility_multiplier"))
+			_check(is_equal_approx(npc.vision.get_effective_sight_distance(), npc.vision.sight_distance * multiplier), "%s applies %s crop visibility" % [npc.name, crop_path.get_file()])
+			npc.position = _player.global_position - Vector3(0, 0, npc.vision.sight_distance * (1.0 + multiplier) * 0.5)
+			var selected: CharacterBody3D = npc.vision.player
+			_check(not npc.vision.can_see_target(_player) and npc.vision.player == selected, "%s target query respects crops without changing sensor state" % npc.name)
+			npc.position = _player.global_position - Vector3(0, 0, 8)
+			npc.hearing.pending_noise_time = -1000.0
+			_noise.update_motion(1.0, 3.0, true, false, false)
+			_check(not npc.hearing.has_pending_noise(), "%s cannot hear walking from 8 m in crops" % npc.name)
+			_noise.update_motion(1.0, 7.0, true, true, false)
+			_check(npc.hearing.has_pending_noise(), "%s hears running from 8 m in crops" % npc.name)
+			area.position += Vector3.RIGHT * 100
+			await _perception_frames(6)
+			_check(is_equal_approx(npc.vision.get_effective_sight_distance(), npc.vision.sight_distance), "%s restores sight after leaving crops" % npc.name)
+			area.free()
+		_player.set("predator_cloak_active", true)
+		_check(not npc.vision.can_see_target(_player), "%s respects zero visibility" % npc.name)
+		_player.set("predator_cloak_active", false)
+		npc.position = _player.global_position - Vector3(0, 0, 1)
+		npc.hearing.pending_noise_time = -1000.0
+		_noise.update_motion(1.0, 1.0, true, false, true)
+		_check(npc.hearing.has_pending_noise(), "%s hears nearby crouched steps" % npc.name)
+		npc.hearing.pending_noise_time = -1000.0
+		npc.process_mode = Node.PROCESS_MODE_DISABLED
+		_noise.emit_noise(44.0)
+		npc.hearing.hear_noise(_player.global_position)
+		npc.hearing.hear_report(_player.global_position, _player.global_position)
+		_check(not npc.hearing.has_pending_noise(), "%s disabled listener ignores every noise path" % npc.name)
+		npc.free()
+		_noise.stop_steps()
+
+
+func _perception_frames(count: int) -> void:
+	await _frames(count)
+	# Jolt direct queries must run in the physics phase.
+	await physics_frame
 
 
 func _test_movement() -> void:

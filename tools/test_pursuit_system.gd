@@ -52,7 +52,9 @@ func _test_system() -> void:
 	for index: int in range(director.factions.size()):
 		director.factions[index] = director.factions[index].duplicate() as PursuitProfile
 		director.factions[index].reinforcement_interval = 1.0
-	(director.get_node("Navigation") as PursuitNavigation).baking_bounds = AABB(Vector3(-64, -2, -64), Vector3(128, 12, 128))
+	var region: NavigationRegion3D = NavigationRegion3D.new()
+	region.navigation_mesh = load("res://tools/fixtures/enemy_navigation.tres") as NavigationMesh
+	world.add_child(region)
 	world.add_child(director)
 	director.set_physics_process(false)
 	alert.set_process(false)

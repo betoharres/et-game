@@ -21,7 +21,8 @@ apenas instanciam essa cena — hoje `world.tscn`, `CountryTown.tscn`,
 | `scripts/character_appearance.gd` | Autoload com o perfil salvo (`user://character_appearance.cfg`) |
 | `scripts/energy_pool.gd` | Reserva de energia genérica com drenos nomeados |
 | `scripts/ik_target_container.gd` | Alvos de mão/cotovelo do `TwoBoneIK3D` (poses de carregar e de sinalizar) |
-| `scripts/audio/footstep_audio.gd` | Passos por tipo de superfície |
+| `scripts/audio/footstep_audio.gd` | Áudio de passos por tipo de superfície |
+| `scripts/player_noise.gd` (`PlayerNoise`) | Cadência, níveis de ruído de gameplay e distribuição a sensores no mesmo `World3D`; rede encaminha pelo host |
 | `scripts/player_hud.gd` / `scenes/PlayerHUD.tscn` | Vida, stamina, energia, feedback de dano e os 4 slots do inventário de exploração |
 | `scripts/exploration_inventory.gd` | Inventário de 4 slots para destroços pequenos; itens de duas mãos não entram nele |
 
@@ -29,7 +30,7 @@ apenas instanciam essa cena — hoje `world.tscn`, `CountryTown.tscn`,
 
 ```text
 CharacterBody3D (player.gd)
-├── FootstepAudio
+├── FootstepAudio, PlayerNoise
 ├── PlayerHUD
 ├── ET (ET_animated.glb) → ETArmature/Skeleton3D
 │   ├── ET (MeshInstance3D) + FarSightGoggles
@@ -116,6 +117,21 @@ CharacterBody3D (player.gd)
 - **Modos de depuração**: `set_debug_god_mode_enabled()` e
   `set_debug_flight_enabled()` são acionados pelo ciclo do `F4`
   (`DebugMenus`); o Player entra no grupo `debug_player` para ser encontrado.
+
+## Passos e ocultamento nos cultivos
+
+`PlayerNoise` recebe velocidade horizontal, apoio no chão, sprint e agachamento
+do controlador do Player. Emite passos de `22 dB` agachado, `26 dB` andando e
+`44 dB` correndo; pulo aceito emite `42 dB` e coleta confirmada, `46 dB`.
+Ruído de gameplay independe do volume dos alto-falantes. O mesmo raio alimenta
+o feedback e `NPCHearing`; estados sem movimento válido não produzem passos.
+Na rede, pedidos são validados pela sessão e os sensores recebem eventos no host.
+
+Cultivos alteram `get_stealth_visibility()` por `enter_concealment()` e
+`exit_concealment()`, combinando a área com stealth e agachamento. Reduzem o
+alcance e atrasam a detecção visual dos inimigos, mas não reduzem o ruído dos
+passos. Valores das áreas e limites da audição estão em
+[NPCs — percepção](npcs.md#percepção-e-alerta).
 
 ## Inventário de exploração
 

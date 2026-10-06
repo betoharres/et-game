@@ -2,8 +2,6 @@ class_name PursuitDirector
 extends Node3D
 
 @export var player_path: NodePath
-@export var terrain_path: NodePath
-@export var geometry_root_path: NodePath = NodePath("..")
 @export var agent_scene: PackedScene
 @export var factions: Array[PursuitProfile] = []
 
@@ -65,9 +63,6 @@ func _ready() -> void:
 	_spawn_shape = CapsuleShape3D.new()
 	_spawn_shape.radius = 0.35
 	_spawn_shape.height = 1.9
-	var geometry_root: Node3D = get_node(geometry_root_path) as Node3D
-	var terrain: Terrain3D = get_node_or_null(terrain_path) as Terrain3D if not terrain_path.is_empty() else null
-	navigation.build.call_deferred(geometry_root, terrain)
 
 
 func _exit_tree() -> void:

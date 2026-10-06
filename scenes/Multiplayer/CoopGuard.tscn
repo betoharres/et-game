@@ -1,16 +1,9 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://scripts/npc/npc_hearing.gd" id="shared_hearing"]
 [ext_resource type="Script" path="res://scripts/multiplayer/network_npc.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/NPCs/Behaviors/NPCBehaviorTree.tscn" id="shared_behavior"]
 [ext_resource type="Script" path="res://scripts/npc/npc_vision.gd" id="2"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="3"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="4"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="5"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/can_see_player.gd" id="6"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/chase_player.gd" id="7"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/patrol.gd" id="8"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/is_noticing_player.gd" id="9"]
-[ext_resource type="Script" path="res://scripts/npc/behaviors/alert_pose.gd" id="10"]
-[ext_resource type="Script" path="res://scripts/multiplayer/npc_attack.gd" id="11"]
 
 [sub_resource type="StandardMaterial3D" id="BodyMaterial"]
 albedo_color = Color(0.85, 0.25, 0.12, 1)
@@ -28,7 +21,6 @@ height = 1.8
 script = ExtResource("1")
 activity_distance = 0.0
 grounded = true
-patrol_points = Array[Vector3]([Vector3(8, 0, 13), Vector3(20, 0, 13), Vector3(20, 0, -2), Vector3(8, 0, -2)])
 
 [node name="Body" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.9, 0)
@@ -45,34 +37,15 @@ shape = SubResource("BodyShape")
 script = ExtResource("2")
 reports_vision_contact = false
 
-[node name="NPCBehaviorTree" type="Node" parent="."]
-script = ExtResource("3")
-actor_node_path = NodePath("..")
-enabled = false
 
-[node name="Root" type="Node" parent="NPCBehaviorTree"]
-script = ExtResource("4")
+[node name="NPCHearing" type="Node3D" parent="."]
+script = ExtResource("shared_hearing")
 
-[node name="Attack" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("11")
+[node name="NPCBehaviorTree" parent="." instance=ExtResource("shared_behavior")]
 
-[node name="Chase" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("5")
+[node name="PatrolPoints" type="Node3D" parent="."]
 
-[node name="CanSeePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
-script = ExtResource("6")
+[node name="Start" type="Marker3D" parent="PatrolPoints"]
 
-[node name="ChasePlayer" type="Node" parent="NPCBehaviorTree/Root/Chase"]
-script = ExtResource("7")
-
-[node name="Alert" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("5")
-
-[node name="IsNoticingPlayer" type="Node" parent="NPCBehaviorTree/Root/Alert"]
-script = ExtResource("9")
-
-[node name="AlertPose" type="Node" parent="NPCBehaviorTree/Root/Alert"]
-script = ExtResource("10")
-
-[node name="Patrol" type="Node" parent="NPCBehaviorTree/Root"]
-script = ExtResource("8")
+[node name="End" type="Marker3D" parent="PatrolPoints"]
+position = Vector3(0, 0, -8)
