@@ -1,6 +1,7 @@
 extends "res://scripts/space/ship_shop.gd"
 
 var _session: Node3D
+var _sell_button: Button
 
 
 func _ready() -> void:
@@ -16,6 +17,12 @@ func _ready() -> void:
 	add_to_group("upgrade_stations")
 	add_to_group("modal_interfaces")
 	_build_interface()
+	_sell_button = Button.new()
+	_sell_button.custom_minimum_size.y = 48
+	_sell_button.pressed.connect(_sell_inventory)
+	var content: Node = _repair_button.get_parent()
+	content.add_child(_sell_button)
+	content.move_child(_sell_button, 2)
 	_overlay.theme = preload("res://Materiais/coop_menu_theme.tres")
 	_repair_button.theme_type_variation = &"CoopPrimary"
 	_next_level_button.theme_type_variation = &"CoopPrimary"
@@ -69,6 +76,10 @@ func _repair_ship() -> void:
 	_session.call("request_terminal_action", &"repair")
 
 
+func _sell_inventory() -> void:
+	_session.request_terminal_action(&"sell_inventory")
+
+
 func _go_to_next_level() -> void:
 	_session.call("request_terminal_action", &"launch")
 
@@ -83,6 +94,11 @@ func _refresh(_value: Variant = null, _level: Variant = null) -> void:
 	var peer_id: int = _session.multiplayer.get_unique_id()
 	var money: int = int(_session.get("team_money"))
 	var repaired: bool = bool(_session.get("ship_repaired"))
+	var sale_value: int = 0
+	for item: RigidBody3D in _session.get_inventory_scrap(peer_id):
+		sale_value += item.cash_value
+	_sell_button.text = "VENDER SUCATA DO INVENTÁRIO · $ %d" % sale_value
+	_sell_button.disabled = sale_value <= 0 or _session.mission_phase != &"collecting"
 	_balance.text = "EQUIPE $ %d · FASE %d · RADON %s" % [money, int(_session.get("mission_round")), _format_time(float(_session.get("team_radon")))]
 	for index: int in UPGRADE_IDS.size():
 		var cost: int = int(_session.call("get_purchase_cost", peer_id, UPGRADE_IDS[index]))

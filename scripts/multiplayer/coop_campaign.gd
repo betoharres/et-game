@@ -133,6 +133,12 @@ func load_world(path: String) -> void:
 		world.add_child(_arrival_beam)
 		_arrival_beam.configure(_ground_spawn, 48.0)
 	if _ship != null:
+		var transport_console: Node3D = _ship.get_node_or_null("PropsContainer/TransportConsole") as Node3D
+		if transport_console != null and path != ORBIT:
+			transport_console.configure(session, _ground_spawn)
+		elif transport_console != null:
+			transport_console.visible = false
+			transport_console.set_process_input(false)
 		_ship.set_process_unhandled_input(false)
 		_ship.set_process_input(false)
 		var interior: Node = _ship.get_node_or_null("Interior")

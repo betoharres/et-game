@@ -224,7 +224,9 @@ func _process_terminal_requests() -> void:
 		if players[peer_id].global_position.distance_to(terminal.global_position) > float(terminal.get("interaction_radius")):
 			continue
 		var action: StringName = request["action"]
-		if action == &"repair":
+		if action == &"sell_inventory":
+			_sell_inventory_scrap(peer_id)
+		elif action == &"repair":
 			if not ship_repaired and team_money >= SHIP_SHOP.REPAIR_COST:
 				team_money -= SHIP_SHOP.REPAIR_COST
 				ship_repaired = true
@@ -1309,6 +1311,33 @@ func credit_shared_delivery(item: RigidBody3D) -> void:
 	deliveries += 1
 	_publish_economy()
 	_publish_mission()
+
+
+func get_inventory_scrap(peer_id: int) -> Array[RigidBody3D]:
+	var scrap: Array[RigidBody3D] = []
+	if campaign == null or not players.has(peer_id):
+		return scrap
+	for item: RigidBody3D in players[peer_id].exploration_inventory.items:
+		if not is_instance_valid(item) or not items.has(item.network_id) or _item_owners.get(item.network_id, 0) != peer_id:
+			continue
+		if item.network_consumed or item.rejected_by_delivery or item.cash_value <= 0 or (item.definition != null and item.definition.is_locator):
+			continue
+		scrap.append(item)
+	return scrap
+
+
+func _sell_inventory_scrap(peer_id: int) -> void:
+	var total: int = 0
+	for item: RigidBody3D in get_inventory_scrap(peer_id):
+		# Detach before consumption so every peer frees the occupied inventory slots.
+		_publish_item_state(0, item.global_transform, Vector3.ZERO, item.network_id)
+		total += item.cash_value
+		credit_shared_delivery(item)
+	var message: String = "Inventory scrap sold for $%d." % total if total > 0 else "No sellable scrap in your inventory."
+	if peer_id == multiplayer.get_unique_id():
+		_purchase_result(message)
+	else:
+		_purchase_result.rpc_id(peer_id, message)
 
 
 func get_purchase_cost(peer_id: int, item_id: StringName) -> int:

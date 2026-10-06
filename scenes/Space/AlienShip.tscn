@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bhp4ucmofsbp1"]
 
 [ext_resource type="Script" uid="uid://b6ch03ciaq8w3" path="res://scripts/space/alien_ship.gd" id="1_ship_script"]
+[ext_resource type="PackedScene" path="res://scenes/Multiplayer/CoopShipTransport.tscn" id="transport_console"]
 [ext_resource type="PackedScene" uid="uid://jdih45m42t7q" path="res://scenes/SpaceshipInterior/SpaceShipInterior.tscn" id="3_interior"]
 [ext_resource type="Script" uid="uid://bdnnpm3l3j4wv" path="res://scripts/alien_interference_source.gd" id="6_interference"]
 [ext_resource type="PackedScene" uid="uid://dhmv48cx5jvg7" path="res://3dModelos/ET_Ship_New.glb" id="11_tindj"]
@@ -138,6 +139,9 @@ transparency = 1.0
 mesh = ExtResource("13_ee52w")
 
 [node name="PropsContainer" type="Node3D" parent="." unique_id=1218901603]
+
+[node name="TransportConsole" parent="PropsContainer" instance=ExtResource("transport_console")]
+position = Vector3(1.2, 0.382, -3.783)
 
 [node name="ShopTerminal" parent="PropsContainer" unique_id=2063256209 instance=ExtResource("13_jtixe")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -9.857624, 0.382, 5.7017617)
